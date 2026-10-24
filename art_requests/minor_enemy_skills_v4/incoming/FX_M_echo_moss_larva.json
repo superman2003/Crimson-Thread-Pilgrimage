@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_echo_moss_larva.png",
+  "kind": "echo_moss_larva",
+  "image_sha256": "11ebf2b890bbb7cb3aa598eb39569175921281c2d626ba96d3d805b089a73191",
+  "prompt_sha256": "03c4cf969a4f3307d36ffbf98453fb704848e801e9a95f893f2f5c7a57d6bf9f",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/echo_moss_larva.png",
+  "reference_sha256": "e1eb039f5d8ea06ce9f2682ce681b610f04718395ca0959475d8329feb3cf844",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "echo_larva_burrow_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        527,
+        359
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        133,
+        495,
+        309
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "echo_larva_burrow_warning",
+      "rect_xyxy": [
+        527,
+        0,
+        1014,
+        359
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        561,
+        118,
+        983,
+        317
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "echo_larva_burrow_warning",
+      "rect_xyxy": [
+        1014,
+        0,
+        1536,
+        359
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1045,
+        111,
+        1473,
+        317
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "echo_larva_burrow_execution",
+      "rect_xyxy": [
+        0,
+        359,
+        514,
+        647
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        37,
+        404,
+        495,
+        617
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "echo_larva_burrow_execution",
+      "rect_xyxy": [
+        514,
+        359,
+        1043,
+        647
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        537,
+        401,
+        1028,
+        629
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "echo_larva_burrow_execution",
+      "rect_xyxy": [
+        1043,
+        359,
+        1536,
+        647
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1059,
+        432,
+        1498,
+        618
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "echo_larva_mark_warning",
+      "rect_xyxy": [
+        0,
+        647,
+        514,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        130,
+        676,
+        436,
+        961
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "echo_larva_mark_warning",
+      "rect_xyxy": [
+        514,
+        647,
+        1017,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        612,
+        674,
+        925,
+        966
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "echo_larva_mark_warning",
+      "rect_xyxy": [
+        1017,
+        647,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1096,
+        665,
+        1415,
+        973
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????/???????????????????????????",
+    "rows_reviewed": [
+      "echo_larva_burrow_warning",
+      "echo_larva_burrow_execution",
+      "echo_larva_mark_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

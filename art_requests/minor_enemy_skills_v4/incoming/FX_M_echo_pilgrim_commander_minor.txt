@@ -1,0 +1,27 @@
+Use case: stylized-concept
+Asset type: production transparent sprite sheet for an ordinary enemy's missing combat effects, hand-inked side-view 2D dark fairytale game.
+Reference image is MATERIAL/PALETTE IDENTITY ONLY. Do not draw any character, face, body, full physical weapon, victim, floor, scenery or UI.
+Material: dark iron spear-edge strips, worn gold military thread knots and muted pale turquoise echo ash. Match its illustrated ink/gouache texture, organic irregular contours, solid readable high contrast cores and very restrained pale rims. Effects will display at 30-160 game pixels: strong simple material silhouette, no tiny clutter.
+Exactly 12 separate cels: THREE COLUMNS by 4 ROWS. Each ROW is one different effect, described below in TOP-TO-BOTTOM order. Each row's three cels progress LEFT to RIGHT. Equal cell dimensions, every cel isolated, no labels, no row names, no grid lines, no text or numbers.
+Critical: real transparent alpha. Every cell has fully empty alpha=0 gutters on ALL FOUR SIDES of at least 20% cell size. Long tips, fragments and any soft halo stay within the middle 60% of each cel. No inter-cell contamination, no shared glow, no background, no checkerboard. Use modest compact shapes, never fill the cell. Effects all face RIGHT unless described as a local cue or ground patch. Keep the registration at the centre of each cel. No generic featureless geometric circles, arcs, arrows, triangles or lines: the EFFECT BODY must be built of the specified material.
+For a warning row all three cels have the identical visible outer footprint, already readable at cel 1; only internal tension changes. For an execution row make all three contours different. Seamless tile rows may reach only the LEFT/RIGHT cel edges; top/bottom remain empty. Distinct attack rows must differ by silhouette and material gesture, not just rotation, scale or colour.
+
+ROW 1: minor_lances_warning. Attack identity minor_lances (巡礼三枪); three successive different short RIGHT-facing cutting contours: rising diagonal, falling diagonal, and horizontal finishing slash; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 2: minor_lances_execution. Attack identity minor_lances (巡礼三枪); three successive different short RIGHT-facing cutting contours: rising diagonal, falling diagonal, and horizontal finishing slash; clearly ACTIVE release and follow-through, not an anticipation hold.
+Cell 1: First rising diagonal active cut.
+Cell 2: Second falling diagonal active cut, a new silhouette.
+Cell 3: Third horizontal finishing cut, a new silhouette.
+
+ROW 3: minor_banner_warning. Attack identity minor_banner (军旗落阵); a low flat branching fissure made of folded material at the ground baseline; fixed full horizontal footprint, NO risen spikes; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 4: minor_elite_rally_warning. Attack identity minor_elite_rally (号令枪阵); a low flat branching fissure made of folded material at the ground baseline; fixed full horizontal footprint, NO risen spikes; ANTICIPATION ONLY, never completed impact or released attack. Elite variant has a more complex broken contour and extra material knots, never merely a recolour.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
