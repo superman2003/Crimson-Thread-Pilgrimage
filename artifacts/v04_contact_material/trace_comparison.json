@@ -1,0 +1,46 @@
+{
+  "trace_count": 29,
+  "identical": true,
+  "traces": [
+    "CONTACT_TRACE basic crimson direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6",
+    "CONTACT_TRACE basic crimson direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6",
+    "CONTACT_TRACE skill crimson id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=86.4",
+    "CONTACT_TRACE skill crimson id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=86.4",
+    "CONTACT_TRACE skill crimson id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=86.4",
+    "CONTACT_TRACE skill crimson id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=86.4",
+    "CONTACT_TRACE skill crimson id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=86.4",
+    "CONTACT_TRACE skill crimson id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=86.4",
+    "CONTACT_TRACE basic bell direction=-1 enemy_hp=37 knockback=-460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0",
+    "CONTACT_TRACE basic bell direction=1 enemy_hp=37 knockback=460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0",
+    "CONTACT_TRACE skill bell id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=135.0",
+    "CONTACT_TRACE skill bell id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=135.0",
+    "CONTACT_TRACE skill bell id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=135.0",
+    "CONTACT_TRACE skill bell id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=135.0",
+    "CONTACT_TRACE skill bell id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=135.0",
+    "CONTACT_TRACE skill bell id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=135.0",
+    "CONTACT_TRACE basic salt direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0",
+    "CONTACT_TRACE basic salt direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0",
+    "CONTACT_TRACE skill salt id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=162.0",
+    "CONTACT_TRACE skill salt id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=162.0",
+    "CONTACT_TRACE skill salt id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=162.0",
+    "CONTACT_TRACE skill salt id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=162.0",
+    "CONTACT_TRACE skill salt id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=162.0",
+    "CONTACT_TRACE skill salt id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=162.0",
+    "CONTACT_TRACE twin first=39 second=39 energy=100",
+    "CONTACT_TRACE distinct hp=38 other=39",
+    "CONTACT_TRACE fatal hp=-1 dying=true energy=75 knockback=0.0",
+    "CONTACT_TRACE reentrant hp=38 energy=100 knockback=560.0",
+    "CONTACT_TRACE pogo chain=1 hp=5 energy=100 velocity=(0.0, -744.0)"
+  ],
+  "old29_to_budget35_changed": [
+    "tools/run_player_contact_art.py"
+  ],
+  "additional_budget_input": [
+    "godot/scripts/combat_visual_budget_validation.gd",
+    "godot/scripts/secondary_visual_budget_validation.gd",
+    "godot/scripts/enemy_effect_lifetime_validation.gd",
+    "godot/scripts/player_melee_feedback_validation.gd",
+    "godot/scripts/spike_pogo_validation.gd",
+    "godot/scripts/combat_resource_cycle_validation.gd"
+  ]
+}
