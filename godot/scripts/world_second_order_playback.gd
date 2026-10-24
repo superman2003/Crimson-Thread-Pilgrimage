@@ -12,6 +12,8 @@ var order_input_proof := ""
 var parent_proof: Dictionary = {}
 var order_air_down_target := ""
 var order_conversations := 0
+var order_thorn_actions := 0
+var order_vault_hits := 0
 var order_spear_approach := false
 var order_spear_cast := false
 var order_spear_cast_frame := -100
@@ -25,9 +27,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -57,6 +59,7 @@ func _run() -> void:
         elif order_stage == "camp_prepare":await camp_prepare()
         elif order_stage == "greenhouse_entry":await greenhouse_entry()
         elif order_stage == "greenhouse_heart":await greenhouse_heart()
+        elif order_stage == "root_crown_lower":await root_crown_lower()
         elif order_stage=="earned_restore":
             _check(same_json(scene.story_flags,parent_proof.flags) and scene.player.max_hp==int(parent_proof.max_hp) and scene.player.max_energy==int(parent_proof.max_energy),"independent production World restores exact earned flags and resource limits")
         else:
@@ -278,6 +281,7 @@ func same_json(actual: Variant,expected: Variant) -> bool:
         return true
     return actual==expected
 func order_ability_observed(id: String,origin: Vector2,direction: Vector2) -> void:
+    if id=="thorn_downstrike":order_thorn_actions+=1
     print("SECOND_ORDER_ABILITY_EVENT "+JSON.stringify({"id":id,"frame":frames,"origin":str(origin),"direction":str(direction)}))
 func _tick(count: int=1) -> void:
     for unused in count:
@@ -550,3 +554,119 @@ func greenhouse_heart() -> void:
     if not await order_precise_interact("save_ch04_lower_loop",2750):return
     _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"actual tree heart shrine refills by normal rest")
     if failures==0:export_checkpoint("actual second-order C4 dome -> original canopy and tree heart -> real fourth testimony/thorn pickups -> normal tree heart rest")
+
+func order_vault_hunter() -> bool:
+    steps+=1
+    _release()
+    await _tick(3)
+    var target: Node2D
+    for actor in get_nodes_in_group("enemy"):
+        if is_instance_valid(actor) and actor.get("spawn_id")=="E12":target=actor
+    _check(target!=null,"actual root vault hunter is present")
+    if target==null:return false
+    var wallet: int=scene.currency_count
+    var pollen: int=scene.inventory_counts.get("pollen_wax",0)
+    var prior_hp: int=target.hp
+    Input.action_press("jump")
+    for frame in 600:
+        var player: CharacterBody2D=scene.player
+        if not is_instance_valid(target) or target.hp<=0:
+            _release()
+            Input.action_release("aim_down")
+            _check(order_vault_hits>0 and order_thorn_actions>0,"actual downstrike damages the root vault hunter")
+            _check(scene.currency_count==wallet+8 and scene.inventory_counts.get("pollen_wax",0)==pollen+1,"root vault hunter awards normal income and material")
+            await order_settled_recover()
+            return failures==0
+        var dx: float=target.position.x-player.position.x
+        _axis(signf(dx) if absf(dx)>12 else 0)
+        if frame>34 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        Input.action_press("aim_down")
+        if not player.is_on_floor() and player.position.y>target.position.y-125 and player.position.y<target.position.y and player.attack_timer<=0 and player.hurt_timer<=0 and absf(dx)<70:
+            Input.action_press("attack")
+            attack_pressed_frame=frames
+            await process_frame
+        await _tick()
+        if is_instance_valid(target) and target.hp<prior_hp:
+            if order_thorn_actions>0 and player.current_attack_direction.y>0.5:order_vault_hits+=prior_hp-target.hp
+            prior_hp=target.hp
+            print("GREENHOUSE_VAULT_HUNTER ",JSON.stringify({"hp":target.hp,"player":str(player.position),"direction":str(player.current_attack_direction),"order_thorn_actions":order_thorn_actions,"downstrike_damage":order_vault_hits}))
+        if player.is_on_floor() and player.attack_timer<=0 and player.hurt_timer<=0 and frame%45==0:
+            Input.action_press("jump")
+            await process_frame
+        if deaths>0:break
+    _release()
+    Input.action_release("aim_down")
+    _check(false,"actual downstrike vault duel did not finish")
+    return false
+
+func order_crown_flyer(spawn_id: String) -> bool:
+    steps+=1
+    _release()
+    combat_enabled=false
+    var jumped_at: int=-1000
+    var doubled:=false
+    for frame in 900:
+        var foe: Node2D=null
+        for actor in get_nodes_in_group("enemy"):
+            if is_instance_valid(actor) and actor.spawn_id==spawn_id and actor.hp>0:foe=actor;break
+        if foe==null:
+            _release();Input.action_release("aim_up");await order_settled_recover();print("CROWN_FLYER_DEFEATED ",spawn_id);return true
+        var p: CharacterBody2D=scene.player
+        var dx: float=foe.position.x-p.position.x
+        _axis(signf(dx) if absf(dx)>80 or p.facing!=signi(dx) else 0)
+        if foe.position.y<p.position.y-75 and p.is_on_floor() and p.hurt_timer<=0 and p.attack_timer<=0 and frame-jumped_at>80:
+            Input.action_press("jump");jumped_at=frame;doubled=false;await process_frame
+        if frame-jumped_at==17:Input.action_release("jump");await process_frame
+        if frame-jumped_at>=20 and frame-jumped_at<40 and not doubled and p.air_jump_available and p.hurt_timer<=0 and p.attack_timer<=0:
+            Input.action_press("jump");doubled=true;await process_frame
+        if frame-jumped_at==55:Input.action_release("jump")
+        var normal_floor_attack: bool=p.is_on_floor() and foe.position.y>=p.position.y-75
+        if (normal_floor_attack or frame-jumped_at>=22) and absf(dx)<110 and absf(foe.position.y-p.position.y)<110 and p.hurt_timer<=0 and p.attack_timer<=0:
+            _axis(signf(dx))
+            if foe.position.y<p.position.y-40:Input.action_press("aim_up")
+            else:Input.action_release("aim_up")
+            Input.action_press("attack");attack_pressed_frame=frames
+            print("SECOND_ORDER_CROWN_REAL_ATTACK ",spawn_id," player=",p.position," foe=",foe.position," up=",Input.is_action_pressed("aim_up"))
+        await _tick()
+        if frame%90==89:print("SECOND_ORDER_CROWN_FLYER ",JSON.stringify({"id":spawn_id,"player":str(p.position),"velocity":str(p.velocity),"floor":p.is_on_floor(),"wall":p.is_on_wall(),"air_available":p.air_jump_available,"foe":str(foe.position),"foe_hp":foe.hp,"attack":p.attack_timer,"jump":Input.is_action_pressed("jump")}))
+        if p.hp<=0:break
+    _release();Input.action_release("aim_up");_check(false,"actual crown flyer "+spawn_id+" falls to existing normal double-jump attacks");return false
+
+func order_settled_recover() -> void:
+    _release()
+    for frame in 90:
+        if scene.player.is_on_floor() and scene.player._can_start_action():break
+        await _tick()
+    await _recover()
+func root_crown_lower() -> void:
+    _check(scene.active_save_point_id=="save_ch04_lower_loop" and scene.player.thorn_downstrike_unlocked and int(scene.inventory_counts.get("lantern_phase",0))==1,"continues its own earned thorn and earlier C5 phase at the real heart shrine")
+    if not await order_walk_only(Vector2(2560,1732)):return
+    if not await order_walk_only(Vector2(2730,1856)):return
+    if not await order_vault_hunter():return
+    if not await order_walk_only(Vector2(2600,1982)):return
+    await _world_interact()
+    _check(bool(scene.opened_shortcuts.get("ch04_west_spoke_shortcut",false)) and scene.boss_unlocked,"actual F opens original root vault lever after normal combat")
+    if failures>0:return
+    if not await order_walk_only(Vector2(2400,1982)):return
+    await _interact("upgrade_greenhouse_crown_branch_a","demo_ch06_silent_crown_core",Vector2(4615,1540))
+    if failures>0:return
+    _check(not int(scene.inventory_counts.get("crown_resonance",0))>0,"alternate root-pipe entry has not falsely granted the forecourt resonance")
+    order_air_down_target="E03"
+    if not await order_leap(Vector2(4400,1580),35,"original root-pipe string shelf beyond the spore chest"):return
+    order_air_down_target="";Input.action_release("aim_down")
+    if not await order_hold_duel("E03",4400):return
+    await order_settled_recover()
+    for point in [Vector2(4130,1712)]:
+        if not await order_leap(point,20,"normal crown eastern ring from its alternate branch"):return
+    if not await order_crown_flyer("E05"):return
+    if not await order_walk_only(Vector2(3730,1810)):return
+    if not await order_leap(Vector2(3450,1876),20,"normal eastern ring scribe platform"):return
+    if not await order_crown_flyer("E06"):return
+    if not await order_walk_only(Vector2(3355,1876)):return
+    if not await order_leap(Vector2(3130,1930),20,"real jump beyond original ring bell gap"):return
+    for point in [Vector2(2850,2080),Vector2(3010,2360),Vector2(2850,2640),Vector2(2700,2900)]:
+        if not await order_walk_only(point):return
+    if not await order_precise_interact("ch06_silent_crown_core_shortcut_lever",2830):return
+    if not await order_precise_interact("save_ch06_lower_loop",2570):return
+    _check(scene.active_save_point_id=="save_ch06_lower_loop" and scene.player.hp==scene.player.max_hp,"first actual second-order C6 lower-loop shrine rest")
+    if failures==0:export_checkpoint("own fresh C1-C2-C3-C5-C4 thorn -> original phase prerequisite root pipe -> actual C6 lower ring and lever -> normal lower-loop rest")

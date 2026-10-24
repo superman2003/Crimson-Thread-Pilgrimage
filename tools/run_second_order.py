@@ -12,7 +12,7 @@ def freeze():
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--engine",required=True)
-    parser.add_argument("--stage",choices=["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"],required=True)
+    parser.add_argument("--stage",choices=["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"],required=True)
     parser.add_argument("--output",type=Path,required=True)
     parser.add_argument("--native-gl",action="store_true")
     parser.add_argument("--source",type=Path,help="preceding accepted stage output directory; only its exact earned checkpoint is copied")
@@ -22,12 +22,12 @@ def main():
     env=dict(os.environ,APPDATA=str(appdata),LOCALAPPDATA=str(local))
     renderer=["--display-driver","windows","--rendering-method","gl_compatibility"] if args.native_gl else ["--headless"]
     command=[args.engine,*renderer,"--audio-driver","Dummy","--fixed-fps","60","--path",str(ROOT/"godot"),"--script","res://scripts/world_second_order_playback.gd","--","--order-stage="+args.stage,"--output="+str(out)]
-    if args.stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart"]:
+    if args.stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"]:
         if args.source is None:parser.error("continuation requires preceding real stage output")
         source=args.source.resolve();prior=json.loads((source/"result.json").read_text(encoding="utf-8"));proof=json.loads((source/"checkpoint_proof.json").read_text(encoding="utf-8"));checkpoint=source/"earned_checkpoint.json"
         sha=hashlib.sha256(checkpoint.read_bytes()).hexdigest()
         if not prior.get("passed") or sha!=prior.get("checkpoint_sha256") or sha!=proof.get("save_sha256"):parser.error("source stage did not pass or exact bytes/proof mismatch")
-        expected_source={"canal_aqueduct":"first_lamp","archive_obsidian_camp":"canal_aqueduct","camp_restore":"archive_obsidian_camp","camp_prepare":"archive_obsidian_camp","greenhouse_entry":"camp_prepare","earned_restore":"greenhouse_entry","greenhouse_heart":"greenhouse_entry"}[args.stage]
+        expected_source={"canal_aqueduct":"first_lamp","archive_obsidian_camp":"canal_aqueduct","camp_restore":"archive_obsidian_camp","camp_prepare":"archive_obsidian_camp","greenhouse_entry":"camp_prepare","earned_restore":"greenhouse_entry","greenhouse_heart":"greenhouse_entry","root_crown_lower":"greenhouse_heart"}[args.stage]
         if args.stage=="earned_restore":expected_source=proof.get("stage")
         if proof.get("stage")!=expected_source:parser.error("stage requires its actual immediately preceding checkpoint")
         command += ["--input-checkpoint="+str(checkpoint),"--input-sha="+sha,"--input-proof="+str(source/"checkpoint_proof.json")]
