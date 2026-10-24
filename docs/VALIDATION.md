@@ -64,3 +64,7 @@ T05 still requires building the final distribution, launching it independently o
 ## Shared dialog theme (2026-10-23)
 
 `python tools/run_ui_consistency.py --engine /path/to/godot --native-gl --capture --suite ui_redesign --log-dir /tmp/dialog-theme` captures actual confirmation and long-history dialogs at 1280×720 and 960×540. The existing UI suite checks native focus and theme inheritance. Frozen original-theme negative and final native/CPU results, including unassigned earlier exit warnings, are documented in [the report](report/20261023_u01_dialog_theme.md).
+
+## Earned dash and original return reward (2026-10-24)
+
+`python tools/run_earned_dash_return.py --engine /path/to/godot --campaign --native-gl --log-dir /tmp/earned-dash` runs five separate 180-second-capped engines from the untouched Bishop seed, passing actual save bytes between stages. Every ERROR/warning, missing marker, nonzero exit, timeout or frozen-source change fails. `tools/verify_earned_dash_proofs.py` rejects nine deliberately wrong proofs, including fractional inventory/build values. The original quiet_sole is contact-picked and persisted; its promised trap effect remains OPEN. Full baseline distinctions, failures and three inspected native captures are in [the report](report/20261024_w03_earned_dash_return.md).
