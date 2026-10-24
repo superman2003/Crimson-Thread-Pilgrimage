@@ -1,0 +1,284 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Normal inputs from the actually earned mirror shrine; intentional Boss death and manual retry.
+const BRIDE_SAVE := "user://test_world_c05_bride_retry.json"
+const MIRROR_SEED := "res://../artifacts/t04_obsidian_tower/earned_mirror_seed.json"
+var bride_phase := "death"
+var bride_engaged := false
+var before_boss_wallet := 0
+var bride_active: Dictionary={}
+var bride_windup: Dictionary={}
+var retry_stats: Dictionary={}
+var death_attempt: Dictionary={}
+func _run() -> void:
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--bride-restart-proof="):
+            var proof: Variant=JSON.parse_string(arg.trim_prefix("--bride-restart-proof="))
+            if not proof is Dictionary:_check(false,"Bride proof must be dictionary");quit(1);return
+            await _verify_bride_restart(proof)
+            return
+        if arg.begins_with("--bride-phase="):bride_phase=arg.trim_prefix("--bride-phase=")
+    if bride_phase=="death":
+        for suffix in ["", ".bak", ".tmp"]:
+            if FileAccess.file_exists(BRIDE_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(BRIDE_SAVE+suffix))
+        var file:=FileAccess.open(BRIDE_SAVE,FileAccess.WRITE)
+        file.store_buffer(FileAccess.get_file_as_bytes(MIRROR_SEED))
+        file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=BRIDE_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.active_save_point_id=="save_late_runback" and scene.boss_unlocked and not scene.demo_complete,"earned mirror shrine restores unlocked but undefeated Bride")
+    _check(scene.inventory_counts.get("thread_dash",0)==0,"Boss attempt never assumes unearned dash")
+    if bride_phase=="death":
+        _check(scene.currency_count==389,"normal mirror seed restores exact wallet")
+        if not await _threshold_and_rest():await _finish();return
+        if not await _enter_bride():await _finish();return
+        await _natural_bride_death()
+    elif bride_phase=="retry":
+        var retry_begin: int=steps
+        var cache: Dictionary=scene.world_state.data.get("death_cache",{}).duplicate(true)
+        var wallet: int=scene.currency_count
+        _check(cache.get("currency",0)>0,"actual previous Boss knot persists before manual recovery")
+        if failures>0:await _finish();return
+        if not await _heart_interact("DeathRecoveryKnot",4150):await _finish();return
+        _check(scene.currency_count==wallet+int(cache.currency) and scene.world_state.data.get("death_cache",{}).is_empty(),"actual normal F recovers full outside Boss knot")
+        if not await _heart_interact("save_late_runback",4150):await _finish();return
+        if not await _threshold_and_rest():await _finish();return
+        if not await _enter_bride():await _finish();return
+        retry_stats={"steps_from_return":steps-retry_begin,"wallet_after_recovery":wallet+int(cache.currency),"wallet_at_retry":scene.currency_count,"hp":scene.player.hp,"energy":scene.player.energy}
+        print("BRIDE_MANUAL_RETRY ",JSON.stringify(retry_stats))
+        await _fight_bride()
+        _check(scene.demo_complete,"actual inputs defeat the full Bride after manual retry")
+        for id in ["boss_bride_crescent","boss_bride_mirror","boss_bride_pools","boss_bride_dash"]:
+            _check(bride_active.has(id),"Bride actually uses "+id)
+        _check(scene.currency_count==before_boss_wallet+30 and scene.inventory_counts.get("silent_mark_obsidian",0)==1,"real Bride victory pays exact reward once")
+        if failures>0:await _finish();return
+        await _tick(95)
+        if not await _walk_without_jump(Vector2(4790,700)):await _finish();return
+        if not await _leap(Vector2(4490,656),35,"physical return over defeated Bride gate"):await _finish();return
+        if not await _leap(Vector2(4150,618),35,"physical return to actual mirror shrine"):await _finish();return
+        if not await _heart_interact("save_late_runback",4150):await _finish();return
+        _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal mirror rest after actual Bride victory")
+        await _inspect_map_without_position()
+    await _finish()
+func _threshold_and_rest() -> bool:
+    if not await _leap(Vector2(4490,656),20,"actual mirror threshold guard"):return false
+    if not await _clear_nearby():return false
+    if not await _leap(Vector2(4150,618),35,"actual safe return before full-health Boss"):return false
+    if not await _heart_interact("save_late_runback",4150):return false
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal mirror shrine rest before actual Boss attempt")
+    return failures==0
+func _enter_bride() -> bool:
+    if not await _leap(Vector2(4490,656),20,"normal cleared threshold approach"):return false
+    if not await _walk_without_jump(Vector2(4560,656)):return false
+    if not await _leap(Vector2(4790,700),999,"ordinary jump to actual Bride bell gate"):return false
+    await _world_interact()
+    _check(scene.boss_spawned and is_instance_valid(scene.boss_actor) and scene.boss_actor.hp==22,"normal F opens full production 22HP Bride")
+    _check(is_instance_valid(scene.boss_arena_lock_body) and scene.audio_director.boss_active,"actual manual gate activates Boss arena and music")
+    before_boss_wallet=scene.currency_count
+    bride_engaged=true
+    combat_enabled=false
+    return failures==0
+func _natural_bride_death() -> void:
+    steps+=1
+    _release()
+    var boss: Node2D=scene.boss_actor
+    var initial_inventory: Dictionary=scene.inventory_counts.duplicate(true)
+    var initial_build: Dictionary=scene.build_system.serialize()
+    var start: int=frames
+    var previous: String=""
+    for frame in 2400:
+        if deaths>0:break
+        var state: String=String(boss.state)+":"+String(boss.active_attack.get("id",""))
+        if state!=previous:
+            print("BRIDE_DEATH_STATE ",JSON.stringify({"frame":frames,"state":state,"boss_hp":boss.hp,"player":str(scene.player.position),"hp":scene.player.hp}))
+            previous=state
+        _axis(0)
+        await _tick()
+    _release()
+    _check(deaths==1,"production Boss attacks cause exactly one actual death")
+    _check(is_instance_valid(boss) and boss.hp==22,"intentional death does not weaken production Boss")
+    for frame in 300:
+        await _tick()
+        if scene.player.hp>0 and scene.player.death_timer<=0 and not scene.pending_enemy_respawn:break
+    await _tick(15)
+    var cache: Dictionary=scene.world_state.data.get("death_cache",{}).duplicate(true)
+    _check(scene.currency_count==before_boss_wallet-int(before_boss_wallet/2) and cache.get("currency",-1)==int(before_boss_wallet/2),"actual Boss death records exact half-wallet loss")
+    _check(Vector2(cache.position[0],cache.position[1]).distance_to(scene.active_spawn)<2,"actual Boss death knot remains at outside checkpoint")
+    _check(not scene.boss_spawned and not is_instance_valid(scene.boss_arena_lock_body) and not scene.audio_director.boss_active,"actual Boss death returns to manual retry without arena lock or Boss music")
+    _check(_exact_state(scene.inventory_counts,initial_inventory) and _exact_state(scene.build_system.serialize(),initial_build),"actual Boss death preserves exact inventory and build")
+    death_attempt={"wallet_before":before_boss_wallet,"wallet_after":scene.currency_count,"cache":cache,"frames":frames-start,"hp":scene.player.hp,"energy":scene.player.energy,"position":str(scene.player.position)}
+    print("BRIDE_ACTUAL_DEATH ",JSON.stringify(death_attempt))
+func _near_foe() -> Node2D:
+    if bride_engaged:return null
+    return super._near_foe()
+func _finish() -> void:
+    _release()
+    Input.action_release("skill_1")
+    _check(deaths==(1 if bride_phase=="death" else 0),"attempt has exact expected real death count")
+    print("BRIDE_FINAL ",JSON.stringify({"phase":bride_phase,"wallet":scene.currency_count,"hp":scene.player.hp,"energy":scene.player.energy,"cache":scene.world_state.data.get("death_cache",{}),"position":str(scene.player.position),"damage":damage_events,"heals":heals}))
+    print("WORLD_C05_BRIDE phase=%s failures=%d deaths=%d damage_suppression=false"%[bride_phase,failures,deaths])
+    if failures==0:
+        print("BRIDE_RESTART_PROOF ",JSON.stringify(_bride_proof()))
+        print("BRIDE_EARNED_SEED ",ProjectSettings.globalize_path(BRIDE_SAVE))
+    scene.queue_free()
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)
+
+func _tick(count: int=1) -> void:
+    for unused in count:
+        var hp_before: int=scene.player.hp if is_instance_valid(scene) and is_instance_valid(scene.player) else -1
+        var deaths_before: int=deaths
+        await super._tick()
+        if is_instance_valid(scene) and is_instance_valid(scene.player):
+            # Count HP's positive->zero transition, not a second wallet-save log while HP is zero.
+            deaths=deaths_before+(1 if hp_before>0 and scene.player.hp==0 else 0)
+            if bride_engaged and scene.player.hp<hp_before:
+                var actor: Node=scene.boss_actor
+                print("BRIDE_DAMAGE ",JSON.stringify({"frame":frames,"before":hp_before,"after":scene.player.hp,"boss_state":String(actor.state) if is_instance_valid(actor) else "absent","attack":String(actor.active_attack.get("id","")) if is_instance_valid(actor) else "","player":str(scene.player.position)}))
+
+func _fight_bride() -> void:
+    steps+=1
+    bride_engaged=true
+    combat_enabled=false
+    _release()
+    var boss: Node2D=scene.boss_actor
+    var previous: String=""
+    var jump_at := -100
+    var skill_at := -100
+    var vault_jump_at := -1000
+    var vault_double := false
+    var crossing_at := -1000
+    var crossing_goal := 0.0
+    var crossing_start := 0.0
+    var crossing_double := false
+    var crossing_moving := false
+    for frame in 5200:
+        if not is_instance_valid(boss) or scene.demo_complete or deaths>0:break
+        var p: CharacterBody2D=scene.player
+        var state: String=String(boss.state)
+        var kind: String=String(boss.active_attack.get("type",""))
+        var id: String=String(boss.active_attack.get("id",""))
+        var key:=state+":"+id
+        if key!=previous:
+            print("BRIDE_STATE ",JSON.stringify({"frame":frame,"state":state,"attack":id,"boss_hp":boss.hp,"boss_position":str(boss.position),"player_position":str(p.position),"hp":p.hp,"energy":p.energy,"remaining":boss.state_timer}))
+            if state=="active":bride_active[id]=int(bride_active.get(id,0))+1
+            if state=="windup":bride_windup[id]=int(bride_windup.get(id,0))+1
+            previous=key
+        if frame-jump_at>=35 and Input.is_action_pressed("jump"):Input.action_release("jump")
+        if frame-skill_at>=2 and Input.is_action_pressed("skill_1"):Input.action_release("skill_1")
+        var side: float=signf(p.position.x-boss.position.x)
+        if side==0:side=-1
+        var waiting: bool=boss.hp<=12 and bride_active.size()<4
+        var goal: float=boss.position.x+side*(260 if waiting else 145)
+        var punish: bool=(state=="patrol" or (state=="recover" and kind!="blink") or (state in ["windup","active"] and kind=="pool")) and not waiting
+        if state in ["windup","active"] and kind=="melee":goal=boss.position.x+side*270
+        goal=clampf(goal,4770,5310)
+        var danger_near := false
+        var jump_now := false
+        var parry_now := false
+        var projectile_near := false
+        var hazards: Array=[]
+        for effect in get_nodes_in_group("hostile_attack"):
+            if not is_instance_valid(effect) or effect.owner_actor!=boss or effect.hit_player:continue
+            var time: float=effect.arm_delay-effect.age
+            if effect.effect_kind in ["pool","eruption"]:
+                hazards.append(effect)
+                if absf(effect.position.x-p.position.x)<effect.radius+55 and time<p.heal_duration+0.2:danger_near=true
+                if absf(effect.position.x-p.position.x)<effect.radius+(6 if effect.effect_kind=="eruption" else 12) and time<0.16:jump_now=true
+            elif effect.effect_kind=="projectile" and not effect.reflected:
+                var distance: float=effect.position.distance_to(p.position-Vector2(0,42))
+                if distance<170:projectile_near=true
+                if distance<145:parry_now=true
+        if state in ["windup","active","recover"] and kind=="blink":goal=boss.position.x+side*230
+        if not hazards.is_empty():
+            var best := INF
+            for candidate in range(4770,5311,20):
+                if absf(candidate-boss.position.x)<(230 if kind=="melee" and state in ["windup","active"] else 110):continue
+                var safe := true
+                for hazard in hazards:
+                    if hazard.arm_delay-hazard.age<0.6 and absf(candidate-hazard.position.x)<hazard.radius+14:safe=false;break
+                if not safe:continue
+                var score: float=absf(candidate-goal)+absf(candidate-p.position.x)*0.35+(300 if (candidate-boss.position.x)*(p.position.x-boss.position.x)<0 else 0)
+                if score<best:best=score;goal=candidate
+        if state=="windup" and kind in ["vault","blink","melee"] and boss.state_timer<0.45 and p.is_on_floor() and p.attack_timer<=0 and p.hurt_timer<=0:
+            Input.action_press("jump");jump_at=frame;vault_jump_at=frame;vault_double=false;await process_frame
+        if frame-vault_jump_at==30:
+            Input.action_release("jump");await process_frame
+        if frame-vault_jump_at>=40 and frame-vault_jump_at<60 and not vault_double and p.air_jump_available and p.attack_timer<=0 and p.hurt_timer<=0:
+            Input.action_press("jump");jump_at=frame;vault_double=true;await process_frame
+        if (goal-boss.position.x)*(p.position.x-boss.position.x)<0 and kind!="vault" and frame-crossing_at>=100 and p.is_on_floor() and p.attack_timer<=0 and p.hurt_timer<=0:
+            crossing_at=frame
+            crossing_goal=goal
+            crossing_start=p.position.x
+            crossing_double=false
+            crossing_moving=false
+            Input.action_press("jump")
+            jump_at=frame
+            await process_frame
+        if frame-crossing_at<100:
+            if not crossing_moving and p.position.y<boss.position.y-154:
+                crossing_moving=true
+                _axis(signf(crossing_goal-p.position.x))
+            goal=crossing_goal if crossing_moving else crossing_start
+            punish=false
+            if frame-crossing_at==17 and Input.is_action_pressed("jump"):Input.action_release("jump");await process_frame
+            if frame-crossing_at>=20 and not crossing_double and p.air_jump_available and p.attack_timer<=0 and p.hurt_timer<=0:
+                Input.action_press("jump");jump_at=frame;crossing_double=true;await process_frame
+        elif jump_now and p.is_on_floor() and p.attack_timer<=0 and p.hurt_timer<=0:
+            Input.action_press("jump");jump_at=frame;await process_frame
+        if projectile_near and not danger_near and frame-crossing_at>=100 and kind!="melee":goal=p.position.x
+        _axis(signf(goal-p.position.x) if absf(goal-p.position.x)>7 else 0)
+        if parry_now and p.is_on_floor() and p.attack_timer<=0 and p.hurt_timer<=0:
+            if p.facing!=signi(boss.position.x-p.position.x):_axis(signf(boss.position.x-p.position.x))
+            Input.action_press("attack");attack_pressed_frame=frames
+            print("BRIDE_PROJECTILE_PARRY_INPUT ",str(p.position))
+        var heal_window: bool=(state=="windup" and kind=="pool" and boss.state_timer>0.45) or (state=="recover" and kind=="vault" and boss.state_timer>0.75)
+        if not danger_near and not projectile_near and heal_window and p.hp<=3 and p.energy>=p.heal_energy_cost and frame-crossing_at>=100:
+            await _recover()
+            continue
+        var dx: float=boss.position.x-p.position.x
+        if danger_near or projectile_near:punish=false
+        if punish and not projectile_near and absf(dx)<215 and p.hurt_timer<=0 and p.attack_timer<=0 and p.skill_cooldown<=0 and p.energy>=75 and frames%30==5 and p.facing==signi(dx):
+            if p.facing!=signi(dx):_axis(signf(dx))
+            Input.action_press("skill_1");skill_at=frame;await process_frame
+        if punish and not projectile_near and absf(dx)<185 and p.hurt_timer<=0 and p.attack_timer<=0 and frames%24==0:
+            if p.facing!=signi(dx):_axis(signf(dx))
+            Input.action_press("attack")
+            attack_pressed_frame=frames
+        await _tick()
+        if frame%300==299:print("BRIDE_PENDING ",JSON.stringify({"frame":frame,"hp":p.hp,"energy":p.energy,"boss_hp":boss.hp,"position":str(p.position),"state":key}))
+    _release()
+    Input.action_release("skill_1")
+    bride_engaged=false
+    print("BRIDE_OBSERVED ",JSON.stringify({"windups":bride_windup,"active":bride_active}))
+
+func _bride_proof() -> Dictionary:
+    var proof:=_tower_proof()
+    proof.merge({"phase":bride_phase,"hp":scene.player.hp,"energy":scene.player.energy,"cache":scene.world_state.data.get("death_cache",{}).duplicate(true),"spawn":[scene.active_spawn.x,scene.active_spawn.y],"unlocked":scene.boss_unlocked,"defeated":scene.demo_complete,"regions":scene.world_state.data.get("regions",{}).duplicate(true)})
+    return proof
+func _verify_bride_restart(proof: Dictionary) -> void:
+    bride_phase=String(proof.get("phase",""))
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=BRIDE_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    var pid: Variant=proof.get("pid",0)
+    _check(typeof(pid) in [TYPE_INT,TYPE_FLOAT] and pid>0 and pid==int(pid) and OS.get_process_id()!=int(pid),"Bride proof uses a different actual PID")
+    var actual:=_bride_proof()
+    for key in ["region","checkpoint","wallet","inventory","build","story","charted","shortcuts","hp","energy","cache","spawn","unlocked","defeated","regions"]:
+        _check(proof.has(key) and _exact_state(actual[key],proof[key]),"Bride restart retains exact "+key)
+    _check(bride_phase in ["death","retry"],"Bride restart proof names an actual phase")
+    _check(scene.active_save_point_id=="save_late_runback" and not scene.boss_spawned and not is_instance_valid(scene.boss_arena_lock_body) and not scene.audio_director.boss_active,"independent restart resumes outside the manual Boss gate")
+    _check(scene.inventory_counts.get("thread_dash",0)==0,"independent restart never grants dash")
+    print("WORLD_C05_BRIDE_RESTART failures=%d pid_changed=true"%failures)
+    _release()
+    scene.queue_free()
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)
