@@ -18,7 +18,7 @@ class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 153)
+        self.assertEqual(len(all_suites), 154)
         self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
         self.assertIn("quiet_sole_traps", DEFAULT_SUITES)
         self.assertIn("wish_reward_atomic", DEFAULT_SUITES)
@@ -42,6 +42,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("obsidian_road_clearance", DEFAULT_SUITES)
         self.assertIn("obsidian_dock_clearance", DEFAULT_SUITES)
         self.assertIn("crown_rain_slot", DEFAULT_SUITES)
+        self.assertIn("crown_vault_door", DEFAULT_SUITES)
         self.assertIn("ending_aftermath", DEFAULT_SUITES)
         self.assertIn("settings_remap", DEFAULT_SUITES)
         self.assertIn("tool_practice", DEFAULT_SUITES)

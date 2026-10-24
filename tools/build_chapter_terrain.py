@@ -116,6 +116,14 @@ def build(path):
                     results.append({'id':tid+'_outflow_lip','kind':kind,
                         'surface':[[edge-64,level],[edge,level]],'depth':30,
                         'texture_variants':[0,3,1,2],'platform_ids':[]})
+                if theme=='silent_crown' and group_id=='bell_vault' and any(p['id']=='vault_floor' for p,f in owners):
+                    # Preserve the upper vault while opening the two lower shrine approaches.
+                    left,right=surface[0][0],surface[-1][0];level=surface[0][1]
+                    surface[0][0]=left+80;surface[-1][0]=right-96
+                    for suffix,a,b,thickness in [('west',left,left+80,54),('east',right-96,right,70)]:
+                        results.append({'id':tid+'_door_'+suffix,'kind':kind,
+                            'surface':[[a,level],[b,level]],'depth':thickness,
+                            'texture_variants':[3,1,5],'platform_ids':[]})
                 for p,f in owners:p['terrain_id']=tid;p['terrain_flat_span']=[round(f[0],2),round(f[2],2)]
     d['terrain']=results
     d['terrain_design']={'view':'orthographic_side_2d','max_ramp_degrees':32,'route_kinds':['ground','slope','tunnel','bridge','basin','vertical_climb'],
