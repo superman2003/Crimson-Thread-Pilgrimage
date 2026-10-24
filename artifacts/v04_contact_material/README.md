@@ -32,3 +32,7 @@ World uses the exact published earned_camp_seed.json SHA91adadb812a80bece39b0b23
 component_probe_01 preserves the wrong fixture cooldown field failure. world_probe_01 preserves a wrong can_cast dictionary key: no cast occurred and normal movement passed the platform; world_probe_02 corrected it to production available and passed. cpu_01 preserves two suites that explicitly require real GL and reject Dummy headless; those were later executed under real GL. All probe/failure logs remain, including the first native budget failure. pre_* raw originals are retained; baseline_player_execution.gd differs from pre_player_controller.gd ONLY by redirecting the Melee preload to its archived original, so reverse execution really uses old primitives.
 
 Every engine process has a180-second timeout, fixed60/Dummy audio. Native uses gl_compatibility under the single GPU token, released only after all actual processes terminate. Frozen inputs are checked before/after every engine. logs.json indexes every raw log's byte length/SHA and gzipSHA; each gzip has mtime0. index.json records published evidence hashes. Raw logs remain locally; their exact gzip bytes are published.
+
+## Subsequent PR222 integration
+
+See integration/README.md for ordinary merges retaining newer remote222/219/main histories, final155-suite contract, distinct47/53A/53B evidence, latest171/0 plus normalWorldCPU/native and complete npm gates. Original190/22 captures retain their original29-input scope.
