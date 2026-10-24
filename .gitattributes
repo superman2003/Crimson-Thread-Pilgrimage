@@ -223,7 +223,9 @@ artifacts/v04_dash_material/** -text whitespace=cr-at-eol
 artifacts/v04_dash_material/**/*.png -filter -diff -merge -text
 
 godot/assets/vfx/player_hook/*.png -filter -diff -merge -text
-
+# Native evidence for the original damp-knot travel reward.
+artifacts/e03_legacy_travel/**/*.png -filter -diff -merge -text
+artifacts/t03_quiet_sole_audio/** -text whitespace=cr-at-eol
 godot/assets/vfx/player_ability/*.png -filter -diff -merge -text
 artifacts/v04_ability_material/** -text whitespace=cr-at-eol
 artifacts/v04_ability_material/**/*.png -filter -diff -merge -text
