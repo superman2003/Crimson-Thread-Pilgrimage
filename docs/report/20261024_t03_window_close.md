@@ -28,3 +28,11 @@
 本批验证 Windows 主窗口关闭。其它主动 `SceneTree.quit()` 夹具仍由各自所有者负责退役；本批没有宣称覆盖强制结束进程、崩溃或整轮长时间游玩。T03/T05及全部46项最终验收继续 OPEN；未合并 main。
 
 证据入口：`artifacts/t03_window_close/published/manifest.json`，每项记录原路径、原始长度/SHA256、gzip 长度/SHA256；payload gzip mtime=0。最终直接输入哈希见归档的 `published-inputs.json`。
+
+## 已发表依赖整合后的独立复验
+
+外部维护随后将已发表的受伤、突进/钩索、能力素材、N02许愿事务、防潮线结、第六区雨槽及夹具收尾合入本PR，形成 `44ffc12593cfaf10303451b0cee2ef77ce658a29`。该确切树另登记154套，包含本退出套件；未包含随后PR222的最后三项接触材质，不能将本轮称为该材质或最终发行验收。原始fc183及9124输入证据仍为上述历史范围。
+
+本轮为新增4张atlas与防潮图标复制5份已校验导入缓存，PNG源字节严格相同、导入设置LF规范后相同；SVG原工作副本只有换行差异，已在运行前恢复为当前Git对象原字节，再与来源核对。缓存SHA、原/目标元数据SHA和该唯一换行恢复均归档。第一次选定的单一来源没有可匹配图标，未启动引擎；随后扩大到已有验证工作树来源，未改素材或生产逻辑。
+
+9166项Godot/tools输入在每轮运行前后相同，8项直接输入的原始字节与该发表树逐项一致。5套CPU终态（application_close12、quiet24、wish34、legacy36、capacity35）25.328秒，全零ERROR/warning；两道完整npm门及运行器合同通过（Windows实际1项/跳过30项）。三组新的独立原生窗口退出也均exit0、零ERROR/warning：ready PID35708/8.953秒，暂停双关闭PID38600/9.437秒，启动任务pending时双关闭PID24804/9.515秒。源、原始日志、结果及缓存来历见 `artifacts/t03_window_close/integrated_44/manifest.json`，不以新范围覆盖早期结果。
