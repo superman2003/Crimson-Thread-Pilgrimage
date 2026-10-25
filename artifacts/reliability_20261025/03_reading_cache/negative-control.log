@@ -1,0 +1,7 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+ERROR: reading protects active bookmark when full
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tests/reliability_reading_cache.gd:45)
+RELIABILITY_READING_CACHE checks=18 failures=1
