@@ -13,14 +13,15 @@ class EconomyAuditTests(unittest.TestCase):
         self.assertGreaterEqual(report["one_time_sinks"], audit_economy.MIN_SINK_SHARE * report["one_time_income"])
         self.assertGreaterEqual(report["one_time_income"], audit_economy.INCOME_HEADROOM * report["one_time_sinks"])
 
-    def test_old_upgrade_prices_fail_after_elite_rewards(self):
+    def test_underpriced_growth_fails_after_elite_rewards(self):
         original_load = audit_economy.load
         def old_prices(name):
             data = original_load(name)
             if name == "build_catalog.json":
                 data = copy.deepcopy(data)
                 for recipe in data["recipes"].values():
-                    if recipe["kind"] == "skill": recipe["currency_per_level"] = 30
+                    if recipe["kind"] in ["skill_branch", "tool_capacity", "slot_part", "passive"]:
+                        recipe["currency"] = 1
             return data
         with patch.object(audit_economy, "load", side_effect=old_prices):
             _, errors = audit_economy.audit()
