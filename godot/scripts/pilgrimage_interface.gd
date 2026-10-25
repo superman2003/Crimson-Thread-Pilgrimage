@@ -99,7 +99,10 @@ var healing_bar: ProgressBar
 var healing_status: Label
 var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
-var accessibility: Dictionary={"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
+var controller_comfort_dialog: ConfirmationDialog
+var accessibility_controls: Dictionary={}
+var accessibility_toggles: Dictionary={}
+var accessibility: Dictionary={"controller_deadzone":0.25,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -874,6 +877,7 @@ func _build_settings() -> void:
             if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
         settings.add_child(slider)
         settings_sliders[key]=slider
+    _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(410,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
     _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
     _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
@@ -926,6 +930,7 @@ func _accessibility_slider(key: String, title: String, point: Vector2, minimum: 
         _save_accessibility()
         _apply_accessibility())
     settings.add_child(slider)
+    accessibility_controls[key]={"slider":slider,"label":value_label,"title":title}
 
 func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:
     var toggle:=CheckButton.new()
@@ -934,6 +939,7 @@ func _accessibility_toggle(key: String, title: String, point: Vector2) -> void:
     toggle.position=point
     toggle.size=Vector2(206,35)
     toggle.button_pressed=bool(accessibility[key])
+    accessibility_toggles[key]=toggle
     toggle.toggled.connect(func(value: bool):
         accessibility[key]=value
         _save_accessibility()
@@ -951,6 +957,7 @@ func _load_accessibility() -> void:
     for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist"]:
         var value: Variant=config.get_value("accessibility",key,accessibility[key])
         if value is bool:accessibility[key]=value
+    accessibility["controller_deadzone"]=_finite_setting(config,"controller_deadzone",0.1,0.6)
     accessibility["subtitle_size"]=int(_finite_setting(config,"subtitle_size",17,26))
     accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
     accessibility["camera_shake"]=_finite_setting(config,"camera_shake",0,1)
@@ -964,6 +971,7 @@ func _load_accessibility() -> void:
         if not result.bindings.has(action):continue
         InputMap.action_erase_events(action)
         for event in result.bindings[action]:InputMap.action_add_event(action,event)
+    _apply_controller_deadzone()
     binding_recovery_notice="部分输入设置无效或冲突，已保留对应设备的可用绑定。" if result.rejected>0 else ""
     if remap_status!=null:
         remap_status.text=binding_recovery_notice if not binding_recovery_notice.is_empty() else "Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。"
@@ -1039,15 +1047,43 @@ func _on_joy_connection_changed(_device: int, connected: bool) -> void:
         if not overlay.is_empty() and not _is_navigable_focus(get_viewport().gui_get_focus_owner()):
             call_deferred("_focus_overlay",overlay,true)
 
-func _save_accessibility() -> void:
+func _save_accessibility() -> Error:
     var config:=ConfigFile.new()
     for key in accessibility:config.set_value("accessibility",key,accessibility[key])
     for action in REMAPPABLE_ACTIONS:
         if InputMap.has_action(action):config.set_value("bindings",action,InputMap.action_get_events(action))
     var result:=config.save(accessibility_path)
     if result!=OK and toast!=null:toast.text="设置保存失败（%d），当前设置仍有效。" % result
+    return result
+
+func _apply_controller_deadzone() -> void:
+    preload("res://scripts/controller_preferences.gd").apply_deadzone(float(accessibility.get("controller_deadzone",0.25)))
+
+func _sync_accessibility_controls() -> void:
+    for key in accessibility_controls:
+        var row: Dictionary=accessibility_controls[key]
+        if is_instance_valid(row.slider):row.slider.set_value_no_signal(float(accessibility[key]))
+        if is_instance_valid(row.label):row.label.text=String(row.title)+"  "+str(accessibility[key])
+    for key in accessibility_toggles:
+        if is_instance_valid(accessibility_toggles[key]):accessibility_toggles[key].set_pressed_no_signal(bool(accessibility[key]))
+
+func _open_controller_comfort() -> void:
+    if settings==null or not settings.is_visible_in_tree():return
+    if not is_instance_valid(controller_comfort_dialog):
+        controller_comfort_dialog=preload("res://scripts/controller_comfort_dialog.gd").new()
+        settings.add_child(controller_comfort_dialog)
+        settings.visibility_changed.connect(func():
+            if not settings.visible and is_instance_valid(controller_comfort_dialog):controller_comfort_dialog.hide())
+    controller_comfort_dialog.open(accessibility,func(values: Dictionary):
+        var normalized: Dictionary=preload("res://scripts/controller_preferences.gd").normalize(values)
+        for key in normalized:accessibility[key]=normalized[key]
+        _apply_accessibility()
+        var saved:=_save_accessibility()
+        return {"ok":true,"persisted":saved==OK})
 
 func _apply_accessibility() -> void:
+    _apply_controller_deadzone()
+    _sync_accessibility_controls()
     var feel := get_node_or_null("/root/FeelKit")
     if feel != null and feel.has_method("set_accessibility"):
         feel.set_accessibility(accessibility)
@@ -1071,6 +1107,7 @@ func _reset_bindings() -> void:
     for action in default_bindings:
         InputMap.action_erase_events(action)
         for event in default_bindings[action]:InputMap.action_add_event(action,event.duplicate())
+    _apply_controller_deadzone()
     _save_accessibility()
     _refresh_remap_labels()
     remap_status.text="已恢复全部默认按键；声音、字幕与画面设置不变。"
@@ -1134,6 +1171,7 @@ func _input(event: InputEvent) -> void:
                 if BINDING_POLICY.family(old)==BINDING_POLICY.family(accepted):InputMap.action_erase_event(action,old)
             InputMap.action_add_event(action,accepted)
             remap_target=""
+            _apply_controller_deadzone()
             _save_accessibility()
             _refresh_remap_labels()
             remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
