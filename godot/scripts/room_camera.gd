@@ -13,23 +13,30 @@ func _rect(value: Variant) -> Rect2:
         if not (number is int or number is float) or not is_finite(float(number)):
             return Rect2()
     var result := Rect2(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
-    return result if result.size.x > 0 and result.size.y > 0 else Rect2()
+    return result if result.size.x > 0 and result.size.y > 0 and result.end.is_finite() else Rect2()
 
 func configure(rooms: Array, focus: RefCounted) -> void:
+    if not is_instance_valid(focus):return
     focus.remove_lock(LOCK_ID)
     zones.clear()
     current = {}
     display_bounds = Rect2()
+    var ids: Dictionary = {}
     for room in rooms:
         if not room is Dictionary:
             continue
+        var id: Variant = room.get("id")
+        if not id is String or id.is_empty() or ids.has(id):continue
+        var raw: Variant = room.get("visit_rects", [room.get("layout_rect", [])])
+        if not raw is Array:continue
         var bounds := _rect(room.get("camera_bounds", []))
         var triggers: Array[Rect2] = []
-        for value in room.get("visit_rects", [room.get("layout_rect", [])]):
+        for value in raw:
             var rect := _rect(value)
             if rect.has_area(): triggers.append(rect)
         if bounds.has_area() and not triggers.is_empty():
-            zones.append({"id": String(room.get("id", "")), "bounds": bounds, "triggers": triggers})
+            zones.append({"id": id, "bounds": bounds, "triggers": triggers})
+            ids[id] = true
 
 func _area_at(zone: Dictionary, point: Vector2, padding: float = 0.0) -> float:
     var smallest := INF
@@ -47,6 +54,8 @@ func _inside_entry(zone: Dictionary, point: Vector2) -> bool:
     return false
 
 func update(focus: RefCounted, point: Vector2, delta: float = 0.0) -> void:
+    if not is_instance_valid(focus) or not point.is_finite():return
+    delta = maxf(0.0, delta) if is_finite(delta) else 0.0
     var candidate: Dictionary = {}
     var area := INF
     for zone in zones:

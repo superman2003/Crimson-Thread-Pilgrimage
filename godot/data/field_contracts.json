@@ -1,0 +1,288 @@
+{
+  "version": 1,
+  "active_limit": 3,
+  "contracts": [
+    {
+      "id": "survey_01",
+      "region": "demo_ch01_moss_bell_court",
+      "title": "苔钟庭·路迹巡查",
+      "description": "把断阶与初鸣钟龛连成一条可回看的归路。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "entry_bell",
+          "label": "朝圣断阶"
+        },
+        {
+          "kind": "visit",
+          "target": "moss_descent",
+          "label": "苔落走廊"
+        },
+        {
+          "kind": "visit",
+          "target": "first_bell_shrine",
+          "label": "初鸣钟龛"
+        }
+      ],
+      "reward_item": "pilgrim_permit_01",
+      "reward_name": "苔钟庭巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_01",
+      "region": "demo_ch01_moss_bell_court",
+      "title": "苔钟庭·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "moss_larva",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "bronze_moth",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_01",
+      "reward_name": "苔钟庭巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "survey_02",
+      "region": "demo_ch02_rain_foundry_canal",
+      "title": "铸雨渠·路迹巡查",
+      "description": "核对闸口、渡槽与雨栅，别让巡检只留在图纸上。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "upper_sluice",
+          "label": "上闸口"
+        },
+        {
+          "kind": "visit",
+          "target": "aqueduct_gate",
+          "label": "渡槽闸口"
+        },
+        {
+          "kind": "visit",
+          "target": "rain_deck",
+          "label": "雨栅长堤"
+        }
+      ],
+      "reward_item": "pilgrim_permit_02",
+      "reward_name": "铸雨渠巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_02",
+      "region": "demo_ch02_rain_foundry_canal",
+      "title": "铸雨渠·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "drain_leech",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "pipe_thrower",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_02",
+      "reward_name": "铸雨渠巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "survey_03",
+      "region": "demo_ch03_saltwhite_archive",
+      "title": "盐白书库·路迹巡查",
+      "description": "从门厅到烛台，给散落的书脊留下自己的脚步。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "salt_gatehouse",
+          "label": "盐晶门厅"
+        },
+        {
+          "kind": "visit",
+          "target": "white_spine_hall",
+          "label": "白书脊长廊"
+        },
+        {
+          "kind": "visit",
+          "target": "candle_mezzanine",
+          "label": "烛台夹层"
+        }
+      ],
+      "reward_item": "pilgrim_permit_03",
+      "reward_name": "盐白书库巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_03",
+      "region": "demo_ch03_saltwhite_archive",
+      "title": "盐白书库·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "salt_bookmite",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "index_scribe",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_03",
+      "reward_name": "盐白书库巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "survey_04",
+      "region": "demo_ch04_broken_string_greenhouse",
+      "title": "断弦温室·路迹巡查",
+      "description": "沿西门与根须南廊巡查，记录温室仍能通行的部分。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "west_gate",
+          "label": "温室西门"
+        },
+        {
+          "kind": "visit",
+          "target": "gate_descent",
+          "label": "西阶下行"
+        },
+        {
+          "kind": "visit",
+          "target": "south_rootrun",
+          "label": "根须南廊"
+        }
+      ],
+      "reward_item": "pilgrim_permit_04",
+      "reward_name": "断弦温室巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_04",
+      "region": "demo_ch04_broken_string_greenhouse",
+      "title": "断弦温室·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "vine_crawler",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "root_cage_hunter",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_04",
+      "reward_name": "断弦温室巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "survey_05",
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "title": "黑曜巡礼道·路迹巡查",
+      "description": "从哨站穿过古道，带回灰烬坑的道路记录。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "ravine_gate",
+          "label": "黑曜哨站"
+        },
+        {
+          "kind": "visit",
+          "target": "base_road",
+          "label": "山根古道"
+        },
+        {
+          "kind": "visit",
+          "target": "ash_pit",
+          "label": "灰烬坑"
+        }
+      ],
+      "reward_item": "pilgrim_permit_05",
+      "reward_name": "黑曜巡礼道巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_05",
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "title": "黑曜巡礼道·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "obsidian_spearman",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "pilgrim_chariot",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_05",
+      "reward_name": "黑曜巡礼道巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "survey_06",
+      "region": "demo_ch06_silent_crown_core",
+      "title": "无声王冠·路迹巡查",
+      "description": "循王冠外肩前行，把旧城的回声逐一记下。",
+      "objectives": [
+        {
+          "kind": "visit",
+          "target": "crown_antechamber",
+          "label": "王冠前厅"
+        },
+        {
+          "kind": "visit",
+          "target": "shell_walk_east",
+          "label": "东冠肩"
+        },
+        {
+          "kind": "visit",
+          "target": "echo_rain",
+          "label": "雨渠回声室"
+        }
+      ],
+      "reward_item": "pilgrim_permit_06",
+      "reward_name": "无声王冠巡礼印",
+      "reward_amount": 1
+    },
+    {
+      "id": "watch_06",
+      "region": "demo_ch06_silent_crown_core",
+      "title": "无声王冠·守路札记",
+      "description": "亲自击败本区两类沿路敌人，将见过的招式与道路记录一起带回钟龛。",
+      "objectives": [
+        {
+          "kind": "enemy",
+          "target": "echo_waterwheel_knight",
+          "label": "本区敌人记录"
+        },
+        {
+          "kind": "enemy",
+          "target": "echo_moss_larva",
+          "label": "本区敌人记录"
+        }
+      ],
+      "reward_item": "pilgrim_permit_06",
+      "reward_name": "无声王冠巡礼印",
+      "reward_amount": 1
+    }
+  ]
+}
