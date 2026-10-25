@@ -17,6 +17,7 @@ test("preview serves media and survives malformed URLs and escaped paths", async
   await writeFile(join(directory, "public-other", "secret"), "private");
   await symlink(join(directory, "public-other"), join(root, "escape"));
   await mkdir(join(root, ".git")); await writeFile(join(root, ".git", "config"), "private");
+  await symlink(join(root, ".git"), join(root, "hidden-alias"));
   const server = createStaticServer(root);
   server.listen(0, "127.0.0.1"); await once(server, "listening");
   const port = server.address().port;
@@ -31,7 +32,7 @@ test("preview serves media and survives malformed URLs and escaped paths", async
     const page = await get("/?v=2"); assert.equal(page.status, 200); assert.match(page.body, /巡礼/);
     assert.equal((await get("/%E7%A9%BA%20%E6%A0%BC.json")).body, "{}");
     for (const path of ["/%", "/%E0%A4%A", "/%00", "/%5csecret"]) assert.equal((await get(path)).status, 400, path);
-    for (const path of ["/missing", "/escape/secret", "/%2e%2e%2fpublic-other/secret", "/.git/config", "/escape"]) assert.equal((await get(path)).status, 404, path);
+    for (const path of ["/missing", "/escape/secret", "/%2e%2e%2fpublic-other/secret", "/.git/config", "/hidden-alias/config", "/escape"]) assert.equal((await get(path)).status, 404, path);
     assert.equal((await get("/", { method: "POST" })).status, 405);
     const head = await get("/sound.ogg", { method: "HEAD" });
     assert.equal(head.body, ""); assert.equal(head.headers["content-length"], "10");
@@ -47,6 +48,7 @@ test("preview serves media and survives malformed URLs and escaped paths", async
     }
     const unchanged = await get("/sound.ogg", { headers: { "if-none-match": head.headers.etag } });
     assert.equal(unchanged.status, 304); assert.equal(unchanged.body, "");
+    assert.equal((await get("/sound.ogg", { headers: { "if-none-match": head.headers.etag.replace(/^W\//, "") } })).status, 304);
     assert.equal((await get("/sound.ogg", { headers: { range: "bytes=2-4", "if-range": head.headers.etag } })).status, 200);
     await writeFile(join(root, "empty"), "");
     assert.equal((await get("/empty", { headers: { range: "bytes=0-" } })).status, 416);

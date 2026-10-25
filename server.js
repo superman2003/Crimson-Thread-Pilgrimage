@@ -48,7 +48,7 @@ export function createStaticServer(root = __dirname) {
       if (requested.split("/").some(part => part.startsWith("."))) return reply(404, "Not found");
       const base = await basePromise;
       const target = await realpath(resolve(base, `.${requested === "/" ? "/index.html" : requested}`));
-      if (!contained(base, target)) return reply(404, "Not found");
+      if (!contained(base, target) || relative(base, target).split(sep).some(part => part.startsWith("."))) return reply(404, "Not found");
       file = await open(target, "r");
       const stat = await file.stat();
       if (!stat.isFile()) return reply(404, "Not found");
@@ -59,7 +59,7 @@ export function createStaticServer(root = __dirname) {
         "accept-ranges": "bytes", etag, "last-modified": stat.mtime.toUTCString()
       };
       const matches = request.headers["if-none-match"]?.split(",").map(x => x.trim());
-      if (matches?.includes(etag) || matches?.includes("*")) {
+      if (matches?.some(tag => tag.replace(/^W\//, "") === etag.replace(/^W\//, "") || tag === "*")) {
         response.writeHead(304, headers); response.end(); return;
       }
       // Weak validators cannot authorize If-Range continuation.
