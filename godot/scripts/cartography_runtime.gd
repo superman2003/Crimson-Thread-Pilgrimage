@@ -20,6 +20,9 @@ static func setup(level: Node) -> void:
     dialog.get_label().autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;dialog.get_label().custom_minimum_size=Vector2(450,160)
     level.add_child(dialog);dialog.dialog_hide_on_ok=false
     dialog.title=String(area.get_meta("label","地图NPC"))+" · 地图与工具"
+    # Assign the resting text in-tree (shaping outside it costs ~4 ms per string);
+    # opening the shop replaces it with the live quote.
+    dialog.dialog_text=String(seller.get("note",""))+"\n\n本区地图：%d枚松脂碎钱" % seller_price(seller)
     dialog.cancel_button_text="暂不购买"
     var talk:=dialog.add_button("交谈",true,"talk");talk.name="MapSellerTalk"
     var quill:=dialog.add_button("盐墨绘针",false,"quill");quill.name="MapSellerQuill"
