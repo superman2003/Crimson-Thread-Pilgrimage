@@ -7,3 +7,7 @@
 最终真实GL controller_comfort25、input_settings_regression91、settings_remap23、ui_build_accessibility（含17项FeelKit）通过。覆盖实际InputMap阈值、混合扳机隔离、重映射恢复、预设范围、真实生产窗口暂存/确认/取消、磁盘重载及主控件同步；自有World音频退出pending0。撤去混合扳机保护的同源负例按断言失败且无SCRIPT ERROR。完整npm test与test:campaign通过，默认全量CI纳入新套件，输入SHA和完整日志在artifacts/upgrade_20261025_04。
 
 本环境无实体手柄，轴读数只有实际连接后才显示；不把注入/模型检查记作实体漂移、断连重连体验或闪光舒适度的人体验收。U06及全部46项最终验收继续OPEN。
+
+## 审查修正（Claude）
+
+原默认死区 0.25 会在读取设置时套用到全部摇杆动作：实测 main 上移动／瞄准为 0.2、Godot 内建菜单导航 `ui_*` 为 0.5，未改设置的玩家手感与菜单灵敏度都会被改变。现默认改为 0.2（与当前游戏手感一致），并跳过 `ui_*` 菜单导航动作。`controller_comfort` 新增两项（`ui_*` 保持自身阈值；正式 World 读取默认设置后移动 0.2、菜单 0.5），25→27 项；换回原代码时 5 项失败。`input_settings_regression` 91、`settings_remap` 23、`ui_build_accessibility` 在真实 GL 下通过。

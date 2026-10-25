@@ -102,7 +102,7 @@ var accessibility_path := "user://pilgrimage_accessibility.cfg"
 var controller_comfort_dialog: ConfirmationDialog
 var accessibility_controls: Dictionary={}
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"controller_deadzone":0.25,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -1057,7 +1057,7 @@ func _save_accessibility() -> Error:
     return result
 
 func _apply_controller_deadzone() -> void:
-    preload("res://scripts/controller_preferences.gd").apply_deadzone(float(accessibility.get("controller_deadzone",0.25)))
+    preload("res://scripts/controller_preferences.gd").apply_deadzone(float(accessibility.get("controller_deadzone",0.2)))
 
 func _sync_accessibility_controls() -> void:
     for key in accessibility_controls:

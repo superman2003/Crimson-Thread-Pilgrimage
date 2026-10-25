@@ -1,5 +1,7 @@
 extends RefCounted
-const DEFAULTS := {"controller_deadzone": 0.25, "subtitle_size": 21, "subtitle_speed": 1.0, "flash_enabled": true, "vibration_enabled": true, "vibration_strength": 1.0, "camera_shake": 1.0, "camera_lookahead": 1.0}
+## 0.2 is the gameplay stick threshold the Player binds; the default keeps
+## today's feel until a player opts into a different value.
+const DEFAULTS := {"controller_deadzone": 0.2, "subtitle_size": 21, "subtitle_speed": 1.0, "flash_enabled": true, "vibration_enabled": true, "vibration_strength": 1.0, "camera_shake": 1.0, "camera_lookahead": 1.0}
 const LABELS := {"controller_deadzone":"摇杆死区", "subtitle_size":"字幕字号", "subtitle_speed":"字幕速度", "flash_enabled":"受击闪光", "vibration_enabled":"手柄震动", "vibration_strength":"手柄力度", "camera_shake":"镜头震动", "camera_lookahead":"镜头前瞻"}
 static var original_deadzones: Dictionary = {}
 static var modified: Array[String] = []
@@ -28,7 +30,7 @@ static func preset(current: Dictionary, id: String) -> Dictionary:
     return result
 
 static func apply_deadzone(value: float) -> Array[String]:
-    var deadzone := clampf(value,0.1,0.6) if is_finite(value) else 0.25
+    var deadzone := clampf(value,0.1,0.6) if is_finite(value) else float(DEFAULTS.controller_deadzone)
     var next: Array[String] = []
     for action in InputMap.get_actions():
         var stick := false
@@ -37,8 +39,10 @@ static func apply_deadzone(value: float) -> Array[String]:
             if event is InputEventJoypadMotion:
                 if event.axis in [JOY_AXIS_LEFT_X,JOY_AXIS_LEFT_Y,JOY_AXIS_RIGHT_X,JOY_AXIS_RIGHT_Y]:stick = true
                 if event.axis in [JOY_AXIS_TRIGGER_LEFT,JOY_AXIS_TRIGGER_RIGHT]:trigger = true
-        if not stick or trigger:continue
         var id := String(action)
+        # Built-in menu navigation keeps the engine threshold; a drifting stick
+        # must not scroll menus because the gameplay deadzone was lowered.
+        if not stick or trigger or id.begins_with("ui_"):continue
         if not original_deadzones.has(id):original_deadzones[id] = InputMap.action_get_deadzone(action)
         InputMap.action_set_deadzone(action,deadzone)
         next.append(id)
