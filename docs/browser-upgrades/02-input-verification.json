@@ -1,0 +1,22 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:26.219021+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "physical keyboard aliases hold independently",
+    "blur clears input and opens pause dialog",
+    "touch pointer capture releases outside button"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/input.js": "1836188c20294049f61fe173214fe6beb22bbdaa592a6f79c18d10fc0a8a0df8",
+    "src/main.js": "5f7e3799f1d2e58b7b5b2e4adb7422ef219e5f4064f822515a90ed0f3e35995f",
+    "tests/browser-02-input.test.mjs": "30c75672327f7b25e2d71041c81c40a6ad5dfa91ca326aad5ee97029a2ba26c2",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}

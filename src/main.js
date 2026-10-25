@@ -124,6 +124,9 @@ const input = {
   attackPressed: false
 };
 
+import { InputSources, editableTarget, mountPointers } from "./browser/input.js";
+const inputSources = new InputSources(setInput);
+
 const keys = new Map([
   ["ArrowLeft", "left"],
   ["KeyA", "left"],
@@ -179,17 +182,9 @@ window.addEventListener("keyup", onKeyUp);
 startButton.addEventListener("click", () => startChapter(Math.min(state.unlocked - 1, state.chapterIndex)));
 resetButton.addEventListener("click", resetProgress);
 
-document.querySelectorAll("[data-key]").forEach((button) => {
-  const key = button.dataset.key;
-  button.addEventListener("pointerdown", (event) => {
-    event.preventDefault();
-    setInput(key, true);
-  });
-  button.addEventListener("pointerup", (event) => {
-    event.preventDefault();
-    setInput(key, false);
-  });
-  button.addEventListener("pointercancel", () => setInput(key, false));
+mountPointers(document.querySelectorAll("[data-key]"), inputSources);
+window.addEventListener("blur", () => {
+  for (const key of Object.keys(input)) input[key] = false;
 });
 
 window.__crimsonThreadQA = {
@@ -263,6 +258,7 @@ function resizeCanvas() {
 }
 
 function onKeyDown(event) {
+  if (editableTarget(event.target) || event.ctrlKey || event.altKey || event.metaKey) return;
   const action = keys.get(event.code);
   if (!action) {
     if (event.code === "Enter" && state.mode !== "playing") {
@@ -274,14 +270,14 @@ function onKeyDown(event) {
     return;
   }
   event.preventDefault();
-  setInput(action, true);
+  inputSources.set(`keyboard:${event.code}`, action, true);
 }
 
 function onKeyUp(event) {
   const action = keys.get(event.code);
   if (!action) return;
   event.preventDefault();
-  setInput(action, false);
+  inputSources.set(`keyboard:${event.code}`, action, false);
 }
 
 function setInput(action, value) {
@@ -296,6 +292,8 @@ function setInput(action, value) {
 }
 
 function startChapter(index, options = {}) {
+  inputSources.clear();
+  for (const key of Object.keys(input)) input[key] = false;
   ensureAudio();
   const chapter = CHAPTERS[index];
   state.mode = "playing";
