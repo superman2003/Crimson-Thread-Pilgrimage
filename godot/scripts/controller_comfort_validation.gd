@@ -12,6 +12,10 @@ func axis(id: int) -> InputEventJoypadMotion:
     var event := InputEventJoypadMotion.new();event.axis = id;event.axis_value = 1.0;return event
 
 func run() -> void:
+    var preview:=preload("res://scripts/stick_response_meter.gd")
+    check(preview.response(0.19,0.2)==0.0 and preview.response(-0.2,0.2)==0.0,"prospective deadzone suppresses either sign through its boundary")
+    check(is_equal_approx(preview.response(0.6,0.2),0.5) and is_equal_approx(preview.response(-0.6,0.2),-0.5),"preview rescales independent scalar axes outside the deadzone")
+    check(preview.response(1.5,0.2)==1.0 and preview.response(NAN,0.2)==0.0 and is_equal_approx(preview.response(0.6,NAN),0.5),"non-finite and out-of-range diagnostic samples remain bounded")
     var original := {}
     for action in InputMap.get_actions():original[String(action)] = InputMap.action_get_deadzone(action)
     for id in ["cal_stick","cal_trigger","cal_mixed","cal_key"]:InputMap.add_action(id,0.37)
@@ -44,6 +48,8 @@ func run() -> void:
     dialog.open(custom,func(_values: Dictionary):applications += 1;return {"ok":true})
     check(dialog.get_cancel_button().has_focus() and dialog.get_ok_button().disabled, "preset dialog starts with a safe unchanged state")
     dialog.deadzone.value = 0.42
+    dialog._refresh_devices()
+    check(is_equal_approx(dialog.response_preview.threshold,0.42) and applications==0,"preview uses the staged threshold without applying gameplay settings")
     dialog.choose_preset("reading")
     check(applications == 0 and custom.subtitle_size == 24 and dialog.changes.text.contains("字幕字号"), "changing calibration and choosing a preset only stages labeled changes")
     dialog.hide()

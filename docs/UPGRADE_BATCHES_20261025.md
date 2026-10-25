@@ -9,9 +9,9 @@
 | 3 | U05 | 公开文字检索、交集筛选、排序、内容版本未读、槽隔离收藏和输入生命周期 | 已上传 [#244](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/244)；[报告](report/20261025_03_journal_desk.md) |
 | 4 | U06 | 摇杆校准、设备读数、预设预览确认、范围恢复和偏好同步 | 已上传 [#245](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/245)；[报告](report/20261025_04_controller_comfort.md) |
 | 5 | U04 | 已补绘地点/标记目录、检索、分段框取、端点保密和弹窗输入闭环 | 已上传 [#246](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/246)；[报告](report/20261025_05_map_directory.md) |
-| 6 | S02/S03 | NPC空间拟声、近邻轮询、危险退让、叠加混音、独立开关与退役 | 本地通过；[报告](report/20261025_06_audio_landmarks.md)，上传中 |
-| 7 | N02 | 已知愿望的阶段信息与回访引导 | 核对缺口后实施 |
-| 8 | E04 | 工匠制作前的条件、成本与事务 | 核对缺口后实施 |
+| 6 | S02/S03 | NPC空间拟声、近邻轮询、危险退让、叠加混音、独立开关与退役 | 已上传 [#247](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/247)；[报告](report/20261025_06_audio_landmarks.md) |
+| 7 | N02 | 已知心愿交付报价、成本/回礼与容量预览、状态复核、原子确认和弹窗输入闭环 | 已上传 [#248](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/248)；[报告](report/20261025_07_wish_preview.md) |
+| 8 | E04 | 同工匠多件清单、合计成本、全单模拟、价格复核、两步确认与单次持久事务 | 本地通过；[报告](report/20261025_08_craft_cart.md)，上传中 |
 | 9 | T02 | 存档槽管理与恢复边界 | 核对缺口后实施 |
 | 10 | W05/T04 | 交通/钟龛可读操作与整合验收 | 核对缺口后实施 |
 
