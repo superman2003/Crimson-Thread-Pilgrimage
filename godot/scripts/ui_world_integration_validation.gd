@@ -74,9 +74,35 @@ func run() -> void:
     ui._process(0.0)
     check(ui.settings.visible and ui.save_slot_buttons.size()==3,"Live settings expose all save slots")
     check(ui.dialogue_body.get_parent()==ui.dialogue_scroll,"Long dialogue lives in scrollable viewport")
+    var reader: HBoxContainer=ui.dialogue.get_node("DialogueReader")
     ui.dialogue_body.text="长文本无障碍验证。".repeat(60)
+    ui.dialogue_body.visible_characters=2
+    reader.reveal_button.pressed.emit()
+    check(ui.dialogue_body.visible_characters==2,"hidden reader cannot reveal a stale speaker")
+    var reader_speaker:=Area2D.new()
+    main.add_child(reader_speaker)
+    main.active_overlay="dialogue"
+    ui.settings.hide();ui.dialogue.show();ui.dialogue_area=reader_speaker
+    var reader_flags: Dictionary=main.story_flags.duplicate(true)
+    var reader_inventory: Dictionary=main.inventory_counts.duplicate(true)
+    var reader_wallet: int=main.currency_count
+    ui.dialogue_body.visible_characters=2
+    reader.refresh()
+    reader.reveal_button.pressed.emit()
+    check(ui.dialogue_body.visible_characters==-1 and main.subtitle_elapsed==main.subtitle_seconds,"reader reveal completes only the current subtitle")
+    check(main.story_flags==reader_flags and main.inventory_counts==reader_inventory and main.currency_count==reader_wallet,"reader reveal cannot commit dialogue progress or rewards")
+    reader.refresh()
+    check(reader.reveal_button.disabled and reader.progress.text.contains("逐字 100%"),"completed text disables redundant reveal and shows reading progress")
     await process_frame
     check(ui.dialogue_body.get_minimum_size().y>ui.dialogue_scroll.size.y,"Oversize dialogue expands within scrollable container")
+    reader.turn(1)
+    check(ui.dialogue_scroll.scroll_vertical>0,"reader page button scrolls actual oversized dialogue")
+    reader.turn(-1)
+    check(ui.dialogue_scroll.scroll_vertical==0,"reader page up returns to the top within bounds")
+    reader.refresh()
+    check(reader.previous_button.disabled and Rect2(Vector2.ZERO,ui.dialogue.size).encloses(reader.get_rect()),"reader controls fit the dialogue panel and disable the top boundary")
+    ui.dialogue.hide();ui.dialogue_area=null;reader_speaker.free()
+    main.active_overlay="settings";ui.settings.show()
     var saved_bytes := FileAccess.get_file_as_bytes(main.world_save_path)
     check(DirAccess.copy_absolute(ProjectSettings.globalize_path(main.world_save_path),ProjectSettings.globalize_path(main.world_save_path+".previous"))==OK,"history UI fixture preserves a journey")
     ui.journey_history_button.pressed.emit()
