@@ -1,0 +1,61 @@
+Running controller_comfort
+FAIL: controller_comfort: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: World did not publish initial region within 15 seconds
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] wait_for (res://scripts/world_ready_validation_helper.gd:11)
+SCRIPT ERROR: Invalid call. Nonexistent function 'choose_preset' in base 'Nil'.
+          at: run (res://scripts/controller_comfort_validation.gd:75)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/controller_comfort_validation.gd:75)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:13)
+Running world_map
+PASS: world_map
+按 F 通过旧通路。
+WORLD_MAP checks=675 failures=0
+Running journal_desk
+PASS: journal_desk
+AUDIO_RETIREMENT pending=0 elapsed_msec=32 observed=2 retired=4
+JOURNAL_DESK checks=40 failures=0
+Running scene_history
+PASS: scene_history
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=16 retired=18
+SCENE_HISTORY_VALIDATION checks=192 failures=0
+Running world_wayfinding
+PASS: world_wayfinding
+INTERACTION_TARGETING checks=32 failures=0
+WORLD_WAYFINDING checks=57 failures=0
+Running save_product
+PASS: save_product
+
+SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots
+Running ui_world_integration
+PASS: ui_world_integration
+按 F 休息，恢复状态并记录归途。
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+Running goal_desk
+FAIL: goal_desk: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: World did not publish initial region within 15 seconds
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] wait_for (res://scripts/world_ready_validation_helper.gd:11)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_physics_process' in base 'Nil'.
+          at: run (res://scripts/goal_desk_validation.gd:39)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/goal_desk_validation.gd:39)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:13)
+GODOT_REGRESSIONS suites=9 failures=2
