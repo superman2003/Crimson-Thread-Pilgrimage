@@ -927,6 +927,7 @@ func _setup_cartography() -> void:
     CARTOGRAPHY_UI.setup(self)
     DEATH_RECALL.setup(self)
     MAP_PLAYER_PINS.setup(self)
+    preload("res://scripts/map_directory_runtime.gd").setup(self)
 
 
 func _publish_region() -> void:

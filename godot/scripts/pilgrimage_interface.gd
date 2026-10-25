@@ -135,6 +135,7 @@ var journal_mark_button: Button
 var journal_star_button: Button
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
+var text_entry_windows: Array[WeakRef]=[]
 var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
@@ -1072,6 +1073,7 @@ func _open_controller_comfort() -> void:
     if not is_instance_valid(controller_comfort_dialog):
         controller_comfort_dialog=preload("res://scripts/controller_comfort_dialog.gd").new()
         settings.add_child(controller_comfort_dialog)
+        register_text_entry_window(controller_comfort_dialog)
         settings.visibility_changed.connect(func():
             if not settings.visible and is_instance_valid(controller_comfort_dialog):controller_comfort_dialog.hide())
     controller_comfort_dialog.open(accessibility,func(values: Dictionary):
@@ -1181,7 +1183,7 @@ func _input(event: InputEvent) -> void:
         journal_search.grab_focus()
         get_viewport().set_input_as_handled()
         return
-    if event is InputEventKey and get_viewport().gui_get_focus_owner() is LineEdit:return
+    if event is InputEventKey and is_text_entry_focused():return
     if bag.visible and bag_category=="旅记":
         var step:=0
         if event is InputEventKey and event.pressed and not event.echo:
@@ -1516,6 +1518,7 @@ func _open_resupply_planner() -> void:
     if not is_instance_valid(resupply_planner):
         resupply_planner=preload("res://scripts/resupply_planner.gd").new()
         build_panel.add_child(resupply_planner)
+        register_text_entry_window(resupply_planner)
         build_panel.visibility_changed.connect(func():
             if not build_panel.visible and is_instance_valid(resupply_planner):resupply_planner.hide())
     resupply_planner.open(_build_snapshot().get("tools",[]),
@@ -1792,6 +1795,7 @@ func _open_loadout_manager(source: String) -> void:
     if not is_instance_valid(loadout_manager):
         loadout_manager=preload("res://scripts/loadout_manager.gd").new()
         build_panel.add_child(loadout_manager)
+        register_text_entry_window(loadout_manager)
         build_panel.visibility_changed.connect(func():
             if not build_panel.visible and is_instance_valid(loadout_manager):loadout_manager.hide())
     loadout_manager.open(source,
@@ -2500,9 +2504,21 @@ func _show_journal_record(entry: Dictionary) -> void:
     journal_restore_pending=not journal_reading_key.is_empty()
     call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text))
 
+func register_text_entry_window(window: Window) -> void:
+    for reference in text_entry_windows:
+        if reference.get_ref()==window:return
+    text_entry_windows.append(weakref(window))
+
 func is_text_entry_focused() -> bool:
     var focus:=get_viewport().gui_get_focus_owner()
-    return focus is LineEdit or focus is TextEdit
+    if focus is LineEdit or focus is TextEdit:return true
+    for reference in text_entry_windows.duplicate():
+        var window:=reference.get_ref() as Window
+        if not is_instance_valid(window):text_entry_windows.erase(reference);continue
+        if not window.visible:continue
+        var window_focus:=window.gui_get_focus_owner()
+        if window_focus is LineEdit or window_focus is TextEdit:return true
+    return false
 
 func _journal_tools_focused() -> bool:
     var focus:=get_viewport().gui_get_focus_owner()
