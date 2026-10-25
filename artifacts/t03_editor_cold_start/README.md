@@ -7,3 +7,5 @@
 `no_button_free/` 为最终逐帧版插件撤销按钮释放的负例（严格门仍拒绝）；复现命令从仓库根运行 `python artifacts/t03_editor_cold_start/button_retirement_negative.py`，脚本在 finally 原字节恢复源码，使用本机引擎路径，需按环境调整。
 
 最终检查允许正常的 headless VSync/提前退出 Scan thread aborted 提示；任何引擎 ERROR、ObjectDB/RID/资源残留告警均失败，退出码0或READY标记不能掩盖错误。运行时 metsys 组件的历史 ObjectDB warning单列，未被此编辑器修复消除。
+
+`release_gate_scope_fix_ci_failure.log` 为整合main后旧广匹配触发23项发布测试中2项失败的原始CI日志；`release_gate_scope_fix_pass.log` 为收窄八个具体分支后的23项通过。该修正的workflow/test输入SHA另记于release_gate_scope_fix.json，不能用旧inputs_sha256.json冒充新workflow字节已测。

@@ -18,6 +18,10 @@
 
 `tools/test_metsys_cold_import.py` 将真实 addon、真实 MetSysSettings/MapData 和最小启用项目复制到临时目录，不复制导入缓存；保存每项原输入SHA与完整输出。冷/暖各240帧，提前退出1帧，每进程90秒上限。严格检查退出码、独占整行ready、所有ERROR及资源残留告警。提前退出允许0或1次ready，普通启动要求恰1次。Godot4.6.1，实际headless编辑器而非GUI视觉验收。
 
-独立检查接入原Godot runtime CI的recovery导入之前；两条原集成作业、所有原运行时/像素命令与时间预算保留。CI补拉addon LFS纹理。桌面发布PR分支匹配增加 `codex/**`，让依序串接的升级也运行原Windows/Linux打包门；打包逻辑和权限不变。
+独立检查接入原Godot runtime CI的recovery导入之前；两条原集成作业、所有原运行时/像素命令与时间预算保留。CI补拉addon LFS纹理。桌面发布PR分支匹配增加本次八个具体codex升级分支，让依序串接的升级也运行原Windows/Linux打包门；打包逻辑和权限不变。
 
 完整证据见 `artifacts/t03_editor_cold_start/README.md`。修复前尝试GL编辑器时当前环境Vulkan surface扩展不可用，失败保留，不算GL编辑器通过。最终四套GL运行时没有ERROR；其中既有metsys组件仍有ObjectDB退出warning，单列而不归为本次编辑器修复已解决。正常headless VSync或提前退出扫描中止提示保留。此批未验证完整大项目无缓存GUI编辑器、所有编辑功能、实体桌面退出或发行包最终验收，T03/T05及全部46项最终验收保持OPEN。
+
+## 远端集成与发布门修正
+
+前七批已由远端合入main；本PR调整到main并保留双方三份公共台账，功能文件没有重叠。整合头2854943的双平台发布门检出原 `codex/**` 范围过宽，23项发布工具测试中的两组无关codex分支排除断言失败。现缩为本次八个具体分支，并把八分支加入原正向用例；原无关分支排除断言、main-only push与全部严格打包检查保留。相同发布工具23项本地exit0；旧CI完整失败日志、新通过输出及直接输入SHA保存在release_gate_scope_fix文件组。后续整合头的全量运行时和双平台真实打包状态以CI为准，不冒称已完成。原inputs_sha256.json属于第一次功能快照，本次workflow/test新输入另列，不回填旧证据。

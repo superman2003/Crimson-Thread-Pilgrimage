@@ -364,7 +364,7 @@
 
 ## T05 发布检查（P2）
 
-- 追加证据（2026-10-24 八批）：串接 `codex/**` 基分支现在也触发原Windows/Linux发布门；最终PR远端构建需单独看CI状态，不预先算通过。见 `report/20261024_t03_editor_cold_start.md`。
+- 追加证据（2026-10-24 八批）：本次八个具体codex基分支现在也触发原Windows/Linux发布门；最终PR远端构建需单独看CI状态，不预先算通过。见 `report/20261024_t03_editor_cold_start.md`。
 
 - 追加证据（2026-10-24）：导出审计不再跳过空／缺字段预设，运行时非脚本资源也检查误排除；17 测试方法、10 组新旧对照与正式两平台 3,730 显式引用资源通过。完整 npm／campaign 通过，未构建最终包，整项仍 OPEN。见 `report/20261024_t05_export_audit_coverage.md`。
 
