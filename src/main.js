@@ -240,7 +240,7 @@ const bootParams = new URLSearchParams(window.location.search);
 if (bootParams.has("boss")) {
   const requested = Number(bootParams.get("boss"));
   const chapterIndex = Number.isFinite(requested) ? requested - 1 : 0;
-  startBossTrial(clamp(Math.trunc(chapterIndex), 0, CHAPTERS.length - 1), { silent: true });
+  startBossTrial(clamp(Math.trunc(chapterIndex), 0, Math.max(0, state.unlocked - 1)), { silent: true });
 }
 
 function loop(now) {
@@ -299,6 +299,7 @@ function startChapter(index, options = {}) {
   ensureAudio();
   const chapter = CHAPTERS[index];
   state.mode = "playing";
+  state.practice = false;
   state.chapterIndex = index;
   state.time = 0;
   state.cameraX = 0;
@@ -321,8 +322,11 @@ function startChapter(index, options = {}) {
   updateHud();
 }
 
+import { mountPractice } from "./browser/practice.js";
+var browserPractice;
 function startBossTrial(index, options = {}) {
   startChapter(index, options);
+  state.practice = true;
   const chapter = CHAPTERS[state.chapterIndex];
   state.enemies = [];
   state.keyPickups = (chapter.keys || []).map((key, keyIndex) => ({ ...key, id: `k-${index}-${keyIndex}`, taken: true }));
@@ -902,7 +906,7 @@ function damageEnemy(enemy, amount, chapter) {
     spawnParticles(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, chapter.palette.danger, enemy.kind === "boss" ? 48 : 20);
     if (enemy.kind === "boss") {
       state.messageTimer = 2.2;
-      state.lastEvent = "Boss 已击败";
+      state.lastEvent = state.practice ? "练习守卫已击败，请前往出口结束练习" : "Boss 已击败";
       state.projectiles = [];
       playTone("clear");
     }
@@ -952,6 +956,14 @@ function checkExit() {
 }
 
 function finishChapter() {
+  if (state.practice) {
+    state.mode = "menu";
+    menu.classList.remove("is-hidden");
+    state.lastEvent = "练习完成，未改变章节进度";
+    renderChapterList();
+    updateHud();
+    return;
+  }
   const nextUnlock = Math.min(CHAPTERS.length, state.chapterIndex + 2);
   state.unlocked = Math.max(state.unlocked, nextUnlock);
   saveUnlocks();
@@ -1822,6 +1834,8 @@ function seededRandom(seedText) {
 }
 
 function renderChapterList() {
+  browserPractice ??= mountPractice({ chapters: CHAPTERS, getUnlocked: () => state.unlocked, start: index => startBossTrial(index) });
+  browserPractice.refresh();
   chapterList.innerHTML = "";
   CHAPTERS.forEach((chapter, index) => {
     const button = document.createElement("button");
@@ -1850,7 +1864,7 @@ function updateHud() {
   bossFill.style.transform = `scaleX(${clamp(bossRatio, 0, 1)})`;
   statusPill.textContent = state.mode === "playing"
     ? state.lastEvent
-    : state.unlocked >= CHAPTERS.length ? "可终章" : "待启程";
+    : state.practice ? state.lastEvent : state.unlocked >= CHAPTERS.length ? "可终章" : "待启程";
 }
 
 function loadUnlocks() {
