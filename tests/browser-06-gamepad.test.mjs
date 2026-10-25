@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { GamepadInput, readStandardPad } from "../src/browser/gamepad.js";
+import { GamepadInput, readStandardPad, mountGamepad } from "../src/browser/gamepad.js";
 const pad = (x = 0, pressed = []) => ({
   connected: true,
   mapping: "standard",
@@ -36,4 +36,19 @@ test("disconnect releases gamepad without releasing keyboard; edges merge correc
 test("keyboard press remains available when gamepad API is missing", () => {
   const g = new GamepadInput();
   assert.equal(g.merge({ attackPressed: true }, null).attackPressed, true);
+});
+
+test("hot-plug after idle frames requires neutral before movement", () => {
+  let pads = [];
+  const listeners = new Map();
+  const win = {navigator:{getGamepads:()=>pads},addEventListener:(name,fn)=>listeners.set(name,fn)};
+  const label = {setAttribute:()=>{},style:{}};
+  const doc = {createElement:()=>label,body:{append:()=>{}},hidden:false,querySelector:()=>null};
+  const input = mountGamepad(win,doc);
+  input.read({}); // No pad on previous frames must not bypass hot-plug safety.
+  pads=[pad(1)];
+  listeners.get("gamepadconnected")();
+  assert.equal(input.read({}).right,false);
+  pads=[pad()];input.read({});pads=[pad(1)];
+  assert.equal(input.read({}).right,true);
 });

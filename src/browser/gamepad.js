@@ -56,6 +56,7 @@ export function mountGamepad(win = window, doc = document) {
   doc.body.append(label);
   const reset = () => input.reset();
   win.addEventListener("blur", reset);
+  win.addEventListener("gamepadconnected", reset);
   win.addEventListener("gamepaddisconnected", reset);
   let previousLabel = "";
   return {
