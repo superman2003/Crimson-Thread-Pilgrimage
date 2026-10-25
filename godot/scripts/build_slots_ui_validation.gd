@@ -317,6 +317,13 @@ func _run() -> void:
     var planner_calls:=runtime.action_calls.size()
     ui.build_panel.hide()
     _check(not ui.resupply_planner.visible and runtime.action_calls.size()==planner_calls,"Closing build overlay cancels shopping without a transaction")
+    ui.build_panel.show()
+    ui.build_category="构筑"
+    ui._open_loadout_manager("巡礼方案 2")
+    _check(ui.loadout_manager.visible and ui.loadout_manager.target_input.max_length==24,"Production saved-plan manager exposes bounded name input")
+    var name_calls:=runtime.action_calls.size()
+    ui.build_panel.hide()
+    _check(not ui.loadout_manager.visible and runtime.action_calls.size()==name_calls,"Leaving build overlay cancels pending name changes")
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame
