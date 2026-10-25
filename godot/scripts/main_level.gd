@@ -2195,7 +2195,7 @@ func _chapter_objective_text() -> String:
     if world_mode:
         return _world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [ui_shell._short_binding("map"), ui_shell._short_binding("inventory")]
     if bool(config.get("boss_route_via_exploration",false)):
-        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name","")))]
+        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。%s 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name",""))),preload("res://scripts/input_prompt_bindings.gd").action_label("interact")]
     if current_campaign_chapter.is_empty():
         return "Defeat normal enemies, open the boss route, and clear the chapter boss."
     return "第%d章 %s：%s" % [
@@ -6247,7 +6247,7 @@ func _try_interact() -> void:
     if nearby_interactable == null or not is_instance_valid(nearby_interactable):
         for lift in cave_lifts:
             if lift.request(player.global_position):
-                _toast("升降笼启动。可在途中跳离，落点两侧可呼叫。")
+                _toast(lift.last_request_text)
                 return
         _toast("附近没有可交互的人物或机关。")
         return
