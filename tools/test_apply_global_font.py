@@ -13,8 +13,6 @@ class FontSwitchTests(unittest.TestCase):
         self.root=Path(self.temp.name)
         self.write('godot/project.godot','config_version=5\n\n[gui]\n\ntheme/default_font_multichannel_signed_distance_field=true\n\n[rendering]\n')
         self.write('godot/scripts/ui.gd','const FONT=preload("res://assets/fonts/NotoSansSC.ttf")\nvar sign=ThemeDB.fallback_font\n')
-        self.write('src/styles.css',':root { font-family: sans-serif; }\n')
-        self.write('src/main.js','ctx.font = "800 22px Microsoft YaHei, sans-serif";\n')
         self.font=self.root/'source.otf'
         self.font.write_bytes(b'OTTO' + b'fixture-font')
     def tearDown(self):self.temp.cleanup()
