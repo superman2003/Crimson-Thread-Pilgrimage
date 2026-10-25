@@ -439,18 +439,43 @@ func refill_tools(at_bell: bool = false) -> Dictionary:
         return _fail("请在钟龛补给战具")
     return _fail("战具补给需消耗碎钱与材料")
 
-func quote_resupply(wallet: Dictionary) -> Dictionary:
+## A plan is a read-only shopping request, never stock or progress data.
+func _normalize_resupply_plan(plan: Variant) -> Dictionary:
+    if not plan is Dictionary:return _fail("补给清单无效")
+    for key in plan:
+        if key not in ["order", "limits"]:return _fail("未知补给选项")
+    var limits: Variant = plan.get("limits", {})
+    var order: Variant = plan.get("order", [])
+    if not limits is Dictionary or not order is Array:return _fail("补给清单无效")
+    var normalized := {"order": [], "limits": {}}
+    for id in order:
+        if not id is String or not catalog.tools.has(id) or not state.unlocked_tools.has(id) or normalized.order.has(id):
+            return _fail("补给顺序包含未知、重复或未取得战具")
+        normalized.order.append(id)
+    for id in limits:
+        if not id is String or not catalog.tools.has(id) or not state.unlocked_tools.has(id) or not _counter(limits[id], 100):
+            return _fail("补给数量无效")
+        normalized.limits[id] = int(limits[id])
+    for id in catalog.tools:
+        if state.unlocked_tools.has(id) and not normalized.order.has(id):normalized.order.append(id)
+    normalized["explicit_limits"] = plan.has("limits")
+    return _ok({"plan": normalized})
+
+func quote_resupply(wallet: Dictionary, plan: Variant = {}) -> Dictionary:
     if not wallet.get("inventory_counts") is Dictionary or not _counter(wallet.get("currency")):
         return _resupply_result(false, "无效钱包", wallet, {}, {"currency": 0, "materials": {}})
+    var normalized := _normalize_resupply_plan(plan)
+    if not normalized.ok:return _resupply_result(false, normalized.reason, wallet, {}, {"currency":0,"materials":{}})
+    var request: Dictionary = normalized.plan
     var next_wallet: Dictionary = wallet.duplicate(true)
     var charges := {}
     var total_cost := {"currency": 0, "materials": {}}
     var deficits := {}
     for id in catalog.tools:
         var remaining := maxi(0, tool_capacity(String(id)) - int(state.tool_counts.get(id, 0)))
-        deficits[id] = remaining
+        deficits[id] = mini(remaining, int(request.limits.get(id, 0))) if request.explicit_limits else remaining
     var unaffordable_reason := "材料或碎钱不足"
-    for id_value in catalog.tools:
+    for id_value in request.order:
         var id := String(id_value)
         if not state.unlocked_tools.has(id) or int(deficits[id]) <= 0: continue
         var unit: Dictionary = catalog.tools[id].get("resupply", {})
@@ -480,18 +505,25 @@ func quote_resupply(wallet: Dictionary) -> Dictionary:
                 total_cost.materials[material] = int(total_cost.materials.get(material, 0)) + amount
             bought += 1
         if bought > 0: charges[id] = bought
+    var quote: Dictionary
     if charges.is_empty():
         var any_deficit := false
         for amount in deficits.values():
             if int(amount) > 0: any_deficit = true
-        var reason := "携带量已满" if not any_deficit else unaffordable_reason
-        return _resupply_result(false, reason, wallet, {}, {"currency": 0, "materials": {}})
-    return _resupply_result(true, "", wallet, charges, total_cost, next_wallet)
+        var reason := "未选择需要补给的数量" if not any_deficit and request.explicit_limits else ("携带量已满" if not any_deficit else unaffordable_reason)
+        quote = _resupply_result(false, reason, wallet, {}, {"currency": 0, "materials": {}})
+    else:
+        quote = _resupply_result(true, "", wallet, charges, total_cost, next_wallet)
+    quote["requested"] = deficits.duplicate(true)
+    quote["unfilled"] = {}
+    for id in deficits:quote.unfilled[id] = maxi(0, int(deficits[id]) - int(charges.get(id, 0)))
+    quote["order"] = request.order.duplicate()
+    return quote
 
-func resupply_tools(wallet: Dictionary, at_bell: bool) -> Dictionary:
+func resupply_tools(wallet: Dictionary, at_bell: bool, plan: Variant = {}) -> Dictionary:
     if not at_bell:
         return _resupply_result(false, "请在钟龛补给战具", wallet, {}, {"currency": 0, "materials": {}})
-    var quote := quote_resupply(wallet)
+    var quote := quote_resupply(wallet, plan)
     if not bool(quote.get("ok", false)): return quote
     # The quote's detached wallet is committed only after every charge and
     # material has been validated; no stock changes on an affordability error.
