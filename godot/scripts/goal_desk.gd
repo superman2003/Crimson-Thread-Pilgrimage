@@ -20,7 +20,7 @@ var elapsed := 0.0
 var signature := ""
 
 static func install(shell: Control) -> void:
-    if not shell.level.world_mode:return
+    if not bool(shell.level.get("world_mode")):return
     var desk := new()
     desk.name = "GoalDesk"
     shell.add_child(desk)
