@@ -9,6 +9,9 @@ var scope := ""
 var profiles: Dictionary = {}
 var loaded := false
 var writer: Callable
+var dirty := false
+var saving := false
+var revision := 0
 
 func _hash(value: Variant) -> bool:
     if not value is String or value.length() != 64:return false
@@ -28,8 +31,13 @@ func configure(journey: String) -> void:
                 var parser := JSON.new()
                 if parser.parse(file.get_as_text()) == OK:_load(parser.data)
     scope = journey.sha256_text()
-    if not profiles.has(scope):profiles[scope] = {"read": {}, "stars": []}
+    # Reopening a slot makes it recent. A frequently used first profile must
+    # not be the one evicted when a ninth journey is opened.
+    var active: Dictionary = profiles.get(scope, {"read": {}, "stars": []})
+    profiles.erase(scope)
+    profiles[scope] = active
     while profiles.size() > MAX_PROFILES:profiles.erase(profiles.keys()[0])
+    if dirty:flush()
 
 func _load(data: Variant) -> void:
     if not data is Dictionary or not (data.get("version") is int or data.get("version") is float) or data.get("version") != 1 or not data.get("profiles") is Dictionary:return
@@ -62,6 +70,8 @@ func mark_read(doc: Dictionary, value: bool) -> Dictionary:
     read.erase(doc.key)
     if value:read[doc.key] = doc.fingerprint
     while read.size() > MAX_READ:read.erase(read.keys()[0])
+    revision += 1
+    dirty = true
     return _save()
 
 func toggle_star(key: String) -> Dictionary:
@@ -70,24 +80,39 @@ func toggle_star(key: String) -> Dictionary:
     if stars.has(key):stars.erase(key)
     elif stars.size() >= MAX_STARS:return {"ok": false, "reason": "最多收藏64条记录"}
     else:stars.append(key)
+    revision += 1
+    dirty = true
     return _save()
 
+## Retry session-only edits after a transient write failure. Reopening the
+## journal also retries; a successful writer only acknowledges its snapshot.
+func flush() -> Dictionary:
+    return _save() if dirty else {"ok": true, "persisted": true, "error": OK, "reason": ""}
+
 func _save() -> Dictionary:
+    if saving:return {"ok": true, "persisted": false, "error": ERR_BUSY, "reason": "阅读偏好正在写入，修改会在下次重试。"}
+    saving = true
+    var snapshot_revision := revision
     var data := {"version": 1, "profiles": profiles.duplicate(true)}
     var result: int
-    if writer.is_valid():result = int(writer.call(data))
+    if writer.is_valid():
+        var answer: Variant = writer.call(data)
+        result = answer if answer is int else ERR_INVALID_DATA
     else:
         var temporary := path + ".tmp"
         var file := FileAccess.open(temporary, FileAccess.WRITE)
         if file == null:result = FileAccess.get_open_error()
         else:
             file.store_string(JSON.stringify(data))
+            file.flush()
             result = file.get_error()
             file.close()
             if result == OK:result = DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), ProjectSettings.globalize_path(path))
             if result != OK:DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
-    return {"ok": true, "persisted": result == OK, "error": result,
-        "reason": "" if result == OK else "阅读偏好未能写入，当前会话仍有效；旅途进度不受影响。"}
+    saving = false
+    dirty = result != OK or revision != snapshot_revision
+    return {"ok": true, "persisted": not dirty, "error": result,
+        "reason": "" if not dirty else "阅读偏好未能写入，当前会话仍有效；旅途进度不受影响。"}
 
 func filter_documents(documents: Array, query: String, unread_only: bool, stars_only: bool, sort_mode: int = 0) -> Array:
     var tokens := query.left(80).to_lower().strip_edges().split(" ", false)
