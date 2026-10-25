@@ -1,0 +1,478 @@
+{
+  "batch": [
+    {
+      "n": 1,
+      "pr": 262,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/262",
+      "title": "fix(T05): 预览服务媒体分段、请求容错与文件边界",
+      "branch": "codex/reliability-20261025d-01-preview-http",
+      "head": "082f444e3014b3360d1e89a8c8470bc2359720c1",
+      "tree": "66a96c16789d5ba8d25dc1552ab8cf016fa800aa",
+      "mergeable": true,
+      "files": 6,
+      "additions": 201,
+      "deletions": 41
+    },
+    {
+      "n": 2,
+      "pr": 263,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/263",
+      "title": "fix(U05): 旅记偏好最近使用淘汰、失败重试与写入快照",
+      "branch": "codex/reliability-20261025d-02-journal-preferences",
+      "head": "d083b1c153ef333ae463b84ef1025fa942ff237a",
+      "tree": "68eb7c5f9d7347e3a9c06ed0388eeee4912eb9e0",
+      "mergeable": true,
+      "files": 8,
+      "additions": 168,
+      "deletions": 4
+    },
+    {
+      "n": 3,
+      "pr": 265,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/265",
+      "title": "fix(U05): 长篇旅记与对话书签的内存和生命周期",
+      "branch": "codex/reliability-20261025d-03-reading-cache",
+      "head": "06e4c9f1e7bc679da1bdb2d93caf0830b6892359",
+      "tree": "f5aaa446e6dd1b94041364b414c63e7925ab04fb",
+      "mergeable": true,
+      "files": 9,
+      "additions": 158,
+      "deletions": 12
+    },
+    {
+      "n": 4,
+      "pr": 266,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/266",
+      "title": "fix(U03): 战斗装饰批量准入与节点所有权",
+      "branch": "codex/reliability-20261025d-04-visual-ownership",
+      "head": "7a80c21c13a9178d298b79499aebf55518727b42",
+      "tree": "281eef8d1120fbc4393f28b0ee7743e95cdc5065",
+      "mergeable": true,
+      "files": 8,
+      "additions": 138,
+      "deletions": 4
+    },
+    {
+      "n": 5,
+      "pr": 268,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/268",
+      "title": "fix(U03): HUD 遮挡随攻击生命周期更新",
+      "branch": "codex/reliability-20261025d-05-hud-lifetimes",
+      "head": "b7293683fe6dee1125289dbae0a967e32762570f",
+      "tree": "d9d4b198779696bed6ea4d24276291d035f48a1c",
+      "mergeable": true,
+      "files": 8,
+      "additions": 154,
+      "deletions": 11
+    },
+    {
+      "n": 6,
+      "pr": 269,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/269",
+      "title": "fix(C01): 打击停顿的真实时钟与全局速度归还",
+      "branch": "codex/reliability-20261025d-06-hitstop-clock",
+      "head": "a562b3dd1ab0b663df152efc943007d0c222bd36",
+      "tree": "d2ab52c05475c40fc43a124d77ed01c2b41871ba",
+      "mergeable": true,
+      "files": 8,
+      "additions": 151,
+      "deletions": 10
+    },
+    {
+      "n": 7,
+      "pr": 270,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/270",
+      "title": "fix(A02): 镜头观察和跟随的异常采样恢复",
+      "branch": "codex/reliability-20261025d-07-camera-samples",
+      "head": "c25cc90fb7bd04ee5a3ea5d3f39e216bced4d4a7",
+      "tree": "61bd062f65469934552b9e6b532e4e8c9d4183ba",
+      "mergeable": true,
+      "files": 8,
+      "additions": 134,
+      "deletions": 4
+    },
+    {
+      "n": 8,
+      "pr": 271,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/271",
+      "title": "fix(A02): 房间镜头配置隔离与窄门稳定选择",
+      "branch": "codex/reliability-20261025d-08-room-framing",
+      "head": "9df600e5793f2ebe982f58efffc6072437007333",
+      "tree": "a4e75599327620141557de45b1774e2074a9c0f9",
+      "mergeable": true,
+      "files": 8,
+      "additions": 131,
+      "deletions": 3
+    },
+    {
+      "n": 9,
+      "pr": 272,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/272",
+      "title": "fix(U06): 设备操作提示的有效输入与专属绑定选择",
+      "branch": "codex/reliability-20261025d-09-input-intent",
+      "head": "8d7a244e50eb58d99ffd328a37ed43a1a617ef7b",
+      "tree": "d41e6f78b3fc2b10e601e77943c6e31769c0ca82",
+      "mergeable": true,
+      "files": 8,
+      "additions": 131,
+      "deletions": 7
+    },
+    {
+      "n": 10,
+      "pr": 273,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/273",
+      "title": "fix(W00/T03): 世界坐标预编译缓存与存档位置校验",
+      "branch": "codex/reliability-20261025d-10-coordinate-cache",
+      "head": "7126abbed0656765a9fd42392ed653478abf0a54",
+      "tree": "bd9c63945fe7c1f4088ae2f0e0bb29227edf3d4e",
+      "mergeable": true,
+      "files": 8,
+      "additions": 201,
+      "deletions": 34
+    }
+  ],
+  "others": [],
+  "ci": [
+    {
+      "pr": 262,
+      "runs": [
+        {
+          "id": 40168722208,
+          "name": "Preview HTTP reliability",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168722210,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 263,
+      "runs": [
+        {
+          "id": 40168756677,
+          "name": "Reliability journal_preferences",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168756545,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168756589,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168756475,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 265,
+      "runs": [
+        {
+          "id": 40168776754,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168776699,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168776736,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168776748,
+          "name": "Reliability reading_cache",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 266,
+      "runs": [
+        {
+          "id": 40168797758,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168797764,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168797829,
+          "name": "Reliability visual_ownership",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168797702,
+          "name": "Authored player-skill art",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168797796,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 268,
+      "runs": [
+        {
+          "id": 40168875857,
+          "name": "Reliability hud_lifetimes",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168875845,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168875824,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168875814,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 269,
+      "runs": [
+        {
+          "id": 40168896764,
+          "name": "Grounded motion and melee feedback",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168896786,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168896761,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168896775,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168896799,
+          "name": "Reliability hitstop_clock",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 270,
+      "runs": [
+        {
+          "id": 40168917589,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168917564,
+          "name": "Reliability camera_samples",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168917516,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168917670,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168917662,
+          "name": "Stable room camera follow",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 271,
+      "runs": [
+        {
+          "id": 40168974940,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168974947,
+          "name": "Room camera doorways",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168975049,
+          "name": "Reliability room_framing",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168974970,
+          "name": "Stable room camera follow",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168974987,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168974973,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 272,
+      "runs": [
+        {
+          "id": 40168996134,
+          "name": "Input prompt readability",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168996229,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168996109,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168996157,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40168996184,
+          "name": "Reliability input_intent",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    },
+    {
+      "pr": 273,
+      "runs": [
+        {
+          "id": 40169015785,
+          "name": "Desktop release candidates",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40169015919,
+          "name": "Reliability coordinate_cache",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40169015804,
+          "name": "Inscription typography and UI",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40169015768,
+          "name": "World private checkpoints and map pins",
+          "status": "queued",
+          "conclusion": null
+        },
+        {
+          "id": 40169015762,
+          "name": "Godot integration regressions",
+          "status": "queued",
+          "conclusion": null
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "engine": "4.6.1.stable.official.14d19694e",
+    "source_tree": "2ca1fd9b630e8994dc794846ddadf775af9991d1",
+    "new_isolated_checks": 190,
+    "negative_controls": 9,
+    "frozen_headless_suites": 5,
+    "real_software_gl_suites": 4,
+    "strict_resource_import_passes": 2,
+    "npm_test": "passed",
+    "campaign": "passed",
+    "http": "passed",
+    "source_hashes_unchanged_after_tests": true,
+    "ci_status": "queued at last API read; not reported as passed",
+    "not_tested": [
+      "physical controller",
+      "natural complete campaign",
+      "full release packages",
+      "all existing Godot suites",
+      "other agents unmerged combinations"
+    ]
+  }
+}
