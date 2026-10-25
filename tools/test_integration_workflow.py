@@ -55,6 +55,14 @@ class IntegrationWorkflowTests(unittest.TestCase):
     def test_workflow_self_test_runs_in_runtime_job(self):
         self.assertIn('python3 tools/test_integration_workflow.py', self.runtime)
 
+    def test_actual_editor_plugin_gate_is_separate_from_recovery_import(self):
+        command = 'python3 tools/test_metsys_cold_import.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/metsys-editor"'
+        self.assertEqual(self.runtime.count(command), 1)
+        self.assertNotIn(command, self.visual)
+        self.assertIn('python3 tools/test_metsys_probe_contract.py', self.runtime)
+        self.assertIn("godot/addons/MetroidvaniaSystem/**", self.runtime)
+        self.assertNotIn('--recovery-mode', command)
+
 
 if __name__ == '__main__':
     unittest.main()

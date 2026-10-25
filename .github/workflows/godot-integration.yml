@@ -30,7 +30,7 @@ jobs:
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**'
+          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**'
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
@@ -45,6 +45,11 @@ jobs:
           python3 tools/test_repack_enemy_attack_frames.py
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
+      - name: Validate cold and warm MetSys editor lifecycle
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/test_metsys_probe_contract.py
+          python3 tools/test_metsys_cold_import.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/metsys-editor"
       - name: Import resources without editor plugins
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
@@ -83,7 +88,7 @@ jobs:
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**'
+          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**'
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
