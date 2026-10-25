@@ -28,13 +28,24 @@ func _enter_tree() -> void:
 	EditorInterface.get_resource_previewer().add_preview_generator(preview_plugin)
 
 func _exit_tree() -> void:
-	remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, button)
+	if is_instance_valid(button):
+		remove_control_from_container(EditorPlugin.CONTAINER_CANVAS_EDITOR_MENU, button)
+		# Removing a toolbar control does not free it. An orphan here also
+		# retains the editor theme, shaped text, fonts and preview textures.
+		button.free()
+	button = null
+	if is_instance_valid(current_instance) and current_instance.previews_updated.is_connected(update_preview_list_after_frame):
+		current_instance.previews_updated.disconnect(update_preview_list_after_frame)
+	current_instance = null
+	preview_list.clear()
+	hovered_preview = null
 	remove_inspector_plugin(inspector_plugin)
 	remove_export_plugin(export_plugin)
 	EditorInterface.get_resource_previewer().remove_preview_generator(preview_plugin)
 
 func _make_visible(visible: bool) -> void:
-	button.visible = visible
+	if is_instance_valid(button):
+		button.visible = visible
 
 func _handles(object: Object) -> bool:
 	return object is MetroidvaniaSystem.RoomInstance

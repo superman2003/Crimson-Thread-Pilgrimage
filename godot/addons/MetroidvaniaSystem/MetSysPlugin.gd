@@ -12,6 +12,9 @@ var prev_theme_state: Array
 var translation_list: Array[Translation]
 var is_unsaved: bool
 var cumulative_change: Array[StringName]
+var editor_ready := false
+var requested_visibility := false
+var pending_offsets: Dictionary = {}
 
 signal presaved
 signal saved
@@ -45,7 +48,19 @@ func _enter_tree() -> void:
 	for translation in translation_list:
 		editor_translation.add_translation(translation)
 	
-	await get_tree().process_frame
+	# Poll on editor frames instead of suspending a coroutine which can retain
+	# plugin resources when the editor quits before its first scan completes.
+	set_process(true)
+
+func _process(_delta: float) -> void:
+	if EditorInterface.get_resource_filesystem().is_scanning():
+		return
+	set_process(false)
+	_initialize_editor()
+
+func _initialize_editor() -> void:
+	if not is_inside_tree():
+		return
 	if not get_singleton():
 		if FileAccess.file_exists("user://MetSysFail"):
 			var dialog := ConfirmationDialog.new()
@@ -72,9 +87,10 @@ func _enter_tree() -> void:
 	
 	get_singleton().editor_plugin = self
 	
-	main = load("uid://crxgu2q73va5y").instantiate()
+	main = load("res://addons/MetroidvaniaSystem/Database/Main.tscn").instantiate()
 	EditorInterface.get_editor_main_screen().add_child(main)
-	main.hide()
+	_apply_pending_offsets()
+	_make_visible(requested_visibility)
 	
 	var metsys_tools := PopupMenu.new()
 	metsys_tools.add_item("Print Object ID")
@@ -89,19 +105,32 @@ func _enter_tree() -> void:
 	EditorInterface.get_command_palette().add_command("Copy Object ID to Clipboard", "met_sys/copy_object_id_to_clipboard", on_tool_option.bind(TOOL_COPY_ID))
 	
 	get_singleton().settings.theme_changed.connect(func(): prev_theme_state.clear())
+	editor_ready = true
+	print("METSYS_EDITOR_READY")
 
 func _exit_tree() -> void:
 	var editor_translation := TranslationServer.get_or_add_domain(&"godot.editor")
 	for translation in translation_list:
 		editor_translation.remove_translation(translation)
 	
-	main.queue_free()
+	if is_instance_valid(main):
+		# This panel belongs to the editor's screen, not to the plugin tree.
+		# Retire it before editor renderer/font teardown, including immediate quit.
+		main.free()
+	var singleton = get_singleton()
+	if singleton != null and singleton.editor_plugin == self:
+		singleton.editor_plugin = null
+	if not editor_ready:
+		return
 	remove_tool_menu_item("MetSys")
 	
 	EditorInterface.get_command_palette().remove_command("met_sys/print_object_id")
 	EditorInterface.get_command_palette().remove_command("met_sys/copy_object_id_to_clipboard")
 
 func _make_visible(visible: bool) -> void:
+	requested_visibility = visible
+	if not is_instance_valid(main):
+		return
 	main.visible = visible
 	if visible:
 		theme_scanner.start()
@@ -121,22 +150,42 @@ func _save_external_data() -> void:
 	saved.emit()
 
 func _get_unsaved_status(for_scene: String) -> String:
+	if not is_instance_valid(main):
+		return ""
 	if for_scene.is_empty() and main.tabs.get_child(0).is_unsaved():
 		return tr("MetSys map has been modified.\nDo you want to save?")
 	return ""
 
 func _get_window_layout(configuration: ConfigFile) -> void:
+	if not is_instance_valid(main):
+		for key in pending_offsets:
+			configuration.set_value("MetSys", key, pending_offsets[key])
+		return
 	configuration.set_value("MetSys", "editor_offset", main.editor.map_offset)
 	configuration.set_value("MetSys", "viewer_offset", main.viewer.map_offset)
 
 func _set_window_layout(configuration: ConfigFile) -> void:
 	if configuration.has_section("MetSys"):
-		main.editor.map_offset = configuration.get_value("MetSys", "editor_offset")
+		for key in ["editor_offset", "viewer_offset"]:
+			var value = configuration.get_value("MetSys", key, Vector2.ZERO)
+			if value is Vector2 and value.is_finite():
+				pending_offsets[key] = value
+	_apply_pending_offsets()
+
+func _apply_pending_offsets() -> void:
+	if not is_instance_valid(main):
+		return
+	if pending_offsets.has("editor_offset"):
+		main.editor.map_offset = pending_offsets.editor_offset
 		main.editor.update_map_position()
-		main.viewer.map_offset = configuration.get_value("MetSys", "viewer_offset")
+	if pending_offsets.has("viewer_offset"):
+		main.viewer.map_offset = pending_offsets.viewer_offset
 		main.viewer.update_map_position()
+	pending_offsets.clear()
 
 func get_singleton():# -> MetroidvaniaSystem:
+	if not is_inside_tree():
+		return null
 	return get_tree().root.get_node_or_null(^"MetSys")
 
 func check_theme():
