@@ -18,7 +18,9 @@ class ProofCraftEconomy(unittest.TestCase):
         self.assertTrue(any("evidence_canal_track" in e and "no growth use" in e for e in audit(self.catalog)[1]))
 
     def test_sixth_region_material_cannot_be_left_without_a_sink(self):
-        self.catalog["recipes"]["craft_crown_pendant"]["materials"] = {"wet_chitin": 3}
+        for recipe in self.catalog["recipes"].values():
+            if "crown_echo_shard" in recipe.get("materials", {}):
+                recipe["materials"] = {"wet_chitin": 3}
         self.assertTrue(any("crown_echo_shard" in e and "no crafting sink" in e for e in audit(self.catalog)[1]))
 
     def test_fake_proof_does_not_count_as_a_challenge_source(self):
