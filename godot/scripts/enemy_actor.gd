@@ -2494,6 +2494,8 @@ func _hit_tier_key() -> String:
 func _role_cue(cue: String) -> void:
     role_cue_counts[cue] = int(role_cue_counts.get(cue, 0)) + 1
     _play_sfx("role_" + cue, -8.0 if cue == "alarm_call" else -10.0, 1.0, 1)
+    var director: Node=preload("res://scripts/audio_director.gd").instance
+    if is_instance_valid(director):director.foreground_warning(self)
     if cue == "support_mend":
         return
     var reveal := cue == "ambush_reveal"

@@ -5174,6 +5174,7 @@ func _make_npc(data: Dictionary) -> Area2D:
     area.position = _vec2(data.get("position", [0, 0]))
     var role := String(data.get("role", ""))
     area.set_meta("kind", "npc")
+    area.add_to_group("npc_sound_landmark")
     area.set_meta("label", _npc_display_name(data))
     area.set_meta("dialogue", _npc_dialogue(data))
     area.set_meta("dialogue_index", 0)
