@@ -35,7 +35,8 @@ def load(name: str):
 
 
 def audit(catalog_override: dict | None = None) -> tuple[dict, list[str]]:
-    errors: list[str] = []
+    from audit_material_exchange import audit as audit_exchange
+    errors: list[str] = audit_exchange()
     main = MAIN.read_text(encoding="utf-8")
     # The runtime must charge the seller's price, not a shared constant.
     cartography = (ROOT / "godot/scripts/cartography_runtime.gd").read_text(encoding="utf-8")

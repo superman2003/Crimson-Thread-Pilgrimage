@@ -238,6 +238,7 @@ func finish_bind() -> void:
     preload("res://scripts/combat_desk.gd").install(self)
     preload("res://scripts/field_contract_desk.gd").install(self)
     preload("res://scripts/sparring_desk.gd").install(self)
+    preload("res://scripts/material_exchange_desk.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
