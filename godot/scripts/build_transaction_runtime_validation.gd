@@ -172,6 +172,23 @@ func _run() -> void:
 	selected_before=build.serialize()
 	selected_wallet=scene._build_wallet_snapshot()
 	_check(not scene.perform_build_action("resupply_tools","",{"limits":{"shard":true}}).get("ok",false) and build.serialize()==selected_before and scene._build_wallet_snapshot()==selected_wallet,"World rejects malformed selection without a payment or save mutation")
+	_check(scene.perform_build_action("save_loadout","工房原案").get("ok",false),"World saves the management source at a real shrine")
+	var managed_before: Dictionary=build.serialize()
+	var managed_wallet: Dictionary=scene._build_wallet_snapshot()
+	var managed_hp:=int(player.hp)
+	var managed_energy:=int(player.energy)
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("rename_loadout","工房原案","命名失败").get("ok",false) and build.serialize()==managed_before,"failed rename persistence restores exact source identity and ordering")
+	_check(not scene.perform_build_action("copy_loadout","工房原案","复制失败").get("ok",false) and build.serialize()==managed_before,"failed copy persistence creates no duplicate")
+	scene.world_save_failure_injected_for_validation=false
+	_check(scene.perform_build_action("rename_loadout","工房原案","守灯配置").get("ok",false) and not build.state.loadouts.has("工房原案"),"World commits a rename without overwriting another plan")
+	_check(scene.perform_build_action("copy_loadout","守灯配置","远行副本").get("ok",false) and build.state.loadouts.has("远行副本"),"World commits a detached named copy")
+	_check(scene._build_wallet_snapshot()==managed_wallet and player.hp==managed_hp and player.energy==managed_energy and build.cooldowns==managed_before.cooldowns and build.state.tool_counts==managed_before.tool_counts,"naming and copying preserve wallet HP thread stock and cooldowns")
+	var disk:=preload("res://scripts/world_state.gd").new()
+	_check(disk.read(SAVE_PATH) and disk.data.build_state.loadouts.has("守灯配置") and disk.data.build_state.loadouts.has("远行副本") and not disk.data.build_state.loadouts.has("工房原案"),"fresh production save read contains both final plan identities")
+	player.global_position=Vector2(70000,70000)
+	managed_before=build.serialize()
+	_check(not scene.perform_build_action("rename_loadout","守灯配置","道路改名").get("ok",false) and not scene.perform_build_action("copy_loadout","守灯配置","道路复制").get("ok",false) and build.serialize()==managed_before,"World rejects both management writes away from shrine")
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:

@@ -7778,6 +7778,9 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
         if not _near_workstation():
             return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
         return build_system.quote_resupply(_build_wallet_snapshot(), {} if extra == null else extra)
+    if action == "quote_loadout_management":
+        if not extra is Dictionary or not extra.get("copy",false) is bool:return {"ok":false,"reason":"方案操作无效"}
+        return build_system.preview_loadout_management(id,extra.get("name"),bool(extra.get("copy",false)),_near_workstation())
     if action in ["resupply_tools", "paid_resupply"] and not _near_workstation():
         return {"ok": false, "reason": "请在钟龛补给战具"}
     if world_save_blocked:
@@ -7807,6 +7810,10 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             result = build_system.save_loadout(id, _near_workstation())
         "delete_loadout":
             result = build_system.delete_loadout(id, _near_workstation())
+        "rename_loadout":
+            result = build_system.rename_loadout(id,extra,_near_workstation())
+        "copy_loadout":
+            result = build_system.copy_loadout(id,extra,_near_workstation())
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
         "resupply_tools", "paid_resupply":

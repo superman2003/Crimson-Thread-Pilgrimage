@@ -621,10 +621,51 @@ func _settle_families(families: Dictionary, crest: String) -> void:
             if removed: break
         if not removed: break
 
+func _loadout_name_error(value: Variant) -> String:
+    if not value is String:return "方案名称无效"
+    var name: String=value.strip_edges()
+    if name.is_empty():return "方案名称不能为空"
+    if name.length()>24:return "方案名称最多24个字"
+    for index in name.length():
+        if name.unicode_at(index)<32 or name.unicode_at(index)==127:return "方案名称不能含控制字符"
+    return ""
+
+func preview_loadout_management(source: String, target: Variant, copy: bool = false, at_bell: bool = true) -> Dictionary:
+    if not state.loadouts.has(source):return _fail("原方案不存在")
+    var error:=_loadout_name_error(target)
+    if not error.is_empty():return _fail(error)
+    var name: String=target.strip_edges()
+    if name==source:return _fail("请输入不同的新名称")
+    if state.loadouts.has(name):return _fail("新名称已存在，不会覆盖其它方案")
+    if copy and state.loadouts.size()>=8:return _fail("最多保存8个构筑方案")
+    if not state.loadouts[source] is Dictionary:return _fail("原方案数据损坏")
+    var source_error:=_validate_loadout(state.loadouts[source])
+    if not source_error.is_empty():return _fail(source_error)
+    return _ok({"target":name,"copy":copy,"can_apply":at_bell,"source_snapshot":state.loadouts[source].duplicate(true),
+        "reason":"" if at_bell else "请在钟龛管理构筑方案"})
+
+func rename_loadout(source: String, target: Variant, at_bell: bool = true) -> Dictionary:
+    var quote:=preview_loadout_management(source,target,false,at_bell)
+    if not quote.get("ok",false):return quote
+    if not at_bell:return _fail(quote.reason)
+    var renamed:={}
+    for name in state.loadouts:
+        renamed[quote.target if name==source else name]=state.loadouts[name].duplicate(true)
+    state.loadouts=renamed
+    return _ok({"reason":"方案已重命名；当前装备与资源不变。","name":quote.target})
+
+func copy_loadout(source: String, target: Variant, at_bell: bool = true) -> Dictionary:
+    var quote:=preview_loadout_management(source,target,true,at_bell)
+    if not quote.get("ok",false):return quote
+    if not at_bell:return _fail(quote.reason)
+    state.loadouts[quote.target]=quote.source_snapshot.duplicate(true)
+    return _ok({"reason":"已复制保存方案；当前装备与资源不变。","name":quote.target})
+
 func save_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛保存构筑方案")
-    name = name.strip_edges().left(24)
-    if name.is_empty(): return _fail("方案名称不能为空")
+    var error:=_loadout_name_error(name)
+    if not error.is_empty():return _fail(error)
+    name = name.strip_edges()
     if state.loadouts.size() >= 8 and not state.loadouts.has(name): return _fail("最多保存8个构筑方案")
     state.loadouts[name] = {"crest": state.crest, "skills": state.skills.duplicate(), "tools": state.tools.duplicate(),
         "passives": state.passives.duplicate(), "active_skill_slot": state.active_skill_slot,
@@ -651,8 +692,20 @@ func preview_loadout(name: String, at_bell: bool = true) -> Dictionary:
     var result: Dictionary = candidate.restore_loadout(name, true)
     if not bool(result.get("ok", false)): return result
     return _ok({"can_restore": at_bell, "reason": "" if at_bell else "请在钟龛恢复构筑",
-        "profile": candidate.profile(), "equipped_families": candidate.state.equipped_families.duplicate(true),
+        "profile": candidate.profile(), "current_profile": profile(), "changes": _loadout_changes(candidate), "equipped_families": candidate.state.equipped_families.duplicate(true),
         "currency_cost": 0, "refills_resources": false})
+
+func _loadout_changes(candidate: RefCounted) -> Array:
+    var changes: Array=[]
+    if state.crest!=candidate.state.crest:changes.append({"kind":"crest","from":state.crest,"to":candidate.state.crest})
+    for family in state.equipped_families:
+        var before: Array=state.equipped_families[family]
+        var after: Array=candidate.state.equipped_families[family]
+        for index in before.size():
+            if before[index]!=after[index]:changes.append({"kind":"slot","family":family,"slot":index,"from":before[index],"to":after[index]})
+    for key in ["active_skill_slot","active_tool_slot"]:
+        if state[key]!=candidate.state[key]:changes.append({"kind":"active","field":key,"from":state[key],"to":candidate.state[key]})
+    return changes
 
 func restore_loadout(name: String, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛恢复构筑")

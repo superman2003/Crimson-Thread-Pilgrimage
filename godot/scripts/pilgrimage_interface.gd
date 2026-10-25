@@ -80,6 +80,7 @@ var build_tabs: Array[Button]=[]
 var build_category := "契印"
 var build_selection := ""
 var loadout_dialog: ConfirmationDialog
+var loadout_manager: ConfirmationDialog
 var pending_loadout_action := ""
 var pending_loadout_name := ""
 var build_assign_slot := 0
@@ -1683,6 +1684,9 @@ func refresh_build() -> void:
                 var remove:=_button(build_grid,"删除「%s」" % id,Vector2.ZERO,Vector2(563,30),func():_request_loadout_change("delete_loadout",name_value))
                 remove.custom_minimum_size=Vector2(563,30)
                 remove.set_meta("loadout_delete",id)
+                var manage:=_button(build_grid,"重命名 / 复制「%s」" % id,Vector2.ZERO,Vector2(563,30),func():_open_loadout_manager(name_value))
+                manage.custom_minimum_size=Vector2(563,30)
+                manage.set_meta("loadout_manage",id)
     if first!=null:
         var current_focus:=get_viewport().gui_get_focus_owner()
         if build_panel.visible and (current_focus==null or not build_panel.is_ancestor_of(current_focus)):first.grab_focus()
@@ -1691,6 +1695,43 @@ func refresh_build() -> void:
                 _show_build_detail(value)
                 return
         _show_build_detail(entries[0])
+
+func _open_loadout_manager(source: String) -> void:
+    if not build_panel.is_visible_in_tree() or build_category!="构筑" or not _is_at_build_workstation(_build_snapshot()):return
+    if not is_instance_valid(loadout_manager):
+        loadout_manager=preload("res://scripts/loadout_manager.gd").new()
+        build_panel.add_child(loadout_manager)
+        build_panel.visibility_changed.connect(func():
+            if not build_panel.visible and is_instance_valid(loadout_manager):loadout_manager.hide())
+    loadout_manager.open(source,
+        func(name: String, copy: bool):return level.call("perform_build_action","quote_loadout_management",source,{"name":name,"copy":copy}),
+        func(name: String, copy: bool):
+            var result: Dictionary=level.call("perform_build_action","copy_loadout" if copy else "rename_loadout",source,name)
+            if bool(result.get("ok",false)):build_selection=name
+            refresh_build()
+            return result)
+
+func _loadout_difference_text(preview: Dictionary, system: RefCounted) -> Array[String]:
+    var lines: Array[String]=[]
+    var family_names:={"thread_skill":"线技","tool":"战具","combat_accessory":"战斗铭饰","travel_accessory":"行旅铭饰"}
+    for change in preview.get("changes",[]):
+        if change.kind=="crest":
+            lines.append("契印：%s → %s" % [system.catalog.crests.get(change.from,{}).get("name",change.from),system.catalog.crests.get(change.to,{}).get("name",change.to)])
+        elif change.kind=="slot":
+            var family:=String(change.family)
+            var table:=String({"thread_skill":"skills","tool":"tools"}.get(family,"passives"))
+            var before:=String(system.catalog[table].get(change.from,{}).get("name","空"))
+            var after:=String(system.catalog[table].get(change.to,{}).get("name","空"))
+            lines.append("%s%d：%s → %s" % [family_names.get(family,family),int(change.slot)+1,before,after])
+        elif change.kind=="active":lines.append("%s：%d → %d" % ["活动线技" if change.field=="active_skill_slot" else "活动战具",int(change.from)+1,int(change.to)+1])
+    if lines.is_empty():lines.append("装备与当前完全相同。")
+    var before: Dictionary=preview.get("current_profile",{})
+    var after: Dictionary=preview.get("profile",{})
+    for pair in [["attack_damage_mult","针击伤害倍率"],["attack_speed_mult","针击速度倍率"],["move_mult","移动倍率"],["heal_cost","疗伤耗线"],["heal_amount","疗伤恢复"],["heal_duration","疗伤秒数"],["energy_per_hit","每次命中取线"],["skill_cost_mult","线技耗线倍率"]]:
+        var key: String=pair[0]
+        if before.has(key) and after.has(key) and not is_equal_approx(float(before[key]),float(after[key])):
+            lines.append("%s：%.2f → %.2f" % [pair[1],float(before[key]),float(after[key])])
+    return lines
 
 func _loadout_names(snapshot: Dictionary) -> Array[String]:
     var result: Array[String]=[]
@@ -1833,6 +1874,7 @@ func _show_build_detail(entry: Dictionary) -> void:
         if not saved_build.is_empty():lines.append("\n已保存配置\n"+_loadout_preview(saved_build,system))
         var preview:=_loadout_quote(String(entry.get("id","")))
         lines.append("\n恢复条件："+("可以恢复 · 不花碎钱或材料" if bool(preview.get("can_restore",false)) else String(preview.get("reason","当前不可恢复"))))
+        if bool(preview.get("ok",false)):lines.append("\n实际变化\n"+"\n".join(_loadout_difference_text(preview,system)))
         var projected: Dictionary=preview.get("profile",{})
         if not projected.is_empty():
             lines.append("生命上限：%d → %d" % [int(level.player.max_hp),int(projected.get("max_hp",level.player.max_hp))])
