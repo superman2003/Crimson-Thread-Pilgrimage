@@ -1,0 +1,20 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:26.441474+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "reset cancellation preserves progress; storage denial preserves live state"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/progress.js": "01e94d29f51aff5532ea75ad30a9fc130c9d2c1fb9b47fe96227d05d398faaf1",
+    "src/main.js": "4b2d0dfb1f2f74371508ab5eff855c35cf9c9a619d093e8669c737aadbf061a4",
+    "tests/browser-03-progress.test.mjs": "ba0a5ec5d680d6bde8dd93321ec75ae218fd870ea51a037af2e0be2377d18358",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}

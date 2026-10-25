@@ -350,9 +350,15 @@ function startBossTrial(index, options = {}) {
 }
 
 function resetProgress() {
+  if (!window.confirm("重置浏览器试玩进度？将清除已解锁章节，Godot 存档不受影响。")) return;
+  if (!progressFeature().save(1, true)) {
+    browserProgressNotice ??= mountProgressStatus(progressFeature(), () => saveUnlocks());
+    browserProgressNotice.refresh();
+    return;
+  }
   state.unlocked = 1;
   state.chapterIndex = 0;
-  saveUnlocks();
+  saveUnlocks(true);
   renderChapterList();
   state.mode = "menu";
   menu.classList.remove("is-hidden");
@@ -1853,21 +1859,35 @@ function updateHud() {
     : state.unlocked >= CHAPTERS.length ? "可终章" : "待启程";
 }
 
-function loadUnlocks() {
-  try {
-    return clamp(Number(localStorage.getItem("crimson-thread-unlocked") || 1), 1, CHAPTERS.length);
-  } catch {
-    return 1;
-  }
+import { ProgressStore, mountProgressStatus, PROGRESS_KEY } from "./browser/progress.js";
+var browserProgress, browserProgressNotice;
+function progressFeature() {
+  return browserProgress ??= new ProgressStore(() => window.localStorage, CHAPTERS.length);
 }
 
-function saveUnlocks() {
-  try {
-    localStorage.setItem("crimson-thread-unlocked", String(state.unlocked));
-  } catch {
-    // Local storage is optional for browser privacy modes.
-  }
+function loadUnlocks() {
+  const store = progressFeature();
+  const unlocked = store.read();
+  if (store.error) queueMicrotask(() => {
+    browserProgressNotice ??= mountProgressStatus(store, () => saveUnlocks());
+    browserProgressNotice.refresh();
+  });
+  return unlocked;
 }
+
+function saveUnlocks(reset = false) {
+  const store = progressFeature();
+  const saved = store.save(state.unlocked, reset);
+  browserProgressNotice ??= mountProgressStatus(store, () => saveUnlocks());
+  browserProgressNotice.refresh();
+  return saved;
+}
+window.addEventListener("storage", event => {
+  if (event.key !== PROGRESS_KEY && event.key !== null) return;
+  // Never interrupt a running chapter or reduce this tab's session unlocks.
+  state.unlocked = Math.max(state.unlocked, progressFeature().read());
+  if (state.mode === "menu") renderChapterList();
+});
 
 function ensureAudio() {
   if (!audio.ctx) {
