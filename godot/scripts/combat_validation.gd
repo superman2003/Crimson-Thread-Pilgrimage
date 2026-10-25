@@ -115,6 +115,10 @@ func _run() -> void:
 
     var burst_enemy := _spawn_enemy(Vector2(154, 140), 4, profiles.get("moss_larva", {}))
     await _frames(3)
+    # The hook hit's hitstop runs on the wall clock and slows physics, so the
+    # hook's recovery can outlast a fixed frame count on slow renderers.
+    await _frames_until_player_can_act(player, 60)
+    _assert(player._can_start_action(), "player recovers from the hook attack before the L skill")
     player.energy = player.skill_energy_cost
     player._try_skill_burst()
     await _frames(20)
@@ -192,6 +196,13 @@ func _add_floor(y: float) -> void:
 
 func _frames(count: int) -> void:
     for _i in range(count):
+        await physics_frame
+
+
+func _frames_until_player_can_act(player: CharacterBody2D, max_frames: int) -> void:
+    for _i in range(max_frames):
+        if player._can_start_action():
+            return
         await physics_frame
 
 
