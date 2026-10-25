@@ -45,3 +45,20 @@ func domain_checks(context: RefCounted) -> void:
     var forbidden := card.duplicate(true)
     forbidden["save_path"] = "user://private"
     check(not M.valid_body(forbidden), "unknown private field is outside share schema")
+
+    var exhausted := RECORDS.fresh()
+    exhausted.sequence = 100000000
+    var incoming := RECORDS.append(RECORDS.fresh(), "independent observation", payload)
+    var rejected := RECORDS.merge(exhausted, incoming)
+    check(
+        not rejected.ok and exhausted.records.is_empty(),
+        "exhausted record sequence rejects import atomically before append"
+    )
+    var partial := RECORDS.append(RECORDS.fresh(), "existing", payload)
+    partial.sequence = 99999999
+    var two := RECORDS.append(incoming, "another observation", payload)
+    var result := RECORDS.merge(partial, two)
+    check(
+        not result.ok and partial.records.size() == 1 and partial.sequence == 99999999,
+        "multi-record import rolls back candidate when second sequence would exceed cap"
+    )

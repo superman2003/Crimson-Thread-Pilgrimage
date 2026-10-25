@@ -149,8 +149,8 @@ static func merge(data: Dictionary, incoming: Dictionary) -> Dictionary:
         var key := semantic_key({"title": row.title, "note": row.note, "payload": row.payload})
         if fingerprints.has(key):
             continue
-        if next.records.size() >= LIMIT:
-            return {"ok": false, "reason": "合并超过60份记录，未应用部分结果。"}
+        if next.records.size() >= LIMIT or int(next.sequence) >= 100000000:
+            return {"ok": false, "reason": "合并超过记录数或序号上限，未应用部分结果。"}
         next = append(next, String(row.title), row.payload)
         next.records[0].note = row.note
         next.records[0].favorite = row.favorite
