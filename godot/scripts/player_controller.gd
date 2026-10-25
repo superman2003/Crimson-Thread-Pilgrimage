@@ -8,6 +8,8 @@ var arrival_guard_timer := 0.0
 signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 signal heal_state_changed(state: String)
 signal skill_cast(skill_id: String)
+## Post-acceptance observations; consumers cannot change combat outcomes.
+signal combat_observed(event: Dictionary)
 
 @export var debug_invulnerable := false
 @export var bell_guard_unlocked := false
@@ -1457,6 +1459,9 @@ func _apply_attack_hits() -> void:
                 if footstep_material == "copper":
                     _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
+            var observed_boss: Variant=node.get("is_boss")
+            combat_observed.emit({"kind":"strike","damage":maxi(0,target_hp_before-maxi(0,int(node.get("hp")))),"killed":killed,
+                "boss":observed_boss is bool and observed_boss,"practice":node.has_meta("seal_training_target") or node.has_meta("tool_training_target")})
             var energy_before := energy
             if active_skill.is_empty():
                 gain_energy(energy_per_hit)
@@ -2169,6 +2174,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         guard_timer = 0.0
         hurt_timer = 0.12
         GUARD_ART.blocked(self, perfect)
+        combat_observed.emit({"kind":"guard","perfect":perfect})
         return
     GUARD_ART.clear(self)
     CONTACT_ART.clear_player(self)
@@ -2186,8 +2192,10 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     attack_timer = 0.0
     attack_shape.set_deferred("disabled", true)
     amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
+    var hp_before_damage := hp
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
+    combat_observed.emit({"kind":"hurt","damage":hp_before_damage-hp,"lethal":hp<=0})
     # P0 生死攸关音：声部抢占最高优先级。
     _play_sfx("hurt", -6.0, 1.0, "", 0)
     if hp <= 0:
