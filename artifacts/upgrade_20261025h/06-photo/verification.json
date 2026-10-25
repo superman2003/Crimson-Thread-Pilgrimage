@@ -1,0 +1,17 @@
+{
+  "engine": "4.6.1-stable",
+  "checks": {
+    "headless.log": 13,
+    "real-gl.log": 15,
+    "world-headless.log": 13,
+    "world-gl.log": 13
+  },
+  "shared_core_checks": 17,
+  "backends": [
+    "headless",
+    "Mesa llvmpipe OpenGL"
+  ],
+  "independent_snapshot": "foundation plus this feature only",
+  "world_ready_gate_seconds": 15,
+  "primary_save_restore": null
+}
