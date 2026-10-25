@@ -310,6 +310,13 @@ func _run() -> void:
     _check(bounded.bookmarks.size()==64 and bounded.resume("0","text")==0 and bounded.resume("79","text")==79,"Session bookmarks evict old entries at a fixed memory bound")
     bounded.capture("bad","text",NAN)
     _check(not bounded.bookmarks.has("bad"),"Non-finite offsets cannot enter reading state")
+    runtime.build_system.snapshot.at_workstation=true
+    ui.build_panel.show()
+    ui._open_resupply_planner()
+    _check(ui.resupply_planner.visible and ui.resupply_planner.rows.size()==2,"Production build entry opens owned-tool shopping planner")
+    var planner_calls:=runtime.action_calls.size()
+    ui.build_panel.hide()
+    _check(not ui.resupply_planner.visible and runtime.action_calls.size()==planner_calls,"Closing build overlay cancels shopping without a transaction")
     runtime.free()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(SETTINGS_PATH))
     await process_frame

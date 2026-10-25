@@ -152,6 +152,26 @@ func _run() -> void:
 	player.global_position=Vector2(70000,70000)
 	plans_before=build.serialize()
 	_check(not scene.perform_build_action("save_loadout","道路方案").get("ok",false) and build.serialize()==plans_before,"production action rejects saving plans away from a shrine")
+	# Selected quantities must survive both the real adapter and durable rollback.
+	var selection := {"order":["shard"], "limits":{"shard":1}}
+	var road_wallet: Dictionary=scene._build_wallet_snapshot()
+	_check(not scene.perform_build_action("resupply_tools","",selection).get("ok",false) and scene._build_wallet_snapshot()==road_wallet,"selected purchase cannot bypass shrine distance")
+	player.global_position=shrine.global_position
+	scene.currency_count=100
+	scene.inventory_counts["moss_chitin"]=10
+	build.state.tool_counts.shard=0
+	var selected_before: Dictionary=build.serialize()
+	var selected_wallet: Dictionary=scene._build_wallet_snapshot()
+	var selected_quote: Dictionary=scene.perform_build_action("quote_resupply","",selection)
+	_check(selected_quote.get("charges",{})=={"shard":1} and build.serialize()==selected_before,"World forwards selected quantity into a read-only quote")
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("resupply_tools","",selection).get("ok",false) and build.serialize()==selected_before and scene._build_wallet_snapshot()==selected_wallet,"selected failed-save purchase restores exact stock and wallet")
+	scene.world_save_failure_injected_for_validation=false
+	var selected_purchase: Dictionary=scene.perform_build_action("resupply_tools","",selection)
+	_check(selected_purchase.get("ok",false) and build.state.tool_counts.shard==1 and scene.currency_count==96 and scene.inventory_counts.moss_chitin==9,"World durable purchase buys exactly one selected unit")
+	selected_before=build.serialize()
+	selected_wallet=scene._build_wallet_snapshot()
+	_check(not scene.perform_build_action("resupply_tools","",{"limits":{"shard":true}}).get("ok",false) and build.serialize()==selected_before and scene._build_wallet_snapshot()==selected_wallet,"World rejects malformed selection without a payment or save mutation")
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:

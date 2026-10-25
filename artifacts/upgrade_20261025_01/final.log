@@ -1,0 +1,21 @@
+Running resupply_plan
+PASS: resupply_plan
+
+RESUPPLY_PLAN checks=41 failures=0
+Running build_slots
+PASS: build_slots
+
+BUILD SLOTS PASS: 48 checks
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=56 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running build_transaction_runtime
+PASS: build_transaction_runtime
+BUILD TRANSACTION RUNTIME PASS: 39 checks, real shrine, paid partial resupply and failed-save rollback
+按 F 休息，恢复状态并记录归途。
+Running seal_system
+PASS: seal_system
+
+SEAL SYSTEM PASS: 16 checks
+GODOT_REGRESSIONS suites=5 failures=0

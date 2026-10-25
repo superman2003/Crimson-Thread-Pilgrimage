@@ -7777,7 +7777,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
     if action == "quote_resupply":
         if not _near_workstation():
             return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
-        return build_system.quote_resupply(_build_wallet_snapshot())
+        return build_system.quote_resupply(_build_wallet_snapshot(), {} if extra == null else extra)
     if action in ["resupply_tools", "paid_resupply"] and not _near_workstation():
         return {"ok": false, "reason": "请在钟龛补给战具"}
     if world_save_blocked:
@@ -7810,7 +7810,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
         "resupply_tools", "paid_resupply":
-            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation())
+            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation(), {} if extra == null else extra)
             if result.get("ok", false):
                 _set_build_wallet(result.wallet)
         "transact", "craft":

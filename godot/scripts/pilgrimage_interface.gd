@@ -90,6 +90,8 @@ var clear_family_slot_button: Button
 var resupply_preview_button: Button
 var resupply_confirm_button: Button
 var resupply_quote: Dictionary={}
+var resupply_planner_button: Button
+var resupply_planner: ConfirmationDialog
 var combat_status: Label
 var energy_status: Label
 var healing_bar: ProgressBar
@@ -1179,6 +1181,8 @@ func _build_build_panel() -> void:
     resupply_preview_button.add_theme_font_size_override("font_size",13)
     resupply_confirm_button.add_theme_font_size_override("font_size",13)
     resupply_confirm_button.disabled=true
+    resupply_planner_button=_button(build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),_open_resupply_planner)
+    resupply_planner_button.add_theme_font_size_override("font_size",13)
     _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
 
 func _request_build_toggle() -> void:
@@ -1415,6 +1419,21 @@ func _all_family_count_summary(snapshot: Dictionary) -> String:
         parts.append("%s %d/%d%s" % [String(family.get("name",family_id)),active,slots.size()," · 休眠 %d" % dormant if dormant>0 else ""])
     return " · ".join(parts)
 
+func _open_resupply_planner() -> void:
+    if level==null or not level.has_method("perform_build_action"):return
+    if not is_instance_valid(resupply_planner):
+        resupply_planner=preload("res://scripts/resupply_planner.gd").new()
+        build_panel.add_child(resupply_planner)
+        build_panel.visibility_changed.connect(func():
+            if not build_panel.visible and is_instance_valid(resupply_planner):resupply_planner.hide())
+    resupply_planner.open(_build_snapshot().get("tools",[]),
+        func(plan: Dictionary):return level.call("perform_build_action","quote_resupply","",plan),
+        func(plan: Dictionary):
+            var result: Dictionary=level.call("perform_build_action","resupply_tools","",plan)
+            refresh_build()
+            return result,
+        func(id: String):return level._item_display_name(id) if level.has_method("_item_display_name") else id)
+
 func _preview_tool_resupply() -> void:
     resupply_quote={}
     if level==null or not level.has_method("perform_build_action"):
@@ -1511,6 +1530,7 @@ func refresh_build() -> void:
         clear_family_slot_button.hide()
         resupply_preview_button.hide()
         resupply_confirm_button.hide()
+        resupply_planner_button.hide()
         build_summary.text="巡行配置 · 碎钱 %d · 钟龛可调整四类装备并查看补给报价" % int(level.currency_count)
         build_detail.text="离开钟龛时，行装只允许切换已配置的技能与战具。请前往钟龛调整装备；技能校习请找织线学徒、雨铸匠或蜂蜡商人。"
         var current_skill:=String(snapshot.get("skill","未配置"))
@@ -1553,6 +1573,7 @@ func refresh_build() -> void:
     if not tool_family.is_empty():build_tabs[2].text=String(tool_family.get("name","战具"))
     for index in build_slot_buttons.size():
         if not has_typed_layout:build_slot_buttons[index].visible=build_category in ["技能","战具"] and index<2
+    resupply_planner_button.visible=build_category=="战具"
     resupply_preview_button.visible=build_category=="战具"
     resupply_confirm_button.visible=build_category=="战具"
     resupply_confirm_button.disabled=resupply_quote.is_empty() or not bool(resupply_quote.get("ok",false))
