@@ -1,0 +1,20 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:27.118798+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "simulated standard Gamepad API reaches player movement"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/gamepad.js": "e3302b9ba693d319ad6b75b0313de9e4ff5857aa5df03d74a43676d7d7e425a5",
+    "src/main.js": "2d215f1673c419c700c098dc4dcce2f418e3cafe22305bc3c82210febd39a226",
+    "tests/browser-06-gamepad.test.mjs": "80fbbb26222a2ba72fa460f15b0e4035490191aaed97d6ac5a9251530ad06911",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}

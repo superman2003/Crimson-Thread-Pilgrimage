@@ -478,21 +478,25 @@ function update(dt) {
   updateHud();
 }
 
+import { mountGamepad } from "./browser/gamepad.js";
+var browserGamepad;
 function updatePlayer(dt) {
+  browserGamepad ??= mountGamepad();
+  const controls = browserGamepad.read(input);
   const player = state.player;
   const chapter = CHAPTERS[state.chapterIndex];
   player.invuln = Math.max(0, player.invuln - dt);
   player.attackCooldown = Math.max(0, player.attackCooldown - dt);
   player.dashCooldown = Math.max(0, player.dashCooldown - dt);
   player.hazardLatch = Math.max(0, player.hazardLatch - dt);
-  player.jumpBuffer = input.jumpPressed ? PLAYER_TUNING.jumpBufferTime : Math.max(0, player.jumpBuffer - dt);
+  player.jumpBuffer = controls.jumpPressed ? PLAYER_TUNING.jumpBufferTime : Math.max(0, player.jumpBuffer - dt);
   player.landTimer = Math.max(0, player.landTimer - dt);
   player.coyote = player.grounded ? PLAYER_TUNING.coyoteTime : Math.max(0, player.coyote - dt);
 
-  const moveAxis = (input.right ? 1 : 0) - (input.left ? 1 : 0);
+  const moveAxis = (controls.right ? 1 : 0) - (controls.left ? 1 : 0);
   if (moveAxis !== 0) player.face = moveAxis;
 
-  if (input.dashPressed && player.dashCooldown <= 0) {
+  if (controls.dashPressed && player.dashCooldown <= 0) {
     player.dashTimer = PLAYER_TUNING.dashTime;
     player.dashCooldown = PLAYER_TUNING.dashCooldown;
     player.vx = player.face * PLAYER_TUNING.dashSpeed;
@@ -503,7 +507,7 @@ function updatePlayer(dt) {
     spawnParticles(player.x + player.w / 2, player.y + player.h / 2, chapter.palette.accent, 18);
   }
 
-  if (input.attackPressed && player.attackCooldown <= 0) {
+  if (controls.attackPressed && player.attackCooldown <= 0) {
     player.attackCooldown = 0.24;
     player.vx += player.face * (player.grounded ? PLAYER_TUNING.attackLunge : PLAYER_TUNING.attackLunge * 0.48);
     const attack = {
@@ -532,7 +536,7 @@ function updatePlayer(dt) {
     spawnParticles(player.x + player.w / 2, player.y + player.h, chapter.palette.groundAlt, 10);
   }
 
-  if (input.jumpReleased && player.vy < 0) {
+  if (controls.jumpReleased && player.vy < 0) {
     player.vy *= PLAYER_TUNING.jumpCutMultiplier;
   }
 
