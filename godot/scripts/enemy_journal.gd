@@ -19,5 +19,8 @@ static func records(flags: Dictionary) -> Array:
         var known: Variant=flags.get(PREFIX+kind,false)
         if not known is bool or not known:continue
         var entry: Dictionary=catalog[kind]
-        result.append({"id":"enemy_"+kind,"title":String(entry.name),"record_kind":"enemy","acquired":true,"description":String(entry.habit)})
+        var description:=String(entry.habit)
+        if not String(entry.get("warning","")).is_empty():description+="\n\n观察信号\n"+String(entry.warning)
+        if not String(entry.get("response","")).is_empty():description+="\n\n应对思路\n"+String(entry.response)
+        result.append({"id":"enemy_"+kind,"title":String(entry.name),"record_kind":"enemy","acquired":true,"description":description})
     return result

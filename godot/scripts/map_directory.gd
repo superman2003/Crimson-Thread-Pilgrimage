@@ -68,10 +68,22 @@ static func _record(kind: String, id: String, region: String, config: Dictionary
     return {"key":kind+":"+region+":"+id,"kind":kind,"region":region,"region_name":String(config.get("chapter_name",region)),
         "room_id":String(room.get("id","")),"title":String(room.get("name",room.get("id",""))),"point":point,"detail":detail}
 
-static func search(rows: Array, query: String, kind: String = "all") -> Array:
+static func regions(rows: Array) -> Array[Dictionary]:
+    # The directory only receives public rows; never enumerate the world atlas.
+    var known := {}
+    for row in rows:
+        if not known.has(String(row.region)):
+            known[String(row.region)] = {"id":String(row.region),"name":String(row.region_name)}
+    var result: Array[Dictionary] = []
+    for row in known.values():result.append(row)
+    result.sort_custom(func(a: Dictionary, b: Dictionary):return a.id < b.id)
+    return result
+
+static func search(rows: Array, query: String, kind: String = "all", region: String = "") -> Array:
     var result: Array = []
     var tokens := query.left(64).to_lower().strip_edges().split(" ",false)
     for row in rows:
+        if not region.is_empty() and row.region != region:continue
         if kind != "all" and row.kind != kind:continue
         var text := (String(row.title)+" "+String(row.region_name)+" "+String(row.detail)).to_lower()
         var matches := true
