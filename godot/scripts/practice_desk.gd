@@ -14,7 +14,7 @@ var player: Node
 var elapsed:=0.0
 
 static func install(shell: Control) -> void:
-    if not shell.level.world_mode:return
+    if not bool(shell.level.get("world_mode")):return
     var desk:=new();desk.name="PracticeDesk";shell.add_child(desk);desk.setup(shell)
 
 func setup(shell: Control) -> void:
