@@ -9,6 +9,16 @@ func check(ok: bool, label: String) -> void:
     if not ok:failures.append(label)
 
 func run() -> void:
+    var enemies:=preload("res://scripts/enemy_journal.gd")
+    var discovered:={}
+    for kind in enemies._entries():discovered[enemies.flag_for(kind)]=true
+    var source:=discovered.duplicate(true)
+    var notes: Array=enemies.records(discovered)
+    check(notes.size()==46 and discovered==source,"all actual defeated kinds have read-only tactical notes")
+    check(notes.all(func(note):return String(note.description).contains("观察信号") and String(note.description).contains("应对思路")),"each ordinary and boss note includes cues and a response")
+    var one: Array=enemies.records({enemies.flag_for("moss_larva"):true})
+    check(one.size()==1 and String(one[0].description).contains("蜷壳") and not String(one[0].description).contains("镜池"),"single discovery never imports another creature's tactics")
+    check(enemies.records({enemies.flag_for("moss_larva"):1}).is_empty(),"numeric discovery values cannot expose tactical notes")
     DirAccess.remove_absolute(ProjectSettings.globalize_path(PREFS))
     var catalog := CATALOG.new()
     catalog.path = PREFS
