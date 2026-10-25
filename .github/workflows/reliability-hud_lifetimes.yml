@@ -1,0 +1,32 @@
+name: Reliability hud_lifetimes
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/hud_occlusion.gd'
+      - 'godot/tests/reliability_hud_lifetimes.gd'
+      - '.github/workflows/reliability-hud_lifetimes.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned engine
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
+      - name: Exercise production module without campaign fixtures
+        run: |
+          stage="$RUNNER_TEMP/hud_lifetimes"
+          mkdir -p "$stage"
+          printf 'config_version=5\n[application]\nconfig/name="Isolated reliability"\n' > "$stage/project.godot"
+          cd godot
+          cp --parents scripts/hud_occlusion.gd tests/reliability_hud_lifetimes.gd "$stage/"
+          "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --headless --path "$stage" --script res://tests/reliability_hud_lifetimes.gd 2>&1 | tee "$RUNNER_TEMP/result.log"
+          ! grep -E '^(SCRIPT ERROR|ERROR|USER ERROR):' "$RUNNER_TEMP/result.log"
+          grep -E 'RELIABILITY_.*checks=[0-9]+ failures=0' "$RUNNER_TEMP/result.log"

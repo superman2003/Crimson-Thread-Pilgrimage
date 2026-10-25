@@ -15,9 +15,19 @@ const SECONDARY_LIMITS := {&"motion": 12, &"state": 12, &"environment": 8}
 const SECONDARY_MAX_Z := 75
 
 
+## Admission only takes ownership of fresh detached nodes. Rejecting a
+## borrowed/attached node must never destroy an existing actor or warning.
+static func _fresh(item: Node) -> bool:
+    return is_instance_valid(item) and not item.is_inside_tree() and item.get_parent() == null and not item.is_queued_for_deletion()
+
+static func _discard_fresh(items: Array) -> void:
+    for item in items:
+        if is_instance_valid(item) and _fresh(item):item.free()
+
 ## Actor-local caps do not bound a crowd. Only harmless action traces share
 ## this pool; unblockable cues retain their warning layer and admission.
 static func attach_action_trace(host: Node, item: Node2D, warning: bool = false) -> bool:
+    if not _fresh(item):return false
     if not is_instance_valid(host) or not host.is_inside_tree() or host.is_queued_for_deletion():
         item.free()
         return false
@@ -36,6 +46,7 @@ static func attach_action_trace(host: Node, item: Node2D, warning: bool = false)
 
 
 static func place_danger(item: CanvasItem, warning: bool = false) -> void:
+    if not is_instance_valid(item) or item.is_queued_for_deletion():return
     item.z_as_relative = false
     item.z_index = WARNING_Z if warning else DANGER_Z
 
@@ -43,6 +54,7 @@ static func place_danger(item: CanvasItem, warning: bool = false) -> void:
 ## Attach only cosmetic hit marks; rejected nodes are freed before any tween.
 ## SceneTree membership owns the budget, so retiring actors/scenes releases it.
 static func attach_contact(host: Node, item: Node2D) -> bool:
+    if not _fresh(item):return false
     if not is_instance_valid(host) or not host.is_inside_tree() or host.is_queued_for_deletion():
         item.free()
         return false
@@ -67,11 +79,14 @@ static func attach_secondary(host: Node, item: Node2D, category: StringName, own
     return attach_secondary_batch(host, [item], category, owner_node)
 
 static func attach_secondary_batch(host: Node, items: Array[Node2D], category: StringName, owner_node: Node = null) -> bool:
-    var valid := is_instance_valid(host) and host.is_inside_tree() and not host.is_queued_for_deletion() and SECONDARY_LIMITS.has(category)
+    var valid := is_instance_valid(host) and host.is_inside_tree() and not host.is_queued_for_deletion() and SECONDARY_LIMITS.has(category) and not items.is_empty()
+    if owner_node != null:
+        valid = valid and is_instance_valid(owner_node) and owner_node.is_inside_tree() and not owner_node.is_queued_for_deletion()
+        if valid:valid = owner_node.get_tree() == host.get_tree()
     var units := 0
     var identities: Dictionary = {}
     for item in items:
-        if not is_instance_valid(item) or item.get_parent() != null:
+        if not _fresh(item):
             valid = false
             continue
         if identities.has(item.get_instance_id()): valid = false
@@ -87,8 +102,7 @@ static func attach_secondary_batch(host: Node, items: Array[Node2D], category: S
             if accent.get_meta("secondary_category", &"") == category: family += cost
         valid = total + units <= MAX_SECONDARY_UNITS and family + units <= int(SECONDARY_LIMITS[category])
     if not valid:
-        for item in items:
-            if is_instance_valid(item) and item.get_parent() == null: item.free()
+        _discard_fresh(items)
         return false
     var owner_id := owner_node.get_instance_id() if is_instance_valid(owner_node) else host.get_instance_id()
     for item in items:
