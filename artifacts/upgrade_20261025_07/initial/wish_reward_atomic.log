@@ -1,0 +1,95 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
+          at: GDScript::reload (res://scripts/pilgrimage_interface.gd:2534)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/wish_reward_atomic_validation.gd:71)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/main_level.gd:0)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/wish_reward_atomic_validation.gd:71)
+ERROR: Failed to load script "res://scripts/main_level.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/wish_reward_atomic_validation.gd:71)
+SCRIPT ERROR: Invalid call. Nonexistent function 'build_steps' in base 'GDScript'.
+          at: _hud_build_jobs (res://scripts/main_level.gd:3903)
+          GDScript backtrace (most recent call first):
+              [0] _hud_build_jobs (res://scripts/main_level.gd:3903)
+              [1] _region_finish_jobs (res://scripts/main_level.gd:910)
+              [2] _finish_budgeted (res://scripts/world_region_loader.gd:1373)
+              [3] initialize_startup_region (res://scripts/world_region_loader.gd:165)
+              [4] _construct_budgeted (res://scripts/world_region_loader.gd:1322)
+              [5] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+SCRIPT ERROR: Invalid access to property or key 'theme' on a base object of type 'Nil'.
+          at: setup (res://scripts/cartography_runtime.gd:18)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://scripts/cartography_runtime.gd:18)
+              [1] _setup_cartography (res://scripts/main_level.gd:927)
+              [2] _finish_budgeted (res://scripts/world_region_loader.gd:1388)
+              [3] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+SCRIPT ERROR: Invalid access to property or key 'theme' on a base object of type 'Nil'.
+          at: setup (res://scripts/death_recall.gd:29)
+          GDScript backtrace (most recent call first):
+              [0] setup (res://scripts/death_recall.gd:29)
+              [1] _setup_cartography (res://scripts/main_level.gd:928)
+              [2] _finish_budgeted (res://scripts/world_region_loader.gd:1388)
+              [3] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+SCRIPT ERROR: Invalid call. Nonexistent function '_short_binding' in base 'Nil'.
+          at: _chapter_objective_text (res://scripts/main_level.gd:2196)
+          GDScript backtrace (most recent call first):
+              [0] _chapter_objective_text (res://scripts/main_level.gd:2196)
+              [1] _show_chapter_entry_message (res://scripts/main_level.gd:2222)
+              [2] _publish_region (res://scripts/main_level.gd:944)
+              [3] initialize_startup_region (res://scripts/world_region_loader.gd:177)
+              [4] _finish_budgeted (res://scripts/world_region_loader.gd:1416)
+              [5] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+
+CHECK PASS real World loads exact earned legacy seed
+CHECK PASS legacy held heart knots derive actual HP capacity
+SCRIPT ERROR: Invalid assignment of property or key 'dialogue_area' with value of type 'Area2D' on a base object of type 'Nil'.
+          at: topic (res://scripts/wish_reward_atomic_validation.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] topic (res://scripts/wish_reward_atomic_validation.gd:59)
+              [1] run (res://scripts/wish_reward_atomic_validation.gd:87)
+              [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+CHECK PASS invalid offering 0 never delivers
+SCRIPT ERROR: Invalid assignment of property or key 'dialogue_area' with value of type 'Area2D' on a base object of type 'Nil'.
+          at: topic (res://scripts/wish_reward_atomic_validation.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] topic (res://scripts/wish_reward_atomic_validation.gd:59)
+              [1] run (res://scripts/wish_reward_atomic_validation.gd:87)
+              [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+CHECK PASS invalid offering -1 never delivers
+SCRIPT ERROR: Invalid assignment of property or key 'dialogue_area' with value of type 'Area2D' on a base object of type 'Nil'.
+          at: topic (res://scripts/wish_reward_atomic_validation.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] topic (res://scripts/wish_reward_atomic_validation.gd:59)
+              [1] run (res://scripts/wish_reward_atomic_validation.gd:87)
+              [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+CHECK PASS invalid offering 0.5 never delivers
+SCRIPT ERROR: Invalid assignment of property or key 'dialogue_area' with value of type 'Area2D' on a base object of type 'Nil'.
+          at: topic (res://scripts/wish_reward_atomic_validation.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] topic (res://scripts/wish_reward_atomic_validation.gd:59)
+              [1] run (res://scripts/wish_reward_atomic_validation.gd:87)
+              [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+CHECK PASS invalid offering 1.5 never delivers
+CHECK PASS fixture baseline persists
+SCRIPT ERROR: Invalid assignment of property or key 'dialogue_area' with value of type 'Area2D' on a base object of type 'Nil'.
+          at: topic (res://scripts/wish_reward_atomic_validation.gd:59)
+          GDScript backtrace (most recent call first):
+              [0] topic (res://scripts/wish_reward_atomic_validation.gd:59)
+              [1] run (res://scripts/wish_reward_atomic_validation.gd:98)
+              [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+CHECK PASS failed topic preserves inventory categories flags wallet build HP energy and capacities
+CHECK PASS failed topic preserves exact disk bytes
+SCRIPT ERROR: Invalid access to property or key 'text' on a base object of type 'Nil'.
+          at: run (res://scripts/wish_reward_atomic_validation.gd:101)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/wish_reward_atomic_validation.gd:101)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+归途记录暂未写入，当前旅途进度仍保留。
