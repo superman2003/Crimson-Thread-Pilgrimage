@@ -231,6 +231,7 @@ func finish_bind() -> void:
     construction_complete=true
     set_process(true)
     set_process_input(true)
+    preload("res://scripts/goal_desk.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
@@ -770,6 +771,14 @@ func _build_dialogue() -> void:
             else:level._talk_to_npc(dialogue_area))
     dialogue_route_button=_button(dialogue,"问问道路",Vector2(380,250),Vector2(147,34),func():_topic("route"))
     dialogue_quest_button=_button(dialogue,"询问心愿",Vector2(540,250),Vector2(147,34),func():_topic("wish"))
+    var reader:=preload("res://scripts/dialogue_reader.gd").new()
+    reader.name="DialogueReader"
+    reader.position=Vector2(696,250)
+    dialogue.add_child(reader)
+    reader.configure(dialogue_body,dialogue_scroll,func():
+        if not dialogue.is_visible_in_tree() or not is_instance_valid(dialogue_area) or level==null or not is_instance_valid(level) or String(level.active_overlay)!="dialogue":return
+        level.subtitle_elapsed=level.subtitle_seconds
+        dialogue_body.visible_characters=-1)
 
 func show_speaker(area: Area2D) -> void:
     dialogue_area=area
@@ -2362,11 +2371,11 @@ func _refresh_journal() -> void:
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
     var guide_bindings: Dictionary={}
-    for action in ["jump","attack","heal","skill_1","interact","map"]:guide_bindings[action]=_short_binding(action)
+    for action in REMAPPABLE_ACTIONS:guide_bindings[action]=_short_binding(action)
     var heal: Dictionary={}
     if is_instance_valid(level.player) and level.player.has_method("get_combat_ui_state"):heal=level.player.get_combat_ui_state().get("heal",{})
     var recall:=preload("res://scripts/death_recall.gd")
-    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES)
+    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
     var progress: Dictionary={}
