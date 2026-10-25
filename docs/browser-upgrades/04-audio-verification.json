@@ -1,0 +1,22 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:26.672302+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "audio controls save and mute",
+    "mobile toolbar and touch controls stay within viewport"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/audio.js": "f3f542df1ccacc28f43ba1c85a0a4f2728b3e2f67c4563994005c83ddf29a44b",
+    "src/browser/utility-panel.js": "a236b1459e081e95e80312088f5680c8fd7440a1795569f3ab5aa277d1d79c3f",
+    "src/main.js": "f940e6801748f26391f689b21749323aa32eb0c275582c51403ea4386fc2937b",
+    "tests/browser-04-audio.test.mjs": "cfc8943410da62fea032c06ff44241b6d55e0ef55af2e634f0b360126faef98e",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}

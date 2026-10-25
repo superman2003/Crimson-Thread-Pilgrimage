@@ -48,6 +48,17 @@ const ASSET_PATHS = {
   bossGate: "godot/assets/sprites/gothicvania/demo/boss_gate.png"
 };
 
+import { AudioPreferences, mountAudio } from "./browser/audio.js";
+var browserAudio;
+function audioFeature() {
+  if (!browserAudio) {
+    browserAudio = new AudioPreferences(() => window.localStorage);
+    mountAudio(browserAudio);
+    window.addEventListener("blur", () => browserAudio.silence());
+  }
+  return browserAudio;
+}
+
 const AUDIO_PATHS = {
   start: "godot/assets/audio/sfx/interact.ogg",
   jump: "godot/assets/audio/sfx/player_jump.ogg",
@@ -1879,17 +1890,19 @@ function ensureAudio() {
 }
 
 function playTone(type) {
+  if (audioFeature().gain === 0 || document.hidden) return;
   const clip = audio.clips[type];
   if (clip) {
     const instance = clip.cloneNode();
-    instance.volume = type === "boss" || type === "bossHit" ? 0.55 : 0.42;
-    instance.play().catch(() => playGeneratedTone(type));
+    const cleanup = audioFeature().track(instance, type === "boss" || type === "bossHit" ? 0.55 : 0.42);
+    instance.play().catch(() => { cleanup(); if (!document.hidden) playGeneratedTone(type); });
     return;
   }
   playGeneratedTone(type);
 }
 
 function buildAudioClips() {
+  audioFeature();
   return Object.fromEntries(Object.entries(AUDIO_PATHS).map(([key, src]) => {
     const clip = new Audio(src);
     clip.preload = "auto";
@@ -1898,7 +1911,7 @@ function buildAudioClips() {
 }
 
 function playGeneratedTone(type) {
-  if (!audio.ctx) return;
+  if (!audio.ctx || audioFeature().gain === 0 || document.hidden) return;
   const table = {
     start: [220, 0.12, "sine", 0.06],
     jump: [440, 0.08, "triangle", 0.045],
@@ -1916,7 +1929,7 @@ function playGeneratedTone(type) {
   oscillator.type = wave;
   oscillator.frequency.setValueAtTime(freq, audio.ctx.currentTime);
   oscillator.frequency.exponentialRampToValueAtTime(Math.max(30, freq * 1.8), audio.ctx.currentTime + duration);
-  gain.gain.setValueAtTime(gainValue, audio.ctx.currentTime);
+  gain.gain.setValueAtTime(gainValue * audioFeature().gain, audio.ctx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.0001, audio.ctx.currentTime + duration);
   oscillator.connect(gain);
   gain.connect(audio.ctx.destination);
