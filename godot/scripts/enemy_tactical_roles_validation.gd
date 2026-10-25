@@ -15,6 +15,11 @@ var checks := 0
 var failures := 0
 var stage: Node2D
 var target: CharacterBody2D
+## Production actor with audio enabled under the headless test runner.
+class AudibleEnemy extends "res://scripts/enemy_actor.gd":
+    func _should_play_sfx() -> bool:
+        return true
+
 class CombatTarget extends CharacterBody2D:
     var ui_input_locked := false
     var damage_events := 0
@@ -78,6 +83,7 @@ func run() -> void:
     await _guard_post()
     await _support()
     await _role_cues()
+    await _sfx_occlusion()
     _ambush_placement()
     print("ENEMY_TACTICAL_ROLES checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
@@ -284,6 +290,52 @@ func _support() -> void:
     await _support_filters()
     for reason in ["hit", "trip", "interference", "lure", "wall", "player_hidden", "range", "floor", "ally_retired", "source_retired", "suspend_resume", "freed", "ally_dead", "source_dead", "respawn"]:
         await _support_cancel(reason)
+
+func sfx_node(enemy: Node, key: String) -> AudioStreamPlayer2D:
+    var found: AudioStreamPlayer2D = null
+    for child in enemy.get_children():
+        if child is AudioStreamPlayer2D and String(child.name).begins_with("Sfx_" + key):found = child
+    return found
+
+## S03: terrain between an enemy and the player muffles its sounds through the
+## real playback path; danger cues lose less than ordinary sounds.
+func _sfx_occlusion() -> void:
+    var species: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PROFILE_PATH)).get("moss_larva", {})
+    var larva: Area2D = AudibleEnemy.new()
+    larva.configure({"id": "sfx_larva", "kind": "moss_larva", "hp": 6, "damage": 1, "patrol": 80.0}, "", false, species)
+    larva.position = Vector2(300, 300)
+    stage.add_child(larva)
+    larva.set_physics_process(false)
+    target.position = Vector2(450, 300)
+    await physics_frame
+    await physics_frame
+    larva._play_sfx("enemy_attack", -10.0)
+    var open_attack := sfx_node(larva, "enemy_attack")
+    check(open_attack != null and is_equal_approx(open_attack.volume_db, -10.0), "with a clear line an enemy sound keeps its authored volume")
+    if open_attack != null: open_attack.free()
+    var screen := wall(375)
+    await physics_frame
+    await physics_frame
+    check(larva._sfx_occluded(), "terrain between the enemy and the player is detected by the sight ray")
+    # The voice budget spaces repeats of one key by 40 ms.
+    await create_timer(0.1).timeout
+    larva._play_sfx("enemy_attack", -10.0)
+    var muffled := sfx_node(larva, "enemy_attack")
+    check(muffled != null and is_equal_approx(muffled.volume_db, -10.0 - ENEMY.SFX_OCCLUSION_DB) and is_equal_approx(float(muffled.get_meta("authored_volume_db")), -10.0), "an ordinary sound behind terrain is muffled by the occlusion amount")
+    larva._play_sfx("enemy_windup", -13.0, 1.22, 0)
+    var warning := sfx_node(larva, "enemy_windup")
+    check(warning != null and is_equal_approx(warning.volume_db, -13.0 - ENEMY.SFX_DANGER_OCCLUSION_DB), "a wind-up warning behind terrain stays louder than ordinary sounds")
+    check(ENEMY.SFX_DANGER_OCCLUSION_DB < ENEMY.SFX_OCCLUSION_DB, "danger cues lose less to occlusion than ordinary sounds")
+    target.remove_from_group("player")
+    check(not larva._sfx_occluded() and is_equal_approx(larva._sfx_volume(-10.0, 1), -10.0), "without a player listener nothing is muffled")
+    target.add_to_group("player")
+    screen.free()
+    await physics_frame
+    await physics_frame
+    check(not larva._sfx_occluded(), "removing the terrain restores the clear line")
+    for child in larva.get_children():
+        if child is AudioStreamPlayer2D: child.stop()
+    await clear_stage()
 
 func cue_rings(enemy: Node, ring_name: String) -> int:
     var count := 0

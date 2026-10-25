@@ -19,6 +19,9 @@ const FLASH_INTERVAL_USEC := 200000
 const BLACK_FRAME_SHADER := preload("res://shaders/black_frame.gdshader")
 
 var _hitstop_remaining := 0.0
+var _hitstop_deadline_usec := 0
+var _hitstop_restore_scale := 1.0
+var _hitstop_applied_scale := 1.0
 var _trauma := 0.0
 var _camera: Camera2D = null
 var _noise_x := FastNoiseLite.new()
@@ -57,12 +60,14 @@ func _process(delta: float) -> void:
     # Hardware vibration uses wall time, not the slowed hitstop clock.
     if _rumble_device >= 0 and (get_tree().paused or _now_usec() >= _rumble_deadline_usec or not _joy_devices().has(_rumble_device)):
         cancel_rumble()
-    var real_delta := delta / maxf(Engine.time_scale, 0.001)
-    if _hitstop_remaining > 0.0:
-        _hitstop_remaining -= real_delta
-        if _hitstop_remaining <= 0.0:
-            _hitstop_remaining = 0.0
-            Engine.time_scale = 1.0
+    var real_delta := maxf(delta, 0.0) / maxf(Engine.time_scale, 0.001) if is_finite(delta) else 0.0
+    if _hitstop_deadline_usec > 0:
+        # A stopped/scaled simulation clock cannot strand the global timescale.
+        # External clock owners may replace ours; do not restore over them.
+        if get_tree().paused or not is_equal_approx(Engine.time_scale, _hitstop_applied_scale) or _now_usec() >= _hitstop_deadline_usec:
+            cancel_hitstop()
+        else:
+            _hitstop_remaining = maxf(0.0, float(_hitstop_deadline_usec - _now_usec()) / 1000000.0)
     if _trauma > 0.0:
         _trauma = maxf(0.0, _trauma - TRAUMA_DECAY * real_delta)
         _noise_time += real_delta * 18.0
@@ -107,16 +112,33 @@ func _clear_camera_shake() -> void:
 func hitstop(ms: float, time_scale: float = 0.05) -> void:
     if _is_headless():
         return
-    var seconds := minf(ms / 1000.0, HITSTOP_MAX_SECONDS)
-    if seconds <= _hitstop_remaining:
+    if not is_finite(ms) or ms <= 0.0 or not is_finite(time_scale) or time_scale <= 0.0 or time_scale > 1.0 or get_tree().paused:
         return
+    var seconds := minf(ms / 1000.0, HITSTOP_MAX_SECONDS)
+    var now := _now_usec()
+    var deadline := now + int(seconds * 1000000.0)
+    if _hitstop_deadline_usec > 0 and (now >= _hitstop_deadline_usec or not is_equal_approx(Engine.time_scale, _hitstop_applied_scale)):
+        cancel_hitstop()
+    if deadline <= _hitstop_deadline_usec:return
+    if _hitstop_deadline_usec == 0:_hitstop_restore_scale = Engine.time_scale
     _hitstop_remaining = seconds
-    Engine.time_scale = time_scale
+    _hitstop_deadline_usec = deadline
+    _hitstop_applied_scale = minf(time_scale, _hitstop_restore_scale)
+    Engine.time_scale = _hitstop_applied_scale
+
+
+## Restore only the clock value this instance still owns. Idempotent on
+## pause, focus loss and teardown, including during an unfinished hitstop.
+func cancel_hitstop() -> void:
+    if _hitstop_deadline_usec > 0 and is_equal_approx(Engine.time_scale, _hitstop_applied_scale):
+        Engine.time_scale = _hitstop_restore_scale
+    _hitstop_remaining = 0.0
+    _hitstop_deadline_usec = 0
 
 
 ## trauma 模型：振幅 = trauma^2 × 14px，线性衰减 2.2/s，叠加上限 1.0。
 func add_trauma(amount: float) -> void:
-    if _shake_enabled:
+    if _shake_enabled and is_finite(amount):
         _trauma = clampf(_trauma + amount, 0.0, 1.0)
 
 
@@ -270,11 +292,14 @@ func _on_joy_connection_changed(device: int, connected: bool) -> void:
 
 func _notification(what: int) -> void:
     if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+        cancel_hitstop()
         _active_joy_device = -1
         cancel_rumble()
 
 
 func _exit_tree() -> void:
+    cancel_hitstop()
+    _clear_camera_shake()
     cancel_rumble()
 
 
