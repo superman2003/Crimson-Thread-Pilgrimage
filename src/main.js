@@ -1148,7 +1148,11 @@ function drawProps(chapter) {
   drawSprite(asset.bossGate, chapter.exit.x - 18, chapter.exit.y - 18, 92, 118);
 }
 
+import { mountMap } from "./browser/map.js";
+var browserRouteMap;
 function drawGuideArrow(chapter) {
+  browserRouteMap ??= mountMap();
+  browserRouteMap.draw(chapter, state, SETTINGS);
   if (!state.player) return;
   const target = state.boss?.dead ? chapter.exit : (state.boss || chapter.exit);
   const direction = Math.sign((target.x + (target.w || 64) / 2) - (state.player.x + state.player.w / 2)) || 1;

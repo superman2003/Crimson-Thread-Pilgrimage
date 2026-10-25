@@ -1,0 +1,22 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:27.576265+00:00",
+  "unit_tests": 3,
+  "browser_checks": [
+    "boot and native toolbar",
+    "map updates taken keys and has semantic objective text",
+    "mobile toolbar and touch controls stay within viewport"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/map.js": "45eb811a42d11b592e09d4ecba26bf7dd48d4e3f51f5bdc71b2c27a672875c85",
+    "src/browser/utility-panel.js": "a236b1459e081e95e80312088f5680c8fd7440a1795569f3ab5aa277d1d79c3f",
+    "src/main.js": "3bcf371e9fea5b36414b95db31342281321ceeb373b8d9362e5e50bdb53f7865",
+    "tests/browser-08-map.test.mjs": "34fc8b57af6ef24373964ba2325c746ee19669962cd124ddfd5e133333e5fe74",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}
