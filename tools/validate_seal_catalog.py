@@ -14,7 +14,7 @@ EXPECTED = {
 
 LEGACY_TRAVEL_PASSIVES = {'quiet_sole': '静靴', 'damp_knot': '防潮线结'}
 
-CRAFTED_PASSIVES = {'tide_reel': 'craft_tide_reel', 'wax_stitch': 'craft_wax_stitch', 'ash_ring': 'craft_ash_ring', 'crown_pendant': 'craft_crown_pendant'}
+CRAFTED_PASSIVES = {'tide_reel': 'craft_tide_reel', 'wax_stitch': 'craft_wax_stitch', 'ash_ring': 'craft_ash_ring', 'crown_pendant': 'craft_crown_pendant', 'pilgrim_braid': 'craft_pilgrim_braid', 'watchmans_knot': 'craft_watchmans_knot'}
 
 def validate(data: dict) -> list[str]:
     errors = []
