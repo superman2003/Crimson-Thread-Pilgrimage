@@ -102,7 +102,7 @@ var accessibility_path := "user://pilgrimage_accessibility.cfg"
 var controller_comfort_dialog: ConfirmationDialog
 var accessibility_controls: Dictionary={}
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -878,6 +878,7 @@ func _build_settings() -> void:
             if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
         settings.add_child(slider)
         settings_sliders[key]=slider
+    _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(410,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
     _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
@@ -955,7 +956,7 @@ func _load_accessibility() -> void:
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
     # A malformed preference must not prevent the settings screen from opening.
-    for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist"]:
+    for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist","npc_landmarks"]:
         var value: Variant=config.get_value("accessibility",key,accessibility[key])
         if value is bool:accessibility[key]=value
     accessibility["controller_deadzone"]=_finite_setting(config,"controller_deadzone",0.1,0.6)
@@ -1086,6 +1087,7 @@ func _open_controller_comfort() -> void:
 func _apply_accessibility() -> void:
     _apply_controller_deadzone()
     _sync_accessibility_controls()
+    if level!=null and is_instance_valid(level.get("audio_director")) and level.audio_director.has_method("set_npc_landmarks"):level.audio_director.set_npc_landmarks(bool(accessibility.get("npc_landmarks",true)))
     var feel := get_node_or_null("/root/FeelKit")
     if feel != null and feel.has_method("set_accessibility"):
         feel.set_accessibility(accessibility)

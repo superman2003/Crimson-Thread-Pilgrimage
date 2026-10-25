@@ -146,6 +146,13 @@ var dialogue_open := false
 var user_volumes := {"master": 100.0, "music": 100.0, "sfx": 100.0, "ambience": 100.0}
 var base_reverb_wet: Dictionary = {}
 var duck_tween: Tween
+var duck_mix := preload("res://scripts/duck_mix.gd").new()
+var duck_layers: Dictionary = {}
+var duck_serial := 0
+var music_mix_base_db := 0.0
+var npc_landmarks_enabled := true
+var landmark_next_ms := 0
+var landmark_times: Dictionary = {}
 var combat_tween: Tween
 var lullaby_tween: Tween
 var explore_tween: Tween
@@ -165,12 +172,14 @@ var shrine_engaged := false
 
 
 func _ready() -> void:
+    landmark_next_ms = Time.get_ticks_msec() + 1200
     instance = self
     ensure_sub_buses()
     _load_user_volumes()
 
 
 func _exit_tree() -> void:
+    _clear_duck_layers(instance == self)
     _remember_explore_position()
     if _explore_owners.get(_explore_path, 0) == get_instance_id():
         _explore_owners.erase(_explore_path)
@@ -429,6 +438,7 @@ func _process(delta: float) -> void:
     if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
         return
     var tick := ai_poll_accum
+    _tick_npc_landmarks()
     ai_poll_accum = 0.0
     var enemies := _runtime_enemies()
     _tick_combat_layer(tick, enemies)
@@ -667,6 +677,7 @@ func _fade_explore_resume(seconds: float) -> void:
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
 func enter_combat() -> void:
+    _stop_npc_landmarks()
     if combat_active:
         return
     combat_active = true
@@ -730,6 +741,7 @@ func _fade_out_combat_layer() -> void:
 # ---- Boss 曲（规格 §3；终 Boss 三乐章）----
 
 func start_boss_music(boss_id: String) -> void:
+    _stop_npc_landmarks()
     if boss_active and active_boss_id == boss_id \
             and boss_player != null and is_instance_valid(boss_player) and boss_player.playing:
         return
@@ -957,17 +969,43 @@ func _play_ambience_oneshot(path: String, volume_db: float) -> void:
 ## release 段不快照基准：每步实时读 _music_rest_db()，对话开合/用户调音量
 ## 与 duck 竞态时回弹不会打到过期终点。
 func duck(db: float, hold: float, attack: float = 0.35, release: float = 0.6) -> void:
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index == -1 or not is_inside_tree():
-        return
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
-    var ducked_db := _music_rest_db() + minf(db, 0.0)
+    if AudioServer.get_bus_index("BGM") == -1 or not is_inside_tree() or instance != self:return
+    if not is_finite(db) or not is_finite(hold) or not is_finite(attack) or not is_finite(release):return
+    duck_serial += 1
+    var id := duck_serial
+    var admission: Dictionary = duck_mix.admit(id,db)
+    if not admission.get("ok",false):return
+    var evicted := int(admission.evicted)
+    if duck_layers.has(evicted):
+        var old: Tween = duck_layers[evicted]
+        if old.is_valid():old.kill()
+        duck_layers.erase(evicted)
     duck_tween = create_tween()
-    duck_tween.tween_method(_set_music_bus_db, AudioServer.get_bus_volume_db(bus_index), ducked_db, maxf(attack, 0.01))
-    duck_tween.tween_interval(maxf(hold, 0.0))
-    duck_tween.tween_method(func(t: float) -> void: _set_music_bus_db(lerpf(ducked_db, _music_rest_db(), t)), 0.0, 1.0, maxf(release, 0.01))
-    duck_tween.tween_callback(func() -> void: _set_music_bus_db(_music_rest_db()))
+    duck_layers[id] = duck_tween
+    _render_music_mix()
+    duck_tween.tween_method(func(value: float):_set_duck_layer(id,value),float(admission.start),float(admission.target),clampf(attack,0.01,3.0))
+    duck_tween.tween_interval(clampf(hold,0.0,10.0))
+    duck_tween.tween_method(func(value: float):_set_duck_layer(id,value),float(admission.target),0.0,clampf(release,0.01,5.0))
+    duck_tween.tween_callback(func():
+        duck_layers.erase(id)
+        duck_mix.remove(id)
+        _render_music_mix())
+
+func _set_duck_layer(id: int, value: float) -> void:
+    duck_mix.set_level(id,value)
+    _render_music_mix()
+
+func _render_music_mix() -> void:
+    if instance != self:return
+    var index := AudioServer.get_bus_index("BGM")
+    if index >= 0:AudioServer.set_bus_volume_db(index,music_mix_base_db+duck_mix.level())
+
+func _clear_duck_layers(render: bool = true) -> void:
+    for tween in duck_layers.values():
+        if tween != null and tween.is_valid():tween.kill()
+    duck_layers.clear()
+    duck_mix.layers.clear()
+    if render:_render_music_mix()
 
 
 func on_dialogue(open: bool) -> void:
@@ -976,9 +1014,8 @@ func on_dialogue(open: bool) -> void:
     dialogue_open = open
     if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
         _npc_voice_player.stop()
-    # duck 与对话共写 BGM 总线：对话开合即中止在途 duck，由 rest 基准接管。
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
+    # Dialogue changes the baseline; independent transient ducks keep their leases.
+    if open:_stop_npc_landmarks()
     _tween_bus_db("BGM", _music_rest_db(), 0.25)
     _tween_bus_db("Ambience", _ambience_rest_db(), 0.25)
 
@@ -990,8 +1027,8 @@ func on_key_item_pickup() -> void:
 ## 章节转场（main_level._activate_chapter_exit 调用）：BGM 总线 0.5s 淡出；
 ## 新章 _ensure_audio_buses + _load_user_volumes 会复位到用户基准。
 func begin_chapter_transition() -> void:
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
+    _clear_duck_layers()
+    _stop_npc_landmarks()
     _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
 
 
@@ -1138,9 +1175,7 @@ func _apply_user_volume(which: String) -> void:
     var target := _bus_base_db(which)
     if which == "music":
         target = _music_rest_db()
-        # 用户改音乐音量直写 BGM 总线：中止在途 duck，避免回弹覆盖新基准。
-        if duck_tween != null and duck_tween.is_valid():
-            duck_tween.kill()
+        # User volume updates the baseline without losing other transient leases.
     elif which == "ambience":
         target = _ambience_rest_db()
     # A user edit owns the new level, including a dialogue/transition envelope
@@ -1207,7 +1242,10 @@ func _ambience_rest_db() -> float:
 func _set_bus_db(bus_name: String, value: float) -> void:
     var bus_index := AudioServer.get_bus_index(bus_name)
     if bus_index != -1:
-        AudioServer.set_bus_volume_db(bus_index, value)
+        if bus_name == "BGM":
+            music_mix_base_db = value
+            _render_music_mix()
+        else:AudioServer.set_bus_volume_db(bus_index, value)
 
 
 func _set_music_bus_db(value: float) -> void:
@@ -1225,7 +1263,8 @@ func _tween_bus_db(bus_name: String, target: float, seconds: float) -> void:
         AudioServer.set_bus_volume_db(bus_index, target)
         return
     var tween := create_tween()
-    tween.tween_method(func(value: float) -> void: _set_bus_db(bus_name, value), AudioServer.get_bus_volume_db(bus_index), target, seconds)
+    var start := music_mix_base_db if bus_name == "BGM" else AudioServer.get_bus_volume_db(bus_index)
+    tween.tween_method(func(value: float) -> void: _set_bus_db(bus_name, value), start, target, seconds)
     bus_tweens[bus_name] = tween
 
 
@@ -1251,6 +1290,7 @@ func _bus_reverb(bus_name: String) -> AudioEffectReverb:
 ## this is deliberately not synthetic Chinese speech or a borrowed game voice.
 ## One dedicated player replaces the previous greeting; no syllable-per-letter spam.
 func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> bool:
+    _stop_npc_landmarks()
     if line.strip_edges().is_empty() or not is_inside_tree():
         return false
     var key := "npc_greeting_" + npc_id
@@ -1333,3 +1373,69 @@ func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
         return false
     voice.finished.connect(voice.queue_free)
     return start_reserved_voice(voice_ticket,voice)
+
+## A quiet, spatial nonverbal cue from a real nearby NPC; no map knowledge is granted.
+func set_npc_landmarks(enabled: bool) -> void:
+    npc_landmarks_enabled = enabled
+    if not enabled:_stop_npc_landmarks()
+
+func _landmarks_allowed() -> bool:
+    if not is_inside_tree() or instance != self or not npc_landmarks_enabled or dialogue_open or combat_active or boss_active or shrine_engaged:return false
+    if get_user_volume("master") <= 0 or get_user_volume("sfx") <= 0:return false
+    if not is_instance_valid(runtime_player) or not runtime_player is Node2D or not runtime_player.is_inside_tree():return false
+    if runtime_player.get("ui_input_locked") == true:return false
+    var hp: Variant = runtime_player.get("hp")
+    return not ((hp is int or hp is float) and hp <= 0)
+
+func _tick_npc_landmarks() -> void:
+    if not _landmarks_allowed():_stop_npc_landmarks();return
+    var now := Time.get_ticks_msec()
+    if now < landmark_next_ms:return
+    var closest: Node2D
+    var distance := 650.0 * 650.0
+    for candidate in get_tree().get_nodes_in_group("npc_sound_landmark"):
+        if not candidate is Node2D or not candidate.is_visible_in_tree() or candidate.is_queued_for_deletion():continue
+        var id := String(candidate.get_meta("npc_id",""))
+        if id.is_empty() or now - int(landmark_times.get(id,-12001)) < 12000:continue
+        var current := (candidate as Node2D).global_position.distance_squared_to(runtime_player.global_position)
+        if current < distance:closest = candidate;distance = current
+    if closest != null:play_npc_landmark(closest)
+
+func play_npc_landmark(source: Node2D) -> bool:
+    if not _landmarks_allowed() or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.is_visible_in_tree():return false
+    if source.get_world_2d() != runtime_player.get_world_2d() or not source.global_position.is_finite() or source.global_position.distance_squared_to(runtime_player.global_position) > 650.0 * 650.0:return false
+    if String(source.get_meta("kind","")) != "npc":return false
+    var id := String(source.get_meta("npc_id",""))
+    if id.is_empty():return false
+    var now := Time.get_ticks_msec()
+    if now < landmark_next_ms or now - int(landmark_times.get(id,-12001)) < 12000:return false
+    var key := "npc_landmark_" + id
+    var ticket := reserve_voice(key,3,12000,1)
+    if ticket == 0:return false
+    var voice := preload("res://scripts/spatial_enemy_alert.gd").new()
+    voice.name = "NPCSoundLandmark"
+    voice.set_meta("npc_landmark",true)
+    voice.bus = _bus_or("SFXWorld","SFX")
+    voice.stream = npc_voice_stream("dry" if id.contains("carto") else "low" if id.contains("smith") else "warm")
+    add_child(voice)
+    if not voice.place(source.global_position,runtime_player,-25.0):
+        voice.free();release_ticket(ticket);return false
+    voice.max_distance = 650.0
+    voice.finished.connect(voice.queue_free)
+    if not start_reserved_voice(ticket,voice):voice.free();release_ticket(ticket);return false
+    landmark_times.erase(id);landmark_times[id] = now
+    while landmark_times.size() > 64:landmark_times.erase(landmark_times.keys()[0])
+    landmark_next_ms = now + 4000
+    return true
+
+func _stop_npc_landmarks() -> void:
+    for child in get_children():
+        if child is AudioStreamPlayer2D and bool(child.get_meta("npc_landmark",false)):
+            preload("res://scripts/audio_retirement.gd").watch_player(child)
+            child.stop();child.stream = null;child.queue_free()
+
+func foreground_warning(source: Node2D) -> void:
+    if instance != self or not is_inside_tree() or not is_instance_valid(source) or not source.is_inside_tree() or not runtime_player is Node2D or not is_instance_valid(runtime_player):return
+    if source.get_world_2d() != runtime_player.get_world_2d() or source.global_position.distance_squared_to(runtime_player.global_position) > 900.0 * 900.0:return
+    _stop_npc_landmarks()
+    duck(-4.0,0.35,0.04,0.3)
