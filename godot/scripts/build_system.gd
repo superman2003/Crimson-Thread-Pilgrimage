@@ -545,6 +545,34 @@ func _resupply_result(ok: bool, reason: String, wallet: Dictionary, charges: Dic
         "remaining_wallet": remaining.duplicate(true), "charges": charges.duplicate(true),
         "deficits": deficits, "remaining": after, "cost": cost.duplicate(true)}
 
+## Simulate the whole cart on a detached build and wallet. No partial purchase.
+func quote_craft_batch(request: Variant, wallet: Dictionary) -> Dictionary:
+    if not request is Array or request.is_empty() or request.size()>8:return _fail("制作清单需要1至8个不同方案")
+    var ids: Array[String]=[]
+    var branches: Array[String]=[]
+    var materials: Dictionary={}
+    var cost := 0
+    var rows: Array=[]
+    for value in request:
+        if not value is String or value in ids or not catalog.recipes.has(value):return _fail("清单含未知或重复制作方案")
+        ids.append(value)
+        var recipe: Dictionary=catalog.recipes[value]
+        if String(recipe.kind)=="skill_branch":
+            if String(recipe.target) in branches:return _fail("同一技能只能选择一个校习方向")
+            branches.append(String(recipe.target))
+        cost+=int(recipe.currency)
+        for material in recipe.materials:materials[material]=int(materials.get(material,0))+int(recipe.materials[material])
+        rows.append({"id":value,"name":String(recipe.name),"currency":int(recipe.currency)})
+    var clone=get_script().new()
+    if not clone.restore(serialize()).ok:return _fail("当前构筑无法用于制作报价")
+    clone.catalog=catalog.duplicate(true)
+    var next_wallet:=wallet.duplicate(true)
+    for id in ids:
+        var result: Dictionary=clone.transact(id,next_wallet)
+        if not result.ok:return {"ok":false,"reason":"%s：%s" % [String(catalog.recipes[id].name),String(result.reason)],"currency_spent":cost,"materials":materials,"rows":rows}
+        next_wallet=result.wallet
+    return _ok({"wallet":next_wallet,"build":clone.serialize(),"currency_spent":cost,"materials":materials,"rows":rows})
+
 func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
     # Validate every precondition before spending; failure never mutates either owner.
     if not catalog.recipes.has(recipe_id):
