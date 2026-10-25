@@ -2282,6 +2282,42 @@ func _chapter_file_ids() -> Array:
     return ids
 
 
+## Shared detached reward plan: derive unlocks/capacities without calling live
+## inventory, narrative or stat helpers. No resource refills before durability.
+func _prepare_inventory_progress(items: Dictionary, next_flags: Dictionary, next_currency: int) -> Dictionary:
+    var failure: Dictionary={"ok":false,"reason":"奖励记录未写入，请重试。"}
+    if build_system==null or not WORLD_STATE_SCRIPT._whole(next_currency):return failure
+    var counts:=inventory_counts.duplicate(true)
+    for id in counts:
+        if not id is String or not WORLD_STATE_SCRIPT._whole(counts[id]):return failure
+    for id in items:
+        if not id is String or id.is_empty() or not WORLD_STATE_SCRIPT._whole(items[id]) or int(items[id])<=0:return failure
+        counts[id]=int(counts.get(id,0))+int(items[id])
+    var flags:=next_flags.duplicate(true)
+    var all_testimonies:=true
+    for index in range(1,7):
+        if int(counts.get("testimony_%02d" % index,0))<1:all_testimonies=false
+    if all_testimonies:flags["true_ending_testimony_complete"]=true
+    if world_narrative!=null:
+        for flag in world_narrative.evaluate_progress(counts,flags).get("grant_flags",[]):flags[String(flag)]=true
+    var next_build=build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.catalog=build_system.catalog.duplicate(true)
+    next_build.sync_progress(counts,String(config.get("id","")),flags)
+    return {"ok":true,"counts":counts,"flags":flags,"currency":next_currency,"build":next_build.serialize()}
+
+func _publish_inventory_progress(plan: Dictionary, candidate: Dictionary) -> void:
+    world_state.data=candidate
+    inventory_counts=plan.counts;story_flags=plan.flags;currency_count=int(plan.currency)
+    inventory_materials.clear();inventory_tools.clear();inventory_relics.clear()
+    for item in inventory_counts:
+        match String(_item_data(String(item)).get("category","Materials")):
+            "Materials":inventory_materials[item]=int(inventory_counts[item])
+            "Tools":inventory_tools.append(item)
+            "Relics":inventory_relics.append(item)
+    build_system.restore(plan.build)
+    _sync_player_build()
+
 func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true) -> void:
     var data := _item_data(item_id)
     var category := String(data.get("category", "Materials"))
@@ -5737,10 +5773,12 @@ func _challenge_shrine(challenge: Dictionary) -> void:
     area.set_meta("object_id", "interactable/" + shrine_id)
     var cleared := bool(story_flags.get(String(challenge.get("clear_flag", "")), false))
     var label := String(shrine.get("label", String(challenge.get("name", "可选挑战"))))
+    var claim_pending:=bool(story_flags.get(_challenge_pending_flag(challenge),false)) and not cleared
+    if claim_pending:label="%s · 胜利待记录" % String(challenge.get("name","可选挑战"))
     if cleared:
         label = "%s · 已清" % String(challenge.get("name", "可选挑战"))
     area.set_meta("label", label)
-    area.set_meta("interaction_label", label + (" · 回访" if cleared else " · F 敲响"))
+    area.set_meta("interaction_label", label + (" · 回访" if cleared else " · 领取首清" if claim_pending else " · F 敲响"))
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
     rectangle.size = Vector2(54, 78)
@@ -5867,6 +5905,9 @@ func _activate_challenge_shrine(area: Area2D) -> void:
     if not clear_flag.is_empty() and bool(story_flags.get(clear_flag, false)):
         _toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
         return
+    if bool(story_flags.get(_challenge_pending_flag(challenge),false)):
+        _grant_optional_challenge_reward(challenge)
+        return
     if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
         _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
         return
@@ -5917,6 +5958,9 @@ func _is_optional_challenge_spawn(spawn_id: String) -> bool:
 func _start_optional_challenge(challenge: Dictionary) -> void:
     var challenge_id := String(challenge.get("id", ""))
     if challenge_id.is_empty():
+        return
+    if bool(story_flags.get(_challenge_pending_flag(challenge),false)):
+        _grant_optional_challenge_reward(challenge)
         return
     active_challenge_id = challenge_id
     challenge_alive_ids.clear()
@@ -6017,7 +6061,54 @@ func _on_challenge_enemy_died(spawn_id: String) -> void:
         active_challenge_id = ""
 
 
+func _challenge_pending_flag(challenge: Dictionary) -> String:
+    return "challenge_reward_pending_"+String(challenge.get("id",""))
+
+func _refresh_challenge_claim_label(challenge: Dictionary, pending: bool) -> void:
+    var shrine: Dictionary=challenge.get("shrine",{})
+    var area:=get_node_or_null(NodePath(String(shrine.get("id",""))))
+    if area==null:return
+    var label:="%s · %s" % [String(challenge.get("name","可选挑战")),"胜利待记录" if pending else "已清"]
+    area.set_meta("label",label);area.set_meta("interaction_label",label+(" · 领取首清" if pending else " · 回访"))
+    var sprite:=area.get_node_or_null("ChallengeShrineSprite") as Sprite2D
+    if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
+
 func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
+    if not world_mode:_grant_optional_challenge_reward_legacy(challenge);return
+    if challenge.is_empty() or world_loading or build_system==null:return
+    var id:=String(challenge.get("id",""))
+    if id.is_empty() or _optional_challenge(id)!=challenge:return
+    var clear_flag:=String(challenge.get("clear_flag",""))
+    var pending_flag:=_challenge_pending_flag(challenge)
+    if clear_flag.is_empty() or bool(story_flags.get(clear_flag,false)):return
+    var earned:=bool(story_flags.get(pending_flag,false)) or (active_challenge_id==id and challenge_alive_ids.is_empty())
+    if not earned:return
+    var reward: Dictionary=challenge.get("reward",{})
+    var flags:=story_flags.duplicate(true);flags.erase(pending_flag);flags[clear_flag]=true
+    var event:=String(reward.get("unlock_event",""))
+    if not event.is_empty():flags[event]=true
+    var items: Dictionary={}
+    var material:=String(config.get("enemy_drop_item","moss_chitin"))
+    if int(reward.get("material_amount",0))>0:items[material]=int(reward.material_amount)
+    var item:=String(reward.get("item_id",""))
+    if not item.is_empty():items[item]=int(items.get(item,0))+int(reward.get("item_amount",1))
+    var plan:=_prepare_inventory_progress(items,flags,currency_count+maxi(0,int(reward.get("currency",0))))
+    var result: Dictionary={"ok":false}
+    if plan.ok:result=_persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build})
+    if not result.ok:
+        # This is proof of an earned victory, not a paid reward/clear. A later
+        # ordinary save carries it across restart; the shrine retries the claim.
+        story_flags[pending_flag]=true
+        _refresh_challenge_claim_label(challenge,true)
+        _toast("已赢得这次挑战，首清奖励尚未记录；回到这座余响钟可重试领取。")
+        return
+    _publish_inventory_progress(plan,result.candidate)
+    _refresh_challenge_claim_label(challenge,false)
+    if not item.is_empty():_announce_lore_pickup(item)
+    _toast(String(reward.get("toast","%s首清。" % String(challenge.get("name","可选挑战")))))
+    _refresh_hud()
+
+func _grant_optional_challenge_reward_legacy(challenge: Dictionary) -> void:
     if challenge.is_empty():
         return
     var clear_flag := String(challenge.get("clear_flag", ""))
