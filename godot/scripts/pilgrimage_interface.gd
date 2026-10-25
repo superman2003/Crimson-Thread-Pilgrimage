@@ -2362,11 +2362,11 @@ func _refresh_journal() -> void:
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
     var guide_bindings: Dictionary={}
-    for action in ["jump","attack","heal","skill_1","interact","map"]:guide_bindings[action]=_short_binding(action)
+    for action in REMAPPABLE_ACTIONS:guide_bindings[action]=_short_binding(action)
     var heal: Dictionary={}
     if is_instance_valid(level.player) and level.player.has_method("get_combat_ui_state"):heal=level.player.get_combat_ui_state().get("heal",{})
     var recall:=preload("res://scripts/death_recall.gd")
-    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES)
+    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
     var progress: Dictionary={}
