@@ -1833,7 +1833,11 @@ function renderChapterList() {
   });
 }
 
+import { mountGuide } from "./browser/guide.js";
+var browserGuide;
 function updateHud() {
+  browserGuide ??= mountGuide();
+  browserGuide.update(state);
   const chapter = CHAPTERS[state.chapterIndex] || CHAPTERS[0];
   chapterMark.textContent = chapter.roman;
   chapterName.textContent = chapter.name;

@@ -1,0 +1,26 @@
+name: Browser 10-guide
+on:
+  pull_request:
+    paths: ['src/**', 'tests/browser-features.e2e.mjs', 'tests/browser-10-guide.test.mjs', '.github/workflows/browser-10-guide.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check src/main.js
+      - run: node --test tests/browser-10-guide.test.mjs
+      - run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - run: git lfs pull --include='godot/assets/sprites/player/generated_hero_v2/frames/**,godot/assets/sprites/gothicvania/demo/**,godot/assets/audio/sfx/**,godot/assets/fonts/**'
+      - run: node tests/browser-features.e2e.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-10-guide
+          path: artifacts/browser-features/
