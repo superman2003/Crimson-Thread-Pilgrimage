@@ -1,0 +1,203 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test
+> npm run check && npm run test:font && npm run test:export && node tests/game-data.test.mjs && node tests/static-smoke.test.mjs && node tests/runtime-smoke.test.mjs && npm run test:map-quality && npm run test:runner && node tools/run_python_tool.mjs tools/validate_thread_skills.py
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 check
+> node --check src/main.js && node --check src/gameData.js && node --check server.js
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:font
+> node tools/run_python_tool.mjs tools/test_apply_global_font.py && node tools/run_python_tool.mjs tools/test_font_coverage.py && npm run font:check && npm run font:coverage
+
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.047s
+
+OK
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107142053Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Already applied. All text uses the shared font. No new backup needed.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107147257Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+FAIL: godot/scripts/new_label.gd: uncentralized font res://assets/fonts/OtherFont.ttf
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107150036Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107152551Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107155264Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 7 files to their exact pre-application contents.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107160058Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 1 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107162618Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 8 files to their exact pre-application contents.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107169015Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restore stopped: these files changed after applying the font. No files were overwritten:
+godot/scripts/ui.gd
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107174426Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+Restored 7 files to their exact pre-application contents.
+Applied one shared font to 7 files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.
+Backup: tmp/font_switch_backups/20261025T041107181924Z.json
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.031s
+
+OK
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 font:check
+> node tools/run_python_tool.mjs tools/apply_global_font.py check
+
+GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 font:coverage
+> node tools/run_python_tool.mjs tools/check_font_coverage.py
+
+FONT_COVERAGE_PASS characters=44780 missing=0 system_fonts_used=false
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:export
+> node tools/run_python_tool.mjs tools/test_export_audit.py && node tools/run_python_tool.mjs tools/audit_export_contents.py
+
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.147s
+
+OK
+EXPORT_AUDIT_PASS presets=2 reachable=109 dynamic_loaders=0 errors=0
+game-data.test: PASS
+static-smoke.test: PASS
+runtime-smoke.test: PASS
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:map-quality
+> node tools/run_python_tool.mjs tools/audit_platform_geometry.py --scope active --strict && node tools/run_python_tool.mjs tools/audit_map_uniqueness.py --scope active --strict && node tools/run_python_tool.mjs tools/test_map_audits.py
+
+{
+  "suite": "platform_geometry",
+  "scope": "active",
+  "files": 6,
+  "checks": 1469,
+  "errors": [],
+  "limitation": "Collision/recovery data audit; does not certify physical traversal or player experience."
+}
+{
+  "suite": "map_uniqueness",
+  "scope": "active",
+  "files": 6,
+  "checks": 648,
+  "errors": [],
+  "warnings": [],
+  "limitation": "Unique IDs/outlines do not establish visual identity; repeated collision shapes require design review."
+}
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+OK
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:runner
+> node tools/run_python_tool.mjs tools/test_regression_runner.py && node tools/run_python_tool.mjs tools/test_godot_import.py && node tools/run_python_tool.mjs tools/test_rock_gpu_validation.py && node tools/run_python_tool.mjs tools/test_metsys_probe_contract.py
+
+FRunning audio_retirement
+PASS: audio_retirement
+AUDIO RETIREMENT PASS: fixture, failures=0
+Running audio_retirement
+PASS: audio_retirement
+AUDIO RETIREMENT PASS: fixture, failures=0
+.Running world_catalog_background
+PASS: world_catalog_background
+WORLD CATALOG BACKGROUND PASS checks=1
+Running world_catalog_background
+FAIL: world_catalog_background: exit=0 engine_errors=1 completion_marker=True
+SCRIPT ERROR: fixture failure
+WORLD CATALOG BACKGROUND PASS checks=1
+Running world_catalog_background
+FAIL: world_catalog_background: exit=1 engine_errors=0 completion_marker=False
+Traceback (most recent call last):
+  File "/tmp/tmpfa4xpse2/fake-godot", line 3, in <module>
+    raise RuntimeError("fixture failure")
+RuntimeError: fixture failure
+Running world_catalog_background
+FAIL: world_catalog_background: timeout after 0.05s
+Running world_catalog_background
+....Running crown_rain_slot
+FAIL: crown_rain_slot: exit=0 engine_errors=0 completion_marker=False
+CROWN_RAIN_SLOT checks=12 failures=0
+Running crown_vault_door
+FAIL: crown_vault_door: exit=0 engine_errors=0 completion_marker=False
+CROWN_VAULT_DOOR checks=12 failures=0
+..Running enemy_atlas_integrity
+PASS: enemy_atlas_integrity
+ENEMY_ATLAS_INTEGRITY checks=3315 failures=0 static_frames=48 playbacks=8
+...Running player_layered_idle
+PASS: player_layered_idle
+PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true
+...Running world_route_manifest_walk_lower
+PASS: world_route_manifest_walk_lower
+PLAYER_MOTION_CONTINUITY checks=1 failures=0
+PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified
+Running world_route_manifest_walk_upper
+PASS: world_route_manifest_walk_upper
+PLAYER_MOTION_CONTINUITY checks=1 failures=0
+PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified
+Running player_motion_continuity
+PASS: player_motion_continuity
+PLAYER_MOTION_CONTINUITY checks=1 failures=0
+PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified
+Running player_melee_feedback
+PASS: player_melee_feedback
+PLAYER_MOTION_CONTINUITY checks=1 failures=0
+PLAYER_MELEE_FEEDBACK_PASS checks=1 hardware=simulated physical_feel=unverified
+......Running world_neighbor_gameplay_stress
+PASS: world_neighbor_gameplay_stress
+WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=1 failures=0
+WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=1 failures=0
+Running world_neighbor_gameplay_live
+PASS: world_neighbor_gameplay_live
+WORLD_NEIGHBOR_GAMEPLAY_STRESS checks=1 failures=0
+WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=1 failures=0
+..Running room_camera_stability
+PASS: room_camera_stability
+ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={}
+.......Running world_workshop_group_one
+PASS: world_workshop_group_one
+WORLD_WORKSHOP_GROUP_ONE checks=400 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=1234
+WORLD_WORKSHOP_GROUP_TWO checks=400 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=1234
+Running world_workshop_group_two
+PASS: world_workshop_group_two
+WORLD_WORKSHOP_GROUP_ONE checks=400 failures=0 rooms=10 disk_restarts=10 enemy_removal=true fixture_positioning=true elapsed_ms=1234
+WORLD_WORKSHOP_GROUP_TWO checks=400 failures=0 rooms=9 disk_restarts=9 enemy_removal=true fixture_positioning=true elapsed_ms=1234
+...
+======================================================================
+FAIL: test_default_suites_all_have_compilable_completion_contracts (__main__.CompletionContractTests.test_default_suites_all_have_compilable_completion_contracts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/test_regression_runner.py", line 79, in test_default_suites_all_have_compilable_completion_contracts
+    self.assertTrue(marker.startswith('^') and marker.endswith('$'))
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 32 tests in 4.775s
+
+FAILED (failures=1)

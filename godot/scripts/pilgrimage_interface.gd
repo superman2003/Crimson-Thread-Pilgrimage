@@ -138,6 +138,8 @@ var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
 var modal_closed_frame := -1
 var wish_confirmation: ConfirmationDialog
+var craft_cart: ConfirmationDialog
+var craft_cart_button: Button
 var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
@@ -1301,6 +1303,8 @@ func _build_build_panel() -> void:
     resupply_confirm_button.disabled=true
     resupply_planner_button=_button(build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),_open_resupply_planner)
     resupply_planner_button.add_theme_font_size_override("font_size",13)
+    craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
+    craft_cart_button.add_theme_font_size_override("font_size",14)
     _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
 
 func _request_build_toggle() -> void:
@@ -1692,6 +1696,7 @@ func refresh_build() -> void:
     if not tool_family.is_empty():build_tabs[2].text=String(tool_family.get("name","战具"))
     for index in build_slot_buttons.size():
         if not has_typed_layout:build_slot_buttons[index].visible=build_category in ["技能","战具"] and index<2
+    craft_cart_button.visible=build_category=="强化"
     resupply_planner_button.visible=build_category=="战具"
     resupply_preview_button.visible=build_category=="战具"
     resupply_confirm_button.visible=build_category=="战具"
@@ -2038,6 +2043,17 @@ func _show_build_detail(entry: Dictionary) -> void:
         for material in materials:lines.append("材料 %s：需要 %d / 持有 %d" % [level._item_display_name(String(material)),int(materials[material]),int(level.inventory_counts.get(material,0))])
     if bool(entry.get("selected",false)):lines.append("\n当前已装备。")
     build_detail.text="\n".join(lines)
+
+func _open_craft_cart() -> void:
+    if level==null or not build_panel.visible:return
+    if not is_instance_valid(craft_cart):
+        craft_cart=preload("res://scripts/craft_cart.gd").new()
+        build_panel.add_child(craft_cart)
+        craft_cart.setup(self)
+        register_text_entry_window(craft_cart)
+        build_panel.visibility_changed.connect(func():
+            if not build_panel.visible and is_instance_valid(craft_cart):craft_cart.hide())
+    craft_cart.open()
 
 func _perform_build_action(action: String, id: String, extra: Variant = -1) -> void:
     if level==null or not level.has_method("perform_build_action"):return
