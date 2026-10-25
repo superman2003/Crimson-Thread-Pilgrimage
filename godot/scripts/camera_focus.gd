@@ -27,7 +27,7 @@ func clear_look() -> void:
     look_offset = 0.0
 
 func configure(camera: Camera2D, bounds: Rect2) -> bool:
-    if not _valid_bounds(bounds):
+    if not is_instance_valid(camera) or not _valid_bounds(bounds):
         return false
     locks.clear()
     active_lock = ""
@@ -52,7 +52,7 @@ func remove_lock(id: String) -> void:
     locks.erase(id)
 
 func _valid_bounds(bounds: Rect2) -> bool:
-    return bounds.position.is_finite() and bounds.size.is_finite() and bounds.size.x > 0.0 and bounds.size.y > 0.0
+    return bounds.position.is_finite() and bounds.size.is_finite() and bounds.end.is_finite() and bounds.size.x > 0.0 and bounds.size.y > 0.0
 
 func _select_lock() -> Dictionary:
     active_lock = ""
@@ -68,7 +68,7 @@ func _select_lock() -> Dictionary:
     return locks[active_lock] if not active_lock.is_empty() else {}
 
 func effective_bounds(camera: Camera2D, selected: Dictionary) -> Rect2:
-    if not _valid_bounds(region_bounds):
+    if not is_instance_valid(camera) or not camera.is_inside_tree() or not camera.zoom.is_finite() or not _valid_bounds(region_bounds):
         return Rect2()
     var bounds: Rect2 = selected.get("bounds", region_bounds)
     bounds = bounds.intersection(region_bounds)
@@ -96,6 +96,9 @@ func apply_limits(camera: Camera2D) -> Dictionary:
 
 func update(camera: Camera2D, delta: float, requested_direction: int, eligible: bool, strength: float) -> float:
     var selected := apply_limits(camera)
+    delta = maxf(0.0, delta) if is_finite(delta) else 0.0
+    strength = clampf(strength, 0.0, 1.0) if is_finite(strength) else 0.0
+    requested_direction = clampi(requested_direction, -1, 1)
     var allowed := eligible and strength > 0.0
     if requested_direction < 0 and bool(selected.get("prevent_up", false)):
         allowed = false
@@ -117,6 +120,7 @@ func update(camera: Camera2D, delta: float, requested_direction: int, eligible: 
 
 
 func reset_follow(point: Vector2) -> void:
+    if not point.is_finite():return
     # Arrival/respawn owns the intentional cut. Ordinary room switches retain
     # this baseline and the existing eased room limits, without resetting scroll.
     follow_ready = true
@@ -129,10 +133,18 @@ func reset_follow(point: Vector2) -> void:
 
 
 func follow_position(camera: Camera2D, point: Vector2, motion: Vector2, grounded: bool, delta: float, strength: float, observation: float) -> Vector2:
+    if not is_instance_valid(camera):return Vector2(0, -NEUTRAL_HEIGHT)
+    if not point.is_finite() or not camera.is_inside_tree():
+        return camera.position if camera.position.is_finite() else Vector2(0, -NEUTRAL_HEIGHT)
+    # One invalid sample must not contaminate the persistent follow baseline.
+    if not motion.is_finite():motion = Vector2.ZERO
+    delta = maxf(delta, 0.0) if is_finite(delta) else 0.0
+    strength = clampf(strength, 0.0, 1.0) if is_finite(strength) else 0.0
+    observation = clampf(observation, -LOOK_DISTANCE, LOOK_DISTANCE) if is_finite(observation) else 0.0
     if not follow_ready:
         reset_follow(point)
     var weight := 1.0 - exp(-maxf(delta, 0.0) * OFFSET_RESPONSE)
-    var horizontal := lerpf(camera.position.x, clampf(motion.x * 0.18, -90.0, 90.0) * strength, weight)
+    var horizontal := lerpf(camera.position.x if is_finite(camera.position.x) else 0.0, clampf(motion.x * 0.18, -90.0, 90.0) * strength, weight)
     follow_observation = lerpf(follow_observation, observation, weight)
     if grounded:
         # Reframe a new platform layer, but ignore tiny floor-contact corrections.
