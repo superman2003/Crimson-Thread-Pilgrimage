@@ -1,0 +1,25 @@
+Running journal_desk
+FAIL: journal_desk: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+ERROR: search and reading controls stay within production panel bounds
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/journal_desk_validation.gd:112)
+ERROR: search reading favorites and typing leave all gameplay progress unchanged
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/journal_desk_validation.gd:112)
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=58 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running ui_world_integration
+PASS: ui_world_integration
+按 F 休息，恢复状态并记录归途。
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+GODOT_REGRESSIONS suites=3 failures=1

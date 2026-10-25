@@ -121,6 +121,18 @@ var journal_filter := "all"
 var journal_filter_buttons: Dictionary = {}
 var journal_filters: HBoxContainer
 var journal_memory: Dictionary = {}
+var journal_catalog := preload("res://scripts/journal_catalog.gd").new()
+var journal_tools: HBoxContainer
+var journal_search: LineEdit
+var journal_unread: CheckButton
+var journal_stars: CheckButton
+var journal_sort: OptionButton
+var journal_count: Label
+var journal_mark_button: Button
+var journal_star_button: Button
+var journal_current_document: Dictionary={}
+var journal_documents: Array=[]
+var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
 var journal_reading_text := ""
@@ -563,6 +575,37 @@ func _build_bag() -> void:
         filter_button.custom_minimum_size=Vector2(filter_width,28)
         filter_button.add_theme_font_size_override("font_size",13)
         journal_filter_buttons[filter_id]=filter_button
+    journal_tools=HBoxContainer.new()
+    journal_tools.position=Vector2(34,222)
+    journal_tools.size=Vector2(645,30)
+    journal_tools.add_theme_constant_override("separation",8)
+    bag.add_child(journal_tools)
+    journal_search=LineEdit.new()
+    journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
+    journal_search.max_length=80
+    journal_search.custom_minimum_size=Vector2(236,30)
+    journal_search.add_theme_font_size_override("font_size",13)
+    journal_tools.add_child(journal_search)
+    journal_search.text_changed.connect(func(_value: String):journal_selection=0;refresh_inventory())
+    journal_unread=CheckButton.new()
+    journal_unread.text="仅未读"
+    journal_unread.add_theme_font_size_override("font_size",13)
+    journal_tools.add_child(journal_unread)
+    journal_unread.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
+    journal_stars=CheckButton.new()
+    journal_stars.text="仅收藏"
+    journal_stars.add_theme_font_size_override("font_size",13)
+    journal_tools.add_child(journal_stars)
+    journal_stars.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
+    journal_sort=OptionButton.new()
+    journal_sort.add_item("旅途顺序")
+    journal_sort.add_item("按标题")
+    journal_sort.add_item("未读优先")
+    journal_sort.add_theme_font_size_override("font_size",13)
+    journal_sort.custom_minimum_size=Vector2(127,30)
+    journal_tools.add_child(journal_sort)
+    journal_sort.item_selected.connect(func(_index: int):journal_selection=0;refresh_inventory())
+    journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
     bag_grid=GridContainer.new()
     bag_grid.columns=6
     bag_grid.add_theme_constant_override("h_separation",9)
@@ -588,6 +631,10 @@ func _build_bag() -> void:
     bag.add_child(bag_description)
     bag.visibility_changed.connect(_journal_bag_visibility_changed)
     bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
+    journal_mark_button=_button(bag,"标为已读",Vector2(738,571),Vector2(160,27),_toggle_journal_read)
+    journal_star_button=_button(bag,"收藏记录",Vector2(908,571),Vector2(160,27),_toggle_journal_star)
+    journal_mark_button.add_theme_font_size_override("font_size",13)
+    journal_star_button.add_theme_font_size_override("font_size",13)
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(645,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
@@ -606,8 +653,9 @@ func refresh_inventory() -> void:
     if bag_grid==null:return
     if journal_filters!=null:
         journal_filters.visible=bag_category=="旅记"
-        bag_scroll.position.y=226 if journal_filters.visible else 194
-        bag_scroll.size.y=305 if journal_filters.visible else 337
+        bag_scroll.position.y=279 if journal_filters.visible else 194
+        bag_scroll.size.y=252 if journal_filters.visible else 337
+        for control in [journal_tools,journal_count,journal_mark_button,journal_star_button]:control.visible=journal_filters.visible
     begin_inventory_refresh()
     if bag_category=="旅记":
         _refresh_journal()
@@ -1091,6 +1139,11 @@ func _input(event: InputEvent) -> void:
             remap_status.text="已保存「%s」的新输入；其余设备的绑定继续可用。" % REMAPPABLE_ACTIONS[action]
             get_viewport().set_input_as_handled()
         return
+    if bag.visible and bag_category=="旅记" and event is InputEventKey and event.pressed and event.ctrl_pressed and event.keycode==KEY_F:
+        journal_search.grab_focus()
+        get_viewport().set_input_as_handled()
+        return
+    if event is InputEventKey and get_viewport().gui_get_focus_owner() is LineEdit:return
     if bag.visible and bag_category=="旅记":
         var step:=0
         if event is InputEventKey and event.pressed and not event.echo:
@@ -2259,12 +2312,32 @@ func _refresh_journal() -> void:
                 entry["record_kind"]="evidence"
                 records.append(entry)
     records.append_array(preload("res://scripts/enemy_journal.gd").records(level.story_flags))
+    journal_catalog.path=journal_preferences_path
+    var scope_value: Variant=level.get("world_save_path")
+    journal_catalog.configure(scope_value if scope_value is String else "session")
     if journal_filter!="all":records=records.filter(func(entry):return String(entry.get("record_kind",""))==journal_filter)
+    var documents: Array=[]
+    for entry in records:
+        var presentation:=_journal_presentation(entry)
+        var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
+        var doc:=journal_catalog.document(key,String(entry.get("title",entry.get("id",""))),String(presentation.category),String(presentation.text))
+        doc["entry"]=entry
+        documents.append(doc)
+    journal_documents=documents
+    var visible:=journal_catalog.filter_documents(documents,journal_search.text,journal_unread.button_pressed,journal_stars.button_pressed,journal_sort.selected)
+    var unread_count:=0
+    for doc in documents:
+        if not journal_catalog.is_read(doc):unread_count+=1
+    journal_count.text="已知记录 %d / %d · 本分类未读 %d · 阅读标记不推进任务" % [visible.size(),documents.size(),unread_count]
+    records=[]
+    for doc in visible:records.append(doc.entry)
     var remembered:=String(journal_memory.get(journal_filter,""))
     for index in records.size():
         if String(records[index].get("record_kind",""))+":"+String(records[index].get("id",""))==remembered:journal_selection=index
     journal_selection=clampi(journal_selection,0,maxi(0,records.size()-1))
     if records.is_empty():
+        journal_current_document={}
+        _refresh_journal_actions()
         journal_reading_key=""
         journal_restore_pending=false
         bag_name.text="尚无敌人记录" if journal_filter=="enemy" else "这一分类暂无记录"
@@ -2272,6 +2345,9 @@ func _refresh_journal() -> void:
         if journal_filter=="voice":
             bag_name.text="尚无自述"
             bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
+        if not journal_search.text.is_empty() or journal_unread.button_pressed or journal_stars.button_pressed:
+            bag_name.text="没有符合筛选的已知记录"
+            bag_description.text="清空搜索、关闭仅未读/收藏，或切换分类。未发现内容不会列出或被搜索命中。"
     var selected_button: Button
     for record_index in records.size():
         var value: Variant=records[record_index]
@@ -2284,6 +2360,9 @@ func _refresh_journal() -> void:
         elif entry.record_kind=="voice":status="旅途自述"
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
+        var public:=_journal_presentation(entry)
+        var doc:=journal_catalog.document(String(entry.record_kind)+":"+String(entry.get("id","")),title,String(public.category),String(public.text))
+        status=("★ " if journal_catalog.is_starred(String(doc.key)) else "")+("未读 · " if not journal_catalog.is_read(doc) else "")+status
         var button:=_button(bag_grid,title+"\n"+status,Vector2.ZERO,Vector2(309,74),func():_show_journal_record(entry))
         button.custom_minimum_size=Vector2(309,74)
         button.tooltip_text=title+" · "+status
@@ -2298,27 +2377,26 @@ func _refresh_journal() -> void:
     if not records.is_empty():
         journal_selection=clampi(journal_selection,0,records.size()-1)
         _show_journal_record(records[journal_selection])
-        if selected_button!=null and bag.visible:selected_button.grab_focus()
+        if selected_button!=null and bag.visible and not _journal_tools_focused():selected_button.grab_focus()
 
-func _show_journal_record(entry: Dictionary) -> void:
-    _remember_journal_scroll()
-    bag_name.text=String(entry.get("title",entry.get("id","")))
+func _journal_presentation(entry: Dictionary) -> Dictionary:
+    var category:=""
     var lines: Array[String]=[]
     if bool(entry.get("history_note",false)):
-        bag_category_label.text="环境见闻 · 已观察"
+        category="环境见闻 · 已观察"
         lines.append(String(entry.get("text","")))
         lines.append("\n地点："+String(entry.get("place","")))
         lines.append("\n环境见闻保留了观察，不计入六区原始证词。")
     elif String(entry.get("record_kind",""))=="voice":
-        bag_category_label.text="自述 · 获得能力之后"
+        category="自述 · 获得能力之后"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="guide":
-        bag_category_label.text="操作手册 · 当前规则"
+        category="操作手册 · 当前规则"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
         var ready:=bool(entry.get("available",false))
-        bag_category_label.text="结局选择 · "+_ending_status_label(entry)
+        category="结局选择 · "+_ending_status_label(entry)
         if not String(entry.get("message","")).is_empty():lines.append(String(entry.message))
         for requirement in entry.get("known_missing",[]):
             var clue: Dictionary=requirement
@@ -2340,23 +2418,23 @@ func _show_journal_record(entry: Dictionary) -> void:
                 if bool(row.get("seen",false)):lines.append("● %s：%s" % [String(row.get("region_name","")),String(row.get("text",""))])
                 else:lines.append("○ %s：回到那里的钟龛看看。" % String(row.get("region_name","")))
     elif String(entry.get("record_kind",""))=="enemy":
-        bag_category_label.text="敌人 · 已击败"
+        category="敌人 · 已击败"
         lines.append(String(entry.get("description","")))
         lines.append("\n战斗笔记按已击败种类保存；休息后敌人复现不会重复添加。")
     elif String(entry.get("record_kind",""))=="main":
-        bag_category_label.text="主线"
+        category="主线"
         lines.append(String(entry.get("goal","")))
         for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
         lines.append("\n"+String(entry.get("guidance","")))
     elif String(entry.get("record_kind",""))=="quest":
-        bag_category_label.text="委托 · "+("已完成" if String(entry.get("status",""))=="complete" else "进行中")
+        category="委托 · "+("已完成" if String(entry.get("status",""))=="complete" else "进行中")
         lines.append(String(entry.get("description","")))
         for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
         lines.append("\n"+String(entry.get("guidance","")))
         if String(entry.get("status",""))=="complete":lines.append("奖励已领取。" if bool(entry.get("reward_claimed",false)) else "可以返回委托人领取奖励。")
     else:
         var acquired:=bool(entry.get("acquired",false))
-        bag_category_label.text="证词 · "+("已发现" if acquired else "缺页")
+        category="证词 · "+("已发现" if acquired else "缺页")
         lines.append(String(entry.get("claim","")) if acquired else "尚未拾得这页证词。")
         lines.append("\n线索："+String(entry.get("location_hint","留意区域中的遗物与生产设施。")))
         if acquired:
@@ -2366,14 +2444,52 @@ func _show_journal_record(entry: Dictionary) -> void:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
-    var text:="\n".join(lines)
+    return {"text":"\n".join(lines),"category":category}
+
+func _show_journal_record(entry: Dictionary) -> void:
+    _remember_journal_scroll()
+    bag_name.text=String(entry.get("title",entry.get("id","")))
+    var presentation:=_journal_presentation(entry)
+    bag_category_label.text=String(presentation.category)
+    var text:=String(presentation.text)
     var key:=String(entry.get("record_kind",""))+":"+String(entry.get("id",""))
+    journal_current_document=journal_catalog.document(key,bag_name.text,bag_category_label.text,text)
+    _refresh_journal_actions()
     if journal_reading_key==key and bag_description.text==text:return
     bag_description.text=text
     journal_reading_key=key if bag.is_visible_in_tree() else ""
     journal_reading_text=text
     journal_restore_pending=not journal_reading_key.is_empty()
     call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text))
+
+func is_text_entry_focused() -> bool:
+    var focus:=get_viewport().gui_get_focus_owner()
+    return focus is LineEdit or focus is TextEdit
+
+func _journal_tools_focused() -> bool:
+    var focus:=get_viewport().gui_get_focus_owner()
+    return focus!=null and (journal_tools.is_ancestor_of(focus) or focus in [journal_mark_button,journal_star_button])
+
+func _refresh_journal_actions() -> void:
+    var valid:=not journal_current_document.is_empty()
+    journal_mark_button.disabled=not valid
+    journal_star_button.disabled=not valid
+    journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
+    journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
+
+func _journal_preference_result(result: Dictionary) -> void:
+    if not String(result.get("reason","")).is_empty() and is_instance_valid(toast):toast.text=String(result.reason)
+    refresh_inventory()
+
+func _toggle_journal_read() -> void:
+    if journal_current_document.is_empty() or not bag.visible or bag_category!="旅记":return
+    journal_memory[journal_filter]=String(journal_current_document.key)
+    _journal_preference_result(journal_catalog.mark_read(journal_current_document,not journal_catalog.is_read(journal_current_document)))
+
+func _toggle_journal_star() -> void:
+    if journal_current_document.is_empty() or not bag.visible or bag_category!="旅记":return
+    journal_memory[journal_filter]=String(journal_current_document.key)
+    _journal_preference_result(journal_catalog.toggle_star(String(journal_current_document.key)))
 
 func _remember_journal_scroll(force: bool=false) -> void:
     if bag_description==null or journal_reading_key.is_empty() or journal_restore_pending:return
