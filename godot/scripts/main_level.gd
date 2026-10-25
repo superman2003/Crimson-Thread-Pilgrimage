@@ -7801,6 +7801,22 @@ func get_tool_readiness(id: String) -> Dictionary:
         return {"available":false,"text":"已用尽","detail":"战具已用尽，请在钟龛补给"}
     return {"available":true,"text":"","detail":"使用消耗一次。"}
 
+func quote_craft_cart(request: Variant) -> Dictionary:
+    var failure := {"ok":false,"reason":"请与制作这份清单的工匠面对面交谈。"}
+    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or build_system==null or world_save_blocked:return failure
+    if not _near_workstation(true) or near_artisan_id().is_empty():return failure
+    if not request is Array:return failure
+    for id in request:
+        if not id is String or not build_system.catalog.recipes.has(id):return failure
+        var recipe: Dictionary=build_system.catalog.recipes[id]
+        if String(recipe.get("kind",""))=="skill_branch" and not bool(story_flags.get("skill_practiced_"+String(recipe.target),false)):
+            return {"ok":false,"reason":"先在练针架练熟技能，再选校习方向。"}
+        var blocked:=artisan_craft_block(recipe)
+        if not blocked.is_empty():return {"ok":false,"reason":blocked}
+    var quote: Dictionary=build_system.quote_craft_batch(request,_build_wallet_snapshot())
+    if quote.get("ok",false):quote["fingerprint"]=var_to_str([request,build_system.serialize(),_build_wallet_snapshot(),quote.rows,quote.materials,quote.currency_spent,near_artisan_id(),story_flags]).sha256_text()
+    return quote
+
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
     if build_system == null or not world_mode:
         return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
@@ -7815,6 +7831,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             return {"ok":false,"reason":String(readiness.detail)}
     if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
         return {"ok": false, "reason": "当前无法更换构筑"}
+    if action == "quote_craft_batch":return quote_craft_cart(extra)
     if action == "quote_resupply":
         if not _near_workstation():
             return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
@@ -7861,6 +7878,11 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation(), {} if extra == null else extra)
             if result.get("ok", false):
                 _set_build_wallet(result.wallet)
+        "craft_batch":
+            result=quote_craft_cart(extra)
+            if result.get("ok",false):
+                if not build_system.restore(result.build).ok:result={"ok":false,"reason":"制作清单构筑无法恢复"}
+                else:_set_build_wallet(result.wallet)
         "transact", "craft":
             var recipe: Dictionary = build_system.catalog.recipes.get(id, {})
             var practice_target := String(recipe.get("target", ""))
