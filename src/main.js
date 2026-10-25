@@ -967,11 +967,21 @@ function finishChapter() {
   }
 }
 
+import { ComfortPreferences, mountComfort } from "./browser/comfort.js";
+var browserComfort;
+function comfortFeature() {
+  if (!browserComfort) {
+    browserComfort = new ComfortPreferences(() => window.localStorage, window.matchMedia?.("(prefers-reduced-motion: reduce)").matches);
+    mountComfort(browserComfort);
+  }
+  return browserComfort;
+}
+
 function draw() {
   const chapter = CHAPTERS[state.chapterIndex] || CHAPTERS[0];
   ctx.save();
   ctx.clearRect(0, 0, SETTINGS.width, SETTINGS.height);
-  if (state.shake > 0) {
+  if (state.shake > 0 && comfortFeature().shake) {
     const sx = (Math.random() - 0.5) * state.shake;
     const sy = (Math.random() - 0.5) * state.shake;
     ctx.translate(sx, sy);
@@ -996,6 +1006,7 @@ function draw() {
 }
 
 function drawBackground(chapter) {
+  comfortFeature();
   const gradient = ctx.createLinearGradient(0, 0, 0, SETTINGS.height);
   gradient.addColorStop(0, chapter.palette.skyTop);
   gradient.addColorStop(1, chapter.palette.skyBottom);
@@ -1004,7 +1015,7 @@ function drawBackground(chapter) {
 
   const asset = assets.chapters[state.chapterIndex];
   if (isDrawable(asset.background)) {
-    const parallaxX = -((state.cameraX * 0.06) % SETTINGS.width);
+    const parallaxX = comfortFeature().value.reduced ? 0 : -((state.cameraX * 0.06) % SETTINGS.width);
     ctx.globalAlpha = 0.82;
     for (let x = parallaxX - SETTINGS.width; x < SETTINGS.width * 2; x += SETTINGS.width) {
       ctx.drawImage(asset.background, x, 0, SETTINGS.width, SETTINGS.height);
@@ -1012,12 +1023,12 @@ function drawBackground(chapter) {
     ctx.globalAlpha = 1;
   }
   for (let layer = 0; layer < 3; layer += 1) {
-    const parallax = 0.12 + layer * 0.11;
+    const parallax = comfortFeature().value.reduced ? 0 : 0.12 + layer * 0.11;
     const spacing = 230 - layer * 25;
     const yBase = 92 + layer * 62;
     for (let i = -1; i < 7; i += 1) {
       const x = i * spacing - ((state.cameraX * parallax) % spacing);
-      const y = yBase + Math.sin(i * 1.7 + state.time * 0.35 + layer) * 12;
+      const y = yBase + Math.sin(i * 1.7 + (comfortFeature().value.reduced ? 0 : state.time) * 0.35 + layer) * 12;
       ctx.globalAlpha = 0.16 + layer * 0.05;
       drawImageOrFallback(asset.backdrop, x, y, 190, 130);
     }
@@ -1027,7 +1038,7 @@ function drawBackground(chapter) {
   ctx.strokeStyle = "rgba(255,255,255,0.08)";
   ctx.lineWidth = 1;
   for (let i = 0; i < 18; i += 1) {
-    const x = (i * 87 - (state.cameraX * 0.22) % 87);
+    const x = (i * 87 - (state.cameraX * (comfortFeature().value.reduced ? 0 : 0.22)) % 87);
     ctx.beginPath();
     ctx.moveTo(x, 0);
     ctx.lineTo(x + 70, SETTINGS.height);
@@ -1036,7 +1047,7 @@ function drawBackground(chapter) {
 }
 
 function drawForeground(chapter) {
-  const pulse = 0.35 + Math.sin(state.time * 2) * 0.08;
+  const pulse = 0.35 + Math.sin((comfortFeature().value.reduced ? 0 : state.time) * 2) * 0.08;
   ctx.fillStyle = chapter.palette.mist;
   ctx.globalAlpha = pulse;
   ctx.fillRect(0, 0, SETTINGS.width, SETTINGS.height);
@@ -1752,6 +1763,7 @@ function waveRect(x, y, w, h, amp) {
 }
 
 function spawnParticles(x, y, color, amount) {
+  if (!comfortFeature().particles) return;
   for (let i = 0; i < amount; i += 1) {
     const angle = Math.random() * TAU;
     const speed = 70 + Math.random() * 260;

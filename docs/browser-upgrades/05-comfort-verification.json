@@ -1,0 +1,22 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:26.893997+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "comfort settings persist and do not freeze hazard clocks",
+    "mobile toolbar and touch controls stay within viewport"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/comfort.js": "29b2abc6c50bcaef02fbeee4ed12afc6a8a31cbd2adce47c74b96456978abbd7",
+    "src/browser/utility-panel.js": "a236b1459e081e95e80312088f5680c8fd7440a1795569f3ab5aa277d1d79c3f",
+    "src/main.js": "48b2c97581ca886edfeb2332e49184f863e7f57119b781bf770e66bb9fba72bb",
+    "tests/browser-05-comfort.test.mjs": "1568f1398da97cde199e7c4c23139dff597feb991cdcfa02db862b709ab198e6",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}
