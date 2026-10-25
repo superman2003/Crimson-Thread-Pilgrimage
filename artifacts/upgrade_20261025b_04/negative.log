@@ -1,0 +1,43 @@
+Running cartographer_trade
+FAIL: cartographer_trade: exit=1 engine_errors=0 completion_marker=False
+CHECK PASS explicit trade fixture baseline persists
+CHECK PASS read-only actual quote preserves ownership for map
+CHECK PASS read-only actual quote preserves ownership for quill
+CHECK PASS read-only actual quote preserves ownership for compass
+请靠近本区地图NPC购买。
+CHECK PASS noncanonical seller cannot charge or grant
+请靠近本区地图NPC购买。
+CHECK PASS remote tool purchase rejected
+CHECK PASS malformed map price never spends or grants 0
+CHECK PASS malformed map price never spends or grants -1
+CHECK PASS malformed map price never spends or grants true
+CHECK PASS malformed map price never spends or grants 0.5
+CHECK PASS malformed map price never spends or grants nan
+CHECK PASS malformed map price never spends or grants inf
+CHECK PASS unknown tool cannot use compass fallback pricing
+CHECK PASS real seller focuses cancellation and isolates native modal input
+CHECK PASS wallet changes require renewed explicit confirmation
+CHECK PASS actual price changes refresh quote without purchase
+购买记录未写入；碎钱与商品保持原状，可直接重试。
+CHECK FAIL failed map save retains exact wallet knowledge build resources and file
+CHECK FAIL map publishes exact current price and ownership after one durable write
+CHECK FAIL successful map confirmation returns gameplay control
+CHECK FAIL actual map disk restores the same price and owned paper
+CHECK PASS tool selection stages a quote without silently buying
+购买记录未写入；碎钱与商品保持原状，可直接重试。
+CHECK FAIL failed quill save preserves complete knowledge state and retry window
+CHECK FAIL quill commits exactly once at its real price
+CHECK PASS compass quote does not unlock or equip it
+购买记录未写入；碎钱与商品保持原状，可直接重试。
+CHECK FAIL failed compass save preserves unlocks profile and disk
+CHECK FAIL compass unlock and source flag commit with exact payment
+CHECK PASS purchase does not auto-equip positioning or refill resources
+CHECK FAIL production disk restores both tools and final wallet
+已经有了这件商品。
+已经有了这件商品。
+已经有了这件商品。
+CHECK FAIL already-owned goods cannot charge twice
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=2 retired=4
+CHECK PASS late native callback after owner exit is safe and real World audio retires
+CARTOGRAPHER_TRADE checks=31 failures=10
+GODOT_REGRESSIONS suites=1 failures=1
