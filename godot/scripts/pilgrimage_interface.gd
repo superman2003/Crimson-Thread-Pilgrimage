@@ -140,6 +140,7 @@ var modal_closed_frame := -1
 var wish_confirmation: ConfirmationDialog
 var craft_cart: ConfirmationDialog
 var craft_cart_button: Button
+var save_desk: ConfirmationDialog
 var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
@@ -2066,7 +2067,16 @@ func _perform_build_action(action: String, id: String, extra: Variant = -1) -> v
         toast_age=0.0
         build_detail.text+="\n\n"+message
 
+func _open_save_desk(slot: int, action: String) -> void:
+    if not is_instance_valid(save_desk):
+        save_desk=preload("res://scripts/save_desk.gd").new()
+        settings.add_child(save_desk);save_desk.setup(self);register_text_entry_window(save_desk)
+        settings.visibility_changed.connect(func():
+            if not settings.visible and is_instance_valid(save_desk):save_desk.hide())
+    save_desk.open(slot,action)
+
 func _select_save_slot(slot: int) -> void:
+    if level.has_method("quote_save_operation"):_open_save_desk(slot,"switch");return
     if not level.has_method("select_save_slot"):
         remap_status.text="当前入口尚未支持多存档。"
         return
@@ -2074,6 +2084,7 @@ func _select_save_slot(slot: int) -> void:
     remap_status.text="已切换到存档槽 %d。" % slot if result else "存档切换失败；当前进度未被覆盖。"
 
 func _restore_save_backup() -> void:
+    if level.has_method("quote_save_operation"):_open_save_desk(level.world_slot,"recover");return
     if not level.has_method("restore_save_backup"):
         remap_status.text="当前入口尚未支持备份恢复。"
         return
