@@ -1,0 +1,13 @@
+Running journal_desk
+PASS: journal_desk
+AUDIO_RETIREMENT pending=0 elapsed_msec=30 observed=2 retired=4
+JOURNAL_DESK checks=36 failures=0
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=58 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running ui_world_integration
+PASS: ui_world_integration
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+GODOT_REGRESSIONS suites=3 failures=0

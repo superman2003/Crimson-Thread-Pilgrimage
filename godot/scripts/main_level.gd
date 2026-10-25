@@ -1049,41 +1049,45 @@ func _process(_delta: float) -> void:
         if not world_mode and boss_unlocked and not demo_complete and not boss_spawned:
             _spawn_boss()
         _refresh_hud()
-    if Input.is_action_just_pressed("close_overlay"):
-        _close_overlays()
-    elif Input.is_action_just_pressed("inventory"):
-        if world_mode and active_overlay == "map":
-            world_map_view = not world_map_view
-            _refresh_map_overlay()
-        else:
-            _toggle_backpack()
-    elif Input.is_action_just_pressed("map"):
-        _toggle_map()
-    elif Input.is_action_just_pressed("audio_settings"):
-        _toggle_audio_settings()
-    if active_overlay == "backpack":
-        if Input.is_action_just_pressed("aim_up"):
-            _move_backpack_selection(-1)
-        elif Input.is_action_just_pressed("aim_down"):
-            _move_backpack_selection(1)
-    elif active_overlay == "settings":
-        if Input.is_action_just_pressed("aim_up"):
-            _move_settings_selection(-1)
-        elif Input.is_action_just_pressed("aim_down"):
-            _move_settings_selection(1)
-        if Input.is_action_just_pressed("move_left"):
-            _adjust_settings_volume(-5.0)
-        elif Input.is_action_just_pressed("move_right"):
-            _adjust_settings_volume(5.0)
-    if active_overlay.is_empty():
-        if Input.is_action_just_pressed("tool_cast"):
-            perform_build_action("use_tool")
-        elif Input.is_action_just_pressed("skill_cycle"):
-            perform_build_action("cycle_skill")
-        elif Input.is_action_just_pressed("tool_cycle"):
-            perform_build_action("cycle_tool")
-    if Input.is_action_just_pressed("interact"):
-        _try_interact()
+    # Text entry suppresses polled shortcuts, while fall/room lifecycle work
+    # below continues even when a search or scheme-name field owns focus.
+    var typing: bool=ui_shell!=null and ui_shell.has_method("is_text_entry_focused") and ui_shell.is_text_entry_focused()
+    if not typing or Input.is_action_just_pressed("close_overlay"):
+        if Input.is_action_just_pressed("close_overlay"):
+            _close_overlays()
+        elif Input.is_action_just_pressed("inventory"):
+            if world_mode and active_overlay == "map":
+                world_map_view = not world_map_view
+                _refresh_map_overlay()
+            else:
+                _toggle_backpack()
+        elif Input.is_action_just_pressed("map"):
+            _toggle_map()
+        elif Input.is_action_just_pressed("audio_settings"):
+            _toggle_audio_settings()
+        if active_overlay == "backpack":
+            if Input.is_action_just_pressed("aim_up"):
+                _move_backpack_selection(-1)
+            elif Input.is_action_just_pressed("aim_down"):
+                _move_backpack_selection(1)
+        elif active_overlay == "settings":
+            if Input.is_action_just_pressed("aim_up"):
+                _move_settings_selection(-1)
+            elif Input.is_action_just_pressed("aim_down"):
+                _move_settings_selection(1)
+            if Input.is_action_just_pressed("move_left"):
+                _adjust_settings_volume(-5.0)
+            elif Input.is_action_just_pressed("move_right"):
+                _adjust_settings_volume(5.0)
+        if active_overlay.is_empty():
+            if Input.is_action_just_pressed("tool_cast"):
+                perform_build_action("use_tool")
+            elif Input.is_action_just_pressed("skill_cycle"):
+                perform_build_action("cycle_skill")
+            elif Input.is_action_just_pressed("tool_cycle"):
+                perform_build_action("cycle_tool")
+        if Input.is_action_just_pressed("interact"):
+            _try_interact()
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
     if player != null and is_instance_valid(player):
