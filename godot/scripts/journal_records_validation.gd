@@ -31,6 +31,17 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     check.call(guide_text.contains("消耗 %d 绯线" % int(quote.cost)) and guide_text.contains("恢复 %d 生命" % int(quote.amount)),"teaching note quotes the actual current Player recovery values")
     check.call(main.story_flags==guide_flags and main.player.hp==guide_hp and main.player.energy==guide_energy,"reading teaching notes grants no progress or resources")
     var guide:=preload("res://scripts/field_guide.gd")
+    check.call(guide.ability_records({},{}).is_empty(),"unknown abilities reveal no manual titles or controls")
+    var earned:={}
+    for row in preload("res://scripts/protagonist_voice.gd").catalogue():earned[String(row.ability)]=1
+    var earned_before:=earned.duplicate(true)
+    var controls:={"jump":"重绑跳跃","hook":"重绑钩索","aim_down":"重绑向下","attack":"重绑针击","lantern_phase":"重绑相位"}
+    var manuals: Array=guide.ability_records(earned,controls)
+    check.call(manuals.size()==8 and earned==earned_before,"all eight earned abilities have read-only operating notes")
+    check.call(String(manuals[3].description).contains("重绑钩索") and String(manuals[3].description).contains("重绑跳跃") and String(manuals[5].description).contains("重绑向下") and String(manuals[5].description).contains("重绑针击"),"compound ability instructions use actual remapped controls")
+    for invalid in [true,"1",0,-1,0.5,NAN,INF,1000001]:
+        check.call(guide.ability_records({"echo_hook":invalid},controls).is_empty(),"invalid inventory cannot expose an unearned ability: "+str(invalid))
+    check.call(guide.ability_records({"echo_hook":1.0},controls).size()==1,"legacy whole-number inventory values remain compatible")
     var catalogue: Dictionary=main.build_system.catalog
     for crest in catalogue.crests.values():
         var sample:={"cost":crest.heal_cost,"amount":crest.heal_amount,"duration":crest.heal_duration}

@@ -19,6 +19,10 @@ def validate() -> list[str]:
             errors.append(f"{kind}: needs a localized player-facing name")
         if entry.get("habit") != combat.get(kind, {}).get("combat_identity"):
             errors.append(f"{kind}: battle note differs from its actual combat identity")
+        for field in ("warning", "response"):
+            value = entry.get(field)
+            if not isinstance(value, str) or not value.strip() or not re.search(r"[\u4e00-\u9fff]", value):
+                errors.append(f"{kind}: needs a localized {field} note")
     return errors
 
 

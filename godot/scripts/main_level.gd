@@ -1053,7 +1053,8 @@ func _process(_delta: float) -> void:
     # Text entry suppresses polled shortcuts, while fall/room lifecycle work
     # below continues even when a search or scheme-name field owns focus.
     var typing: bool=ui_shell!=null and ui_shell.has_method("is_text_entry_focused") and ui_shell.is_text_entry_focused()
-    if not typing or Input.is_action_just_pressed("close_overlay"):
+    var modal: bool=ui_shell!=null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
+    if not modal and (not typing or Input.is_action_just_pressed("close_overlay")):
         if Input.is_action_just_pressed("close_overlay"):
             _close_overlays()
         elif Input.is_action_just_pressed("inventory"):
@@ -6801,13 +6802,8 @@ func _wish_dialogue_candidate(area: Area2D, flags: Dictionary, wallet: int) -> D
         flags["quest_bring_names_rewarded"] = true
     return {"flags":flags,"currency":wallet,"indices":indices}
 
-## Prepare a privately owned checkpoint without invoking inventory/story helpers:
-## those helpers may save recursively, apply Player stats, or announce rewards.
-## Publish inventory, unlocks and capacities only after the one durable write.
-func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
-    var failure := {"ok":false,"reason":"归途记录未能写入；本次心愿尚未确认，请重试。"}
-    if not world_mode or world_loading or world_state == null or player == null or build_system == null or world_save_blocked:
-        return failure
+## Pure candidate shared by preview and the one-write transaction.
+func _wish_topic_plan(quest: Dictionary, area: Area2D) -> Dictionary:
     var next_counts := inventory_counts.duplicate(true)
     var next_flags := story_flags.duplicate(true)
     var dialogue := _wish_dialogue_candidate(area, next_flags, currency_count)
@@ -6841,6 +6837,45 @@ func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
         if not target.is_empty() and bool(next_flags.get(target, false)) and not bool(next_flags.get(claim, false)):
             next_flags[claim] = true
             next_currency += maxi(0, int(wish.get("reward_currency", 0)))
+    return {"counts":next_counts,"flags":next_flags,"currency":next_currency,"dialogue":dialogue,"delivered":delivered,"reward":reward}
+
+func quote_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
+    var failure := {"ok":false,"reason":"请回到这位人物身旁，重新打开当前心愿。"}
+    if not world_mode or world_loading or world_save_blocked or player == null or player.hp <= 0 or build_system == null:return failure
+    if not is_instance_valid(area) or not area.is_inside_tree() or not area.is_visible_in_tree() or area.is_queued_for_deletion():return failure
+    if area.get_world_2d() != player.get_world_2d() or area.global_position.distance_to(player.global_position) > INTERACTION_REACH:return failure
+    if ui_shell == null or ui_shell.dialogue_area != area or active_overlay != "dialogue" or not ui_shell.dialogue.visible:return failure
+    var topics: Dictionary = area.get_meta("dialogue_topics",{})
+    if quest.is_empty() or topics.get("quest",{}) != quest:return failure
+    for key in ["item","reward","complete_flag"]:
+        if not quest.get(key,"") is String or String(quest.get(key,"")).is_empty():return failure
+    if not quest.get("consume",false) is bool:return failure
+    var plan := _wish_topic_plan(quest,area)
+    var required := String(quest.item)
+    var next_build = build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.sync_progress(plan.counts,String(config.get("id","")),plan.flags)
+    var owned: Variant = inventory_counts.get(required,0)
+    var text := "所需：%s × 1（持有 %s）\n%s\n回礼：%s × 1\n碎钱变化：%+d\n确认后写入归途记录；不会补满当前生命或能量。" % [_item_display_name(required),str(owned),"交付将消耗一份信物。" if quest.get("consume",false) else "只需出示信物，不消耗持有物。",_item_display_name(String(quest.reward)),int(plan.currency)-currency_count]
+    var profile: Dictionary=next_build.profile()
+    text += "\n永久容量：生命 %d → %d；能量 %d → %d" % [player.max_hp,int(profile.get("max_hp",player.max_hp)),player.max_energy,int(profile.get("max_energy",player.max_energy))]
+    var fingerprint := var_to_str([quest,inventory_counts,story_flags,currency_count,build_system.serialize(),plan,dialogue_text_label.text,dialogue_text_label.visible_characters]).sha256_text()
+    return {"ok":true,"delivered":plan.delivered,"summary":text,"fingerprint":fingerprint}
+
+## Prepare a privately owned checkpoint without invoking inventory/story helpers:
+## those helpers may save recursively, apply Player stats, or announce rewards.
+## Publish inventory, unlocks and capacities only after the one durable write.
+func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
+    var failure := {"ok":false,"reason":"归途记录未能写入；本次心愿尚未确认，请重试。"}
+    if not world_mode or world_loading or world_state == null or player == null or build_system == null or world_save_blocked:
+        return failure
+    var plan := _wish_topic_plan(quest,area)
+    var next_counts: Dictionary = plan.counts
+    var next_flags: Dictionary = plan.flags
+    var dialogue: Dictionary = plan.dialogue
+    var next_currency: int = plan.currency
+    var delivered: bool = plan.delivered
+    var reward: String = plan.reward
     if next_counts == inventory_counts and next_flags == story_flags and next_currency == currency_count:
         if dialogue.has("indices"):area.set_meta("dialogue_state_indices", dialogue.indices)
         return {"ok":true,"delivered":false}
@@ -7766,6 +7801,22 @@ func get_tool_readiness(id: String) -> Dictionary:
         return {"available":false,"text":"已用尽","detail":"战具已用尽，请在钟龛补给"}
     return {"available":true,"text":"","detail":"使用消耗一次。"}
 
+func quote_craft_cart(request: Variant) -> Dictionary:
+    var failure := {"ok":false,"reason":"请与制作这份清单的工匠面对面交谈。"}
+    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or build_system==null or world_save_blocked:return failure
+    if not _near_workstation(true) or near_artisan_id().is_empty():return failure
+    if not request is Array:return failure
+    for id in request:
+        if not id is String or not build_system.catalog.recipes.has(id):return failure
+        var recipe: Dictionary=build_system.catalog.recipes[id]
+        if String(recipe.get("kind",""))=="skill_branch" and not bool(story_flags.get("skill_practiced_"+String(recipe.target),false)):
+            return {"ok":false,"reason":"先在练针架练熟技能，再选校习方向。"}
+        var blocked:=artisan_craft_block(recipe)
+        if not blocked.is_empty():return {"ok":false,"reason":blocked}
+    var quote: Dictionary=build_system.quote_craft_batch(request,_build_wallet_snapshot())
+    if quote.get("ok",false):quote["fingerprint"]=var_to_str([request,build_system.serialize(),_build_wallet_snapshot(),quote.rows,quote.materials,quote.currency_spent,near_artisan_id(),story_flags]).sha256_text()
+    return quote
+
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
     if build_system == null or not world_mode:
         return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
@@ -7780,6 +7831,7 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             return {"ok":false,"reason":String(readiness.detail)}
     if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
         return {"ok": false, "reason": "当前无法更换构筑"}
+    if action == "quote_craft_batch":return quote_craft_cart(extra)
     if action == "quote_resupply":
         if not _near_workstation():
             return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
@@ -7826,6 +7878,11 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
             result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation(), {} if extra == null else extra)
             if result.get("ok", false):
                 _set_build_wallet(result.wallet)
+        "craft_batch":
+            result=quote_craft_cart(extra)
+            if result.get("ok",false):
+                if not build_system.restore(result.build).ok:result={"ok":false,"reason":"制作清单构筑无法恢复"}
+                else:_set_build_wallet(result.wallet)
         "transact", "craft":
             var recipe: Dictionary = build_system.catalog.recipes.get(id, {})
             var practice_target := String(recipe.get("target", ""))

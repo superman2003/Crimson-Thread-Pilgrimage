@@ -50,7 +50,13 @@ func run() -> void:
     var area := Area2D.new();area.name = "DampRewardPositionedFixture"
     area.set_meta("kind","npc");area.set_meta("npc_id",npc_id);area.set_meta("dialogue_topics",{"wish":"authored wish fixture","quest":authored})
     area.set_meta("world_line_committed",true);world.add_child(area)
+    # The wish is delivered through the real dialogue: beside the player, preview first, then confirm.
+    area.global_position = world.player.global_position
+    world._show_dialogue(area,"authored wish fixture")
     world.ui_shell.dialogue_area = area;world.ui_shell._topic("wish")
+    var wish_modal = world.ui_shell.wish_confirmation
+    check(is_instance_valid(wish_modal) and wish_modal.visible and int(world.inventory_counts.get("damp_knot",0)) == 0,"production UI wish preview grants nothing before confirmation")
+    if is_instance_valid(wish_modal):wish_modal.confirmed.emit()
     check(int(world.inventory_counts.get("damp_knot",0)) == 1 and int(world.inventory_counts.get("worker_badge",0)) == 1,"production UI authored wish grants original damp item without consuming badge")
     check(world.build_system.state.unlocked_passives.has("damp_knot"),"real damp item unlocks its own accessory identity")
     check(is_equal_approx(float(world.player.build_profile.get("hazard_trigger_mult",1)),1),"reward ownership alone does not shrink traps")

@@ -136,6 +136,10 @@ var journal_star_button: Button
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
+var modal_closed_frame := -1
+var wish_confirmation: ConfirmationDialog
+var craft_cart: ConfirmationDialog
+var craft_cart_button: Button
 var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
@@ -788,7 +792,9 @@ func show_speaker(area: Area2D) -> void:
     if not quest.is_empty():
         var required:=String(quest.get("item",""))
         if level.wish_offering_available(required) and not bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
-            dialogue_quest_button.text="交付信物"
+            dialogue_quest_button.text="预览交付"
+        elif bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
+            dialogue_quest_button.text="回访心愿"
     var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
     if sprite!=null:sprite.play("talk")
 
@@ -797,14 +803,20 @@ func _topic(key: String) -> void:
     if level.world_mode and key == "wish":
         var topics: Dictionary = dialogue_area.get_meta("dialogue_topics", {})
         var quest: Dictionary = topics.get("quest", {})
-        var result: Dictionary = level.perform_wish_topic(quest, dialogue_area)
-        if not bool(result.get("ok", false)):
-            level._toast(String(result.get("reason", "心愿尚未确认，请重试。")))
-            return
-        dialogue_area.set_meta("world_line_committed", true)
-        dialogue_area.set_meta("world_displayed_index", -1)
-        var line := String(quest.get("thanks", "我会记住你带回的消息。")) if bool(result.get("delivered", false)) else String(topics.get(key, "你若愿意听，我们就再坐一会儿。"))
-        level._show_dialogue(dialogue_area, line)
+        if not quest.is_empty():
+            var quote: Dictionary = level.quote_wish_topic(quest,dialogue_area)
+            if not quote.get("ok",false):level._toast(String(quote.reason));return
+            if quote.delivered:
+                if not is_instance_valid(wish_confirmation):
+                    wish_confirmation=preload("res://scripts/wish_confirmation.gd").new()
+                    dialogue.add_child(wish_confirmation)
+                    wish_confirmation.setup(self)
+                    register_text_entry_window(wish_confirmation)
+                    dialogue.visibility_changed.connect(func():
+                        if not dialogue.visible and is_instance_valid(wish_confirmation):wish_confirmation.hide())
+                wish_confirmation.open(dialogue_area,quest,quote)
+                return
+        _commit_wish_topic(quest,dialogue_area)
         return
     if level.world_mode:
         level._commit_world_dialogue()
@@ -833,6 +845,17 @@ func _topic(key: String) -> void:
                 level._set_story_flag(String(quest.get("accept_flag","")))
     level._show_dialogue(dialogue_area,line)
     if level.world_mode:level._save_world()
+
+func _commit_wish_topic(quest: Dictionary, area: Area2D) -> bool:
+    if not is_instance_valid(area) or dialogue_area != area:return false
+    var result: Dictionary = level.perform_wish_topic(quest,area)
+    if not result.get("ok",false):level._toast(String(result.get("reason","心愿尚未确认，请重试。")));return false
+    area.set_meta("world_line_committed",true)
+    area.set_meta("world_displayed_index",-1)
+    var topics: Dictionary = area.get_meta("dialogue_topics",{})
+    var line := String(quest.get("thanks","我会记住你带回的消息。")) if result.get("delivered",false) else String(topics.get("wish","你若愿意听，我们就再坐一会儿。"))
+    level._show_dialogue(area,line)
+    return true
 
 func _dialogue_reading_key(area: Area2D,line: String) -> String:
     return "%s|%s|%s|%d|%s" % [String(level.config.get("id","")),String(area.get_meta("npc_id",area.name)),String(area.get_meta("dialogue_state","")),int(area.get_meta("world_displayed_index",-1)),line.sha256_text()]
@@ -1188,6 +1211,7 @@ func _input(event: InputEvent) -> void:
         journal_search.grab_focus()
         get_viewport().set_input_as_handled()
         return
+    if has_modal_window():return
     if event is InputEventKey and is_text_entry_focused():return
     if bag.visible and bag_category=="旅记":
         var step:=0
@@ -1282,6 +1306,8 @@ func _build_build_panel() -> void:
     resupply_confirm_button.disabled=true
     resupply_planner_button=_button(build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),_open_resupply_planner)
     resupply_planner_button.add_theme_font_size_override("font_size",13)
+    craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
+    craft_cart_button.add_theme_font_size_override("font_size",14)
     _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
 
 func _request_build_toggle() -> void:
@@ -1673,6 +1699,7 @@ func refresh_build() -> void:
     if not tool_family.is_empty():build_tabs[2].text=String(tool_family.get("name","战具"))
     for index in build_slot_buttons.size():
         if not has_typed_layout:build_slot_buttons[index].visible=build_category in ["技能","战具"] and index<2
+    craft_cart_button.visible=build_category=="强化"
     resupply_planner_button.visible=build_category=="战具"
     resupply_preview_button.visible=build_category=="战具"
     resupply_confirm_button.visible=build_category=="战具"
@@ -2020,6 +2047,17 @@ func _show_build_detail(entry: Dictionary) -> void:
     if bool(entry.get("selected",false)):lines.append("\n当前已装备。")
     build_detail.text="\n".join(lines)
 
+func _open_craft_cart() -> void:
+    if level==null or not build_panel.visible:return
+    if not is_instance_valid(craft_cart):
+        craft_cart=preload("res://scripts/craft_cart.gd").new()
+        build_panel.add_child(craft_cart)
+        craft_cart.setup(self)
+        register_text_entry_window(craft_cart)
+        build_panel.visibility_changed.connect(func():
+            if not build_panel.visible and is_instance_valid(craft_cart):craft_cart.hide())
+    craft_cart.open()
+
 func _perform_build_action(action: String, id: String, extra: Variant = -1) -> void:
     if level==null or not level.has_method("perform_build_action"):return
     var result: Variant=level.call("perform_build_action",action,id,extra)
@@ -2316,11 +2354,11 @@ func _refresh_journal() -> void:
     var narrative: Variant=level.get("world_narrative")
     if narrative==null:return
     var guide_bindings: Dictionary={}
-    for action in ["jump","attack","heal","skill_1","interact","map"]:guide_bindings[action]=_short_binding(action)
+    for action in REMAPPABLE_ACTIONS:guide_bindings[action]=_short_binding(action)
     var heal: Dictionary={}
     if is_instance_valid(level.player) and level.player.has_method("get_combat_ui_state"):heal=level.player.get_combat_ui_state().get("heal",{})
     var recall:=preload("res://scripts/death_recall.gd")
-    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES)
+    var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
     var progress: Dictionary={}
@@ -2512,7 +2550,21 @@ func _show_journal_record(entry: Dictionary) -> void:
 func register_text_entry_window(window: Window) -> void:
     for reference in text_entry_windows:
         if reference.get_ref()==window:return
-    text_entry_windows.append(weakref(window))
+    var reference: WeakRef = weakref(window)
+    text_entry_windows.append(reference)
+    window.visibility_changed.connect(_registered_window_visibility.bind(reference))
+
+func _registered_window_visibility(reference: WeakRef) -> void:
+    var window := reference.get_ref() as Window
+    if not is_instance_valid(window) or not window.visible:modal_closed_frame=Engine.get_process_frames()
+
+func has_modal_window() -> bool:
+    if modal_closed_frame == Engine.get_process_frames():return true
+    for reference in text_entry_windows.duplicate():
+        var window := reference.get_ref() as Window
+        if not is_instance_valid(window):text_entry_windows.erase(reference);continue
+        if window.visible:return true
+    return false
 
 func is_text_entry_focused() -> bool:
     var focus:=get_viewport().gui_get_focus_owner()
