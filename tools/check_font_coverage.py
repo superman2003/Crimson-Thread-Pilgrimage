@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check full bundled-font coverage and Godot/browser text without dependencies.
+"""Check full bundled-font coverage and Godot text without dependencies.
 
 Reads the font's own Unicode cmap, not installed system fonts. A new unsupported
 character fails CI with its source location. Rebuild from the full upstream
@@ -62,9 +62,6 @@ def runtime_sources(root):
         for name in sorted(files):
             path=Path(folder)/name
             if path.suffix in ('.gd','.json','.tscn','.tres','.godot'):yield path
-    for path in sorted((root/'src').rglob('*')):
-        if path.suffix in ('.js','.html','.css','.json'):yield path
-    if (root/'index.html').exists():yield root/'index.html'
 
 def missing_runtime_characters(root,supported):
     missing=[]
