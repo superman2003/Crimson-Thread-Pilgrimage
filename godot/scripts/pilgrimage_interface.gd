@@ -102,7 +102,7 @@ var accessibility_path := "user://pilgrimage_accessibility.cfg"
 var controller_comfort_dialog: ConfirmationDialog
 var accessibility_controls: Dictionary={}
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -239,6 +239,7 @@ func finish_bind() -> void:
     preload("res://scripts/field_contract_desk.gd").install(self)
     preload("res://scripts/sparring_desk.gd").install(self)
     preload("res://scripts/material_exchange_desk.gd").install(self)
+    preload("res://scripts/danger_caption_desk.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
@@ -919,7 +920,7 @@ func _build_settings() -> void:
         settings.add_child(slider)
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
-    _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(410,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
+    _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
     _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
     _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
@@ -996,9 +997,10 @@ func _load_accessibility() -> void:
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
     # A malformed preference must not prevent the settings screen from opening.
-    for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist","npc_landmarks"]:
+    for key in ["flash_enabled","vibration_enabled","tutorial_hints","navigation_assist","npc_landmarks","danger_captions","danger_caption_contrast"]:
         var value: Variant=config.get_value("accessibility",key,accessibility[key])
         if value is bool:accessibility[key]=value
+    accessibility["danger_caption_limit"]=int(_finite_setting(config,"danger_caption_limit",1,3))
     accessibility["controller_deadzone"]=_finite_setting(config,"controller_deadzone",0.1,0.6)
     accessibility["subtitle_size"]=int(_finite_setting(config,"subtitle_size",17,26))
     accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
