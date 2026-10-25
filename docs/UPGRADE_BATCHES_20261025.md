@@ -7,8 +7,8 @@
 | 1 | E02/E05 | 数量购物清单、优先顺序、部分报价、二次核价和持久事务 | 已上传 [#242](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/242)；[报告](report/20261025_01_resupply_planner.md) |
 | 2 | E05 | 重命名、深拷贝、实际槽位/战斗数值差异、源变化复核和持久事务 | 已上传 [#243](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/243)；[报告](report/20261025_02_loadout_workbench.md) |
 | 3 | U05 | 公开文字检索、交集筛选、排序、内容版本未读、槽隔离收藏和输入生命周期 | 已上传 [#244](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/244)；[报告](report/20261025_03_journal_desk.md) |
-| 4 | U06 | 摇杆校准、设备读数、预设预览确认、范围恢复和偏好同步 | 本地通过；[报告](report/20261025_04_controller_comfort.md)，上传中 |
-| 5 | U04 | 已知地图信息与查看操作整理 | 核对缺口后实施 |
+| 4 | U06 | 摇杆校准、设备读数、预设预览确认、范围恢复和偏好同步 | 已上传 [#245](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/245)；[报告](report/20261025_04_controller_comfort.md) |
+| 5 | U04 | 已补绘地点/标记目录、检索、分段框取、端点保密和弹窗输入闭环 | 本地通过；[报告](report/20261025_05_map_directory.md)，上传中 |
 | 6 | S02/S03 | 声音地标与提示优先级 | 核对缺口后实施 |
 | 7 | N02 | 已知愿望的阶段信息与回访引导 | 核对缺口后实施 |
 | 8 | E04 | 工匠制作前的条件、成本与事务 | 核对缺口后实施 |

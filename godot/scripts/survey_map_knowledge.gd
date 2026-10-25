@@ -89,7 +89,15 @@ static func marker_records(config: Dictionary, flags: Dictionary, region_id: Str
 static func shortcut_records(config: Dictionary, flags: Dictionary, region_id: String, opened: Dictionary) -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
 	var names := {}
-	for room in config.get("map_rooms", []): names[String(room.get("id", ""))] = String(room.get("name", room.get("id", "")))
+	# Only shortcut endpoints need labels; avoid segment construction for every
+	# large unrelated room each time either map redraws.
+	var relevant := {}
+	for connection in config.get("connections", []):
+		if connection is Dictionary and not String(connection.get("shortcut_id", "")).is_empty():
+			relevant[String(connection.get("from", ""))] = true
+			relevant[String(connection.get("to", ""))] = true
+	for room in config.get("map_rooms", []):
+		if relevant.has(String(room.get("id", ""))) and JOURNAL.charted_any(flags,region_id,room):names[String(room.get("id", ""))] = String(room.get("name", room.get("id", "")))
 	for lever in config.get("interactives", []):
 		var shortcut := String(lever.get("shortcut_id", ""))
 		if shortcut.is_empty() or String(lever.get("kind", "")) != "lever": continue
@@ -100,7 +108,7 @@ static func shortcut_records(config: Dictionary, flags: Dictionary, region_id: S
 		var joins := ""
 		for connection in config.get("connections", []):
 			if connection is Dictionary and String(connection.get("shortcut_id", "")) == shortcut:
-				joins = "%s ⇄ %s" % [names.get(String(connection.get("from", "")), connection.get("from", "")), names.get(String(connection.get("to", "")), connection.get("to", ""))]
+				joins = "%s ⇄ %s" % [names.get(String(connection.get("from", "")), "未补绘邻室"), names.get(String(connection.get("to", "")), "未补绘邻室")]
 		var is_open := opened.has(shortcut)
 		var room := owner_room(config, rect)
 		records.append({"kind":"shortcut", "id":shortcut, "rect":rect, "room_id":String(room.get("id", "")), "open":is_open,
