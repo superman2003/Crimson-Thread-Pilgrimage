@@ -231,6 +231,7 @@ func finish_bind() -> void:
     construction_complete=true
     set_process(true)
     set_process_input(true)
+    preload("res://scripts/goal_desk.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
