@@ -136,6 +136,8 @@ var journal_star_button: Button
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
+var modal_closed_frame := -1
+var wish_confirmation: ConfirmationDialog
 var journal_preferences_path:="user://journal_reading_preferences.json"
 var journal_reading := preload("res://scripts/journal_reading.gd").new()
 var journal_reading_key := ""
@@ -785,7 +787,9 @@ func show_speaker(area: Area2D) -> void:
     if not quest.is_empty():
         var required:=String(quest.get("item",""))
         if level.wish_offering_available(required) and not bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
-            dialogue_quest_button.text="交付信物"
+            dialogue_quest_button.text="预览交付"
+        elif bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
+            dialogue_quest_button.text="回访心愿"
     var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
     if sprite!=null:sprite.play("talk")
 
@@ -794,14 +798,20 @@ func _topic(key: String) -> void:
     if level.world_mode and key == "wish":
         var topics: Dictionary = dialogue_area.get_meta("dialogue_topics", {})
         var quest: Dictionary = topics.get("quest", {})
-        var result: Dictionary = level.perform_wish_topic(quest, dialogue_area)
-        if not bool(result.get("ok", false)):
-            level._toast(String(result.get("reason", "心愿尚未确认，请重试。")))
-            return
-        dialogue_area.set_meta("world_line_committed", true)
-        dialogue_area.set_meta("world_displayed_index", -1)
-        var line := String(quest.get("thanks", "我会记住你带回的消息。")) if bool(result.get("delivered", false)) else String(topics.get(key, "你若愿意听，我们就再坐一会儿。"))
-        level._show_dialogue(dialogue_area, line)
+        if not quest.is_empty():
+            var quote: Dictionary = level.quote_wish_topic(quest,dialogue_area)
+            if not quote.get("ok",false):level._toast(String(quote.reason));return
+            if quote.delivered:
+                if not is_instance_valid(wish_confirmation):
+                    wish_confirmation=preload("res://scripts/wish_confirmation.gd").new()
+                    dialogue.add_child(wish_confirmation)
+                    wish_confirmation.setup(self)
+                    register_text_entry_window(wish_confirmation)
+                    dialogue.visibility_changed.connect(func():
+                        if not dialogue.visible and is_instance_valid(wish_confirmation):wish_confirmation.hide())
+                wish_confirmation.open(dialogue_area,quest,quote)
+                return
+        _commit_wish_topic(quest,dialogue_area)
         return
     if level.world_mode:
         level._commit_world_dialogue()
@@ -830,6 +840,17 @@ func _topic(key: String) -> void:
                 level._set_story_flag(String(quest.get("accept_flag","")))
     level._show_dialogue(dialogue_area,line)
     if level.world_mode:level._save_world()
+
+func _commit_wish_topic(quest: Dictionary, area: Area2D) -> bool:
+    if not is_instance_valid(area) or dialogue_area != area:return false
+    var result: Dictionary = level.perform_wish_topic(quest,area)
+    if not result.get("ok",false):level._toast(String(result.get("reason","心愿尚未确认，请重试。")));return false
+    area.set_meta("world_line_committed",true)
+    area.set_meta("world_displayed_index",-1)
+    var topics: Dictionary = area.get_meta("dialogue_topics",{})
+    var line := String(quest.get("thanks","我会记住你带回的消息。")) if result.get("delivered",false) else String(topics.get("wish","你若愿意听，我们就再坐一会儿。"))
+    level._show_dialogue(area,line)
+    return true
 
 func _dialogue_reading_key(area: Area2D,line: String) -> String:
     return "%s|%s|%s|%d|%s" % [String(level.config.get("id","")),String(area.get_meta("npc_id",area.name)),String(area.get_meta("dialogue_state","")),int(area.get_meta("world_displayed_index",-1)),line.sha256_text()]
@@ -1185,6 +1206,7 @@ func _input(event: InputEvent) -> void:
         journal_search.grab_focus()
         get_viewport().set_input_as_handled()
         return
+    if has_modal_window():return
     if event is InputEventKey and is_text_entry_focused():return
     if bag.visible and bag_category=="旅记":
         var step:=0
@@ -2509,7 +2531,21 @@ func _show_journal_record(entry: Dictionary) -> void:
 func register_text_entry_window(window: Window) -> void:
     for reference in text_entry_windows:
         if reference.get_ref()==window:return
-    text_entry_windows.append(weakref(window))
+    var reference: WeakRef = weakref(window)
+    text_entry_windows.append(reference)
+    window.visibility_changed.connect(_registered_window_visibility.bind(reference))
+
+func _registered_window_visibility(reference: WeakRef) -> void:
+    var window := reference.get_ref() as Window
+    if not is_instance_valid(window) or not window.visible:modal_closed_frame=Engine.get_process_frames()
+
+func has_modal_window() -> bool:
+    if modal_closed_frame == Engine.get_process_frames():return true
+    for reference in text_entry_windows.duplicate():
+        var window := reference.get_ref() as Window
+        if not is_instance_valid(window):text_entry_windows.erase(reference);continue
+        if window.visible:return true
+    return false
 
 func is_text_entry_focused() -> bool:
     var focus:=get_viewport().gui_get_focus_owner()

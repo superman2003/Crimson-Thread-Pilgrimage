@@ -48,7 +48,7 @@ func snapshot() -> Dictionary:
         "profile":scene.player.build_profile.duplicate(true),"applied":scene.applied_build_profile.duplicate(true),
         "hp":scene.player.hp,"energy":scene.player.energy,"max_hp":scene.player.max_hp,"max_energy":scene.player.max_energy,
         "world":scene.world_state.data.duplicate(true)}
-func topic(quest: Dictionary, pending: bool = false) -> void:
+func topic(quest: Dictionary, pending: bool = false, confirm: bool = true) -> void:
     area.set_meta("dialogue_topics", {"wish":"fixture request", "quest":quest})
     area.set_meta("world_line_committed", not pending)
     area.set_meta("world_displayed_index",0 if pending else -1)
@@ -59,7 +59,11 @@ func topic(quest: Dictionary, pending: bool = false) -> void:
     scene.ui_shell.dialogue_area = area
     scene.active_overlay = "dialogue"
     scene.dialogue_text_label.visible_characters = -1
+    area.global_position=scene.player.global_position
+    scene.ui_shell.dialogue.show()
     scene.ui_shell._topic("wish")
+    if confirm and is_instance_valid(scene.ui_shell.wish_confirmation) and scene.ui_shell.wish_confirmation.visible:
+        scene.ui_shell.wish_confirmation.confirmed.emit()
 func run() -> void:
     save_path = "user://wish_atomic_%d.json" % OS.get_process_id()
     var seed := FileAccess.get_file_as_bytes("res://tests/fixtures/quiet_sole_earned_return.json")
@@ -148,6 +152,42 @@ func run() -> void:
     topic(unlock_quest)
     check(state.writes == 1 and not state.observed.get("mine_unlocked",true) and scene.build_system.state.unlocked_tools.has("mine"),"build unlock applies only after successful single commit")
     check(restart.read(save_path) and restart.data.build_state.unlocked_tools.has("mine") and restart.data.inventory_counts.get("relic_tool_mine",0) == 1,"relic and unlocked build restore from the same disk file")
+    var preview_quest := quest.duplicate(true);preview_quest.complete_flag="wish_preview_fixture";preview_quest.reward="moss_chitin"
+    scene.inventory_counts["pollen_wax"]=3;scene.inventory_materials["pollen_wax"]=3
+    check(scene._save_world(),"preview baseline persists")
+    var preview_before := snapshot();var preview_disk := FileAccess.get_file_as_bytes(save_path);state.writes=0
+    topic(preview_quest,true,false)
+    var modal=scene.ui_shell.wish_confirmation
+    check(modal.visible and modal.get_cancel_button().has_focus(),"delivery opens real native confirmation with cancellation focused")
+    var quotation: Dictionary=scene.quote_wish_topic(preview_quest,area)
+    check(quotation.ok and quotation.delivered and quotation.summary.contains("× 1") and snapshot()==preview_before and state.writes==0 and FileAccess.get_file_as_bytes(save_path)==preview_disk,"quote exposes exact obligation without changing memory or disk")
+    check(scene.ui_shell.has_modal_window(),"native modal suppresses shortcuts without text focus")
+    modal.hide()
+    check(scene.ui_shell.has_modal_window() and snapshot()==preview_before,"cancel is free and same-frame modal closure remains protected")
+    Input.action_press("close_overlay");scene._process(0.0);Input.action_release("close_overlay")
+    check(scene.active_overlay=="dialogue","cancel-frame Escape cannot also close the underlying dialogue")
+    await process_frame
+    state.writes=0 # Background fully read dialogue may commit before this next interaction.
+    topic(preview_quest,true,false)
+    scene.currency_count+=1
+    var changed_before := snapshot()
+    modal.confirmed.emit()
+    check(state.writes==0 and snapshot()==changed_before and modal.visible and modal.description.text.contains("状态已变化"),"changed source requires another explicit confirmation")
+    area.position+=Vector2(1000,0);modal.confirmed.emit()
+    check(state.writes==0 and modal.get_ok_button().disabled and snapshot()==changed_before,"moving away rejects the captured interaction")
+    area.global_position=scene.player.global_position
+    topic(preview_quest,true,false)
+    area.set_meta("dialogue_topics",{"quest":quest});modal.confirmed.emit()
+    check(state.writes==0 and modal.get_ok_button().disabled,"changed canonical NPC wish cannot use an old captured quest")
+    topic(preview_quest,true,false)
+    scene.world_save_failure_injected_for_validation=true
+    var failure_before := snapshot();var failure_disk := FileAccess.get_file_as_bytes(save_path)
+    modal.confirmed.emit()
+    check(modal.visible and snapshot()==failure_before and FileAccess.get_file_as_bytes(save_path)==failure_disk and modal.description.text.contains("记录未写入"),"confirmed save failure retains modal and exact ownership for retry")
+    scene.world_save_failure_injected_for_validation=false;state.writes=0
+    modal.confirmed.emit()
+    check(state.writes==1 and not modal.visible and scene.inventory_counts.pollen_wax==2 and scene.story_flags.get("wish_preview_fixture",false),"deliberate retry commits the whole preview exactly once")
+    check(restart.read(save_path) and restart.data.inventory_counts.get("pollen_wax",0)==2,"confirmed preview reward restores from actual disk")
     var legacy_disk := FileAccess.get_file_as_bytes(save_path)
     var legacy := quest.duplicate(true);legacy.complete_flag = "wish_legacy_fixture";legacy.reward = "moss_chitin"
     scene.inventory_counts["pollen_wax"] = 1;scene.inventory_materials["pollen_wax"] = 1
