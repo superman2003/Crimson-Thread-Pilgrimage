@@ -1,0 +1,22 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:27.356137+00:00",
+  "unit_tests": 4,
+  "browser_checks": [
+    "boot and native toolbar",
+    "records follow real damage and completion; practice is excluded",
+    "mobile toolbar and touch controls stay within viewport"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/records.js": "9b2921941c23e30768d93982bb979507cee0f2d95320e1a89e332c5b024ce077",
+    "src/browser/utility-panel.js": "a236b1459e081e95e80312088f5680c8fd7440a1795569f3ab5aa277d1d79c3f",
+    "src/main.js": "8262828ac09c9875b1520c81cb3557f776d69060708014559588f82b256cefeb",
+    "tests/browser-07-records.test.mjs": "37d26caebf36e02c87334d0b0d951c5b1930b090215176dc85940e7bca72a4f7",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}

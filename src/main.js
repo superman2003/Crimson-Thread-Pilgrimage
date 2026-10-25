@@ -344,6 +344,7 @@ function startBossTrial(index, options = {}) {
   state.boss.dir = -1;
   state.boss.attackTimer = 0.5;
   state.cameraX = clamp(state.player.x - SETTINGS.width * 0.43, 0, WORLD_W - SETTINGS.width);
+  recordsFeature().active = null; // Boss trials are never full-chapter records.
   state.lastEvent = "Boss Trial";
   updateHud();
   if (!options.silent) playTone("start");
@@ -359,7 +360,18 @@ function resetProgress() {
   updateHud();
 }
 
+import { RunRecords, mountRecords } from "./browser/records.js";
+var browserRecords, browserRecordsPanel;
+function recordsFeature() {
+  if (!browserRecords) {
+    browserRecords = new RunRecords(() => window.localStorage);
+    browserRecordsPanel = mountRecords(browserRecords, CHAPTERS.map(chapter => chapter.name));
+  }
+  return browserRecords;
+}
+
 function createPlayer(spawn) {
+  recordsFeature().begin(state.chapterIndex);
   return {
     x: spawn.x,
     y: spawn.y,
@@ -898,6 +910,7 @@ function damageEnemy(enemy, amount, chapter) {
   spawnParticles(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, chapter.palette.accent, enemy.kind === "boss" ? 24 : 12);
   playTone(enemy.kind === "boss" ? "bossHit" : "hit");
   if (enemy.hp <= 0) {
+    if (!enemy.dead) recordsFeature().kill();
     enemy.dead = true;
     spawnParticles(enemy.x + enemy.w / 2, enemy.y + enemy.h / 2, chapter.palette.danger, enemy.kind === "boss" ? 48 : 20);
     if (enemy.kind === "boss") {
@@ -931,6 +944,7 @@ function applyChapterForces(player, chapter, dt) {
 function hurtPlayer(amount) {
   const player = state.player;
   if (!player || player.invuln > 0) return;
+  recordsFeature().damage(Math.min(player.health, amount));
   player.health = Math.max(0, player.health - amount);
   player.invuln = 0.95;
   player.vx = -player.face * 230;
@@ -938,6 +952,8 @@ function hurtPlayer(amount) {
   state.shake = Math.max(state.shake, 10);
   playTone("hurt");
   if (player.health <= 0) {
+    recordsFeature().finish("defeat", state.time, state.practice === true);
+    browserRecordsPanel.refresh();
     state.mode = "menu";
     statusPill.textContent = "倒下";
     menu.classList.remove("is-hidden");
@@ -954,6 +970,8 @@ function checkExit() {
 function finishChapter() {
   const nextUnlock = Math.min(CHAPTERS.length, state.chapterIndex + 2);
   state.unlocked = Math.max(state.unlocked, nextUnlock);
+  recordsFeature().finish("clear", state.time, state.practice === true);
+  browserRecordsPanel.refresh();
   saveUnlocks();
   renderChapterList();
   if (state.chapterIndex + 1 >= CHAPTERS.length) {
