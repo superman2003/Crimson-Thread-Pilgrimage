@@ -7967,7 +7967,37 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
         _save_world()
 
 func get_save_slots() -> Array:
-    return WORLD_STATE_SCRIPT.slot_summaries()
+    var result: Array=[]
+    for index in range(1,4):
+        var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
+        var row: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
+        row["slot"]=index
+        row["backup"]=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
+        result.append(row)
+    return result
+
+func quote_save_operation(action: String, index: int) -> Dictionary:
+    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or index<1 or index>3 or action not in ["switch","recover"]:
+        return {"ok":false,"reason":"当前无法切换或恢复归途记录。"}
+    var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
+    var primary: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
+    var backup: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
+    var result: Dictionary={"ok":true,"slot":index,"primary":primary,"backup":backup,"action":action}
+    if action=="switch":
+        if index==world_slot:result.ok=false;result["reason"]="已经在当前存档槽。"
+        elif world_save_blocked:result.ok=false;result["reason"]="当前记录暂不可保存，请先处理当前槽的恢复提示。"
+        elif primary.exists and not primary.valid:result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
+    elif not backup.valid:result.ok=false;result["reason"]="该槽没有可读取的备份。"
+    elif index!=world_slot and world_save_blocked:result.ok=false;result["reason"]="离开前必须先处理当前记录的恢复提示。"
+    result["fingerprint"]=var_to_str([action,index,path,primary,backup,world_save_path,_build_wallet_snapshot(),story_flags,build_system.serialize(),player.hp,player.energy]).sha256_text()
+    return result
+
+func perform_save_operation(action: String, index: int, fingerprint: String) -> Dictionary:
+    var fresh:=quote_save_operation(action,index)
+    if not fresh.get("ok",false):return fresh
+    if String(fresh.fingerprint)!=fingerprint:return {"ok":false,"changed":true,"reason":"记录或当前旅途已变化，请重新核对。"}
+    var ok:=select_save_slot(index) if action=="switch" else restore_save_backup(index)
+    return {"ok":ok,"reason":"正在进入所选旅途。" if ok else "当前操作未完成，仍停留在原旅途；请查看保存或恢复提示。"}
 
 func get_journey_history() -> Dictionary:
     return preload("res://scripts/journey_history.gd").summaries(world_save_path)
@@ -7982,7 +8012,9 @@ func select_save_slot(index: int) -> bool:
     if FileAccess.file_exists(path) and not candidate.read(path):
         _toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
-    _save_world()
+    if not _save_world():
+        _toast("当前进度未能写入，尚未切换存档槽。")
+        return false
     chapter_transitioning = true
     _defer_region_call("_replace_with_save_slot", [index])
     return true
@@ -8001,9 +8033,12 @@ func _replace_with_save_slot(index: int, path_override: String = "") -> void:
     queue_free()
 
 func restore_save_backup(index: int = 0) -> bool:
-    if not world_mode or chapter_transitioning:
+    if not world_mode or chapter_transitioning or world_loading or (index!=0 and (index<1 or index>3)):
         return false
-    var slot := world_slot if index == 0 else clampi(index, 1, 3)
+    var slot := world_slot if index == 0 else index
+    if slot!=world_slot and not _save_world():
+        _toast("当前进度未能写入，尚未恢复其他槽备份。")
+        return false
     # The current slot restores the file this journey actually uses.
     var path := world_save_path if slot == world_slot else WORLD_STATE_SCRIPT.slot_path(slot)
     var recovered = WORLD_STATE_SCRIPT.new()
