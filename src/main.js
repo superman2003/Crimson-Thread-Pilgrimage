@@ -173,7 +173,7 @@ updateHud();
 requestAnimationFrame(loop);
 
 window.addEventListener("resize", resizeCanvas);
-window.addEventListener("keydown", onKeyDown);
+window.addEventListener("keydown", event => { if (!browserPause?.paused) onKeyDown(event); });
 window.addEventListener("keyup", onKeyUp);
 
 startButton.addEventListener("click", () => startChapter(Math.min(state.unlocked - 1, state.chapterIndex)));
@@ -243,11 +243,24 @@ if (bootParams.has("boss")) {
   startBossTrial(clamp(Math.trunc(chapterIndex), 0, CHAPTERS.length - 1), { silent: true });
 }
 
+import { mountPause } from "./browser/pause.js";
+var browserPause;
+function pauseFeature() {
+  return browserPause ??= mountPause({
+    getMode: () => state.mode,
+    clearInput: () => { for (const key of Object.keys(input)) input[key] = false; }
+  });
+}
+
 function loop(now) {
   const dt = Math.min((now - (loop.last || now)) / 1000, 0.033);
   loop.last = now;
-  update(dt);
-  draw();
+  const pause = pauseFeature();
+  pause.refresh();
+  if (!pause.paused) {
+    update(dt);
+    draw();
+  }
   input.jumpPressed = false;
   input.jumpReleased = false;
   input.dashPressed = false;

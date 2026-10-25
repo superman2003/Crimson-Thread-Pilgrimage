@@ -1,0 +1,20 @@
+{
+  "base_commit": "14dbb91bcd68f3f22029f5ada78dd4843091dbe0",
+  "verified_at": "2026-10-25T11:19:25.977936+00:00",
+  "unit_tests": 2,
+  "browser_checks": [
+    "boot and native toolbar",
+    "pause freezes world and explicit resume preserves position"
+  ],
+  "browser_errors": 0,
+  "limits": [
+    "Standard Gamepad API is simulated; physical controller not tested.",
+    "Browser preview only; Godot final acceptance remains unchanged."
+  ],
+  "sha256": {
+    "src/browser/pause.js": "2b79a1a98a41fe62fa6a6f3d1fcaa0a299c8faf2c9e97ec1b1cd4b85c3fd1c3a",
+    "src/main.js": "9fdaccef5cc5fa8d0e068db564e93d5d1d2043e55732f452699ac436e11c3195",
+    "tests/browser-01-pause.test.mjs": "c389fe2e524eb9be0ae8c5a9e3e46fae74c2171ec337fd42576ac7de952a9268",
+    "tests/browser-features.e2e.mjs": "c4d0086bc9ca561882e63fb559c9f35115694f23b58cdf0af721ae7e1103a6fc"
+  }
+}
