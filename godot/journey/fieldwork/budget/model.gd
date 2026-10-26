@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/budget/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/budget/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const RECIPES := preload("res://journey/fieldwork/recipes/model.gd")
@@ -408,7 +410,7 @@ static func spending_shares(rows: Array) -> Dictionary:
     return result
 
 
-static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
     var rows := schedule(payload)
     var stats := liquidity(payload, rows)
     var audit := mass_balance(payload, rows)
@@ -500,3 +502,7 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
             ]
         )
     ]
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload) + [{"kind":"custom","title":"预算顺序与最低启动资金 · 交互预览","view":ADVANCED_VIEW,"data":{"payload":payload}}]
