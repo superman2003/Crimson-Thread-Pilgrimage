@@ -1715,6 +1715,8 @@ func _commit_world_dialogue() -> void:
     var result: Dictionary = area.get_meta("world_dialogue_result", {})
     if bool(story_flags.get("quest_bring_names_rewarded", false)):
         story_flags["reward_returned_names_claimed"] = true
+    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),result,displayed_index,String(config.get("id","")))
+    if not recollection.is_empty():story_flags[recollection]=true
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])

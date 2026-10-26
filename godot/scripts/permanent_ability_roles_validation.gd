@@ -103,7 +103,7 @@ func production_journal_checks() -> void:
     ui.bag_category="旅记"
     ui.bag.show()
     var integration:=preload("res://scripts/journal_records_validation.gd")
-    check(integration.filters_match(ui.journal_filter_buttons),"the exact nine-key full-World regression also accepts the actual native bag")
+    check(integration.filters_match(ui.journal_filter_buttons),"the exact ten-key full-World regression also accepts the actual native bag")
     var wrong:=ui.journal_filter_buttons.duplicate()
     wrong.erase("guide")
     wrong.extra=ui.journal_filter_buttons.ability
