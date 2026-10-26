@@ -60,6 +60,13 @@ def preserve_fixture_sources(suite):
         os.utime(path, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
 
 
+def select_shard(suites, index, count):
+    """One-based round-robin partition; never change per-suite validation."""
+    if count < 1 or index < 1 or index > count or count > len(suites):
+        raise ValueError('shard index/count must select a nonempty partition')
+    return suites[index - 1::count]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
@@ -67,6 +74,8 @@ def main():
     parser.add_argument('--timeout', type=float, default=180)
     parser.add_argument('--log-dir', type=Path)
     parser.add_argument('--software-gl', action='store_true', help='Run all suites under real llvmpipe GL; avoids the Godot 4.6 dummy texture RID race without hiding errors.')
+    parser.add_argument('--shard-index', type=int, default=1)
+    parser.add_argument('--shard-count', type=int, default=1)
     args = parser.parse_args()
     engine = shutil.which(args.engine)
     if not engine:
@@ -74,6 +83,13 @@ def main():
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('--timeout must be finite and positive')
     suites = args.suite or DEFAULT_SUITES + NARRATIVE_SUITES
+    if args.suite and (args.shard_index != 1 or args.shard_count != 1):
+        parser.error('--suite and CI sharding cannot be combined')
+    try:
+        suites = select_shard(suites, args.shard_index, args.shard_count)
+    except ValueError as error:
+        parser.error(str(error))
+    print(f'GODOT_SHARD index={args.shard_index} count={args.shard_count} suites={len(suites)}', flush=True)
     # Reject the whole request before running any suite or creating log files.
     try:
         for suite in suites:
