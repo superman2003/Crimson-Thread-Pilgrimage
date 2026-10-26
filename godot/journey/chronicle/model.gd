@@ -21,7 +21,7 @@ static func valid(data: Dictionary) -> bool:
     for event in data.events:
         if not event is Dictionary:
             return false
-        if not VALUES.count(event.get("id")) or int(event.id) <= 0 or ids.has(str(int(event.id))):
+        if not VALUES.count(event.get("id")) or int(event.id) <= 0 or int(event.id) > int(data.sequence) or ids.has(str(int(event.id))):
             return false
         if not KINDS.has(event.get("kind")) or not event.get("title") is String:
             return false
@@ -40,7 +40,7 @@ static func valid(data: Dictionary) -> bool:
 
 static func append(data: Dictionary, kind: String, title: String, snapshot: Dictionary) -> Dictionary:
     var result := data.duplicate(true)
-    if not KINDS.has(kind) or VALUES.text(title, 120).is_empty():
+    if not KINDS.has(kind) or VALUES.text(title, 120).is_empty() or int(result.sequence) >= 1000000:
         return result
     result.sequence = int(result.sequence) + 1
     var event := {
@@ -79,7 +79,7 @@ static func observe(data: Dictionary, snapshot: Dictionary) -> Dictionary:
     var shrine: bool = snapshot.get("at_shrine", false) is bool and snapshot.get("at_shrine", false)
     if shrine and not result.last_shrine:
         result = append(result, "shrine", "钟龛旁的停留", snapshot)
-    var catalog: Dictionary = snapshot.get("config", {}).get("inventory", {}).get("catalog", {})
+    var catalog: Dictionary = preload("res://journey/core/public_catalog.gd").items(snapshot)
     var inventory: Dictionary = snapshot.get("inventory", {})
     for id in inventory:
         if not VALUES.held(inventory[id]) or bool(result.earned.get(id, false)):
@@ -87,7 +87,7 @@ static func observe(data: Dictionary, snapshot: Dictionary) -> Dictionary:
         if not catalog.get(id) is Dictionary:
             continue
         var item: Dictionary = catalog[id]
-        if String(item.get("kind", "")) not in ["ability", "key", "quest"] and not String(id).begins_with("relic_"):
+        if String(item.get("category", item.get("kind", ""))) not in ["ability", "key", "quest"] and not String(id).begins_with("relic_"):
             continue
         result.earned[id] = true
         result = append(result, "milestone", "记下「" + String(item.get("name", id)) + "」", snapshot)
@@ -147,9 +147,9 @@ static func statistics(data: Dictionary) -> Dictionary:
         kinds[event.kind] = int(kinds.get(event.kind, 0)) + 1
     return {"regions":regions.size(), "rooms":rooms.size(), "days":days, "kinds":kinds, "favorites":data.favorites.size(), "notes":data.notes.size()}
 
-static func document(data: Dictionary, query: String = "", kind: String = "all") -> String:
+static func document(data: Dictionary, query: String = "", kind: String = "all", favorites_only: bool = false) -> String:
     var lines: Array[String] = ["巡礼行旅编年", "记录来自工作台启用后的实际观察，不是全程通关证明。", ""]
-    for event in records(data, query, kind, false, false):
+    for event in records(data, query, kind, favorites_only, false):
         lines.append(VALUES.date(int(event.time)) + " · " + String(event.title))
         if not String(event.note).is_empty():
             lines.append("手记：" + String(event.note))

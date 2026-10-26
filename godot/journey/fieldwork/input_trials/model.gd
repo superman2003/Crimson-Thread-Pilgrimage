@@ -79,6 +79,8 @@ static func validate(payload: Dictionary) -> bool:
         or payload.reason.length() > 200
     ):
         return false
+    if payload.mode == "hold" and maxf(0, float(payload.hold) - float(payload.tolerance)) >= float(payload.deadline):
+        return false
     var ids := {}
     for row in payload.actions:
         if (
