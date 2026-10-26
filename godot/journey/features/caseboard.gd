@@ -2,6 +2,7 @@ extends "res://journey/core/feature.gd"
 const MODEL := preload("res://journey/caseboard/model.gd")
 const VIEW := preload("res://journey/caseboard/view.gd")
 var kind := "all"
+var observe_wait := 0.0
 var tab := "board"
 var graph: Dictionary = {}
 var link_from := ""
@@ -22,10 +23,23 @@ func initial() -> Dictionary:
 func valid(candidate: Dictionary) -> bool:
     return MODEL.valid(candidate)
 
-func tick(snapshot: Dictionary, _delta: float) -> void:
+func tick(snapshot: Dictionary, delta: float) -> void:
+    observe_wait = maxf(0.0, observe_wait - maxf(0.0, delta))
+    if snapshot.is_empty() or observe_wait > 0:
+        return
     var candidate := MODEL.observe(data, snapshot)
-    if candidate != data and context.store.write("caseboard", candidate):
+    if candidate == data:
+        return
+    observe_wait = 2.0
+    if context.store.write("caseboard", candidate):
         data = candidate
+        error = ""
+    else:
+        var failure: String = context.store.error
+        recover_conflict()
+        error = failure
+        context.tell(error)
+
 
 func draw(parent: Control) -> void:
     header(parent, "正文关联与个人假设分开显示。连线、手记和排列只保存在辅助记录，不会变成证词或推进任务。")
@@ -38,10 +52,13 @@ func draw(parent: Control) -> void:
         UI.button(tabs, String(pair[1]), func():tab = id;context.refresh())
     _filters(parent)
     var filtered := MODEL.filtered(graph, data, search, kind)
+    if not filtered.nodes.has(selected):
+        selected = ""
     UI.label(parent, "已知%d项 · 当前显示%d项 · 正文关联%d · 个人假设%d" % [graph.nodes.size(), filtered.nodes.size(), _authored_count(), data.links.size()])
     if graph.nodes.is_empty():
         UI.hint(parent, "完成一次交谈、遇见线索或开始委托后，这里才会出现相应内容。")
-        return
+        if tab != "links":
+            return
     if tab == "links":
         _link_editor(parent)
     elif tab == "groups":
@@ -141,8 +158,7 @@ func _link_editor(parent: Control) -> void:
     UI.hint(parent, "只能连接当前公开的节点。个人连线没有剧情判定效力，不会自动证明某个结论。")
     var choices := _node_choices()
     if choices.size() < 2:
-        UI.hint(parent, "至少公开两个条目后可建立关系。")
-        return
+        UI.hint(parent, "至少公开两个条目后可建立关系；旧假设仍可删除。")
     var row := UI.row(parent)
     var a := UI.pick(row, choices, link_from)
     var b := UI.pick(row, choices, link_to)
@@ -160,10 +176,8 @@ func _link_editor(parent: Control) -> void:
         else:
             commit(candidate))
     for record in data.links:
-        if not graph.nodes.has(record.from) or not graph.nodes.has(record.to):
-            continue
         var card := UI.card(parent)
-        UI.label(card, "%s ↔ %s" % [graph.nodes[record.from].title, graph.nodes[record.to].title])
+        UI.label(card, "%s ↔ %s" % [graph.nodes.get(record.from, {}).get("title", record.from + "（暂不可见）"), graph.nodes.get(record.to, {}).get("title", record.to + "（暂不可见）")])
         UI.hint(card, String(MODEL.RELATIONS[record.kind]) + " · " + String(record.note))
         UI.button(card, "删除此假设", func():pending_remove = String(record.id);context.refresh())
         if pending_remove == record.id:

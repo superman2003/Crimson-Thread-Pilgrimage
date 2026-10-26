@@ -39,13 +39,13 @@ static func valid(data: Dictionary) -> bool:
 static func observe(data: Dictionary, snapshot: Dictionary) -> Dictionary:
     var result := data.duplicate(true)
     var flags: Dictionary = snapshot.get("flags", {})
-    for npc in snapshot.get("config", {}).get("npcs", []):
+    for npc in preload("res://journey/core/public_catalog.gd").npcs(snapshot).values():
         var id := String(npc.get("id", ""))
         if flags.get("npc_met_" + id) != true or result.seen_npcs.has(id):
             continue
         if result.seen_npcs.size() >= 200:
             break
-        result.seen_npcs[id] = {"title":String(npc.get("name", "已见人物")), "region":String(snapshot.get("region_name", "")), "description":String(npc.get("role", ""))}
+        result.seen_npcs[id] = {"title":String(npc.get("name", "已见人物")), "region":String(npc.get("region_name", snapshot.get("region_name", ""))), "description":String(npc.get("role", ""))}
     return result
 
 static func graph(data: Dictionary, snapshot: Dictionary) -> Dictionary:
@@ -57,7 +57,7 @@ static func graph(data: Dictionary, snapshot: Dictionary) -> Dictionary:
     var edges := []
     for record in public.get("known_entries", []):
         var id := "evidence:" + String(record.get("id", ""))
-        nodes[id] = {"id":id, "title":String(record.get("title", "证词")), "kind":"evidence", "status":"已取得" if record.get("acquired", false) else "已知线索", "text":String(record.get("description", record.get("text", ""))), "guidance":String(record.get("hint", ""))}
+        nodes[id] = {"id":id, "title":String(record.get("title", "证词")), "kind":"evidence", "status":"已取得" if record.get("acquired", false) else "已知线索", "text":String(record.get("claim", record.get("description", record.get("text", "")))), "guidance":String(record.get("hint", ""))}
     for record in public.get("quests", []):
         var id := "quest:" + String(record.get("id", ""))
         var text := String(record.get("description", ""))
@@ -75,7 +75,7 @@ static func graph(data: Dictionary, snapshot: Dictionary) -> Dictionary:
         if not record.get("chosen", false):
             continue
         var id := "ending:" + String(record.id)
-        nodes[id] = {"id":id, "title":String(record.get("title", "旅途结局")), "kind":"ending", "status":"已选择", "text":String(record.get("description", "")), "guidance":""}
+        nodes[id] = {"id":id, "title":String(record.get("title", "旅途结局")), "kind":"ending", "status":"已选择", "text":String(record.get("message", record.get("description", ""))), "guidance":""}
     for link in story.evidence_connections(inventory):
         var required: Array = link.get("evidence_all", [])
         for index in range(1, required.size()):

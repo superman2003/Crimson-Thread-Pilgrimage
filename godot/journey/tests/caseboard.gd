@@ -36,4 +36,19 @@ func run() -> void:
         check(box.get_child_count() > 3, "caseboard tab renders: " + tab)
         box.free()
     check(VALUES.fingerprint(context.latest.flags) == before, "reading and hypotheses grant no story flags")
+    var known_npcs := preload("res://journey/core/public_catalog.gd").npcs(context.snapshot())
+    var cross: Dictionary = context.snapshot()
+    cross.config = {}
+    var npc_id := String(known_npcs.keys()[0])
+    cross.flags["npc_met_" + npc_id] = true
+    var observed := MODEL.observe(MODEL.fresh(), cross)
+    check(observed.seen_npcs.has(npc_id), "previously met NPC survives a different current region catalogue")
+    var unknown := MODEL.observe(MODEL.fresh(), {"config":{}, "flags":{}})
+    check(unknown.seen_npcs.is_empty(), "catalogue aggregation never exposes unencountered NPCs")
+    feature.selected = String(ids[0])
+    feature.search = "no matching known node"
+    var filtered_box := node_container()
+    feature.draw(filtered_box)
+    check(feature.selected.is_empty(), "filtered-out node cannot retain a stale detail pane")
+    filtered_box.free()
     finish()
