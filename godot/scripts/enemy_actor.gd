@@ -1,5 +1,6 @@
 extends Area2D
 
+const SOUND_FILTER := preload("res://scripts/enemy_sound_filter.gd")
 const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
@@ -2410,8 +2411,9 @@ func _sfx_occluded() -> bool:
     var listener := _sfx_listener()
     return listener != null and not _has_line_of_sight(listener)
 
-func _sfx_volume(volume_db: float, voice_priority: int) -> float:
-    if not _sfx_occluded():
+func _sfx_volume(volume_db: float, voice_priority: int, occluded: Variant = null) -> float:
+    var blocked: bool = occluded if occluded is bool else _sfx_occluded()
+    if not blocked:
         return volume_db
     return volume_db - (SFX_DANGER_OCCLUSION_DB if voice_priority <= 0 else SFX_OCCLUSION_DB)
 
@@ -2431,9 +2433,10 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
     # 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFXEnemy 子总线，缺席时回落 SFX/Master。
-    player_node.bus = _sfx_bus_name()
+    var occluded := _sfx_occluded()
+    player_node.bus = SOUND_FILTER.route(_sfx_bus_name(), occluded, voice_priority)
     player_node.stream = stream
-    player_node.volume_db = _sfx_volume(volume_db, voice_priority)
+    player_node.volume_db = _sfx_volume(volume_db, voice_priority, occluded)
     player_node.set_meta("authored_volume_db", volume_db)
     player_node.pitch_scale = pitch_scale
     player_node.max_distance = 900.0
@@ -2591,9 +2594,10 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
-    player_node.bus = _sfx_bus_name()
+    var occluded := _sfx_occluded()
+    player_node.bus = SOUND_FILTER.route(_sfx_bus_name(), occluded, 0)
     player_node.stream = stream
-    player_node.volume_db = _sfx_volume(volume_db, 1)
+    player_node.volume_db = _sfx_volume(volume_db, 1, occluded)
     player_node.max_distance = 900.0
     host.add_child(player_node)
     player_node.global_position = global_position
