@@ -6,6 +6,10 @@ var locate: Callable
 var search: LineEdit
 var kinds: OptionButton
 var regions: OptionButton
+var sort_order: OptionButton
+var previous_button: Button
+var next_button: Button
+var cursor: Label
 var count: Label
 var list: ItemList
 var detail: Label
@@ -30,13 +34,21 @@ func _ready() -> void:
     for text in ["全部类型","房间","能力门","捷径","危险","图钉"]:kinds.add_item(text)
     search.text_changed.connect(func(_value: String):_refresh())
     kinds.item_selected.connect(func(_index: int):_refresh())
+    sort_order=OptionButton.new();scope.add_child(sort_order)
+    for label in ["原目录顺序","区域与名称","类型与名称","地点名称"]:sort_order.add_item(label)
+    sort_order.item_selected.connect(func(_index: int):_refresh())
     count=Label.new();column.add_child(count)
     list=ItemList.new();list.custom_minimum_size=Vector2(710,260);list.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(list)
     list.item_selected.connect(func(_index: int):_selection())
     list.item_activated.connect(func(_index: int):_locate_selected())
+    var navigation:=HBoxContainer.new();column.add_child(navigation)
+    previous_button=Button.new();previous_button.text="上一处";navigation.add_child(previous_button);previous_button.pressed.connect(func():step_selection(-1))
+    cursor=Label.new();cursor.size_flags_horizontal=Control.SIZE_EXPAND_FILL;cursor.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;navigation.add_child(cursor)
+    next_button=Button.new();next_button.text="下一处";navigation.add_child(next_button);next_button.pressed.connect(func():step_selection(1))
     detail=Label.new();detail.custom_minimum_size=Vector2(710,85);detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(detail)
     locate_button=Button.new();locate_button.text="在地图中查看此处";column.add_child(locate_button)
     locate_button.pressed.connect(_locate_selected)
+    list.gui_input.connect(_list_input)
     get_ok_button().text="返回地图"
 
 func open(records: Array, action: Callable) -> void:
@@ -52,19 +64,28 @@ func _refresh() -> void:
     var selected_key:=""
     var old_selection:=list.get_selected_items()
     if not old_selection.is_empty() and old_selection[0]<visible_rows.size():selected_key=String(visible_rows[old_selection[0]].key)
-    visible_rows=INDEX.search(rows,search.text,KINDS[kinds.selected],String(regions.get_selected_metadata()))
+    visible_rows=INDEX.arrange(INDEX.search(rows,search.text,KINDS[kinds.selected],String(regions.get_selected_metadata())),sort_order.selected)
     list.clear()
     var selected_index:=0
     for row in visible_rows:list.add_item("%s · %s" % [String(row.region_name),String(row.title)])
     for index in visible_rows.size():
         if String(visible_rows[index].key)==selected_key:selected_index=index;break
-    if list.item_count>0:list.select(selected_index)
+    if list.item_count>0:list.select(selected_index);list.ensure_current_is_visible()
     count.text="符合筛选 %d / 已知地点 %d · 仅列已购且已补绘的区域" % [visible_rows.size(),rows.size()]
     _selection()
 
 func _selection() -> void:
     var selection:=list.get_selected_items()
     locate_button.disabled=selection.is_empty()
+    var index:=int(selection[0]) if not selection.is_empty() else -1
+    previous_button.disabled=index<=0
+    next_button.disabled=index<0 or index>=visible_rows.size()-1
+    cursor.text="%d / %d" % [index+1,visible_rows.size()]
+    var summary: Array[String]=[]
+    var totals:=INDEX.counts(visible_rows)
+    for kind in ["room","gate","shortcut","hazard","pin"]:
+        if int(totals.get(kind,0))>0:summary.append({"room":"房间","gate":"能力门","shortcut":"捷径","hazard":"危险","pin":"图钉"}[kind]+str(totals[kind]))
+    count.tooltip_text=" · ".join(summary)
     if selection.is_empty():detail.text="无符合筛选的已补绘地点。清空搜索或切换类型；未购/未补绘地点不会被列出。";return
     var row: Dictionary=visible_rows[selection[0]]
     detail.text=String(row.detail)+"\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
@@ -75,3 +96,20 @@ func _locate_selected() -> void:
     var result: Variant=locate.call(visible_rows[selection[0]].duplicate(true))
     if result is Dictionary and bool(result.get("ok",false)):hide()
     else:detail.text=String(result.get("reason","该地点已不在已知地图中")) if result is Dictionary else "当前无法查看"
+
+func step_selection(direction: int) -> void:
+    if direction not in [-1,1]:return
+    var selected:=list.get_selected_items()
+    if selected.is_empty():return
+    var index:=int(selected[0])+direction
+    if index<0 or index>=visible_rows.size():return
+    list.select(index);list.ensure_current_is_visible();_selection()
+
+func _list_input(event: InputEvent) -> void:
+    if not event is InputEventKey or not event.pressed or event.echo:return
+    if event.keycode==KEY_HOME and list.item_count>0:
+        list.select(0);list.ensure_current_is_visible();_selection();list.accept_event()
+    elif event.keycode==KEY_END and list.item_count>0:
+        list.select(list.item_count-1);list.ensure_current_is_visible();_selection();list.accept_event()
+    elif event.keycode==KEY_F and (event.ctrl_pressed or event.meta_pressed):
+        search.grab_focus();search.select_all();list.accept_event()
