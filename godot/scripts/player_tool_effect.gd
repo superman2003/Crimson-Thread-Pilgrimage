@@ -122,6 +122,8 @@ func _physics_process(delta: float) -> void:
             continue
         targets[enemy.get_instance_id()] = true
         enemy.take_hit(maxi(1, int(payload.get("damage", 1))), direction)
+        if bool(payload.get("skill_effect",false)) and enemy.has_method("report_skill_contact"):
+            enemy.report_skill_contact(owner_player,String(payload.get("practice_skill_id","")),int(payload.get("practice_cast_serial",0)))
         if bool(payload.get("salt_mark", false)) and enemy.has_method("apply_salt_mark"):
             enemy.apply_salt_mark(5.0)
         if float(payload.get("stagger", 0.0)) > 0.0 and enemy.has_method("apply_stagger"):

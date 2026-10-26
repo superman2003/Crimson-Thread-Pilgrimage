@@ -1,0 +1,99 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+PASS actual authored challenge supplies its own reward plan
+PASS explicit challenge fixture baseline persists
+PASS calling an authored reward without victory proof cannot grant it
+PASS altered reward dictionary cannot replace canonical authored amounts
+挑战房 · 冠隙试炼
+PASS real shrine challenge registers actual living enemies
+PASS actual challenge foe exists for the victory fixture
+试炼之敌倒下
+归途记录暂未写入，当前旅途进度仍保留。
+PASS actual challenge foe exists for the victory fixture
+试炼之敌倒下
+已赢得这次挑战，首清奖励尚未记录；回到这座余响钟可重试领取。
+PASS last actual foe completes the attempt even during storage failure
+PASS earned victory releases the arena while claim is pending
+ERROR: failed reward retains only earned pending proof with no economic or completion grant
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:44)
+       [2] tick (res://scripts/optional_challenges_validation.gd:23)
+PASS failed claim leaves exact disk and a visible retry entrance
+挑战房 · 冠隙试炼
+ERROR: pending victory retries the claim without spawning another fight
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:48)
+       [2] tick (res://scripts/optional_challenges_validation.gd:23)
+PASS ordinary successful save preserves pending victory proof
+ERROR: disk stores pending proof without reward or false clear
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:51)
+       [2] tick (res://scripts/optional_challenges_validation.gd:23)
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+ERROR: production World restart restores pending victory and retry label
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:58)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+挑战房 · 冠隙试炼
+ERROR: failed post-restart retry retains exact reward ownership
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:62)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+先了结当前的可选挑战。
+ERROR: retry writes one checkpoint observing old wallet flag and evidence
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:65)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+ERROR: single durable claim grants exact authored money evidence and material
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:66)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+ERROR: claim replaces pending proof with clear without respawning foes
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:67)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+PASS claim does not refill combat resources or advance region kill quotas
+ERROR: production disk restores complete reward and cleared pending proof together
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:69)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+先了结当前的可选挑战。
+ERROR: repeated shrine and late direct grant cannot pay twice
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:71)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+AUDIO_RETIREMENT pending=0 elapsed_msec=30 observed=10 retired=20
+PASS all replaced challenge Worlds release real audio
+CHALLENGE_CLAIM checks=23 failures=10

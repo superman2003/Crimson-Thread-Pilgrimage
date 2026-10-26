@@ -7,6 +7,8 @@ const VERSION := 3
 const DEFAULT_PATH := "user://pilgrimage_world.json"
 const MAX_BYTES := 4 * 1024 * 1024
 var last_error := ""
+var _source_hashes: Dictionary={}
+var _validated_source_hash:=""
 var data: Dictionary = fresh_data()
 
 static func fresh_data() -> Dictionary:
@@ -21,6 +23,7 @@ static func fresh_region() -> Dictionary:
 
 func reset() -> void:
     data = fresh_data()
+    _source_hashes.clear()
     last_error = ""
 
 func get_region(region_id: String) -> Dictionary:
@@ -112,6 +115,7 @@ func read(path: String = DEFAULT_PATH) -> bool:
     if candidate == null:
         return false
     data = candidate.duplicate(true)
+    _remember_source(path,_validated_source_hash)
     # Godot's JSON parser represents every number as float. Keep counters
     # integral so dictionary comparisons and inventory consumers remain stable.
     data.version = int(data.version)
@@ -131,6 +135,10 @@ func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool
     last_error = ""
     if not _valid_data(candidate):
         return _fail("invalid in-memory world state")
+    var source_key:=ProjectSettings.globalize_path(path).simplify_path()
+    var before_hash:=_file_hash(path)
+    if _source_hashes.has(source_key) and _source_hashes[source_key]!=before_hash:
+        return _fail("save changed since this instance read it; reload before saving")
     # Never replace a damaged save or discard its evidence after a failed load.
     if FileAccess.file_exists(path) and _read_valid_file(path) == null:
         return _fail("existing save is damaged; left untouched")
@@ -145,16 +153,26 @@ func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool
     if status != OK or _read_valid_file(temporary) == null:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
         return _fail("temporary save failed validation")
+    if _file_hash(path)!=before_hash:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+        return _fail("save changed while preparing candidate; left untouched")
+    var installed_hash:=_validated_source_hash
     var absolute := ProjectSettings.globalize_path(path)
     if FileAccess.file_exists(path):
-        var backup_status := DirAccess.copy_absolute(absolute, absolute + ".bak")
-        if backup_status != OK:
+        var pending:=absolute+".bak.pending"
+        var backup_status:=DirAccess.copy_absolute(absolute,pending)
+        if backup_status==OK and _file_hash(pending)!=before_hash:backup_status=ERR_FILE_CORRUPT
+        if backup_status==OK:backup_status=DirAccess.rename_absolute(pending,absolute+".bak")
+        if backup_status!=OK:
+            DirAccess.remove_absolute(pending)
             DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
-            return _fail("cannot preserve previous save: %s" % backup_status)
+            return _fail("cannot preserve verified previous save: %s" % backup_status)
     var rename_status := DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), absolute)
     if rename_status != OK:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
         return _fail("cannot install save: %s" % rename_status)
+    # Only actual readers/recovery acquire a lease; writer-only legacy callers retain authority.
+    if _source_hashes.has(source_key):_remember_source(path,installed_hash)
     last_error = ""
     return true
 
@@ -177,7 +195,20 @@ func _read_valid_file(path: String) -> Variant:
     if not _valid_data(parser.data):
         _fail("unsupported version or invalid save fields")
         return null
+    _validated_source_hash=contents.sha256_text()
     return parser.data
+
+func _remember_source(path: String,digest: String) -> void:
+    var key:=ProjectSettings.globalize_path(path).simplify_path()
+    _source_hashes.erase(key);_source_hashes[key]=digest
+    while _source_hashes.size()>16:_source_hashes.erase(_source_hashes.keys()[0])
+
+static func _file_hash(path: String) -> String:
+    if not FileAccess.file_exists(path):return ""
+    var file:=FileAccess.open(path,FileAccess.READ)
+    if file==null:return "!unreadable"
+    if file.get_length()>MAX_BYTES:return "!oversize"
+    return file.get_as_text().sha256_text()
 
 static func _position(value: Variant) -> Variant:
     return [value.x, value.y] if value is Vector2 else value
@@ -332,6 +363,7 @@ func restore_backup(path: String = DEFAULT_PATH) -> bool:
         DirAccess.remove_absolute(temporary_absolute)
         return _fail("cannot install recovered save; original restored")
     data = candidate.duplicate(true)
+    _remember_source(path,_validated_source_hash)
     last_error = ""
     return true
 

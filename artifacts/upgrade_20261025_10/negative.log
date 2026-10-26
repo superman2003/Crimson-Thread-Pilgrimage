@@ -1,0 +1,29 @@
+Running lift_service
+FAIL: lift_service: exit=1 engine_errors=0 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+CHECK PASS actual basket and landing prompts read remapped interaction key
+CHECK PASS physical facility prompt follows active controller binding
+CHECK PASS remote caller cannot activate physical facility
+CHECK PASS non-finite caller coordinates rejected
+CHECK PASS rider requests upper landing with actual distance divided by speed
+CHECK PASS repeated nearby call reports progress without reversing occupied basket
+CHECK PASS map/menu pauses actual basket and rider together
+CHECK PASS region loading pauses physical transit
+CHECK PASS dead rider cannot start or advance service
+CHECK PASS invalid timing cannot corrupt physical coordinates
+CHECK PASS actual basket and rider advance together and ETA falls
+CHECK PASS jumping rider freely leaves moving basket
+CHECK FAIL actual rider-body sweep prevents carrying through a low ceiling
+CHECK FAIL obstruction restores physical basket collision and explains retry
+CHECK PASS clearing obstruction resumes original requested destination
+CHECK PASS unblocked rider reaches exact physical upper landing
+CHECK PASS lower landing can call basket back while rider remains on board
+CHECK PASS physical descent retains rider and exact destination
+CHECK PASS unoccupied basket can be called from authored landing radius
+CHECK PASS calling from landing never teleports waiting player
+LIFT_SERVICE checks=20 failures=2
+GODOT_REGRESSIONS suites=1 failures=1

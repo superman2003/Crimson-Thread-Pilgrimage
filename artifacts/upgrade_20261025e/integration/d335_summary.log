@@ -1,0 +1,57 @@
+Running resupply_plan
+PASS: resupply_plan
+
+RESUPPLY_PLAN checks=41 failures=0
+Running loadout_workbench
+PASS: loadout_workbench
+
+LOADOUT_WORKBENCH checks=41 failures=0
+Running map_directory
+PASS: map_directory
+AUDIO_RETIREMENT pending=0 elapsed_msec=39 observed=4 retired=8
+MAP_DIRECTORY checks=32 failures=0
+Running map_player_pins
+PASS: map_player_pins
+已添加目标图钉。
+MAP PLAYER PINS PASS checks=161
+Running world_state
+PASS: world_state
+
+WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves
+Running save_recovery
+PASS: save_recovery
+PASS the fixture releases playback
+SAVE_RECOVERY checks=35 failures=0
+Running world_save_candidate
+PASS: world_save_candidate
+寻找低处检修台遗留的攀壁线爪；雨溢立管在上方，钟庭在来路。  M 地图 / Tab 世界图 · F9 新旅途。
+WORLD SAVE CANDIDATE PASS checks=103
+Running hidden_routes
+PASS: hidden_routes
+PASS a hidden room visited in an old save loads as found
+HIDDEN_ROUTES checks=123 failures=0
+Running scene_history
+PASS: scene_history
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=23 retired=26
+SCENE_HISTORY_VALIDATION checks=192 failures=0
+Running audio_landmarks
+PASS: audio_landmarks
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=4 retired=1
+AUDIO_LANDMARKS checks=34 failures=0
+Running enemy_effect_lifetime
+PASS: enemy_effect_lifetime
+PASS: enemy removal cancels its live attack effects
+ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=0
+Running combat
+PASS: combat
+PASS: enemy command ai can damage the player
+COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+Running save_product
+PASS: save_product
+
+SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots
+GODOT_REGRESSIONS suites=14 failures=0
