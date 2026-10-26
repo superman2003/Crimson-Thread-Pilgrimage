@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/recipes/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/recipes/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const BUILD := preload("res://scripts/build_system.gd")
@@ -455,7 +457,7 @@ static func dependency_data(payload: Dictionary) -> Dictionary:
     return {"resources": resources, "recipes": recipes, "links": links}
 
 
-static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
     var need := requirements(payload)
     var quote := production_quote(payload, snapshot)
     var conflicts := branch_conflicts(payload)
@@ -563,3 +565,7 @@ static func svg(payload: Dictionary) -> String:
     report.table("方向冲突", ["动作", "冲突方向", "说明"], branch_conflicts(payload))
     report.table("安全余量敏感性", ["余量百分比", "材料合计", "材料缺口合计", "资金成本"], buffer_sensitivity(payload))
     return report.finish("倍率是纯资源假设。真实的一次性改制、图样与方向规则仍由原制作系统判断。")
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload) + [{"kind":"custom","title":"配方可行组合与机会成本 · 交互预览","view":ADVANCED_VIEW,"data":{"payload":payload,"result":ADVANCED.enumerate(payload)}}]
