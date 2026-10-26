@@ -30,6 +30,9 @@ func save_candidate(candidate: Dictionary) -> bool:
     if not valid(candidate):
         context.tell("候选记录未通过功能字段检查。")
         return false
+    if candidate.records.size() > maxi(record_limit(), data.get("records", []).size()):
+        context.tell("新增记录超过此功能容量；已有旧记录仍可查看、编辑或删除。")
+        return false
     if candidate == data:
         context.tell("没有需要保存的变化。")
         return false
@@ -58,7 +61,7 @@ func draw(parent: Control) -> void:
     var actions := UI.row(parent)
     UI.button(actions, "撤销", undo, undo_stack.is_empty())
     UI.button(actions, "重做", redo, redo_stack.is_empty())
-    UI.hint(actions, "%d / %d 份辅助记录" % [data.records.size(), RECORDS.LIMIT])
+    UI.hint(actions, "%d / %d 份辅助记录" % [data.records.size(), record_limit()])
     match tab:
         "records":
             _library(parent)
@@ -323,7 +326,7 @@ func _field(parent: Control, field: Dictionary) -> void:
                 UI.label(line, String(choice.name))
                 var spin := UI.spin(
                     line,
-                    KNOW.safe_number(draft.get(key, {}).get(id)),
+                    KNOW.safe_number(draft.get(key, {}).get(id, field.get("default", 0))),
                     float(field.get("min", 0)),
                     float(field.get("max", 100)),
                     float(field.get("step", 1))
@@ -346,6 +349,10 @@ func _field(parent: Control, field: Dictionary) -> void:
                         var values: Array = draft.get(key, []).duplicate()
                         values.erase(id)
                         if value:
+                            if values.size() >= int(field.get("limit", 1000000)):
+                                context.tell("已达到选择数量上限。")
+                                context.refresh()
+                                return
                             values.append(id)
                         draft[key] = values
                 )
@@ -385,12 +392,19 @@ func _save_draft() -> void:
     var next: Dictionary
     var candidate_id := selected_id
     if selected_id == 0:
+        if data.records.size() >= record_limit():
+            context.tell("已达到本功能的记录数量上限。")
+            return
         next = RECORDS.append(data, draft_title, draft)
         if next == data:
             context.tell("记录库已满，先整理现有记录。")
             return
         candidate_id = int(next.sequence)
     else:
+        if RECORDS.find(data, selected_id).is_empty():
+            selected_id = 0
+            context.tell("所选记录已被撤销或移除；候选已保留，请再次保存为新记录。")
+            return
         next = data.duplicate(true)
     next = RECORDS.replace(next, candidate_id, draft_title, draft_note, draft_favorite, draft)
     if save_candidate(next):
@@ -399,7 +413,7 @@ func _save_draft() -> void:
 
 
 func _transfer(parent: Control) -> void:
-    UI.hint(parent, "导入只接受同存档槽、同功能的记录；先检查候选，再明确合并。最多60份，不会替换游戏主档。")
+    UI.hint(parent, "导入只接受同存档槽、同功能的记录；先检查候选，再明确合并。新记录上限%d份，不会替换游戏主档。" % record_limit())
     UI.button(
         parent,
         "导出本功能记录",
@@ -519,3 +533,14 @@ func _move_list(key: String, index: int, direction: int) -> void:
 
 func _edit_requested(_payload: Dictionary, _id: String) -> void:
     context.tell("请在编辑候选中保存个人记录。")
+
+
+func record_limit() -> int:
+    return int(domain.get_script_constant_map().get("RECORD_LIMIT", RECORDS.LIMIT)) if domain != null else RECORDS.LIMIT
+
+
+func storage_reloaded() -> void:
+    selected_id = 0
+    compare_id = 0
+    undo_stack.clear()
+    redo_stack.clear()
