@@ -42,4 +42,17 @@ func run() -> void:
     context.store.writable = false
     var prior: Dictionary = feature.data.duplicate(true)
     check(not feature.commit(MODEL.rename(first, a, "候选")) and feature.data == prior, "write failure does not publish candidate")
+
+    var cross: Dictionary = context.snapshot()
+    cross.inventory = {"thread_dash":1}
+    cross.config = {"inventory":{"catalog":{}}}
+    var seen := MODEL.observe(MODEL.fresh(), cross)
+    check(seen.seen.has("thread_dash"), "held item catalogue survives travelling to another region")
+    var plans := MODEL.create(seen, "甲")
+    var left := String(plans.selected)
+    plans = MODEL.line(plans, left, "thread_dash", 3, 0)
+    plans = MODEL.set_done(plans, left, "thread_dash", true)
+    plans = MODEL.create(plans, "乙")
+    plans = MODEL.line(plans, String(plans.selected), "thread_dash", 2, 0)
+    check(MODEL.compare(plans, left, String(plans.selected))[0].left == 0, "completed objectives are excluded from comparisons as well as allocations")
     finish()

@@ -1,5 +1,6 @@
 extends "res://journey/core/feature.gd"
 const MODEL := preload("res://journey/supplies/model.gd")
+var observe_wait := 0.0
 var tab := "plans"
 var comparison := ""
 var missing_only := false
@@ -19,12 +20,23 @@ func initial() -> Dictionary:
 func valid(candidate: Dictionary) -> bool:
     return MODEL.valid(candidate)
 
-func tick(snapshot: Dictionary, _delta: float) -> void:
-    if snapshot.is_empty():
+func tick(snapshot: Dictionary, delta: float) -> void:
+    observe_wait = maxf(0.0, observe_wait - maxf(0.0, delta))
+    if snapshot.is_empty() or observe_wait > 0:
         return
     var candidate := MODEL.observe(data, snapshot)
-    if candidate != data and context.store.write("supplies", candidate):
+    if candidate == data:
+        return
+    observe_wait = 2.0
+    if context.store.write("supplies", candidate):
         data = candidate
+        error = ""
+    else:
+        var failure: String = context.store.error
+        recover_conflict()
+        error = failure
+        context.tell(error)
+
 
 func draw(parent: Control) -> void:
     header(parent, "给已见物资设储备目标，先保护预留量，再按优先级分配。这里的分配仅用于核算，不移动实际物品。")
@@ -71,7 +83,12 @@ func _plans(parent: Control) -> void:
         UI.hint(parent, "先建立一份旅行、战具补给或工匠成长的物资清单。")
         return
     var picker := UI.pick(parent, _choices(), _current())
-    picker.item_selected.connect(func(_index: int):selected = UI.chosen(picker);pending_remove = "";context.refresh())
+    picker.item_selected.connect(func(_index: int):
+        var candidate := data.duplicate(true)
+        candidate.selected = UI.chosen(picker)
+        if commit(candidate):
+            selected = String(candidate.selected)
+            pending_remove = "")
     var record := MODEL.pack(data, _current())
     var summary := MODEL.summary(data, _inventory(), String(record.id))
     UI.label(parent, "目标 %d · 可分配 %d · 缺口 %d · 完备条目 %d" % [summary.requested, summary.allocated, summary.missing, summary.complete])

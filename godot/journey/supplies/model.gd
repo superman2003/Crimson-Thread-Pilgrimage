@@ -46,7 +46,7 @@ static func valid(data: Dictionary) -> bool:
 
 static func observe(data: Dictionary, snapshot: Dictionary) -> Dictionary:
     var result := data.duplicate(true)
-    var catalog: Dictionary = snapshot.get("config", {}).get("inventory", {}).get("catalog", {})
+    var catalog: Dictionary = preload("res://journey/core/public_catalog.gd").items(snapshot)
     for id in snapshot.get("inventory", {}):
         if not V.held(snapshot.inventory[id]) or not catalog.get(id) is Dictionary:
             continue
@@ -232,8 +232,12 @@ static func compare(data: Dictionary, left: String, right: String) -> Array:
     var b := pack(data, right)
     var values := {}
     for entry in a.get("lines", []):
+        if entry.done:
+            continue
         values[entry.item] = {"left":int(entry.target), "right":0}
     for entry in b.get("lines", []):
+        if entry.done:
+            continue
         if not values.has(entry.item):
             values[entry.item] = {"left":0, "right":0}
         values[entry.item].right = int(entry.target)
