@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/survey/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/survey/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const VIEW := preload("res://journey/fieldwork/survey/view.gd")
@@ -377,7 +379,7 @@ static func resolution_study(payload: Dictionary) -> Array:
     return result
 
 
-static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var data := grid(payload)
     if data.cells.is_empty():
         return [K.notice("没有可测绘样本", "先实际抵达一个具有地图设计矩形的房间。")]
@@ -556,3 +558,7 @@ static func room_overlap_audit(payload: Dictionary) -> Array:
 static func cell_center(data: Dictionary, id: int) -> Vector2:
     var cell := coordinates(data, id)
     return Vector2(float(data.bounds[0]), float(data.bounds[1])) + Vector2(cell.x + 0.5, cell.y + 0.5) * float(data.step)
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload, grid(payload)) + [{"kind":"custom","title":"测绘复查站点覆盖 · 交互预览","view":ADVANCED_VIEW,"data":{"grid":grid(payload)}}]
