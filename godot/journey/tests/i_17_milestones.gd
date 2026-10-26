@@ -35,3 +35,14 @@ func domain_checks(context: RefCounted) -> void:
         not M.capture(raw).facts.any(func(row: Dictionary): return row.id == "ability:thread_dash"),
         "false count cannot become earned ability milestone"
     )
+
+    var renamed := before.duplicate(true)
+    for fact in renamed.facts:
+        fact.name += "新版名称"
+    check(M.differences(before, renamed).is_empty(), "display-only renames do not count as gameplay progress")
+    renamed.stats["max_hp"] = float(renamed.stats.get("max_hp", 0)) + 1
+    check(M.stat_changes(before, renamed).size() == 1, "derived build-stat progress has its own comparison rows")
+    raw.inventory["thread_dash"] = 1
+    var facts: Array = M.capture(raw).facts
+    check(facts.filter(func(row: Dictionary):return row.id.contains("thread_dash")).size() == 1, "ability unlock token is represented only once")
+

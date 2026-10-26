@@ -32,3 +32,7 @@ func domain_checks(context: RefCounted) -> void:
     check(M.wrap_text("甲乙丙丁戊己", 3).size() == 2, "reference CJK line wrapping")
     check(M.search(payload).size() == 1, "full-text lookup finds known document only")
     check(M.pages(payload).size() >= 1, "empty or short text still has a readable reference page")
+
+    var live := M.capture(context.snapshot())
+    check(live.documents.any(func(row: Dictionary): return String(row.id).begins_with("quest:") and not String(row.body).is_empty()), "canonical main-line goal is readable even without optional side quests")
+

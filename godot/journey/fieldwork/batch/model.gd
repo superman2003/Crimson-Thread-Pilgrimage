@@ -15,7 +15,7 @@ static func capture(snapshot: Dictionary) -> Dictionary:
     var base := RECIPES.capture(snapshot)
     var candidates := []
     var weights := {}
-    for row in base.recipes.slice(0, LIMIT):
+    for row in base.recipes:
         var candidate: Dictionary = row.duplicate(true)
         candidate["available"] = not row.crafted
         candidate["reason"] = "记录中尚未制作" if not row.crafted else "已经制作"
@@ -33,8 +33,12 @@ static func capture(snapshot: Dictionary) -> Dictionary:
         ):
             candidate.available = false
             candidate.reason = "该饰件已经获得"
+        if not candidate.available:
+            continue
         candidates.append(candidate)
         weights[row.id] = 1.0
+        if candidates.size() >= LIMIT:
+            break
     return {
         "candidates": candidates,
         "weights": weights,
@@ -369,6 +373,8 @@ static func closest_infeasible(payload: Dictionary, options: Array) -> Array:
     for candidate in options:
         if candidate.feasible or candidate.ids.is_empty():
             continue
+        if candidate.reasons.size() > (1 if candidate.missing_currency > 0 else 0) + candidate.missing_materials.size():
+            continue
         var shortage := int(candidate.missing_currency)
         for amount in candidate.missing_materials.values():
             shortage += int(amount) * int(payload.material_weight)
@@ -390,7 +396,7 @@ static func closest_infeasible(payload: Dictionary, options: Array) -> Array:
 
 static func actual_quote(solution: Dictionary, snapshot: Dictionary) -> Dictionary:
     if solution.is_empty() or solution.ids.is_empty():
-        return {"ok": true, "reason": "没有制作目标，保留当前资源。"}
+        return {"ok": false, "reason": "没有可报价的制作目标；保留当前资源。"}
     var clone := BUILD.new()
     var restored: Dictionary = clone.restore(snapshot.get("build_state", {}))
     if not restored.ok:
@@ -481,7 +487,11 @@ static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
 
 static func compare(a: Dictionary, b: Dictionary) -> Array:
     var left := best(a)
-    var right := best(b)
+    var current := b.duplicate(true)
+    for key in ["weights", "mandatory", "reserve", "material_reserve", "material_weight", "policy"]:
+        current[key] = a[key].duplicate(true) if a[key] is Array or a[key] is Dictionary else a[key]
+    current.candidates = a.candidates.duplicate(true)
+    var right := best(current)
     return [
         K.table(
             "最优计划变化",
