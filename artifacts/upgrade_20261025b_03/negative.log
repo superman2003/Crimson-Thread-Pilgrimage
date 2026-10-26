@@ -1,0 +1,43 @@
+Running challenge_claim
+FAIL: challenge_claim: exit=1 engine_errors=10 completion_marker=False
+ERROR: retry writes one checkpoint observing old wallet flag and evidence
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:65)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+ERROR: single durable claim grants exact authored money evidence and material
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:66)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+ERROR: claim replaces pending proof with clear without respawning foes
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:67)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+PASS claim does not refill combat resources or advance region kill quotas
+ERROR: production disk restores complete reward and cleared pending proof together
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:69)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+先了结当前的可选挑战。
+ERROR: repeated shrine and late direct grant cannot pay twice
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/optional_challenges_validation.gd:29)
+       [1] run (res://scripts/challenge_claim_validation.gd:71)
+       [2] boot (res://scripts/optional_challenges_validation.gd:48)
+       [3] tick (res://scripts/optional_challenges_validation.gd:23)
+AUDIO_RETIREMENT pending=0 elapsed_msec=30 observed=10 retired=20
+PASS all replaced challenge Worlds release real audio
+CHALLENGE_CLAIM checks=23 failures=10
+GODOT_REGRESSIONS suites=1 failures=1
