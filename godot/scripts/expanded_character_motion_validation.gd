@@ -55,6 +55,8 @@ func run() -> void:
     _check_attack_specific_poses(stage)
     _check_production_attack_cels(stage)
     await _check_boss_recovery_bridges(stage)
+    await _check_v5_runtime_sources(stage)
+    _check_recovery_hitch(stage)
     _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
@@ -216,6 +218,72 @@ func _check_boss_recovery_bridges(stage: Node2D) -> void:
         enemy.queue_free()
         await process_frame
     check(bridged == 22, "22 boss heavy/cast/phase attacks recover through a drawn bridge")
+func _check_v5_runtime_sources(stage: Node2D) -> void:
+    var delivered := {}
+    var source_frames := 0
+    var level := LEVEL.new()
+    var bosses := ["broken_string_gardener", "rust_crown_guardian", "saltwhite_contract_judge", "sunken_hammer_smith", "silent_crown_core", "silent_pilgrim_commander"]
+    var ids := bosses + ["ash_banner_imp", "echo_contract_scribe", "wax_lancer", "delayed_shadow", "pipe_thrower", "npc_blind_bell_knight", "npc_deserter_flagbearer"]
+    for id: String in ids:
+        var npc := id.begins_with("npc_")
+        var path := ART.character_manifest("original_npcs" if npc else "original_creatures", id)
+        var record: Dictionary = ART.manifest(path.get_base_dir() + "/motion_generation.json")
+        var actor: Node2D
+        var sprite: AnimatedSprite2D
+        if npc:
+            actor = level._make_npc({"id": id, "name": id})
+            stage.add_child(actor)
+            sprite = actor.get_node("FriendlyFamilySprite") as AnimatedSprite2D
+        else:
+            actor = ENEMY.new()
+            actor.configure({"id": "v5_" + id, "kind": id, "hp": 20}, "", id in bosses)
+            stage.add_child(actor)
+            actor.set_physics_process(false)
+            sprite = actor.animated_sprite
+            check(actor.asset_path == path, id + " v5 production manifest selected")
+        check(sprite.sprite_frames == ART.frames(path), id + " v5 factory uses reviewed motion frames")
+        for animation: String in record.get("runtime_frames", {}):
+            var entries: Array = record.runtime_frames[animation]
+            for index in entries.size():
+                var source := String(entries[index].get("source", ""))
+                if not source.begins_with("art_requests/character_motion_v5/incoming/"): continue
+                delivered[source] = int(delivered.get(source, 0)) + 1
+                source_frames += 1
+                sprite.play(animation)
+                sprite.pause()
+                sprite.frame = index
+                var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame) as AtlasTexture
+                check(texture != null and texture.atlas != null and texture.atlas.resource_path.ends_with("/motion_runtime.png"), id + "/" + animation + "[%d] uses packed v5 pixels" % index)
+        actor.queue_free()
+        await process_frame
+    level.free()
+    check(delivered.size() == 32 and source_frames == 67, "all 32 PR138 sheets / 67 cels reach production actors")
+    print("CHARACTER_MOTION_V5 sources=%d frames=%d" % [delivered.size(), source_frames])
+
+func _check_recovery_hitch(stage: Node2D) -> void:
+    var enemy = ENEMY.new()
+    enemy.configure({"id": "v5_hitch", "kind": "sunken_hammer_smith", "hp": 20}, "", true)
+    stage.add_child(enemy)
+    enemy.set_physics_process(false)
+    var sprite: AnimatedSprite2D = enemy.animated_sprite
+    var command := {"id": "boss_shears_close", "animation": "heavy", "recover": 0.8}
+    for overshoot: float in [0.0, 0.10, 0.35, 0.60]:
+        enemy.state = "recover"
+        enemy.state_timer = 0.8
+        enemy._pose_sprite("recover", command)
+        enemy._update_recover(0.18 + overshoot)
+        var count := sprite.sprite_frames.get_frame_count("recover")
+        var expected := overshoot * count / 0.62
+        check(sprite.animation == &"recover", "hitch still selects shared recovery")
+        check(absf(sprite.frame + sprite.frame_progress - expected) < 0.001, "hitch preserves elapsed recovery animation at %.2fs" % overshoot)
+        check(absf(enemy.state_timer - (0.62 - overshoot)) < 0.001, "hitch keeps the original punishment window")
+        enemy._update_recover(enemy.state_timer + 0.001)
+        check(enemy.state == "patrol" and sprite.animation == &"idle", "hitch recovery ends on schedule")
+    enemy._pose_sprite("recover", command)
+    enemy._pose_sprite("hurt")
+    check(enemy.pose_loop_animation.is_empty(), "recoil cancels pending v5 bridge follow-up")
+    enemy.queue_free()
+
 func _check_elite_profiles(stage: Node2D) -> void:
     var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
     var normal = ENEMY.new()
