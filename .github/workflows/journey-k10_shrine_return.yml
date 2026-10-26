@@ -1,0 +1,35 @@
+name: Journey observation k10_shrine_return
+on:
+  pull_request:
+    paths:
+      - 'godot/journey/**'
+      - 'godot/scripts/**'
+      - 'godot/data/**'
+      - 'tools/run_observation_challenge.py'
+      - '.github/workflows/journey-k10_shrine_return.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: observation-k10_shrine_return-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  observed-challenge:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate actual models, persistence and native controls
+        run: |
+          python3 tools/test_observation_runner.py
+          python3 tools/run_observation_challenge.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --module k10_shrine_return --log-dir "$RUNNER_TEMP/observation-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: observation-k10_shrine_return
+          path: ${{ runner.temp }}/observation-logs
