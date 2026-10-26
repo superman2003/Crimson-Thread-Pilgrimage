@@ -54,8 +54,9 @@ func _process(delta: float) -> void:
         return
     if not bool(owner.get("initial_region_ready")) or not is_instance_valid(owner.get("ui_shell")):
         return
-    if context == null or context.store.scope != String(owner.world_save_path).sha256_text():
+    if context != null and context.store.scope != String(owner.world_save_path).sha256_text():
         _retire()
+    if context == null:
         _attach(owner)
     if context == null:
         return
@@ -68,13 +69,19 @@ func _process(delta: float) -> void:
 
 func _rebind_ui() -> void:
     var owner := _owner()
-    if context == null or owner == null or not bool(owner.get("initial_region_ready")) or not is_instance_valid(owner.get("ui_shell")):
+    if owner == null or not bool(owner.get("initial_region_ready")) or not is_instance_valid(owner.get("ui_shell")):
         return
+    bind_region_ui(owner)
+
+func bind_region_ui(owner: Node) -> void:
+    # Both arrival paths call this from the final HUD construction job, before
+    # publishing a region. Entry presence must not depend on a later frame.
+    if _owner() != owner:
+        _retire()
+        owner_ref = weakref(owner)
     if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
         _retire_ui()
         _attach_ui(owner)
-    if is_instance_valid(entry):
-        entry.visible = owner.active_overlay == "settings" and not bool(owner.world_loading)
 
 func _attach(owner: Node) -> void:
     context = CONTEXT.new()
@@ -100,7 +107,7 @@ func _attach(owner: Node) -> void:
             continue
         feature.setup(context)
         features[id] = feature
-    _attach_ui(owner)
+    bind_region_ui(owner)
 
 func _attach_ui(owner: Node) -> void:
     bound_ui_ref = weakref(owner.ui_shell)
