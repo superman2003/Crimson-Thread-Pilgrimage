@@ -32,3 +32,16 @@ func domain_checks(context: RefCounted) -> void:
         not M.rows(payload)[0].bearing_defined and M.visible(payload).is_empty(),
         "coincident landmark has no fake compass direction"
     )
+
+    check(M.recommend_windows(payload).is_empty(), "undefined bearing never becomes an uncovered recommendation target")
+    check(M.uncertainty_windows(payload)[0]["窗口稳定性"] == "方位未定义", "coincident landmark uncertainty remains undefined")
+    payload.origin = [0, 0]
+    payload.radius = 100.0
+    payload.fov = 1.0
+    payload.markers = [{"id":"edge", "name":"边界", "point":[100,0], "kind":"room"}]
+    check(M.range_bands(payload)[2]["地标数"] == 1 and M.range_bands(payload)[3]["地标数"] == 0, "exact-radius landmark remains inside the outer distance band")
+    payload.markers[0].point = [99, -10]
+    check(M.recommend_windows(payload).size() == 1, "narrow FOV recommendation tests actual bearings rather than fixed 15-degree grid")
+    payload.markers[0].id = ""
+    check(not M.validate(payload), "empty stable landmark identity is rejected")
+

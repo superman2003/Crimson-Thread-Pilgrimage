@@ -75,7 +75,7 @@ static func fields(payload: Dictionary) -> Array:
         choices.append({"id": node.id, "name": node.name})
     return [
         {"id": "start", "name": "出发房间", "kind": "choice", "choices": choices},
-        {"id": "stops", "name": "访问站点（最多10站）", "kind": "checklist", "choices": choices},
+        {"id": "stops", "name": "访问站点（最多10站）", "kind": "checklist", "limit": MAX_STOPS, "choices": choices},
         {"id": "return", "name": "回到起点", "kind": "toggle"},
         {"id": "skip_unreachable", "name": "单独列出不可达目标", "kind": "toggle"},
         {"id": "speed", "name": "个人估算速度", "kind": "number", "min": 1, "max": 10000, "step": 10},
@@ -446,7 +446,7 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
             "求解与复核",
             (
                 "顺序：%s\n距离 %.1f · %s"
-                % [GRAPH.names(solution.order, nodes), solution.distance, verified.reason]
+                % [GRAPH.names(solution.order + ([solution.order[0]] if payload.get("return", false) and solution.order.size() > 1 else []), nodes), solution.distance, verified.reason]
             )
         )
     )
@@ -474,7 +474,12 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
             }
         )
     result.append(K.table("方法比较", ["方法", "访问目标", "总距离", "处理状态数"], comparisons))
-    result.append(K.notice("距离下界参考", bound_report(data, solution)))
+    var visited_data := data.duplicate(true)
+    visited_data.nodes = solution.order.duplicate()
+    result.append(K.notice("距离下界参考", bound_report(visited_data, solution)))
+    var omitted := targets(payload).filter(func(id: String): return not solution.order.has(id))
+    if not omitted.is_empty():
+        result.append(K.notice("本方案未访问目标", GRAPH.names(omitted, nodes)))
     if solution.has("excluded") and not solution.excluded.is_empty():
         result.append(K.notice("单独列出的不可达目标", GRAPH.names(solution.excluded, nodes)))
     result.append(K.notice("估算边界", "采用已知房间中心间的规则距离。没有模拟落脚、攀爬、战斗、平台等待或实际游戏耗时。"))
@@ -491,14 +496,14 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
             [
                 {
                     "样本": "记录",
-                    "访问目标": left.order.size(),
+                    "访问目标": maxi(0, left.order.size() - 1),
                     "总距离": left.distance if left.ok else "无完整解",
                     "速度假设": a.speed,
                     "停留秒": a.dwell
                 },
                 {
                     "样本": "当前",
-                    "访问目标": right.order.size(),
+                    "访问目标": maxi(0, right.order.size() - 1),
                     "总距离": right.distance if right.ok else "无完整解",
                     "速度假设": b.speed,
                     "停留秒": b.dwell

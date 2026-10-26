@@ -7,6 +7,7 @@ var pump: Node
 var live_label: WeakRef
 var live_progress: WeakRef
 var last_display := 0.0
+var comparison_record_id := 0
 
 
 func _current(parent: Control) -> void:
@@ -204,6 +205,9 @@ func _save_pending() -> void:
     var title := (
         String(descriptor().name) + " · " + VALUES.date(int(Time.get_unix_time_from_system()))
     )
+    if data.records.size() >= record_limit():
+        context.tell("记录数量已达本功能上限，结果保留待整理后重试。")
+        return
     var candidate := RECORDS.append(data, title, pending)
     if candidate == data:
         context.tell("记录库已满，练习结果仍保留在本窗口。")
@@ -236,3 +240,19 @@ func shutdown() -> void:
 
 func restorable() -> bool:
     return not _active() and pending.is_empty() and super.restorable()
+
+
+func _compare(parent: Control, record: Dictionary) -> void:
+    var choices := []
+    for other in data.records:
+        if int(other.id) != int(record.id):
+            choices.append({"id":str(int(other.id)),"name":String(other.title)})
+    if choices.is_empty():
+        UI.hint(parent, "请先保存另一份已结束的练习结果，再比较两次记录。")
+        return
+    if RECORDS.find(data, comparison_record_id).is_empty() or comparison_record_id == int(record.id):
+        comparison_record_id = int(choices[0].id)
+    var pick := UI.pick(parent, choices, str(comparison_record_id))
+    pick.item_selected.connect(func(_index: int): comparison_record_id = int(UI.chosen(pick)); context.refresh())
+    var other := RECORDS.find(data, comparison_record_id)
+    _sections(parent, domain.compare(record.payload, other.payload))
