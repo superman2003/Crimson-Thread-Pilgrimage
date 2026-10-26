@@ -17,6 +17,9 @@ static func valid(data: Dictionary) -> bool:
         return false
     if not data.get("earned") is Dictionary or not data.get("last_shrine") is bool:
         return false
+    for field in ["last_region", "last_room"]:
+        if not data.get(field) is String or data[field].length() > 200:
+            return false
     var ids := {}
     for event in data.events:
         if not event is Dictionary:

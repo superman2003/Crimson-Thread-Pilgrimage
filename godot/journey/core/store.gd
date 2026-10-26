@@ -106,7 +106,7 @@ func _write_locked(id: String, candidate: Dictionary) -> bool:
 
 func export_text(name: String, contents: String) -> Dictionary:
     var clean := name.validate_filename().left(80)
-    if clean.is_empty() or contents.to_utf8_buffer().size() > MAX_BYTES:
+    if clean.is_empty() or contents.is_empty() or contents.to_utf8_buffer().size() > MAX_BYTES:
         return {"ok":false, "reason":"导出名称或内容无效。"}
     var destination := directory.path_join("exports")
     if DirAccess.make_dir_recursive_absolute(destination) != OK:

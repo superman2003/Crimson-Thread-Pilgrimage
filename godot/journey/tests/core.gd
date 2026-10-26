@@ -60,4 +60,59 @@ func run() -> void:
     future.events[0].id = int(future.sequence) + 1
     check(not MODEL.valid(future), "event IDs cannot exceed persisted sequence")
     check(not MODEL.document(annotated, "", "all", true).contains(String(annotated.events[0].title)), "favorites-only export excludes unstarred observations")
+    for field in ["last_region", "last_room"]:
+        var missing := MODEL.fresh()
+        missing.erase(field)
+        check(not MODEL.valid(missing), "chronicle rejects missing observation state: " + field)
+        missing[field] = 123
+        check(not MODEL.valid(missing), "chronicle rejects non-string observation state: " + field)
+    check(not context.store.export_text("empty.svg", "").ok, "empty export fails instead of publishing a successful zero-byte document")
+    await lifecycle_checks()
     finish()
+
+class RegionShell extends Control:
+    var settings: Control
+    func _init() -> void:
+        settings = Control.new()
+        add_child(settings)
+    func _button(parent: Node, _title: String, _at: Vector2, _size: Vector2, action: Callable) -> Button:
+        var button := Button.new()
+        button.pressed.connect(action)
+        parent.add_child(button)
+        return button
+
+class RegionHost extends Node:
+    var initial_region_ready := true
+    var ui_shell: Control
+    var world_save_path := "user://lifecycle.json"
+    var active_overlay := "settings"
+    var world_loading := false
+
+func lifecycle_checks() -> void:
+    var host := RegionHost.new()
+    root.add_child(host)
+    host.ui_shell = RegionShell.new()
+    host.add_child(host.ui_shell)
+    var desk := preload("res://journey/workbench.gd").new()
+    root.add_child(desk)
+    desk.owner_ref = weakref(host)
+    desk.context = CONTEXT.new()
+    desk.context.store.configure(host.world_save_path)
+    var retained := preload("res://journey/core/feature.gd").new()
+    retained.data = {"draft":"keep"}
+    desk.features = {"test":retained}
+    desk._attach_ui(host)
+    var context_id: int = desk.context.get_instance_id()
+    check(is_instance_valid(desk.entry), "initial region has workbench entry")
+    host.ui_shell.free()
+    host.ui_shell = RegionShell.new()
+    host.add_child(host.ui_shell)
+    desk._process(0.2)
+    check(is_instance_valid(desk.entry) and desk.entry.get_parent()==host.ui_shell.settings, "same World and slot regain entry after region UI replacement")
+    check(desk.context.get_instance_id()==context_id and desk.features.test==retained and retained.data.draft=="keep", "UI reattachment preserves feature state and pending draft")
+    var original_entry: int = desk.entry.get_instance_id()
+    desk._process(0.2)
+    check(desk.entry.get_instance_id()==original_entry, "stable region does not repeatedly install entries")
+    desk.free()
+    host.free()
+    await process_frame

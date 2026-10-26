@@ -8,6 +8,7 @@ var context: RefCounted
 var features: Dictionary = {}
 var selected := "chronicle"
 var owner_ref: WeakRef
+var bound_ui_ref: WeakRef
 var entry: Button
 var dialog: Window
 var content: VBoxContainer
@@ -55,6 +56,9 @@ func _process(delta: float) -> void:
         _attach(owner)
     if context == null:
         return
+    if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
+        _retire_ui()
+        _attach_ui(owner)
     var snapshot: Dictionary = context.update()
     for feature in features.values():
         feature.tick(snapshot, step)
@@ -87,6 +91,10 @@ func _attach(owner: Node) -> void:
             continue
         feature.setup(context)
         features[id] = feature
+    _attach_ui(owner)
+
+func _attach_ui(owner: Node) -> void:
+    bound_ui_ref = weakref(owner.ui_shell)
     entry = owner.ui_shell._button(owner.ui_shell.settings, "旅途工作台", Vector2(650, 60), Vector2(320, 30), open)
     entry.name = "JourneyWorkbenchEntry"
     entry.tooltip_text = "旅途记录、规划与只读分析；辅助记录按存档槽隔离。"
@@ -192,10 +200,8 @@ func close() -> void:
     if is_instance_valid(entry) and entry.is_visible_in_tree():
         entry.grab_focus()
 
-func _retire() -> void:
+func _retire_ui() -> void:
     close()
-    for feature in features.values():
-        feature.shutdown()
     if is_instance_valid(dialog):
         dialog.queue_free()
     if is_instance_valid(entry):
@@ -204,6 +210,13 @@ func _retire() -> void:
     entry = null
     content = null
     menu = null
+    status = null
+    bound_ui_ref = null
+
+func _retire() -> void:
+    _retire_ui()
+    for feature in features.values():
+        feature.shutdown()
     features.clear()
     context = null
 
