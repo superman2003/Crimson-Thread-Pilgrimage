@@ -45,6 +45,23 @@ func read(id: String, initial: Dictionary) -> Dictionary:
 func write(id: String, candidate: Dictionary) -> bool:
     error = ""
     var path := path_for(id)
+    if not writable or path.is_empty():
+        error = "记录暂不能写入或身份无效。"
+        return false
+    if DirAccess.make_dir_recursive_absolute(directory) != OK:
+        error = "无法建立记录目录。"
+        return false
+    var lock := path + ".writer_lock"
+    if DirAccess.make_dir_absolute(lock) != OK:
+        error = "其它实例正在保存此记录；请稍后重试。"
+        return false
+    var success := _write_locked(id, candidate)
+    DirAccess.remove_absolute(lock)
+    return success
+
+func _write_locked(id: String, candidate: Dictionary) -> bool:
+    error = ""
+    var path := path_for(id)
     if not writable:
         error = "记录暂不能写入，请保留当前内容重试。"
         return false

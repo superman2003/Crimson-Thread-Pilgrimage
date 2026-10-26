@@ -278,8 +278,9 @@ static func discount_study(payload: Dictionary) -> Array:
 
 static func material_rows(payload: Dictionary) -> Array:
     var result := []
-    for id in basket(payload).materials:
-        result.append({"材料标识": id, "按假设份数展开": basket(payload).materials[id]})
+    var current := basket(payload)
+    for id in current.materials:
+        result.append({"材料标识": id, "按假设份数展开": current.materials[id]})
     return result
 
 
@@ -443,6 +444,8 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var threshold := break_even(payload)
     var chart := []
     for row in quantity_study(payload):
+        if float(row["假设份数"]) <= 0:
+            continue
         chart.append(
             {
                 "x": row["假设份数"],

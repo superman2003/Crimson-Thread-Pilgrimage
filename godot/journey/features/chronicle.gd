@@ -4,6 +4,7 @@ var kind := "all"
 var favorites_only := false
 var newest := true
 var dirty := false
+var resume_pending := false
 var save_elapsed := 0.0
 var page := 0
 const PAGE_SIZE := 12
@@ -17,6 +18,10 @@ func initial() -> Dictionary:
 func valid(candidate: Dictionary) -> bool:
     return MODEL.valid(candidate)
 
+func setup(value: RefCounted) -> void:
+    super.setup(value)
+    resume_pending = not data.events.is_empty()
+
 func tick(snapshot: Dictionary, delta: float) -> void:
     if snapshot.is_empty():
         return
@@ -24,16 +29,20 @@ func tick(snapshot: Dictionary, delta: float) -> void:
     if dirty and save_elapsed < 5.0:
         return
     var candidate := MODEL.observe(data, snapshot)
+    if resume_pending:
+        candidate = MODEL.append(candidate, "return", "返回已有旅途记录", snapshot)
     if candidate != data:
         save_elapsed = 0.0
         # Publish only after the auxiliary write succeeds; retry failures slowly.
         if context.store.write("chronicle", candidate):
             data = candidate
+            resume_pending = false
             dirty = false
             error = ""
         else:
             dirty = true
             error = context.store.error
+            recover_conflict()
 
 func draw(parent: Control) -> void:
     header(parent, "从工作台启用时开始记录实际抵达和成长；不会追补未观察的经历，也不改变游戏进度。")
@@ -56,7 +65,7 @@ func draw(parent: Control) -> void:
     var navigation := UI.row(parent)
     UI.button(navigation, "上一页", func():page -= 1;context.refresh(), page == 0)
     UI.button(navigation, "下一页", func():page += 1;context.refresh(), (page + 1) * PAGE_SIZE >= rows.size())
-    UI.button(navigation, "导出筛选结果", func():export_document("行旅编年.txt", MODEL.document(data, search, kind)))
+    UI.button(navigation, "导出筛选结果", func():export_document("行旅编年.txt", MODEL.document(data, search, kind, favorites_only)))
     for index in range(page * PAGE_SIZE, mini(rows.size(), (page + 1) * PAGE_SIZE)):
         _event_card(parent, rows[index])
     if rows.is_empty():

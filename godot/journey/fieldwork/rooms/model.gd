@@ -51,7 +51,7 @@ static func validate(payload: Dictionary) -> bool:
         return false
     if (
         payload.get("order") not in ["name", "distance", "area"]
-        or payload.get("focus") not in ["all", "entry", "boss", "hub", "room"]
+        or not payload.get("focus") is String
     ):
         return false
     if (
@@ -72,10 +72,10 @@ static func validate(payload: Dictionary) -> bool:
         if K.rectangle(row.get("bounds")) == Rect2():
             return false
         ids[row.id] = true
-    return V.json_safe(payload, 0, [V.MAX_ITEMS])
+    return room_kinds(payload).any(func(choice: Dictionary): return choice.id == payload.focus) and V.json_safe(payload, 0, [V.MAX_ITEMS])
 
 
-static func fields(_payload: Dictionary) -> Array:
+static func fields(payload: Dictionary) -> Array:
     return [
         {"id": "radius", "name": "邻近参考半径", "kind": "number", "min": 1, "max": 100000, "step": 100},
         {
@@ -94,13 +94,7 @@ static func fields(_payload: Dictionary) -> Array:
             "name": "房间类型",
             "kind": "choice",
             "choices":
-            [
-                {"id": "all", "name": "全部已抵达"},
-                {"id": "entry", "name": "入口"},
-                {"id": "boss", "name": "首领空间"},
-                {"id": "hub", "name": "枢纽"},
-                {"id": "room", "name": "普通空间"}
-            ]
+            room_kinds(payload)
         },
         {"id": "question", "name": "复访问题", "max": 500}
     ]
@@ -226,25 +220,27 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
     var added := []
     var changed := []
     for room in a.rooms:
-        old[room.id] = room
+        old[String(a.region) + ":" + String(room.id)] = room
     for room in b.rooms:
-        if not old.has(room.id):
+        var key := String(b.region) + ":" + String(room.id)
+        if not old.has(key):
             added.append({"房间": room.name, "类型": room.kind})
-        elif old[room.id] != room:
+        elif old[key] != room:
             changed.append(
                 {
                     "房间": room.name,
-                    "旧面积": K.rectangle(old[room.id].bounds).get_area(),
+                    "变化字段": "、".join(room.keys().filter(func(field: String): return old[key].get(field) != room.get(field))),
+                    "旧面积": K.rectangle(old[key].bounds).get_area(),
                     "当前面积": K.rectangle(room.bounds).get_area()
                 }
             )
-        old.erase(room.id)
+        old.erase(key)
     var missing := []
     for room in old.values():
         missing.append({"房间": room.name})
     return [
         K.table("新增已知档案", ["房间", "类型"], added),
-        K.table("设计资料变化", ["房间", "旧面积", "当前面积"], changed),
+        K.table("设计资料变化", ["房间", "变化字段", "旧面积", "当前面积"], changed),
         K.table("本次样本未包含", ["房间"], missing, "跨地区或不同采样范围会造成样本变化，不代表房间从世界消失。")
     ]
 
@@ -257,3 +253,13 @@ static func svg(payload: Dictionary) -> String:
     document.table("近邻参考", ["房间", "中心距离"], nearest(payload))
     document.paragraph("个人复访问题：" + String(payload.question))
     return document.finish("只含已抵达矩形。几何距离不证明现场可通行。")
+
+
+static func room_kinds(payload: Dictionary) -> Array:
+    var choices := [{"id":"all","name":"全部已抵达"}]
+    var seen := {"all":true}
+    for room in payload.rooms:
+        if not seen.has(room.kind):
+            seen[room.kind] = true
+            choices.append({"id":room.kind,"name":room.kind})
+    return choices
