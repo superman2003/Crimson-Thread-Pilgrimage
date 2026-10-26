@@ -2,7 +2,7 @@ extends RefCounted
 const CODEC := preload("res://scripts/settings_profile_codec.gd")
 const COMFORT := preload("res://scripts/controller_preferences.gd")
 const LIMIT := 6
-const VISUAL := ["subtitle_size","subtitle_speed","flash_enabled","camera_shake","camera_lookahead"]
+const VISUAL := ["danger_captions","danger_caption_limit","danger_caption_contrast","subtitle_size","subtitle_speed","flash_enabled","camera_shake","camera_lookahead"]
 const CONTROLLER := ["controller_deadzone","vibration_enabled","vibration_strength"]
 const EXTRA := ["npc_landmarks","tutorial_hints","navigation_assist"]
 var profiles: Dictionary={}
