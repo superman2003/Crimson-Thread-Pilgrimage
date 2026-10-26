@@ -26,7 +26,42 @@ static func catalog() -> Dictionary:
                 if not line is String or line.is_empty() or line.length()>1000:valid=false
             if valid:states.append({"id":String(value.id),"lines":value.lines.duplicate()})
         if not states.is_empty():_catalog[npc_id]={"name":String(npc.display_name),"states":states}
+    # The production resolver falls back to chapter dialogue when no world
+    # narrative state applies. Those authored conversations are equally heard.
+    for region in REGIONS:
+        var data: Variant=JSON.parse_string(FileAccess.get_file_as_string("res://data/"+String(region)+".json"))
+        if not data is Dictionary:continue
+        for npc in data.get("npcs",[]):
+            if not npc is Dictionary:continue
+            var npc_id:=String(npc.get("id",""))
+            if npc_id.is_empty():continue
+            if not _catalog.has(npc_id):
+                if _catalog.size()>=MAX_NPCS:continue
+                _catalog[npc_id]={"name":String(npc.get("name",npc_id)),"states":[]}
+            var states: Array=_catalog[npc_id].states
+            var variants: Dictionary={"fallback":npc.get("dialogue",[])}
+            for state in npc.get("story_dialogue",{}):variants[String(state)]=npc.story_dialogue[state]
+            for state in variants:
+                var lines: Variant=variants[state]
+                if not lines is Array or lines.is_empty() or lines.size()>MAX_LINES:continue
+                var valid:=true
+                for line in lines:
+                    if not line is String or line.is_empty() or line.length()>1000:valid=false
+                if valid and states.size()<MAX_STATES:states.append({"id":local_state(String(region),String(state)),"lines":lines.duplicate(),"region":String(region)})
     return _catalog.duplicate(true)
+
+static func local_state(region: String, state: String) -> String:
+    return "local:"+region+":"+state
+
+static func resolved_result(npc_id: String, world_result: Dictionary, state: String, lines: Array, region: String) -> Dictionary:
+    if not world_result.is_empty():return world_result.duplicate(true)
+    var all:=catalog()
+    if not all.has(npc_id):return {}
+    # The legacy resolver may substitute its dialogue array for an empty state.
+    for id in [local_state(region,state),local_state(region,"fallback")]:
+        for value in all[npc_id].states:
+            if value.id==id and value.lines==lines:return {"state":id,"lines":lines.duplicate()}
+    return {}
 
 static func identity(npc_id: String, state: Dictionary, region: String) -> String:
     return PREFIX+JSON.stringify([npc_id,state.id,state.lines,region]).sha256_text()
@@ -36,6 +71,7 @@ static func completion_marker(npc_id: String, result: Dictionary, displayed_inde
     var all:=catalog()
     if not all.has(npc_id):return ""
     for state in all[npc_id].states:
+        if state.has("region") and state.region!=region:continue
         if result.get("state")!=state.id or result.get("lines")!=state.lines:continue
         if displayed_index!=state.lines.size()-1:return ""
         return identity(npc_id,state,region)
@@ -51,6 +87,7 @@ static func records(flags: Dictionary) -> Array[Dictionary]:
         var conversations:=0
         for state in npc.states:
             for region in REGIONS:
+                if state.has("region") and state.region!=region:continue
                 var value: Variant=flags.get(identity(npc_id,state,region),false)
                 if not value is bool or not value:continue
                 conversations+=1
