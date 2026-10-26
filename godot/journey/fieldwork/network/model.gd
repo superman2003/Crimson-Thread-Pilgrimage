@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/network/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/network/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const GATE := preload("res://scripts/survey_map_knowledge.gd")
@@ -388,7 +390,7 @@ static func component_rows(groups: Array, nodes: Dictionary) -> Array:
     return result
 
 
-static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var graph := adjacency(payload)
     var nodes := index(payload)
     var distances := breadth(graph, String(payload.source))
@@ -469,3 +471,7 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
             )
         )
     ]
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload, adjacency(payload)) + [{"kind":"custom","title":"路线容错与有向最小割 · 交互预览","view":ADVANCED_VIEW,"data":{"nodes":payload.nodes,"graph":adjacency(payload)}}]
