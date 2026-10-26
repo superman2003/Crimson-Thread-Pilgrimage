@@ -47,4 +47,13 @@ func run() -> void:
         check(box.get_child_count() > 2, "backup tab renders: " + tab)
         box.free()
     check(FileAccess.get_file_as_bytes(primary) == original, "all backup UI leaves current game bytes intact")
+
+    var payload: Dictionary = bundle.payload.duplicate(true)
+    payload.created = []
+    var encoded := JSON.stringify(payload)
+    var malformed := JSON.stringify({"format":"pilgrimage_journey_bundle","version":1,"sha256":encoded.sha256_text(),"payload":encoded})
+    check(not archive.decode(malformed).ok, "checksum-valid bundle still rejects malformed metadata")
+    for i in 17:
+        context.store.write("extra_%d" % i, {"version":1})
+    check(archive.sources(context.store, "user://missing_primary_for_bundle.json").is_empty(), "auxiliary limit applies even with no primary save")
     finish()

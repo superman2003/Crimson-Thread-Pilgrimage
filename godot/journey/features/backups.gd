@@ -101,7 +101,7 @@ func _browse(parent: Control) -> void:
             opened = archive.open(opened_path)
             pending_restore = {}
             context.refresh())
-        UI.button(row, "删除这份导出包", func():pending_delete = record.duplicate(true);context.refresh())
+        UI.button(row, "删除这份导出包", func():pending_delete = record.duplicate(true);pending_delete["sha256"] = FileAccess.get_sha256(String(record.path));context.refresh())
         if pending_delete.get("path") == record.path:
             UI.hint(card, "将删除这份经哈希核对的导出包，主档、辅助记录和照片均不变。")
             var actions := UI.row(card)

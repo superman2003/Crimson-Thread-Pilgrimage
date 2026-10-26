@@ -34,6 +34,7 @@ func sources(store: RefCounted, primary: String) -> Array:
     var prefix := String(store.scope) + "_"
     if not DirAccess.dir_exists_absolute(String(store.directory)):
         return result
+    var auxiliaries := 0
     for name in DirAccess.get_files_at(String(store.directory)):
         if not name.begins_with(prefix) or not name.ends_with(".json"):
             continue
@@ -41,7 +42,8 @@ func sources(store: RefCounted, primary: String) -> Array:
         if not id.is_valid_identifier():
             continue
         result.append({"id":id, "path":String(store.directory).path_join(name), "maximum":MAX_COMPONENT})
-        if result.size() > MAX_COMPONENTS + 1:
+        auxiliaries += 1
+        if auxiliaries > MAX_COMPONENTS:
             return []
     result.sort_custom(func(a: Dictionary, b: Dictionary):return String(a.id) < String(b.id))
     return result
@@ -90,7 +92,10 @@ func build(store: RefCounted, primary: String, title: String, expected: String) 
         else:
             if parsed.get("version") != 1 or parsed.get("scope") != store.scope or parsed.get("feature") != entry.id or not parsed.get("data") is Dictionary:
                 return {"ok":false, "reason":"辅助记录的身份或版本无法复核。"}
-            components.append({"id":entry.id, "raw":loaded.raw, "sha256":loaded.sha256})
+            var component_record := {"id":entry.id, "raw":loaded.raw, "sha256":loaded.sha256}
+            if not _component_valid(component_record, store.scope):
+                return {"ok":false, "reason":"辅助组件内容超过安全边界，未生成导出包。"}
+            components.append(component_record)
     var final := quote(store, primary)
     if not final.get("ok", false) or final.fingerprint != current.fingerprint:
         return {"ok":false, "reason":"导出完成前记录再次变化，请重新核对。"}
@@ -166,6 +171,8 @@ func decode(raw: String) -> Dictionary:
     var payload: Variant = V.parse_json(envelope.payload)
     if not payload is Dictionary or payload.get("version") != 1 or not payload.get("scope") is String:
         return {"ok":false, "reason":"导出包内容版本无效。"}
+    if not payload.get("name") is String or payload.name.length() > 60 or not V.count(payload.get("created"), 9999999999):
+        return {"ok":false, "reason":"导出包名称或时间无效。"}
     if not payload.get("primary") is Dictionary or not payload.get("components") is Array or payload.components.size() > MAX_COMPONENTS:
         return {"ok":false, "reason":"导出包组件无效或过多。"}
     var ids := {}
@@ -214,7 +221,7 @@ func list_bundles() -> Array:
             continue
         var bytes := file.get_length()
         file.close()
-        rows.append({"path":path, "name":name, "bytes":bytes, "modified":FileAccess.get_modified_time(path), "sha256":FileAccess.get_sha256(path)})
+        rows.append({"path":path, "name":name, "bytes":bytes, "modified":FileAccess.get_modified_time(path)})
         if rows.size() > MAX_BUNDLES:
             break
     rows.sort_custom(func(a: Dictionary, b: Dictionary):return int(a.modified) > int(b.modified))
