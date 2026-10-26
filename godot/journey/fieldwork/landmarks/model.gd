@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/landmarks/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/landmarks/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const VIEW := preload("res://journey/fieldwork/landmarks/view.gd")
@@ -366,7 +368,7 @@ static func alignment(payload: Dictionary) -> Array:
     return result
 
 
-static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var all := rows(payload)
     var angles := []
     for row in all:
@@ -607,3 +609,7 @@ static func baseline_study(payload: Dictionary) -> Array:
             }
         )
     return result
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload) + [{"kind":"custom","title":"多地标方位定位与稳定性 · 交互预览","view":ADVANCED_VIEW,"data":{"payload":payload}}]
