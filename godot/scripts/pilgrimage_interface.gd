@@ -63,6 +63,10 @@ var dialogue_area: Area2D
 var dialogue_quest_button: Button
 var dialogue_continue_button: Button
 var dialogue_route_button: Button
+const READING_SESSION := preload("res://scripts/world_reading_session.gd")
+var reading_session_scope := ""
+var reading_session_host: WeakRef
+var reading_session_generation := 0
 var dialogue_reading := preload("res://scripts/dialogue_reading_memory.gd").new()
 var dialogue_reading_key := ""
 var settings: ColorRect
@@ -199,6 +203,7 @@ func begin_bind(runtime: Node) -> void:
     set_process(false)
     set_process_input(false)
     level=runtime
+    _sync_reading_session()
     set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     mouse_filter=Control.MOUSE_FILTER_IGNORE
     var ui_theme := Theme.new()
@@ -882,15 +887,23 @@ func forget_dialogue_reading() -> void:
     dialogue_reading.forget(dialogue_reading_key)
 
 func _restore_dialogue_scroll(key: String,value: int) -> void:
+    var request_generation := reading_session_generation
     await get_tree().process_frame
+    if request_generation != reading_session_generation:return
     if is_inside_tree() and key==dialogue_reading_key and dialogue.visible and is_instance_valid(dialogue_area):
         dialogue_scroll.scroll_vertical=value
 
+func _remember_dialogue_reading() -> void:
+    if dialogue_reading_key.is_empty() or not is_instance_valid(level) or not level.get("world_mode"):
+        return
+    if not is_instance_valid(dialogue_area) or not is_instance_valid(dialogue_body) or not is_instance_valid(dialogue_scroll):
+        return
+    var committed:=bool(dialogue_area.get_meta("world_line_committed",false)) and int(dialogue_area.get_meta("world_displayed_index",-1))>=0
+    dialogue_reading.capture(dialogue_reading_key,dialogue_body.text.length(),dialogue_body.visible_characters,dialogue_scroll.scroll_vertical,committed)
+
 func close_dialogue() -> void:
+    _remember_dialogue_reading()
     if is_instance_valid(dialogue_area):
-        if level.world_mode:
-            var committed:=bool(dialogue_area.get_meta("world_line_committed",false)) and int(dialogue_area.get_meta("world_displayed_index",-1))>=0
-            dialogue_reading.capture(dialogue_reading_key,dialogue_body.text.length(),dialogue_body.visible_characters,dialogue_scroll.scroll_vertical,committed)
         var sprite:=dialogue_area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
         if sprite!=null:sprite.play("idle")
     dialogue_area=null
@@ -2164,6 +2177,7 @@ func _refresh_save_slots() -> void:
 
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
+    _sync_reading_session()
     _refresh_quick_action_bindings()
     if dialogue.visible:
         dialogue_hint.text=_dialogue_binding_hint()
@@ -2571,7 +2585,7 @@ func _show_journal_record(entry: Dictionary) -> void:
     journal_reading_key=key if bag.is_visible_in_tree() else ""
     journal_reading_text=text
     journal_restore_pending=not journal_reading_key.is_empty()
-    call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text))
+    call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text),reading_session_generation)
 
 func register_text_entry_window(window: Window) -> void:
     for reference in text_entry_windows:
@@ -2629,7 +2643,7 @@ func _toggle_journal_star() -> void:
     _journal_preference_result(journal_catalog.toggle_star(String(journal_current_document.key)))
 
 func _remember_journal_scroll(force: bool=false) -> void:
-    if bag_description==null or journal_reading_key.is_empty() or journal_restore_pending:return
+    if not is_instance_valid(bag_description) or journal_reading_key.is_empty() or journal_restore_pending:return
     if force or bag.is_visible_in_tree():journal_reading.capture(journal_reading_key,journal_reading_text,bag_description.get_v_scroll_bar().value)
 
 func _journal_bag_visibility_changed() -> void:
@@ -2638,8 +2652,10 @@ func _journal_bag_visibility_changed() -> void:
         journal_reading_key=""
         journal_restore_pending=false
 
-func _restore_journal_scroll(key: String, text: String, offset: float) -> void:
+func _restore_journal_scroll(key: String, text: String, offset: float, generation: int = -1) -> void:
+    var request_generation := reading_session_generation if generation < 0 else generation
     await get_tree().process_frame
+    if request_generation != reading_session_generation:return
     if is_inside_tree() and bag.is_visible_in_tree() and journal_reading_key==key and bag_description.text==text:
         var bar:=bag_description.get_v_scroll_bar()
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
@@ -2756,3 +2772,28 @@ func _refresh_tactical_cards(snapshot: Dictionary, build_state: Dictionary, syst
                 tactical_values[index].text=String(readiness.text) if not String(readiness.text).is_empty() else "× %d" % count
                 tactical_cards[index].tooltip_text=item_name+" · 剩余 %d / %d 次。" % [count,int(item.get("capacity",count))]+String(readiness.detail)
                 tactical_icons[index].modulate=Color.WHITE if bool(readiness.available) else Color(0.45,0.45,0.45)
+
+func _sync_reading_session() -> void:
+    if not is_instance_valid(level):
+        return
+    var path: Variant = level.get("world_save_path")
+    var save_path := String(path) if path is String else "session"
+    var expected := READING_SESSION.scope(save_path)
+    if reading_session_scope == expected and reading_session_host != null and reading_session_host.get_ref() == level:
+        return
+    var memory := READING_SESSION.acquire(level, save_path)
+    journal_reading = memory.journal
+    dialogue_reading = memory.dialogue
+    reading_session_scope = expected
+    reading_session_host = weakref(level)
+    reading_session_generation += 1
+    # Deferred restores from a former slot must not apply to its replacement.
+    journal_reading_key = ""
+    journal_reading_text = ""
+    journal_restore_pending = false
+    dialogue_reading_key = ""
+
+func _exit_tree() -> void:
+    # Snapshot reading numbers only; never commit a conversation or grant rewards.
+    _remember_journal_scroll(true)
+    _remember_dialogue_reading()
