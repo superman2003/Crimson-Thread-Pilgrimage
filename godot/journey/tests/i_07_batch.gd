@@ -51,3 +51,6 @@ func domain_checks(context: RefCounted) -> void:
         check(option.feasible, "frontier contains feasible candidates only")
     payload.mandatory = ["a", "b"]
     check(M.best(payload).is_empty(), "infeasible mandatory set has no partial recommendation")
+
+    check(not M.actual_quote({}, context.snapshot()).ok, "no feasible target cannot be reported as a successful zero-cost production quote")
+

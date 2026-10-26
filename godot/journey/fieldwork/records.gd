@@ -116,16 +116,15 @@ static func export_package(data: Dictionary, feature: String, scope: String) -> 
             "feature": feature,
             "scope": scope,
             "data": data
-        },
-        "  "
+        }
     )
 
 
 static func import_package(
     raw: String, feature: String, scope: String, validate_payload: Callable
 ) -> Dictionary:
-    if raw.to_utf8_buffer().size() > 1048576:
-        return {"ok": false, "reason": "导入文本超过1MiB。"}
+    if raw.to_utf8_buffer().size() > 2097152:
+        return {"ok": false, "reason": "导入文本超过2MiB。"}
     var parsed: Variant = V.parse_json(raw)
     if (
         not parsed is Dictionary
@@ -152,6 +151,8 @@ static func merge(data: Dictionary, incoming: Dictionary) -> Dictionary:
         if next.records.size() >= LIMIT or int(next.sequence) >= 100000000:
             return {"ok": false, "reason": "合并超过记录数或序号上限，未应用部分结果。"}
         next = append(next, String(row.title), row.payload)
+        next.records[0].created = row.created
+        next.records[0].updated = row.updated
         next.records[0].note = row.note
         next.records[0].favorite = row.favorite
         fingerprints[key] = true

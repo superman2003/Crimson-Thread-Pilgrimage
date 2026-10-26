@@ -488,9 +488,18 @@ static func three_way(
     var second := difference(base, right, options)
     if not first.ok or not second.ok:
         return {"ok": false, "conflicts": [], "reason": "至少一侧差异超过分析容量。"}
+    if equivalent(left, right, float(options.epsilon)):
+        return {"ok": true, "conflicts": [], "value": clone_json(left), "reason": "两侧观察相同。", "operations": first.ops.size()}
     var conflicts := []
     var combined: Array = first.ops.duplicate(true)
     for right_op in second.ops:
+        # A complete identical array edit is replayed once, even alongside disjoint edits.
+        var root := String(right_op.array_root)
+        if not root.is_empty():
+            var left_array := lookup(left, root)
+            var right_array := lookup(right, root)
+            if left_array.exists and right_array.exists and equivalent(left_array.value, right_array.value):
+                continue
         var overlaps := []
         var identical := false
         for left_op in first.ops:

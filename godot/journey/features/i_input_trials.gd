@@ -2,6 +2,7 @@ extends "res://journey/fieldwork/sessionpanel.gd"
 const DOMAIN := preload("res://journey/fieldwork/input_trials/model.gd")
 const PAD := preload("res://journey/fieldwork/input_trials/view.gd")
 var pad_ref: WeakRef
+var physical_held := {}
 
 
 func _init() -> void:
@@ -36,6 +37,7 @@ func _connection_changed(_device: int, connected: bool) -> void:
 
 
 func _disconnect() -> void:
+    physical_held.clear()
     if Input.joy_connection_changed.is_connected(_connection_changed):
         Input.joy_connection_changed.disconnect(_connection_changed)
     super._disconnect()
@@ -75,12 +77,13 @@ func accept_session_event(event: InputEvent, clock: float) -> void:
         return
     var down := []
     var up := []
-    if event is InputEventKey or event is InputEventJoypadButton:
+    if event is InputEventKey or event is InputEventJoypadButton or event is InputEventMouseButton:
         for action in live.settings.actions:
             if event.is_action(action.id, true):
-                if event.pressed:
+                var change := track_source(String(action.id), event_source(event), bool(event.pressed))
+                if change > 0:
                     down.append(action.id)
-                else:
+                elif change < 0:
                     up.append(action.id)
     elif (
         event is InputEventJoypadMotion
@@ -99,10 +102,13 @@ func accept_session_event(event: InputEvent, clock: float) -> void:
             if strength < 0:
                 continue
             var threshold := maxf(0.5, InputMap.action_get_deadzone(action.id))
-            if strength >= threshold and not live.held.has(action.id):
-                down.append(action.id)
-            elif strength <= threshold * 0.5 and live.held.has(action.id):
-                up.append(action.id)
+            var key := event_source(event)
+            if strength >= threshold:
+                if track_source(String(action.id), key, true) > 0:
+                    down.append(action.id)
+            elif strength <= threshold * 0.5:
+                if track_source(String(action.id), key, false) < 0:
+                    up.append(action.id)
     if not down.is_empty():
         live.feed(down, true, clock)
     if not up.is_empty():
@@ -111,3 +117,46 @@ func accept_session_event(event: InputEvent, clock: float) -> void:
         var window := _window()
         if window != null:
             window.set_input_as_handled()
+
+
+func configuration() -> Dictionary:
+    var payload := super.configuration()
+    var current := DOMAIN.capture(context.snapshot())
+    var known := {}
+    for action in current.actions:
+        known[action.id] = true
+    for id in payload.get("sequence", []):
+        if not known.has(id):
+            context.tell("原方案包含当前未获动作，请重新选择练习目标。")
+            return {}
+    payload.actions = current.actions.duplicate(true)
+    return payload
+
+
+func track_source(action: String, key: String, pressed: bool) -> int:
+    var sources: Dictionary = physical_held.get(action, {}).duplicate()
+    var before := not sources.is_empty()
+    if pressed:
+        sources[key] = true
+    else:
+        sources.erase(key)
+    physical_held[action] = sources
+    var after := not sources.is_empty()
+    return 1 if after and not before else -1 if before and not after else 0
+
+
+func event_source(event: InputEvent) -> String:
+    if event is InputEventKey:
+        return "key:%d:%d:%d" % [event.device, event.physical_keycode, event.keycode]
+    if event is InputEventMouseButton:
+        return "mouse:%d:%d" % [event.device,event.button_index]
+    if event is InputEventJoypadButton:
+        return "button:%d:%d" % [event.device,event.button_index]
+    if event is InputEventJoypadMotion:
+        return "axis:%d:%d" % [event.device,event.axis]
+    return "unknown"
+
+
+func _pause_session() -> void:
+    physical_held.clear()
+    super._pause_session()

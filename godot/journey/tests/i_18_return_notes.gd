@@ -30,3 +30,11 @@ func domain_checks(context: RefCounted) -> void:
             M.question_rows(before).size() == 1,
             "personal room question retains stable known identity"
         )
+
+    if not before.rooms.is_empty():
+        var removed := before.duplicate(true)
+        removed.rooms.pop_back()
+        check(not M.changes(before, removed).is_empty(), "removed known-room sample appears in comparison")
+        before.room = "not_in_known_sample"
+        check(not M.validate(before), "selected room must refer to the captured known sample")
+

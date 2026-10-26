@@ -343,6 +343,11 @@ static func layer_counts(data: Dictionary, threshold: int) -> Dictionary:
 
 static func farthest(payload: Dictionary, data: Dictionary) -> Array:
     var source := point_cell(data, V.point(payload.origin))
+    if source < 0 or int(data.cells[source]) == 0:
+        var candidates := occupied(data)
+        var origin := V.point(payload.origin)
+        candidates.sort_custom(func(a: int, b: int): return cell_center(data, a).distance_squared_to(origin) < cell_center(data, b).distance_squared_to(origin))
+        source = int(candidates[0]) if not candidates.is_empty() else -1
     var levels := distances(data, source, bool(payload.diagonal))
     var rows := []
     for id in levels:
@@ -546,3 +551,8 @@ static func room_overlap_audit(payload: Dictionary) -> Array:
         {"指标": "最大房间矩形面积", "值": largest},
         {"指标": "最小房间矩形面积", "值": smallest if is_finite(smallest) else 0}
     ]
+
+
+static func cell_center(data: Dictionary, id: int) -> Vector2:
+    var cell := coordinates(data, id)
+    return Vector2(float(data.bounds[0]), float(data.bounds[1])) + Vector2(cell.x + 0.5, cell.y + 0.5) * float(data.step)

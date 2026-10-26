@@ -80,7 +80,7 @@ func _populate() -> void:
         var parts := String(row.get("字段", "")).trim_prefix("/").split("/", true)
         var path := ""
         var parent := root
-        for i in parts.size():
+        for i in maxi(0, parts.size() - 1):
             var part := String(parts[i])
             path += "/" + part
             if not folders.has(path):
@@ -88,6 +88,8 @@ func _populate() -> void:
                 item.set_text(0, part.replace("~1", "/").replace("~0", "~"))
                 folders[path] = item
             parent = folders[path]
+        parent = tree.create_item(parent)
+        parent.set_text(0, String(parts[-1]).replace("~1", "/").replace("~0", "~"))
         parent.set_text(1, String(row.get("操作", "")))
         parent.set_text(2, _short(String(row.get("记录值", ""))))
         parent.set_text(3, _short(String(row.get("当前值", ""))))

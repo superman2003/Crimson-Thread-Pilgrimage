@@ -35,7 +35,7 @@ static func capture(snapshot: Dictionary) -> Dictionary:
         "recorded": int(snapshot.get("timestamp", 0)),
         "origin": snapshot.get("player", {}).get("position", [0, 0]),
         "rooms": rooms,
-        "room": String(snapshot.get("room", "")),
+        "room": String(graph.source) if not rooms.is_empty() else "",
         "priorities": priorities,
         "questions": questions,
         "reviewed": [],
@@ -83,6 +83,8 @@ static func validate(payload: Dictionary) -> bool:
         if not row.get("links") is Array or row.links.size() > 120:
             return false
         ids[row.id] = true
+    if (not payload.rooms.is_empty() and not ids.has(payload.room)) or (payload.rooms.is_empty() and not payload.room.is_empty()):
+        return false
     for row in payload.rooms:
         for link in row.links:
             if (
@@ -134,7 +136,7 @@ static func fields(payload: Dictionary) -> Array:
             "id": "priorities",
             "name": "个人复访优先级",
             "kind": "weights",
-            "choices": choices.slice(0, 60),
+            "choices": choices,
             "min": 0,
             "max": 100
         },
@@ -181,7 +183,7 @@ static func ranked(payload: Dictionary) -> Array:
         var priority := float(payload.priorities.get(room.id, 1))
         var note := String(payload.questions.get(room.id, ""))
         var score := priority - float(payload.distance_weight) * distance / farthest
-        if not note.is_empty():
+        if not note.strip_edges().is_empty():
             score += 1
         if done:
             score -= 1
@@ -212,6 +214,10 @@ static func changes(a: Dictionary, b: Dictionary) -> Array:
         return []
     var old := index(a)
     var result := []
+    var current := index(b)
+    for room in a.rooms:
+        if not current.has(room.id):
+            result.append({"房间": room.name, "变化": "本次未包含房间", "详情": "原观察中的房间已不在本次样本"})
     for room in b.rooms:
         if not old.has(room.id):
             result.append({"房间": room.name, "变化": "新增已抵达房间", "详情": "旧观察没有包含此房间"})
@@ -228,7 +234,9 @@ static func changes(a: Dictionary, b: Dictionary) -> Array:
         var links := {}
         for edge in before.links:
             links[edge.to] = edge
+        var current_links := {}
         for edge in room.links:
+            current_links[edge.to] = true
             if not links.has(edge.to):
                 result.append(
                     {
@@ -239,6 +247,9 @@ static func changes(a: Dictionary, b: Dictionary) -> Array:
                 )
             elif bool(links[edge.to].open) != bool(edge.open):
                 result.append({"房间": room.name, "变化": "当前通行规则变化", "详情": String(edge.reason)})
+        for target in links:
+            if not current_links.has(target):
+                result.append({"房间": room.name, "变化": "已知规则移除", "详情": String(old.get(target, {}).get("name", target))})
     return result
 
 
@@ -308,7 +319,7 @@ static func priority_study(payload: Dictionary) -> Array:
         var names: Array[String] = []
         for row in rows.slice(0, 3):
             names.append(row["房间"])
-        result.append({"个人距离权重": weight, "前三个参考目标": " → ".join(names), "待复查房间": rows.size()})
+        result.append({"个人距离权重": weight, "前三个参考目标": " → ".join(names), "待复查房间": payload.rooms.filter(func(room: Dictionary): return not payload.reviewed.has(room.id)).size()})
     return result
 
 

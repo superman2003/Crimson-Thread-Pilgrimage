@@ -77,7 +77,7 @@ static func fields(payload: Dictionary) -> Array:
         choices.append({"id": row.id, "name": row.name})
     return [
         {
-            "id": "prices",
+            "id": "prices", "default": 1.0,
             "name": "个人等价权重（不是价格）",
             "kind": "weights",
             "choices": choices,
@@ -230,54 +230,65 @@ static func reserve_cost(payload: Dictionary) -> float:
 
 static func allocation(payload: Dictionary) -> Dictionary:
     var minimum := reserve_cost(payload)
-    if minimum > float(payload.budget) + 0.00001:
-        return {
-            "ok": false,
-            "reason": "个人等价预算不足以覆盖最低储备。",
-            "rows": [],
-            "spent": 0.0,
-            "remainder": payload.budget
-        }
+    var budget := float(payload.budget)
+    if minimum > budget + 0.00001:
+        return {"ok":false,"reason":"个人预算不足以覆盖储备。","rows":[],"spent":0.0,"remainder":budget}
     var index := asset_index(payload)
     var weights := normalize(payload.targets, index.keys())
-    var remaining := float(payload.budget) - minimum
+    # Water-fill the full target values while clamping each mandatory reserve.
+    var low := 0.0
+    var high := budget
+    var has_weight := false
+    for weight in weights.values():
+        has_weight = has_weight or float(weight) > 0
+    if has_weight:
+        for iteration in 64:
+            var mid := (low + high) * 0.5
+            var total := 0.0
+            for row in payload.assets:
+                var price := float(payload.prices.get(row.id, 1))
+                var reserve := ceilf(float(payload.reserves.get(row.id, 0))) * price
+                total += maxf(reserve, mid * float(weights[row.id]))
+            if total > budget:
+                high = mid
+            else:
+                low = mid
     var rows := []
-    var spent := minimum
+    var spent := 0.0
     for row in payload.assets:
         var price := float(payload.prices.get(row.id, 1))
-        var desired := remaining * float(weights[row.id]) / price
-        var extra := int(floor(desired))
-        var count := int(ceil(float(payload.reserves.get(row.id, 0)))) + extra
-        rows.append(
-            {
-                "id": row.id,
-                "物资": row.name,
-                "目标数量": count,
-                "等价成本": count * price,
-                "单份等价": price,
-                "余数": desired - extra,
-                "实际持有": row.count
-            }
-        )
-        spent += extra * price
-    rows.sort_custom(func(a: Dictionary, b: Dictionary): return float(a["余数"]) > float(b["余数"]))
-    for row in rows:
-        if (
-            spent + float(row["单份等价"]) <= float(payload.budget) + 0.00001
-            and float(weights[row.id]) > 0
-        ):
-            row["目标数量"] = int(row["目标数量"]) + 1
-            row["等价成本"] = float(row["等价成本"]) + float(row["单份等价"])
+        var count := maxi(int(ceil(float(payload.reserves.get(row.id, 0)))), int(floor(low * float(weights[row.id]) / price)))
+        rows.append({"id":row.id,"物资":row.name,"目标数量":count,"等价成本":count*price,"单份等价":price,"实际持有":row.count,"余数":low*float(weights[row.id])/price-count})
+        spent += count * price
+    # Redistribute stranded integer rounding budget among affordable targets.
+    while true:
+        var eligible := []
+        var total_weight := 0.0
+        var remaining := maxf(0, budget - spent)
+        for row in rows:
+            if float(weights[row.id]) > 0 and float(row["单份等价"]) <= remaining + 0.000001:
+                eligible.append(row)
+                total_weight += float(weights[row.id])
+        if eligible.is_empty():
+            break
+        var additions := 0
+        for row in eligible:
+            var count := int(floor(remaining * float(weights[row.id]) / total_weight / float(row["单份等价"])))
+            count = mini(count, int(floor((budget - spent + 0.000001) / float(row["单份等价"]))))
+            if count > 0:
+                row["目标数量"] += count
+                row["等价成本"] += count * float(row["单份等价"])
+                spent += count * float(row["单份等价"])
+                additions += count
+        if additions == 0:
+            eligible.sort_custom(func(a: Dictionary, b: Dictionary): return float(a["余数"]) > float(b["余数"]))
+            var row: Dictionary = eligible[0]
+            row["目标数量"] += 1
+            row["等价成本"] += float(row["单份等价"])
             spent += float(row["单份等价"])
     for row in rows:
         row["数量偏差"] = int(row["实际持有"]) - int(row["目标数量"])
-    return {
-        "ok": true,
-        "reason": "按个人权重与最大余数近似分配，不代表游戏交易。",
-        "rows": rows,
-        "spent": spent,
-        "remainder": maxf(0, float(payload.budget) - spent)
-    }
+    return {"ok":true,"reason":"储备约束下的个人权重整数近似分配。","rows":rows,"spent":spent,"remainder":maxf(0,budget-spent)}
 
 
 static func stress(payload: Dictionary, loss: float, only: String = "") -> Dictionary:
@@ -320,7 +331,7 @@ static func single_exposure(payload: Dictionary) -> Array:
             {
                 "仅此物资假设损耗": row.name,
                 "个人等价减少": float(base.total) - float(next.total),
-                "减少比例": (float(base.total) - float(next.total)) / maxf(1, float(base.total)),
+                "减少比例": (float(base.total) - float(next.total)) / float(base.total) if float(base.total) > 0 else 0.0,
                 "保护": payload.protected.has(row.id)
             }
         )

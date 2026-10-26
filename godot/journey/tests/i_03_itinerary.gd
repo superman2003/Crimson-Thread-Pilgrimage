@@ -63,3 +63,10 @@ func domain_checks(context: RefCounted) -> void:
         not M.verify(payload, incomplete, matrix).ok,
         "non-budget route cannot silently omit target stops"
     )
+
+    payload.method = "budget"
+    var limited := M.budget_route(payload, matrix)
+    check(limited.has("omitted") and limited.omitted.size() == 2, "budget route explicitly identifies every unvisited target")
+    var schedule := M.schedule(payload, solution, matrix)
+    check(schedule[-1]["终点"] == "甲", "return-to-start leg appears in route schedule")
+
