@@ -10,17 +10,19 @@ const DIALOG := "DeathRecallDialog"
 
 static func bosses_defeated(flags: Dictionary) -> int:
     var count := 0
-    for key in flags:
-        if String(key).begins_with("boss_down_") and bool(flags[key]): count += 1
+    for index in range(1,7):
+        var value: Variant=flags.get("boss_down_ch%02d" % index,false)
+        if value is bool and value:count+=1
     return count
 
 static func quote(level: Node) -> Dictionary:
     if not level.world_mode or level.world_state == null: return {"ok": false, "reason": "world"}
     var cache: Dictionary = level.world_state.data.get("death_cache", {})
+    if not preload("res://scripts/world_state.gd")._valid_death_cache(cache):return {"ok":false,"reason":"invalid_knot"}
     var amount := int(cache.get("currency", 0))
     if cache.is_empty() or amount <= 0: return {"ok": false, "reason": "no_knot"}
     if bosses_defeated(level.story_flags) < REQUIRED_BOSSES: return {"ok": false, "reason": "locked"}
-    return {"ok": true, "amount": amount, "kept": int(floor(amount * KEEP_RATIO)), "region_id": String(cache.get("region_id", ""))}
+    return {"ok": true, "amount": amount, "kept": int(floor(amount * KEEP_RATIO)), "region_id": String(cache.get("region_id", "")),"fingerprint":var_to_str([cache,level.currency_count]).sha256_text()}
 
 static func setup(level: Node) -> void:
     if not level.world_mode or level.get_node_or_null(DIALOG) != null: return
@@ -32,6 +34,8 @@ static func setup(level: Node) -> void:
     dialog.get_label().custom_minimum_size = Vector2(430, 90)
     # Join the tree before any text: shaping outside it costs ~4 ms per string.
     level.add_child(dialog)
+    dialog.dialog_hide_on_ok=false
+    if level.ui_shell.has_method("register_text_entry_window"):level.ui_shell.register_text_entry_window(dialog)
     dialog.title = "钟龛 · 召回归途结"
     dialog.ok_button_text = "召回"
     dialog.cancel_button_text = "亲自去取"
@@ -39,8 +43,13 @@ static func setup(level: Node) -> void:
     dialog.confirmed.connect(func():
         var owner: Variant = host.get_ref()
         if is_instance_valid(owner):
-            recall(owner)
-            owner._close_overlays())
+            var fresh:=quote(owner)
+            if not fresh.get("ok",false):dialog.dialog_text="归途结已经变化，请关闭后重新安坐。";dialog.get_ok_button().disabled=true;return
+            if String(fresh.fingerprint)!=String(dialog.get_meta("knot_fingerprint","")):
+                offer(owner);dialog.dialog_text="归途结或钱包已变化，请重新核对后再次确认。\n"+dialog.dialog_text;return
+            var result:=recall(owner)
+            if result.get("ok",false):owner._close_overlays()
+            else:dialog.dialog_text="尚未召回，碎钱与归途结保持原状。请重试或亲自去取。")
     dialog.canceled.connect(func():
         var owner: Variant = host.get_ref()
         if is_instance_valid(owner): owner._close_overlays())
@@ -48,7 +57,9 @@ static func setup(level: Node) -> void:
 static func offer(level: Node) -> bool:
     var quoted := quote(level)
     var dialog: ConfirmationDialog = level.get_node_or_null(DIALOG)
-    if not quoted.ok or dialog == null: return false
+    if not quoted.ok or dialog == null or level.world_save_blocked or not level.is_near_shrine():return false
+    dialog.set_meta("knot_fingerprint",quoted.fingerprint)
+    dialog.get_ok_button().disabled=false
     var where := "本区" if quoted.region_id == String(level.config.get("id", "")) else "远处"
     dialog.dialog_text = "%s的归途结里留着%d枚碎钱。\n在钟龛召回只能收回%d枚（六成）；亲自去取可全数收回。" % [where, quoted.amount, quoted.kept]
     level.active_overlay = "recall"
@@ -60,12 +71,13 @@ static func offer(level: Node) -> bool:
 static func recall(level: Node) -> Dictionary:
     var quoted := quote(level)
     if not quoted.ok: return quoted
-    level._add_currency(int(quoted.kept))
-    level.world_state.capture_global({"death_cache": {}})
-    if level.death_cache_area != null and is_instance_valid(level.death_cache_area):
-        level.death_cache_area.queue_free()
-    level.death_cache_area = null
-    level._save_world()
+    if level.world_loading or level.world_save_blocked or level.player==null or level.player.hp<=0 or level.active_overlay!="recall" or not level.is_near_shrine():return {"ok":false,"reason":"shrine"}
+    var result: Dictionary=level._persist_world_change({"currency":level.currency_count+int(quoted.kept),"death_cache":{}})
+    if not result.ok:return result
+    level.world_state.data=result.candidate
+    level.currency_count=int(result.candidate.currency)
+    if is_instance_valid(level.death_cache_area):level.death_cache_area.queue_free()
+    level.death_cache_area=null
     level._refresh_hud()
     level._toast("钟声把归途结引了回来：收回%d枚碎钱。" % int(quoted.kept))
     return quoted

@@ -150,6 +150,7 @@ var duck_mix := preload("res://scripts/duck_mix.gd").new()
 var duck_layers: Dictionary = {}
 var duck_serial := 0
 var music_mix_base_db := 0.0
+const LANDMARK_SCHEDULE=preload("res://scripts/npc_landmark_schedule.gd")
 var npc_landmarks_enabled := true
 var landmark_next_ms := 0
 var landmark_times: Dictionary = {}
@@ -438,6 +439,7 @@ func _process(delta: float) -> void:
     if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
         return
     var tick := ai_poll_accum
+    _retire_invalid_landmarks()
     _tick_npc_landmarks()
     ai_poll_accum = 0.0
     var enemies := _runtime_enemies()
@@ -1378,6 +1380,7 @@ func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
 func set_npc_landmarks(enabled: bool) -> void:
     npc_landmarks_enabled = enabled
     if not enabled:_stop_npc_landmarks()
+    else:landmark_next_ms=Time.get_ticks_msec()+1200
 
 func _landmarks_allowed() -> bool:
     if not is_inside_tree() or instance != self or not npc_landmarks_enabled or dialogue_open or combat_active or boss_active or shrine_engaged:return false
@@ -1391,15 +1394,19 @@ func _tick_npc_landmarks() -> void:
     if not _landmarks_allowed():_stop_npc_landmarks();return
     var now := Time.get_ticks_msec()
     if now < landmark_next_ms:return
-    var closest: Node2D
-    var distance := 650.0 * 650.0
+    var rows: Array=[]
+    var sources: Array=[]
     for candidate in get_tree().get_nodes_in_group("npc_sound_landmark"):
-        if not candidate is Node2D or not candidate.is_visible_in_tree() or candidate.is_queued_for_deletion():continue
-        var id := String(candidate.get_meta("npc_id",""))
-        if id.is_empty() or now - int(landmark_times.get(id,-12001)) < 12000:continue
-        var current := (candidate as Node2D).global_position.distance_squared_to(runtime_player.global_position)
-        if current < distance:closest = candidate;distance = current
-    if closest != null:play_npc_landmark(closest)
+        if not candidate is Node2D or not candidate.is_inside_tree() or not candidate.is_visible_in_tree() or candidate.is_queued_for_deletion():continue
+        if candidate.get_world_2d()!=runtime_player.get_world_2d() or String(candidate.get_meta("kind",""))!="npc":continue
+        rows.append({"id":String(candidate.get_meta("npc_id","")),"distance":candidate.global_position.distance_to(runtime_player.global_position)})
+        sources.append(weakref(candidate))
+    var selected:=LANDMARK_SCHEDULE.choose(rows,landmark_times,now)
+    if selected<0:
+        landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
+        return
+    var source: Variant=sources[selected].get_ref()
+    if not is_instance_valid(source) or not play_npc_landmark(source):landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
 
 func play_npc_landmark(source: Node2D) -> bool:
     if not _landmarks_allowed() or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.is_visible_in_tree():return false
@@ -1415,6 +1422,7 @@ func play_npc_landmark(source: Node2D) -> bool:
     var voice := preload("res://scripts/spatial_enemy_alert.gd").new()
     voice.name = "NPCSoundLandmark"
     voice.set_meta("npc_landmark",true)
+    voice.set_meta("landmark_source",weakref(source))
     voice.bus = _bus_or("SFXWorld","SFX")
     voice.stream = npc_voice_stream("dry" if id.contains("carto") else "low" if id.contains("smith") else "warm")
     add_child(voice)
@@ -1425,8 +1433,20 @@ func play_npc_landmark(source: Node2D) -> bool:
     if not start_reserved_voice(ticket,voice):voice.free();release_ticket(ticket);return false
     landmark_times.erase(id);landmark_times[id] = now
     while landmark_times.size() > 64:landmark_times.erase(landmark_times.keys()[0])
-    landmark_next_ms = now + 4000
+    landmark_next_ms = now + LANDMARK_SCHEDULE.GLOBAL_GAP_MS
     return true
+
+func _retire_invalid_landmarks() -> void:
+    for child in get_children():
+        if not child is AudioStreamPlayer2D or not bool(child.get_meta("npc_landmark",false)):continue
+        var reference: Variant=child.get_meta("landmark_source",null)
+        var source: Variant=reference.get_ref() if reference is WeakRef else null
+        var valid: bool=is_instance_valid(source) and source is Node2D and source.is_inside_tree() and not source.is_queued_for_deletion() and source.is_visible_in_tree()
+        valid=valid and is_instance_valid(runtime_player) and runtime_player.is_inside_tree()
+        if valid:valid=source.get_world_2d()==runtime_player.get_world_2d() and source.global_position.distance_to(runtime_player.global_position)<=LANDMARK_SCHEDULE.RANGE
+        if not valid:
+            preload("res://scripts/audio_retirement.gd").watch_player(child)
+            child.stop();child.stream=null;child.queue_free()
 
 func _stop_npc_landmarks() -> void:
     for child in get_children():

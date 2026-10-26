@@ -59,7 +59,15 @@ func _run() -> void:
         await _send(_key(KEY_E))
         marker._process(0.0)
         _check(marker.key_hint == "E", "same sign switches back to remapped keyboard key")
+        var old_route: Variant=world.config.get("boss_route_via_exploration",false)
+        world.world_mode=false;world.config["boss_route_via_exploration"]=true
+        _check(world._chapter_objective_text().contains("E 呼叫升降笼"),"chapter lift objective reads remapped keyboard binding")
+        world.world_mode=true;world.config["boss_route_via_exploration"]=old_route
+
         await _send(_button(JOY_BUTTON_GUIDE, 7))
+        world.world_mode=false;world.config["boss_route_via_exploration"]=true
+        _check(world._chapter_objective_text().contains("手柄 X 呼叫升降笼"),"chapter lift objective reads active controller binding")
+        world.world_mode=true;world.config["boss_route_via_exploration"]=old_route
         world.active_overlay = "dialogue"
         marker._process(0.0)
         _check(not marker.nearby and marker.key_hint.is_empty(), "overlay still suppresses world interaction prompt")

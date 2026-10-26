@@ -1,0 +1,43 @@
+Running practice_coach
+FAIL: practice_coach: exit=1 engine_errors=8 completion_marker=False
+       [2] cast (res://scripts/skill_branches_validation.gd:68)
+       [3] tick (res://scripts/skill_branches_validation.gd:22)
+PASS partial-training baseline persists without granting completion
+PASS cleave practice rack exists
+PASS third actual cast reaches the save boundary
+ERROR: failed training record never unlocks artisan directions or changes disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/skill_branches_validation.gd:28)
+       [1] run (res://scripts/practice_coach_validation.gd:45)
+       [2] cast (res://scripts/skill_branches_validation.gd:68)
+       [3] tick (res://scripts/skill_branches_validation.gd:22)
+ERROR: failure caption explains retry without granting items or currency
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/skill_branches_validation.gd:28)
+       [1] run (res://scripts/practice_coach_validation.gd:47)
+       [2] cast (res://scripts/skill_branches_validation.gd:68)
+       [3] tick (res://scripts/skill_branches_validation.gd:22)
+PASS cleave practice rack exists
+PASS new valid cast retries pending completion
+ERROR: completion publishes only after one durable write observing the old flag
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/skill_branches_validation.gd:28)
+       [1] run (res://scripts/practice_coach_validation.gd:50)
+       [2] cast (res://scripts/skill_branches_validation.gd:68)
+       [3] tick (res://scripts/skill_branches_validation.gd:22)
+PASS actual production save restores completed training
+PASS trained skill gains no free branch purchase
+PASS late completed contact makes no extra save
+盐白书库
+PASS needle equips in the first skill position
+PASS needle practice rack exists
+PASS actual ranged needle is accepted
+PASS projectile hit attributes practice to its captured originating cast
+PASS training does not retain free practice energy outside the racks
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=18 retired=11
+PASS practice fixture retires actual World audio
+PRACTICE_COACH checks=30 failures=8
+GODOT_REGRESSIONS suites=1 failures=1

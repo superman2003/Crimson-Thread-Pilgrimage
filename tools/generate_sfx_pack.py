@@ -761,8 +761,8 @@ def r_ending_c() -> np.ndarray:
 
 
 # ----------------------------------------------------- core gameplay sounds
-# The 11 root-level files main_level/player_controller (and web src/main.js)
-# already reference. Same crimson-thread family vocabulary as the rest.
+# Eleven root-level sounds are shared by main_level and player_controller.
+# Same crimson-thread family vocabulary as the rest.
 
 
 def r_core_jump() -> np.ndarray:
@@ -952,9 +952,8 @@ PACK = [
     ("story_ending_c_reweave", "story_ending_c_reweave.ogg", r_ending_c, False, 0.7, None),
 ]
 
-# core gameplay files at the sfx root (overwrite the old silent placeholders;
-# web build src/main.js points at the same paths). Combat-SFX loudness
-# convention: peak 0.7, active RMS -18..-24 dBFS.
+# Core gameplay files replace the old silent placeholders at the sfx root.
+# Combat-SFX loudness convention: peak 0.7, active RMS -18..-24 dBFS.
 CORE_PACK = [
     ("player_jump", "player_jump.ogg", r_core_jump, False, 0.7, None),
     ("player_dash", "player_dash.ogg", r_core_dash, False, 0.7, None),

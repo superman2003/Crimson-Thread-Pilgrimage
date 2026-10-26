@@ -91,3 +91,21 @@ static func search(rows: Array, query: String, kind: String = "all", region: Str
             if not text.contains(token):matches=false;break
         if matches:result.append(row)
     return result
+
+static func arrange(rows: Array, mode: int = 0) -> Array:
+    var result:=rows.duplicate(true)
+    if mode not in [1,2,3]:return result
+    result.sort_custom(func(a: Dictionary,b: Dictionary):
+        var first:=String(a.get("region_name","")) if mode==1 else String(a.get("kind","")) if mode==2 else ""
+        var second:=String(b.get("region_name","")) if mode==1 else String(b.get("kind","")) if mode==2 else ""
+        if first!=second:return first.naturalnocasecmp_to(second)<0
+        var order:=String(a.get("title","")).naturalnocasecmp_to(String(b.get("title","")))
+        return order<0 if order!=0 else String(a.get("key",""))<String(b.get("key","")))
+    return result
+
+static func counts(rows: Array) -> Dictionary:
+    var result:={}
+    for row in rows:
+        var kind:=String(row.get("kind",""))
+        result[kind]=int(result.get(kind,0))+1
+    return result

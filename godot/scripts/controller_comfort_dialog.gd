@@ -10,6 +10,11 @@ var device_picker: OptionButton
 var response_preview: Control
 var device_ids: Array=[]
 var elapsed := 0.0
+var calibration := preload("res://scripts/stick_calibration.gd").new()
+var calibration_status: Label
+var measure_button: Button
+var stage_button: Button
+var sample_elapsed := 0.0
 
 func _ready() -> void:
     title = "手柄校准与舒适设置"
@@ -17,7 +22,9 @@ func _ready() -> void:
     dialog_hide_on_ok = false
     var column := VBoxContainer.new()
     column.add_theme_constant_override("separation",8)
-    add_child(column)
+    var body:=ScrollContainer.new();body.custom_minimum_size=Vector2(680,530)
+    body.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+    add_child(body);body.add_child(column)
     var intro := Label.new()
     intro.text = "只调整摇杆轴死区，不改变扳机、按键或声音。\n预设先列出变化；确认前原设置保持有效。"
     column.add_child(intro)
@@ -31,6 +38,13 @@ func _ready() -> void:
     response_preview.custom_minimum_size=Vector2(660,120);column.add_child(response_preview)
     var legend:=Label.new();legend.text="灰区：暂存死区 · 白点：原始轴 · 金点：逐轴预估\n预估仅展示普通摇杆轴；实际动作还取决于改键，扳机与菜单保留原规则。";legend.add_theme_font_size_override("font_size",13);column.add_child(legend)
     var label := Label.new();label.text = "摇杆死区 10%—60%（偏大可抑制漂移，偏小更灵敏）";column.add_child(label)
+    var measurement := HBoxContainer.new();column.add_child(measurement)
+    measure_button=Button.new();measure_button.text="测量中立漂移（3秒）";measurement.add_child(measure_button)
+    measure_button.pressed.connect(_start_measurement)
+    stage_button=Button.new();stage_button.text="暂存建议死区";stage_button.disabled=true;measurement.add_child(stage_button)
+    stage_button.pressed.connect(_stage_measurement)
+    calibration_status=Label.new();calibration_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(calibration_status)
+    calibration_status.custom_minimum_size=Vector2(660,38)
     deadzone = HSlider.new();deadzone.min_value = 0.1;deadzone.max_value = 0.6;deadzone.step = 0.01
     column.add_child(deadzone)
     deadzone.value_changed.connect(func(value: float):candidate.controller_deadzone = value;_refresh_changes())
@@ -44,11 +58,14 @@ func _ready() -> void:
     get_ok_button().text = "应用这些变化"
     get_cancel_button().text = "保留原设置"
     confirmed.connect(_apply_candidate)
+    visibility_changed.connect(func():
+        if not visible:calibration.cancel();sample_elapsed=0.0)
 
 func open(values: Dictionary, action: Callable) -> void:
     baseline = POLICY.normalize(values)
     candidate = baseline.duplicate()
     apply_action = action
+    calibration.cancel();sample_elapsed=0.0
     deadzone.set_value_no_signal(float(candidate.controller_deadzone))
     _refresh_changes()
     _refresh_devices()
@@ -74,7 +91,11 @@ func _refresh_changes() -> void:
 func _process(delta: float) -> void:
     if not visible:return
     elapsed += delta
-    if elapsed >= 0.1:elapsed = 0.0;_refresh_devices()
+    sample_elapsed += delta
+    if elapsed >= 0.1:
+        elapsed = 0.0
+        _refresh_devices()
+        sample_elapsed=0.0
 
 func _refresh_devices() -> void:
     var devices := POLICY.devices()
@@ -93,6 +114,12 @@ func _refresh_devices() -> void:
     for device in devices:
         if device.id==device_picker.get_selected_metadata():selected=device;break
     var values: Array=selected.get("axes",[])
+    var selected_id:=int(selected.get("id",-1))
+    if calibration.active and sample_elapsed>0.0:calibration.sample(selected_id,values,sample_elapsed)
+    elif not calibration.active and calibration.device>=0 and calibration.device!=selected_id:calibration.cancel("设备已切换或断开，请重新测量。")
+    measure_button.disabled=selected.is_empty() or calibration.active
+    stage_button.disabled=calibration.active or not calibration.result.get("ok",false) or selected_id!=calibration.device
+    calibration_status.text=calibration.status()
     response_preview.update_sample(values,float(candidate.get("controller_deadzone",0.2)))
     device_status.text="未检测到手柄。可以先设置死区；连接后显示原始轴与预估响应。" if selected.is_empty() else "已连接 %d 个手柄，当前查看设备 %d；松开摇杆观察漂移，再推动查看行程。" % [devices.size(),int(selected.id)]
 
@@ -100,3 +127,16 @@ func _apply_candidate() -> void:
     if candidate == baseline or not apply_action.is_valid():return
     var result: Variant = apply_action.call(POLICY.normalize(candidate))
     if result is Dictionary and bool(result.get("ok",false)):hide()
+
+func _start_measurement() -> void:
+    if not visible or device_picker.selected<0:return
+    calibration.start(int(device_picker.get_selected_metadata()))
+    sample_elapsed=0.0
+    _refresh_devices()
+
+func _stage_measurement() -> void:
+    if not visible or calibration.active or not calibration.result.get("ok",false):return
+    if device_picker.selected<0 or int(device_picker.get_selected_metadata())!=calibration.device:return
+    candidate.controller_deadzone=float(calibration.result.deadzone)
+    deadzone.set_value_no_signal(float(candidate.controller_deadzone))
+    _refresh_changes()

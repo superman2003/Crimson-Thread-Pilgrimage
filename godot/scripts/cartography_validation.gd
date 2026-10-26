@@ -67,7 +67,8 @@ func run() -> void:
     RUNTIME.open_shop(scene,stall)
     dialog.confirmed.emit()
     check(not JOURNAL.owned(scene.story_flags,id) and scene.currency_count==0,"failed UI transaction does not charge or grant")
-    check(not scene.player.ui_input_locked and not dialog.visible,"confirmation returns player control")
+    check(scene.player.ui_input_locked and dialog.visible,"rejected confirmation preserves seller for retry or explicit cancellation")
+    scene._close_overlays() # Deliberately cancel before the next independent seller case.
     # A later region's seller price, applied to this live stall, must be what the dialog shows and charges.
     var seller_data: Dictionary=stall.get_meta("map_seller_data")
     seller_data["price"]=35
@@ -108,6 +109,8 @@ func run() -> void:
         return
     check(JOURNAL.has_quill(scene.story_flags) and scene.currency_count==RUNTIME.tool_price("compass") and not quill_button.visible,"real shop sells the quill once at its price")
     dialog.custom_action.emit("compass")
+    check(not scene.build_system.state.unlocked_passives.has("compass"),"compass selection only previews its quote")
+    dialog.confirmed.emit()
     check(scene.build_system.state.unlocked_passives.has("compass") and scene.currency_count==0 and not compass_button.visible,"real shop sells the compass once at its price")
     check(not RUNTIME.purchase_tool(scene,stall,"quill").ok and not RUNTIME.purchase_tool(scene,stall,"compass").ok and scene.currency_count==0,"survey tools cannot be bought twice")
     scene._close_overlays()
@@ -245,6 +248,12 @@ func _keyboard_quill_purchase(scene: Node, dialog: ConfirmationDialog, quill: Bu
     check(dialog.visible and scene.active_overlay=="cartographer","native seller retains Tab instead of opening the backpack")
     check(quill.has_focus(),"ordinary Tab navigation reaches the quill button")
     if dialog.visible and quill.has_focus():await _modal_key(dialog,KEY_ENTER)
+    check(not JOURNAL.has_quill(scene.story_flags),"keyboard selection previews quill without spending")
+    for unused in 12:
+        if dialog.get_ok_button().has_focus() or not dialog.visible:break
+        await _modal_key(dialog,KEY_TAB)
+    check(dialog.get_ok_button().has_focus(),"ordinary Tab reaches explicit quill confirmation")
+    if dialog.visible and dialog.get_ok_button().has_focus():await _modal_key(dialog,KEY_ENTER)
     if JOURNAL.has_quill(scene.story_flags):
         _modal_key_event(dialog,KEY_F9,true)
         for unused in 3:await process_frame
