@@ -32,6 +32,7 @@ func setup(shell: Control) -> void:
     button.name="ExpeditionDeskButton";button.add_theme_font_size_override("font_size",13)
     hud=ui._label(ui,"",Vector2(895,260),Vector2(355,76),14,ui.GOLD)
     hud.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;hud.clip_text=true
+    preload("res://scripts/map_control_layout.gd").apply(ui.level)
 
 func _build() -> void:
     window=preload("res://scripts/journey_desk_window.gd").new();window.name="ExpeditionDeskWindow"
