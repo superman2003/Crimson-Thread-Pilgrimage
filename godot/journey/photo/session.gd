@@ -17,6 +17,8 @@ var guides: Control
 var filter_rect: ColorRect
 var active := false
 var capturing := false
+var capture_allowed := true
+var frame_size := Vector2.ZERO
 var directory := "user://journey_workbench/photos"
 var frame_origin := Vector2.ZERO
 var base_zoom := Vector2.ONE
@@ -41,6 +43,7 @@ func begin(owner: Node, snapshot: Dictionary) -> Dictionary:
     original_ui = owner.ui_shell.visible
     original_enabled = original.enabled
     capture_context = snapshot.duplicate(true)
+    frame_size = owner.get_viewport().get_visible_rect().size
     frame_origin = original.get_screen_center_position()
     base_zoom = original.zoom
     process_mode = Node.PROCESS_MODE_ALWAYS
@@ -115,7 +118,7 @@ func _apply() -> void:
     if not is_instance_valid(camera):
         return
     var zoom_value := clampf(float(options.zoom), 1.0, 2.0)
-    var original_half := Vector2(get_tree().root.size) / base_zoom * 0.5
+    var original_half := frame_size / base_zoom * 0.5
     var current_half := original_half / zoom_value
     var allowance := (original_half - current_half).max(Vector2.ZERO)
     pan = pan.clamp(-allowance, allowance)
@@ -175,6 +178,10 @@ func capacity() -> Dictionary:
     return {"count":count, "bytes":bytes, "available":count < MAX_PHOTOS and bytes < MAX_TOTAL_BYTES}
 
 func capture() -> void:
+    if not capture_allowed:
+        if is_instance_valid(status):
+            status.text = "相册索引待重试，已暂停继续拍照。"
+        return
     if not active or capturing:
         return
     if DisplayServer.get_name() == "headless":

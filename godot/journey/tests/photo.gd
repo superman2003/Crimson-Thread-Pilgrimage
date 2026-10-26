@@ -54,4 +54,24 @@ func run() -> void:
     await process_frame
     check(box.get_child_count() > 5, "photo gallery controls render without a hardware camera fixture")
     box.free()
+
+    check(feature._directory().contains(context.store.scope), "photo files are isolated by save-slot scope")
+    context.store.writable = false
+    feature._captured(photo)
+    var next_photo := photo.duplicate(true)
+    next_photo.path = String(photo.path).replace("_1.png", "_2.png")
+    feature._captured(next_photo)
+    check(feature.pending_records.size() == 2, "multiple failed index writes retain every pending photo")
+    context.store.writable = true
+    feature._retry_records()
+    check(feature.pending_records.is_empty() and feature.data.photos.size() == 2, "retry registers each queued photo once")
+    var large_path := feature._directory().path_join("pilgrimage_large.png")
+    DirAccess.make_dir_recursive_absolute(feature._directory())
+    var large_file := FileAccess.open(large_path, FileAccess.WRITE)
+    large_file.seek(16777216)
+    large_file.store_8(1)
+    large_file.close()
+    var large_photo := {"path":large_path, "sha256":FileAccess.get_sha256(large_path)}
+    check(not ARCHIVE.inspect(large_photo, feature._directory()).ok and ARCHIVE.inspect(large_photo, feature._directory(), true).ok, "oversized preview is refused while verified file deletion remains possible")
+    DirAccess.remove_absolute(large_path)
     finish()

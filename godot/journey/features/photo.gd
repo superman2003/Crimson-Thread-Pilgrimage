@@ -8,6 +8,7 @@ var preset := "natural"
 var pending_delete := ""
 var deletion_identity := ""
 var pending_record: Dictionary = {}
+var pending_records: Array = []
 const PAGE_SIZE := 6
 
 func descriptor() -> Dictionary:
@@ -20,7 +21,7 @@ func valid(candidate: Dictionary) -> bool:
     return ARCHIVE.valid(candidate)
 
 func _directory() -> String:
-    return context.store.directory.path_join("photos")
+    return context.store.directory.path_join(context.store.scope).path_join("photos")
 
 func draw(parent: Control) -> void:
     header(parent, "从当前实际显示画面重构图。镜头不会越出进入拍照前的可见范围，也不移动角色或揭开地图。")
@@ -31,7 +32,7 @@ func draw(parent: Control) -> void:
     UI.hint(parent, "拍照时当前世界暂停，角色界面隐藏；退出恢复原镜头、处理模式与界面。最多40张、总量128MiB，不自动删除照片。")
     if not pending_record.is_empty():
         UI.label(parent, "照片已写入，但相册索引暂未保存。图片文件仍在，可重试登记。")
-        UI.button(parent, "重试保存相册索引", func():_captured(pending_record))
+        UI.button(parent, "重试保存相册索引", _retry_records)
     UI.divider(parent)
     UI.label(parent, "此存档槽的相册", true)
     var row := UI.row(parent)
@@ -51,6 +52,9 @@ func draw(parent: Control) -> void:
     UI.button(parent, "导出相册索引与手记", func():export_document("巡礼相册索引.txt", ARCHIVE.report(data)))
 
 func _start() -> void:
+    if not pending_records.is_empty():
+        context.tell("请先重试登记已拍照片，再继续拍照。")
+        return
     var owner: Node = context.level()
     if owner == null:
         return
@@ -77,15 +81,28 @@ func _start() -> void:
         session = null
 
 func _captured(photo: Dictionary) -> void:
-    var candidate := ARCHIVE.add(data, photo)
-    if candidate == data:
-        pending_record = photo.duplicate(true)
-        context.tell("相册记录已满；照片文件已保留。")
-        return
-    if commit(candidate):
-        pending_record = {}
-    else:
-        pending_record = photo.duplicate(true)
+    if not pending_records.any(func(record: Dictionary): return record.path == photo.path):
+        pending_records.append(photo.duplicate(true))
+    _retry_records()
+
+func _retry_records() -> void:
+    while not pending_records.is_empty():
+        var photo: Dictionary = pending_records[0]
+        if data.photos.any(func(record: Dictionary): return record.path == photo.path):
+            pending_records.pop_front()
+            continue
+        var candidate := ARCHIVE.add(data, photo)
+        if candidate == data:
+            context.tell("相册记录已满；照片与待登记队列已保留，请先整理索引。")
+            break
+        if not commit(candidate):
+            break
+        pending_records.pop_front()
+    pending_record = pending_records[0].duplicate(true) if not pending_records.is_empty() else {}
+    if is_instance_valid(session):
+        session.capture_allowed = pending_records.is_empty()
+    context.refresh()
+
 
 func _photo_card(parent: Control, photo: Dictionary) -> void:
     var card := UI.card(parent)
@@ -118,7 +135,7 @@ func _photo_card(parent: Control, photo: Dictionary) -> void:
         UI.button(confirmation, "确认删除照片文件", func():_delete_photo(photo))
 
 func _delete_photo(photo: Dictionary) -> void:
-    var inspection := ARCHIVE.inspect(photo, _directory())
+    var inspection := ARCHIVE.inspect(photo, _directory(), true)
     if not inspection.get("ok", false) or String(photo.sha256) != deletion_identity:
         context.tell("照片身份已变化或无法复核；保留文件。")
         return

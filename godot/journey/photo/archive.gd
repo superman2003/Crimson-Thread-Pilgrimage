@@ -83,20 +83,23 @@ static func records(data: Dictionary, query: String, favorites_only: bool) -> Ar
 static func permitted(path: String, directory: String) -> bool:
     return path.simplify_path() == path and path.get_base_dir() == directory.simplify_path() and path.get_file().begins_with("pilgrimage_") and path.ends_with(".png")
 
-static func inspect(photo: Dictionary, directory: String) -> Dictionary:
+static func inspect(photo: Dictionary, directory: String, allow_large: bool = false) -> Dictionary:
     var path := String(photo.get("path", ""))
     if not permitted(path, directory):
         return {"ok":false, "reason":"照片路径不属于拍照目录。"}
     if not FileAccess.file_exists(path):
         return {"ok":false, "reason":"照片文件已经移动或移除；辅助手记仍保留。"}
-    if FileAccess.get_sha256(path) != String(photo.get("sha256", "")):
-        return {"ok":false, "reason":"照片内容已经变化；保留文件，不自动读取。"}
     var file := FileAccess.open(path, FileAccess.READ)
-    if file == null or file.get_length() > 16777216:
-        return {"ok":false, "reason":"照片无法读取或超出预览上限。"}
+    if file == null:
+        return {"ok":false, "reason":"照片无法读取。"}
     var bytes := file.get_length()
     file.close()
+    if not allow_large and bytes > 16777216:
+        return {"ok":false, "reason":"照片超出预览上限；仍可经身份校验后删除。"}
+    if FileAccess.get_sha256(path) != String(photo.get("sha256", "")):
+        return {"ok":false, "reason":"照片内容已经变化；保留文件，不自动读取。"}
     return {"ok":true, "bytes":bytes, "path":path}
+
 
 static func report(data: Dictionary) -> String:
     var lines: Array[String] = ["巡礼相册索引", "图片文件位于游戏用户目录，此索引不包含图片字节。", ""]
