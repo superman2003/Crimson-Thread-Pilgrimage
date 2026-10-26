@@ -102,6 +102,15 @@ func production_journal_checks() -> void:
     ui._build_bag()
     ui.bag_category="旅记"
     ui.bag.show()
+    var integration:=preload("res://scripts/journal_records_validation.gd")
+    check(integration.filters_match(ui.journal_filter_buttons),"the exact nine-key full-World regression also accepts the actual native bag")
+    var wrong:=ui.journal_filter_buttons.duplicate()
+    wrong.erase("guide")
+    wrong.extra=ui.journal_filter_buttons.ability
+    check(not integration.filters_match(wrong),"same filter count cannot hide a lost original category or an unexpected replacement")
+    wrong=ui.journal_filter_buttons.duplicate()
+    wrong.guide=true
+    check(not integration.filters_match(wrong),"the full-World filter contract requires actual buttons, not placeholder keys")
     ui.journal_filter_buttons.ability.pressed.emit()
     await process_frame
     check(ui.journal_filter=="ability" and ui.journal_documents.is_empty(),"actual new journal filter opens an empty, spoiler-safe view on a fresh journey")
