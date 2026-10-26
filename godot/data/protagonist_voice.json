@@ -1,13 +1,157 @@
 {
   "schema_version": 1,
   "entries": [
-    {"ability":"thread_dash","title":"绷紧的一瞬","text":"线绷紧的一瞬，旧门没追上我。越过去之前，先看落脚处。"},
-    {"ability":"silk_wall_grip","title":"攀住裂口","text":"针脚贴住石面。我能攀住裂口，也该给后来的人留一条路。"},
-    {"ability":"double_thread_jump","title":"第二道线","text":"第二道线托住脚尖。高处的风很轻，回去的路也要记住。"},
-    {"ability":"echo_hook","title":"收回线头","text":"铜环回了一声。我把线收短，试着让抓住的东西不再从手里滑走。"},
-    {"ability":"bell_guard","title":"接住下一针","text":"钟壳在针前合拢。挡下这一声，还得自己接住下一针。"},
-    {"ability":"thorn_downstrike","title":"脚下的裂纹","text":"针尖朝下，脚下的裂纹先开了口。我不必每次都绕开障碍。"},
-    {"ability":"lantern_phase","title":"衣缝里的灯影","text":"灯影从衣缝里穿过。我先认清出口，再让自己走进暗处。"},
-    {"ability":"crown_resonance","title":"逐一回应","text":"钟声听见了我。被删去的名字，也许还能一一应回来。"}
+    {
+      "ability": "thread_dash",
+      "title": "绷紧的一瞬",
+      "text": "线绷紧的一瞬，旧门没追上我。越过去之前，先看落脚处。"
+    },
+    {
+      "ability": "silk_wall_grip",
+      "title": "攀住裂口",
+      "text": "针脚贴住石面。我能攀住裂口，也该给后来的人留一条路。"
+    },
+    {
+      "ability": "double_thread_jump",
+      "title": "第二道线",
+      "text": "第二道线托住脚尖。高处的风很轻，回去的路也要记住。"
+    },
+    {
+      "ability": "echo_hook",
+      "title": "收回线头",
+      "text": "铜环回了一声。我把线收短，试着让抓住的东西不再从手里滑走。"
+    },
+    {
+      "ability": "bell_guard",
+      "title": "接住下一针",
+      "text": "钟壳在针前合拢。挡下这一声，还得自己接住下一针。"
+    },
+    {
+      "ability": "thorn_downstrike",
+      "title": "脚下的裂纹",
+      "text": "针尖朝下，脚下的裂纹先开了口。我不必每次都绕开障碍。"
+    },
+    {
+      "ability": "lantern_phase",
+      "title": "衣缝里的灯影",
+      "text": "灯影从衣缝里穿过。我先认清出口，再让自己走进暗处。"
+    },
+    {
+      "ability": "crown_resonance",
+      "title": "逐一回应",
+      "text": "钟声听见了我。被删去的名字，也许还能一一应回来。"
+    }
+  ],
+  "combinations": [
+    {
+      "id": "air_return",
+      "requires": [
+        "double_thread_jump",
+        "silk_wall_grip"
+      ],
+      "title": "把归路也缝上",
+      "text": "第二道线把我托起，裂口接住我。向上之前，我也能看清怎样沿墙回来。高处不再只是一场孤注一掷。"
+    },
+    {
+      "id": "thread_crossing",
+      "requires": [
+        "thread_dash",
+        "double_thread_jump"
+      ],
+      "title": "越过去以后",
+      "text": "一瞬绷紧的线，接着空中的第二针。我越来越擅长越过空隙，也该学会在落稳以后停一停。"
+    },
+    {
+      "id": "hook_and_wall",
+      "requires": [
+        "echo_hook",
+        "silk_wall_grip"
+      ],
+      "title": "线头与石缝",
+      "text": "铜环借我一段路，石缝留我一处歇脚。借来的力和自己攀住的边沿，各有该松手的时候。"
+    },
+    {
+      "id": "ground_and_guard",
+      "requires": [
+        "thorn_downstrike",
+        "bell_guard"
+      ],
+      "title": "接住与放下",
+      "text": "有时该把针尖朝下，有时该先合拢钟壳。让锋口停一停，并不是把路交给对面。"
+    },
+    {
+      "id": "shadow_return",
+      "requires": [
+        "lantern_phase",
+        "thread_dash"
+      ],
+      "title": "暗处的出口",
+      "text": "能穿过阴影，也能越过旧门。我仍会先看一眼出口；走得更快，并不使每条路都值得立刻踏上。"
+    },
+    {
+      "id": "echo_and_bell",
+      "requires": [
+        "echo_hook",
+        "bell_guard"
+      ],
+      "title": "铜声之间",
+      "text": "掷出的线头和合拢的钟壳，都有一声清楚的铜响。我开始听得出，哪一声是在叫我向前，哪一声是在叫我等候。"
+    },
+    {
+      "id": "crown_and_hook",
+      "requires": [
+        "crown_resonance",
+        "echo_hook"
+      ],
+      "title": "听见回声",
+      "text": "铜环回我的短响，和如今听见的钟声并不相同。我愿意把每一种回应都听完，再决定把线交给谁。"
+    },
+    {
+      "id": "crown_and_shadow",
+      "requires": [
+        "crown_resonance",
+        "lantern_phase"
+      ],
+      "title": "名字经过暗处",
+      "text": "衣缝里的灯影散开之后，钟声仍能回应。我想带回来的名字，不该只在明亮处才有位置。"
+    },
+    {
+      "id": "fall_and_rise",
+      "requires": [
+        "thorn_downstrike",
+        "double_thread_jump"
+      ],
+      "title": "落下的一针",
+      "text": "向下的针和向上的第二道线，并不是相反的路。落脚时认清地面，我才知道下一次该从哪里起身。"
+    },
+    {
+      "id": "patient_climb",
+      "requires": [
+        "silk_wall_grip",
+        "bell_guard"
+      ],
+      "title": "在裂口歇息",
+      "text": "攀住石缝的手也会疲倦。钟壳合拢时那一点从容，提醒我不必把每一段上路都走成追赶。"
+    },
+    {
+      "id": "three_ways",
+      "requires": [
+        "thread_dash",
+        "echo_hook",
+        "silk_wall_grip"
+      ],
+      "title": "三种去处",
+      "text": "越过、牵引、攀住；我有了三种继续前进的办法。旧路上的小小停顿，仍值得我带着新本领回去看一遍。"
+    },
+    {
+      "id": "steady_thread",
+      "requires": [
+        "crown_resonance",
+        "bell_guard",
+        "thorn_downstrike"
+      ],
+      "title": "把针拿稳",
+      "text": "我听过回应，接过锋口，也曾向地面落针。本领留下的不是替我作答的命令，而是把针拿稳以后多一点选择。"
+    }
   ]
 }
