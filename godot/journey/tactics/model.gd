@@ -43,6 +43,10 @@ static func known(flags: Dictionary) -> Array:
         for attack in row.get("attacks", []):
             if valid_attack(attack):
                 attacks.append(attack.duplicate(true))
+        if elite_known(flags, String(id)):
+            for attack in row.get("elite", {}).get("attacks", []):
+                if valid_attack(attack):
+                    attacks.append(attack.duplicate(true))
         row.attacks = attacks
         result.append(row)
     result.sort_custom(func(a: Dictionary, b: Dictionary):return String(a.name).naturalnocasecmp_to(String(b.name)) < 0)
@@ -212,3 +216,10 @@ static func valid_sequences(data: Dictionary) -> bool:
                 return false
         ids[record.id] = true
     return true
+
+static func elite_known(flags: Dictionary, kind: String) -> bool:
+    for config in preload("res://journey/core/public_catalog.gd").configurations({}):
+        for spawn in config.get("enemy_spawns", []):
+            if spawn.get("kind") == kind and spawn.get("elite") == true and flags.get("elite_first_%s_%s" % [config.get("id", ""), spawn.get("id", "")]) == true:
+                return true
+    return false

@@ -39,4 +39,10 @@ func run() -> void:
         check(box.get_child_count() > 3, "tactics tab renders: " + tab)
         box.free()
     check(VALUES.fingerprint(context.latest.flags) == flags, "tactical diagrams grant no defeat or practice progress")
+
+    var stage := preload("res://journey/tactics/stage.gd").new()
+    stage.attack = {"windup":0.2,"active":0.3,"recover":0.5}
+    stage.comparison = {"windup":1.0,"active":1.0,"recover":1.0}
+    check(stage.timeline_duration() == 3.0, "compared timelines use a shared longest-duration scale")
+    stage.free()
     finish()

@@ -47,4 +47,17 @@ func run() -> void:
     var malformed := FileAccess.get_file_as_bytes(context.store.path_for("chronicle"))
     feature.setup(context)
     check(not feature.commit(MODEL.fresh()) and FileAccess.get_file_as_bytes(context.store.path_for("chronicle")) == malformed, "invalid module schema blocks replacement of original record")
+    var lock: String = context.store.path_for("chronicle") + ".writer_lock"
+    check(DirAccess.make_dir_absolute(lock) == OK, "competing writer acquires exclusive record lock")
+    var locked_bytes := FileAccess.get_file_as_bytes(context.store.path_for("chronicle"))
+    check(not context.store.write("chronicle", MODEL.fresh()), "record publication refuses an already-held writer lock")
+    check(FileAccess.get_file_as_bytes(context.store.path_for("chronicle")) == locked_bytes, "contended publication preserves disk bytes")
+    DirAccess.remove_absolute(lock)
+    var exhausted := MODEL.fresh()
+    exhausted.sequence = 1000000
+    check(MODEL.append(exhausted, "note", "满", context.snapshot()) == exhausted, "exhausted chronicle sequence cannot publish an invalid event")
+    var future := observed.duplicate(true)
+    future.events[0].id = int(future.sequence) + 1
+    check(not MODEL.valid(future), "event IDs cannot exceed persisted sequence")
+    check(not MODEL.document(annotated, "", "all", true).contains(String(annotated.events[0].title)), "favorites-only export excludes unstarred observations")
     finish()

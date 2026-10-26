@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
     if not playing or attack.is_empty() or not is_visible_in_tree():
         return
     cursor += delta * speed
-    var span := maxf(0.1, MODEL.duration(attack))
+    var span := maxf(0.1, timeline_duration())
     if cursor > span + 0.5:
         cursor = 0.0
     queue_redraw()
@@ -53,7 +53,7 @@ func _draw() -> void:
     draw_string(font, Vector2(16, 302), "下方几何使用目录尺寸，省略真实AI、重力校正、墙体与角色状态。", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("a1b4ab"))
 
 func _timeline(value: Dictionary, area: Rect2, accent: Color) -> void:
-    var duration := maxf(0.01, MODEL.duration(value))
+    var duration := maxf(0.01, timeline_duration())
     for phase in MODEL.phases(value):
         var begin := float(phase.start) / duration
         var width := (float(phase.finish) - float(phase.start)) / duration
@@ -65,7 +65,7 @@ func _timeline(value: Dictionary, area: Rect2, accent: Color) -> void:
 func _geometry(origin: Vector2, scale_value: float, progress: float, tint: Color) -> void:
     var type := String(attack.get("type", ""))
     var distance := float(attack.get("range", 200)) * scale_value
-    var count := clampi(int(attack.get("shot_count", 3)), 1, 12)
+    var count := clampi(int(attack.get("shot_count", 1)), 1, 12)
     if type in ["fan", "nova", "projectile", "wave", "mortar"]:
         var spread := float(attack.get("spread", 0.4))
         for index in count:
@@ -85,12 +85,19 @@ func _geometry(origin: Vector2, scale_value: float, progress: float, tint: Color
         var offset := float(attack.get("offset", 50)) * scale_value
         var width := float(attack.get("hit_width", 90)) * scale_value
         var height := float(attack.get("hit_height", 70)) * scale_value
-        var translation := distance * progress if type in ["lunge", "vault", "dive", "combo"] else 0.0
-        draw_rect(Rect2(origin + Vector2(offset + translation - width * 0.5, -height), Vector2(width, height)), tint, false, 2.0)
+        var defaults := {"lunge":220.0, "vault":240.0, "combo":125.0}
+        var translation := float(attack.get("lunge_speed", defaults.get(type, 0.0))) * float(attack.get("active", 0)) * progress * scale_value
+        if type == "dive":
+            translation = target_distance * progress * scale_value
+        var rise := -sin(progress * PI) * float(attack.get("jump_height", 130)) * scale_value if type == "vault" else 0.0
+        draw_rect(Rect2(origin + Vector2(offset + translation - width * 0.5, -height + rise), Vector2(width, height)), tint, false, 2.0)
 
 func _gui_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and event.position.y >= 40 and event.position.y <= 100:
-        cursor = clampf((event.position.x - 18) / maxf(1, size.x - 36), 0, 1) * MODEL.duration(attack)
+        cursor = clampf((event.position.x - 18) / maxf(1, size.x - 36), 0, 1) * timeline_duration()
         playing = false
         queue_redraw()
         accept_event()
+
+func timeline_duration() -> float:
+    return maxf(MODEL.duration(attack), MODEL.duration(comparison))
