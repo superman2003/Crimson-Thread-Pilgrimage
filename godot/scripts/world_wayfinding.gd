@@ -11,6 +11,25 @@ var nearby := false
 var gate_state := "open"
 var key_hint := ""
 var mount := "post"
+var interaction_caption := ""
+var _last_state: Array = []
+var _prompt_box: StyleBoxFlat
+const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
+
+static func caption_for(kind: String, label: String, key: String, recorded: bool=false, service: String="") -> String:
+    var clean:=""
+    for character in label:
+        var code:=character.unicode_at(0)
+        if code>=32 and code!=127:clean+=character
+    clean=clean.strip_edges().left(24)
+    var action: String={"save_point":"安坐","lever":"操作","npc":"交谈","world_portal":"通行","boss_gate":"钟门","death_cache":"找回","challenge_shrine":"查看挑战","hunt_track":"观察踪迹","ending_gate":"查看"}.get(kind,"互动")
+    if kind=="history":
+        action="重读旧物" if recorded else "观察旧物"
+        if not recorded:clean=""
+    if kind=="npc" and service in ["map","shop"]:action="查看报价"
+    var text:=key+" · "+action
+    if not clean.is_empty():text+="："+clean
+    return text
 
 static func region_symbol(region: String) -> String:
     for pair in [["ch01", "bell"], ["ch02", "forge"], ["ch03", "book"],
@@ -32,17 +51,26 @@ func configure_portal(data: Dictionary, region: String) -> void:
     queue_redraw()
 
 func _process(_delta: float) -> void:
-    if not is_instance_valid(host) or not is_instance_valid(area):
+    if not is_instance_valid(host) or not is_instance_valid(area) or host.is_queued_for_deletion() or area.is_queued_for_deletion():
+        nearby=false;key_hint="";interaction_caption="";visible=false
+        set_process(false)
         return
     # Use the same chosen object/range as interaction, not a larger hint radius.
-    nearby = host.interaction_target(area) == area
-    if String(area.get_meta("kind", "")) == "npc":
+    nearby = area.is_visible_in_tree() and host.interaction_target(area) == area
+    var kind:=String(area.get_meta("kind", ""))
+    if kind == "npc":
         symbol = "map" if area.has_meta("map_seller_region") else "shop" if area.has_meta("shop_items") or area.has_meta("shop") else "talk"
     key_hint = host.ui_shell._short_binding("interact") if nearby and is_instance_valid(host.ui_shell) else ""
+    var recorded:=false
+    if kind=="history" and area.get("seen") is bool:recorded=bool(area.get("seen"))
+    interaction_caption=caption_for(kind,String(area.get_meta("label","")),key_hint,recorded,symbol) if nearby and not key_hint.is_empty() else ""
     if nearby:
         host._show_first_interaction_hint(area)
     visible = physical_sign or nearby
-    queue_redraw()
+    var state: Array=[symbol,nearby,gate_state,key_hint,interaction_caption,mount,physical_sign,scale]
+    if state!=_last_state:
+        _last_state=state
+        queue_redraw()
 
 func _sign_center() -> Vector2:
     if physical_sign:
@@ -99,21 +127,23 @@ func _draw() -> void:
         if gate_state != "open":
             _icon("lock" if gate_state == "far_side" else "ability",c+Vector2(0,39),0.65)
     if nearby and not key_hint.is_empty():
-        var font := preload("res://assets/fonts/GlobalTypeface.otf")
+        var font := FONT
         # Small scene signs keep their interaction key at a readable size.
         var text_scale := 1.0 / maxf(0.1, minf(scale.x, scale.y))
         var font_size := ceili(14 * text_scale)
-        var width := font.get_string_size(key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+        var width := font.get_string_size(interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
         var anchor := c+Vector2(-width/2,-44)
         draw_style_box(_key_box(),Rect2(anchor-Vector2(6,16)*text_scale,Vector2(width+12*text_scale,23*text_scale)))
-        draw_string(font,anchor,key_hint,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
+        draw_string(font,anchor,interaction_caption,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,INK)
 
 func _key_box() -> StyleBoxFlat:
+    if _prompt_box!=null:return _prompt_box
     var box := StyleBoxFlat.new()
     box.bg_color = Color(0.05,0.08,0.07,0.9)
     box.border_color = INK
     box.set_border_width_all(1)
     box.set_corner_radius_all(4)
+    _prompt_box=box
     return box
 
 func _stroke(points: Array, center: Vector2, scale_value: float) -> void:

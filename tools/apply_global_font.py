@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Apply/check/restore one real font across Godot and the browser prototype.
+"""Apply/check/restore one real font across the Godot project.
 
 No dependencies for applying or restoring. Backups are local, content checked,
 and never overwrite edits made after a font change. Run from any directory.
@@ -31,14 +31,6 @@ THEME_TEXT='''[gd_resource type="Theme" load_steps=2 format=3]
 [resource]
 default_font = ExtResource("1")
 default_font_size = 18
-'''
-CSS_BLOCK='''/* global-typeface:start */
-@font-face {
-  font-family: "FengMingGlobal";
-  src: url("../godot/assets/fonts/GlobalTypeface.otf") format("opentype");
-  font-display: swap;
-}
-/* global-typeface:end */
 '''
 
 def digest(data):return hashlib.sha256(data).hexdigest()
@@ -85,17 +77,6 @@ def make_plan(root,font):
     text=re.sub(r'(?ms)^\[gui\]\s*(?=^\[|\Z)','',text)
     text=section_setting(text,'autoload','GlobalTypography','*'+BOOTSTRAP)
     result[project]=(text.rstrip()+'\n').encode('utf-8')
-    css=root/'src/styles.css'
-    if css.exists():
-        text=css.read_text(encoding='utf-8-sig')
-        text=re.sub(r'/\* global-typeface:start \*/.*?/\* global-typeface:end \*/\s*','',text,flags=re.S)
-        text=re.sub(r'font-family:\s*[^;]+;','font-family: "FengMingGlobal", serif;',text)
-        result[css]=(CSS_BLOCK+'\n'+text).encode('utf-8')
-    web=root/'src/main.js'
-    if web.exists():
-        text=web.read_text(encoding='utf-8-sig')
-        text=text.replace('800 22px Microsoft YaHei, sans-serif','22px FengMingGlobal, serif')
-        result[web]=text.encode('utf-8')
     return {p:d for p,d in result.items() if not p.exists() or p.read_bytes()!=d}
 
 def apply(root,font):
@@ -131,7 +112,7 @@ def apply(root,font):
             elif path.exists():path.unlink()
         raise
     atomic(backup.parent/'latest.json',json.dumps({'backup':backup.name}).encode())
-    print(f'Applied one shared font to {len(plan)} files. Menus, body text, dialogue, maps, loading, signs, numbers and browser text are included.')
+    print(f'Applied one shared font to {len(plan)} files. Menus, body text, dialogue, maps, loading, signs, numbers are included.')
     print('Backup: '+str(backup.relative_to(root)))
     return check(root)
 
@@ -149,8 +130,6 @@ def check(root):
         text=path.read_text(encoding='utf-8-sig')
         for match in re.finditer(r'res://[^\s"\']+\.(?:ttf|otf)|ThemeDB\.fallback_font',text):
             if match.group()!=GLOBAL:failures.append(f'{path.relative_to(root)}: uncentralized font {match.group()}')
-    css=root/'src/styles.css'
-    if css.exists() and 'global-typeface:start' not in css.read_text(encoding='utf-8'):failures.append('Browser theme is not connected')
     for failure in failures:print('FAIL: '+failure)
     if not failures:print('GLOBAL_FONT_CHECK_PASS: no old font references or default-font bypasses remain.')
     return 1 if failures else 0

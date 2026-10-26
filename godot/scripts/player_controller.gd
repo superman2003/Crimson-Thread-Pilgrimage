@@ -54,6 +54,7 @@ var practice_energy := 0
 ## C04: the last cast skill lets a practice rack tell which skill hit it.
 var last_skill_cast := ""
 var last_skill_cast_msec := -100000
+var last_skill_cast_serial := 0
 var heal_reserved_practice := 0
 const PRACTICE_ENERGY_RADIUS := 520.0
 var crosscut_refund_paid := false
@@ -1024,6 +1025,7 @@ func cast_selected_skill(slot: int = -1) -> bool:
     _seal_present(String(payload.get("id", "cleave")), "prepare")
     last_skill_cast = String(payload.get("id", ""))
     last_skill_cast_msec = Time.get_ticks_msec()
+    last_skill_cast_serial += 1
     skill_cast.emit(String(payload.get("skill_id", payload.get("id", "thread_burst"))))
     return true
 
@@ -1333,6 +1335,7 @@ func _apply_special_skill() -> void:
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
                 if enemy.has_method("take_hit"):
                     enemy.take_hit(attack_damage, facing)
+                    if enemy.has_method("report_skill_contact"):enemy.report_skill_contact(self,id,last_skill_cast_serial)
 
 
 
@@ -1356,7 +1359,11 @@ func cast_tool(payload: Dictionary) -> bool:
                 field.queue_free()
     var projectile := Node2D.new()
     projectile.set_script(load("res://scripts/player_tool_effect.gd"))
-    projectile.set("payload", payload.duplicate(true))
+    var effect_payload:=payload.duplicate(true)
+    if bool(payload.get("skill_effect",false)):
+        effect_payload["practice_skill_id"]=String(active_skill.get("id",""))
+        effect_payload["practice_cast_serial"]=last_skill_cast_serial
+    projectile.set("payload", effect_payload)
     projectile.set("direction", facing)
     projectile.set("owner_player", self)
     get_parent().add_child(projectile)
@@ -1449,6 +1456,8 @@ func _apply_attack_hits() -> void:
             var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
             if not accepted:
                 continue
+            if not active_skill.is_empty() and node.has_method("report_skill_contact"):
+                node.report_skill_contact(self,String(active_skill.get("id","")),last_skill_cast_serial)
             if current_attack == &"hook_throw" and not hook_latch_played:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
                 hook_latch_played = true

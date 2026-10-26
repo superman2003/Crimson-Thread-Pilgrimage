@@ -7,11 +7,50 @@ func _ready() -> void:
     mouse_entered.connect(queue_redraw)
     mouse_exited.connect(queue_redraw)
     focus_entered.connect(queue_redraw)
+    focus_entered.connect(_request_focus_reveal)
     focus_exited.connect(queue_redraw)
     button_down.connect(queue_redraw)
     button_up.connect(queue_redraw)
     resized.connect(queue_redraw)
     theme_changed.connect(queue_redraw)
+    # Ellipsized labels retain their complete wording for mouse and keyboard.
+    resized.connect(_refresh_overflow_hint)
+    minimum_size_changed.connect(_refresh_overflow_hint)
+    _refresh_overflow_hint()
+
+var _automatic_tooltip := ""
+var _reveal_pending := false
+
+func _request_focus_reveal() -> void:
+    if _reveal_pending:return
+    _reveal_pending=true
+    call_deferred("_reveal_focus")
+
+func _reveal_focus() -> void:
+    _reveal_pending=false
+    if not is_inside_tree() or not is_visible_in_tree() or is_queued_for_deletion() or not has_focus():return
+    var ancestor:=get_parent()
+    while ancestor!=null:
+        if ancestor is ScrollContainer:
+            # Respect nested scroll ownership, including controls in grid cells.
+            ancestor.ensure_control_visible(self)
+        if ancestor is Window:break
+        ancestor=ancestor.get_parent()
+
+func _refresh_overflow_hint() -> void:
+    if not is_inside_tree():return
+    if not tooltip_text.is_empty() and tooltip_text!=_automatic_tooltip:return
+    var font:=get_theme_font("font")
+    var font_size:=get_theme_font_size("font_size")
+    var box:=get_theme_stylebox("normal")
+    var available:=maxf(0.0,size.x-box.get_minimum_size().x)
+    var width:=font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+    if width>available and not text.is_empty():
+        _automatic_tooltip=text
+        tooltip_text=_automatic_tooltip
+    else:
+        tooltip_text=""
+        _automatic_tooltip=""
 
 func _draw() -> void:
     var normal := get_theme_stylebox("normal") as StyleBoxFlat
