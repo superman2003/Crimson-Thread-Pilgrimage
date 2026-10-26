@@ -53,6 +53,7 @@ func rows() -> Array:
         var entry: Dictionary = raw.duplicate(true)
         entry.record_kind = "quest"
         records.append(entry)
+    records.append_array(preload("res://scripts/field_contracts.gd").entries(level,true))
     var result: Array = []
     for entry in records:
         var presentation: Dictionary = ui._journal_presentation(entry)
