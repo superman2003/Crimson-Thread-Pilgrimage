@@ -51,6 +51,12 @@ func _export_controls(parent: Control, source: Dictionary) -> void:
         row, "导出公开卡片JSON", func(): export_document("旅途公开分享卡.json", JSON.stringify(card, "  "))
     )
     UI.button(row, "导出校验分享码", func(): export_document("旅途公开分享码.txt", String(encoded.code)))
+    UI.button(row, "导出完整分页SVG", func():
+        var document: String = domain.svg(source)
+        if document.is_empty():
+            context.tell("公开内容超出排版限制，未输出不完整文件。")
+        else:
+            export_document("旅途公开分享卡-分页.svg", document))
     var code := UI.memo(parent, String(encoded.code), 110)
     code.editable = false
     UI.hint(parent, "可选中复制分享码。生成和导出均不会自动发送给任何人。")

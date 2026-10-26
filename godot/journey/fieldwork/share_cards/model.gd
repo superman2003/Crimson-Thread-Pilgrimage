@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/share_cards/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/share_cards/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const MILESTONES := preload("res://journey/fieldwork/milestones/model.gd")
@@ -451,7 +453,7 @@ static func risk_summary(payload: Dictionary) -> Array:
     return result
 
 
-static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var card := body(payload)
     var encoded := encode(card)
     var note := scrub(String(payload.note), 1000)
@@ -485,3 +487,14 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
         ),
         K.notice("比较范围", "只比较勾选后实际生成的公开内容，未勾选的私人字段不进入此差异。")
     ]
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(body(payload)) + [{"kind":"custom","title":"分享卡完整分页排版 · 交互预览","view":ADVANCED_VIEW,"data":{"body":body(payload)}}]
+
+
+static func svg(payload: Dictionary) -> String:
+    var card := body(payload)
+    if not valid_body(card) or not encode(card).ok:
+        return ""
+    return ADVANCED.svg(card)
