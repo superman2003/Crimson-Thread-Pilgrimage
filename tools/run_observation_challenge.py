@@ -22,7 +22,7 @@ def main():
     args = parser.parse_args()
     if not re.fullmatch(r'k(?:0[1-9]|1[0-9]|20)_[a-z_]+', args.module):
         parser.error('invalid challenge module name')
-    source = ROOT / 'godot' / 'journey' / 'k_trials' / args.module / 'test.gd'
+    source = ROOT / 'godot' / 'journey' / 'tests' / (args.module + '.gd')
     if not source.is_file():
         parser.error('challenge test does not exist at this revision')
     engine = shutil.which(args.engine)
@@ -39,7 +39,7 @@ def main():
             '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
         env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / 'user-data'))
         command = [engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project),
-                   '--script', f'res://journey/k_trials/{args.module}/test.gd']
+                   '--script', f'res://journey/tests/{args.module}.gd']
         try:
             result = subprocess.run(command, env=env, capture_output=True, text=True, timeout=90)
             output = result.stdout + result.stderr
