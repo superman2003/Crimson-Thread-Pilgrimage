@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/portfolio/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/portfolio/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const VIEW := preload("res://journey/fieldwork/portfolio/view.gd")
@@ -20,6 +22,7 @@ static func capture(snapshot: Dictionary) -> Dictionary:
         reserves[row.id] = 0.0
     return {
         "assets": assets.slice(0, LIMIT),
+        "integer_selected": assets.slice(0, 12).map(func(row: Dictionary): return String(row.id)),
         "prices": prices,
         "targets": targets,
         "reserves": reserves,
@@ -63,6 +66,14 @@ static func validate(payload: Dictionary) -> bool:
             var amount := float(payload[group][id])
             if amount < 0 or amount > 1000000 or (group == "prices" and amount < 0.01):
                 return false
+    if payload.has("integer_selected"):
+        if not payload.integer_selected is Array or payload.integer_selected.size() > 12:
+            return false
+        var integer_ids := {}
+        for id in payload.integer_selected:
+            if not id is String or not ids.has(id) or integer_ids.has(id):
+                return false
+            integer_ids[id] = true
     var protected := {}
     for id in payload.protected:
         if not ids.has(id) or protected.has(id):
@@ -76,6 +87,7 @@ static func fields(payload: Dictionary) -> Array:
     for row in payload.assets:
         choices.append({"id": row.id, "name": row.name})
     return [
+        {"id": "integer_selected", "name": "整数拟合范围（最多12项；旧记录请先勾选）", "kind": "checklist", "limit":12, "choices": choices},
         {
             "id": "prices", "default": 1.0,
             "name": "个人等价权重（不是价格）",
@@ -410,7 +422,7 @@ static func mass_balance(payload: Dictionary) -> Array:
     ]
 
 
-static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     var stats := concentration(payload)
     var alignment := target_alignment(payload)
     var plan := allocation(payload)
@@ -577,3 +589,7 @@ static func svg(payload: Dictionary) -> String:
     report.paragraph("假设损耗只作用于未保护、且超过个人最低储备的部分。它不代表死亡掉落、敌人掠夺或任何游戏规则。")
     report.paragraph("图中的数量来自此观察样本。未纳入的条目%d项；比较另一份观察时，应先确认个人权重和采集范围相同。" % payload.omitted)
     return report.finish("此报告不执行买卖、兑换、使用物资或修改主档。")
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload) + [{"kind":"custom","title":"物资整数目标与误差界 · 交互预览","view":ADVANCED_VIEW,"data":{"payload":payload}}]
