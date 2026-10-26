@@ -45,4 +45,8 @@ func run() -> void:
     await process_frame
     check(box.get_child_count() > 5, "native planning controls and graph render")
     box.free()
+
+    var nested := {"map_rooms":[{"id":"outer","layout_rect":[0,0,1000,1000]},{"id":"inner","layout_rect":[100,100,100,100]}], "hazards":[{"rect":[120,120,10,10]}], "save_points":[{"position":[130,130]}]}
+    check(GRAPH._risk(nested, nested.map_rooms[0], {}) == 0 and GRAPH._risk(nested, nested.map_rooms[1], {}) == 2, "nested hazard belongs only to canonical owning room")
+    check(not GRAPH._shrine(nested, nested.map_rooms[0]) and GRAPH._shrine(nested, nested.map_rooms[1]), "nested shrine belongs only to canonical owning room")
     finish()

@@ -57,7 +57,7 @@ static func build(configs: Dictionary, snapshot: Dictionary) -> Dictionary:
                 continue
             var key := String(region) + ":" + String(room.id)
             var risk := _risk(config, room, flags)
-            nodes[key] = {"id":key, "region":region, "room":room.id, "name":String(room.get("name", room.id)), "region_name":String(config.get("chapter_name", region)), "point":V.pair(rect.get_center()), "kind":String(room.get("kind", "room")), "risk":risk, "shrine":_shrine(config, rect), "boss":String(room.get("kind", "")) == "boss"}
+            nodes[key] = {"id":key, "region":region, "room":room.id, "name":String(room.get("name", room.id)), "region_name":String(config.get("chapter_name", region)), "point":V.pair(rect.get_center()), "kind":String(room.get("kind", "room")), "risk":risk, "shrine":_shrine(config, room), "boss":String(room.get("kind", "")) == "boss"}
     for region in configs:
         var config: Dictionary = configs[region]
         var opened: Dictionary = snapshot.get("regions", {}).get(region, {}).get("opened_shortcuts", {})
@@ -120,22 +120,22 @@ static func _risk(config: Dictionary, room: Dictionary, flags: Dictionary) -> in
     for hazard in config.get("hazards", []):
         var value: Variant = hazard.get("rect", [])
         if value is Array and value.size() == 4:
-            var center := Vector2(float(value[0]) + float(value[2]) * 0.5, float(value[1]) + float(value[3]) * 0.5)
-            if rect.has_point(center):
+            var area := Rect2(float(value[0]), float(value[1]), float(value[2]), float(value[3]))
+            if KNOWLEDGE.owner_room(config, area).get("id") == room.get("id"):
                 count += 2
     for enemy in config.get("enemy_spawns", []):
         var kind := String(enemy.get("kind", ""))
         if flags.get("journal_enemy_" + kind) != true:
             continue
         var point := V.point(enemy.get("position", []))
-        if point.is_finite() and rect.has_point(point):
+        if point.is_finite() and KNOWLEDGE.owner_room(config, Rect2(point, Vector2.ONE)).get("id") == room.get("id"):
             count += 1
     return count
 
-static func _shrine(config: Dictionary, room: Rect2) -> bool:
+static func _shrine(config: Dictionary, room: Dictionary) -> bool:
     for shrine in config.get("save_points", []):
         var point := V.point(shrine.get("position", []))
-        if point.is_finite() and room.has_point(point):
+        if point.is_finite() and KNOWLEDGE.owner_room(config, Rect2(point, Vector2.ONE)).get("id") == room.get("id"):
             return true
     return false
 

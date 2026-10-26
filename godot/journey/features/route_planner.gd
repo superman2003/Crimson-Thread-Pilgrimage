@@ -30,10 +30,16 @@ func valid(candidate: Dictionary) -> bool:
             return false
         if not record.get("preferences") is Dictionary or not record.get("note") is String or record.note.length() > 600:
             return false
+        var prefs: Dictionary = record.preferences
+        if not prefs.get("avoid_boss") is bool or not prefs.get("avoid_hazards") is bool:
+            return false
+        if not VALUES.number(prefs.get("risk_weight")) or float(prefs.risk_weight) < 0 or float(prefs.risk_weight) > 10:
+            return false
         ids[record.id] = true
     return VALUES.json_safe(candidate, 0, [VALUES.MAX_ITEMS])
 
 func _refresh_graph() -> void:
+    var previous := [source, target]
     var snapshot: Dictionary = context.snapshot()
     graph = GRAPH.build(GRAPH.configurations(snapshot), snapshot)
     var current := String(snapshot.get("region", "")) + ":" + String(snapshot.get("room", ""))
@@ -43,6 +49,8 @@ func _refresh_graph() -> void:
         source = ""
     if not graph.get("nodes", {}).has(target):
         target = ""
+    if previous != [source, target]:
+        status_message = ""
     alternatives = []
     if not source.is_empty() and not target.is_empty():
         alternatives = GRAPH.alternatives(graph, source, target, preferences)
@@ -65,7 +73,7 @@ func draw(parent: Control) -> void:
     var route: Dictionary = alternatives[route_index] if not alternatives.is_empty() else {}
     var view := VIEW.new()
     view.configure(graph, route.get("nodes", []))
-    view.room_selected.connect(func(id: String):target = id;route_index = 0;context.refresh())
+    view.room_selected.connect(func(id: String):target = id;status_message = "";route_index = 0;context.refresh())
     parent.add_child(view)
     UI.hint(parent, "圆环：已知钟龛 · 空心圆：起点 · 方框：终点；点击公开节点可选终点。")
     _result(parent, route)
@@ -95,14 +103,15 @@ func _selectors(parent: Control) -> void:
     var a := UI.pick(row, choices, source)
     UI.label(row, "终点")
     var b := UI.pick(row, choices, target)
-    UI.button(row, "推演", func():source = UI.chosen(a);target = UI.chosen(b);route_index = 0;context.refresh())
+    UI.button(row, "推演", func():source = UI.chosen(a);target = UI.chosen(b);status_message = "";route_index = 0;context.refresh())
     var actions := UI.row(parent)
-    UI.button(actions, "交换起终点", func():var temporary := source;source = target;target = temporary;context.refresh())
+    UI.button(actions, "交换起终点", func():var temporary := source;source = target;target = temporary;status_message = "";context.refresh())
     UI.button(actions, "以当前房间为起点", func():
         var snapshot: Dictionary = context.snapshot()
         var key := String(snapshot.get("region", "")) + ":" + String(snapshot.get("room", ""))
         if graph.nodes.has(key):
             source = key
+            status_message = ""
             context.refresh()
         else:
             context.tell("当前房间尚未完整补绘，不在推演图中。"))
@@ -176,6 +185,7 @@ func _bookmarks(parent: Control) -> void:
         UI.button(buttons, "按当前规则重算", func():
             source = String(record.source)
             target = String(record.target)
+            status_message = ""
             preferences = record.preferences.duplicate(true)
             context.refresh(), not known)
         UI.button(buttons, "删除参考", func():pending_remove = String(record.id);context.refresh())
