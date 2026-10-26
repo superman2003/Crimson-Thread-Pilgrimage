@@ -17,8 +17,10 @@ static func setup(level: Node) -> void:
 
 static func bind_room(level: Node, outline: Control, config: Dictionary, region: String, room: String) -> void:
     var description:=KNOWLEDGE.room_context(config,level.story_flags,region,room)
+    if description.is_empty():return
     outline.tooltip_text=description
     outline.focus_mode=Control.FOCUS_ALL
+    preload("res://scripts/map_room_navigation.gd").bind(outline)
     var reference: WeakRef=weakref(level.map_panel.get_node_or_null("MapRoomContext"))
     outline.mouse_entered.connect(func():show_context(reference,description))
     outline.focus_entered.connect(func():show_context(reference,description))
