@@ -1324,6 +1324,22 @@ func _prepare_world_checkpoint(global_snapshot: Dictionary) -> Dictionary:
         "checkpoint_id": active_save_point_id}, global_snapshot)
 
 
+## Build and persist a detached gameplay patch. Callers publish live owners only
+## after success; the returned candidate also lets death retain its explicit
+## unsaved field snapshot, matching the existing respawn contract.
+func _persist_world_change(patch: Dictionary) -> Dictionary:
+    var failure := {"ok":false,"reason":"归途记录尚未写入，请重试。"}
+    if not world_mode or world_loading or world_state==null or player==null:return failure
+    var snapshot: Dictionary={"inventory_counts":inventory_counts,"currency":currency_count,"story_flags":story_flags,
+        "current_region":String(config.get("id","")),"entry":active_spawn,"hp":player.hp,
+        "energy":maxi(0,player.energy-player.practice_energy),"build_state":build_system.serialize() if build_system!=null else {}}
+    snapshot.merge(patch,true)
+    var prepared:=_prepare_world_checkpoint(snapshot)
+    if not prepared.ok:return failure
+    failure["candidate"]=prepared.candidate
+    if world_save_blocked or world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate,world_save_path):return failure
+    return {"ok":true,"candidate":prepared.candidate}
+
 func _save_world() -> bool:
     world_save_capture_ok = false
     if not world_mode:
@@ -8083,17 +8099,22 @@ func _ground_is_hazardous(position_value: Vector2) -> bool:
 func _record_death_cache() -> void:
     if not world_mode or death_recorded or world_state == null:
         return
-    death_recorded = true
     var lost := int(currency_count / 2)
-    currency_count -= lost
     var recovery := last_safe_ground if last_safe_ground != Vector2.ZERO else active_spawn
-    # Boss attempts leave currency at the outside checkpoint, beyond the arena seal.
-    if boss_spawned:
-        recovery = active_spawn
-    world_state.capture_global({"death_cache": {"region_id": String(config.get("id", "")), "position": [recovery.x, recovery.y], "currency": lost}})
+    if boss_spawned:recovery=active_spawn
+    var cache: Dictionary={"region_id":String(config.get("id","")),"position":[recovery.x,recovery.y],"currency":lost}
+    var result:=_persist_world_change({"currency":currency_count-lost,"death_cache":cache})
+    if not result.has("candidate"):
+        _toast("这次失落未能记录，请检查归途记录。")
+        return
+    # Death is already occurring: retain one coherent unsaved snapshot so the
+    # ordinary respawn save can retry it. Claim/purchase paths never do this.
+    world_state.data=result.candidate
+    currency_count=int(result.candidate.currency)
+    death_recorded=true
     _spawn_death_cache()
-    _save_world()
-    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。")
+    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。" if result.ok else "这次失落已暂记在旅途中，存档尚未写入；请稍后保存。")
+
 
 func _spawn_death_cache() -> void:
     if death_cache_area != null and is_instance_valid(death_cache_area):
@@ -8130,14 +8151,17 @@ func _spawn_death_cache() -> void:
     death_cache_area = area
 
 func _recover_death_cache(area: Area2D) -> void:
-    if not world_mode or player.hp <= 0 or world_state == null:
-        return
-    var cache: Dictionary = world_state.data.get("death_cache", {})
-    _add_currency(int(cache.get("currency", 0)))
-    world_state.capture_global({"death_cache": {}})
-    area.queue_free()
-    death_cache_area = null
-    _save_world()
+    if not world_mode or player==null or player.hp<=0 or world_state==null or world_loading or world_save_blocked:return
+    if not is_instance_valid(area) or area!=death_cache_area or area.is_queued_for_deletion() or not area.is_inside_tree():return
+    var cache: Dictionary=world_state.data.get("death_cache",{})
+    if not WORLD_STATE_SCRIPT._valid_death_cache(cache) or cache.is_empty() or int(cache.currency)<=0:return
+    if String(cache.region_id)!=String(config.get("id","")) or area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
+    if area.position.distance_to(_vec2(cache.position))>1.0:return
+    var result:=_persist_world_change({"currency":currency_count+int(cache.currency),"death_cache":{}})
+    if not result.ok:_toast("归途结尚未写入；碎钱与结保持原状，可再次找回。");return
+    world_state.data=result.candidate
+    currency_count=int(result.candidate.currency)
+    area.queue_free();death_cache_area=null
     _toast("归途结已收回，遗留碎钱回到行囊。")
     _refresh_hud()
 
