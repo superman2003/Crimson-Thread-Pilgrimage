@@ -22,7 +22,7 @@ class RunnerContracts(unittest.TestCase):
             root = Path(directory)
             for name in ('journey', 'scripts', 'data'):
                 (root / 'godot' / name).mkdir(parents=True)
-            source = root / 'godot/journey/k_trials' / MODULE / 'test.gd'
+            source = root / 'godot/journey/tests' / (MODULE + '.gd')
             source.parent.mkdir(parents=True)
             source.write_text('extends SceneTree\n')
             args = ['runner', '--engine', sys.executable, '--module', MODULE, '--log-dir', str(root / 'logs')]
