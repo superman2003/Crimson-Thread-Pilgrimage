@@ -15,8 +15,13 @@ concurrency:
 
 jobs:
   runtime:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     runs-on: ubuntu-24.04
-    # Keep the full suite together; individual strict budgets are unchanged.
+    # All registered suites run exactly once across three isolated jobs.
+    # Individual strict budgets and completion/error contracts are unchanged.
     # 60 min since the creature attack atlases (+760 poses, 92 -> 129 MB of
     # lossless textures) slowed software-GL decoding on the runner.
     timeout-minutes: 60
@@ -38,6 +43,7 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Validate JavaScript and chapter structure
         run: |
+          python3 tools/test_ci_shards.py
           python3 tools/test_integration_workflow.py
           npm test
           npm run test:campaign
@@ -64,12 +70,12 @@ jobs:
       - name: Run chapter, preparation, combat, dialogue and physics regressions
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
-          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs"
+          npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs" --shard-index "${{ matrix.shard }}" --shard-count 3
       - name: Preserve regression logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: godot-regression-runtime-logs
+          name: godot-regression-runtime-logs-${{ matrix.shard }}
           path: ${{ runner.temp }}/regression-logs
           if-no-files-found: ignore
 
