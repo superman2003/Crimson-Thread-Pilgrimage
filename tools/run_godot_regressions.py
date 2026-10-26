@@ -15,7 +15,7 @@ from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'cartographer_trade challenge_claim practice_coach return_knot_transaction lift_service save_desk craft_cart audio_landmarks map_directory controller_comfort journal_desk loadout_workbench resupply_plan world_rim world_wayfinding world_passage world_passage_network world_route_manifest_walk_lower world_route_manifest_walk_upper world_route_manifest_integration audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_gameplay_plan world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement goal_desk '
+    'pickup_ledger cartographer_trade challenge_claim practice_coach return_knot_transaction lift_service save_desk craft_cart audio_landmarks map_directory controller_comfort journal_desk loadout_workbench resupply_plan world_rim world_wayfinding world_passage world_passage_network world_route_manifest_walk_lower world_route_manifest_walk_upper world_route_manifest_integration audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_gameplay_plan world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement goal_desk '
     'application_close character_art_prewarm texture_request_exit background_texture_contention expanded_character_motion enemy_lifecycle_regression enemy_effect_lifetime boss_skill_art combat_visual_budget enemy_visibility minor_enemy_skill_art enemy_atlas_integrity world_material hero_animation cave_exploration cave_route_walk '
     'chapter_route_regression ch01_room_reconstruction pilgrimage_merge_regression pilgrimage_review_regression '
     'all_chapters_demo pilgrimage_overhaul demo ch02_demo inventory_map boss_trial '
@@ -59,6 +59,13 @@ def preserve_fixture_sources(suite):
         os.utime(path, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
 
 
+def select_shard(suites, index, count):
+    """One-based round-robin partition; never change per-suite validation."""
+    if count < 1 or index < 1 or index > count or count > len(suites):
+        raise ValueError('shard index/count must select a nonempty partition')
+    return suites[index - 1::count]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
@@ -66,6 +73,8 @@ def main():
     parser.add_argument('--timeout', type=float, default=180)
     parser.add_argument('--log-dir', type=Path)
     parser.add_argument('--software-gl', action='store_true', help='Run all suites under real llvmpipe GL; avoids the Godot 4.6 dummy texture RID race without hiding errors.')
+    parser.add_argument('--shard-index', type=int, default=1)
+    parser.add_argument('--shard-count', type=int, default=1)
     args = parser.parse_args()
     engine = shutil.which(args.engine)
     if not engine:
@@ -73,6 +82,13 @@ def main():
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('--timeout must be finite and positive')
     suites = args.suite or DEFAULT_SUITES + NARRATIVE_SUITES
+    if args.suite and (args.shard_index != 1 or args.shard_count != 1):
+        parser.error('--suite and CI sharding cannot be combined')
+    try:
+        suites = select_shard(suites, args.shard_index, args.shard_count)
+    except ValueError as error:
+        parser.error(str(error))
+    print(f'GODOT_SHARD index={args.shard_index} count={args.shard_count} suites={len(suites)}', flush=True)
     # Reject the whole request before running any suite or creating log files.
     try:
         for suite in suites:

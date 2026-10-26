@@ -619,6 +619,7 @@ var world_prefetch: WORLD_PREFETCH
 var region_tweens: Array[Tween] = []
 var world_narrative: WORLD_NARRATIVE_SCRIPT
 var world_collected_ids: Dictionary = {}
+var world_pickup_leases: Dictionary = {}
 var world_catalog: Dictionary = {}
 var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
@@ -1315,27 +1316,26 @@ func player_world_position() -> Vector2:
     return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
 
 
-func _prepare_world_checkpoint(global_snapshot: Dictionary) -> Dictionary:
-    var region_id := String(config.get("id", ""))
-    return world_state.prepare_checkpoint(region_id, {
-        "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
-        "visited_rooms": visited_rooms, "boss_defeated": demo_complete,
-        "boss_unlocked": boss_unlocked, "shortcut_open": shortcut_open,
-        "bell_count": bell_count, "checkpoint": active_spawn,
-        "checkpoint_id": active_save_point_id}, global_snapshot)
+func _prepare_world_checkpoint(global_snapshot: Dictionary, region_patch: Dictionary={}) -> Dictionary:
+    var region_id:=String(config.get("id",""))
+    var region_snapshot: Dictionary={"collected_ids":world_collected_ids,"opened_shortcuts":opened_shortcuts,
+        "visited_rooms":visited_rooms,"boss_defeated":demo_complete,"boss_unlocked":boss_unlocked,
+        "shortcut_open":shortcut_open,"bell_count":bell_count,"checkpoint":active_spawn,"checkpoint_id":active_save_point_id}
+    region_snapshot.merge(region_patch,true)
+    return world_state.prepare_checkpoint(region_id,region_snapshot,global_snapshot)
 
 
 ## Build and persist a detached gameplay patch. Callers publish live owners only
 ## after success; the returned candidate also lets death retain its explicit
 ## unsaved field snapshot, matching the existing respawn contract.
-func _persist_world_change(patch: Dictionary) -> Dictionary:
+func _persist_world_change(patch: Dictionary, region_patch: Dictionary={}) -> Dictionary:
     var failure := {"ok":false,"reason":"归途记录尚未写入，请重试。"}
     if not world_mode or world_loading or world_state==null or player==null:return failure
     var snapshot: Dictionary={"inventory_counts":inventory_counts,"currency":currency_count,"story_flags":story_flags,
         "current_region":String(config.get("id","")),"entry":active_spawn,"hp":player.hp,
         "energy":maxi(0,player.energy-player.practice_energy),"build_state":build_system.serialize() if build_system!=null else {}}
     snapshot.merge(patch,true)
-    var prepared:=_prepare_world_checkpoint(snapshot)
+    var prepared:=_prepare_world_checkpoint(snapshot,region_patch)
     if not prepared.ok:return failure
     failure["candidate"]=prepared.candidate
     if world_save_blocked or world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate,world_save_path):return failure
@@ -4942,7 +4942,8 @@ func _collectible(data: Dictionary) -> void:
     area.set_meta("message", String(data.get("label", "Bell key acquired.")))
     area.set_meta("kind", collectible_kind)
     area.set_meta("item_id", item_id)
-    area.set_meta("amount", int(data.get("amount", 1)))
+    var amount_value: Variant=data.get("amount",1)
+    area.set_meta("amount",int(amount_value) if WORLD_STATE_SCRIPT._whole(amount_value) else 0)
     area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
     area.set_meta("object_id", "collectible/" + area.name)
 
@@ -4964,6 +4965,12 @@ func _collectible(data: Dictionary) -> void:
     else:
         area.body_entered.connect(_on_collectible_body_entered.bind(area))
     add_child(area)
+    if world_mode:
+        var instance_id:=area.get_instance_id()
+        world_pickup_leases[instance_id]={"node":weakref(area),"id":String(area.name),"region":String(config.get("id","")),
+            "kind":collectible_kind,"item":item_id,"amount":data.get("amount",1),"point":area.position,
+            "ability_name":String(data.get("ability_name",data.get("label",""))),"message":String(data.get("label","Collected."))}
+        area.tree_exiting.connect(_forget_world_pickup.bind(instance_id))
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -6218,7 +6225,71 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
         _refresh_hud()
 
 
+func _forget_world_pickup(instance_id: int) -> void:
+    world_pickup_leases.erase(instance_id)
+
+func _pickup_retry(area: Area2D, item_id: String, reason: String) -> void:
+    area.set_meta("manual_pickup",true)
+    area.set_meta("interaction_label","重试收取 · "+("碎钱" if item_id=="currency" else _item_display_name(item_id)))
+    if not area.is_in_group("interactable"):area.add_to_group("interactable")
+    _toast(reason)
+
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
+    if not is_instance_valid(area) or area.is_queued_for_deletion() or world_loading or body!=player:return
+    if not world_mode:_on_collectible_body_entered_legacy(body,area);return
+    if String(area.get_meta("kind",""))=="death_cache":_recover_death_cache(area);return
+    if player==null or player.hp<=0 or chapter_transitioning or not area.is_inside_tree():return
+    var source: Dictionary=world_pickup_leases.get(area.get_instance_id(),{})
+    if source.is_empty() or source.node.get_ref()!=area or source.region!=String(config.get("id","")):return
+    if area.get_parent()!=self or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
+    if area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
+    if bool(world_collected_ids.get(String(source.id),false)):area.queue_free();return
+    if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
+        _pickup_retry(area,String(source.item),"这份物品记录无效，尚未收取。")
+        return
+    var currency_pickup: bool=String(source.kind)=="currency"
+    var flags:=story_flags.duplicate(true)
+    var whisper_lines: Array[String]=[]
+    if not currency_pickup:
+        for value in config.get("whispers",[]):
+            if not value is Dictionary:continue
+            var id:=String(value.get("id",""))
+            if id.is_empty() or String(value.get("trigger","enter_room"))!="pickup_item" or String(value.get("item_id",""))!=String(source.item) or bool(flags.get("whisper_"+id,false)):continue
+            flags["whisper_"+id]=true;whisper_lines.append(String(value.get("line","")))
+    var items: Dictionary={}
+    if not currency_pickup:items[String(source.item)]=int(source.amount)
+    var plan:=_prepare_inventory_progress(items,flags,currency_count+(int(source.amount) if currency_pickup else 0))
+    if not plan.ok:_pickup_retry(area,String(source.item),"物品记录尚未写入，留在原地可重试收取。");return
+    # Story/whisper completion used to settle the wish board through nested
+    # _set_story_flag saves. Include any earned claim in this same candidate.
+    for wish in _wish_board_entries():
+        var target:=String(wish.get("target_flag",""))
+        var claim:=_wish_claim_flag(wish)
+        if not target.is_empty() and bool(plan.flags.get(target,false)) and not bool(plan.flags.get(claim,false)):
+            plan.flags[claim]=true;plan.currency=int(plan.currency)+maxi(0,int(wish.get("reward_currency",0)))
+    var testimony_completed:=not bool(story_flags.get("true_ending_testimony_complete",false)) and bool(plan.flags.get("true_ending_testimony_complete",false))
+    var collected:=world_collected_ids.duplicate(true);collected[String(source.id)]=true
+    var next_bells:=bell_count+(0 if currency_pickup else 1)
+    var result:=_persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build},
+        {"collected_ids":collected,"bell_count":next_bells})
+    if not result.ok:_pickup_retry(area,String(source.item),"拾取记录未写入；物件、能力与资源保持原状，按交互键重试。");return
+    _publish_inventory_progress(plan,result.candidate)
+    world_collected_ids=collected;bell_count=next_bells
+    if testimony_completed:_play_sfx("ui_testimony_complete",-4.0)
+    if currency_pickup:_play_sfx_random(["pickup_coins_1","pickup_coins_2"],-10.0)
+    else:
+        if String(source.kind)=="item":
+            unlocked_abilities[String(source.item)]=String(source.ability_name) if not String(source.ability_name).is_empty() else String(source.item)
+            _play_sfx("ui_ability_unlock",-4.0);_refresh_ability_gates(true)
+        for line in whisper_lines:_toast(line)
+        _announce_lore_pickup(String(source.item));_play_sfx("pickup_cloth",-12.0)
+    _play_sfx("pickup")
+    if metsys_bridge!=null:metsys_bridge.store_object(area)
+    _toast(String(source.message));_spawn_pickup_effect(area.global_position)
+    area.queue_free();_refresh_hud();_refresh_wish_board_overlay()
+    if active_overlay=="backpack":_refresh_backpack_overlay()
+
+func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
     if world_loading:
         return
     if body != player or area.is_queued_for_deletion():
@@ -6275,26 +6346,29 @@ func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
             if bool(story_flags.get("action_gate_" + unlock_id, false)):
                 _unlock_ability_gate(gate_id)
             continue
-        if int(inventory_counts.get(required_ability, 0)) > 0:
+        if _owns_permanent_item(required_ability):
             var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
             _unlock_ability_gate(gate_id, unlock_sfx)
     _sync_player_abilities()
     _refresh_world_portals()
 
 
+func _owns_permanent_item(item_id: String) -> bool:
+    var count: Variant=inventory_counts.get(item_id,0)
+    return WORLD_STATE_SCRIPT._whole(count) and int(count)>0
+
 func _sync_player_abilities() -> void:
     if player == null:
         return
     var gated_start := bool(config.get("ability_gated_start", false))
-    player.dash_unlocked = (not gated_start) or inventory_counts.has("thread_dash")
-    player.wall_grip_unlocked = (not gated_start and not world_mode) or inventory_counts.has("silk_wall_grip")
-    player.dash_unlocked = (not gated_start and not world_mode) or inventory_counts.has("thread_dash")
-    player.double_jump_unlocked = int(inventory_counts.get("double_thread_jump", 0)) > 0
-    player.thread_grapple_unlocked = int(inventory_counts.get("echo_hook", 0)) > 0
-    player.bell_guard_unlocked = int(inventory_counts.get("bell_guard", 0)) > 0
-    player.thorn_downstrike_unlocked = int(inventory_counts.get("thorn_downstrike", 0)) > 0
-    player.lantern_phase_unlocked = int(inventory_counts.get("lantern_phase", 0)) > 0
-    player.crown_resonance_unlocked = int(inventory_counts.get("crown_resonance", 0)) > 0
+    player.wall_grip_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("silk_wall_grip")
+    player.dash_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("thread_dash")
+    player.double_jump_unlocked = _owns_permanent_item("double_thread_jump")
+    player.thread_grapple_unlocked = _owns_permanent_item("echo_hook")
+    player.bell_guard_unlocked = _owns_permanent_item("bell_guard")
+    player.thorn_downstrike_unlocked = _owns_permanent_item("thorn_downstrike")
+    player.lantern_phase_unlocked = _owns_permanent_item("lantern_phase")
+    player.crown_resonance_unlocked = _owns_permanent_item("crown_resonance")
     _sync_player_build()
     if world_mode:
         for anchor in get_tree().get_nodes_in_group("grapple_anchor"):
@@ -6430,9 +6504,10 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache", "history"].has(kind):
+        var manual_pickup:=bool(area.get_meta("manual_pickup",false))
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache", "history", "challenge_shrine", "hunt_track"].has(kind) and not manual_pickup:
             continue
-        if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
+        if kind in ["item","currency","bell_key"] and not manual_pickup:
             continue
         var distance: float = player.global_position.distance_squared_to(area.global_position)
         if not is_finite(distance) or distance > radius * radius:
