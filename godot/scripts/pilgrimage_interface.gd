@@ -233,6 +233,7 @@ func finish_bind() -> void:
     set_process_input(true)
     preload("res://scripts/goal_desk.gd").install(self)
     preload("res://scripts/expedition_desk.gd").install(self)
+    preload("res://scripts/practice_desk.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
