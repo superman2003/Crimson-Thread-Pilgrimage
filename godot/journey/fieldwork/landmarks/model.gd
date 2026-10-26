@@ -67,7 +67,7 @@ static func validate(payload: Dictionary) -> bool:
             return false
     var known := {}
     for marker in payload.markers:
-        if not marker is Dictionary or not marker.get("id") is String or known.has(marker.id):
+        if not marker is Dictionary or not marker.get("id") is String or marker.id.is_empty() or known.has(marker.id):
             return false
         if (
             not marker.get("name") is String
@@ -176,7 +176,7 @@ static func sector_counts(payload: Dictionary) -> Dictionary:
         result[name] = 0
     result["重合"] = 0
     for row in rows(payload):
-        if row["距离"] <= float(payload.radius):
+        if row.bearing_defined and row["距离"] <= float(payload.radius):
             result[row["方向"]] += 1
     return result
 
@@ -258,7 +258,7 @@ static func label_layout(payload: Dictionary) -> Array:
                 "距离": row["距离"],
                 "相对角度": row["相对角度"],
                 "标签展示": "靠近地标占用同一角距" if overlapping else "可展示",
-                "position":
+                "归一化横坐标":
                 projection(float(row["相对角度"]), float(payload.fov), String(payload.projection))
             }
         )
@@ -382,7 +382,7 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
         K.table("各方向最近地标", ["方向", "最近地标", "距离", "方位度"], nearest_by_sector(payload)),
         K.table("朝向窗口比较", ["朝向度", "方向", "窗口内地标", "最近距离"], heading_sweep(payload)),
         K.table(
-            "方位标签布局", ["地标", "距离", "相对角度", "标签展示"], label_layout(payload), "标签重叠只是图面布局，与世界遮挡无关。"
+            "方位标签布局", ["地标", "距离", "相对角度", "归一化横坐标", "标签展示"], label_layout(payload), "标签重叠只是图面布局，与世界遮挡无关。"
         ),
         K.table("相近方位地标", ["地标甲", "地标乙", "角间距", "标签阈值"], pair_separation(payload)),
         K.table("最大角间隔", ["起侧地标", "终侧地标", "角间隔", "中线方向"], angular_gaps(payload).slice(0, 8)),
@@ -417,11 +417,12 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
 static func compare(a: Dictionary, b: Dictionary) -> Array:
     var old := {}
     for row in rows(a):
-        old[row.id] = row
+        old[String(a.region) + ":" + String(row.id)] = row
     var changes := []
     for row in rows(b):
-        if old.has(row.id):
-            var previous: Dictionary = old[row.id]
+        var key := String(b.region) + ":" + String(row.id)
+        if old.has(key):
+            var previous: Dictionary = old[key]
             changes.append(
                 {
                     "地标": row["地标"],
@@ -495,11 +496,17 @@ static func recommend_windows(payload: Dictionary) -> Array:
     var candidates := []
     var remaining := {}
     for row in rows(payload):
-        if row["距离"] <= float(payload.radius):
+        if row.bearing_defined and row["距离"] <= float(payload.radius):
             remaining[row.id] = true
-    for step in 24:
+    var headings := [float(payload.heading)]
+    for row in rows(payload):
+        if row.bearing_defined and remaining.has(row.id):
+            headings.append(float(row["方位度"]))
+            headings.append(fposmod(float(row["方位度"]) + float(payload.fov) * 0.5, 360))
+            headings.append(fposmod(float(row["方位度"]) - float(payload.fov) * 0.5, 360))
+    for heading in headings:
         var sample := payload.duplicate(true)
-        sample.heading = float(step) * 15
+        sample.heading = heading
         var ids := []
         for row in visible(sample):
             ids.append(row.id)
@@ -541,6 +548,9 @@ static func uncertainty_windows(payload: Dictionary) -> Array:
     var result := []
     var tolerance := float(payload.uncertainty)
     for row in rows(payload):
+        if not row.bearing_defined:
+            result.append({"地标":row["地标"],"相对角度":"未定义","角误差假设":tolerance,"窗口稳定性":"方位未定义"})
+            continue
         var delta := absf(float(row["相对角度"]))
         var half := float(payload.fov) * 0.5
         var stable := delta + tolerance <= half
@@ -558,7 +568,7 @@ static func range_bands(payload: Dictionary) -> Array:
     var groups := [[], [], [], []]
     for row in rows(payload):
         var ratio := float(row["距离"]) / float(payload.radius)
-        var index := mini(3, int(floor(ratio * 3)))
+        var index := 3 if ratio > 1.0 else mini(2, int(floor(ratio * 3)))
         groups[index].append(float(row["距离"]))
     var labels := ["半径前三分之一", "半径中段", "半径外三分之一", "参考半径以外"]
     var result := []
