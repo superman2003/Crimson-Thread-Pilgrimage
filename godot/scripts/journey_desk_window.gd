@@ -6,6 +6,7 @@ var status: Label
 func _ready() -> void:
     min_size = Vector2i(960, 610)
     column = VBoxContainer.new()
+    column.custom_minimum_size.x = 920
     column.add_theme_constant_override("separation", 9)
     add_child(column)
     get_ok_button().text = "返回"
@@ -14,7 +15,7 @@ func text(parent: Node, value: String, height: float = 0.0) -> Label:
     var label := Label.new()
     label.text = value
     label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    label.custom_minimum_size = Vector2(0, height)
+    label.custom_minimum_size = Vector2(880, height)
     label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     parent.add_child(label)
     return label
