@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/save_diff/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/save_diff/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const MILESTONES := preload("res://journey/fieldwork/milestones/model.gd")
@@ -598,7 +600,7 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     ]
 
 
-static func compare(a: Dictionary, b: Dictionary) -> Array:
+static func _before_advanced_compare(a: Dictionary, b: Dictionary) -> Array:
     var left := masked(a)
     var right := b.duplicate(true)
     right.include_player = a.include_player
@@ -627,3 +629,15 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
         K.table("字段变更", ["操作", "字段", "分类", "记录值", "当前值"], rows),
         K.notice("变更边界", "空值与字段不存在分别处理；布尔值与数字不会互相混同。忽略项和数值容差只影响此分析。多重集合按规范化值精确比较，保留重复数量。")
     ]
+
+
+static func compare(a: Dictionary, b: Dictionary) -> Array:
+    var original := _before_advanced_compare(a, b)
+    var left := masked(a)
+    var target := b.duplicate(true)
+    target.include_player = a.include_player
+    target.include_story = a.include_story
+    var changes := difference(left, masked(target), a)
+    if not changes.ok:
+        return original
+    return original + ADVANCED.sections(left, changes.ops, apply) + [{"kind":"custom","title":"观察差异逆向复演审计 · 交互预览","view":ADVANCED_VIEW,"data":{"before":left,"ops":changes.ops,"apply":apply}}]
