@@ -1,5 +1,7 @@
 # Control and save-lifecycle stability upgrade
 
+> Historical verification snapshot: the browser prototype has since been removed. Current Godot entry points and validation commands are documented in the root README.
+
 This consolidation preserves main `3bd62d199662fcd3a248e8d7a849ab00cea6c26a`, the
 World preparation/preflight stack through corrected PR #35 commit `4c1b1d2`, and
 the independent control/save upgrade from PR #36. It uses a two-parent merge;
