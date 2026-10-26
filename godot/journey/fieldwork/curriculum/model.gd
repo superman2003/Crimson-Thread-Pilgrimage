@@ -3,6 +3,7 @@ const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const PROMPT := preload("res://scripts/input_prompt_bindings.gd")
 const VIEW := preload("res://journey/fieldwork/curriculum/view.gd")
+const BUILD := preload("res://scripts/build_system.gd")
 const BASE := {
     "move_left": "向左移动",
     "move_right": "向右移动",
@@ -36,6 +37,11 @@ static func known_actions(snapshot: Dictionary) -> Array:
         if K.flag(row.get("unlocked")) and row.get("id") == snapshot.get("build", {}).get("skill"):
             skill = row
             labels["skill_1"] = String(row.get("name", "当前线技"))
+    var clone := BUILD.new()
+    if clone.restore(snapshot.get("build_state", {})).ok:
+        var effective: Dictionary = clone.selected_skill()
+        if not effective.is_empty():
+            skill = effective
     var result := []
     for id in labels:
         if not InputMap.has_action(id):
@@ -43,6 +49,19 @@ static func known_actions(snapshot: Dictionary) -> Array:
         var cost := 0.0
         var cooldown := 0.0
         var preparation := 0.0
+        var rate := 0.0
+        if id == "bell_guard":
+            cost = 8.0
+            cooldown = 0.8
+            preparation = 0.42
+        elif id == "crown_resonance":
+            cost = 20.0
+            cooldown = 1.4
+        elif id == "lantern_phase":
+            cost = 8.0
+            rate = 24.0
+        elif id == "dash":
+            cooldown = 0.6
         if id == "skill_1":
             cost = K.safe_number(skill.get("energy_cost"))
             cooldown = K.safe_number(skill.get("cooldown"))
@@ -68,6 +87,7 @@ static func known_actions(snapshot: Dictionary) -> Array:
                 "binding": PROMPT.action_label(id),
                 "bindings": bindings,
                 "cost": cost,
+                "cost_rate": rate,
                 "cooldown": cooldown,
                 "duration": preparation,
                 "movement": id in ["move_left", "move_right", "jump", "dash", "hook"]
@@ -148,6 +168,8 @@ static func validate(payload: Dictionary) -> bool:
         for field in ["cost", "cooldown", "duration"]:
             if not V.number(row.get(field)) or row[field] < 0 or row[field] > 10000:
                 return false
+        if not V.number(row.get("cost_rate", 0)) or float(row.get("cost_rate", 0)) < 0 or float(row.get("cost_rate", 0)) > 10000:
+            return false
         ids[row.id] = true
     for id in payload.sequence:
         if not id is String or not ids.has(id):
@@ -217,7 +239,8 @@ static func timeline(payload: Dictionary) -> Array:
             var duration := maxf(float(payload.waits.get(id, 0.5)), float(action.duration))
             var ready := float(last.get(id, -100000)) + float(action.cooldown)
             var early := maxf(0, ready - time)
-            var available := energy >= float(action.cost)
+            var cost := float(action.cost) + float(action.get("cost_rate", 0)) * duration
+            var available := energy >= cost and early <= 0
             rows.append(
                 {
                     "轮次": repetition + 1,
@@ -227,15 +250,16 @@ static func timeline(payload: Dictionary) -> Array:
                     "开始秒": time,
                     "结束秒": time + duration,
                     "过早于冷却秒": early,
-                    "假设动作费用": action.cost,
+                    "假设动作费用": cost if available else 0.0,
                     "假设能量前": energy,
                     "假设可承受": available,
                     "id": id,
                     "kind": "action"
                 }
             )
-            energy = maxf(0, energy - float(action.cost))
-            last[id] = time
+            if available:
+                energy -= cost
+                last[id] = time
             time += duration
         if repetition < int(payload.repeats) - 1:
             rows.append(
@@ -281,11 +305,11 @@ static func transitions(payload: Dictionary) -> Array:
     var actions := index(payload)
     var counts := {}
     for i in range(1, payload.sequence.size()):
-        var key := String(payload.sequence[i - 1]) + "|" + String(payload.sequence[i])
+        var key := JSON.stringify([payload.sequence[i - 1], payload.sequence[i]])
         counts[key] = int(counts.get(key, 0)) + int(payload.repeats)
     var result := []
     for key in counts:
-        var pair := String(key).split("|")
+        var pair: Array = JSON.parse_string(key)
         result.append(
             {
                 "前动作": actions[pair[0]].name,
@@ -390,7 +414,7 @@ static func live_bindings(payload: Dictionary, snapshot: Dictionary) -> Array:
                 "动作": action.name,
                 "记录按键": action.binding,
                 "当前按键": String(row.get("binding", "当前已获动作未包含")),
-                "是否变化": row.get("binding", "") != action.binding
+                "是否变化": binding_signature(row.get("bindings", [])) != binding_signature(action.bindings)
             }
         )
     return result
@@ -477,3 +501,9 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
             ]
         )
     ]
+
+
+static func binding_signature(bindings: Array) -> String:
+    var values := bindings.duplicate()
+    values.sort()
+    return JSON.stringify(values)

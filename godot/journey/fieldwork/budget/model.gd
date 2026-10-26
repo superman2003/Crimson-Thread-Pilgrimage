@@ -66,16 +66,18 @@ static func validate(payload: Dictionary) -> bool:
             or not row.get("name") is String
         ):
             return false
-        if not V.count(row.get("currency")) or not row.get("materials") is Dictionary:
+        if not V.count(row.get("currency")) or not row.get("materials") is Dictionary or row.materials.size() > 100:
             return false
         for id in row.materials:
             if not id is String or not V.count(row.materials[id]):
                 return false
             materials[id] = true
         ids[row.id] = true
+    var selected := {}
     for id in payload.plan:
-        if not id is String or not ids.has(id):
+        if not id is String or not ids.has(id) or selected.has(id):
             return false
+        selected[id] = true
     for group in ["income", "expenses"]:
         if not payload.get(group) is Dictionary or payload[group].size() > STAGES:
             return false
@@ -127,7 +129,7 @@ static func fields(payload: Dictionary) -> Array:
             "kind": "ordered",
             "choices": recipes,
             "limit": STAGES,
-            "allow_duplicates": true
+            "allow_duplicates": false
         },
         {
             "id": "income",
@@ -258,7 +260,7 @@ static func required_start(payload: Dictionary) -> float:
     var minimum := 0.0
     for row in schedule(sample):
         minimum = minf(minimum, float(row["期末"]) - float(payload.reserve))
-    return maxf(float(payload.reserve), -minimum)
+    return maxf(0, -minimum)
 
 
 static func cost_sensitivity(payload: Dictionary) -> Array:

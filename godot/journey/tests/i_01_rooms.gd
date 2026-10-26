@@ -38,3 +38,22 @@ func domain_checks(context: RefCounted) -> void:
         RECORDS.semantic_key(9007199254740993) != RECORDS.semantic_key(9007199254740992.0),
         "large exact integer is not rounded into another number"
     )
+
+    payload.rooms[0].kind = "corridor"
+    payload.focus = "corridor"
+    check(M.validate(payload) and not M.rows(payload).is_empty(), "captured corridor type can be selected and persisted")
+    var renamed := payload.duplicate(true)
+    renamed.rooms[0].objective = "新目标"
+    check(not M.compare(payload, renamed)[1].rows.is_empty(), "non-area room metadata appears in comparisons")
+    renamed.region += "_other"
+    check(M.compare(payload, renamed)[0].rows.size() == payload.rooms.size(), "same room ID in a different region is a distinct observation")
+    var records := RECORDS.fresh()
+    var saved := RECORDS.append(records, "房间", payload)
+    var exported := RECORDS.export_package(saved, "rooms", context.store.scope)
+    var parsed := RECORDS.import_package(exported, "rooms", context.store.scope, M.validate)
+    check(parsed.ok, "record export round-trips")
+
+    saved.records[0].created = 100
+    saved.records[0].updated = 200
+    var imported := RECORDS.merge(records, saved)
+    check(imported.ok and imported.data.records[0].created == 100 and imported.data.records[0].updated == 200, "import retains original observation timestamps")
