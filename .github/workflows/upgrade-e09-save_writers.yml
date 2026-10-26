@@ -1,0 +1,82 @@
+name: Upgrade e09 save_writers
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/world_state.gd'
+      - 'godot/tests/upgrade_e09_save_writers.gd'
+      - '.github/workflows/upgrade-e09-save_writers.yml'
+permissions:
+  contents: read
+concurrency:
+  group: upgrade-e09-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install pinned Godot and software GL
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          echo "cecd0cb6b55e931318a9d7237dc4197d69ea914966787a454808523626e2789f  $RUNNER_TEMP/godot.zip" | sha256sum --check
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          echo "GODOT=$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" >> "$GITHUB_ENV"
+      - name: Validate repository and import resources
+        run: |
+          npm test
+          npm run test:campaign
+          python3 tools/run_godot_import.py --engine "$GODOT" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/upgrade-e09/import"
+      - name: Existing behavior regression
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$GODOT" --software-gl --suite world_state --suite save_recovery --suite world_save_candidate --suite save_product --log-dir "$RUNNER_TEMP/upgrade-e09/existing"
+      - name: Real GL feature checks and semantic negative control
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess, sys
+          from pathlib import Path
+          sys.path.insert(0, "tools")
+          from software_gl import software_gl
+          config=json.loads(r'''{"test":"tests/upgrade_e09_save_writers.gd","mutation":{"path":"godot/scripts/world_state.gd","before":"if _source_hashes.has(source_key) and _source_hashes[source_key]!=before_hash:","after":"if false:","exit_code":1,"caught":true},"marker":"UPGRADE_upgrade_e09_save_writers"}''')
+          logs=Path(os.environ["RUNNER_TEMP"])/"upgrade-e09"
+          logs.mkdir(parents=True,exist_ok=True)
+          base=[os.environ["GODOT"],"--path","godot","--audio-driver","Dummy"]
+          def run(args,env,name):
+              result=subprocess.run(base+args+["--script","res://"+config["test"]],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=90)
+              (logs/name).write_text(result.stdout)
+              print(result.stdout)
+              return result
+          with software_gl(logs/"display") as gl:
+              result=run(["--display-driver","x11","--rendering-method","gl_compatibility"],dict(os.environ,**gl),"positive.log")
+          assert result.returncode==0 and re.search(re.escape(config["marker"])+r" checks=[1-9][0-9]* failures=0",result.stdout)
+          assert "SCRIPT ERROR" not in result.stdout and not re.search(r"^ERROR:",result.stdout,re.M)
+          mutation=config["mutation"]
+          source=Path(mutation["path"])
+          original=source.read_bytes()
+          try:
+              text=original.decode()
+              assert text.count(mutation["before"])==1
+              source.write_text(text.replace(mutation["before"],mutation["after"]))
+              result=run(["--headless"],os.environ.copy(),"negative-control.log")
+              assert result.returncode!=0 and re.search(re.escape(config["marker"])+r" checks=[1-9][0-9]* failures=[1-9]",result.stdout)
+              assert "SCRIPT ERROR" not in result.stdout
+          finally:
+              source.write_bytes(original)
+          PY
+      - name: Preserve validation logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: upgrade-e09-logs
+          path: ${{ runner.temp }}/upgrade-e09

@@ -1,0 +1,1414 @@
+{
+  "target": 10,
+  "uploaded": [
+    {
+      "branch": "codex/upgrade-20261025-01-resupply-planner",
+      "base": "codex/t03-editor-cold-start",
+      "sha": "3bb544a71b779e5500d329bd90d3bf8d0b5f97d9",
+      "tree": "54eacd980ad1b775394a9d20a07979f7c5a8b219",
+      "number": 242,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/242",
+      "title": "feat(E02/E05): 按需数量、优先补给与保存事务完整闭环"
+    },
+    {
+      "branch": "codex/upgrade-20261025-02-loadout-workbench",
+      "base": "codex/upgrade-20261025-01-resupply-planner",
+      "sha": "64ebe499736a31c980192768aa5d691d3a060b11",
+      "tree": "995b8f09935ab444ddeaa6e7fe3adc86ee6f8f2e",
+      "number": 243,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/243",
+      "title": "feat(E05): 方案重命名、复制、实际差异与持久管理闭环"
+    },
+    {
+      "branch": "codex/upgrade-20261025-03-journal-desk",
+      "base": "codex/upgrade-20261025-02-loadout-workbench",
+      "sha": "c748f0dbfc09b8d0ef3effa6b1247029bcc0db58",
+      "tree": "4a4cf7423dc08a4211449f6edd290c8b9bcf6872",
+      "number": 244,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/244",
+      "title": "feat(U05): 已知旅记检索、收藏、未读与偏好恢复完整工作台"
+    },
+    {
+      "branch": "codex/upgrade-20261025-04-controller-comfort",
+      "base": "codex/upgrade-20261025-03-journal-desk",
+      "sha": "9458257d2a067c8f9f6674b08a847e5bb996cfae",
+      "tree": "06e97a7235eeaa7427b17ec935452798716e0367",
+      "number": 245,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/245",
+      "title": "feat(U06): 摇杆校准、设备读数、舒适预设与范围恢复闭环",
+      "original_sha": "2b81a2756ae0c541ebc137be756afb4ae351c54d",
+      "original_tree": "842321a71934d0fd22a3a7a7221ec5cf71da5658"
+    },
+    {
+      "branch": "codex/upgrade-20261025-05-map-directory",
+      "base": "codex/upgrade-20261025-04-controller-comfort",
+      "sha": "d3980ad0be30ad2899a2daeeab8d7ba8506c8b1f",
+      "tree": "aebe7a93d3b440df75b3b19658775a43470cdb99",
+      "number": 246,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/246",
+      "title": "feat(U04): 已补绘地图目录、保密检索与安全跨区框取闭环"
+    },
+    {
+      "branch": "codex/upgrade-20261025-06-audio-landmarks",
+      "base": "codex/upgrade-20261025-05-map-directory",
+      "sha": "4c15035b12ef8a9e6e70d330eacac8cba8ce808c",
+      "tree": "a3cbc4fdced73eed730f3e74e389f0f569a9d8bb",
+      "number": 247,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/247",
+      "title": "feat(S02/S03): NPC空间声地标、危险退让与重叠混音完整闭环"
+    },
+    {
+      "branch": "codex/upgrade-20261025-07-wish-preview",
+      "base": "codex/upgrade-20261025-06-audio-landmarks",
+      "sha": "c3cb4eb36a2f8a068706d9bdc9ef115051779430",
+      "tree": "f060ecc924e3f475ce137bc6611635890783f1f7",
+      "number": 248,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/248",
+      "title": "feat(N02): 心愿交付成本预览、状态复核与可取消原子确认"
+    },
+    {
+      "branch": "codex/upgrade-20261025-08-craft-cart",
+      "base": "codex/upgrade-20261025-07-wish-preview",
+      "sha": "d8b088ea511250a2fd4a6112dc1504d1bfd869bf",
+      "tree": "98a705adcc52fc2ab4b2f36e6b4ec72fc526e1ab",
+      "number": 249,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/249",
+      "title": "feat(E04): 工匠多件清单、合计报价与整单持久事务"
+    },
+    {
+      "branch": "codex/upgrade-20261025-09-save-desk",
+      "base": "codex/upgrade-20261025-08-craft-cart",
+      "sha": "71229c3492e23c652e8e5c21db3885d2f9e6da8f",
+      "tree": "deb3c4ec3ed33cebdee238b2edbff8d9667481ad",
+      "number": 250,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/250",
+      "title": "feat(T02): 存档槽/备份预览、文件复核与保存失败留场"
+    },
+    {
+      "branch": "codex/upgrade-20261025-10-lift-service",
+      "base": "codex/upgrade-20261025-09-save-desk",
+      "sha": "53d8965de21e42dc7b516883c184502716b64107",
+      "tree": "f12af8cf19135bbce6a21d00b60d51784205655d",
+      "number": 251,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/251",
+      "title": "feat(W05): 实体升降方向耗时、实时按键与载人碰撞安全"
+    }
+  ],
+  "preceding_pr": 241,
+  "previous_eight_excluded": true,
+  "progress_pr": 228,
+  "prior_pr_snapshot": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 242,
+        "state": "closed",
+        "merged": true,
+        "mergeable": null,
+        "head": "3bb544a71b779e5500d329bd90d3bf8d0b5f97d9",
+        "base": "main",
+        "additions": 1425,
+        "deletions": 16,
+        "changed_files": 37,
+        "expected_head": "3bb544a71b779e5500d329bd90d3bf8d0b5f97d9"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 243,
+        "state": "closed",
+        "merged": true,
+        "mergeable": null,
+        "head": "64ebe499736a31c980192768aa5d691d3a060b11",
+        "base": "main",
+        "additions": 1251,
+        "deletions": 8,
+        "changed_files": 35,
+        "expected_head": "64ebe499736a31c980192768aa5d691d3a060b11"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 244,
+        "state": "closed",
+        "merged": true,
+        "mergeable": null,
+        "head": "c748f0dbfc09b8d0ef3effa6b1247029bcc0db58",
+        "base": "main",
+        "additions": 1803,
+        "deletions": 55,
+        "changed_files": 43,
+        "expected_head": "c748f0dbfc09b8d0ef3effa6b1247029bcc0db58"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 245,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "9458257d2a067c8f9f6674b08a847e5bb996cfae",
+        "base": "main",
+        "additions": 991,
+        "deletions": 7,
+        "changed_files": 26,
+        "expected_head": "9458257d2a067c8f9f6674b08a847e5bb996cfae"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 246,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "d3980ad0be30ad2899a2daeeab8d7ba8506c8b1f",
+        "base": "codex/upgrade-20261025-04-controller-comfort",
+        "additions": 2027,
+        "deletions": 9,
+        "changed_files": 44,
+        "expected_head": "d3980ad0be30ad2899a2daeeab8d7ba8506c8b1f"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 247,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "4c15035b12ef8a9e6e70d330eacac8cba8ce808c",
+        "base": "codex/upgrade-20261025-05-map-directory",
+        "additions": 2273,
+        "deletions": 27,
+        "changed_files": 47,
+        "expected_head": "4c15035b12ef8a9e6e70d330eacac8cba8ce808c"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 248,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "c3cb4eb36a2f8a068706d9bdc9ef115051779430",
+        "base": "codex/upgrade-20261025-06-audio-landmarks",
+        "additions": 1594,
+        "deletions": 21,
+        "changed_files": 39,
+        "expected_head": "c3cb4eb36a2f8a068706d9bdc9ef115051779430"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 249,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "d8b088ea511250a2fd4a6112dc1504d1bfd869bf",
+        "base": "codex/upgrade-20261025-07-wish-preview",
+        "additions": 1840,
+        "deletions": 5,
+        "changed_files": 37,
+        "expected_head": "d8b088ea511250a2fd4a6112dc1504d1bfd869bf"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 250,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "71229c3492e23c652e8e5c21db3885d2f9e6da8f",
+        "base": "codex/upgrade-20261025-08-craft-cart",
+        "additions": 1268,
+        "deletions": 9,
+        "changed_files": 34,
+        "expected_head": "71229c3492e23c652e8e5c21db3885d2f9e6da8f"
+      }
+    }
+  ],
+  "ci_snapshot": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 242,
+        "head": "3bb544a71b779e5500d329bd90d3bf8d0b5f97d9",
+        "runs": [
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161837
+          },
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161820
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161864
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156162056
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161757
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161830
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161919
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161825
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161821
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161862
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161850
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161899
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161944
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161777
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161822
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161855
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161791
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161817
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161868
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161861
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156161858
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 243,
+        "head": "64ebe499736a31c980192768aa5d691d3a060b11",
+        "runs": [
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595115
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595095
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595111
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594983
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595074
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594991
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595066
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595130
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595085
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594989
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594990
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594997
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595086
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595026
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595087
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595006
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595051
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595016
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156594993
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595109
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40156595007
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 244,
+        "head": "c748f0dbfc09b8d0ef3effa6b1247029bcc0db58",
+        "runs": [
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362894
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362975
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362907
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362895
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362915
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362951
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362889
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362863
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362925
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362927
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362934
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362969
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157363000
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362953
+          },
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362948
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362943
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362913
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362994
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362940
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362967
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40157362928
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 245,
+        "head": "9458257d2a067c8f9f6674b08a847e5bb996cfae",
+        "runs": [
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203149
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203098
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203084
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203076
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203069
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203063
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203158
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203146
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203056
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203081
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203164
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40158203204
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203282
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203110
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203172
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203073
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203200
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203119
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158203228
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 246,
+        "head": "d3980ad0be30ad2899a2daeeab8d7ba8506c8b1f",
+        "runs": [
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885780
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885783
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885829
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885698
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885721
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40158885744
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885726
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885897
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885704
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885719
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158886036
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885960
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885977
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885737
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885759
+          },
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885751
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885720
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885837
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885818
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885749
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40158885784
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 247,
+        "head": "4c15035b12ef8a9e6e70d330eacac8cba8ce808c",
+        "runs": [
+          {
+            "name": "Audio user volume",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357941
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357825
+          },
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357933
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357926
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160357895
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357863
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357885
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357955
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357896
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357862
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357867
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357949
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160357902
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357850
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357824
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357864
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357874
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357898
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357913
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357886
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357916
+          },
+          {
+            "name": "Boss skill material art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357849
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160357854
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 248,
+        "head": "c3cb4eb36a2f8a068706d9bdc9ef115051779430",
+        "runs": [
+          {
+            "name": "Modern combat resource integration",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759523
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160759518
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759537
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40160759551
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40160759564
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40160759607
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40160759609
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160759560
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160759505
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759522
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40160759577
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759543
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759576
+          },
+          {
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40160759630
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 249,
+        "head": "d8b088ea511250a2fd4a6112dc1504d1bfd869bf",
+        "runs": [
+          {
+            "name": "Interaction targeting",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161121743
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121780
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121785
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121786
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121771
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121757
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121836
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121737
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121801
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121798
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121775
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121773
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121790
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121761
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121755
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161121812
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161121779
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40161121776
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161121760
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success",
+            "id": 40161121912
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161121808
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 250,
+        "head": "71229c3492e23c652e8e5c21db3885d2f9e6da8f",
+        "runs": [
+          {
+            "name": "Interaction targeting",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491065
+          },
+          {
+            "name": "Modern combat resource integration",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491048
+          },
+          {
+            "name": "Six-region passage network",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491034
+          },
+          {
+            "name": "Tactical resource readiness",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491122
+          },
+          {
+            "name": "Ordinary enemy skill material art",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491115
+          },
+          {
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491097
+          },
+          {
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491046
+          },
+          {
+            "name": "Grounded motion and melee feedback",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491103
+          },
+          {
+            "name": "Desktop release candidates",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491010
+          },
+          {
+            "name": "Expanded character motion",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491075
+          },
+          {
+            "name": "World catalog and startup preparation",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491039
+          },
+          {
+            "name": "Input prompt readability",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491078
+          },
+          {
+            "name": "Authored player-skill art",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491020
+          },
+          {
+            "name": "Background resource ownership",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491109
+          },
+          {
+            "name": "Narrative return journey",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491134
+          },
+          {
+            "name": "Route manifest integration",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491036
+          },
+          {
+            "name": "Stable room camera follow",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491071
+          },
+          {
+            "name": "Inscription typography and UI",
+            "status": "queued",
+            "conclusion": null,
+            "id": 40161491037
+          },
+          {
+            "name": "Modern ability workshop integration",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161491058
+          },
+          {
+            "name": "Layered idle presentation",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161491031
+          },
+          {
+            "name": "World private checkpoints and map pins",
+            "status": "in_progress",
+            "conclusion": null,
+            "id": 40161491060
+          }
+        ]
+      }
+    }
+  ],
+  "final_acceptance_open": 46,
+  "known_limitation": "Engine --quit-after direct exit retains Ogg voices; production application_close passes."
+}

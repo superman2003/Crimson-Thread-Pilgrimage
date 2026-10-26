@@ -1,0 +1,47 @@
+Running lift_service
+FAIL: lift_service: exit=1 engine_errors=4 completion_marker=False
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: The InputMap action "interact" doesn't exist.
+   at: action_erase_events (core/input/input_map.cpp:230)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/lift_service_validation.gd:18)
+ERROR: The InputMap action "interact" doesn't exist.
+   at: action_add_event (core/input/input_map.cpp:201)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/lift_service_validation.gd:19)
+CHECK FAIL actual basket and landing prompts read remapped interaction key
+ERROR: The InputMap action "interact" doesn't exist.
+   at: action_add_event (core/input/input_map.cpp:201)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/lift_service_validation.gd:28)
+CHECK FAIL physical facility prompt follows active controller binding
+CHECK PASS remote caller cannot activate physical facility
+CHECK PASS non-finite caller coordinates rejected
+CHECK PASS rider requests upper landing with actual distance divided by speed
+CHECK PASS repeated nearby call reports progress without reversing occupied basket
+CHECK PASS map/menu pauses actual basket and rider together
+CHECK PASS region loading pauses physical transit
+CHECK PASS dead rider cannot start or advance service
+CHECK PASS invalid timing cannot corrupt physical coordinates
+CHECK PASS actual basket and rider advance together and ETA falls
+CHECK PASS jumping rider freely leaves moving basket
+CHECK PASS actual rider-body sweep prevents carrying through a low ceiling
+CHECK PASS obstruction restores physical basket collision and explains retry
+CHECK PASS clearing obstruction resumes original requested destination
+CHECK PASS unblocked rider reaches exact physical upper landing
+CHECK PASS lower landing can call basket back while rider remains on board
+CHECK PASS physical descent retains rider and exact destination
+CHECK PASS unoccupied basket can be called from authored landing radius
+CHECK PASS calling from landing never teleports waiting player
+ERROR: The InputMap action "interact" doesn't exist.
+   at: action_erase_events (core/input/input_map.cpp:230)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/lift_service_validation.gd:71)
+LIFT_SERVICE checks=20 failures=2
+Running cave_exploration
+PASS: cave_exploration
+按 F 与人物交谈。
+CAVE_EXPLORATION_VALIDATION chapters=6 checks=170 failures=0
+GODOT_REGRESSIONS suites=2 failures=1

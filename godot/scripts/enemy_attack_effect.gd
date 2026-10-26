@@ -1,5 +1,6 @@
 extends Node2D
 
+const SWEEP := preload("res://scripts/attack_sweep.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
 var boss_command_id := ""
@@ -73,6 +74,7 @@ func _physics_process(delta: float) -> void:
         queue_redraw()
         return
     var previous := global_position
+    var terrain_hit: Dictionary={}
     if effect_kind == "projectile" or effect_kind == "wave":
         if returning and age > turn_after and is_instance_valid(owner_actor):
             velocity = velocity.move_toward((owner_actor.global_position-global_position).normalized()*velocity.length(),delta*900.0)
@@ -99,20 +101,16 @@ func _physics_process(delta: float) -> void:
                 var rock: Dictionary = get_parent()._rock_ray_hit(previous, global_position)
                 if not rock.is_empty() and (wall.is_empty() or previous.distance_squared_to(rock.position) < previous.distance_squared_to(wall.position)):
                     wall = rock
-            if not wall.is_empty() and (bool(wall.get("authored_rock", false)) or bool(wall.get("authored_static", false)) or wall.get("collider") is StaticBody2D):
-                if impact_pool:
-                    global_position=wall.position-Vector2(0,5)
-                    effect_kind="pool"
-                    velocity=Vector2.ZERO
-                    gravity=0.0
-                    radius=32.0
-                    age=0.0
-                    arm_delay=.55
-                    duration=1.4
-                    queue_redraw()
-                    return
-                _finish_impact(wall.position)
-                return
+            if not wall.is_empty() and (bool(wall.get("authored_rock",false)) or bool(wall.get("authored_static",false)) or wall.get("collider") is StaticBody2D):terrain_hit=wall
+    if effect_kind=="projectile":
+        if _resolve_swept_projectile(target,previous,global_position,terrain_hit):return
+        if not terrain_hit.is_empty():
+            if impact_pool:
+                global_position=terrain_hit.position-Vector2(0,5)
+                effect_kind="pool";velocity=Vector2.ZERO;gravity=0.0;radius=32.0;age=0.0;arm_delay=.55;duration=1.4
+                queue_redraw();return
+            _finish_impact(terrain_hit.position);return
+        queue_redraw();return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
             if not is_instance_valid(actor) or actor.is_queued_for_deletion() or (actor.get("dying") == true): continue
@@ -123,13 +121,6 @@ func _physics_process(delta: float) -> void:
                 return
     elif target != null:
         var center := target.global_position-Vector2(0,42)
-        # Straight projectiles can be deflected by a facing slash; waves and hazards require movement.
-        if effect_kind=="projectile" and bool(get_meta("blockable",true)) and target.has_method("can_deflect_projectile") and target.can_deflect_projectile() and center.distance_to(global_position)<72:
-            var facing := int(target.get("facing"))
-            if (global_position.x-center.x)*facing>0:
-                reflected=true
-                velocity=Vector2(facing*maxf(250,velocity.length()),velocity.y*.35)
-                tint=Color(0.94,0.86,0.61)
         if not reflected and not hit_player and _hits_player(center):
             # Consume before callbacks: damage can synchronously re-enter or cancel us.
             hit_player=true
@@ -317,3 +308,37 @@ func _draw_terrain_boundary() -> void:
             var marker := PackedVector2Array([point+Vector2(inward.x*6,0),point,point+Vector2(0,inward.y*7)])
             draw_polyline(marker,dark,3,true)
             draw_polyline(marker,pale,1,true)
+
+func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wall: Dictionary) -> bool:
+    var limit:=SWEEP.fraction(start,finish,wall.position) if not wall.is_empty() else INF
+    if reflected:
+        var chosen: Node2D
+        var time:=INF
+        for actor in get_tree().get_nodes_in_group("enemy"):
+            if not is_instance_valid(actor) or not actor is Node2D or actor.is_queued_for_deletion() or actor.get("dying")==true or not actor.has_method("take_hit"):continue
+            if actor.has_method("world_residency_active") and not actor.world_residency_active():continue
+            var contact:=SWEEP.circle_time(start,finish,actor.global_position,44.0)
+            if contact<time:chosen=actor;time=contact
+        if chosen==null or time>=limit:return false
+        var direction:=1 if velocity.x>0 else -1
+        _finish_impact(start.lerp(finish,time))
+        if is_instance_valid(chosen) and not chosen.is_queued_for_deletion():chosen.take_hit(1,direction)
+        return true
+    if not is_instance_valid(target) or hit_player:return false
+    var center:=target.global_position-Vector2(0,42)
+    if bool(get_meta("blockable",true)) and target.has_method("can_deflect_projectile") and target.can_deflect_projectile():
+        var time:=SWEEP.circle_time(start,finish,center,72.0)
+        if time<limit and time<=1:
+            var contact:=start.lerp(finish,time)
+            var facing:=int(target.get("facing"))
+            if (contact.x-center.x)*facing>0:
+                global_position=contact;reflected=true
+                velocity=Vector2(facing*maxf(250,velocity.length()),velocity.y*.35)
+                tint=Color(0.94,0.86,0.61);queue_redraw();return true
+    var time:=SWEEP.circle_time(start,finish,center,radius+23)
+    if time>=limit or time>1:return false
+    global_position=start.lerp(finish,time);hit_player=true
+    if target.has_method("take_damage"):target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
+    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):target.apply_snare(snare)
+    if not cancelled and not is_queued_for_deletion():_finish_impact(global_position)
+    return true

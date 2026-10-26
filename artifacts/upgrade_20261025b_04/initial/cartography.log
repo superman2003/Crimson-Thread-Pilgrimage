@@ -1,0 +1,47 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Parse Error: Cannot infer the type of "flags" variable because the value doesn't have a set type.
+          at: GDScript::reload (res://scripts/cartography_runtime.gd:53)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/cartography_validation.gd:0)
+ERROR: Failed to load script "res://scripts/cartography_validation.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+SCRIPT ERROR: Invalid call. Nonexistent function 'render' in base 'GDScript'.
+          at: _refresh_map_overlay (res://scripts/main_level.gd:3261)
+          GDScript backtrace (most recent call first):
+              [0] _refresh_map_overlay (res://scripts/main_level.gd:3261)
+              [1] _finish_budgeted (res://scripts/world_region_loader.gd:1388)
+              [2] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+SCRIPT ERROR: Invalid call. Nonexistent function 'setup' in base 'GDScript'.
+          at: _setup_cartography (res://scripts/main_level.gd:928)
+          GDScript backtrace (most recent call first):
+              [0] _setup_cartography (res://scripts/main_level.gd:928)
+              [1] _finish_budgeted (res://scripts/world_region_loader.gd:1388)
+              [2] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+SCRIPT ERROR: Invalid call. Nonexistent function 'render' in base 'GDScript'.
+          at: _refresh_map_overlay (res://scripts/main_level.gd:3261)
+          GDScript backtrace (most recent call first):
+              [0] _refresh_map_overlay (res://scripts/main_level.gd:3261)
+              [1] _toggle_map (res://scripts/main_level.gd:2898)
+              [2] run (res://scripts/cartography_validation.gd:49)
+              [3] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+ERROR: M map with no purchase shows no room routes
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/cartography_validation.gd:13)
+       [1] run (res://scripts/cartography_validation.gd:50)
+       [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+ERROR: Node not found: "MapPurchaseDialog" (relative to "/root/PilgrimageWorld").
+   at: get_node (scene/main/node.cpp:1963)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/cartography_validation.gd:56)
+       [1] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid access to property or key 'theme' on a base object of type 'null instance'.
+          at: run (res://scripts/cartography_validation.gd:57)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/cartography_validation.gd:57)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:14)

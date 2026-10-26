@@ -8,12 +8,15 @@ var material_name: Callable
 var quote: Dictionary = {}
 var body: VBoxContainer
 var choices: VBoxContainer
-var detail: Label
+var row_scroll: ScrollContainer
+var selection_summary: Label
+var detail: RichTextLabel
 var status: Label
 var rebuilding := false
 
 func _ready() -> void:
     title = "钟龛按需补给"
+    wrap_controls=false
     size = Vector2i(680, 500)
     min_size = size
     dialog_hide_on_ok = false
@@ -21,17 +24,22 @@ func _ready() -> void:
     get_cancel_button().text = "取消"
     confirmed.connect(_confirm_purchase)
     body = VBoxContainer.new()
-    body.add_theme_constant_override("separation", 12)
+    body.add_theme_constant_override("separation", 8)
     add_child(body)
     var hint := Label.new()
     hint.text = "调整数量，上下移动优先顺序。资金不足时按此顺序部分补给。"
     body.add_child(hint)
-    choices = VBoxContainer.new()
-    body.add_child(choices)
-    detail = Label.new()
-    detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    detail.custom_minimum_size = Vector2(630, 150)
-    body.add_child(detail)
+    var presets:=HBoxContainer.new();body.add_child(presets)
+    for pair in [["补齐缺额","full"],["每种一份","one"],["补到半满","half"],["全部清空","none"]]:
+        var button:=Button.new();button.text=pair[0];presets.add_child(button)
+        var mode: String=pair[1]
+        button.pressed.connect(func():apply_preset(mode))
+    selection_summary=Label.new();body.add_child(selection_summary)
+    row_scroll=ScrollContainer.new();row_scroll.custom_minimum_size=Vector2(630,135);row_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;body.add_child(row_scroll)
+    choices=VBoxContainer.new();choices.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row_scroll.add_child(choices)
+    detail=RichTextLabel.new();detail.bbcode_enabled=false;detail.fit_content=false;detail.scroll_active=true;detail.selection_enabled=true
+    detail.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;detail.custom_minimum_size=Vector2(630,145);body.add_child(detail)
+    size_changed.connect(func():call_deferred("_layout_body"))
     status = Label.new()
     status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     body.add_child(status)
@@ -52,8 +60,10 @@ func open(options: Array, quote_action: Callable, buy_action: Callable, names: C
     _rebuild_rows()
     status.text = "预览不会消费。购买前会重新核对钱包、库存和钟龛距离。"
     _refresh_quote()
-    popup_centered()
+    popup_centered(Vector2i(700,600))
+    call_deferred("_layout_body")
     get_cancel_button().grab_focus()
+    if rows.is_empty():status.text="尚无可补给的已获得战具。"
 
 func plan() -> Dictionary:
     var order: Array = []
@@ -117,13 +127,17 @@ func _current_quote() -> Dictionary:
 
 func _refresh_quote() -> void:
     quote = _current_quote()
-    get_ok_button().disabled = not bool(quote.get("ok", false))
+    get_ok_button().disabled = not bool(quote.get("ok", false)) or not has_selection()
+    var requested_total:=0;var fulfilled_total:=0
+    for id in quantities:
+        requested_total+=int(quantities[id]);fulfilled_total+=int(quote.get("charges",{}).get(id,0))
+    selection_summary.text="申请 %d 份 · 当前可购 %d 份 · 未满足 %d 份" % [requested_total,fulfilled_total,maxi(0,requested_total-fulfilled_total)]
     var lines: Array[String] = []
     for row in rows:
         var id := String(row.id)
         var bought := int(quote.get("charges", {}).get(id, 0))
         var requested := int(quantities.get(id, 0))
-        if requested > 0:lines.append("%s：可购 %d / 申请 %d" % [String(row.get("name", id)), bought, requested])
+        if requested > 0:lines.append("%s：可购 %d / 申请 %d%s" % [String(row.get("name",id)),bought,requested," · 部分补给" if bought<requested else ""])
     var cost: Dictionary = quote.get("cost", {})
     lines.append("合计碎钱 %d" % int(cost.get("currency", 0)))
     for id in cost.get("materials", {}):
@@ -137,7 +151,7 @@ func _refresh_quote() -> void:
 func _confirm_purchase() -> void:
     var previous := quote.duplicate(true)
     _refresh_quote()
-    if not bool(quote.get("ok", false)):
+    if not bool(quote.get("ok", false)) or not has_selection():
         status.text = "先前报价已失效，请调整清单或回到钟龛。"
         return
     if previous.get("charges", {}) != quote.get("charges", {}) or previous.get("cost", {}) != quote.get("cost", {}):
@@ -150,3 +164,24 @@ func _confirm_purchase() -> void:
     else:
         status.text = String(result.get("reason", "购买未完成")) if result is Dictionary else "购买未完成"
         _refresh_quote()
+
+func has_selection() -> bool:
+    for value in quantities.values():
+        if int(value)>0:return true
+    return false
+
+func apply_preset(mode: String) -> void:
+    if mode not in ["full","one","half","none"]:return
+    for row in rows:
+        var capacity:=maxi(0,int(row.get("capacity",0)))
+        var count:=maxi(0,int(row.get("count",0)))
+        var missing:=maxi(0,capacity-count)
+        quantities[String(row.id)]={"full":missing,"one":mini(1,missing),"half":maxi(0,ceili(capacity*0.5)-count),"none":0}[mode]
+    var offset:=row_scroll.scroll_vertical
+    _rebuild_rows();row_scroll.set_deferred("scroll_vertical",offset);_refresh_quote()
+    status.text="已更新申请；只有确认购买后才会扣款。" if has_selection() else "当前清单为空，不会自动补给其它战具。"
+
+func _layout_body() -> void:
+    if not is_instance_valid(body):return
+    body.position=Vector2(12,12)
+    body.size=Vector2(maxi(630,size.x-24),maxi(436,size.y-76))
