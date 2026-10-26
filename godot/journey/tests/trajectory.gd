@@ -10,7 +10,7 @@ func run() -> void:
         context.latest.player.velocity = [100,-20]
         context.latest.player.grounded = index < 5
         run = MODEL.sample(run, context.snapshot(), 0.1)
-    check(run.samples.size() == 20 and run.duration > 1.9, "actual time and movement samples retained")
+    check(run.samples.size() == 21 and run.samples[0].t == 0.0 and run.duration > 1.9, "actual time and movement samples retained")
     var stats := MODEL.statistics(run)
     check(stats.distance > 100 and stats.jumps == 1 and stats.airtime > 0, "derived path and transition statistics use sampled values")
     context.latest.exploring = false
@@ -26,7 +26,7 @@ func run() -> void:
     check(clip.ok and clip.run.samples.size() < run.samples.size(), "clip contains only existing samples")
     check(not MODEL.trim(run, 1, 1, "").ok, "empty interval rejected")
     check(MODEL.compare(data.runs[0], clip.run).size() == 9, "comparison exposes derived metrics")
-    check(MODEL.csv(run).split("\n").size() == 21, "CSV exports every actual sample once")
+    check(MODEL.csv(run).split("\n").size() == 22, "CSV exports every actual sample once")
     var feature := preload("res://journey/features/trajectory.gd").new()
     feature.setup(context)
     feature.data = data
@@ -41,4 +41,12 @@ func run() -> void:
     feature.active = run.duplicate(true)
     feature.shutdown()
     check(context.store.read("trajectory", MODEL.fresh()).runs.size() >= 1, "shutdown preserves a valid pending observation")
+
+    var end_trace := MODEL.start(context.snapshot(), "边界")
+    end_trace.duration = 59.8
+    end_trace = MODEL.sample(end_trace, context.snapshot(), 0.7)
+    check(end_trace.duration == 60.0 and end_trace.samples[-1].t == 60.0, "overshooting interval clamps duration and final timestamp at 60 seconds")
+    var bad_metadata := data.duplicate(true)
+    bad_metadata.runs[0].erase("region_name")
+    check(not MODEL.valid(bad_metadata), "missing required display metadata is rejected before rendering")
     finish()

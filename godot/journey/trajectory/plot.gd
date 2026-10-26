@@ -48,6 +48,10 @@ func _draw() -> void:
         var y := area.position.y + area.size.y * index / 5.0
         draw_line(Vector2(x, area.position.y), Vector2(x, area.end.y), Color("244047"), 1)
         draw_line(Vector2(area.position.x, y), Vector2(area.end.x, y), Color("244047"), 1)
+    if mode == "path":
+        var scale := minf(area.size.x / maxf(1, bounds.size.x), area.size.y / maxf(1, bounds.size.y))
+        var fitted := bounds.size * scale
+        area = Rect2(area.get_center() - fitted * 0.5, fitted)
     primary_points.clear()
     var comparison_points := PackedVector2Array()
     for point in a:

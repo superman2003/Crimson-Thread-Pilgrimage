@@ -72,7 +72,7 @@ func draw(parent: Control) -> void:
     _edit_record(parent, record)
 
 func _recording_controls(parent: Control) -> void:
-    UI.hint(parent, "每次最多60秒有效探索、300个样本；最多保留最近8次。跨区、倒下、长帧和容量边界会结束本次记录。")
+    UI.hint(parent, "每次最多60秒有效探索、301个样本（含起点）；最多保留最近8次。跨区、倒下、长帧和容量边界会结束本次记录。")
     UI.toggle(parent, "探索时显示录制状态", show_overlay, func(value: bool):show_overlay = value;context.refresh())
     if active.is_empty():
         var title := UI.edit(parent, "这次记录的名称", "", 50)

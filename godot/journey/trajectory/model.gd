@@ -1,7 +1,7 @@
 extends RefCounted
 const V := preload("res://journey/core/values.gd")
 const MAX_RUNS := 8
-const MAX_SAMPLES := 300
+const MAX_SAMPLES := 301
 const MAX_SECONDS := 60.0
 
 static func fresh() -> Dictionary:
@@ -22,6 +22,10 @@ static func valid(data: Dictionary) -> bool:
             return false
         if not run.get("region") is String or not V.number(run.get("duration")) or float(run.duration) < 0 or float(run.duration) > MAX_SECONDS + 1:
             return false
+        if not run.get("region_name") is String or run.region_name.length() > 200 or not run.get("reason") is String or run.reason.length() > 200:
+            return false
+        if not V.count(run.get("started"), 9999999999) or not V.number(run.get("paused")) or float(run.paused) < 0 or not V.number(run.get("wall")) or float(run.wall) < 0:
+            return false
         var previous := -1.0
         for sample in run.samples:
             if not sample is Dictionary or not V.number(sample.get("t")):
@@ -31,6 +35,8 @@ static func valid(data: Dictionary) -> bool:
             if not V.point(sample.get("p")).is_finite() or not V.point(sample.get("v")).is_finite():
                 return false
             if not V.count(sample.get("hp"), 1000) or not V.count(sample.get("energy"), 100000) or not sample.get("floor") is bool:
+                return false
+            if not sample.get("room") is String or sample.room.length() > 200:
                 return false
             previous = float(sample.t)
         ids[run.id] = true
@@ -42,7 +48,7 @@ static func start(snapshot: Dictionary, title: String) -> Dictionary:
     var name := V.text(title, 50)
     if name.is_empty():
         name = "机动观察"
-    return {"name":name, "region":String(snapshot.get("region", "")), "region_name":String(snapshot.get("region_name", "")), "started":int(snapshot.get("timestamp", 0)), "duration":0.0, "paused":0.0, "wall":0.0, "samples":[], "note":"", "reason":""}
+    return {"name":name, "region":String(snapshot.get("region", "")), "region_name":String(snapshot.get("region_name", "")), "started":int(snapshot.get("timestamp", 0)), "duration":0.0, "paused":0.0, "wall":0.0, "samples":[{"t":0.0, "p":snapshot.player.get("position", [0, 0]).duplicate(), "v":snapshot.player.get("velocity", [0, 0]).duplicate(), "hp":int(snapshot.player.get("hp", 0)), "energy":int(snapshot.player.get("energy", 0)), "floor":bool(snapshot.player.get("grounded", false)), "room":String(snapshot.get("room", ""))}], "note":"", "reason":""}
 
 static func sample(run: Dictionary, snapshot: Dictionary, delta: float) -> Dictionary:
     var result := run.duplicate(true)
@@ -67,13 +73,15 @@ static func sample(run: Dictionary, snapshot: Dictionary, delta: float) -> Dicti
     if not position.is_finite() or not velocity.is_finite():
         result.reason = "位置样本无效"
         return result
-    result.duration = minf(MAX_SECONDS + 0.5, float(result.duration) + delta)
+    result.duration = minf(MAX_SECONDS, float(result.duration) + delta)
     if result.samples.size() < MAX_SAMPLES:
         result.samples.append({"t":result.duration, "p":V.pair(position), "v":V.pair(velocity), "hp":int(player.get("hp", 0)), "energy":int(player.get("energy", 0)), "floor":bool(player.get("grounded", false)), "room":String(snapshot.get("room", ""))})
-    if result.samples.size() >= MAX_SAMPLES:
-        result.reason = "达到300个样本上限"
-    elif result.duration >= MAX_SECONDS:
+    if result.duration >= MAX_SECONDS or is_equal_approx(float(result.duration), MAX_SECONDS):
+        result.duration = MAX_SECONDS
+        result.samples[-1].t = MAX_SECONDS
         result.reason = "达到60秒观察时长"
+    elif result.samples.size() >= MAX_SAMPLES:
+        result.reason = "达到301个样本上限"
     return result
 
 static func save(data: Dictionary, run: Dictionary) -> Dictionary:
