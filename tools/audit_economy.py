@@ -112,19 +112,24 @@ def audit(catalog_override: dict | None = None) -> tuple[dict, list[str]]:
     # E04: artisan crafts use a challenge's evidence as a pattern (never consumed),
     # a material that drops somewhere, and a named artisan who actually exists.
     drops = {r["drop"]: cid for cid, r in rows.items()}
+    contract_patterns = {c["reward_item"] for c in load("field_contracts.json")["contracts"] if c.get("reward_amount") == 1 and c.get("region") in rows}
     crafts = 0
     for recipe_id, recipe in catalog["recipes"].items():
         if recipe.get("kind") not in ("tool_capacity", "slot_part", "passive"):
             continue
         crafts += int(recipe.get("currency", 0))
+        for prerequisite in recipe.get("requires_crafted", []):
+            previous = catalog["recipes"].get(prerequisite, {})
+            if previous.get("kind") != "tool_capacity" or previous.get("target") != recipe.get("target") or previous.get("requires_crafted"):
+                errors.append(f"{recipe_id}: invalid or recursive first-tier prerequisite")
         if recipe.get("artisan") not in ARTISANS or recipe.get("artisan") not in npcs:
             errors.append(f"{recipe_id}: artisan {recipe.get('artisan')} is not one of the three artisans")
         patterns = recipe.get("requires_items", [])
         if not patterns:
             errors.append(f"{recipe_id}: an artisan craft needs a pattern from an optional challenge")
         for item in patterns:
-            if item not in challenge_patterns:
-                errors.append(f"{recipe_id}: pattern {item} is not an optional challenge reward")
+            if item not in challenge_patterns and item not in contract_patterns:
+                errors.append(f"{recipe_id}: pattern {item} is not a canonical challenge or contract reward")
         for material in recipe.get("materials", {}):
             if material not in drops:
                 errors.append(f"{recipe_id}: material {material} drops in no region")

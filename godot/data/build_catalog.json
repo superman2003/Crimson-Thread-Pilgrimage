@@ -70,7 +70,8 @@
               "mender",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ]
           },
           {
@@ -80,7 +81,8 @@
               "reflux",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ]
           },
           {
@@ -90,7 +92,8 @@
               "mender",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ],
             "requires_mechanism": "crimson"
           }
@@ -104,7 +107,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ]
           },
           {
@@ -115,7 +119,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ],
             "requires_mechanism": "crimson"
           },
@@ -127,7 +132,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ],
             "requires_mechanism": "crimson",
             "requires_part": "travel_clasp"
@@ -213,7 +219,8 @@
               "reflux",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ]
           },
           {
@@ -223,7 +230,8 @@
               "mender",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ]
           },
           {
@@ -233,7 +241,8 @@
               "shell",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ],
             "requires_mechanism": "bell"
           }
@@ -247,7 +256,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ]
           },
           {
@@ -258,7 +268,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ],
             "requires_mechanism": "bell"
           },
@@ -270,7 +281,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ],
             "requires_mechanism": "bell",
             "requires_part": "travel_clasp"
@@ -356,7 +368,8 @@
               "mender",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ]
           },
           {
@@ -366,7 +379,8 @@
               "reflux",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ],
             "requires_mechanism": "salt"
           },
@@ -377,7 +391,8 @@
               "mender",
               "tide_reel",
               "wax_stitch",
-              "crown_pendant"
+              "crown_pendant",
+              "watchmans_knot"
             ],
             "requires_mechanism": "salt"
           }
@@ -391,7 +406,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ]
           },
           {
@@ -402,7 +418,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ]
           },
           {
@@ -413,7 +430,8 @@
               "compass",
               "ash_ring",
               "quiet_sole",
-              "damp_knot"
+              "damp_knot",
+              "pilgrim_braid"
             ],
             "requires_mechanism": "salt",
             "requires_part": "travel_clasp"
@@ -751,7 +769,7 @@
       "boss_immune_control": true,
       "unlock_flag": "tool_mine_found",
       "unlock_item": "relic_tool_mine",
-      "refill_rule": "钟龛补给：每份消耗5松脂碎片与1湿壳",
+      "refill_rule": "钟龛补给：每份消耗4松脂碎片与1湿壳",
       "icon": "res://assets/ui/seals/mine.svg",
       "source": "铸雨渠泵闸的绷线卡榫，雨铸匠沿用配重机关的扣法。",
       "unlock_hint": "相关人物回应或发现遗物后解锁",
@@ -760,7 +778,7 @@
       "practice": "铸雨渠·泵房上检修舱门外的练习傀儡，会走向你。练习区内使用不消耗次数。",
       "encounter": "铸雨渠·立管井口：敌人沿管道直冲过来，先在来路布钉。",
       "resupply": {
-        "currency": 5,
+        "currency": 4,
         "materials": {
           "wet_chitin": 1
         }
@@ -1042,6 +1060,40 @@
       "risk": "占用1点铭饰容量；只影响环境陷阱，不改变敌人攻击；与静靴互斥。",
       "synergy": "持有不装备不生效；卸下或槽位休眠时恢复原范围；不影响地刺下劈反弹；不能与静靴叠加。",
       "family": "travel_accessory"
+    },
+    "pilgrim_braid": {
+      "name": "巡礼缀带",
+      "description": "移动更快，缝补更慢。",
+      "cost": 1,
+      "group": "",
+      "modifiers": {
+        "move_mult": 0.1,
+        "heal_duration": 0.12
+      },
+      "icon": "res://assets/ui/seals/pilgrim_braid.svg",
+      "craft_recipe": "craft_pilgrim_braid",
+      "family": "travel_accessory",
+      "source": "织线学徒依巡礼印编成。",
+      "unlock_hint": "出示第五区巡礼印。",
+      "risk": "移动更快，缝补更慢。",
+      "synergy": "可与既有同族饰件组合，仍受契印容量和槽位限制。"
+    },
+    "watchmans_knot": {
+      "name": "守路结扣",
+      "description": "受击击退减轻，攻击回线减慢。",
+      "cost": 2,
+      "group": "",
+      "modifiers": {
+        "knockback_mult": -0.18,
+        "energy_gain_mult": -0.08
+      },
+      "icon": "res://assets/ui/seals/watchmans_knot.svg",
+      "craft_recipe": "craft_watchmans_knot",
+      "family": "combat_accessory",
+      "source": "蜂蜡商人依巡礼印编成。",
+      "unlock_hint": "出示第六区巡礼印。",
+      "risk": "受击击退减轻，攻击回线减慢。",
+      "synergy": "可与既有同族饰件组合，仍受契印容量和槽位限制。"
     }
   },
   "recipes": {
@@ -1336,6 +1388,128 @@
       "artisan_name": "雨铸匠",
       "source": "钟舌余响留下最后一次调音的节拍，雨铸匠用冠响碎片铆成调线坠，让命中更易收线，缝补却更慢。",
       "unlock_hint": "无声王冠·钟舌试炼首清后，带冠响碎片回铸雨渠找雨铸匠。"
+    },
+    "pilgrim_mod_shard": {
+      "name": "铜铃投罐·巡礼二阶改制",
+      "description": "承接原有改制，再加一格携带上限；当前余量不增加，仍需付费补给。",
+      "kind": "tool_capacity",
+      "target": "shard",
+      "amount": 1,
+      "currency": 20,
+      "materials": {
+        "moss_chitin": 5
+      },
+      "requires_items": [
+        "evidence_crown_echo",
+        "pilgrim_permit_01"
+      ],
+      "artisan": "npc_threadsmith_apprentice",
+      "artisan_name": "织线学徒",
+      "source": "本区巡礼印与旧图样互相参照，完成第一阶后再由原工匠改制。",
+      "unlock_hint": "先完成原改制，再出示本区巡礼印与原试炼图样；凭证均不消耗。",
+      "requires_crafted": [
+        "mod_shard"
+      ]
+    },
+    "pilgrim_mod_mine": {
+      "name": "绊线钉·巡礼二阶改制",
+      "description": "承接原有改制，再加一格携带上限；当前余量不增加，仍需付费补给。",
+      "kind": "tool_capacity",
+      "target": "mine",
+      "amount": 1,
+      "currency": 20,
+      "materials": {
+        "wet_chitin": 5
+      },
+      "requires_items": [
+        "evidence_counterweight_echo",
+        "pilgrim_permit_02"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "本区巡礼印与旧图样互相参照，完成第一阶后再由原工匠改制。",
+      "unlock_hint": "先完成原改制，再出示本区巡礼印与原试炼图样；凭证均不消耗。",
+      "requires_crafted": [
+        "mod_mine"
+      ]
+    },
+    "pilgrim_mod_fog": {
+      "name": "盐雾瓶·巡礼二阶改制",
+      "description": "承接原有改制，再加一格携带上限；当前余量不增加，仍需付费补给。",
+      "kind": "tool_capacity",
+      "target": "fog",
+      "amount": 1,
+      "currency": 20,
+      "materials": {
+        "salt_crystal_shard": 5
+      },
+      "requires_items": [
+        "evidence_salt_ledger",
+        "pilgrim_permit_03"
+      ],
+      "artisan": "npc_beeswax_vendor",
+      "artisan_name": "蜂蜡商人",
+      "source": "本区巡礼印与旧图样互相参照，完成第一阶后再由原工匠改制。",
+      "unlock_hint": "先完成原改制，再出示本区巡礼印与原试炼图样；凭证均不消耗。",
+      "requires_crafted": [
+        "mod_fog"
+      ]
+    },
+    "pilgrim_mod_lure": {
+      "name": "回响诱铃·巡礼二阶改制",
+      "description": "承接原有改制，再加一格携带上限；当前余量不增加，仍需付费补给。",
+      "kind": "tool_capacity",
+      "target": "lure",
+      "amount": 1,
+      "currency": 20,
+      "materials": {
+        "pollen_wax": 5
+      },
+      "requires_items": [
+        "evidence_root_track",
+        "pilgrim_permit_04"
+      ],
+      "artisan": "npc_rain_smith_liu",
+      "artisan_name": "雨铸匠",
+      "source": "本区巡礼印与旧图样互相参照，完成第一阶后再由原工匠改制。",
+      "unlock_hint": "先完成原改制，再出示本区巡礼印与原试炼图样；凭证均不消耗。",
+      "requires_crafted": [
+        "mod_lure"
+      ]
+    },
+    "craft_pilgrim_braid": {
+      "name": "巡礼缀带·编制",
+      "description": "移动更快，缝补更慢。",
+      "kind": "passive",
+      "target": "pilgrim_braid",
+      "currency": 25,
+      "materials": {
+        "obsidian_splinter": 5
+      },
+      "requires_items": [
+        "pilgrim_permit_05"
+      ],
+      "artisan": "npc_threadsmith_apprentice",
+      "artisan_name": "织线学徒",
+      "source": "完成巡礼契约后交工匠编制。",
+      "unlock_hint": "出示第五区巡礼印。"
+    },
+    "craft_watchmans_knot": {
+      "name": "守路结扣·编制",
+      "description": "受击击退减轻，攻击回线减慢。",
+      "kind": "passive",
+      "target": "watchmans_knot",
+      "currency": 25,
+      "materials": {
+        "crown_echo_shard": 5
+      },
+      "requires_items": [
+        "pilgrim_permit_06"
+      ],
+      "artisan": "npc_beeswax_vendor",
+      "artisan_name": "蜂蜡商人",
+      "source": "完成巡礼契约后交工匠编制。",
+      "unlock_hint": "出示第六区巡礼印。"
     }
   },
   "events": {

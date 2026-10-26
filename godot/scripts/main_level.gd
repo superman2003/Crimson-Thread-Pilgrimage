@@ -7936,6 +7936,8 @@ func near_artisan_id() -> String:
 
 ## E04: why this artisan cannot make the recipe yet; "" when only the price remains.
 func artisan_craft_block(recipe: Dictionary) -> String:
+    for prerequisite in recipe.get("requires_crafted", []):
+        if not build_system.state.crafted.has(prerequisite):return "请先完成前阶改制，再制作二阶方案"
     var artisan := String(recipe.get("artisan", ""))
     if not artisan.is_empty() and near_artisan_id() != artisan:
         return "「%s」要找%s制作" % [String(recipe.get("name", "")), String(recipe.get("artisan_name", "工匠"))]

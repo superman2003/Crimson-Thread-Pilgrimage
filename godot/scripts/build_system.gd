@@ -557,6 +557,8 @@ func quote_craft_batch(request: Variant, wallet: Dictionary) -> Dictionary:
         if not value is String or value in ids or not catalog.recipes.has(value):return _fail("清单含未知或重复制作方案")
         ids.append(value)
         var recipe: Dictionary=catalog.recipes[value]
+        for prerequisite in recipe.get("requires_crafted", []):
+            if not state.crafted.has(prerequisite):return _fail("先单独完成前阶改制，再报价二阶清单")
         if String(recipe.kind)=="skill_branch":
             if String(recipe.target) in branches:return _fail("同一技能只能选择一个校习方向")
             branches.append(String(recipe.target))
@@ -580,6 +582,8 @@ func transact(recipe_id: String, wallet: Dictionary) -> Dictionary:
     if not wallet.get("inventory_counts") is Dictionary or not _counter(wallet.get("currency")):
         return _fail("无效钱包")
     var recipe: Dictionary = catalog.recipes[recipe_id]
+    for prerequisite in recipe.get("requires_crafted", []):
+        if not state.crafted.has(prerequisite):return _fail("先完成前阶改制：%s" % String(prerequisite))
     var target := String(recipe.target)
     var kind := String(recipe.kind)
     if kind == "skill_branch":
@@ -889,6 +893,9 @@ func restore(snapshot: Dictionary) -> Dictionary:
             if not id is String or made.has(id) or not String(catalog.recipes.get(id, {}).get("kind", "")) in ["tool_capacity", "slot_part"]:
                 return _fail("未知或重复的工匠制作记录")
             made[id] = true
+        for id in migrated.crafted:
+            for prerequisite in catalog.recipes[id].get("requires_crafted", []):
+                if not made.has(prerequisite):return _fail("二阶改制缺少前阶记录")
     else:
         # E04 legacy: the third travel slot used to open with the crest's mechanism
         # alone. Saves from before the clasp keep that slot: any repaired mechanism
