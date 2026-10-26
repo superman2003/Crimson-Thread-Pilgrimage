@@ -12,6 +12,9 @@ func run() -> void:
 
 
 func domain_checks(context: RefCounted) -> void:
+    for text in ["Authorization: Bearer abc.def", "authorization=Basic abc123==", "AUTHORIZATION: Token sample-secret", "bearer abc.def"]:
+        var filtered := M.scrub(text)
+        check(filtered.ok and not filtered.text.contains("abc.def") and not filtered.text.contains("abc123") and not filtered.text.contains("sample-secret"), "authorization filtering consumes complete scheme and credentials")
     var payload := M.capture(context.snapshot())
     payload.note = "secret=abc token=def C:\\Users\\name\\save.json person@example.com https://example.com/?token=abc"
     payload.include_note = false

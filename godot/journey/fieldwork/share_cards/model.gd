@@ -159,12 +159,13 @@ static func scrub(text: String, limit: int = 1000) -> Dictionary:
     var clean := V.text(text, limit)
     var count := 0
     var patterns := [
+        {"pattern": "(?i)\\bauthorization\\s*[:=]\\s*[^\\r\\n]+", "replacement": "Authorization: [凭证已移除]"},
+        {"pattern": "(?i)\\bbearer\\s+[A-Za-z0-9._-]+", "replacement": "Bearer [已移除]"},
         {
             "pattern":
             "(?i)\\b(?:token|password|passwd|secret|api_key|authorization)\\s*[:=]\\s*[^\\s,;]+",
             "replacement": "[口令样式已移除]"
         },
-        {"pattern": "(?i)\\bbearer\\s+[A-Za-z0-9._-]+", "replacement": "Bearer [已移除]"},
         {"pattern": '[A-Za-z]:[\\\\/][^\\s<>\\"]+', "replacement": "[本地路径已移除]"},
         {"pattern": '/(?:home|Users|root|workspace|tmp)/[^\\s<>\\"]+', "replacement": "[本地路径已移除]"},
         {"pattern": '(?:user|res)://[^\\s<>\\"]+', "replacement": "[本地资源路径已移除]"},
