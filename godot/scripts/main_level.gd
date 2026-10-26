@@ -4026,6 +4026,10 @@ func _build_hud_labels() -> void:
 func _finish_hud() -> void:
     ui_shell.frame(map_panel)
     ui_shell.finish_bind()
+    if world_mode:
+        var workbench := get_node_or_null("/root/JourneyWorkbench")
+        if workbench != null:
+            workbench.bind_region_ui(self)
 
 func _build_dialogue_overlay() -> void:
     dialogue_panel=ui_shell.dialogue

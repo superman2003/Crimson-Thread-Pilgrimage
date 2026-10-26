@@ -28,6 +28,25 @@ TEXT_RESOURCES = {'.gd', '.tscn', '.tres', '.json', '.gdshader', '.gdshaderinc',
 DYNAMIC = re.compile(r'"res://(?:scripts|scenes)/[^"]*(?:%s|%d)[^"]*"|load\(\s*"res://(?:scripts|scenes)/[^"]*"\s*\+')
 
 
+def discovered_scripts(godot: Path, text: str) -> list[str]:
+    """Explicit direct-child script discovery contracts on reachable loaders only.
+
+    Directories are opt-in; this never blesses the surrounding tree or tests.
+    The loader owns the contract that every matching script can be loaded.
+    """
+    result = []
+    for pattern in re.findall(r'^# export-discovery: (res://[A-Za-z0-9_/-]+/\*\.gd)$', text, re.M):
+        relative = pattern.removeprefix('res://').removesuffix('/*.gd')
+        directory = godot / relative
+        if not directory.is_dir():
+            raise ValueError(f'missing script discovery directory: {pattern}')
+        scripts = sorted(directory.glob('*.gd'))
+        if not scripts:
+            raise ValueError(f'empty script discovery directory: {pattern}')
+        result.extend('res://' + path.relative_to(godot).as_posix() for path in scripts)
+    return result
+
+
 def project_roots(godot: Path) -> set[str]:
     text = (godot / 'project.godot').read_text(encoding='utf-8')
     main = re.search(r'^run/main_scene="(res://[^"]+)"', text, re.M)
@@ -74,6 +93,7 @@ def reachable(godot: Path) -> tuple[set[str], list[str], list[str]]:
         if path.suffix == '.gd' and DYNAMIC.search(text):
             dynamic.append(resource)
         if path.suffix == '.gd':
+            todo.extend(discovered_scripts(godot, text))
             for name, script in classes.items():
                 if script != resource and re.search(r'\b%s\b' % name, text):
                     todo.append(script)

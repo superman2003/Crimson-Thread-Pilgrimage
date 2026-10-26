@@ -53,6 +53,29 @@ class ExportAuditTests(unittest.TestCase):
         self.assertEqual(report['errors'], [])
         self.assertIn('res://scripts/director.gd', report['reachable'])
 
+    def test_discovery_follows_only_declared_direct_children_and_dependencies(self):
+        files = {
+            'scripts/kit.gd': '# export-discovery: res://features/*.gd\n',
+            'features/a.gd': 'const MODEL = preload("res://models/a.gd")\n',
+            'models/a.gd': 'extends RefCounted\n',
+            'features/tests/fixture.gd': 'extends SceneTree\n',
+        }
+        report = self.run_audit('scripts/*_playback.gd,features/tests/*', files)
+        self.assertEqual(report['errors'], [])
+        self.assertIn('res://features/a.gd', report['reachable'])
+        self.assertIn('res://models/a.gd', report['reachable'])
+        self.assertNotIn('res://features/tests/fixture.gd', report['reachable'])
+        report = self.run_audit('scripts/*_playback.gd,features/*', files)
+        self.assertIn('Linux x86_64: runtime file excluded from export: res://features/a.gd', report['errors'])
+
+    def test_discovery_missing_empty_and_orphan_directories_fail(self):
+        report = self.run_audit('scripts/*_playback.gd', {'scripts/kit.gd': '# export-discovery: res://gone/*.gd\n'})
+        self.assertTrue(any('missing script discovery directory' in x for x in report['errors']))
+        report = self.run_audit('scripts/*_playback.gd', {'scripts/kit.gd': '# export-discovery: res://empty/*.gd\n', 'empty/readme.txt': ''})
+        self.assertTrue(any('empty script discovery directory' in x for x in report['errors']))
+        report = self.run_audit('scripts/*_playback.gd', {'orphan/a.gd': 'extends Node\n'})
+        self.assertIn('Linux x86_64: development-only file shipped: res://orphan/a.gd', report['errors'])
+
     def test_shipped_replay_is_rejected(self):
         report = self.run_audit('')
         self.assertIn('Linux x86_64: development-only file shipped: res://scripts/route_playback.gd', report['errors'])
