@@ -1,5 +1,7 @@
 # Crimson Thread Pilgrimage / 绯线巡礼
 
+本仓库维护 Godot 原生游戏，工程入口为 `godot/project.godot`，主场景为 `godot/scenes/World.tscn`。
+
 ## 升级进度（2026-10-24 开工快照）
 
 ![46 项最终验收与当前子项证据](docs/gallery/upgrade_progress.svg)
@@ -183,7 +185,7 @@ PR #29 在固定世界坐标旅册之上，补齐邻区敌人、NPC、钟龛和�
 
 - Godot 4.6.x
 - Python 3.10+，用于素材/数据验证脚本
-- Node.js 18+，仅用于旧版浏览器原型和 smoke test
+- Node.js 18+，仅用于开发阶段的跨平台验证入口和素材工具；游戏运行不依赖 Node.js
 
 启动：
 
@@ -219,17 +221,13 @@ python tools\validate_itch_enemy_assets.py
 python tools\render_current_gallery.py
 ```
 
-旧版浏览器原型：
+开发验证入口：
 
 ```powershell
 npm run check
-node tests/game-data.test.mjs
-node tests/static-smoke.test.mjs
-node tests/runtime-smoke.test.mjs
-npm start
+npm test
+npm run test:campaign
 ```
-
-然后打开 `http://127.0.0.1:5173/`。
 
 `npm test` 已包含活动地图几何、唯一性和运行器负面检查，`npm run test:campaign` 校验当前战役、剧情和世界路线。旧生成地图的 54 处恢复点缺陷仍由单独的严格检查报告；它不等同于活动六区地图。详见 [验证范围](docs/VALIDATION.md)。
 
@@ -276,7 +274,6 @@ npm start
 - Godot 工程核心文件
 - 运行所需且可再分发的素材
 - 文档、验证脚本、展示图
-- Web 原型和 smoke tests
 
 提交范围排除：
 

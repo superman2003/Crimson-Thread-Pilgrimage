@@ -193,6 +193,10 @@ static func render(level: Node) -> void:
             line.set_meta("reverse_status", reverse)
             host.add_child(line)
             host.move_child(line, 0)
+            var cue:=preload("res://scripts/atlas_route_cue.gd").new()
+            cue.name="DirectionCue"
+            cue.configure(project(a,layout),project(b,layout),forward,reverse)
+            line.add_child(cue)
             var badge := Label.new()
             badge.name = "WorldRouteState_" + String(portal.id)
             badge.position = project(a if not forward.open else b, layout) - Vector2(6, 9)
@@ -200,7 +204,7 @@ static func render(level: Node) -> void:
             badge.text = "◇" if not forward.open or not reverse.open else ""
             badge.add_theme_font_size_override("font_size", 12)
             badge.add_theme_color_override("font_color", SURFACE.GOLD)
-            badge.tooltip_text = "正向：%s\n反向：%s" % [forward.label, reverse.label]
+            badge.tooltip_text = preload("res://scripts/atlas_route_cue.gd").state(forward,reverse)+"\n正向：%s\n反向：%s" % [forward.label, reverse.label]
             host.add_child(badge)
     # Old portal links are a hover detail, rather than a web of diagonals
     # across every region. The solid physical passage remains always visible.
@@ -212,12 +216,20 @@ static func render(level: Node) -> void:
             var source: bool = route.get_meta("source_region") == child.get_meta("region_id") and route.get_meta("source_room") == child.get_meta("room_id")
             var target: bool = route.get_meta("target_region") == child.get_meta("region_id") and route.get_meta("target_room") == child.get_meta("room_id")
             if source or target: links.append(route)
+        var room_ref: WeakRef=weakref(child)
+        var update_links:=func():
+            for route in links:
+                if is_instance_valid(route):_update_route_visibility(route)
         child.mouse_entered.connect(func():
-            for route in links:
-                if is_instance_valid(route): route.visible = true)
+            var room:=room_ref.get_ref() as Control
+            if is_instance_valid(room):room.set_meta("route_hover",true)
+            update_links.call())
         child.mouse_exited.connect(func():
-            for route in links:
-                if is_instance_valid(route): route.visible = false)
+            var room:=room_ref.get_ref() as Control
+            if is_instance_valid(room):room.set_meta("route_hover",false)
+            update_links.call())
+        child.focus_entered.connect(update_links)
+        child.focus_exited.connect(update_links)
     var positioned: bool = SURVEY.shows_position(level)
     if positioned:
         var dot := Label.new()
@@ -228,4 +240,14 @@ static func render(level: Node) -> void:
         dot.add_theme_color_override("font_color", SURFACE.ACCENT)
         host.add_child(dot)
     level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
-    level.map_text.tooltip_text = "实线是实体钟管；悬停房间可查看名称和旧路端点关系，悬停门槛可查看通行条件。"
+    level.map_text.tooltip_text = "实线是实体钟管；悬停或方向键聚焦房间可查看旧路端点关系。箭头分别表示正反向规则允许，横杠表示两侧均受限；不代替现场物理可达性。"
+
+static func _update_route_visibility(route: Line2D) -> void:
+    if bool(route.get_meta("physical_passage",false)):route.visible=true;return
+    var shown:=false
+    for room in route.get_parent().get_children():
+        if not room is Control or not String(room.name).begins_with("WorldSurvey_"):continue
+        var source: bool=room.get_meta("region_id","")==route.get_meta("source_region","") and room.get_meta("room_id","")==route.get_meta("source_room","")
+        var target: bool=room.get_meta("region_id","")==route.get_meta("target_region","") and room.get_meta("room_id","")==route.get_meta("target_room","")
+        if (source or target) and (room.has_focus() or bool(room.get_meta("route_hover",false))):shown=true;break
+    route.visible=shown
