@@ -15,10 +15,12 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     var counts: Dictionary={}
     for index in abilities.size():
         counts[abilities[index]]=1
-        var rows: Array=VOICE.records(counts)
+        # Combination reflections join once every required ability is held.
+        var rows: Array=VOICE.records(counts).filter(func(row: Dictionary):return not String(row.id).begins_with("voice_combo_"))
         check.call(rows.size()==index+1 and String(rows.back().record_kind)=="voice","each distinct earned ability adds one reflection without requiring exploration order")
+    var all_rows: Array=VOICE.records(counts)
     counts.thread_dash=3
-    check.call(VOICE.records(counts).size()==8,"duplicate ability copies never duplicate the journal note")
+    check.call(VOICE.records(counts)==all_rows and all_rows.size()>=8,"duplicate ability copies never duplicate the journal note")
     var restored: Dictionary=JSON.parse_string(JSON.stringify(counts))
     check.call(VOICE.records(restored)==VOICE.records(counts),"existing JSON inventory alone reconstructs reflections without a new save field")
     var private_rows: Array=VOICE.catalogue()

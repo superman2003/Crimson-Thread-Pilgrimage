@@ -234,6 +234,7 @@ func _runtime() -> void:
     _check(scene.currency_count == 50 and scene.world_state.data.death_cache.currency == 50, "pre-existing death-cache capture remains visible when its subsequent checkpoint write fails")
     scene.world_save_failure_injected_for_validation = false
     _check(scene._save_world(), "death-cache checkpoint repairs after storage resumes")
+    scene.player.global_position=scene.death_cache_area.global_position # Explicit collection-reach fixture.
     scene._recover_death_cache(scene.death_cache_area)
     _check(scene.currency_count == 100 and scene.world_state.data.death_cache.is_empty(), "death-cache recovery preserves reward and cache-clear transaction order")
     var path := ROUTES.cached_config_path(TARGET)

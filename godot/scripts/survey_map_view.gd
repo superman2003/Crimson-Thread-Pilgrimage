@@ -10,23 +10,65 @@ var keyboard_pan := Vector2.ZERO
 var pan_keys: Dictionary = {}
 var stick_pan := Vector2.ZERO
 var pan_device := -1
+var view_memory: Dictionary = {}
+var previous_size := Vector2.ZERO
+const MAX_REMEMBERED_VIEWS := 8
 func _ready() -> void:
     clip_contents = true
     mouse_filter = Control.MOUSE_FILTER_STOP
     tooltip_text = "WASD / 左摇杆 平移 · PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     visibility_changed.connect(_cancel_navigation)
     Input.joy_connection_changed.connect(_controller_changed)
+    resized.connect(_resize_view)
+    previous_size=size
 func reset() -> void:
     _cancel_navigation()
     zoom = 1.0
+    view_memory.erase(view)
+    if not is_instance_valid(content):return
     content.scale = Vector2.ONE
     content.position = Vector2.ZERO
 func set_view(next: int) -> void:
     if next != view:
+        remember_view()
         view = next
-        reset()
+        _cancel_navigation()
+        restore_view()
+
+func remember_view() -> void:
+    if view<0 or not is_instance_valid(content) or content.size.x<=0.0 or content.size.y<=0.0:return
+    var center: Vector2=(size*0.5-content.position)/zoom/content.size
+    if not center.is_finite():return
+    view_memory.erase(view)
+    view_memory[view]={"zoom":zoom,"center":center.clamp(Vector2.ZERO,Vector2.ONE)}
+    while view_memory.size()>MAX_REMEMBERED_VIEWS:view_memory.erase(view_memory.keys()[0])
+
+func restore_view() -> void:
+    if not is_instance_valid(content):return
+    var saved: Dictionary=view_memory.get(view,{})
+    zoom=clampf(float(saved.get("zoom",1.0)),1.0,4.0)
+    content.scale=Vector2.ONE*zoom
+    var center: Vector2=saved.get("center",Vector2(0.5,0.5))
+    content.position=size*0.5-center*content.size*zoom
+    clamp_pan()
+
+func _resize_view() -> void:
+    if not is_instance_valid(content):previous_size=size;return
+    var center: Vector2=(previous_size*0.5-content.position)/zoom
+    content.position=size*0.5-center*zoom
+    previous_size=size
+    clamp_pan()
+
+func navigation_available() -> bool:
+    if not is_visible_in_tree() or not is_instance_valid(content):return false
+    var window:=get_window()
+    if window!=null:
+        for child in window.find_children("*","Window",true,false):
+            if child is Window and child.visible and child.exclusive:return false
+    var focused:=get_viewport().gui_get_focus_owner()
+    return not (focused is LineEdit or focused is TextEdit)
 func magnify(factor: float, anchor: Vector2 = Vector2.INF) -> void:
-    if not is_finite(factor) or factor <= 0.0: return
+    if not is_instance_valid(content) or not is_finite(factor) or factor <= 0.0: return
     if not anchor.is_finite(): anchor = size * 0.5
     var next := clampf(zoom * factor, 1.0, 4.0)
     content.position = anchor - (anchor - content.position) * (next / zoom)
@@ -34,7 +76,11 @@ func magnify(factor: float, anchor: Vector2 = Vector2.INF) -> void:
     content.scale = Vector2.ONE * zoom
     clamp_pan()
 func clamp_pan() -> void:
-    content.position = content.position.clamp(size - content.size * zoom, Vector2.ZERO)
+    if not is_instance_valid(content):return
+    var extent:=content.size*zoom
+    var low:=(size-extent).min(Vector2.ZERO)
+    var high:=(size-extent).max(Vector2.ZERO)*0.5
+    content.position=content.position.clamp(low,high)
 
 func center_on(point: Vector2, minimum_zoom: float=2.0) -> bool:
     if content==null or not point.is_finite() or not is_finite(minimum_zoom) or minimum_zoom<1.0 or minimum_zoom>4.0:return false
@@ -46,7 +92,14 @@ func center_on(point: Vector2, minimum_zoom: float=2.0) -> bool:
     clamp_pan()
     return true
 func _gui_input(event: InputEvent) -> void:
-    if event is InputEventMouseButton:
+    if not navigation_available():_cancel_navigation();return
+    if event is InputEventMagnifyGesture:
+        magnify(event.factor,event.position)
+        accept_event()
+    elif event is InputEventPanGesture:
+        if event.delta.is_finite():content.position-=event.delta*24.0;clamp_pan()
+        accept_event()
+    elif event is InputEventMouseButton:
         if event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
             magnify(1.25, event.position)
             accept_event()
@@ -81,7 +134,8 @@ func _notification(what: int) -> void:
         _cancel_navigation()
 
 func _process(delta: float) -> void:
-    if not is_visible_in_tree() or zoom <= 1.0: return
+    if not navigation_available():_cancel_navigation();return
+    if zoom <= 1.0 or not is_finite(delta) or delta<=0.0:return
     var direction := (keyboard_pan + stick_pan).limit_length()
     content.position -= direction * PAN_SPEED * delta
     clamp_pan()
@@ -91,7 +145,7 @@ func _input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
         dragging = false
 
-    if not is_visible_in_tree(): return
+    if not navigation_available():_cancel_navigation();return
     if event is InputEventKey:
         var code: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
         if code in [KEY_W,KEY_A,KEY_S,KEY_D]:

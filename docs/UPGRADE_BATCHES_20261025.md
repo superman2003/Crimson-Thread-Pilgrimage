@@ -12,7 +12,7 @@
 | 6 | S02/S03 | NPC空间拟声、近邻轮询、危险退让、叠加混音、独立开关与退役 | 已上传 [#247](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/247)；[报告](report/20261025_06_audio_landmarks.md) |
 | 7 | N02 | 已知心愿交付报价、成本/回礼与容量预览、状态复核、原子确认和弹窗输入闭环 | 已上传 [#248](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/248)；[报告](report/20261025_07_wish_preview.md) |
 | 8 | E04 | 同工匠多件清单、合计成本、全单模拟、价格复核、两步确认与单次持久事务 | 已上传 [#249](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/249)；[报告](report/20261025_08_craft_cart.md) |
-| 9 | T02 | 主档/备份状态、实际当前路径、切换/恢复预览、文件复核、保存失败留场与原档保留 | 本地通过；[报告](report/20261025_09_save_desk.md)，上传中 |
-| 10 | W05/T04 | 交通/钟龛可读操作与整合验收 | 核对缺口后实施 |
+| 9 | T02 | 主档/备份状态、实际当前路径、切换/恢复预览、文件复核、保存失败留场与原档保留 | 已上传 [#250](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/250)；[报告](report/20261025_09_save_desk.md) |
+| 10 | W05/T04 | 实体升降方向/耗时/呼叫状态、实时按键、界面暂停、载人防穿顶与六区整合 | 已上传 [#251](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/251)；[报告](report/20261025_10_lift_service.md) |
 
-范围会根据代码与台账中已证明的缺口调整，已有子项不重复开发凑数。各PR暂依前一分支串接，前项合入main后再核对基分支与冲突；不自动合并。
+十批均已上传：#242—#251；前置#241与上一轮八批不计入。每批保留实现、最终正例、语义负例、直接输入SHA与过程失败记录。各PR依前一分支串接；外部已合入#242—#244，其余在本轮最终核查时可合并。未由本轮代理自动合并。远端CI仍有排队项，不能称全部CI完成；46项最终游戏验收保持OPEN。第六批记录的引擎--quit-after直接退出Ogg残留仍未解决，项目正常退出专项通过。
