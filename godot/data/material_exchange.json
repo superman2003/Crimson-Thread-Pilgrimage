@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "batch_limit": 10,
+  "recipes": [
+    {
+      "id": "exchange_01_06",
+      "region": "demo_ch01_moss_bell_court",
+      "target_region": "demo_ch06_silent_crown_core",
+      "input": "moss_chitin",
+      "input_amount": 3,
+      "output": "crown_echo_shard",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_01"
+    },
+    {
+      "id": "exchange_01_02",
+      "region": "demo_ch01_moss_bell_court",
+      "target_region": "demo_ch02_rain_foundry_canal",
+      "input": "moss_chitin",
+      "input_amount": 3,
+      "output": "wet_chitin",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_01"
+    },
+    {
+      "id": "exchange_02_01",
+      "region": "demo_ch02_rain_foundry_canal",
+      "target_region": "demo_ch01_moss_bell_court",
+      "input": "wet_chitin",
+      "input_amount": 3,
+      "output": "moss_chitin",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_02"
+    },
+    {
+      "id": "exchange_02_03",
+      "region": "demo_ch02_rain_foundry_canal",
+      "target_region": "demo_ch03_saltwhite_archive",
+      "input": "wet_chitin",
+      "input_amount": 3,
+      "output": "salt_crystal_shard",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_02"
+    },
+    {
+      "id": "exchange_03_02",
+      "region": "demo_ch03_saltwhite_archive",
+      "target_region": "demo_ch02_rain_foundry_canal",
+      "input": "salt_crystal_shard",
+      "input_amount": 3,
+      "output": "wet_chitin",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_03"
+    },
+    {
+      "id": "exchange_03_04",
+      "region": "demo_ch03_saltwhite_archive",
+      "target_region": "demo_ch04_broken_string_greenhouse",
+      "input": "salt_crystal_shard",
+      "input_amount": 3,
+      "output": "pollen_wax",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_03"
+    },
+    {
+      "id": "exchange_04_03",
+      "region": "demo_ch04_broken_string_greenhouse",
+      "target_region": "demo_ch03_saltwhite_archive",
+      "input": "pollen_wax",
+      "input_amount": 3,
+      "output": "salt_crystal_shard",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_04"
+    },
+    {
+      "id": "exchange_04_05",
+      "region": "demo_ch04_broken_string_greenhouse",
+      "target_region": "demo_ch05_obsidian_pilgrim_road",
+      "input": "pollen_wax",
+      "input_amount": 3,
+      "output": "obsidian_splinter",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_04"
+    },
+    {
+      "id": "exchange_05_04",
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "target_region": "demo_ch04_broken_string_greenhouse",
+      "input": "obsidian_splinter",
+      "input_amount": 3,
+      "output": "pollen_wax",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_05"
+    },
+    {
+      "id": "exchange_05_06",
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "target_region": "demo_ch06_silent_crown_core",
+      "input": "obsidian_splinter",
+      "input_amount": 3,
+      "output": "crown_echo_shard",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_05"
+    },
+    {
+      "id": "exchange_06_05",
+      "region": "demo_ch06_silent_crown_core",
+      "target_region": "demo_ch05_obsidian_pilgrim_road",
+      "input": "crown_echo_shard",
+      "input_amount": 3,
+      "output": "obsidian_splinter",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_06"
+    },
+    {
+      "id": "exchange_06_01",
+      "region": "demo_ch06_silent_crown_core",
+      "target_region": "demo_ch01_moss_bell_court",
+      "input": "crown_echo_shard",
+      "input_amount": 3,
+      "output": "moss_chitin",
+      "output_amount": 1,
+      "currency": 8,
+      "requires_item": "pilgrim_permit_06"
+    }
+  ]
+}
