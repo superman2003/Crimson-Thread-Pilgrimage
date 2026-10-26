@@ -1,0 +1,45 @@
+name: A01 permanent ability roles
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/field_guide.gd'
+      - 'godot/scripts/permanent_ability_roles*.gd'
+      - 'godot/data/permanent_ability_roles.json'
+      - 'godot/scripts/journal_reading.gd'
+      - 'godot/scripts/dialogue_reading_memory.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/ui/inscription/v2/**'
+      - 'godot/assets/ui/seals/**'
+      - 'tools/run_permanent_ability_contract.py'
+      - '.github/workflows/ledger-a01-roles.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: a01-roles-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-ability-roles:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual reading UI dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/fonts/**,godot/assets/ui/inscription/v2/**,godot/assets/ui/seals/**,godot/assets/vfx/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate earned-only roles, remapped notes and actual journal lifecycle
+        run: python3 tools/run_permanent_ability_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/ability-role-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: a01-permanent-ability-roles
+          path: ${{ runner.temp }}/ability-role-logs

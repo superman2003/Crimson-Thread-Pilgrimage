@@ -44,5 +44,6 @@ static func ability_records(inventory: Dictionary, bindings: Dictionary) -> Arra
     for ability in notes:
         var value: Variant=inventory.get(ability,0)
         if typeof(value) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(value)) or float(value)<=0.0 or float(value)>1000000.0 or float(value)!=floor(float(value)):continue
-        result.append({"id":"field_ability_"+ability,"title":String(notes[ability][0]),"description":String(notes[ability][1]).format(keys),"record_kind":"guide","acquired":true})
+        var entry: Dictionary={"id":"field_ability_"+ability,"title":String(notes[ability][0]),"description":String(notes[ability][1]).format(keys),"record_kind":"guide","acquired":true}
+        result.append(preload("res://scripts/permanent_ability_roles.gd").annotate(entry,ability,inventory))
     return result
