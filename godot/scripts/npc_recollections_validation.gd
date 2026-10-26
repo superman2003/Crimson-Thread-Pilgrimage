@@ -32,6 +32,11 @@ class CommitWorld extends "res://scripts/main_level.gd":
         if not world_state.capture_global({"current_region":String(config.id),"currency":currency_count,"story_flags":story_flags}):return false
         return world_state.write(SAVE)
 
+class TransactionPlayer extends CharacterBody2D:
+    var hp:=3
+    var energy:=45
+    var practice_energy:=0
+
 class JournalWorld extends Node:
     var world_mode:=true
     var world_save_path:=SAVE
@@ -54,6 +59,8 @@ func run() -> void:
     clean()
     pure_records_checks()
     await commit_checks()
+    await fallback_checks()
+    await wish_commit_checks()
     await journal_checks()
     clean()
     print("NPC_RECOLLECTIONS checks=%d failures=%d" % [checks,failures])
@@ -69,6 +76,7 @@ func pure_records_checks() -> void:
         var npc: Dictionary=catalog[npc_id]
         check(not npc.states.is_empty(),"each readable NPC has a canonical conversation")
         for state in npc.states:
+            region=String(state.get("region",MEMORY.REGIONS.keys()[0]))
             var result:={"state":state.id,"lines":state.lines.duplicate()}
             var marker:=MEMORY.completion_marker(npc_id,result,state.lines.size()-1,region)
             check(marker.begins_with(MEMORY.PREFIX) and marker.length()==MEMORY.PREFIX.length()+64,"canonical fully read line gets a stable bounded marker")
@@ -225,4 +233,81 @@ func journal_checks() -> void:
     ui.free()
     world.free()
     await process_frame
+    await process_frame
+
+func fallback_checks() -> void:
+    var world:=CommitWorld.new()
+    world.world_mode=true
+    world.world_narrative=NARRATIVE.new()
+    world.config=JSON.parse_string(FileAccess.get_file_as_string("res://data/demo_ch01_moss_bell_court.json"))
+    var npc: Dictionary={}
+    for data in world.config.npcs:
+        if data.id=="npc_gate_pilgrim":npc=data
+    check(not npc.is_empty(),"normal gate-pilgrim fixture comes from the production chapter")
+    var area:=Area2D.new()
+    area.set_meta("npc_id",npc.id)
+    area.set_meta("dialogue",npc.dialogue)
+    area.set_meta("story_dialogue",npc.story_dialogue)
+    area.set_meta("dialogue_meta",npc.dialogue_meta)
+    world.add_child(area)
+    root.add_child(world)
+    for pair in [[{}, {}, "first_meet"],[{"npc_met_npc_gate_pilgrim":true}, {}, "repeat"],[{"npc_met_npc_gate_pilgrim":true}, {"thread_dash":1}, "after_ability"],[{"npc_met_npc_gate_pilgrim":true,"boss_down_ch01":true},{},"after_boss"]]:
+        world.story_flags=pair[0].duplicate()
+        world.inventory_counts=pair[1].duplicate()
+        var lines: Array=world._resolve_npc_lines(area)
+        check(area.get_meta("world_dialogue_result").is_empty(),"fixture exercises actual world-to-local dialogue fallback")
+        check(area.get_meta("dialogue_state")==pair[2] and lines==npc.story_dialogue[pair[2]],"actual local resolver selects authored state "+String(pair[2]))
+        var result: Dictionary=area.get_meta("world_recollection_result")
+        var marker:=MEMORY.completion_marker(npc.id,result,lines.size()-1,String(world.config.id))
+        check(not marker.is_empty(),"each fully read production fallback gets an eligible canonical identity")
+        check(MEMORY.records({marker:true})[0].description.contains(lines.back()),"fallback recollection reconstructs the actual final spoken line")
+        check(MEMORY.completion_marker(npc.id,result,lines.size()-1,"demo_ch02_rain_foundry_canal").is_empty(),"chapter-local words cannot be attributed to another region")
+    world.free()
+    await process_frame
+
+func wish_commit_checks() -> void:
+    var narrative:=NARRATIVE.new()
+    var entry: Dictionary=narrative.entries.npc_beeswax_vendor
+    var state: Dictionary={}
+    for value in entry.states:
+        if value.id=="wax_supplied":state=value
+    var result:=narrative._state_result(entry,state,[])
+    var world:=create_commit_world(result,"npc_beeswax_vendor")
+    world.config={"id":"demo_ch04_broken_string_greenhouse"}
+    world.world_narrative=narrative
+    world.world_save_path=SAVE
+    world.world_save_blocked=false
+    var player:=TransactionPlayer.new()
+    world.add_child(player)
+    world.player=player
+    world.inventory_counts={"pollen_wax":1}
+    var area: Area2D=world.ui_shell.dialogue_area
+    area.set_meta("world_displayed_index",state.lines.size()-1)
+    var quest:={"item":"pollen_wax","consume":true,"reward":"map_fragment","complete_flag":"recollection_wish_delivered","accept_flag":"recollection_wish_accepted"}
+    var marker:=MEMORY.completion_marker("npc_beeswax_vendor",result,state.lines.size()-1,String(world.config.id))
+    var before: Dictionary=world.story_flags.duplicate(true)
+    world.dialogue_text_label.visible_characters=0
+    check(not world._wish_dialogue_candidate(area,{},12).flags.has(marker),"unrevealed final line stays out of wish candidates")
+    world.dialogue_text_label.visible_characters=-1
+    var plan: Dictionary=world._wish_topic_plan(quest,area)
+    check(plan.flags.get(marker,false) and plan.flags.get("quest_wax_lamps_complete",false),"actual wish plan includes transcript identity and final-line completion in the same candidate")
+    check(world.story_flags==before,"wish preview remains detached from live narrative flags")
+    clean()
+    world.world_save_failure_injected_for_validation=true
+    var failed: Dictionary=world.perform_wish_topic(quest,area)
+    check(not failed.ok and not world.story_flags.has(marker) and not FileAccess.file_exists(SAVE),"failed atomic wish write publishes neither memory nor a new save")
+    check(world.inventory_counts.get("pollen_wax")==1 and world.currency_count==12,"failed wish preserves offering and wallet")
+    world.world_save_failure_injected_for_validation=false
+    var success: Dictionary=world.perform_wish_topic(quest,area)
+    check(success.ok and success.delivered,"actual wish transaction writes the prepared canonical conversation and offering")
+    check(world.story_flags.get(marker,false) and world.story_flags.get("reward_wax_lamps_claimed",false) and world.currency_count==42,"transcript and one-time final-line reward publish together")
+    var disk:=WORLD.new()
+    check(disk.read(SAVE) and disk.data.story_flags.get(marker,false),"actual successful wish JSON preserves transcript identity across reload")
+    check(MEMORY.records(disk.data.story_flags)[0].description.contains(state.lines.back()),"wax_supplied remains readable after the transaction permanently advances the narrative state")
+    check(world.world_narrative.resolve("npc_beeswax_vendor",[],[],world.story_flags,world.inventory_counts).state!="wax_supplied","recollection survives the real resolver moving to the next state")
+    area.set_meta("world_line_committed",true)
+    var bytes:=FileAccess.get_file_as_bytes(SAVE)
+    world.perform_wish_topic(quest,area)
+    check(world.currency_count==42 and FileAccess.get_file_as_bytes(SAVE)==bytes,"repeated committed wish never repeats final-line rewards or rewrites its save")
+    world.free()
     await process_frame

@@ -226,6 +226,8 @@ static func paper(level: Node, enabled: bool) -> void:
             child.add_theme_color_override("font_color",SURFACE.INK if enabled else Color("b5a17c"))
 static func render(level: Node) -> void:
     paper(level,true)
+    # An unpurchased region must not retain the previous map's explanations.
+    level.map_text.tooltip_text=""
     if level.wish_panel!=null: level.wish_panel.visible=false
     var id := String(level.config.id)
     var journal := JOURNAL.region(level.story_flags,id)

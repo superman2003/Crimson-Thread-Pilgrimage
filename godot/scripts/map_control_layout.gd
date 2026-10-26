@@ -96,14 +96,35 @@ static func open_help(host: WeakRef, parent: WeakRef) -> void:
         window.confirmed.connect(func():restore_focus(host,parent))
         window.canceled.connect(func():restore_focus(host,parent))
     var label:=window.get_node("LegendText") as RichTextLabel
-    var message:=String(level.map_text.text) if is_instance_valid(level.map_text) else ""
-    var status:=panel.get_node_or_null("PlayerPinStatus") as Label
-    label.text="当前地图\n"+message
-    if status!=null and not status.text.is_empty():label.text+="\n\n图钉提示\n"+status.text
-    if message.is_empty():label.text="当前地图尚无额外说明。"
+    label.text=help_text(level)
     label.scroll_to_line(0)
     window.popup_centered()
     window.get_ok_button().grab_focus()
+
+static func append_detail(parts: Array[String], seen: Dictionary, value: String) -> void:
+    var text:=value.strip_edges()
+    if text.is_empty() or seen.has(text):return
+    seen[text]=true
+    parts.append(text)
+
+static func rendered_details(node: Node, parts: Array[String], seen: Dictionary) -> void:
+    # Only collect the current renderer's disclosed controls. Never traverse
+    # authored configs or journal data to invent explanations for unknown rooms.
+    if node.is_queued_for_deletion():return
+    if node is CanvasItem and not node.is_visible_in_tree():return
+    if node is Control:append_detail(parts,seen,node.tooltip_text)
+    for child in node.get_children():rendered_details(child,parts,seen)
+
+static func help_text(level: Node) -> String:
+    var parts: Array[String]=[]
+    var seen: Dictionary={}
+    if is_instance_valid(level.map_text):
+        append_detail(parts,seen,level.map_text.text)
+        append_detail(parts,seen,level.map_text.tooltip_text)
+    if is_instance_valid(level.map_draw_root):rendered_details(level.map_draw_root,parts,seen)
+    var status:=level.map_panel.get_node_or_null("PlayerPinStatus") as Label
+    if status!=null:append_detail(parts,seen,status.text)
+    return "当前地图\n\n"+"\n\n".join(parts) if not parts.is_empty() else "当前地图尚无额外说明。"
 
 static func restore_focus(host: WeakRef, parent: WeakRef) -> void:
     if not owns(host,parent):return

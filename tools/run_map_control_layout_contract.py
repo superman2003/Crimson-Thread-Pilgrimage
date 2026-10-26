@@ -42,6 +42,7 @@ def main():
         'assets/ui/inscription/v2/folio.png',
         'assets/ui/inscription/v2/needle_seal.svg',
         'assets/ui/seals/crimson.svg',
+        'assets/ui/cartography/survey_paper.svg',
     )
     for relative in dependencies:
         dependency = ROOT / 'godot' / relative
@@ -51,7 +52,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-u01-map-layout-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'data', 'shaders', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals'):
+        for directory in ('scripts', 'data', 'shaders', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals', 'assets/ui/cartography'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         (project / 'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Map control layout contracts"\n'

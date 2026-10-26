@@ -3,6 +3,11 @@ const LAYOUT:=preload("res://scripts/map_control_layout.gd")
 const PINS:=preload("res://scripts/map_player_pins_runtime.gd")
 const VIEW:=preload("res://scripts/survey_map_view.gd")
 const UI:=preload("res://scripts/pilgrimage_interface.gd")
+const SURVEY:=preload("res://scripts/cartography_runtime.gd")
+const ATLAS:=preload("res://scripts/world_atlas.gd")
+const ROUTES:=preload("res://scripts/world_routes.gd")
+const JOURNAL:=preload("res://scripts/pilgrimage_cartography.gd")
+const STATE:=preload("res://scripts/world_state.gd")
 const COORD:=preload("res://scripts/world_coordinates.gd")
 var checks:=0
 var failures:=0
@@ -18,6 +23,23 @@ class Runtime extends Node:
     var map_text: Label
     var story_flags: Dictionary={}
     var notices: Array[String]=[]
+    var config: Dictionary={}
+    var player: Node2D
+    var world_state: RefCounted=STATE.new()
+    var inventory_counts: Dictionary={}
+    var opened_shortcuts: Dictionary={}
+    var chapter_terrain: Node
+    var wish_panel: Control
+    var build_system: RefCounted
+    func _vec2(value: Array) -> Vector2:return Vector2(value[0],value[1])
+    func _rect2(value: Array) -> Rect2:return Rect2(value[0],value[1],value[2],value[3])
+    func _map_world_to_overlay(point: Vector2,bounds: Rect2,extent: Vector2) -> Vector2:
+        return (point-bounds.position)/bounds.size*extent
+    func _room_for_position(point: Vector2) -> Dictionary:
+        for room in config.get("map_rooms",[]):
+            if SURVEY.room_rect(room).has_point(point):return room
+        return {}
+    func player_world_position() -> Vector2:return COORD.to_world(String(config.id),player.position)
     func _toast(message: String) -> void:notices.append(message)
 
 func _initialize() -> void:call_deferred("run")
@@ -37,7 +59,12 @@ func make_runtime() -> Node:
     world.map_panel=ColorRect.new()
     world.map_panel.position=Vector2(52,54)
     world.map_panel.size=Vector2(1176,640)
+    world.player=Node2D.new()
+    world.add_child(world.player)
     ui.add_child(world.map_panel)
+    var background:=TextureRect.new()
+    background.name="MapBackgroundArt"
+    world.map_panel.add_child(background)
     world.survey_map_view=VIEW.new()
     world.survey_map_view.position=Vector2(34,78)
     world.survey_map_view.size=Vector2(1108,504)
@@ -92,6 +119,7 @@ func check_bounds(world: Node) -> void:
 func run() -> void:
     await layout_checks()
     await legend_checks()
+    await production_legend_checks()
     await lifetime_checks()
     print("MAP_CONTROL_LAYOUT checks=%d failures=%d" % [checks,failures])
     quit(1 if failures else 0)
@@ -162,6 +190,7 @@ func legend_checks() -> void:
     check(not window.visible,"transition/loading state cannot open an obsolete legend")
     world.world_loading=false
     world.map_text.text=""
+    status.text=""
     button.pressed.emit()
     check(text.text.contains("尚无额外说明"),"empty legend provides an explicit readable state")
     world.free()
@@ -184,3 +213,79 @@ func lifetime_checks() -> void:
     for callback in callbacks:callback.call()
     for reference in references:check(reference.get_ref()==null,"legend callbacks never retain a destroyed region owner")
     check(callbacks.all(func(callback):return callback.is_valid()),"weak dispatch callables remain valid after their retired maps are gone")
+
+func assert_rendered_details(world: Node, message: String) -> void:
+    var controls: Array[Node]=world.map_draw_root.find_children("*","Control",true,false)
+    var details:=0
+    for node in controls:
+        if not node.is_visible_in_tree() or node.tooltip_text.strip_edges().is_empty():continue
+        details+=1
+        check(message.contains(node.tooltip_text.strip_edges()),"production renderer's known tooltip is readable: "+String(node.name))
+    check(details>5,"real renderer provides multiple authored room/route/hazard explanations")
+    check(message.contains(world.map_text.tooltip_text),"production long-form legend survives terse footer text")
+
+func clear_map(world: Node) -> void:
+    for child in world.map_draw_root.get_children():child.free()
+
+func production_legend_checks() -> void:
+    ROUTES._data()
+    var world:=make_runtime()
+    LAYOUT.apply(world)
+    world.config=ATLAS.configuration("demo_ch01_moss_bell_court")
+    check(not world.config.is_empty(),"production map configuration and route cache are available")
+    var id:=String(world.config.id)
+    JOURNAL.region(world.story_flags,id).owned=true
+    JOURNAL.grant_quill(world.story_flags)
+    var unknown_names: Array[String]=[]
+    for room in world.config.map_rooms:
+        if SURVEY.public_room(room):JOURNAL.visit(world.story_flags,id,String(room.id))
+        else:unknown_names.append("SurveyRoom_"+String(room.id))
+    JOURNAL.rest(world.story_flags)
+    SURVEY.render(world)
+    check(not world.map_text.text.contains("\n") and not world.map_text.tooltip_text.is_empty(),"real local renderer uses terse footer plus separate long-form tooltip")
+    var flags: Dictionary=world.story_flags.duplicate(true)
+    var previous_tooltip:=String(world.map_text.tooltip_text)
+    var local_text:=LAYOUT.help_text(world)
+    assert_rendered_details(world,local_text)
+    check(world.story_flags==flags,"opening help does not chart rooms or mutate discovery")
+    for name in unknown_names:
+        check(not world.map_draw_root.has_node(name),"uncharted hidden room has no control for help to collect")
+    # Duplicate tooltips are shown once, hidden/retired children never leak.
+    var duplicate:=Label.new()
+    duplicate.tooltip_text=world.map_text.tooltip_text
+    world.map_draw_root.add_child(duplicate)
+    var hidden:=Label.new()
+    hidden.tooltip_text="SECRET_HIDDEN_TOOLTIP"
+    hidden.hide()
+    world.map_draw_root.add_child(hidden)
+    var retired:=Label.new()
+    retired.tooltip_text="SECRET_RETIRED_TOOLTIP"
+    world.map_draw_root.add_child(retired)
+    retired.queue_free()
+    local_text=LAYOUT.help_text(world)
+    check(local_text.count(world.map_text.tooltip_text)==1,"duplicate production explanations appear once")
+    check(not local_text.contains("SECRET_"),"hidden and queued controls are excluded")
+    var button:=world.map_panel.get_node(LAYOUT.HELP_BUTTON) as Button
+    button.pressed.emit()
+    var dialog:=world.map_panel.get_node(LAYOUT.HELP_WINDOW) as AcceptDialog
+    check(dialog.get_node("LegendText").text==local_text,"native dialog consumes actual local renderer explanations")
+    dialog.hide()
+    # An unpurchased redraw must clear previous region details immediately.
+    clear_map(world)
+    JOURNAL.region(world.story_flags,id).owned=false
+    SURVEY.render(world)
+    check(world.map_text.tooltip_text.is_empty(),"unowned map render clears previous long-form tooltip")
+    check(not LAYOUT.help_text(world).contains(previous_tooltip),"unowned help cannot retain the previous known-room summary")
+    clear_map(world)
+    JOURNAL.region(world.story_flags,id).owned=true
+    for region in COORD.manifest().regions:
+        JOURNAL.region(world.story_flags,String(region)).owned=true
+    ATLAS.render(world)
+    var atlas_text:=LAYOUT.help_text(world)
+    check(not world.map_text.text.contains("\n") and atlas_text.contains("实线是实体钟管"),"actual atlas long-form transport explanation is readable")
+    assert_rendered_details(world,atlas_text)
+    check(not atlas_text.contains("SECRET_"),"switching to atlas discards previous view controls")
+    button.pressed.emit()
+    check(dialog.get_node("LegendText").text==atlas_text,"reopened native reader refreshes from actual atlas renderer")
+    world.free()
+    await process_frame
