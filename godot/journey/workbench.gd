@@ -40,6 +40,9 @@ func _owner() -> Node:
 
 func _process(delta: float) -> void:
     elapsed += delta
+    # Region arrival can replace the UI shell; rebind the entry on the next
+    # frame rather than the next 0.1 s observation tick.
+    _rebind_ui()
     if elapsed < 0.1:
         return
     var step := elapsed
@@ -56,16 +59,22 @@ func _process(delta: float) -> void:
         _attach(owner)
     if context == null:
         return
-    if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
-        _retire_ui()
-        _attach_ui(owner)
+    _rebind_ui()
     var snapshot: Dictionary = context.update()
     for feature in features.values():
         feature.tick(snapshot, step)
-    if is_instance_valid(entry):
-        entry.visible = owner.active_overlay == "settings" and not bool(owner.world_loading)
     if is_instance_valid(dialog) and dialog.visible and owner.active_overlay != "settings":
         close()
+
+func _rebind_ui() -> void:
+    var owner := _owner()
+    if context == null or owner == null or not bool(owner.get("initial_region_ready")) or not is_instance_valid(owner.get("ui_shell")):
+        return
+    if not is_instance_valid(entry) or bound_ui_ref == null or bound_ui_ref.get_ref() != owner.ui_shell:
+        _retire_ui()
+        _attach_ui(owner)
+    if is_instance_valid(entry):
+        entry.visible = owner.active_overlay == "settings" and not bool(owner.world_loading)
 
 func _attach(owner: Node) -> void:
     context = CONTEXT.new()
