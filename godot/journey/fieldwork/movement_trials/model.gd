@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/movement_trials/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/movement_trials/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const VIEW := preload("res://journey/fieldwork/movement_trials/view.gd")
@@ -441,7 +443,7 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     ]
 
 
-static func compare(a: Dictionary, b: Dictionary) -> Array:
+static func _before_advanced_compare(a: Dictionary, b: Dictionary) -> Array:
     var left := metrics(a)
     var right := metrics(b)
     return [
@@ -471,3 +473,7 @@ static func compare(a: Dictionary, b: Dictionary) -> Array:
         ),
         K.notice("比较前提", "请核对地区、区间、采样时长与低速阈值。分段和漏采会影响结果。")
     ]
+
+
+static func compare(a: Dictionary, b: Dictionary) -> Array:
+    return _before_advanced_compare(a, b) + ADVANCED.sections(a, b) + [{"kind":"custom","title":"机动轨迹时间对齐 · 交互预览","view":ADVANCED_VIEW,"data":{"a":a,"b":b}}]
