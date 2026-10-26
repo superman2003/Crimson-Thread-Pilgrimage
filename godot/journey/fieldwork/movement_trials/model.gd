@@ -2,7 +2,8 @@ extends RefCounted
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const VIEW := preload("res://journey/fieldwork/movement_trials/view.gd")
-const MAX_SAMPLES := 600
+const MAX_SAMPLES := 601
+const RECORD_LIMIT := 12
 var active := false
 var paused := false
 var stop_reason := ""
@@ -181,10 +182,12 @@ func sample(snapshot: Dictionary, clock: float) -> void:
     if last_sample >= 0 and clock - last_sample > 0.5:
         end("观察间隔超过半秒，保留已有样本")
         return
-    if last_sample >= 0 and clock - last_sample < 0.099:
+    if last_sample >= 0 and clock - last_sample < 0.1 - 0.000001:
         return
     if last_sample >= 0:
-        elapsed += clock - last_sample
+        elapsed = minf(float(settings.duration), elapsed + clock - last_sample)
+        if is_equal_approx(elapsed, float(settings.duration)):
+            elapsed = float(settings.duration)
     last_sample = clock
     begun = true
     exploring = true
@@ -206,7 +209,7 @@ func sample(snapshot: Dictionary, clock: float) -> void:
     elif elapsed >= float(settings.duration):
         end("活动采样时长达到上限")
     elif samples.size() >= MAX_SAMPLES:
-        end("达到600个样本上限")
+        end("达到601个样本上限")
 
 
 func pause(clock: float) -> void:
@@ -433,7 +436,7 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
             "每二十个观察间隔", ["观察段", "样本间隔数", "平均观测速度", "最大观测速度", "折线距离", "净能量变化"], rolling(payload)
         ),
         K.bars("速度带内的观察秒数", speed_bands(payload)),
-        K.notice("采样边界", "约10Hz观察会漏掉短动作、短暂着地与中间位移；不计真实跳跃数、施放数或命中数。界面和暂停分段之间不会连接折线。"),
+        K.notice("采样边界", "最多保存12份完整区间记录，另受辅助文件总容量限制。约10Hz观察会漏掉短动作、短暂着地与中间位移；不计真实跳跃数、施放数或命中数。界面和暂停分段之间不会连接折线。"),
         K.notice("结束原因", String(payload.reason))
     ]
 

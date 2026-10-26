@@ -42,3 +42,31 @@ func domain_checks(context: RefCounted) -> void:
     )
     check(metrics.landings == 1, "observed airborne-to-grounded transition counted once")
     check(result.excluded >= 0.8, "non-exploration clock is excluded")
+
+    config.duration = 60.0
+    session = M.new()
+    check(session.begin(config, 0.0), "maximum-duration trial starts")
+    frame.player.position = [0, 0]
+    for i in 601:
+        session.sample(frame, float(i) / 10.0)
+    result = session.result()
+    check(result.completed and result.samples.size() == 601 and is_equal_approx(result.elapsed, 60.0), "60 second trial includes time-zero and final endpoint without early capacity stop")
+    check(M.validate(result), "full-length trial remains serializable")
+    var library := RECORDS.fresh()
+    for i in M.RECORD_LIMIT:
+        library = RECORDS.append(library, "完整区间%d" % i, result)
+    check(RECORDS.valid(library, M.validate), "advertised full-length record capacity fits the unchanged JSON node budget")
+    check(RECORDS.export_package(library, "movement_trials", context.store.scope).to_utf8_buffer().size() < 2097152, "complete maximum-count sample library fits the unchanged auxiliary byte budget")
+    var old_library := RECORDS.fresh()
+    var short_trial := result.duplicate(true)
+    short_trial.samples = short_trial.samples.slice(0, 2)
+    short_trial.elapsed = 0.1
+    short_trial.completed = false
+    for i in M.RECORD_LIMIT + 1:
+        old_library = RECORDS.append(old_library, "旧短记录%d" % i, short_trial)
+    var panel := FEATURE.new()
+    panel.setup(context)
+    panel.data = old_library
+    check(panel.valid(old_library), "existing short-record libraries remain readable after full-trial capacity correction")
+    var overflow := RECORDS.append(old_library, "额外记录", short_trial)
+    check(not panel.save_candidate(overflow), "new sessions cannot expand a legacy library beyond the corrected limit")
