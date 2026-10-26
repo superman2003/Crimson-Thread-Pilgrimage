@@ -532,6 +532,7 @@ var tool_encounter_hints: Dictionary = {}
 
 ## C04: practice hits per skill this session; three open its 校习 directions.
 var skill_practice_hits: Dictionary = {}
+var skill_practice_serials: Dictionary = {}
 ## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
@@ -3626,6 +3627,7 @@ func _spawn_seal_practice_targets() -> void:
         var target := Area2D.new()
         target.set_script(load("res://scripts/seal_training_target.gd"))
         target.name = String(entry.training_id)
+        target.set_meta("practice_skill_id",String(entry.get("skill_id","")))
         target.position = _vec2(entry.position)
         for platform in config.get("platforms", []):
             if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
@@ -3637,10 +3639,12 @@ func _spawn_seal_practice_targets() -> void:
             "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": [], "locomotion": "stationary"})
         add_child(target)
         var label := Label.new()
-        label.position = Vector2(-100, -132)
-        label.size = Vector2(200, 80)
+        label.name="PracticeCaption"
+        label.position = Vector2(-120, -175)
+        label.size = Vector2(240, 130)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.set_meta("base_text",label.text)
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
@@ -3847,22 +3851,34 @@ func _mark_hidden_route_found() -> void:
 const SKILL_PRACTICE_HITS := 3
 const SKILL_PRACTICE_WINDOW_MSEC := 1500
 
-## A practice rack counts a hit only right after its own skill was cast, so
-## basic attacks never train a skill.
-func _on_skill_practice_hit(skill_id: String) -> void:
-    if player == null or not is_instance_valid(player) or build_system == null:
-        return
-    if String(player.last_skill_cast) != skill_id or Time.get_ticks_msec() - int(player.last_skill_cast_msec) > SKILL_PRACTICE_WINDOW_MSEC:
-        return
-    var flag := "skill_practiced_" + skill_id
-    if bool(story_flags.get(flag, false)):
-        return
-    skill_practice_hits[skill_id] = int(skill_practice_hits.get(skill_id, 0)) + 1
-    if int(skill_practice_hits[skill_id]) < SKILL_PRACTICE_HITS:
-        return
-    story_flags[flag] = true
-    _save_world()
-    _toast("已练熟「%s」：可找织线学徒、雨铸匠或蜂蜡商人选择校习方向。" % String(build_system.catalog.skills[skill_id].get("name", skill_id)))
+func get_skill_practice_progress(skill_id: String) -> Dictionary:
+    var known: bool=build_system!=null and skill_id in build_system.state.unlocked_skills
+    var completed: bool=known and story_flags.get("skill_practiced_"+skill_id,false)==true
+    var count:=clampi(int(skill_practice_hits.get(skill_id,0)),0,SKILL_PRACTICE_HITS) if known else 0
+    return {"known":known,"completed":completed,"count":SKILL_PRACTICE_HITS if completed else count,"required":SKILL_PRACTICE_HITS,"pending_save":not completed and count>=SKILL_PRACTICE_HITS}
+
+## Only a canonical rack's actual skill/guard contact can train. The cast
+## sequence is captured by emitted effects; melee cannot borrow a recent cast.
+func _on_skill_practice_hit(skill_id: String, target: Area2D=null, serial: int=0, contact_kind: String="skill") -> void:
+    if not world_mode or world_loading or player==null or build_system==null or player.hp<=0 or player.ui_input_locked:return
+    if not is_instance_valid(target) or target.get_parent()!=self or not target.is_inside_tree() or not target.get_meta("seal_training_target",false):return
+    if String(target.get_meta("practice_skill_id",""))!=skill_id or skill_id not in build_system.state.unlocked_skills:return
+    if (skill_id=="ward" and contact_kind!="guard") or (skill_id!="ward" and contact_kind!="skill"):return
+    if String(player.last_skill_cast)!=skill_id or serial<=0 or serial!=player.last_skill_cast_serial:return
+    var age:=Time.get_ticks_msec()-int(player.last_skill_cast_msec)
+    if age<0 or age>SKILL_PRACTICE_WINDOW_MSEC or target.global_position.distance_to(player.global_position)>900:return
+    if serial<=int(skill_practice_serials.get(skill_id,0)):return
+    var flag:="skill_practiced_"+skill_id
+    if bool(story_flags.get(flag,false)):return
+    skill_practice_serials[skill_id]=serial
+    skill_practice_hits[skill_id]=mini(SKILL_PRACTICE_HITS,int(skill_practice_hits.get(skill_id,0))+1)
+    if int(skill_practice_hits[skill_id])<SKILL_PRACTICE_HITS:return
+    var flags:=story_flags.duplicate(true);flags[flag]=true
+    var result:=_persist_world_change({"story_flags":flags})
+    if not result.ok:_toast("练习已达标，记录尚未写入；下次有效施放会重试。");return
+    world_state.data=result.candidate;story_flags=flags
+    _toast("已练熟「%s」：可找工匠选择校习方向。" % String(build_system.catalog.skills[skill_id].get("name",skill_id)))
+
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
