@@ -1,0 +1,29 @@
+Running world_coordinates
+PASS: world_coordinates
+
+WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves
+Running world_state
+PASS: world_state
+
+WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves
+Running world_save_candidate
+PASS: world_save_candidate
+寻找低处检修台遗留的攀壁线爪；雨溢立管在上方，钟庭在来路。  M 地图 / Tab 世界图 · F9 新旅途。
+WORLD SAVE CANDIDATE PASS checks=103
+Running map_player_pins
+PASS: map_player_pins
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running save_product
+PASS: save_product
+
+SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots
+Running input_prompt
+PASS: input_prompt
+AUDIO_RETIREMENT pending=0 elapsed_msec=3 observed=2 retired=4
+INPUT_PROMPT_VALIDATION checks=36 failures=0
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+GODOT_REGRESSIONS suites=7 failures=0

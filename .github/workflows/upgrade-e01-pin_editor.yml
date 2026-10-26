@@ -1,0 +1,55 @@
+name: Upgrade E01 pin_editor
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/map_player_pins.gd'
+      - 'godot/scripts/map_player_pins_runtime.gd'
+      - 'godot/tests/upgrade_e01_pin_editor.gd'
+      - '.github/workflows/upgrade-e01-pin_editor.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  focused-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Hydrate runtime assets and install fixed engine
+        run: |
+          git lfs pull --include='godot/assets/**'
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Import twice with strict error checks
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 180 --log-dir "$RUNNER_TEMP/upgrade-logs/import"
+      - name: Run focused production regression under software GL
+        env:
+          GODOT_ENGINE: ${{ runner.temp }}/engine/Godot_v4.6.1-stable_linux.x86_64
+          UPGRADE_LOGS: ${{ runner.temp }}/upgrade-logs
+        run: |
+          python3 - <<'PYCODE'
+          import os, pathlib, re, subprocess, sys
+          sys.path.insert(0, str(pathlib.Path('tools').resolve()))
+          from software_gl import software_gl
+          logs = pathlib.Path(os.environ['UPGRADE_LOGS'])
+          with software_gl(logs / 'display') as extra:
+              environment = dict(os.environ, **extra, XDG_DATA_HOME=str(logs / 'userdata'), APPDATA=str(logs / 'userdata'))
+              with (logs / 'focused.log').open('w') as out:
+                  result = subprocess.run([os.environ['GODOT_ENGINE'], '--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility', '--path', 'godot', '--script', 'res://tests/upgrade_e01_pin_editor.gd'], env=environment, stdout=out, stderr=subprocess.STDOUT, timeout=180)
+          text = (logs / 'focused.log').read_text()
+          print(text)
+          errors = re.search(r'(?m)^\s*(?:SCRIPT ERROR|ERROR):', text)
+          completed = re.search(r'UPGRADE_E01 checks=[0-9]+ failures=0', text)
+          sys.exit(1 if result.returncode or errors or not completed else 0)
+          PYCODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upgrade-e01-logs
+          path: ${{ runner.temp }}/upgrade-logs
+          if-no-files-found: ignore

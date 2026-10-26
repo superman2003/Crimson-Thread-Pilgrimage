@@ -18,6 +18,10 @@ static func records(heal: Dictionary, bindings: Dictionary, recall_available: bo
     var titles: Array[String]=["针击、绯线与疗伤","钟龛、构筑与战具补给","购图、补绘与回访","失落、重试与找回"]
     var result: Array[Dictionary]=[]
     for index in titles.size():result.append({"id":"field_guide_"+str(index),"title":titles[index],"description":descriptions[index],"record_kind":"guide","acquired":true})
+    var equipment:=preload("res://scripts/equipment_field_notes.gd").records(inventory,bindings)
+    for note in equipment:
+        var page:=0 if String(note.id).begins_with("equipment_guide_skills_") else 1
+        result[page].description+="\n\n"+String(note.title)+"\n"+String(note.description)
     result.append_array(ability_records(inventory,bindings))
     return result
 

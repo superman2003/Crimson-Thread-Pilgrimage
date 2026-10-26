@@ -8,6 +8,8 @@ const PALE := Color("8caaa1")
 var entry: Dictionary = {}
 var seen := false
 var elapsed := 0.0
+var inspection_focused := false
+var inspection_caption: Label
 
 func _ready() -> void:
     z_index=2
@@ -15,7 +17,18 @@ func _ready() -> void:
     collision_mask=1
     add_to_group("interactable")
     if String(entry.get("role",""))=="witness":visible=false
-    set_process(String(entry.get("role",""))=="witness" or String(entry.get("look",""))=="pump_manifold")
+    inspection_caption=Label.new()
+    inspection_caption.name="InspectionCaption"
+    inspection_caption.position=Vector2(-130,-184)
+    inspection_caption.size=Vector2(260,36)
+    inspection_caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
+    inspection_caption.clip_text=true
+    inspection_caption.mouse_filter=Control.MOUSE_FILTER_IGNORE
+    inspection_caption.add_theme_font_size_override("font_size",14)
+    inspection_caption.add_theme_color_override("font_color",PAPER)
+    inspection_caption.visible=false
+    add_child(inspection_caption)
+    set_process(true)
     var collision := CollisionShape2D.new()
     var shape := RectangleShape2D.new()
     shape.size=Vector2(100,80)
@@ -25,17 +38,33 @@ func _ready() -> void:
 func _process(delta: float) -> void:
     if String(entry.get("role",""))=="witness":
         visible=String(get_parent().get("current_room_id"))==String(entry.get("room_id",""))
-    if visible and String(entry.get("look",""))=="pump_manifold":
+    var host:=get_parent()
+    var overlay: Variant=host.get("active_overlay")
+    var focused: bool=visible and host.has_method("interaction_target") and (overlay==null or overlay=="") and host.interaction_target(self)==self
+    if focused!=inspection_focused:
+        inspection_focused=focused
+        queue_redraw()
+    inspection_caption.visible=focused
+    inspection_caption.text=inspection_text()
+    if visible and is_finite(delta) and delta>=0 and String(entry.get("look",""))=="pump_manifold":
         elapsed+=delta
         queue_redraw()
 
 func accessible_from(player: CharacterBody2D) -> bool:
-    var query := PhysicsRayQueryParameters2D.create(player.global_position,global_position,1,[player.get_rid()])
+    if not is_instance_valid(player) or not player.is_inside_tree() or not is_inside_tree() or not is_visible_in_tree():return false
+    if player.get_world_2d()!=get_world_2d() or player.global_position.distance_to(global_position)>180:return false
+    var start:=player.global_position-Vector2(0,42)
+    var query := PhysicsRayQueryParameters2D.create(start,global_position,1,[player.get_rid()])
     return get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 func mark_seen() -> void:
     seen=true
+    if is_instance_valid(inspection_caption):inspection_caption.text=inspection_text()
     queue_redraw()
+
+func inspection_text() -> String:
+    if seen:return "已记下 · "+String(entry.get("title","此处的痕迹"))
+    return "观察留在此处的痕迹" if String(entry.get("role",""))=="witness" else "观察旧物"
 
 func stroke(points: Array,color: Color=COPPER,width: float=2.0) -> void:
     draw_polyline(PackedVector2Array(points),color,width,true)
@@ -45,6 +74,10 @@ func key_at(at: Vector2,color: Color) -> void:
     stroke([at+Vector2(6,0),at+Vector2(25,0),at+Vector2(25,7),at+Vector2(19,7)],color)
 
 func _draw() -> void:
+    if inspection_focused:
+        for side in [-1,1]:
+            stroke([Vector2(side*43,-40),Vector2(side*53,-40),Vector2(side*53,-30)],PAPER)
+            stroke([Vector2(side*43,30),Vector2(side*53,30),Vector2(side*53,20)],PAPER)
     # The foot reaches the authored floor, 32 pixels below this interaction anchor.
     draw_rect(Rect2(-44,25,88,7),INK)
     stroke([Vector2(-44,25),Vector2(-29,23),Vector2(18,25),Vector2(44,24)],COPPER)
