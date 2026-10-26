@@ -32,6 +32,9 @@ func commit(candidate: Dictionary) -> bool:
         return false
     if not context.editable() or not context.store.write(String(descriptor().id), candidate):
         error = context.store.error if not context.store.error.is_empty() else "当前旅途暂不能编辑。"
+        var failure := error
+        recover_conflict()
+        error = failure
         context.tell(error)
         return false
     data = candidate.duplicate(true)
@@ -65,3 +68,22 @@ func shutdown() -> void:
 
 func restorable() -> bool:
     return true
+
+
+func recover_conflict() -> bool:
+    var id := String(descriptor().id)
+    var expected := String(context.store.identities.get(id, "missing"))
+    if expected == "unreadable" or context.store.identity(context.store.path_for(id)) == expected:
+        return false
+    var current: Dictionary = context.store.read(id, initial())
+    if not context.store.error.is_empty() or not valid(current):
+        context.store.identities[id] = "unreadable"
+        return false
+    data = current
+    selected = ""
+    storage_reloaded()
+    context.refresh()
+    return true
+
+func storage_reloaded() -> void:
+    pass

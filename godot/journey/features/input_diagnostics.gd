@@ -1,6 +1,8 @@
 extends "res://journey/core/feature.gd"
 const MODEL := preload("res://journey/inputs/model.gd")
 const METER := preload("res://journey/inputs/meter.gd")
+static var retired_pending: Dictionary = {}
+var live_count: Label
 var active: Dictionary = {}
 var pending: Dictionary = {}
 var axes: Dictionary = {}
@@ -36,7 +38,7 @@ func draw(parent: Control) -> void:
     header(parent, "读取当前 InputMap，不改键、不注入动作。事件观察只在本工作台窗口明确开始后生效，最多30秒/500条。")
     _bind_window()
     if not active.is_empty():
-        UI.label(parent, "输入观察中 · %d条；切换模块或关闭工作台会结束。" % active.events.size())
+        live_count = UI.label(parent, "输入观察中 · %d条；切换模块或关闭工作台会结束。" % active.events.size())
         UI.button(parent, "结束并保存输入观察", _finish)
     if not pending.is_empty():
         UI.hint(parent, "上次输入观察待保存，原内存内容仍保留。")
@@ -80,6 +82,8 @@ func _event(event: InputEvent) -> void:
     var row := MODEL.event_row(event, time, axes)
     if not row.is_empty():
         active = MODEL.append(active, row)
+        if is_instance_valid(live_count):
+            live_count.text = "输入观察中 · %d条；切换模块或关闭工作台会结束。" % active.events.size()
     if active.events.size() >= MODEL.MAX_EVENTS:
         _finish()
 
@@ -114,6 +118,7 @@ func _persist() -> void:
     if candidate != data and commit(candidate):
         selected = String(candidate.sessions[0].id)
         pending = {}
+        retired_pending.erase(context.store.scope)
 
 func _filters(parent: Control) -> void:
     var row := UI.row(parent)
@@ -247,6 +252,15 @@ func release() -> void:
 
 func shutdown() -> void:
     _finish()
+    _persist()
+    if not pending.is_empty():
+        retired_pending[context.store.scope] = pending.duplicate(true)
+
+func setup(value: RefCounted) -> void:
+    super.setup(value)
+    if retired_pending.has(context.store.scope):
+        pending = retired_pending[context.store.scope].duplicate(true)
+        _persist()
 
 func restorable() -> bool:
     return active.is_empty() and pending.is_empty()

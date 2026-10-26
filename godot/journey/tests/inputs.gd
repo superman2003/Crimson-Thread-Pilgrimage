@@ -59,4 +59,28 @@ func run() -> void:
             InputMap.add_action(action)
             for binding in originals[action]:
                 InputMap.action_add_event(action, binding)
+
+    var events := [
+        {"device":0,"signature":"axis:0","pressed":true,"actions":["move_left"],"time":0.0},
+        {"device":0,"signature":"axis:0","pressed":true,"actions":["move_left"],"time":0.1},
+        {"device":0,"signature":"key:A","pressed":true,"actions":["move_left"],"time":0.2},
+        {"device":0,"signature":"axis:0","pressed":false,"actions":[],"time":0.3},
+        {"device":0,"signature":"key:Space","pressed":true,"actions":["jump"],"time":0.4}]
+    var coverage := MODEL.coverage({"events":events})
+    var left_count: Dictionary = coverage.rows.filter(func(row: Dictionary):return row.id == "move_left")[0]
+    check(left_count.pressed == 2 and left_count.released == 1, "axis samples count transitions and preserve independent key holds")
+    check(coverage.chords[-1].actions.has("move_left"), "releasing one source preserves another held binding in chords")
+    check(is_equal_approx(preload("res://journey/inputs/meter.gd").trigger_value(-0.5, true), 0.25), "negative-rest trigger exposes first half of travel")
+    var missing := saved.duplicate(true)
+    missing.sessions[0].events[0].erase("pressed")
+    check(not MODEL.valid(missing), "missing persisted event fields are rejected")
+    feature.pending = session.duplicate(true)
+    context.store.writable = false
+    feature.shutdown()
+    var replacement := preload("res://journey/features/input_diagnostics.gd").new()
+    replacement.setup(context)
+    check(not replacement.pending.is_empty(), "slot retirement transfers failed observation for later retry")
+    context.store.writable = true
+    replacement._persist()
+    check(replacement.pending.is_empty(), "retired observation can be saved after storage recovers")
     finish()

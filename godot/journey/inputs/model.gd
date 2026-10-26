@@ -19,12 +19,25 @@ static func valid(data: Dictionary) -> bool:
             return false
         if not session.get("name") is String or session.name.length() > 60:
             return false
+        if not V.number(session.get("duration")) or float(session.duration) < 0 or float(session.duration) > 3600 or not V.count(session.get("started"), 9999999999) or not session.get("bindings") is Array:
+            return false
         var previous := -1.0
         for event in session.events:
             if not event is Dictionary or not V.number(event.get("time")) or float(event.time) < previous:
                 return false
             if not event.get("type") is String or not event.get("label") is String or not event.get("actions") is Array:
                 return false
+            if event.type not in ["keyboard", "mouse", "controller"] or event.label.length() > 100 or event.actions.size() > NAMES.size():
+                return false
+            if not event.get("pressed") is bool or not event.get("signature") is String or event.signature.length() > 100:
+                return false
+            if not V.number(event.get("device")) or floor(float(event.device)) != float(event.device) or absf(float(event.device)) > 2147483647:
+                return false
+            if not V.number(event.get("amount")) or absf(float(event.amount)) > 1 or float(event.time) < 0 or float(event.time) > 3600:
+                return false
+            for action in event.actions:
+                if not action is String or not NAMES.has(action):
+                    return false
             previous = float(event.time)
         ids[session.id] = true
     return V.json_safe(data, 0, [V.MAX_ITEMS])
@@ -180,16 +193,26 @@ static func coverage(session: Dictionary) -> Dictionary:
     var pressed := {}
     var released := {}
     var chords := {}
-    var held := {}
+    var physical := {}
     var examples := []
     for event in session.get("events", []):
-        for action in event.actions:
-            if event.pressed:
+        var key := str(event.device) + ":" + String(event.signature)
+        var previous: Array = physical.get(key, [])
+        var current: Array = event.actions if event.pressed else []
+        for action in current:
+            if not previous.has(action):
                 pressed[action] = int(pressed.get(action, 0)) + 1
-                held[action] = true
-            else:
+        for action in previous:
+            if not current.has(action):
                 released[action] = int(released.get(action, 0)) + 1
-                held.erase(action)
+        if current.is_empty():
+            physical.erase(key)
+        else:
+            physical[key] = current.duplicate()
+        var held := {}
+        for actions in physical.values():
+            for action in actions:
+                held[action] = true
         var simultaneous: Array = held.keys()
         simultaneous.sort()
         if simultaneous.size() >= 2:
@@ -201,6 +224,7 @@ static func coverage(session: Dictionary) -> Dictionary:
     for action in NAMES:
         rows.append({"id":action, "name":NAMES[action], "pressed":int(pressed.get(action, 0)), "released":int(released.get(action, 0)), "seen":pressed.has(action)})
     return {"rows":rows, "chords":examples, "covered":pressed.size(), "total":NAMES.size()}
+
 
 static func bindings_document() -> String:
     var lines: Array[String] = ["当前游戏动作绑定", "这里只导出动作和输入事件说明，不改变InputMap。", ""]

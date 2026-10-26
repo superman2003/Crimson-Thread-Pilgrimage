@@ -3,6 +3,7 @@ var device := -1
 var history: Array = []
 var elapsed := 0.0
 var threshold := 0.2
+var negative_triggers := {}
 const AXES := [JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y, JOY_AXIS_RIGHT_X, JOY_AXIS_RIGHT_Y, JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT]
 
 func _ready() -> void:
@@ -20,7 +21,12 @@ func _process(delta: float) -> void:
         return
     var sample := []
     for axis in AXES:
-        sample.append(Input.get_joy_axis(device, axis))
+        var value := Input.get_joy_axis(device, axis)
+        if axis in [JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT]:
+            if value < -0.05:
+                negative_triggers[axis] = true
+            value = trigger_value(value, negative_triggers.has(axis))
+        sample.append(value)
     history.append(sample)
     while history.size() > 60:
         history.pop_front()
@@ -53,3 +59,6 @@ func _draw() -> void:
     if points.size() > 1:
         draw_polyline(points, Color("d6b078"), 1.5, true)
     draw_string(font, Vector2(20, 224), "左摇杆X绝对值 · 最近约6秒 · 死区仅展示当前动作阈值", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("a9b9af"))
+
+static func trigger_value(value: float, negative_rest: bool) -> float:
+    return clampf((value + 1.0) * 0.5 if negative_rest else value, 0, 1)
