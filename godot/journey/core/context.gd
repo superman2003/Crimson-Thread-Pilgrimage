@@ -10,6 +10,10 @@ var cached_region := ""
 var cached_config: Dictionary = {}
 var cached_catalog: Dictionary = {}
 var catalog_owner := 0
+# BuildSystem.get_snapshot() clones every catalog row (~3 ms); its rows depend
+# only on state and catalog, so rebuild it when one of them changes.
+var cached_build_state: Dictionary = {}
+var cached_build: Dictionary = {}
 
 func bind(level: Node) -> void:
     owner_ref = weakref(level)
@@ -37,6 +41,11 @@ func update() -> Dictionary:
     if catalog_owner != build_id or cached_catalog.is_empty():
         catalog_owner = build_id
         cached_catalog = node.build_system.catalog.duplicate(true)
+        cached_build = {}
+    var build_state: Dictionary = node.build_system.state.duplicate(true)
+    if cached_build.is_empty() or build_state != cached_build_state:
+        cached_build_state = build_state.duplicate(true)
+        cached_build = node.build_system.get_snapshot()
     var current: Dictionary = regions.get(region_id, {})
     current["visited_rooms"] = node.visited_rooms.duplicate(true)
     current["opened_shortcuts"] = node.opened_shortcuts.duplicate(true)
@@ -53,8 +62,8 @@ func update() -> Dictionary:
         "wallet":int(node.currency_count),
         "config":cached_config,
         "catalog":cached_catalog,
-        "build_state":node.build_system.state.duplicate(true),
-        "build":node.build_system.get_snapshot(),
+        "build_state":build_state,
+        "build":cached_build,
         "player":{
             "hp":int(player.hp),
             "energy":int(player.energy),
