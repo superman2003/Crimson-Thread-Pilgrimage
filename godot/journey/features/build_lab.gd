@@ -144,6 +144,10 @@ func _compare(parent: Control, snapshot: Dictionary, evaluation: Dictionary) -> 
         UI.label(card, "槽位%d：%s → %s" % [int(row.slot) + 1, left.name, right.name])
         UI.hint(card, "费用%d→%d · 单次伤害%d→%d · 动作周期%.2f→%.2f秒 · 范围%.0f→%.0f" % [left.cost, right.cost, left.damage, right.damage, left.cycle, right.cycle, left.range, right.range])
     UI.divider(parent)
+    UI.label(parent, "战具槽位与库存", true)
+    for row in difference.tools:
+        UI.label(parent, "战具槽位%d：%s（%d/%d） → %s（%d/%d）" % [int(row.slot)+1, row.before.name, row.before.count, row.before.capacity, row.after.name, row.after.count, row.after.capacity])
+        UI.hint(parent, row.before.description + " → " + row.after.description)
     UI.label(parent, "铭饰的边际贡献", true)
     for item in MODEL.contributions(snapshot, evaluation.state):
         var card := UI.card(parent)
@@ -174,8 +178,8 @@ func _resources(parent: Control, evaluation: Dictionary) -> void:
     for skill in budget.skills:
         var card := UI.card(parent)
         UI.label(card, String(skill.name))
-        UI.label(card, "若全部用于此术：最多%d次；静态单次伤害%d，达到目标生命至少%d次。" % [skill.casts, skill.damage, skill.needed])
-        UI.hint(card, "预算足够完成上述次数。" if skill.affordable else "预算不足；还需考虑命中、无敌帧和实战回线。")
+        UI.label(card, "若全部用于此术：最多%d次；静态单次伤害%d，达到目标生命%s。" % [skill.casts, skill.damage, "无法单独造成伤害" if skill.needed < 0 else "至少%d次" % skill.needed])
+        UI.hint(card, "该术没有静态直接伤害，不能独自完成此伤害目标。" if skill.needed < 0 else ("预算足够完成上述次数。" if skill.affordable else "预算不足；还需考虑命中、无敌帧和实战回线。"))
     UI.button(parent, "导出试算报告", func():export_document("构筑试算.txt", MODEL.report(_snapshot(), data.draft)))
 
 func _saved(parent: Control, snapshot: Dictionary) -> void:
@@ -222,5 +226,9 @@ func _saved(parent: Control, snapshot: Dictionary) -> void:
                 pending_import = {}
                 context.tell("实际构筑已变化，请重新复核草案。")
                 context.refresh()
-            elif commit(pending_import.data):
-                pending_import = {})
+            else:
+                var candidate := data.duplicate(true)
+                candidate.draft = pending_import.data.draft.duplicate(true)
+                candidate.source = reviewed_source
+                if commit(candidate):
+                    pending_import = {})

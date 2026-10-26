@@ -5,6 +5,12 @@ const MAX_SCENARIOS := 12
 const OWNERSHIP := ["unlocked_crests", "unlocked_skills", "unlocked_tools", "unlocked_passives", "mechanisms", "crafted", "skill_levels"]
 const FAMILIES := {"tool":"战具", "thread_skill":"线术", "combat_accessory":"战斗铭饰", "travel_accessory":"行旅铭饰"}
 const METRICS := {
+    "attack_speed_mult":"针击速度倍率", "damage_taken_mult":"承伤倍率",
+    "pogo_bounce_mult":"下击弹跳倍率", "melee_energy_mult":"近战回线倍率",
+    "knockback_mult":"击退倍率", "status_buildup_mult":"状态积累倍率",
+    "hazard_trigger_mult":"危险触发倍率", "attack_reach_mult":"针击范围倍率",
+    "max_hp":"生命上限", "max_energy":"绯线上限",
+    "heal_interrupt_loss_ratio":"疗伤中断损耗比例",
     "move_mult":"移动倍率", "attack_damage_mult":"针击伤害倍率",
     "energy_gain_mult":"回线倍率", "skill_damage_mult":"线术伤害倍率",
     "skill_cost_mult":"线术费用倍率", "heal_cost":"疗伤费用",
@@ -125,7 +131,18 @@ static func differences(snapshot: Dictionary, before: Dictionary, after: Diction
         var a: Dictionary = left.system.selected_skill(slot)
         var b: Dictionary = right.system.selected_skill(slot)
         skills.append({"slot":slot, "before":_skill(a), "after":_skill(b)})
-    return {"ok":true, "metrics":result, "skills":skills, "left":left, "right":right}
+    var tools := []
+    for slot in 2:
+        tools.append({"slot":slot, "before":tool_slot(left, slot), "after":tool_slot(right, slot)})
+    return {"ok":true, "metrics":result, "skills":skills, "tools":tools, "left":left, "right":right}
+
+static func tool_slot(evaluation: Dictionary, slot: int) -> Dictionary:
+    var id := String(evaluation.state.get("tools", ["", ""])[slot])
+    for tool in evaluation.snapshot.get("tools", []):
+        if tool.id == id:
+            return {"name":String(tool.get("name", id)), "count":int(tool.get("count", 0)), "capacity":int(tool.get("capacity", 0)), "description":String(tool.get("description", ""))}
+    return {"name":"空槽", "count":0, "capacity":0, "description":""}
+
 
 static func _skill(value: Dictionary) -> Dictionary:
     if value.is_empty():
@@ -134,7 +151,7 @@ static func _skill(value: Dictionary) -> Dictionary:
         "name":String(value.get("name", "线术")),
         "cost":int(value.get("energy_cost", 0)),
         "damage":int(value.get("damage", 0)),
-        "cycle":float(value.get("windup", 0)) + float(value.get("active", 0)) + float(value.get("recover", 0)),
+        "cycle":float(value.get("windup", 0)) + float(value.get("active", 0)) + float(value.get("recovery", 0)),
         "range":float(value.get("range", 0))
     }
 
@@ -154,7 +171,7 @@ static func sustainability(evaluation: Dictionary, energy: int, health_missing: 
         var cost := maxi(1, int(skill.get("energy_cost", 1)))
         var damage := maxi(0, int(skill.get("damage", 0)))
         var casts := maxi(0, energy) / cost
-        var needed := ceili(float(maxi(0, enemy_hp)) / damage) if damage > 0 else 0
+        var needed := ceili(float(maxi(0, enemy_hp)) / damage) if damage > 0 else -1
         skills.append({"name":String(skill.name), "casts":casts, "cost":cost, "damage":damage, "needed":needed, "affordable":damage > 0 and needed * cost <= energy})
     return {"ok":true, "heals":heals, "healed":heal_total, "remaining":maxi(0, energy) - heals * heal_cost, "skills":skills}
 
@@ -302,7 +319,7 @@ static func constraints(snapshot: Dictionary, state: Dictionary) -> Array:
             var spec: Dictionary = slots[index]
             var active: Variant = spec.get("unlocked", true)
             var label := "可使用" if active is bool and active else "尚未解锁"
-            var compatibility: Variant = spec.get("accepts", spec.get("tags", []))
+            var compatibility: Variant = spec.get("compatible", [])
             if compatibility is Array and not compatibility.is_empty():
                 label += " · 兼容 " + " / ".join(compatibility)
             result.append({"name":"%s槽位%d" % [FAMILIES[family], index + 1], "text":label})

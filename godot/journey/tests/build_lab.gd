@@ -54,4 +54,10 @@ func run() -> void:
         check(box.get_child_count() > 3, "build lab tab renders: " + tab)
         box.free()
     check(VALUES.fingerprint(context.latest.build_state) == identity, "all UI previews preserve actual source build")
+
+    check(is_equal_approx(MODEL._skill({"windup":0.1,"active":0.2,"recovery":0.3}).cycle, 0.6), "skill cycle includes runtime recovery field")
+    var compatible := false
+    for constraint in MODEL.constraints(snapshot, started.draft):
+        compatible = compatible or String(constraint.text).contains("兼容")
+    check(compatible and diff.tools.size() == 2, "public compatibility and both tool slots appear in sandbox comparison")
     finish()
