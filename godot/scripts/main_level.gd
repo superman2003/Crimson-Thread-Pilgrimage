@@ -8203,6 +8203,12 @@ func perform_save_operation(action: String, index: int, fingerprint: String) -> 
     var ok:=select_save_slot(index) if action=="switch" else restore_save_backup(index)
     return {"ok":ok,"reason":"正在进入所选旅途。" if ok else "当前操作未完成，仍停留在原旅途；请查看保存或恢复提示。"}
 
+func get_journey_history_page(offset: int, limit: int) -> Dictionary:
+    return preload("res://scripts/journey_history.gd").summaries(world_save_path,offset,limit)
+
+func get_journey_archive_detail(file: String, sha: String) -> Dictionary:
+    return preload("res://scripts/journey_archive_detail.gd").inspect(world_save_path,file,sha)
+
 func get_journey_history() -> Dictionary:
     return preload("res://scripts/journey_history.gd").summaries(world_save_path)
 
