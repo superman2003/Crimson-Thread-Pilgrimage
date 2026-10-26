@@ -31,3 +31,13 @@ func domain_checks(context: RefCounted) -> void:
     )
     payload.reserves = {"a": 100.0}
     check(not M.allocation(payload).ok, "unfunded minimum reserves reject allocation")
+
+    payload.reserves = {"a": 4.0, "b": 0.0}
+    payload.targets = {"a": 1.0, "b": 1.0}
+    allocation = M.allocation(payload)
+    check(allocation.rows[0]["目标数量"] == 5 and allocation.rows[1]["目标数量"] == 5, "reserves constrain the full equal-weight allocation rather than biasing residual budget")
+    payload.prices = {"a": 100.0, "b": 1.0}
+    payload.reserves = {}
+    allocation = M.allocation(payload)
+    check(allocation.ok and is_equal_approx(allocation.spent, 10.0), "unaffordable expensive unit does not strand cheap allocation budget")
+

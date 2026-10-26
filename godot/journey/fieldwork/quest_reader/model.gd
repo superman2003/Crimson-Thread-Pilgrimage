@@ -11,8 +11,11 @@ static func introduction() -> String:
 static func capture(snapshot: Dictionary) -> Dictionary:
     var story := K.story(snapshot)
     var documents := []
-    for quest in story.get("quests", []):
-        var body := String(quest.get("description", ""))
+    var quests: Array = story.get("quests", []).duplicate(true)
+    if story.get("main_line") is Dictionary and not story.main_line.is_empty():
+        quests.push_front(story.main_line)
+    for quest in quests:
+        var body := String(quest.get("description", quest.get("goal", "")))
         var completed := []
         for step in quest.get("steps", []):
             if K.flag(step.get("complete")):
@@ -36,7 +39,7 @@ static func capture(snapshot: Dictionary) -> Dictionary:
             {
                 "id": "evidence:" + String(entry.get("id", "")),
                 "title": String(entry.get("title", "已获证词")),
-                "body": String(entry.get("description", entry.get("text", ""))).left(5000),
+                "body": String(entry.get("claim", entry.get("description", entry.get("text", "")))).left(5000),
                 "hint": "",
                 "kind": "证词",
                 "status": "acquired"
@@ -48,7 +51,7 @@ static func capture(snapshot: Dictionary) -> Dictionary:
                 {
                     "id": "ending:" + String(ending.get("id", "")),
                     "title": String(ending.get("title", "已选结局")),
-                    "body": String(ending.get("description", "")).left(5000),
+                    "body": String(ending.get("message", ending.get("description", ""))).left(5000),
                     "hint": "",
                     "kind": "结局",
                     "status": "chosen"

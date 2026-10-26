@@ -31,3 +31,12 @@ func domain_checks(context: RefCounted) -> void:
         V.fingerprint(context.latest) == snapshot_before,
         "production sequence is isolated from live wallet"
     )
+
+    payload.reserve = 10.0
+    payload.income = {"0":100.0}
+    payload.expenses = {}
+    check(is_zero_approx(M.required_start(payload)), "first-stage income can fully fund the personal reserve without fictitious starting cash")
+    if not payload.recipes.is_empty():
+        payload.order = [payload.recipes[0].id, payload.recipes[0].id]
+        check(not M.validate(payload), "duplicate production order IDs cannot duplicate one recipe stage")
+

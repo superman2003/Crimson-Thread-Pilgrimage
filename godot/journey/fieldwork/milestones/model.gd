@@ -42,7 +42,15 @@ static func capture(snapshot: Dictionary) -> Dictionary:
                 "status": "已获得"
             }
         )
+    var tokens := ABILITIES.duplicate()
+    for group in ["crests", "skills", "tools", "passives"]:
+        for entry in snapshot.get("catalog", {}).get(group, {}).values():
+            var token := String(entry.get("unlock_item", ""))
+            if not token.is_empty():
+                tokens[token] = true
     for row in K.inventory(snapshot).slice(0, 200):
+        if tokens.has(row.id):
+            continue
         facts.append(
             {
                 "id": "item:" + String(row.id),
@@ -163,7 +171,7 @@ static func validate(payload: Dictionary) -> bool:
                 not ids.has(id)
                 or not V.number(payload[key][id])
                 or payload[key][id] < 0
-                or payload[key][id] > 1000000
+                or payload[key][id] > (100 if key == "priorities" else 1000000)
             ):
                 return false
             if key == "targets" and not V.count(payload[key][id]):
@@ -292,7 +300,7 @@ static func differences(a: Dictionary, b: Dictionary) -> Array:
     for id in keys:
         var before: Dictionary = left.get(id, {})
         var after: Dictionary = right.get(id, {})
-        if before == after:
+        if not before.is_empty() and not after.is_empty() and before.kind == after.kind and before.count == after.count and before.status == after.status:
             continue
         var source: Dictionary = after if not after.is_empty() else before
         var kind := "新增已知条目" if before.is_empty() else "本次未包含" if after.is_empty() else "状态或数量变化"
@@ -408,7 +416,7 @@ static func history_changes(records: Array) -> Array:
             {
                 "前记录": a.title,
                 "后记录": b.title,
-                "变化条目": changed.size(),
+                "变化条目": changed.size() + stat_changes(a.payload, b.payload).size(),
                 "新增已知条目": added,
                 "数量减少条目": reduced,
                 "观察窗口秒": int(b.time) - int(a.time)
@@ -460,8 +468,19 @@ static func analyze(payload: Dictionary, _snapshot: Dictionary) -> Array:
     ]
 
 
+static func stat_changes(a: Dictionary, b: Dictionary) -> Array:
+    var result := []
+    var keys: Dictionary = a.stats.duplicate()
+    keys.merge(b.stats, true)
+    for key in keys:
+        if a.stats.get(key) != b.stats.get(key):
+            result.append({"字段":key,"原值":a.stats.get(key),"当前值":b.stats.get(key)})
+    return result
+
+
 static func compare(a: Dictionary, b: Dictionary) -> Array:
     return [
+        K.table("构筑字段变化", ["字段", "原值", "当前值"], stat_changes(a, b)),
         K.table(
             "两次观察间变化", ["条目", "类型", "变化类型", "旧数量", "新数量", "数量差", "旧状态", "新状态"], differences(a, b)
         ),
