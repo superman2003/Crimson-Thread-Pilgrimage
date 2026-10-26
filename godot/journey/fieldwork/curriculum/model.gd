@@ -1,4 +1,6 @@
 extends RefCounted
+const ADVANCED_VIEW := preload("res://journey/fieldwork/curriculum/advanced_view.gd")
+const ADVANCED := preload("res://journey/fieldwork/curriculum/advanced.gd")
 const K := preload("res://journey/fieldwork/knowledge.gd")
 const V := preload("res://journey/fieldwork/scalars.gd")
 const PROMPT := preload("res://scripts/input_prompt_bindings.gd")
@@ -442,7 +444,7 @@ static func recommendations(payload: Dictionary, rows: Array) -> Array:
     return result
 
 
-static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+static func _before_advanced_analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
     var rows := timeline(payload)
     var stats := resource_summary(payload, rows)
     return [
@@ -507,3 +509,7 @@ static func binding_signature(bindings: Array) -> String:
     var values := bindings.duplicate()
     values.sort()
     return JSON.stringify(values)
+
+
+static func analyze(payload: Dictionary, snapshot: Dictionary) -> Array:
+    return _before_advanced_analyze(payload, snapshot) + ADVANCED.sections(payload) + [{"kind":"custom","title":"动作课程自动冷却排程 · 交互预览","view":ADVANCED_VIEW,"data":{"payload":payload}}]
