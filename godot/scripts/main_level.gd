@@ -8005,6 +8005,12 @@ func get_tool_readiness(id: String) -> Dictionary:
         return {"available":false,"text":"已用尽","detail":"战具已用尽，请在钟龛补给"}
     return {"available":true,"text":"","detail":"使用消耗一次。"}
 
+func quote_loadout_restore(name: String) -> Dictionary:
+    return preload("res://scripts/loadout_restore_review.gd").quote(self,name)
+
+func apply_reviewed_loadout(name: String, fingerprint: String) -> Dictionary:
+    return preload("res://scripts/loadout_restore_review.gd").apply(self,name,fingerprint)
+
 func quote_craft_cart(request: Variant) -> Dictionary:
     var failure := {"ok":false,"reason":"请与制作这份清单的工匠面对面交谈。"}
     if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or build_system==null or world_save_blocked:return failure

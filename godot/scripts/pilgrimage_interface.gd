@@ -85,6 +85,7 @@ var build_category := "契印"
 var build_selection := ""
 var loadout_dialog: ConfirmationDialog
 var loadout_manager: ConfirmationDialog
+var loadout_restore_dialog: ConfirmationDialog
 var pending_loadout_action := ""
 var pending_loadout_name := ""
 var build_assign_slot := 0
@@ -1798,7 +1799,8 @@ func refresh_build() -> void:
                 if build_category=="技能":fallback_action="select_skill"
                 elif build_category=="战具":fallback_action="select_tool"
                 elif build_category=="铭饰":fallback_action="equip_passive"
-                _perform_build_action("restore_loadout" if build_category=="构筑" else fallback_action,id,build_assign_slot if build_category in ["技能","战具"] else -1))
+                if build_category=="构筑":_open_loadout_restore(id)
+                else:_perform_build_action(fallback_action,id,build_assign_slot if build_category in ["技能","战具"] else -1))
         button.custom_minimum_size=Vector2(563,64)
         if seal_page:
             button.custom_minimum_size=Vector2(230,66)
@@ -1850,6 +1852,23 @@ func refresh_build() -> void:
                 _show_build_detail(value)
                 return
         _show_build_detail(entries[0])
+
+func _open_loadout_restore(name: String) -> void:
+    if not build_panel.is_visible_in_tree() or build_category!="构筑":return
+    if not level.has_method("quote_loadout_restore") or not level.has_method("apply_reviewed_loadout"):return
+    if not is_instance_valid(loadout_restore_dialog):
+        loadout_restore_dialog=preload("res://scripts/loadout_restore_dialog.gd").new()
+        build_panel.add_child(loadout_restore_dialog)
+        register_text_entry_window(loadout_restore_dialog)
+        build_panel.visibility_changed.connect(func():
+            if not build_panel.visible and is_instance_valid(loadout_restore_dialog):loadout_restore_dialog.hide())
+    loadout_restore_dialog.call("open",name,
+        func(key: String):return level.call("quote_loadout_restore",key),
+        func(key: String,fingerprint: String):
+            var result: Dictionary=level.call("apply_reviewed_loadout",key,fingerprint)
+            if result.get("ok",false):refresh_build()
+            return result,
+        func(preview: Dictionary):return _loadout_difference_text(preview,level.call("get_build_system")))
 
 func _open_loadout_manager(source: String) -> void:
     if not build_panel.is_visible_in_tree() or build_category!="构筑" or not _is_at_build_workstation(_build_snapshot()):return
