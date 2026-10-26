@@ -1,0 +1,43 @@
+Running pickup_ledger
+FAIL: pickup_ledger: exit=1 engine_errors=0 completion_marker=False
+CHECK PASS heart capacity failure leaves an explicit interaction retry
+拾取事务诊断
+CHECK PASS permanent HP capacity changes only after one saved pickup and gives no free healing
+拾取记录未写入；物件、能力与资源保持原状，按交互键重试。
+CHECK PASS energy capacity save failure preserves exact inventory flags build resources region IDs and file
+CHECK PASS energy capacity failure leaves an explicit interaction retry
+拾取事务诊断
+CHECK PASS permanent energy capacity changes only after save and gives no free energy
+CHECK PASS five testimony fixture baseline persists
+拾取记录未写入；物件、能力与资源保持原状，按交互键重试。
+CHECK PASS sixth testimony save failure preserves exact inventory flags build resources region IDs and file
+CHECK PASS sixth testimony failure leaves an explicit interaction retry
+CHECK PASS failed sixth testimony grants no derived chain flag
+LORE_PICKUP 拾获「证词·其六」——从跪行小门后传出的告解，嗓音属于一个锁了一辈子门的人。
+拾取事务诊断
+CHECK PASS sixth testimony and derived completion use one durable pickup instead of nested saves
+CHECK PASS disk restores testimony reward derived flag and source identity together
+拾取记录未写入；物件、能力与资源保持原状，按交互键重试。
+CHECK PASS currency save failure preserves exact inventory flags build resources region IDs and file
+CHECK PASS currency failure leaves an explicit interaction retry
+附近没有可交互的人物或机关。
+CHECK FAIL currency pickup saves exact wallet once without item or bell count inflation
+拾取事务诊断
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save 0
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save -1
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save true
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save 0.5
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save nan
+这份物品记录无效，尚未收取。
+CHECK PASS invalid originating amount cannot grant or save inf
+CHECK PASS a different body cannot collect for the player
+CHECK PASS already-collected identity is not spawned or leased again
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=14 retired=28
+CHECK PASS pickup fixture releases actual audio ownership
+PICKUP_LEDGER checks=46 failures=1
+GODOT_REGRESSIONS suites=1 failures=1

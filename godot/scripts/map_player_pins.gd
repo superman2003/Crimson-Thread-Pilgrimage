@@ -2,6 +2,7 @@ extends RefCounted
 ## JSON-only player annotations. Reads never repair or mutate the save journal.
 const KEY := "player_map_pins_v1"
 const LIMIT := 12
+const LABEL_LIMIT := 24
 const MAX_SCAN := 48
 const KINDS := ["goal", "warning", "return"]
 const NAMES := ["目标", "留意", "回访"]
@@ -43,8 +44,10 @@ static func records(flags: Dictionary, configs: Dictionary) -> Array[Dictionary]
         if room.is_empty() or String(room.get("id", "")) != record.room_id: continue
         if not allowed(flags, record.region_id, configs[record.region_id], point): continue
         if _near(result, record.region_id, point): continue
+        var label: Variant = record.get("label", "")
+        if not label is String or not label_error(label).is_empty():label = ""
         result.append({"id": int(record.id), "region_id": record.region_id, "room_id": record.room_id,
-            "position": [point.x, point.y], "kind": record.kind})
+            "position": [point.x, point.y], "kind": record.kind, "label": String(label).strip_edges()})
         ids[int(record.id)] = true
         if result.size() == LIMIT: break
     return result
@@ -87,3 +90,24 @@ static func _number(value: Variant) -> bool:
     return typeof(value) in [TYPE_INT, TYPE_FLOAT] and is_finite(float(value))
 static func _integer(value: Variant) -> bool:
     return _number(value) and float(value) == floor(float(value))
+
+## Labels are plain text. Invalid optional labels never erase valid old pins.
+static func label_error(value: Variant) -> String:
+    if not value is String:return "图钉名称无效。"
+    if value.strip_edges().length() > LABEL_LIMIT:return "图钉名称最多24个字。"
+    for index in value.length():
+        if value.unicode_at(index) < 32 or value.unicode_at(index) == 127:return "名称不能含换行或控制字符。"
+    return ""
+
+static func edit(flags: Dictionary, configs: Dictionary, id: int, kind: String, label: Variant, expected: Dictionary = {}) -> Dictionary:
+    var error := label_error(label)
+    if not error.is_empty():return {"ok": false, "reason": error}
+    if kind not in KINDS:return {"ok": false, "reason": "请选择有效图钉类型。"}
+    var next := records(flags, configs)
+    for record in next:
+        if int(record.id) != id:continue
+        if not expected.is_empty() and record != expected:return {"ok": false, "reason": "图钉已变化，请重新打开编辑。"}
+        record.kind = kind
+        record.label = String(label).strip_edges()
+        return {"ok": true, "records": next, "reason": "已更新图钉名称与类型。"}
+    return {"ok": false, "reason": "图钉已删除或不再属于已补绘地点。"}

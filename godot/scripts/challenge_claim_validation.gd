@@ -8,6 +8,10 @@ class CountingState extends "res://scripts/world_state.gd":
     func write_candidate(candidate: Dictionary,path: String=DEFAULT_PATH) -> bool:
         writes+=1;observed={"wallet":host.currency_count,"flags":host.story_flags.duplicate(true),"items":host.inventory_counts.duplicate(true)}
         return super.write_candidate(candidate,path)
+func press_interact() -> void:
+    Input.action_press("interact")
+    scene._process(0.0)
+    Input.action_release("interact")
 func economy() -> Dictionary:
     return {"wallet":scene.currency_count,"items":scene.inventory_counts.duplicate(true),"materials":scene.inventory_materials.duplicate(true),"tools":scene.inventory_tools.duplicate(),"relics":scene.inventory_relics.duplicate(),"build":scene.build_system.serialize(),"hp":scene.player.hp,"energy":scene.player.energy,"defeated":scene.enemy_defeated}
 func run() -> void:
@@ -56,12 +60,14 @@ func run() -> void:
     scene.player.set_physics_process(false);scene.set_process(false);scene.current_room_id=String(spec.room_id)
     scene.player.hp=3;scene.player.energy=43
     check(scene.story_flags.get(pending,false) and String(shrine.get_meta("label")).contains("胜利待记录"),"production World restart restores pending victory and retry label")
+    scene._update_room_visit() # Settle explicit restart placement before counting reward writes.
     before=economy();disk=FileAccess.get_file_as_bytes(SAVE)
     state=CountingState.new();state.host=scene;state.data=scene.world_state.data.duplicate(true);scene.world_state=state
-    scene.world_save_failure_injected_for_validation=true;scene._activate_challenge_shrine(shrine)
+    check(scene.interaction_target()==shrine,"pending shrine is an actual interaction target after World restart")
+    scene.world_save_failure_injected_for_validation=true;press_interact()
     check(economy()==before and FileAccess.get_file_as_bytes(SAVE)==disk and scene.story_flags.get(pending,false),"failed post-restart retry retains exact reward ownership")
     scene.world_save_failure_injected_for_validation=false;state.writes=0
-    enemies_before=get_nodes_in_group("enemy").size();scene._activate_challenge_shrine(shrine)
+    enemies_before=get_nodes_in_group("enemy").size();press_interact()
     check(state.writes==1 and state.observed.wallet==110 and not state.observed.flags.get(clear,false) and not state.observed.items.has(evidence),"retry writes one checkpoint observing old wallet flag and evidence")
     check(scene.currency_count==140 and scene.inventory_counts.get(evidence,0)==1 and scene.inventory_materials.get("moss_chitin",0)==int(before.materials.get("moss_chitin",0))+2,"single durable claim grants exact authored money evidence and material")
     check(scene.story_flags.get(clear,false) and not scene.story_flags.has(pending) and scene.active_challenge_id.is_empty() and get_nodes_in_group("enemy").size()==enemies_before,"claim replaces pending proof with clear without respawning foes")

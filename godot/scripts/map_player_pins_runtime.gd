@@ -12,7 +12,7 @@ static func setup(level: Node) -> void:
     var toolbar := Control.new()
     toolbar.name = "PlayerPinToolbar"
     toolbar.position = Vector2(350, 18)
-    toolbar.size = Vector2(580, 34)
+    toolbar.size = Vector2(668, 34)
     toolbar.mouse_filter = Control.MOUSE_FILTER_IGNORE
     level.map_panel.add_child(toolbar)
     var host_ref: WeakRef = weakref(level)
@@ -44,6 +44,11 @@ static func setup(level: Node) -> void:
         _dispatch(host_ref, toolbar_ref, view_ref, "delete"))
     delete_button.name = "PinDelete"
     delete_button.tooltip_text = "删除列表中选中的自定义图钉。"
+    var edit_button: Button = level.ui_shell._button(toolbar, "编辑图钉", Vector2(584, 0), Vector2(84, 34), func():
+        _dispatch(host_ref, toolbar_ref, view_ref, "edit"))
+    edit_button.name = "PinEdit"
+    edit_button.add_theme_font_size_override("font_size", 13)
+    edit_button.tooltip_text = "给已知图钉命名或更改类型；不会改变坐标。"
     list.item_selected.connect(func(_index: int):
         _dispatch(host_ref, toolbar_ref, view_ref, "selection"))
     view.secondary_pressed.connect(func(point: Vector2):
@@ -69,10 +74,12 @@ static func _dispatch(host_ref: WeakRef, toolbar_ref: WeakRef, view_ref: WeakRef
         "add": add_current(level)
         "delete": delete_selected(level)
         "locate": locate_selected(level)
+        "edit": edit_selected(level)
         "point": add_at_content(level, point)
         "selection":
             toolbar.get_node("PinDelete").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
             toolbar.get_node("PinLocate").disabled = toolbar.get_node("PinList").get_selected_id() <= 0
+            toolbar.get_node("PinEdit").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
 
 static func _owns(level: Variant, toolbar: Control, view: Control) -> bool:
     return is_instance_valid(level) and level.is_inside_tree() and not level.is_queued_for_deletion() and is_instance_valid(toolbar) and toolbar.is_inside_tree() and not toolbar.is_queued_for_deletion() and is_instance_valid(view) and view.is_inside_tree() and not view.is_queued_for_deletion() and toolbar.get_parent() == level.map_panel and toolbar == level.map_panel.get_node_or_null("PlayerPinToolbar") and view.get_parent() == level.map_panel and view == level.survey_map_view
@@ -121,6 +128,7 @@ static func refresh(level: Node) -> void:
     toolbar.get_node("PinCurrent").disabled = level.world_save_blocked or not PINS.allowed(level.story_flags, String(level.config.id), level.config, level.player.global_position)
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     toolbar.get_node("PinLocate").disabled = list.get_selected_id() <= 0
+    toolbar.get_node("PinEdit").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
 
@@ -310,7 +318,7 @@ static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs:
     for record in known:
         var room: Dictionary = PINS.owner(configs[record.region_id], Vector2(record.position[0], record.position[1]))
         var title := String(configs[record.region_id].get("chapter_name", record.region_id)) + " · " + String(room.get("name", room.id))
-        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + " · " + title)
+        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + (" · " + String(record.get("label", "")) if not String(record.get("label", "")).is_empty() else "") + " · " + title)
         ids.append(int(record.id))
     var unchanged := list.item_count == ids.size()
     if unchanged:
@@ -415,3 +423,48 @@ static func _commit(level: Node, result: Dictionary) -> Dictionary:
     level._refresh_map_overlay()
     _notify(level, result.reason)
     return result
+
+## The editor belongs to the map; a hidden/retired map invalidates its callback.
+static func edit_selected(level: Node) -> void:
+    if not _editable(level) or level.world_save_blocked:return
+    var toolbar: Control = level.map_panel.get_node("PlayerPinToolbar")
+    var id: int = toolbar.get_node("PinList").get_selected_id()
+    for record in PINS.visible(level.story_flags, configurations(level)):
+        if int(record.id) != id:continue
+        var existing: Node = level.map_panel.get_node_or_null("PinEditor")
+        if existing != null:return
+        var dialog := ConfirmationDialog.new()
+        dialog.exclusive = true
+        dialog.name = "PinEditor";dialog.title = "编辑图钉 #%d" % id
+        dialog.min_size = Vector2i(480, 250);dialog.dialog_hide_on_ok = false
+        level.map_panel.add_child(dialog)
+        var column := VBoxContainer.new();column.name="Fields";dialog.add_child(column)
+        var note := Label.new();note.text = "名称最多24字；留空恢复默认。只修改此图钉，不移动角色或标记。";note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;note.custom_minimum_size.x = 440;column.add_child(note)
+        var input := LineEdit.new();input.name = "PinLabel";input.placeholder_text="图钉名称，可留空";input.max_length = PINS.LABEL_LIMIT;input.text = String(record.get("label", ""));column.add_child(input)
+        var kind := OptionButton.new();kind.name = "PinType";column.add_child(kind)
+        for text in PINS.NAMES:kind.add_item(text)
+        kind.select(PINS.KINDS.find(record.kind))
+        var status := Label.new();status.name = "PinEditorStatus";status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;column.add_child(status)
+        var host_ref: WeakRef = weakref(level);var dialog_ref: WeakRef = weakref(dialog)
+        var expected: Dictionary = record.duplicate(true)
+        dialog.confirmed.connect(func():
+            var host: Variant = host_ref.get_ref();var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if not is_instance_valid(host) or not is_instance_valid(popup) or not _editable(host) or host.world_save_blocked:return
+            var result := PINS.edit(host.story_flags, configurations(host), id, PINS.KINDS[popup.get_node("Fields/PinType").selected], popup.get_node("Fields/PinLabel").text, expected)
+            result = _commit(host, result)
+            if result.ok:popup.hide()
+            else:popup.get_node("Fields/PinEditorStatus").text = result.reason)
+        dialog.visibility_changed.connect(func():
+            var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if is_instance_valid(popup) and not popup.visible:popup.queue_free())
+        var close := func():
+            var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if is_instance_valid(popup):popup.hide()
+        level.map_panel.visibility_changed.connect(close)
+        var panel_ref: WeakRef=weakref(level.map_panel)
+        dialog.tree_exiting.connect(func():
+            var panel: Control=panel_ref.get_ref()
+            if is_instance_valid(panel) and panel.visibility_changed.is_connected(close):panel.visibility_changed.disconnect(close))
+        dialog.get_ok_button().text = "保存名称与类型";dialog.get_cancel_button().text = "保留原图钉"
+        dialog.popup_centered();dialog.get_cancel_button().grab_focus()
+        return
