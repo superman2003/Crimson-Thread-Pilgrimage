@@ -114,7 +114,9 @@ func _attach_ui(owner: Node) -> void:
     entry = owner.ui_shell._button(owner.ui_shell.settings, "旅途工作台", Vector2(650, 60), Vector2(320, 30), open)
     entry.name = "JourneyWorkbenchEntry"
     entry.tooltip_text = "旅途记录、规划与只读分析；辅助记录按存档槽隔离。"
-    owner.ui_shell.settings.visibility_changed.connect(_settings_visibility)
+    # The entry can be rebuilt on the same shell; connect its settings once.
+    if not owner.ui_shell.settings.visibility_changed.is_connected(_settings_visibility):
+        owner.ui_shell.settings.visibility_changed.connect(_settings_visibility)
 
 func _settings_visibility() -> void:
     var owner := _owner()
@@ -123,7 +125,13 @@ func _settings_visibility() -> void:
 
 func open() -> void:
     var owner := _owner()
-    if owner == null or owner.active_overlay != "settings" or context == null:
+    if owner == null or owner.active_overlay != "settings":
+        return
+    # The entry is bound during HUD construction; the context otherwise waits
+    # for the next observation tick, so an early press would do nothing.
+    if context == null and bool(owner.get("initial_region_ready")):
+        _attach(owner)
+    if context == null:
         return
     context.update()
     if not is_instance_valid(dialog):
