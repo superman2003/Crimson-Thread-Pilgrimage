@@ -1902,10 +1902,7 @@ func _loadout_difference_text(preview: Dictionary, system: RefCounted) -> Array[
     if lines.is_empty():lines.append("装备与当前完全相同。")
     var before: Dictionary=preview.get("current_profile",{})
     var after: Dictionary=preview.get("profile",{})
-    for pair in [["attack_damage_mult","针击伤害倍率"],["attack_speed_mult","针击速度倍率"],["move_mult","移动倍率"],["heal_cost","疗伤耗线"],["heal_amount","疗伤恢复"],["heal_duration","疗伤秒数"],["energy_per_hit","每次命中取线"],["skill_cost_mult","线技耗线倍率"]]:
-        var key: String=pair[0]
-        if before.has(key) and after.has(key) and not is_equal_approx(float(before[key]),float(after[key])):
-            lines.append("%s：%.2f → %.2f" % [pair[1],float(before[key]),float(after[key])])
+    lines.append_array(preload("res://scripts/build_profile_comparison.gd").lines(before,after))
     return lines
 
 func _loadout_names(snapshot: Dictionary) -> Array[String]:

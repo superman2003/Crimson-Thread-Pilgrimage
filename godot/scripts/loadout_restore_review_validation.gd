@@ -51,6 +51,7 @@ func make_runtime() -> Node:
     world.player.energy=37
     return world
 func run() -> void:
+    complete_profile_checks()
     await model_and_runtime_checks()
     await dialog_checks()
     await production_entry_checks()
@@ -203,3 +204,32 @@ func production_entry_checks() -> void:
     ui.free()
     world.free()
     await process_frame
+
+func complete_profile_checks() -> void:
+    var compare:=preload("res://scripts/build_profile_comparison.gd")
+    var build:=BUILD.new()
+    var labels:=compare.LABELS
+    for crest in build.catalog.crests:
+        build.state.crest=crest
+        check(compare.uncovered(build.profile()).is_empty(),"every actual crest profile field has a readable label or documented alias/metadata treatment")
+        for id in build.catalog.passives:
+            for key in build.catalog.passives[id].modifiers:
+                check(labels.has(key),"every real accessory modifier is covered by restore review: "+id+"/"+key)
+    var before:={"skill_damage_mult":1.0,"tool_capacity_bonus":0,"damage_taken_mult":1.0,"attack_reach_mult":1.0,"heal_airborne":false}
+    var after:={"skill_damage_mult":0.9,"tool_capacity_bonus":1,"damage_taken_mult":1.2,"attack_reach_mult":1.25,"hazard_trigger_mult":0.8,"heal_airborne":true}
+    var original:=before.duplicate(true)
+    var lines: Array=compare.lines(before,after)
+    var text:="\n".join(lines)
+    check(lines.size()==6 and before==original,"profile union reports all six changed effects without mutating input")
+    check(text.contains("线技伤害倍率：1 → 0.9") and text.contains("战具容量加成：0 → 1"),"reflux and needlecase consequences cannot be omitted from confirmation")
+    check(text.contains("环境陷阱触发范围倍率：1 → 0.8"),"missing trap multiplier uses the actual Player default rather than inventing zero")
+    check(text.contains("受到伤害倍率") and text.contains("针击触及倍率") and text.contains("空中疗伤：关闭 → 开启"),"crest-specific reach, damage and boolean healing traits are readable")
+    check(compare.rows(after,after).is_empty(),"unchanged effects are not duplicated as differences")
+    check(compare.rows({"move_mult":1.0,"speed_multiplier":1.0},{"move_mult":1.1,"speed_multiplier":1.1}).size()==1,"documented exact aliases do not duplicate the canonical effect")
+    check(compare.lines({"heal_duration":0.550001},{"heal_duration":0.550002})[0].contains("0.550002"),"small genuine changes are not rounded into identical displayed values")
+    check(compare.uncovered({"future_modifier":0.7})==["future_modifier"],"new unlabelled profile fields are detectable by catalogue coverage CI")
+    # Production formatter must include the complete profile comparison too.
+    var ui:=UI.new()
+    var output: Array=ui._loadout_difference_text({"changes":[],"current_profile":before,"profile":after},build)
+    check("\n".join(output).contains("环境陷阱触发范围倍率"),"actual shell formatter used by the dialog includes effects beyond the old fixed list")
+    ui.free()
