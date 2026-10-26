@@ -1,4 +1,5 @@
 extends AcceptDialog
+const FLOORS = preload("res://scripts/map_floor_labels.gd")
 const INDEX = preload("res://scripts/map_directory.gd")
 var rows: Array = []
 var visible_rows: Array = []
@@ -6,6 +7,7 @@ var locate: Callable
 var search: LineEdit
 var kinds: OptionButton
 var regions: OptionButton
+var floors: OptionButton
 var sort_order: OptionButton
 var previous_button: Button
 var next_button: Button
@@ -29,7 +31,7 @@ func _ready() -> void:
         if list.item_count>0:list.grab_focus())
     var scope:=HBoxContainer.new();column.add_child(scope)
     regions=OptionButton.new();regions.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scope.add_child(regions)
-    regions.item_selected.connect(func(_index: int):_refresh())
+    regions.item_selected.connect(func(_index: int):_rebuild_floors();_refresh())
     kinds=OptionButton.new();scope.add_child(kinds)
     for text in ["全部类型","房间","能力门","捷径","危险","图钉"]:kinds.add_item(text)
     search.text_changed.connect(func(_value: String):_refresh())
@@ -37,6 +39,9 @@ func _ready() -> void:
     sort_order=OptionButton.new();scope.add_child(sort_order)
     for label in ["原目录顺序","区域与名称","类型与名称","地点名称"]:sort_order.add_item(label)
     sort_order.item_selected.connect(func(_index: int):_refresh())
+    floors=OptionButton.new();scope.add_child(floors)
+    floors.tooltip_text="只列当前已购、已补绘条目的作者层位；贯层通道单独标注。"
+    floors.item_selected.connect(func(_index: int):_refresh())
     count=Label.new();column.add_child(count)
     list=ItemList.new();list.custom_minimum_size=Vector2(710,260);list.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(list)
     list.item_selected.connect(func(_index: int):_selection())
@@ -53,21 +58,38 @@ func _ready() -> void:
 
 func open(records: Array, action: Callable) -> void:
     rows=records.duplicate(true);locate=action
+    floors.clear()
     regions.clear();regions.add_item("全部已知区域");regions.set_item_metadata(0,"")
     for region in INDEX.regions(rows):
         regions.add_item(String(region.name));regions.set_item_metadata(regions.item_count-1,String(region.id))
-    search.set_text("");kinds.select(0);regions.select(0);_refresh()
+    search.set_text("");kinds.select(0);regions.select(0);_rebuild_floors();_refresh()
     popup_centered()
     search.grab_focus()
+
+func _rebuild_floors() -> void:
+    var chosen := String(floors.get_selected_metadata()) if floors.item_count > 0 else ""
+    floors.clear()
+    floors.add_item("全部已知层位")
+    floors.set_item_metadata(0, "")
+    var selected_index := 0
+    for floor in FLOORS.choices(rows, String(regions.get_selected_metadata())):
+        floors.add_item(String(floor.name))
+        var index := floors.item_count - 1
+        floors.set_item_metadata(index, String(floor.id))
+        if String(floor.id) == chosen:
+            selected_index = index
+    floors.select(selected_index)
 
 func _refresh() -> void:
     var selected_key:=""
     var old_selection:=list.get_selected_items()
     if not old_selection.is_empty() and old_selection[0]<visible_rows.size():selected_key=String(visible_rows[old_selection[0]].key)
     visible_rows=INDEX.arrange(INDEX.search(rows,search.text,KINDS[kinds.selected],String(regions.get_selected_metadata())),sort_order.selected)
+    if floors.item_count > 0:
+        visible_rows=FLOORS.filter_rows(visible_rows,String(floors.get_selected_metadata()))
     list.clear()
     var selected_index:=0
-    for row in visible_rows:list.add_item("%s · %s" % [String(row.region_name),String(row.title)])
+    for row in visible_rows:list.add_item("%s · %s" % [String(row.region_name),FLOORS.caption(row)+" · "+String(row.title)])
     for index in visible_rows.size():
         if String(visible_rows[index].key)==selected_key:selected_index=index;break
     if list.item_count>0:list.select(selected_index);list.ensure_current_is_visible()
@@ -88,7 +110,7 @@ func _selection() -> void:
     count.tooltip_text=" · ".join(summary)
     if selection.is_empty():detail.text="无符合筛选的已补绘地点。清空搜索或切换类型；未购/未补绘地点不会被列出。";return
     var row: Dictionary=visible_rows[selection[0]]
-    detail.text=String(row.detail)+"\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
+    detail.text="层位："+FLOORS.caption(row)+"\n"+String(row.detail)+"\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
 
 func _locate_selected() -> void:
     var selection:=list.get_selected_items()

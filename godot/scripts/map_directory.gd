@@ -1,5 +1,6 @@
 extends RefCounted
 ## An index of already inked places. No player position or travel operation.
+const FLOORS = preload("res://scripts/map_floor_labels.gd")
 const JOURNAL = preload("res://scripts/pilgrimage_cartography.gd")
 const KNOWLEDGE = preload("res://scripts/survey_map_knowledge.gd")
 const PINS = preload("res://scripts/map_player_pins.gd")
@@ -65,8 +66,8 @@ static func _room_anchor(config: Dictionary, flags: Dictionary, region: String, 
     return Vector2.INF
 
 static func _record(kind: String, id: String, region: String, config: Dictionary, room: Dictionary, point: Vector2, detail: String) -> Dictionary:
-    return {"key":kind+":"+region+":"+id,"kind":kind,"region":region,"region_name":String(config.get("chapter_name",region)),
-        "room_id":String(room.get("id","")),"title":String(room.get("name",room.get("id",""))),"point":point,"detail":detail}
+    return FLOORS.annotate({"key":kind+":"+region+":"+id,"kind":kind,"region":region,"region_name":String(config.get("chapter_name",region)),
+        "room_id":String(room.get("id","")),"title":String(room.get("name",room.get("id",""))),"point":point,"detail":detail}, room)
 
 static func regions(rows: Array) -> Array[Dictionary]:
     # The directory only receives public rows; never enumerate the world atlas.
@@ -85,7 +86,7 @@ static func search(rows: Array, query: String, kind: String = "all", region: Str
     for row in rows:
         if not region.is_empty() and row.region != region:continue
         if kind != "all" and row.kind != kind:continue
-        var text := (String(row.title)+" "+String(row.region_name)+" "+String(row.detail)).to_lower()
+        var text := (String(row.title)+" "+String(row.region_name)+" "+String(row.detail)+" "+String(row.get("floor_name",""))).to_lower()
         var matches := true
         for token in tokens:
             if not text.contains(token):matches=false;break
