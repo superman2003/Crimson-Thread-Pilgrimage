@@ -1080,6 +1080,7 @@ func _update_heal(delta: float) -> void:
     heal_timer = maxf(0.0, heal_timer - delta)
     if heal_timer <= 0.0:
         heal_reservation_generation += 1
+        var completed_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
@@ -1088,24 +1089,28 @@ func _update_heal(delta: float) -> void:
         _seal_heal_completed()
         HEAL_ART.completed(self)
         hp_changed.emit(hp)
-        heal_state_changed.emit("completed")
+        if heal_reservation_generation==completed_generation:
+            heal_state_changed.emit("completed")
 
 
 func _interrupt_heal() -> void:
     if heal_timer > 0.0:
-        var refund := heal_reserved_cost - int(ceil(heal_reserved_cost * heal_reserved_loss_ratio))
+        var settled:=preload("res://scripts/heal_refund_account.gd").settlement(
+            heal_reserved_cost,heal_reserved_practice,heal_reserved_loss_ratio,
+            energy,max_energy,practice_energy)
         # Clear the reservation and block recasts before emitting energy_changed.
         heal_reservation_generation += 1
+        var settled_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
-        var practice_refund := mini(refund, heal_reserved_practice)
         heal_reserved_practice = 0
         HEAL_ART.interrupted(self)
-        gain_energy(refund)
-        # A refund of practice thread stays practice thread.
-        practice_energy = mini(energy, practice_energy + practice_refund)
-        heal_state_changed.emit("interrupted")
+        # Publish provenance before gain_energy emits. Reentrant listeners may
+        # leave practice or pay a newer heal before this call returns.
+        _apply_thread_balance(int(settled.energy_after),int(settled.practice_after))
+        if heal_reservation_generation==settled_generation:
+            heal_state_changed.emit("interrupted")
 
 
 func apply_build_stats(stats: Dictionary) -> void:
@@ -1145,7 +1150,9 @@ func apply_build_stats(stats: Dictionary) -> void:
     heal_amount = maxi(1, int(stats.get("heal_amount", build_baseline.heal_amount)))
     heal_duration = maxf(0.2, float(stats.get("heal_duration", build_baseline.heal_duration)))
     hp = mini(hp, max_hp)
-    energy = mini(energy, max_energy)
+    var bounded:=preload("res://scripts/heal_refund_account.gd").change(0,energy,max_energy,practice_energy)
+    energy=int(bounded.energy)
+    practice_energy=int(bounded.practice)
     guard_timer = 0.0
     _stop_phase()
     hp_changed.emit(hp)
@@ -1156,7 +1163,9 @@ func _apply_capacity_limits(stats: Dictionary) -> void:
     max_hp = maxi(1, int(stats.get("max_hp", max_hp)))
     max_energy = maxi(1, int(stats.get("max_energy", max_energy)))
     hp = mini(hp, max_hp)
-    energy = mini(energy, max_energy)
+    var bounded:=preload("res://scripts/heal_refund_account.gd").change(0,energy,max_energy,practice_energy)
+    energy=int(bounded.energy)
+    practice_energy=int(bounded.practice)
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
@@ -1452,6 +1461,7 @@ func _apply_attack_hits() -> void:
         if attack_rect.intersects(hurtbox) and _attack_line_clear(hurtbox.get_center()):
             hit_targets[id] = true
             var target_hp_before := int(node.get("hp"))
+            var practice_contact: bool=node.has_meta("seal_training_target") or node.has_meta("tool_training_target")
             var contact_call: int = int(node.contact_visual_call_serial()) + 1 if node.has_method("contact_visual_call_serial") else -1
             node.take_hit(attack_damage, _attack_hit_direction())
             var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
@@ -1472,15 +1482,12 @@ func _apply_attack_hits() -> void:
             var observed_boss: Variant=node.get("is_boss")
             combat_observed.emit({"kind":"strike","damage":maxi(0,target_hp_before-maxi(0,int(node.get("hp")))),"killed":killed,
                 "boss":observed_boss is bool and observed_boss,"practice":node.has_meta("seal_training_target") or node.has_meta("tool_training_target")})
-            var energy_before := energy
             if active_skill.is_empty():
-                gain_energy(energy_per_hit)
+                gain_energy(energy_per_hit,practice_contact)
                 _basic_seal_hit()
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
-                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
+                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)),practice_contact)
                 crosscut_refund_paid = true
-            if is_instance_valid(node) and (node.has_meta("seal_training_target") or node.has_meta("tool_training_target")):
-                practice_energy += energy - energy_before
             if active_skill.is_empty() and _crest() == "bell" and _seal_mechanism_ready() and bell_pressure > 0 and current_attack == &"attack_2":
                 if node.has_method("apply_stagger"):
                     node.apply_stagger(bell_pressure * 0.3)
@@ -1617,12 +1624,14 @@ func _play_pogo_squash() -> void:
     tween.tween_property(sprite, "scale", sprite_base_scale, 0.10).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
 
-func gain_energy(amount: int) -> void:
+func gain_energy(amount: int, practice_gain: bool = false) -> void:
+    var change:=preload("res://scripts/heal_refund_account.gd").change(amount,energy,max_energy,practice_energy,practice_gain)
+    _apply_thread_balance(int(change.energy),int(change.practice))
+
+func _apply_thread_balance(next_energy: int, next_practice: int) -> void:
     var before := energy
-    energy = clampi(energy + amount, 0, max_energy)
-    # Spending uses rack-earned practice thread first.
-    if amount < 0:
-        practice_energy = maxi(0, practice_energy - (before - energy))
+    energy=clampi(next_energy,0,max_energy)
+    practice_energy=clampi(next_practice,0,energy)
     if energy != before:
         energy_changed.emit(energy, max_energy)
 
@@ -2358,6 +2367,7 @@ func _hard_respawn() -> void:
     snare_timer = 0.0
     hp = max_hp
     energy = 0
+    practice_energy = 0
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
     respawn_at(spawn_position)
