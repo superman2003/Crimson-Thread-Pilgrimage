@@ -2,6 +2,7 @@ extends Node
 ## Captions are a view of the actor's current tell, never an encounter predictor.
 const MAX_SCAN := 128
 const MAX_DISTANCE := 620.0
+const GROUPS := preload("res://scripts/danger_caption_groups.gd")
 const TELLS := {"melee":"近身挥击","lunge":"突进","rush":"冲锋","fan":"散射","pool":"地面危险","dive":"俯冲","guard":"防守反击","combo":"连续挥击","wave":"地面波","vault":"跃击","mortar":"抛射","beam":"直线照射","rootline":"沿地蔓延","pulse":"范围震荡","projectile":"远程射击","throw":"投掷","slam":"重砸","sweep":"横扫"}
 var level: Node
 var ui: Control
@@ -61,17 +62,11 @@ func refresh(candidates: Array) -> void:
             var row:=observe(candidate)
             if not row.is_empty():rows.append(row)
         cursor=(cursor+MAX_SCAN)%candidates.size()
-    rows.sort_custom(func(a: Dictionary,b: Dictionary):return a.rank<b.rank if a.rank!=b.rank else a.source<b.source)
     var preferences:=preload("res://scripts/controller_preferences.gd").normalize(ui.accessibility)
-    rows=rows.slice(0,int(preferences.danger_caption_limit))
+    rows=GROUPS.select(rows,int(preferences.danger_caption_limit))
     var style:=StyleBoxFlat.new();style.bg_color=Color(0.02,0.025,0.03,0.95 if preferences.danger_caption_contrast else 0.72)
     style.content_margin_top=5;style.content_margin_bottom=5;panel.add_theme_stylebox_override("panel",style)
-    for index in labels.size():
-        labels[index].visible=index<rows.size()
-        if index>=rows.size():continue
-        labels[index].text=String(rows[index].text)
-        labels[index].add_theme_font_size_override("font_size",int(preferences.subtitle_size))
-        labels[index].add_theme_color_override("font_color",Color("ffe19d") if rows[index].unblockable else Color("fff3dc"))
+    GROUPS.render(labels,rows,int(preferences.subtitle_size))
     panel.visible=not rows.is_empty()
 
 func _process(_delta: float) -> void:
