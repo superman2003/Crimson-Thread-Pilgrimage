@@ -37,6 +37,31 @@
           ]
         },
         {
+          "id": "reflection_names",
+          "flags_all": [
+            "quest_bring_names_complete",
+            "reward_returned_names_claimed",
+            "skill_crosscut_learned",
+            "charm_reflux_found"
+          ],
+          "flags_none": [
+            "story_reflection_names",
+            "ending_a_done",
+            "ending_b_done",
+            "ending_c_done"
+          ],
+          "lines": [
+            "我照着孩子念的声音缝名字，第一遍缝错了，又拆掉重来。",
+            "以前我只想把师父留下的针修好。现在得先问清楚，衣领里该绣谁的名字。",
+            "你也不用替他们回答。把线留在他们手里，让他们自己系。"
+          ],
+          "grant_flags": [
+            "story_reflection_names"
+          ],
+          "response_mode": "gesture",
+          "response": "你把攥紧的线松开，将线端放回学徒掌心。"
+        },
+        {
           "id": "names_returned",
           "lines": [
             "你带回来的不是名单，是他们还活过的证据。",
@@ -506,6 +531,30 @@
           ]
         },
         {
+          "id": "reflection_westgate",
+          "flags_all": [
+            "quest_root_rescue_complete",
+            "reward_root_rescue_claimed",
+            "npc_root_prisoner_at_west_gate"
+          ],
+          "flags_none": [
+            "story_reflection_westgate",
+            "ending_a_done",
+            "ending_b_done",
+            "ending_c_done"
+          ],
+          "lines": [
+            "刚出来时，我连往左还是往右都想先问你。",
+            "今天我自己挑了西门这盆苗。明天也许换一盆，也许只坐一会儿。",
+            "别把救我的绳结留在我手腕上。放在门边吧，要用时我会自己拿。"
+          ],
+          "grant_flags": [
+            "story_reflection_westgate"
+          ],
+          "response_mode": "gesture",
+          "response": "你解开最后一圈松线，把它放在门边。"
+        },
+        {
           "id": "aftermath_rewritten",
           "flags_all": [
             "ending_c_done"
@@ -663,6 +712,31 @@
           "lines": [
             "轮值的人自己来领灯，退值的人交回灯架。灯火不再默认属于一个家族。"
           ]
+        },
+        {
+          "id": "reflection_lamps",
+          "flags_all": [
+            "quest_wax_lamps_complete",
+            "reward_wax_lamps_claimed",
+            "tool_lure_found",
+            "charm_mender_found"
+          ],
+          "flags_none": [
+            "story_reflection_lamps",
+            "ending_a_done",
+            "ending_b_done",
+            "ending_c_done"
+          ],
+          "lines": [
+            "补好的灯有一盏先照了检修人的手，我原先倒只记得它能卖多少钱。",
+            "灯油还得算，蜡也还得找。可现在我会给晚归的人留一盏。",
+            "你要找的是旧约吧？先记住灯照着谁，再去问是谁让他们值夜。"
+          ],
+          "grant_flags": [
+            "story_reflection_lamps"
+          ],
+          "response_mode": "gesture",
+          "response": "你把灯转向检修台，让光落到商人的手上。"
         },
         {
           "id": "wax_returned",
@@ -868,6 +942,29 @@
           ]
         },
         {
+          "id": "reflection_signals",
+          "flags_all": [
+            "quest_lantern_watch_complete",
+            "reward_lantern_watch_claimed"
+          ],
+          "flags_none": [
+            "story_reflection_signals",
+            "ending_a_done",
+            "ending_b_done",
+            "ending_c_done"
+          ],
+          "lines": [
+            "三短一长，我练了很多遍，怕手又照军令打出召集号。",
+            "昨晚有个人看懂了，自己走过桥。我第一次没替他决定该往哪里去。",
+            "等你再见王冠，别只听它说护住了多少城。问问那些人，能不能不应它的灯。"
+          ],
+          "grant_flags": [
+            "story_reflection_signals"
+          ],
+          "response_mode": "gesture",
+          "response": "你等修女先熄灯，再回一个表示收到的短光。"
+        },
+        {
           "id": "watch_complete",
           "lines": [
             "高灯与低灯都接上了。以后往返只要认灯，不必跟着军号。",
@@ -948,6 +1045,31 @@
           "lines": [
             "营地名册有了退值的一栏。这次留下，是我自己说的。"
           ]
+        },
+        {
+          "id": "reflection_choice",
+          "flags_all": [
+            "quest_deserter_order_complete",
+            "reward_deserter_order_claimed",
+            "npc_deserter_at_camp",
+            "charm_needlecase_found"
+          ],
+          "flags_none": [
+            "story_reflection_choice",
+            "ending_a_done",
+            "ending_b_done",
+            "ending_c_done"
+          ],
+          "lines": [
+            "我留在营地，不是因为军册少划了我那一行。",
+            "有人问我会不会修桶，我说会。他又问我愿不愿意，我竟然愣了很久。",
+            "下一回我也许会说不。你要是听见，别把那当作逃跑。"
+          ],
+          "grant_flags": [
+            "story_reflection_choice"
+          ],
+          "response_mode": "gesture",
+          "response": "你点头，把空水桶放下，没有交到他手里。"
         },
         {
           "id": "flag_freed",
@@ -1590,7 +1712,7 @@
       "items_any": [
         "testimony_03"
       ],
-      "claim": "契约官保存被替换的原字，知道失声制度来自篡改而非救灾所需。",
+      "claim": "总校书素保留被替换的原字，证明失声制度中的世袭条款来自篡改。",
       "location_hint": "封存书堆上层书架；取得双线跃后回访，检查不结盐的页角。",
       "independent": true,
       "scene_witness": {
@@ -1608,7 +1730,7 @@
       "items_any": [
         "testimony_04"
       ],
-      "claim": "园主以自身的音守住母株，王冠却把乐器当成敲钟的工具。",
+      "claim": "歌守徽以自身的音守住母株，园主却把活弦接进王冠钟网。",
       "location_hint": "大树之心母株脚下；获得棘丝下劈后检查根系封口，取证后返回枝台。",
       "independent": true,
       "scene_witness": {
@@ -1669,13 +1791,13 @@
     },
     {
       "region": "ch03_saltwhite_archive",
-      "motive": "契约官保存被替换的原字，知道失声制度来自篡改而非救灾所需。",
-      "contract_role": "原文保管与删改执行者"
+      "motive": "总校书素保留被替换的原字，证明失声制度中的世袭条款来自篡改。",
+      "contract_role": "原文保管者；现任灰冠螳将是后来的契约执行者"
     },
     {
       "region": "ch04_broken_string_greenhouse",
-      "motive": "园主以自身的音守住母株，王冠却把乐器当成敲钟的工具。",
-      "contract_role": "维持温室音律的活印记"
+      "motive": "歌守徽以自身的音守住母株，园主却把活弦接进王冠钟网。",
+      "contract_role": "歌守徽是第四守门者；园主异化的铜根主教是看守者"
     },
     {
       "region": "ch05_obsidian_pilgrim_road",
