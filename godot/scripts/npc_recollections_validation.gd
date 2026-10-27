@@ -16,11 +16,12 @@ class Shell extends Control:
 class CommitWorld extends "res://scripts/main_level.gd":
     var allow_save:=true
     var writes:=0
+    var notices: Array[String]=[]
     func _ready() -> void:pass
     func _process(_delta: float) -> void:pass
     func _physics_process(_delta: float) -> void:pass
     func _exit_tree() -> void:pass
-    func _toast(_message: String) -> void:pass
+    func _toast(message: String) -> void:notices.append(message)
     func _check_wish_board_rewards(_show: bool=true) -> void:pass
     func _apply_world_npc_state(_area: Area2D) -> void:pass
     func _sync_player_build() -> void:pass
@@ -48,6 +49,16 @@ class JournalWorld extends Node:
     var backpack_entry_ids: Array[String]=[]
     var backpack_selection:=-1
 
+func make_response_transaction_player() -> Node:
+    return TransactionPlayer.new()
+
+func make_response_journal_world() -> Node:
+    var world:=JournalWorld.new()
+    root.add_child(world)
+    world.player=Node.new()
+    world.add_child(world.player)
+    return world
+
 func _initialize() -> void:call_deferred("run")
 func check(ok: bool,message: String) -> void:
     checks+=1
@@ -57,6 +68,7 @@ func clean() -> void:
         if file.begins_with(SAVE.get_file()):DirAccess.remove_absolute("user://"+file)
 func run() -> void:
     clean()
+    await preload("res://scripts/protagonist_response_memory_validation.gd").run(self)
     pure_records_checks()
     await commit_checks()
     await fallback_checks()
