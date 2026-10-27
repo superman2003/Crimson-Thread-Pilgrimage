@@ -11,7 +11,7 @@ static func run(tree: SceneTree) -> void:
 
 static func pure(tree: SceneTree) -> void:
     var rows:=MEMORY.catalog()
-    tree.check(rows.size()==11 and MEMORY.records({}).is_empty(),"all eleven authored protagonist responses remain private without exact earned identities")
+    tree.check(rows.size()==16 and MEMORY.records({}).is_empty(),"all sixteen authored protagonist responses remain private without exact earned identities")
     var modes:={}
     for row in rows:
         modes[row.mode]=true
