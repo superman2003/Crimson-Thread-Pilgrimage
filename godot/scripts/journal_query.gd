@@ -34,7 +34,7 @@ static func compile(query: String) -> Array[Dictionary]:
     var index := 0
     while index < text.length():
         var character := text.substr(index, 1)
-        if character == "\\" and index + 1 < text.length() and text.substr(index + 1, 1) in ["\\", "\""]:
+        if character == "\\" and index + 1 < text.length() and text.substr(index + 1, 1) in ["\\", "\"", "“", "”"]:
             token += text.substr(index + 1, 1)
             index += 2
             continue

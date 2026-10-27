@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'godot/scripts/journal_catalog.gd'
+      - 'godot/scripts/journal_query.gd'
       - 'godot/tests/reliability_journal_preferences.gd'
       - '.github/workflows/reliability-journal_preferences.yml'
   workflow_dispatch:
@@ -26,7 +27,7 @@ jobs:
           mkdir -p "$stage"
           printf 'config_version=5\n[application]\nconfig/name="Isolated reliability"\n' > "$stage/project.godot"
           cd godot
-          cp --parents scripts/journal_catalog.gd tests/reliability_journal_preferences.gd "$stage/"
+          cp --parents scripts/journal_catalog.gd scripts/journal_query.gd tests/reliability_journal_preferences.gd "$stage/"
           "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --headless --path "$stage" --script res://tests/reliability_journal_preferences.gd 2>&1 | tee "$RUNNER_TEMP/result.log"
           ! grep -E '^(SCRIPT ERROR|ERROR|USER ERROR):' "$RUNNER_TEMP/result.log"
           grep -E 'RELIABILITY_.*checks=[0-9]+ failures=0' "$RUNNER_TEMP/result.log"

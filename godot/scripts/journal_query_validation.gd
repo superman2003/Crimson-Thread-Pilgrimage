@@ -49,6 +49,9 @@ func run() -> void:
         check(keys(catalog.filter_documents(documents, item[0], false, false)) == item[1], "public query: " + String(item[0]))
     check(QUERY.matches(QUERY.compile("\"a\\\"b\""), "a\"b"), "escaped quotes remain literal phrase content")
     check(QUERY.matches(QUERY.compile("\"a\\\\b\""), "a\\b"), "escaped backslash remains literal")
+    check(QUERY.matches(QUERY.compile("“她说“愿意\\”不能代填”"), "她说“愿意”不能代填"), "escaped Chinese closing quote remains inside the phrase")
+    check(QUERY.matches(QUERY.compile("“\\“愿意\\””"), "“愿意”"), "both Chinese quote marks can be escaped")
+    check(not QUERY.matches(QUERY.compile("-\\“愿意\\”"), "她说“愿意”"), "escaped Chinese quotes work in exclusions")
     check(QUERY.compile("铜根 铜根 -铜根 -铜根").size() == 2, "duplicate terms remain bounded without losing opposite conditions")
     check(QUERY.compile("a".repeat(120))[0].text.length() == 80, "query length uses the UI's eighty-character bound")
     for code in QUERY.SPACE_CODES + [8192, 8197, 8202]:
