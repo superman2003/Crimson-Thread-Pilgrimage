@@ -36,6 +36,16 @@ static func quote(level: Node,id: String,batches: Variant) -> Dictionary:
     return {"ok":true,"counts":counts,"money":int(level.currency_count)-cost,"summary":summary,
         "fingerprint":var_to_str([recipe,int(batches),level.config.id,level.inventory_counts,level.currency_count,level.story_flags,level.build_system.serialize()]).sha256_text()}
 
+static func maximum(level: Node,id: String) -> Dictionary:
+    # The canonical quote owns proof, capacity, stock, bell and region rules.
+    # Ten is the hard per-operation bound; no preview performs a transaction.
+    var first:=quote(level,id,1)
+    if not first.ok:return {"ok":false,"maximum":0,"reason":first.reason}
+    for batches in range(LIMIT,0,-1):
+        var candidate:=quote(level,id,batches)
+        if candidate.ok:return {"ok":true,"maximum":batches,"reason":"当前最多可兑换%d份。" % batches}
+    return {"ok":false,"maximum":0,"reason":"当前无可兑换的份数。"}
+
 static func perform(level: Node,id: String,batches: Variant,fingerprint: String) -> Dictionary:
     var candidate:=quote(level,id,batches)
     if not candidate.ok:return candidate
