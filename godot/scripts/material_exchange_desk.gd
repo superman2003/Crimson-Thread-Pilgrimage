@@ -5,6 +5,8 @@ var window: AcceptDialog
 var list: ItemList
 var detail: Label
 var amount: SpinBox
+var maximum_button: Button
+var review_button: Button
 var rows: Array=[]
 var confirm: ConfirmationDialog
 var pending: Dictionary={}
@@ -26,7 +28,8 @@ func _build() -> void:
     var row: HBoxContainer=window.row(window.column)
     var label:=Label.new();label.text="兑换份数";row.add_child(label)
     amount=SpinBox.new();amount.min_value=1;amount.max_value=MARKET.LIMIT;amount.step=1;amount.value=1;row.add_child(amount);amount.value_changed.connect(func(_value: float):refresh())
-    detail=window.text(window.column,"",110);window.button(window.column,"核对本次兑换",ask);window.footer()
+    maximum_button=window.button(row,"选择当前最多可换",select_maximum)
+    detail=window.text(window.column,"",110);review_button=window.button(window.column,"核对本次兑换",ask);window.footer()
     confirm=ConfirmationDialog.new();confirm.title="核对材料与费用";window.add_child(confirm);ui.register_text_entry_window(confirm);confirm.confirmed.connect(_confirm)
     window.visibility_changed.connect(func():
         if not window.visible:confirm.hide();pending={})
@@ -40,11 +43,25 @@ func open() -> void:
     refresh();window.popup_centered();amount.get_line_edit().grab_focus()
 
 func refresh() -> void:
+    maximum_button.disabled=true;review_button.disabled=true
     if list.get_selected_items().is_empty():detail.text="先探索邻区，再带本区巡礼印回钟龛；未到地区不会提前列出。";return
     var row: Dictionary=rows[list.get_selected_items()[0]]
     var quote:=MARKET.quote(ui.level,String(row.id),amount.value)
+    var available:=MARKET.maximum(ui.level,String(row.id))
+    maximum_button.disabled=not available.ok
+    review_button.disabled=not quote.ok
     detail.text=String(quote.summary) if quote.ok else String(quote.reason)
     detail.text+="\n现有本区材料：%d；目标材料：%d；松脂：%d。" % [int(ui.level.inventory_counts.get(row.input,0)),int(ui.level.inventory_counts.get(row.output,0)),int(ui.level.currency_count)]
+    detail.text+="\n"+String(available.reason)
+
+func select_maximum() -> void:
+    if not window.visible or list.get_selected_items().is_empty():return
+    var row: Dictionary=rows[list.get_selected_items()[0]]
+    var available:=MARKET.maximum(ui.level,String(row.id))
+    if not available.ok:refresh();window.status.text=String(available.reason);return
+    pending={};confirm.hide()
+    amount.set_value_no_signal(float(available.maximum))
+    refresh();window.status.text="已选择%d份；尚未兑换，请核对后确认。" % int(available.maximum)
 
 func ask() -> void:
     if list.get_selected_items().is_empty():return
