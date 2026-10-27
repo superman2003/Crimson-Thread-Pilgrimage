@@ -523,6 +523,10 @@ func quote_resupply(wallet: Dictionary, plan: Variant = {}) -> Dictionary:
     quote["unfilled"] = {}
     for id in deficits:quote.unfilled[id] = maxi(0, int(deficits[id]) - int(charges.get(id, 0)))
     quote["order"] = request.order.duplicate()
+    var budget_request := {}
+    for id in request.order:
+        if state.unlocked_tools.has(id):budget_request[id] = deficits[id]
+    quote["budget"] = preload("res://scripts/resupply_budget.gd").quote(catalog.tools, budget_request, wallet)
     return quote
 
 func resupply_tools(wallet: Dictionary, at_bell: bool, plan: Variant = {}) -> Dictionary:

@@ -145,6 +145,7 @@ func _refresh_quote() -> void:
         lines.append("%s ×%d" % [name, int(cost.materials[id])])
     if quote.get("remaining_wallet") is Dictionary:
         lines.append("购买后碎钱 %d" % int(quote.remaining_wallet.get("currency", 0)))
+    lines.append_array(preload("res://scripts/resupply_budget.gd").lines(quote.get("budget", {}), material_name))
     if not bool(quote.get("ok", false)):lines.append(String(quote.get("reason", "当前不可购买")))
     detail.text = "\n".join(lines)
 
