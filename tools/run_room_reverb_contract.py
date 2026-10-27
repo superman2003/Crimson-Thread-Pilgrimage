@@ -43,6 +43,8 @@ def invoke(command, env, log, marker=None):
     except subprocess.TimeoutExpired as exc:
         content = exc.stdout or b""
         output = content.decode(errors="replace") if isinstance(content, bytes) else content
+        errors = exc.stderr or b""
+        output += errors.decode(errors="replace") if isinstance(errors, bytes) else errors
         output += "\nERROR: room reverb contract exceeded 120 seconds\n"
         good = False
     log.write_text(output, encoding="utf-8")
@@ -74,6 +76,9 @@ def main():
         mix = ROOT / "godot/scripts/room_reverb_mix.gd"
         if mix.is_file():
             shutil.copy2(mix, scripts / mix.name)
+        preferences = ROOT / "godot/scripts/audio_volume_preferences.gd"
+        if preferences.is_file():
+            shutil.copy2(preferences, scripts / preferences.name)
         (scripts / "chapter_reverb_contract_host.gd").write_text(chapter_fixture_source(), encoding="utf-8")
         (project / "project.godot").write_text(
             'config_version=5\n[application]\nconfig/name="Room reverb contracts"\n'

@@ -1,0 +1,56 @@
+name: U06 recoverable audio volume preferences
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/room_reverb_mix.gd'
+      - 'godot/scripts/audio_volume_preferences*.gd'
+      - 'godot/scripts/audio_user_volume_validation.gd'
+      - 'godot/scripts/duck_mix.gd'
+      - 'godot/scripts/music_layer_phase.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/npc_landmark_schedule.gd'
+      - 'godot/scripts/spatial_enemy_alert.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/run_audio_volume_save_contract.py'
+      - '.github/workflows/ledger-u06-audio-volume-save.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: u06-audio-save-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+jobs:
+  native-contract:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            archive: Godot_v4.6.1-stable_linux.x86_64.zip
+            engine: Godot_v4.6.1-stable_linux.x86_64
+          - os: windows-2022
+            archive: Godot_v4.6.1-stable_win64.exe.zip
+            engine: Godot_v4.6.1-stable_win64_console.exe
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/${{ matrix.archive }}"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native production component contract
+        run: python tools/run_audio_volume_save_contract.py --engine "$RUNNER_TEMP/godot/${{ matrix.engine }}" --log-dir "$RUNNER_TEMP/native-contract"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: u06-audio-save-logs-${{ matrix.os }}
+          path: ${{ runner.temp }}/native-contract
+

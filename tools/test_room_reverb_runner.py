@@ -47,10 +47,11 @@ class RoomReverbRunner(unittest.TestCase):
     def test_timeout_cannot_pass_with_a_partial_success_marker(self):
         with tempfile.TemporaryDirectory() as scratch, redirect_stdout(StringIO()):
             log = Path(scratch) / "native.log"
-            error = subprocess.TimeoutExpired("godot", 120, output=b"ROOM_REVERB checks=1 failures=0\n")
+            error = subprocess.TimeoutExpired("godot", 120, output=b"ROOM_REVERB checks=1 failures=0\n",stderr=b"SCRIPT ERROR: missing dependency\n")
             with patch("run_room_reverb_contract.subprocess.run", side_effect=error):
                 self.assertFalse(invoke(["godot"], None, log, MARKER))
             self.assertIn("exceeded 120 seconds", log.read_text(encoding="utf-8"))
+            self.assertIn("missing dependency", log.read_text(encoding="utf-8"))
 
     def test_main_fixture_uses_complete_production_methods(self):
         generated = chapter_fixture_source()
