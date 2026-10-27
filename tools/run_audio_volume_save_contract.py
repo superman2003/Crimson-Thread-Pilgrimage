@@ -53,6 +53,13 @@ def main():
         room_mix = ROOT / "godot/scripts/room_reverb_mix.gd"
         if room_mix.is_file():
             shutil.copy2(room_mix, scripts / room_mix.name)
+        source = (ROOT / "godot/scripts/pilgrimage_interface.gd").read_text(encoding="utf-8")
+        feedback = re.search(r"^func _audio_save_feedback\(.*?(?=^func |\Z)", source, re.M | re.S)
+        if feedback is None:
+            raise ValueError("production audio persistence feedback method missing")
+        (scripts / "audio_volume_feedback_contract.gd").write_text(
+            'extends Node\nvar toast: Label\nvar toast_age := 0.0\nvar last_toast := ""\nvar audio_save_toast := ""\n'
+            + feedback.group(),encoding="utf-8")
 
         (project / "project.godot").write_text(
             'config_version=5\n[application]\nconfig/name="Audio preferences persistence"\n'

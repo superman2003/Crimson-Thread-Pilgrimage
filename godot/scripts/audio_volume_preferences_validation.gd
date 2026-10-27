@@ -2,6 +2,7 @@ extends SceneTree
 const DIRECTOR := preload("res://scripts/audio_director.gd")
 const STORE := preload("res://scripts/audio_volume_preferences.gd")
 const USER_VOLUME := preload("res://scripts/audio_user_volume_validation.gd")
+const FEEDBACK := preload("res://scripts/audio_volume_feedback_contract.gd")
 const PATH := "user://atomic_audio_preferences.cfg"
 var checks := 0
 var failures := 0
@@ -12,6 +13,14 @@ class RejectInstall extends "res://scripts/audio_volume_preferences.gd":
 class RejectStage extends "res://scripts/audio_volume_preferences.gd":
     func _stage(_candidate: ConfigFile, _temporary: String) -> int:
         return ERR_FILE_CANT_WRITE
+class RejectPlace extends "res://scripts/audio_volume_preferences.gd":
+    func _place(_temporary: String, _path: String) -> int:
+        return ERR_FILE_CANT_WRITE
+class ObserveStages extends "res://scripts/audio_volume_preferences.gd":
+    var paths: Array[String] = []
+    func _stage(candidate: ConfigFile, temporary: String) -> int:
+        paths.append(temporary)
+        return super._stage(candidate,temporary)
 class ChangedReadback extends "res://scripts/audio_volume_preferences.gd":
     func _stage(candidate: ConfigFile, temporary: String) -> int:
         var result := super._stage(candidate,temporary)
@@ -84,6 +93,10 @@ func run() -> void:
     check(active.retry_user_volume_save().persisted,"explicit retry saves the latest settings")
     check(read().get_value("volumes","music",-1.0) == 63.0,"retry acknowledges latest rather than failed first snapshot")
     before = FileAccess.get_file_as_bytes(PATH)
+    active.volume_preferences = RejectPlace.new()
+    active.set_user_volume("music",64.0)
+    check(FileAccess.get_file_as_bytes(PATH) == before,"failed placement after moving the original restores its exact bytes")
+    check(not FileAccess.file_exists(PATH + STORE.BACKUP_SUFFIX),"successful rollback leaves no pending recovery backup")
     active.volume_preferences = RejectStage.new()
     active.set_user_volume("ambience",12.0)
     check(not active.user_volume_save_status().persisted and FileAccess.get_file_as_bytes(PATH) == before,"staging failure preserves prior file and pending changes")
@@ -122,11 +135,20 @@ func run() -> void:
     check(FileAccess.get_file_as_bytes(PATH) == before,"retired director cannot overwrite successor settings")
     check(not active.retry_user_volume_save().persisted,"retired page cannot retry into a newer owner")
     active.free()
+    successor.volume_preferences = RejectInstall.new()
+    successor.set_user_volume("music",19.0)
+    successor.free()
+    successor = fresh()
+    check(successor.get_user_volume("music") == 19.0 and not successor.user_volume_save_status().persisted,"region handoff retains the pending session snapshot and failure status")
+    check(successor.retry_user_volume_save().persisted,"new region can retry the pending snapshot")
+    successor.set_user_volume("music",22.0)
     successor.free()
     var restart := fresh()
     check(restart.get_user_volume("music") == 22.0 and restart.get_user_volume("sfx") == 49.0,"new director loads atomically saved latest channels")
     check(read().get_value("future","note","") == "保留其它节","foreign fields survive all retries and restarts")
     restart.free()
+    _check_storage_recovery()
+    _check_feedback()
     DirAccess.remove_absolute(ProjectSettings.globalize_path(PATH))
     var old_contract := USER_VOLUME.new()
     await old_contract.run(self,check)
@@ -134,4 +156,53 @@ func run() -> void:
     AudioServer.set_bus_layout(layout)
     print("AUDIO_VOLUME_SAVE checks=%d failures=%d" % [checks,failures])
     quit(0 if failures == 0 else 1)
+
+func _check_storage_recovery() -> void:
+    var store := STORE.new()
+    var absolute := ProjectSettings.globalize_path(PATH)
+    var original := FileAccess.get_file_as_bytes(PATH)
+    check(DirAccess.rename_absolute(absolute,absolute + STORE.BACKUP_SUFFIX) == OK,"simulate process interruption after original file moved aside")
+    check(store.recover(PATH) == OK and FileAccess.get_file_as_bytes(PATH) == original,"startup recovers the previous file when replacement did not finish")
+    var lock: Dictionary = store._lock(absolute)
+    check(not lock.is_empty(),"real cross-process transaction lock can be acquired")
+    check(store.save(PATH,values()) == ERR_BUSY and FileAccess.get_file_as_bytes(PATH) == original,"a competing live writer cannot replace a locked preference file")
+    store._unlock(lock)
+    var observe := ObserveStages.new()
+    check(observe.save(PATH,values()) == OK and observe.save(PATH,values()) == OK,"consecutive writes complete normally")
+    check(observe.paths.size() == 2 and observe.paths[0] != observe.paths[1],"each write owns a unique staging file")
+    var damaged := FileAccess.open(PATH,FileAccess.WRITE)
+    damaged.store_string("[broken\nthis is not a config")
+    damaged.close()
+    # Only this deliberately malformed fixture suppresses expected parser diagnostics.
+    var diagnostics := Engine.print_error_messages
+    Engine.print_error_messages = false
+    var fixed: int = store.save(PATH,values())
+    Engine.print_error_messages = diagnostics
+    check(fixed == OK and read().get_value("volumes","music",-1) == 30.0,"damaged legacy settings no longer block future persistence")
+    var preserved := false
+    for name in DirAccess.get_files_at("user://"):
+        if name.begins_with(PATH.get_file() + ".audio-corrupt."):
+            preserved = FileAccess.get_file_as_string("user://" + name).contains("[broken")
+            DirAccess.remove_absolute(ProjectSettings.globalize_path("user://" + name))
+        check(not name.begins_with(PATH.get_file() + STORE.TEMP_SUFFIX),"no writer leaves staging files behind")
+    check(preserved,"damaged original bytes remain available as a quarantine backup")
+
+func _check_feedback() -> void:
+    var ui := FEEDBACK.new()
+    ui.toast = Label.new()
+    ui.add_child(ui.toast)
+    root.add_child(ui)
+    var failed := {"persisted":false,"reason":"尚未保存"}
+    ui._audio_save_feedback(failed)
+    ui.toast_age = 99.0
+    ui.toast.modulate.a = 0.0
+    ui._audio_save_feedback(failed)
+    check(ui.toast_age == 0.0 and ui.toast.modulate.a == 1.0,"repeated identical failures redisplay their status")
+    ui._audio_save_feedback({"persisted":true})
+    check(ui.toast.text == "音量已保存。" and ui.audio_save_toast.is_empty(),"successful retry replaces the stale failure message")
+    ui._audio_save_feedback(failed)
+    ui.toast.text = "另一个提示"
+    ui._audio_save_feedback({"persisted":true})
+    check(ui.toast.text == "另一个提示","save completion preserves an unrelated newer toast")
+    ui.free()
 
