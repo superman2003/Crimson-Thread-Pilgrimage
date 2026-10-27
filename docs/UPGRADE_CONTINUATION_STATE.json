@@ -1,0 +1,23 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "baseline_submitted_prs": [369, 370, 371, 373, 374, 375, 376, 377, 378],
+  "current_upgrade": {
+    "title": "S01 音乐叙事",
+    "branch": "codex/ledger-s01-music-layers-635aa",
+    "ordinal": 10,
+    "validation": "345 native checks and strict runner negative cases passed",
+    "status": "verified locally; reconcile PR existence and latest CI with GitHub"
+  },
+  "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
+  "next_candidates": ["U03 战斗HUD", "C02 疗伤与线资源", "U02 契印装备UI", "G02 失落与找回"],
+  "constraints": [
+    "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
+    "Use exact canonical ledger titles and substantial real Godot changes; average at least 500 non-document changed lines, excluding inherited changes.",
+    "Check all open PR current heads, latest CI attempts and conflicts before publishing the next PR; repair real failures first.",
+    "Do not restore browser games, weaken CI, remove valid tests, merge or close PRs.",
+    "Use isolated checkouts and expected-SHA guarded updates; preserve other agents' work and shared downstream fixes.",
+    "CI being green does not finish this continuation task; proceed with the next verified ledger upgrade until 40 are actually submitted."
+  ]
+}
