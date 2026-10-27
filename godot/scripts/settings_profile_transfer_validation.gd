@@ -24,7 +24,7 @@ static func pure(tree: SceneTree) -> void:
     var packet: Dictionary=JSON.parse_string(exported.text)
     var bad: Array=[]
     var changed:=packet.duplicate(true);changed.format="another-game";bad.append(changed)
-    changed=packet.duplicate(true);changed.version=2;bad.append(changed)
+    changed=packet.duplicate(true);changed.version=TRANSFER.VERSION+1;bad.append(changed)
     changed=packet.duplicate(true);changed.version=true;bad.append(changed)
     changed=packet.duplicate(true);changed.extra="ignored?";bad.append(changed)
     changed=packet.duplicate(true);changed.name=" bad";bad.append(changed)

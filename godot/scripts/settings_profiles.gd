@@ -66,10 +66,14 @@ func quote(name: String, ui: Control, scope: int) -> Dictionary:
         candidate[key]=supplied[key]
         if current[key]!=candidate[key]:lines.append("%s：%s → %s" % [String(COMFORT.LABELS.get(key,{"npc_landmarks":"NPC声音地标","tutorial_hints":"探索提示","navigation_assist":"导航辅助"}.get(key,key))),str(current[key]),str(candidate[key])])
     var bindings: Dictionary=preload("res://scripts/input_binding_policy.gd").snapshot()
+    var snapshot: Dictionary=profile.duplicate(true)
     if scope in [0,3]:
         var restored:=CODEC.restore(profile.bindings,ui.REMAPPABLE_ACTIONS)
         if not restored.ok:return restored
         bindings=restored.bindings
+        if restored.get("legacy",false):
+            snapshot={"profile":profile.duplicate(true),"legacy_build":CODEC.capture({"build_menu":"构筑"})}
+            lines.append("旧方案未记录构筑快捷键：沿用当前构筑输入，且不改写旧方案。")
         for action in ui.REMAPPABLE_ACTIONS:
             var before: Array=InputMap.action_get_events(action).map(func(event):return CODEC.encode(event))
             var after: Array=bindings[action].map(func(event):return CODEC.encode(event))
@@ -77,7 +81,7 @@ func quote(name: String, ui: Control, scope: int) -> Dictionary:
                 var labels: Array[String]=[]
                 for event in bindings[action]:labels.append(preload("res://scripts/input_prompt_bindings.gd").binding_label(event))
                 lines.append(String(ui.REMAPPABLE_ACTIONS[action])+"："+" / ".join(labels))
-    return {"ok":true,"values":candidate,"bindings":bindings,"lines":lines,"snapshot":profile.duplicate(true),"scope":scope}
+    return {"ok":true,"values":candidate,"bindings":bindings,"lines":lines,"snapshot":snapshot,"scope":scope}
 
 func apply(name: String, ui: Control, scope: int, expected: Dictionary) -> Dictionary:
     var candidate:=quote(name,ui,scope)

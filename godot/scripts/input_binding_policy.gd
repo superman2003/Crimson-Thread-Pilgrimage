@@ -1,7 +1,18 @@
 extends RefCounted
 ## Shared capture/load policy. Builds a complete candidate before touching InputMap.
-const RESERVED_KEYS := [KEY_ESCAPE, KEY_B, KEY_F9]
-const RESERVED_BUTTONS := [JOY_BUTTON_LEFT_STICK]
+const RESERVED_KEYS := [KEY_ESCAPE, KEY_F9]
+const RESERVED_BUTTONS: Array[int] = []
+
+static func allowed_for(action: String, event: InputEvent) -> bool:
+    if action != "build_menu":return true
+    if event is InputEventKey:
+        var code: int=event.physical_keycode if event.physical_keycode!=0 else event.keycode
+        return code not in [KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT,KEY_ENTER,KEY_KP_ENTER,KEY_SPACE,KEY_TAB]
+    if event is InputEventMouseButton:
+        return event.button_index in [MOUSE_BUTTON_RIGHT,MOUSE_BUTTON_MIDDLE,MOUSE_BUTTON_XBUTTON1,MOUSE_BUTTON_XBUTTON2]
+    if event is InputEventJoypadButton:
+        return event.button_index not in [JOY_BUTTON_A,JOY_BUTTON_B,JOY_BUTTON_DPAD_UP,JOY_BUTTON_DPAD_DOWN,JOY_BUTTON_DPAD_LEFT,JOY_BUTTON_DPAD_RIGHT]
+    return false
 
 static func normalize(value: Variant) -> InputEvent:
     if not value is InputEvent:return null
@@ -100,7 +111,7 @@ static func restore(original: Dictionary, saved: Dictionary, actions: Dictionary
         var groups := {}
         for value in raw:
             var event := normalize(value)
-            if event == null or is_reserved(event):
+            if event == null or is_reserved(event) or not allowed_for(String(action),event):
                 rejected += 1
                 continue
             var group := family(event)
