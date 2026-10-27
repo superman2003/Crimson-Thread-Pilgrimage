@@ -9,6 +9,8 @@ on:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
       - 'tools/test_release_builder.py'
+      - 'tools/release_save_contract.py'
+      - 'tools/test_release_save_contract.py'
       - 'tools/audit_export_contents.py'
       - 'tools/test_export_audit.py'
       - 'tools/release_engine_licenses.gd'
@@ -22,6 +24,8 @@ on:
       - '.github/workflows/release-candidate.yml'
       - 'tools/build_release.py'
       - 'tools/test_release_builder.py'
+      - 'tools/release_save_contract.py'
+      - 'tools/test_release_save_contract.py'
       - 'tools/audit_export_contents.py'
       - 'tools/test_export_audit.py'
       - 'tools/release_engine_licenses.gd'
@@ -64,7 +68,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Run release gate regression tests
-        run: python tools/test_release_builder.py
+        run: |
+          python tools/test_release_builder.py
+          python tools/test_release_save_contract.py
       - name: Audit exported scripts and scenes against runtime references
         run: |
           python tools/test_export_audit.py
