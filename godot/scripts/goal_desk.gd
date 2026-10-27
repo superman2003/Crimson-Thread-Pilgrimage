@@ -73,9 +73,9 @@ func _build() -> void:
     window.bind_overlay(ui,ui.bag)
     window.text(window.column,"追踪最多三项已知主线/委托，置顶决定HUD顺序。备注只属于本存档，不修改剧情。",42)
     var filters: HBoxContainer = window.row(window.column)
-    query = window.search(filters,"搜索已知目标与公开步骤",func(_value: String):refresh())
+    query = window.search(filters,"搜索公开步骤或当前存档的追踪备注",func(_value: String):refresh())
     mode = OptionButton.new();filters.add_child(mode)
-    for title_text in ["全部目标","进行中","已完成"]:mode.add_item(title_text)
+    for title_text in ["全部目标","进行中","已完成","已追踪目标"]:mode.add_item(title_text)
     mode.item_selected.connect(func(_index: int):refresh())
     var columns: HBoxContainer = window.row(window.column)
     list = ItemList.new();list.custom_minimum_size=Vector2(350,280);columns.add_child(list)
@@ -103,7 +103,7 @@ func open() -> void:
 func refresh() -> void:
     if not is_instance_valid(window):return
     var known := rows()
-    visible_rows = MODEL.filter_rows(known,query.text,mode.selected)
+    visible_rows = MODEL.filter_rows(known,query.text,mode.selected,model.state)
     visible_rows.sort_custom(func(a: Dictionary,b: Dictionary):
         var first: int = model.state.pins.find(a.key)
         var second: int = model.state.pins.find(b.key)
