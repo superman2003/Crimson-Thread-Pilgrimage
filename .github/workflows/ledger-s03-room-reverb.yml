@@ -1,0 +1,45 @@
+name: S03 room reverb ownership
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/room_reverb*.gd'
+      - 'godot/scripts/duck_mix.gd'
+      - 'godot/scripts/music_layer_phase.gd'
+      - 'godot/scripts/npc_landmark_schedule.gd'
+      - 'godot/scripts/spatial_enemy_alert.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/audio_user_volume_validation.gd'
+      - 'tools/run_room_reverb_contract.py'
+      - 'tools/test_room_reverb_runner.py'
+      - '.github/workflows/ledger-s03-room-reverb.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: s03-room-reverb-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-room-reverb:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Reject false-positive native results
+        run: python3 -m unittest discover -s tools -p test_room_reverb_runner.py -v
+      - name: Validate actual effects, chapter presets, scene handoff and user volumes
+        run: python3 tools/run_room_reverb_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/room-reverb-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s03-room-reverb
+          path: ${{ runner.temp }}/room-reverb-logs
+

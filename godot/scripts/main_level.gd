@@ -2433,7 +2433,7 @@ func _apply_chapter_reverb(chapter_id: String) -> void:
             continue
         reverb.room_size = float(params.get("room_size", 0.6))
         reverb.damping = float(params.get("damping", 0.5))
-        reverb.wet = float(params.get("wet", 0.25))
+        preload("res://scripts/room_reverb_mix.gd").set_baseline(reverb, float(params.get("wet", 0.25)))
         reverb.predelay_msec = float(params.get("predelay_msec", 20.0))
         if params.has("predelay_feedback"):
             reverb.predelay_feedback = float(params.get("predelay_feedback", 0.0))
