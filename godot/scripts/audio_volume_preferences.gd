@@ -22,6 +22,17 @@ func _move(source: String, target: String) -> int:
     if FileAccess.file_exists(target) or DirAccess.dir_exists_absolute(target):return ERR_ALREADY_EXISTS
     return DirAccess.rename_absolute(source,target)
 
+func _owner_running(pid: int) -> bool:
+    if pid == OS.get_process_id():return true
+    # Unix is_process_running uses waitpid: it can only query this process's
+    # children. A lock can belong to another game instance, or to ourselves.
+    if OS.get_name() == "Linux":
+        # Fail closed if procfs is unavailable; never steal an uncertain lock.
+        if not DirAccess.dir_exists_absolute("/proc/self"):return true
+        return DirAccess.dir_exists_absolute("/proc/%d" % pid)
+    if OS.get_name() == "Windows":return OS.is_process_running(pid)
+    return true
+
 func _lock(path: String) -> Dictionary:
     var target := path + LOCK_SUFFIX
     for attempt in 2:
@@ -46,7 +57,7 @@ func _lock(path: String) -> Dictionary:
             var parts := String(files[0]).split("_")
             if parts.size() != 3 or not parts[1].is_valid_int():return {}
             var pid := int(parts[1])
-            if pid <= 0 or OS.is_process_running(pid):return {}
+            if pid <= 0 or _owner_running(pid):return {}
             # Remove only the observed dead owner's unique file. A competing
             # recovery cannot remove a different, newly acquired owner's file.
             if DirAccess.remove_absolute(target.path_join(files[0])) != OK:return {}
