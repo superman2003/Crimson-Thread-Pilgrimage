@@ -1427,12 +1427,15 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
 
 
+var shrine_return_request: Dictionary={}
+
 func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF, publish_flags: Dictionary = {}) -> bool:
     if phase != "idle":
         return false
     if not _alive(host) or not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
+    var shrine_request:=shrine_return_request.duplicate(true)
     phase = "preflight"
     cancel_requested = false
     last_error = ""
@@ -1469,12 +1472,21 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     var source_config: Dictionary = host.config.duplicate(true)
     var source_path: String = host.config_path
     var source_position: Vector2 = host.player.global_position
+    if not shrine_request.is_empty():
+        var quote:=preload("res://scripts/shrine_return_network.gd").quote(host,String(shrine_request.key),true)
+        if not quote.ok or quote.fingerprint!=shrine_request.fingerprint or ROUTES.cached_config_path(quote.target.region)!=path or quote.target.position!=entry or not host._save_world():
+            last_error="钟路记录已变化或出发记录未能保存；你仍留在原钟龛。"
+            host.process_mode=previous_mode
+            _clear_loading_canvas()
+            phase="idle"
+            cancel_requested=false
+            return false
     var player_layer: int = host.player.collision_layer
     var player_mask: int = host.player.collision_mask
     host.player.collision_layer = 0
     host.player.collision_mask = 0
     host.player.prepare_region_handoff()
-    host._save_world()
+    if shrine_request.is_empty():host._save_world()
     var source_state: Dictionary = host.world_state.data.duplicate(true)
     var source_build: Dictionary = host.build_system.serialize()
     var source_id := String(source_config.id)
@@ -1619,6 +1631,15 @@ func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, 
 
 func start_region_transition(host: Node, path: String, entry: Vector2) -> void:
     request_region_transition(host, path, entry)
+
+## Capture the strict authorization before replace_region_async first yields.
+## Ordinary walking portals retain their existing save-blocked in-memory policy.
+func request_shrine_return_transition(host: Node, key: String, path: String, entry: Vector2, fingerprint: String) -> RefCounted:
+    if phase!="idle" or shutting_down or not shrine_return_request.is_empty():return null
+    shrine_return_request={"key":key,"fingerprint":fingerprint}
+    var result:=request_region_transition(host,path,entry)
+    shrine_return_request={}
+    return result
 
 func request_region_transition(host: Node, path: String, entry: Vector2, publish_flags: Dictionary = {}) -> RefCounted:
     if phase != "idle" or shutting_down or not _alive(host):
