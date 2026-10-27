@@ -69,6 +69,8 @@ static func terrain(id: String) -> Array[PackedVector2Array]:
     return polygons
 
 static func render(level: Node) -> void:
+    # Survey helpers normalize their input; rendering must not write discovery.
+    var flags: Dictionary=level.story_flags.duplicate(true)
     if not _synchronize_route_cache():
         level.world_loader.request_manifest_refresh(level)
         return
@@ -88,16 +90,16 @@ static func render(level: Node) -> void:
         title.add_theme_font_size_override("font_size", 14)
         title.add_theme_color_override("font_color", SURFACE.ACCENT if id == current else SURFACE.INK)
         title.mouse_filter = Control.MOUSE_FILTER_PASS
-        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(level.story_flags, id) else "已补绘 %d 室" % JOURNAL.charted_room_count(level.story_flags, id)
+        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(flags, id) else "已补绘 %d 室" % JOURNAL.charted_room_count(flags, id)
         host.add_child(title)
-        if not JOURNAL.owned(level.story_flags, id): continue
+        if not JOURNAL.owned(flags, id): continue
         var surface := SURFACE.new()
         surface.name = "WorldSilhouette_" + id
         surface.size = host.size
         host.add_child(surface)
         for room in data.get("map_rooms", []):
             var room_id := String(room.id)
-            var detailed := JOURNAL.charted(level.story_flags, id, room_id)
+            var detailed := JOURNAL.charted(flags, id, room_id)
             if not detailed and not SURVEY.public_room(room): continue
             var physical := SURVEY.room_rect(room)
             if physical.size.x <= 0 or physical.size.y <= 0: continue
@@ -110,11 +112,11 @@ static func render(level: Node) -> void:
             outline.detailed = detailed
             var footprint := Rect2(outline.position, outline.size)
             if not detailed: surface.base_rooms.append(footprint)
-            elif JOURNAL.charted_whole(level.story_flags, id, room): surface.charted_rooms.append(footprint)
+            elif JOURNAL.charted_whole(flags, id, room): surface.charted_rooms.append(footprint)
             else:
                 # A partly explored large room: only its charted sections.
                 if SURVEY.public_room(room): surface.base_rooms.append(footprint)
-                for part in JOURNAL.charted_parts(level.story_flags, id, room):
+                for part in JOURNAL.charted_parts(flags, id, room):
                     surface.charted_rooms.append(Rect2(project(COORD.to_world(id, part.position), layout), part.size * layout.scale))
             outline.seed_value = room_id.hash()
             outline.stroke_scale = 0.6
@@ -131,7 +133,7 @@ static func render(level: Node) -> void:
         surface.prepare()
         # Every region is evaluated against its own config. Ability inventory
         # is shared, while permanent action gates read their authored unlock id.
-        for record in KNOWLEDGE.marker_records(data, level.story_flags, id, level.inventory_counts):
+        for record in KNOWLEDGE.marker_records(data, flags, id, level.inventory_counts):
             var world_point: Vector2 = COORD.to_world(id, record.rect.get_center())
             var marker := Label.new()
             marker.name = ("WorldHazard_" if record.kind == "hazard" else "WorldGate_") + id + "_" + String(record.id)
@@ -144,7 +146,7 @@ static func render(level: Node) -> void:
             host.add_child(marker)
         # Shortcut state lives with each region; the current region's is live.
         var opened: Dictionary = level.opened_shortcuts if id == String(level.config.get("id", "")) else level.world_state.get_region(id).get("opened_shortcuts", {})
-        for record in KNOWLEDGE.shortcut_records(data, level.story_flags, id, opened):
+        for record in KNOWLEDGE.shortcut_records(data, flags, id, opened):
             var marker := Label.new()
             marker.name = "WorldShortcut_" + id + "_" + String(record.id)
             marker.position = project(COORD.to_world(id, record.rect.get_center()), layout) - Vector2(6, 9)
@@ -167,10 +169,10 @@ static func render(level: Node) -> void:
             var b_key := target + ":" + String(peer.id)
             var key := a_key + ":" + b_key if a_key < b_key else b_key + ":" + a_key
             if drawn.has(key): continue
-            if not JOURNAL.charted(level.story_flags, id, String(portal.get("room_id", ""))) and not JOURNAL.charted(level.story_flags, target, String(peer.get("room_id", ""))): continue
+            if not JOURNAL.charted(flags, id, String(portal.get("room_id", ""))) and not JOURNAL.charted(flags, target, String(peer.get("room_id", ""))): continue
             drawn[key] = true
-            var forward := ROUTES.access(portal, level.inventory_counts, level.story_flags)
-            var reverse := ROUTES.access(peer, level.inventory_counts, level.story_flags)
+            var forward := ROUTES.access(portal, level.inventory_counts, flags)
+            var reverse := ROUTES.access(peer, level.inventory_counts, flags)
             var a := COORD.to_world(id, Vector2(portal.position[0], portal.position[1]))
             var b := COORD.to_world(target, Vector2(peer.position[0], peer.position[1]))
             var physical := not PASSAGE.endpoint(id, String(portal.id)).is_empty()
