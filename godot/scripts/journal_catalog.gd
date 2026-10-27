@@ -4,6 +4,7 @@ const MAX_PROFILES := 8
 const MAX_READ := 256
 const MAX_STARS := 64
 const MAX_BYTES := 1048576
+const QUERY := preload("res://scripts/journal_query.gd")
 var path := "user://journal_reading_preferences.json"
 var scope := ""
 var profiles: Dictionary = {}
@@ -115,18 +116,15 @@ func _save() -> Dictionary:
         "reason": "" if not dirty else "阅读偏好未能写入，当前会话仍有效；旅途进度不受影响。"}
 
 func filter_documents(documents: Array, query: String, unread_only: bool, stars_only: bool, sort_mode: int = 0) -> Array:
-    var tokens := query.left(80).to_lower().strip_edges().split(" ", false)
+    var terms := QUERY.compile(query)
     var result: Array = []
     for doc in documents:
         if unread_only and is_read(doc):continue
         if stars_only and not is_starred(String(doc.key)):continue
         # Never stringify the backing record: hidden ending requirements and
         # undiscovered locations may coexist with public presentation fields.
-        var public_text := (String(doc.title) + "\n" + String(doc.text)).to_lower()
-        var matches := true
-        for token in tokens:
-            if not public_text.contains(token):matches = false;break
-        if matches:result.append(doc)
+        var public_text := String(doc.title) + "\n" + String(doc.text)
+        if QUERY.matches(terms, public_text):result.append(doc)
     if sort_mode in [1, 2]:
         result.sort_custom(func(a: Dictionary, b: Dictionary):
             if sort_mode == 2 and is_read(a) != is_read(b):return not is_read(a)

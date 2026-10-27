@@ -618,6 +618,7 @@ func _build_bag() -> void:
     bag.add_child(journal_tools)
     journal_search=LineEdit.new()
     journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
+    journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
     journal_search.max_length=80
     journal_search.custom_minimum_size=Vector2(236,30)
     journal_search.add_theme_font_size_override("font_size",13)
