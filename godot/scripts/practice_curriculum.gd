@@ -26,6 +26,28 @@ static func earned(inventory: Dictionary, ability: String) -> bool:
 func available(inventory: Dictionary) -> Array:
     return courses.filter(func(course):return course.requires.all(func(ability):return earned(inventory,String(ability))))
 
+func browse(inventory: Dictionary, query: String = "", mode: int = 0) -> Array:
+    var result: Array = []
+    var tokens := query.left(80).to_lower().replace("　"," ").replace("\t"," ").replace("\n"," ").split(" ",false)
+    for course in available(inventory):
+        var completed := best(String(course.id)) < INF
+        if (mode == 1 and completed) or (mode == 2 and not completed):continue
+        var text := (String(course.title)+"\n"+String(course.hint)).to_lower()
+        var matches:=true
+        for token in tokens:
+            if not text.contains(token):matches=false;break
+        if matches:result.append(course.duplicate(true))
+    return result
+
+func recent(id: String, inventory: Dictionary, limit: int = 3) -> Array[Dictionary]:
+    var result: Array[Dictionary] = []
+    if not available(inventory).any(func(course):return course.id==id):return result
+    for record in history:
+        if record.course!=id:continue
+        result.append(record.duplicate(true))
+        if result.size()>=clampi(limit,1,6):break
+    return result
+
 func start(id: String, inventory: Dictionary) -> Dictionary:
     if not active.is_empty() or not pending.is_empty():return {"ok":false,"reason":"先结束当前课程或处理待保存记录。"}
     for course in available(inventory):

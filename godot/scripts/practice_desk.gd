@@ -3,6 +3,9 @@ var ui: Control
 var curriculum:=preload("res://scripts/practice_curriculum.gd").new()
 var window: AcceptDialog
 var list: ItemList
+var search: LineEdit
+var completion_filter: OptionButton
+var start_button: Button
 var detail: RichTextLabel
 var progress_label: Label
 var hud: Label
@@ -37,13 +40,18 @@ func _build() -> void:
     window=preload("res://scripts/journey_desk_window.gd").new();window.name="PracticeDeskWindow"
     ui.build_panel.add_child(window);window.title="分阶段训练课程";window.bind_overlay(ui,ui.build_panel)
     window.text(window.column,"十二项单项/组合课程随已获能力开放。需在真实练习架520像素范围内开始；离场、倒下或五分钟超时会结束。",48)
+    var filters: HBoxContainer=window.row(window.column)
+    search=window.search(filters,"搜索已开放课程与操作说明",func(_value: String):refresh())
+    completion_filter=OptionButton.new();filters.add_child(completion_filter)
+    for title_text in ["全部已开放","尚未完成","已有完成记录"]:completion_filter.add_item(title_text)
+    completion_filter.item_selected.connect(func(_index: int):refresh())
     var columns: HBoxContainer=window.row(window.column)
     list=ItemList.new();list.custom_minimum_size=Vector2(310,275);columns.add_child(list)
     detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(580,275);columns.add_child(detail)
     list.item_selected.connect(func(index: int):selected=String(available[index].id);_selection())
     progress_label=window.text(window.column,"",52)
     var controls: HBoxContainer=window.row(window.column)
-    window.button(controls,"开始所选课程",start_selected)
+    start_button=window.button(controls,"开始所选课程",start_selected)
     window.button(controls,"结束本次训练",func():curriculum.finish(false,"主动结束");refresh())
     window.button(controls,"重试保存记录",func():curriculum.retry();refresh())
     window.footer()
@@ -54,7 +62,7 @@ func open() -> void:
     refresh();window.popup_centered();list.grab_focus()
 
 func refresh() -> void:
-    available=curriculum.available(ui.level.inventory_counts)
+    available=curriculum.browse(ui.level.inventory_counts,search.text,completion_filter.selected)
     list.clear()
     for index in available.size():
         var course: Dictionary=available[index]
@@ -62,22 +70,30 @@ func refresh() -> void:
         list.add_item(String(course.title)+( " · %.1f秒" % best if best<INF else " · 未完成"))
         if selected==course.id:list.select(index)
     if list.get_selected_items().is_empty() and not available.is_empty():selected=String(available[0].id);list.select(0)
+    if available.is_empty():selected=""
+    start_button.disabled=selected.is_empty()
     _selection()
     progress_label.text=curriculum.progress()
-    window.status.text=("附近有可用练习架。" if near_rack()!=null else "附近没有练习架；本页可先阅读，前往练习区后开始。")+curriculum.store.error
+    window.status.text="符合筛选%d / 已开放%d。" % [available.size(),curriculum.available(ui.level.inventory_counts).size()]+("附近有可用练习架。" if near_rack()!=null else "附近没有练习架；本页可先阅读，前往练习区后开始。")+curriculum.store.error
 
 func _selection() -> void:
     var keys:={}
     for action in ui.REMAPPABLE_ACTIONS:keys[action]=ui._short_binding(action)
-    detail.text="获得能力后，会增加相应课程。"
+    detail.text="没有符合筛选的已开放课程；清空搜索或切换完成状态。"
     for course in available:
         if course.id!=selected:continue
         var lines: Array[String]=[String(course.title),String(course.hint).format(keys),"\n训练顺序"]
         for stage in course.stages:lines.append("· %s × %d" % [String(stage.label),int(stage.count)])
         lines.append("\n只统计实际接受的动作；失败施放、格挡架势和中断疗伤不算完成。课程不补充生命、绯线、战具，不授予校习资格。")
+        var recent: Array=curriculum.recent(selected,ui.level.inventory_counts)
+        lines.append("\n最近已保存的训练记录" if not recent.is_empty() else "\n尚无已保存的训练记录。")
+        for record in recent:
+            lines.append("· %s · %.1f秒 · %s" % ["完成" if record.complete else "未完成",float(record.seconds),String(record.reason)])
         detail.text="\n".join(lines)
 
 func start_selected() -> void:
+    if selected.is_empty() or not available.any(func(course):return course.id==selected):
+        window.status.text="请先选择符合筛选的已开放课程。";return
     var rack:=near_rack()
     if rack==null:window.status.text="请先到真实练习架附近。";return
     var result: Dictionary=curriculum.start(selected,ui.level.inventory_counts)
