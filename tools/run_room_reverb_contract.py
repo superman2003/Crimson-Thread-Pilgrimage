@@ -74,6 +74,10 @@ def main():
         mix = ROOT / "godot/scripts/room_reverb_mix.gd"
         if mix.is_file():
             shutil.copy2(mix, scripts / mix.name)
+        # U06 volume persistence can land independently of the room-mix change.
+        preferences = ROOT / "godot/scripts/audio_volume_preferences.gd"
+        if preferences.is_file():
+            shutil.copy2(preferences, scripts / preferences.name)
         (scripts / "chapter_reverb_contract_host.gd").write_text(chapter_fixture_source(), encoding="utf-8")
         (project / "project.godot").write_text(
             'config_version=5\n[application]\nconfig/name="Room reverb contracts"\n'
