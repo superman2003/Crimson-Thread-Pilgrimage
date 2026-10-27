@@ -42,6 +42,6 @@ static func lines(budget: Dictionary, names: Callable) -> Array[String]:
     for id in ids:
         var name := String(names.call(String(id))) if names.is_valid() else String(id)
         result.append("%s：总需%d / 持有%d / 还差%d" % [name, int(budget.cost.materials[id]), int(budget.available_materials[id]), int(budget.missing.materials.get(id, 0))])
-    result.append("可买齐本次申请。" if budget.affordable else "缺口按整份申请合计；当前仍可按优先顺序部分补给。")
+    result.append("可买齐本次申请。" if budget.affordable else "缺口按整份申请合计；可补数量以当前报价为准。")
     return result
 

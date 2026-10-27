@@ -18,6 +18,15 @@ func fresh() -> RefCounted:
 func wallet(coins: int = 10) -> Dictionary:
     return {"currency":coins,"inventory_counts":{"moss_chitin":10,"wet_chitin":10,"salt_crystal_shard":10,"pollen_wax":10}}
 func run() -> void:
+    var starter := BUILD.new()
+    for id in starter.state.tool_counts:starter.state.tool_counts[id] = 0
+    var starter_quote: Dictionary = starter.quote_resupply(wallet(100))
+    var starter_budget: Dictionary = starter_quote.get("budget",{})
+    check(starter.state.unlocked_tools == ["shard"], "default budget fixture starts with only the owned shard")
+    check(starter_budget.get("units",-1) == starter.tool_capacity("shard"), "default budget excludes the capacity of locked tools")
+    check(starter_budget.get("cost",{}).get("currency",-1) == starter.tool_capacity("shard") * int(starter.catalog.tools.shard.resupply.currency), "default budget charges only the unlocked recipe")
+    check(starter_budget.get("cost",{}).get("materials",{}) == {"moss_chitin":starter.tool_capacity("shard")}, "locked recipes add no material requirements")
+    check(starter.get_snapshot(wallet(100)).resupply_quote.budget == starter_budget, "snapshot preview uses the same unlocked-only budget")
     var build := fresh()
     var money := wallet()
     var before: Dictionary = build.serialize()
@@ -43,6 +52,7 @@ func run() -> void:
     var caption := "\n".join(BUDGET.lines(short,func(id):return {"moss_chitin":"苔壳","wet_chitin":"湿锈甲片"}.get(id,id)))
     check(caption.contains("苔壳：总需2 / 持有1 / 还差1"), "material display uses known player-facing names")
     check(caption.contains("湿锈甲片：总需2 / 持有0 / 还差2"), "zero stock has an exact readable shortage")
+    check(not caption.contains("当前仍可") and caption.contains("以当前报价为准"), "zero-purchase budget never promises an available partial purchase")
     build.state.tool_counts.mine = 1
     var capped: Dictionary = build.quote_resupply(wallet(100),{"limits":{"mine":99}})
     check(capped.get("budget",{}).get("units",-1) == 1 and capped.get("budget",{}).get("cost",{}).get("currency",-1) == 4, "requested costs use real missing capacity rather than raw spinner limits")
