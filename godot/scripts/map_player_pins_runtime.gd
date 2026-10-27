@@ -48,7 +48,7 @@ static func setup(level: Node) -> void:
         _dispatch(host_ref, toolbar_ref, view_ref, "edit"))
     edit_button.name = "PinEdit"
     edit_button.add_theme_font_size_override("font_size", 13)
-    edit_button.tooltip_text = "给已知图钉命名或更改类型；不会改变坐标。"
+    edit_button.tooltip_text = "给已知图钉命名、更改类型，或移至已定位的当前位置。"
     list.item_selected.connect(func(_index: int):
         _dispatch(host_ref, toolbar_ref, view_ref, "selection"))
     view.secondary_pressed.connect(func(point: Vector2):
@@ -439,21 +439,36 @@ static func edit_selected(level: Node) -> void:
         var dialog := ConfirmationDialog.new()
         dialog.exclusive = true
         dialog.name = "PinEditor";dialog.title = "编辑图钉 #%d" % id
-        dialog.min_size = Vector2i(480, 250);dialog.dialog_hide_on_ok = false
+        dialog.min_size = Vector2i(480, 300);dialog.dialog_hide_on_ok = false
         level.map_panel.add_child(dialog)
         var column := VBoxContainer.new();column.name="Fields";dialog.add_child(column)
-        var note := Label.new();note.text = "名称最多24字；留空恢复默认。只修改此图钉，不移动角色或标记。";note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;note.custom_minimum_size.x = 440;column.add_child(note)
+        var note := Label.new();note.text = "名称最多24字；留空恢复默认。可选择移至当前位置，需要罗盘或导航辅助，目标须已补绘；角色不会移动。";note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;note.custom_minimum_size.x = 440;column.add_child(note)
         var input := LineEdit.new();input.name = "PinLabel";input.placeholder_text="图钉名称，可留空";input.max_length = PINS.LABEL_LIMIT;input.text = String(record.get("label", ""));column.add_child(input)
         var kind := OptionButton.new();kind.name = "PinType";column.add_child(kind)
         for text in PINS.NAMES:kind.add_item(text)
         kind.select(PINS.KINDS.find(record.kind))
+        var move_current := CheckBox.new();move_current.name="PinMoveToCurrent";move_current.text="移至当前已定位位置";column.add_child(move_current)
+        move_current.disabled=not SURVEY.shows_position(level) or not PINS.allowed(level.story_flags,String(level.config.id),level.config,level.player.global_position)
+        move_current.tooltip_text="只移动标记，不移动角色；保留原编号，不占用新的图钉名额。"
+        var expected_region:=String(level.config.id)
+        var expected_point: Vector2=level.player.global_position
         var status := Label.new();status.name = "PinEditorStatus";status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;column.add_child(status)
         var host_ref: WeakRef = weakref(level);var dialog_ref: WeakRef = weakref(dialog)
         var expected: Dictionary = record.duplicate(true)
         dialog.confirmed.connect(func():
             var host: Variant = host_ref.get_ref();var popup: ConfirmationDialog = dialog_ref.get_ref()
             if not is_instance_valid(host) or not is_instance_valid(popup) or not _editable(host) or host.world_save_blocked:return
-            var result := PINS.edit(host.story_flags, configurations(host), id, PINS.KINDS[popup.get_node("Fields/PinType").selected], popup.get_node("Fields/PinLabel").text, expected)
+            var configs:=configurations(host)
+            var move: bool=popup.get_node("Fields/PinMoveToCurrent").button_pressed
+            var source_flags: Dictionary=host.story_flags
+            var result: Dictionary
+            if move:
+                if not SURVEY.shows_position(host) or String(host.config.id)!=expected_region or host.player.global_position.distance_to(expected_point)>1.0:
+                    popup.get_node("Fields/PinEditorStatus").text="定位条件或当前位置已变化，请重新打开编辑。";return
+                result=PINS.relocate(host.story_flags,configs,id,expected_region,expected_point,expected)
+                if not result.ok:popup.get_node("Fields/PinEditorStatus").text=result.reason;return
+                source_flags=host.story_flags.duplicate(true);source_flags[PINS.KEY]=result.records
+            result = PINS.edit(source_flags, configs, id, PINS.KINDS[popup.get_node("Fields/PinType").selected], popup.get_node("Fields/PinLabel").text, {} if move else expected)
             result = _commit(host, result)
             if result.ok:popup.hide()
             else:popup.get_node("Fields/PinEditorStatus").text = result.reason)
@@ -468,6 +483,6 @@ static func edit_selected(level: Node) -> void:
         dialog.tree_exiting.connect(func():
             var panel: Control=panel_ref.get_ref()
             if is_instance_valid(panel) and panel.visibility_changed.is_connected(close):panel.visibility_changed.disconnect(close))
-        dialog.get_ok_button().text = "保存名称与类型";dialog.get_cancel_button().text = "保留原图钉"
+        dialog.get_ok_button().text = "保存图钉修改";dialog.get_cancel_button().text = "保留原图钉"
         dialog.popup_centered();dialog.get_cancel_button().grab_focus()
         return
