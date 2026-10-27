@@ -44,13 +44,18 @@ func change(command: String, key: String, known: Array, value: Variant = null) -
     state = candidate
     return {"ok":true,"reason":"追踪记录已保存；剧情进度不变。"}
 
-static func filter_rows(rows: Array, query: String, mode: int) -> Array:
+static func filter_rows(rows: Array, query: String, mode: int, tracking: Dictionary = {}) -> Array:
     var result: Array = []
     var tokens := query.left(80).to_lower().split(" ",false)
+    var pins: Array = tracking.get("pins",[]) if tracking.get("pins") is Array else []
+    var notes: Dictionary = tracking.get("notes",{}) if tracking.get("notes") is Dictionary else {}
     for row in rows:
+        var pinned := pins.has(row.key)
         if mode == 1 and bool(row.complete):continue
         if mode == 2 and not bool(row.complete):continue
+        if mode == 3 and not pinned:continue
         var public_text := (String(row.title)+"\n"+String(row.text)).to_lower()
+        if pinned and notes.get(row.key) is String:public_text += "\n" + String(notes[row.key]).left(160).to_lower()
         var matches := true
         for token in tokens:
             if not public_text.contains(token):matches = false;break
