@@ -17,7 +17,7 @@ func run(narrative: RefCounted,check: Callable) -> void:
             for flag in NARRATIVE.completion_outcome(state,last,{}).flags:committed[flag]=true
             check.call(NARRATIVE.completion_response(state,last,committed).is_empty(),"revisiting a committed conversation cannot repeat its response")
             check.call(state==before,"response evaluation never changes dialogue data")
-    check.call(total==11 and modes.size()==3,"six-region key conversations cover speech, gesture and resonance responses")
+    check.call(total==16 and modes.size()==3,"key conversations and five follow-ups cover speech, gesture and resonance responses")
     var malformed := {"response":"长".repeat(49),"lines":["end"],"grant_flags":["test"]}
     check.call(NARRATIVE.completion_response(malformed,0,{}).is_empty(),"long responses cannot turn into an unsolicited monologue")
     malformed.response="短句"

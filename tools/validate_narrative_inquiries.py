@@ -92,7 +92,17 @@ def validate():
                     assert line not in lines, ('repeated dialogue', row['id'])
                     lines.add(line)
     assert len(ids) <= 256
-    print(f'NARRATIVE_INQUIRIES_DATA_PASS files={len(files)} questions={len(ids)} lines={len(lines)}')
+    archive_files = sorted((DATA / 'inquiry_archive').glob('*.json'))
+    assert len(archive_files) <= 16
+    archive_count = 0
+    for path in archive_files:
+        archive = load(path)
+        assert set(archive) == {'version', 'entries'} and type(archive['version']) is int and archive['version'] == 1
+        for row in archive['entries']:
+            validate_entry(row, known)
+            archive_count += 1
+    assert archive_count <= 256
+    print(f'NARRATIVE_INQUIRIES_DATA_PASS files={len(files)} questions={len(ids)} lines={len(lines)} archived={archive_count}')
 
 
 if __name__ == '__main__':

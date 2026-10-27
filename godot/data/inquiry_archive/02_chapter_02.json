@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_02_01",
+      "npc": "npc_rain_smith_liu",
+      "question": "工牌背面的铆痕为何各不相同？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "号码可以换着冲，手打铆钉却总会留下习惯。湛不肯只替炉边的人留一个号。",
+        "分流箱还分得清哪条管供住处，工牌也该分得清谁曾在这里生活。"
+      ],
+      "reflection": "守门的敌人与留下证词的人必须分辨。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者倒下了，工牌背面的凹痕并不会跟着消失。",
+          "它守的泵井，不代表它就是沉在井里的铁匠。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_02",
+      "npc": "npc_rain_smith_liu",
+      "question": "沉锤铁匠与执剪者是同一个人吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "不是。工牌记的是湛的手，剪口留下的是另一种力道。",
+        "有人把守井的差事也叫成他的名字，叫久了，竟把看守与被守者混在一起。"
+      ],
+      "reflection": "形名与职名需要逐一核实，不能套成一条规则。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "你击败的是执剪者；水下留下的名字才是湛想让人带走的。",
+          "把这两件事写清，别再让铁匠替剪线使背一遍名字。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_03",
+      "npc": "npc_rain_smith_liu",
+      "question": "先给住处供水会耽误炉火吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "阀上刻了两种记号，正因为活人和炉火都需要水。",
+        "若只记炉温，不记住处的水位，迟早会把缺水的人说成偷懒。"
+      ],
+      "reflection": "灾后生活需要具体维护，不靠战绩自动恢复。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者不再堵着泵井，我仍得听水管有没有空响。",
+          "一场胜利不会替我们修好每一只阀。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_04",
+      "npc": "npc_canal_child",
+      "question": "编号能把家里的人叫回来吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我听得懂号码，可他下工时从来不这样叫我。",
+        "工牌翻过来那一点凹，我以前以为只是敲坏了；现在知道有人认真敲过。"
+      ],
+      "reflection": "陪伴等待的人，也要允许不知道答案。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "剪东西的那个不在了，我还是会等到最后一班。",
+          "你若要走，不必替我说他一定会回来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_05",
+      "npc": "npc_canal_child",
+      "question": "你为什么认得不同的敲击？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "家里修东西时，我靠墙听。相同的管子，敲的人换了，停顿就不一样。",
+        "后来管子只报轮班，我才发现能听见不等于有人在和我说话。"
+      ],
+      "reflection": "声音是否存在，与人能否互相回应是两件事。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者走后，我第一次听到水慢下来。",
+          "也许明天有人能在这声音里叫我，今天还没有。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_06",
+      "npc": "npc_canal_child",
+      "question": "要把所有工牌都拿走吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "你若全拿走，后来的人会不会以为这里没有工人？",
+        "可一直泡在水里，背面的痕迹也会看不清。我不知道哪一种更好。"
+      ],
+      "reflection": "保存证物还应保存它与地点的关系。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "门开了，可以让更多人来看，不必只靠你带一片出去。",
+          "先把它们原来挂在哪里记下吧。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_07",
+      "npc": "npc_sluice_nun",
+      "question": "分流箱为什么还留着轮班记号？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "人从哪班接手，哪只阀修过，都写在水位旁边；那是互相照看的办法。",
+        "后来只剩班次，名字从箱边退到了工牌背面。"
+      ],
+      "reflection": "记录应当揭示缺口，而不是把缺口填成假人。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者倒下后，空班仍是空班。我不会拿一个不在的人补上去。",
+          "愿意来修阀的人，需要先知道这里缺什么。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_08",
+      "npc": "npc_sluice_nun",
+      "question": "缄声能让水不再上涨吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "水位刻线只能告诉我水到哪里，不能证明谁的沉默换来了哪一寸。",
+        "住处那一支阀还在，我们仍要给活着的人留水。"
+      ],
+      "reflection": "观察到的变化要与许诺分开记录。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "你让泵井的看守停了；接下来每一格水位都得重新看。",
+          "若情况变坏，我会说出来，不能因为门开过就装作一切正常。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_09",
+      "npc": "npc_sluice_nun",
+      "question": "谁有资格决定先关哪一路？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "至少要让用那一路水的人知道。阀柄在我手里，不等于水只属于我。",
+        "分流箱本来把三路分开，才看得出哪家会先断水。"
+      ],
+      "reflection": "拥有操作工具不等于拥有替人决定的权利。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "没有执剪者逼人闭嘴，问清楚应该容易些。",
+          "可若我们仍只听拿阀柄的人，旧事还会重来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_10",
+      "npc": "npc_drowned_foreman",
+      "question": "只记下工时能留下工人吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "工时会告诉你炉子烧了多久，不能告诉你是谁替同伴多守了那一刻。",
+        "湛在工牌背面留手痕，就是不愿让这些事全部磨成一个数。"
+      ],
+      "reflection": "生产记录需要保留人的缺席和原因。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者停了，旧班表也不该再被当成召人回来上工的命令。",
+          "我要把缺席写清楚，让人知道哪一格不该再催。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_11",
+      "npc": "npc_drowned_foreman",
+      "question": "死人还在轮班表上，是悼念吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "有时是忘了擦，有时是有人不肯承认一班已经没人。看表面分不清。",
+        "把工牌翻过来，再看住处那路水是不是断了，才知道这张表漏掉多少生活。"
+      ],
+      "reflection": "同一份记录可以被保存，却停止执行。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "你打败看守后，我能把旧表取下来核对。",
+          "取下来不等于抹去；只是不能再让它发令。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_12",
+      "npc": "npc_drowned_foreman",
+      "question": "留下真名会让人更容易被找到吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "会。所以我不能替每个人决定把工牌挂到哪面墙上。",
+        "名字被抹掉是伤害，未经允许再把它示众，也未必就是偿还。"
+      ],
+      "reflection": "归还名字也包括归还如何使用名字的选择。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者已经不在这里，可人的顾虑不会一夜消失。",
+          "让他们先选谁能看见，再谈怎么留下。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_13",
+      "npc": "npc_rain_smith_liu",
+      "question": "为什么不直接把铜管全砸断？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "住处还靠它进水。管子替人做过坏事，不代表把它砸了就没人挨饿。",
+        "先看分流箱，认清哪条是水、哪条牵着收声的旧装置。"
+      ],
+      "reflection": "拆除控制与维护生计需要分别处理。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者没了，我们终于能慢慢拆，不必边修边躲剪口。",
+          "别把急着反抗的力气，全落到还要使用工具的人身上。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_14",
+      "npc": "npc_sluice_nun",
+      "question": "证词讲的是一个铁匠，还是整座工坊？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "第2区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "一个人留下它，但背面的每一道铆痕都在提醒我们，还有别人的手。",
+        "分流箱连着住处，铁匠的誓言也不只关乎炉膛。"
+      ],
+      "reflection": "个人誓言的回收，应当落到共同生活中。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "战后若只为湛立一块牌，却继续按无人的班次取水，那就只记住了一半。",
+          "把人叫回来商量，比把誓言刻得更深更难。"
+        ]
+      }
+    }
+  ]
+}

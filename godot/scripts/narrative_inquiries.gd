@@ -1,11 +1,38 @@
 extends RefCounted
 ## Optional, evidence-led questions. Reading these never advances a quest.
 const DIRECTORY := "res://data/inquiries"
+const ARCHIVE_DIRECTORY := "res://data/inquiry_archive"
 const PREFIX := "narrative_inquiry_"
 const MAX_FILES := 16
 const MAX_ENTRIES := 256
 const MAX_LINES := 8
 static var _catalog: Array[Dictionary] = []
+static var _archive: Array[Dictionary] = []
+
+static func archived_catalog() -> Array[Dictionary]:
+    # Published text is immutable memory material, never an active question.
+    if not _archive.is_empty():
+        return _archive.duplicate(true)
+    if not DirAccess.dir_exists_absolute(ARCHIVE_DIRECTORY):
+        return []
+    var files := DirAccess.get_files_at(ARCHIVE_DIRECTORY)
+    files.sort()
+    var file_count := 0
+    for file in files:
+        if not file.ends_with(".json"):
+            continue
+        file_count += 1
+        if file_count > MAX_FILES:
+            break
+        var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(ARCHIVE_DIRECTORY + "/" + file))
+        if not parsed is Dictionary or parsed.get("version") != 1 or not parsed.get("entries") is Array:
+            continue
+        for entry in parsed.entries:
+            if _archive.size() >= MAX_ENTRIES:
+                break
+            if valid_entry(entry):
+                _archive.append(entry.duplicate(true))
+    return _archive.duplicate(true)
 
 static func held(value: Variant) -> bool:
     if typeof(value) not in [TYPE_INT, TYPE_FLOAT]:
@@ -145,9 +172,12 @@ static func find(id: String) -> Dictionary:
 
 static func records(flags: Dictionary) -> Array[Dictionary]:
     var result: Array[Dictionary] = []
+    var seen: Dictionary = {}
+    var entries := catalog()
+    entries.append_array(archived_catalog())
     # Reconstruct only versions actually confirmed. Current possession is not
     # needed for a durable memory, and a new source cannot rewrite an old one.
-    for entry in catalog():
+    for entry in entries:
         var versions: Array[Dictionary] = [entry.duplicate(true)]
         versions[0].erase("continuation")
         if entry.has("continuation"):
@@ -167,8 +197,9 @@ static func records(flags: Dictionary) -> Array[Dictionary]:
                 else:
                     earned[source.id] = true
             var row := quote(version, inventory, earned)
-            if row.is_empty() or not true_flag(flags, row.marker):
+            if row.is_empty() or not true_flag(flags, row.marker) or seen.has(row.marker):
                 continue
+            seen[row.marker] = true
             var labels: Array[String] = []
             for source in row.sources:
                 labels.append(String(source.label))
