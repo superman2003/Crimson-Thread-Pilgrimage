@@ -1,0 +1,54 @@
+name: W05 known shrine return network
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/npc_recollections*.gd'
+      - 'godot/scripts/shrine_return*.gd'
+      - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/world_routes.gd'
+      - 'godot/scripts/world_atlas.gd'
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/data/world_routes.json'
+      - 'godot/scripts/world_narrative.gd'
+      - 'godot/data/world_narrative.json'
+      - 'godot/data/demo_ch*.json'
+      - 'godot/scenes/Player.tscn'
+      - 'godot/scripts/journal_reading.gd'
+      - 'godot/scripts/dialogue_reading_memory.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/ui/inscription/v2/**'
+      - 'godot/assets/ui/seals/**'
+      - 'tools/run_shrine_return_contract.py'
+      - '.github/workflows/ledger-w05-shrine-return.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: w05-shrine-return-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-shrine-return:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual reading UI dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/fonts/**,godot/assets/ui/inscription/v2/**,godot/assets/ui/seals/**,godot/assets/vfx/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate authored stations, route permission, owned dispatch and strict departure saves
+        run: python3 tools/run_shrine_return_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/shrine-return-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w05-shrine-return
+          path: ${{ runner.temp }}/shrine-return-logs
