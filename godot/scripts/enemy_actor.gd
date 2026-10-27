@@ -2240,6 +2240,13 @@ func _advance_pose_loop() -> void:
         animated_sprite.speed_scale = 1.0
         if pose_loop_fit > 0.0:
             _fit_animation_duration(pose_loop_fit)
+            # Seek past time already spent beyond the bridge boundary. The
+            # shared recovery must still finish at the gameplay deadline.
+            var frames := animated_sprite.sprite_frames
+            var count := frames.get_frame_count(animated_sprite.animation)
+            var cursor := maxf(0.0, pose_loop_at - state_timer) * count / pose_loop_fit
+            var index := mini(int(cursor), count - 1)
+            animated_sprite.set_frame_and_progress(index, minf(cursor - index, 1.0))
 
 
 func _has_enemy_animation(animation_name: String) -> bool:
