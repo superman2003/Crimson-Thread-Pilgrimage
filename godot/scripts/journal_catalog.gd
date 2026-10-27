@@ -85,6 +85,38 @@ func toggle_star(key: String) -> Dictionary:
     dirty = true
     return _save()
 
+func batch_quote(documents: Array) -> Dictionary:
+    if not profiles.has(scope) or documents.is_empty() or documents.size()>MAX_READ:
+        return {"ok":false,"reason":"请先筛选1至256条已知记录。"}
+    var identities: Array = []
+    var seen := {}
+    var unread := 0
+    for doc in documents:
+        if not doc is Dictionary or not _key(doc.get("key")) or not _hash(doc.get("fingerprint")):
+            return {"ok":false,"reason":"筛选结果无效，请重新打开旅记。"}
+        if seen.has(doc.key):return {"ok":false,"reason":"筛选结果重复，请重新打开旅记。"}
+        seen[doc.key] = true
+        identities.append([doc.key,doc.fingerprint])
+        if not is_read(doc):unread+=1
+    if unread==0:return {"ok":false,"reason":"当前筛选结果已经全部已读。"}
+    return {"ok":true,"count":unread,"fingerprint":var_to_str([scope,revision,identities]).sha256_text()}
+
+func mark_read_batch(documents: Array, expected: String) -> Dictionary:
+    var quote := batch_quote(documents)
+    if not quote.ok:return quote
+    if expected.is_empty() or expected!=quote.fingerprint:
+        return {"ok":false,"changed":true,"reason":"筛选、内容或阅读状态已变化，请重新核对。"}
+    var read: Dictionary=profiles[scope].read
+    for doc in documents:
+        read.erase(doc.key)
+        read[doc.key]=doc.fingerprint
+    while read.size()>MAX_READ:read.erase(read.keys()[0])
+    revision+=1
+    dirty=true
+    var result:=_save()
+    result["changed_count"]=quote.count
+    return result
+
 ## Retry session-only edits after a transient write failure. Reopening the
 ## journal also retries; a successful writer only acknowledges its snapshot.
 func flush() -> Dictionary:

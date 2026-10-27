@@ -151,6 +151,8 @@ var journal_sort: OptionButton
 var journal_count: Label
 var journal_mark_button: Button
 var journal_star_button: Button
+var journal_batch_button: Button
+var journal_batch_dialog: ConfirmationDialog
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
@@ -676,7 +678,10 @@ func _build_bag() -> void:
     journal_star_button=_button(bag,"收藏记录",Vector2(908,571),Vector2(160,27),_toggle_journal_star)
     journal_mark_button.add_theme_font_size_override("font_size",13)
     journal_star_button.add_theme_font_size_override("font_size",13)
-    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(645,30),15,MUTED)
+    journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
+    journal_batch_button.add_theme_font_size_override("font_size",13)
+    journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
+    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
@@ -697,7 +702,7 @@ func refresh_inventory() -> void:
         journal_filters.visible=bag_category=="旅记"
         bag_scroll.position.y=279 if journal_filters.visible else 194
         bag_scroll.size.y=252 if journal_filters.visible else 337
-        for control in [journal_tools,journal_count,journal_mark_button,journal_star_button]:control.visible=journal_filters.visible
+        for control in [journal_tools,journal_count,journal_mark_button,journal_star_button,journal_batch_button]:control.visible=journal_filters.visible
     begin_inventory_refresh()
     if bag_category=="旅记":
         _refresh_journal()
@@ -2791,12 +2796,13 @@ func is_text_entry_focused() -> bool:
 
 func _journal_tools_focused() -> bool:
     var focus:=get_viewport().gui_get_focus_owner()
-    return focus!=null and (journal_tools.is_ancestor_of(focus) or focus in [journal_mark_button,journal_star_button])
+    return focus!=null and (journal_tools.is_ancestor_of(focus) or focus in [journal_mark_button,journal_star_button,journal_batch_button])
 
 func _refresh_journal_actions() -> void:
     var valid:=not journal_current_document.is_empty()
     journal_mark_button.disabled=not valid
     journal_star_button.disabled=not valid
+    journal_batch_button.disabled=not journal_catalog.batch_quote(_journal_batch_documents()).get("ok",false)
     journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
     journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
 
@@ -2813,6 +2819,25 @@ func _toggle_journal_star() -> void:
     if journal_current_document.is_empty() or not bag.visible or bag_category!="旅记":return
     journal_memory[journal_filter]=String(journal_current_document.key)
     _journal_preference_result(journal_catalog.toggle_star(String(journal_current_document.key)))
+
+func _journal_batch_available() -> bool:
+    return bag.visible and bag_category=="旅记" and not level.world_loading and not level.chapter_transitioning
+
+func _journal_batch_documents() -> Array:
+    return journal_catalog.filter_documents(journal_documents,journal_search.text,journal_unread.button_pressed,journal_stars.button_pressed,journal_sort.selected)
+
+func _open_journal_batch() -> void:
+    if not _journal_batch_available():return
+    if not is_instance_valid(journal_batch_dialog):
+        journal_batch_dialog=preload("res://scripts/journal_batch_read.gd").new()
+        bag.add_child(journal_batch_dialog)
+        register_text_entry_window(journal_batch_dialog)
+        var popup_ref: WeakRef=weakref(journal_batch_dialog)
+        bag.visibility_changed.connect(func():
+            var popup: ConfirmationDialog=popup_ref.get_ref()
+            if is_instance_valid(popup) and not bag.is_visible_in_tree():popup.hide())
+    var result: Dictionary=journal_batch_dialog.open_for(self)
+    if not result.get("ok",false):_journal_preference_result(result)
 
 func _remember_journal_scroll(force: bool=false) -> void:
     if not is_instance_valid(bag_description) or journal_reading_key.is_empty() or journal_restore_pending:return
