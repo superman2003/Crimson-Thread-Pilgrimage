@@ -1,0 +1,53 @@
+name: Evidence-led narrative inquiries
+on:
+  pull_request:
+    paths:
+      - 'godot/data/inquiries/**'
+      - 'godot/data/world_narrative.json'
+      - 'godot/scripts/narrative_inquir*.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/*narrative_inquiries.py'
+      - '.github/workflows/narrative-inquiries.yml'
+permissions:
+  contents: read
+concurrency:
+  group: narrative-inquiries-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Check out exact proposal
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install engine
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Resolve authored sources
+        run: python3 tools/validate_narrative_inquiries.py
+      - name: Import resources
+        run: |
+          python3 tools/run_godot_import.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/inquiries/import"
+      - name: Exercise every shipped question and the actual dialog
+        run: |
+          python3 tools/run_narrative_inquiries.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --log-dir "$RUNNER_TEMP/inquiries/runtime"
+      - name: Preserve logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-inquiries
+          path: ${{ runner.temp }}/inquiries
