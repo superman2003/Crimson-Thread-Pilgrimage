@@ -953,10 +953,12 @@ func _build_settings() -> void:
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
-    settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,332),Vector2(200,32),_retry_accessibility_save)
+    # Row 332 to the right of the comfort button belongs to the danger-caption
+    # desk; the retry sits beside the NPC toggle, its notice by the section title.
+    settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
     settings_save_retry.add_theme_font_size_override("font_size",13)
     settings_save_retry.tooltip_text="保存本次已生效的设置与按键；不重置输入、音量或旅途资源。"
-    settings_save_notice=_label(settings,"",Vector2(245,300),Vector2(200,28),13,GOLD)
+    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),13,GOLD)
     settings_save_notice.clip_text=true
     _refresh_settings_save_notice()
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
