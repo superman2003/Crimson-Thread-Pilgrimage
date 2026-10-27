@@ -67,6 +67,8 @@ const READING_SESSION := preload("res://scripts/world_reading_session.gd")
 var reading_session_scope := ""
 var reading_session_host: WeakRef
 var reading_session_generation := 0
+var pending_journal_restore: Callable
+var pending_dialogue_restore: Callable
 var dialogue_reading := preload("res://scripts/dialogue_reading_memory.gd").new()
 var dialogue_reading_key := ""
 var settings: ColorRect
@@ -587,7 +589,7 @@ func _build_bag() -> void:
     journal_filters.add_theme_constant_override("separation",9)
     journal_filters.visible=false
     bag.add_child(journal_filters)
-    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["voice","自述"]]
+    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["voice","自述"]]
     var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
     for pair in filters:
         var filter_id:=String(pair[0])
@@ -888,9 +890,16 @@ func forget_dialogue_reading() -> void:
     dialogue_reading.forget(dialogue_reading_key)
 
 func _restore_dialogue_scroll(key: String,value: int) -> void:
-    var request_generation := reading_session_generation
-    await get_tree().process_frame
-    if request_generation != reading_session_generation:return
+    if not is_inside_tree() or is_queued_for_deletion():return
+    if pending_dialogue_restore.is_valid() and get_tree().process_frame.is_connected(pending_dialogue_restore):
+        get_tree().process_frame.disconnect(pending_dialogue_restore)
+    pending_dialogue_restore=_apply_dialogue_scroll.bind(key,value,reading_session_generation)
+    get_tree().process_frame.connect(pending_dialogue_restore,CONNECT_ONE_SHOT)
+
+func _apply_dialogue_scroll(key: String,value: int,request_generation: int) -> void:
+    pending_dialogue_restore=Callable()
+    if request_generation != reading_session_generation or is_queued_for_deletion():return
+    if not is_instance_valid(dialogue) or not is_instance_valid(dialogue_scroll):return
     if is_inside_tree() and key==dialogue_reading_key and dialogue.visible and is_instance_valid(dialogue_area):
         dialogue_scroll.scroll_vertical=value
 
@@ -2440,7 +2449,7 @@ func _refresh_journal() -> void:
     journal_catalog.path=journal_preferences_path
     var scope_value: Variant=level.get("world_save_path")
     journal_catalog.configure(scope_value if scope_value is String else "session")
-    if journal_filter!="all":records=records.filter(func(entry):return String(entry.get("record_kind",""))==journal_filter)
+    records=preload("res://scripts/permanent_ability_roles.gd").select(records,journal_filter)
     var documents: Array=[]
     for entry in records:
         var presentation:=_journal_presentation(entry)
@@ -2467,6 +2476,9 @@ func _refresh_journal() -> void:
         journal_restore_pending=false
         bag_name.text="尚无敌人记录" if journal_filter=="enemy" else "这一分类暂无记录"
         bag_description.text="击败后会留下战斗笔记；未交战的敌人不会提前列出。" if journal_filter=="enemy" else "继续探索并与人物交谈，已知的记录会保存在这里。"
+        if journal_filter=="ability":
+            bag_name.text="尚无已取得的永久能力"
+            bag_description.text="在旅途中实际取得能力后，这里会区分其用途与操作；不用装备铭饰就能使用已取得的永久能力。"
         if journal_filter=="voice":
             bag_name.text="尚无自述"
             bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
@@ -2481,7 +2493,7 @@ func _refresh_journal() -> void:
         var status:="已发现" if bool(entry.get("acquired",false)) else "待发现"
         if entry.record_kind=="quest":status="已完成" if String(entry.get("status",""))=="complete" else "进行中"
         elif entry.record_kind=="main":status="主线"
-        elif entry.record_kind=="guide":status="可回看"
+        elif entry.record_kind=="guide":status=preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "可回看"
         elif entry.record_kind=="voice":status="旅途自述"
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
@@ -2516,7 +2528,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         category="自述 · 获得能力之后"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="guide":
-        category="操作手册 · 当前规则"
+        category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "操作手册 · 当前规则"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
@@ -2653,9 +2665,19 @@ func _journal_bag_visibility_changed() -> void:
         journal_restore_pending=false
 
 func _restore_journal_scroll(key: String, text: String, offset: float, generation: int = -1) -> void:
+    if not is_inside_tree() or is_queued_for_deletion():return
     var request_generation := reading_session_generation if generation < 0 else generation
-    await get_tree().process_frame
-    if request_generation != reading_session_generation:return
+    # Object-bound one-shot connections are discarded when this HUD is freed.
+    # An instance coroutine would instead resume after its owner is gone.
+    if pending_journal_restore.is_valid() and get_tree().process_frame.is_connected(pending_journal_restore):
+        get_tree().process_frame.disconnect(pending_journal_restore)
+    pending_journal_restore=_apply_journal_scroll.bind(key,text,offset,request_generation)
+    get_tree().process_frame.connect(pending_journal_restore,CONNECT_ONE_SHOT)
+
+func _apply_journal_scroll(key: String, text: String, offset: float, request_generation: int) -> void:
+    pending_journal_restore=Callable()
+    if request_generation != reading_session_generation or is_queued_for_deletion():return
+    if not is_instance_valid(bag) or not is_instance_valid(bag_description):return
     if is_inside_tree() and bag.is_visible_in_tree() and journal_reading_key==key and bag_description.text==text:
         var bar:=bag_description.get_v_scroll_bar()
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
