@@ -31,7 +31,7 @@ func _invalid(reason: String) -> Dictionary:
 func write(payload: Dictionary) -> bool:
     if not writable:return false
     var data := {"version":1, "payload":payload.duplicate(true)}
-    var serialized := JSON.stringify(data)
+    var serialized := JSON.stringify(data,"",true,true)
     if serialized.to_utf8_buffer().size() > MAX_BYTES:
         error = "记录容量已满。"
         return false
