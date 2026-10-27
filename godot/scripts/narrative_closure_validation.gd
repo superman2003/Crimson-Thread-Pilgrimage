@@ -95,10 +95,10 @@ func run_checks() -> void:
     await frames()
     var initial: Dictionary = scene.world_narrative.main_line({}, {})
     scene.ui_shell._show_journal_record(initial.merged({"record_kind": "main"}))
-    check(not scene.ui_shell.bag_description.text.contains("原约与后嗣"), "the real journal withholds unearned synthesis")
+    check(not scene.ui_shell.bag_description.text.contains("同一根新线"), "the real journal withholds unearned synthesis")
     var known: Dictionary = scene.world_narrative.main_line({"testimony_01": 1, "testimony_03": 1}, {})
     scene.ui_shell._show_journal_record(known.merged({"record_kind": "main"}))
-    check(scene.ui_shell.bag_description.text.contains("原约与后嗣") and not scene.ui_shell.bag_description.text.contains("歌守与看守"), "the real journal assembles only acquired proof")
+    check(scene.ui_shell.bag_description.text.contains("同一根新线") and not scene.ui_shell.bag_description.text.contains("停一拍"), "the real journal assembles only acquired proof")
 
     scene.story_flags["boss_down_ch06"] = true
     scene._spawn_ending_gates()
@@ -157,7 +157,7 @@ func run_checks() -> void:
     for entry in progress.endings:
         if entry.chosen:
             scene.ui_shell._show_journal_record(entry.merged({"record_kind": "ending"}))
-            check(scene.ui_shell.bag_description.text.contains("尾声 · 第一声"), "the committed epilogue remains readable in the real journal")
+            check(scene.ui_shell.bag_description.text.contains("尾声 · 叫出名字"), "the committed epilogue remains readable in the real journal")
             await capture("ending-b-journal")
     for id in ["ending_a", "ending_b", "ending_c"]:
         var plain := JOURNEY.epilogue(id, {})
