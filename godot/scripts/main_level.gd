@@ -932,6 +932,7 @@ func _setup_cartography() -> void:
     preload("res://scripts/map_directory_runtime.gd").setup(self)
     preload("res://scripts/map_control_layout.gd").apply(self)
     preload("res://scripts/shrine_return_dialog.gd").setup(self)
+    preload("res://scripts/death_recovery_map.gd").setup(self)
 
 
 func _publish_region() -> void:
@@ -3260,10 +3261,12 @@ func _refresh_map_overlay() -> void:
         CARTOGRAPHY_UI.paper(self, true)
         _draw_world_atlas()
         MAP_PLAYER_PINS.refresh(self)
+        preload("res://scripts/death_recovery_map.gd").render(self)
         return
     if world_mode:
         CARTOGRAPHY_UI.render(self)
         MAP_PLAYER_PINS.refresh(self)
+        preload("res://scripts/death_recovery_map.gd").render(self)
         return
     _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
