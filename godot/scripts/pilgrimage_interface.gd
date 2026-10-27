@@ -678,6 +678,7 @@ func _build_bag() -> void:
     journal_star_button.add_theme_font_size_override("font_size",13)
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(645,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
+    preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     legacy_bag_text.visible=false
     legacy_bag_detail.visible=false
