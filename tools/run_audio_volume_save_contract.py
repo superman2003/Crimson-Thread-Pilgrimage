@@ -49,6 +49,10 @@ def main():
         scripts.mkdir(parents=True)
         for name in SCRIPTS:
             shutil.copy2(ROOT / "godot/scripts" / name, scripts / name)
+        # S03 may be merged independently before or after this change.
+        room_mix = ROOT / "godot/scripts/room_reverb_mix.gd"
+        if room_mix.is_file():
+            shutil.copy2(room_mix, scripts / room_mix.name)
 
         (project / "project.godot").write_text(
             'config_version=5\n[application]\nconfig/name="Audio preferences persistence"\n'
