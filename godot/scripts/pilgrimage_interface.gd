@@ -87,6 +87,10 @@ var build_detail: RichTextLabel
 var build_summary: Label
 var build_tabs: Array[Button]=[]
 var build_category := "契印"
+var equipment_filter:=preload("res://scripts/equipment_catalog_filter.gd").new()
+var equipment_search: LineEdit
+var equipment_compatible: CheckBox
+var equipment_scroll: ScrollContainer
 var build_selection := ""
 var loadout_dialog: ConfirmationDialog
 var loadout_manager: ConfirmationDialog
@@ -1318,10 +1322,34 @@ func _build_build_panel() -> void:
     scroll.size=Vector2(575,352)
     scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
     build_panel.add_child(scroll)
+    equipment_scroll=scroll
     build_grid=VBoxContainer.new()
     build_grid.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     build_grid.add_theme_constant_override("separation",8)
     scroll.add_child(build_grid)
+    equipment_search=LineEdit.new()
+    equipment_search.position=Vector2(34,180)
+    equipment_search.size=Vector2(340,28)
+    equipment_search.max_length=equipment_filter.QUERY_LIMIT
+    equipment_search.add_theme_font_size_override("font_size",13)
+    equipment_search.placeholder_text="搜索此类已知装备"
+    equipment_search.clear_button_enabled=true
+    equipment_search.tooltip_text="按装备名称搜索。搜索与筛选不会执行装备操作或消耗资源。"
+    build_panel.add_child(equipment_search)
+    equipment_compatible=CheckBox.new()
+    equipment_compatible.position=Vector2(384,180)
+    equipment_compatible.size=Vector2(225,28)
+    equipment_compatible.add_theme_font_size_override("font_size",13)
+    equipment_compatible.text="仅可装入此槽"
+    equipment_compatible.tooltip_text="只显示已解锁且兼容当前所选槽位的装备。"
+    build_panel.add_child(equipment_compatible)
+    equipment_search.focus_neighbor_right=equipment_search.get_path_to(equipment_compatible)
+    equipment_compatible.focus_neighbor_left=equipment_compatible.get_path_to(equipment_search)
+    equipment_search.text_changed.connect(func(_text: String):_equipment_filter_changed())
+    equipment_compatible.toggled.connect(func(_enabled: bool):_equipment_filter_changed())
+    equipment_search.text_submitted.connect(func(_text: String):
+        var first:=equipment_filter.first_enabled(build_grid)
+        if first!=null:first.grab_focus())
     build_detail=RichTextLabel.new()
     for family in ["combat_accessory","travel_accessory"]:
         var family_id:=String(family)
@@ -1357,6 +1385,39 @@ func _build_build_panel() -> void:
 
 func _request_build_toggle() -> void:
     if level!=null and level.active_overlay!="new_journey" and level.has_method("_toggle_build"):level.call("_toggle_build")
+
+func _wire_equipment_result_focus() -> void:
+    if equipment_search==null or not equipment_search.visible:return
+    var first:=equipment_filter.first_enabled(build_grid)
+    equipment_search.focus_neighbor_bottom=NodePath() if first==null else equipment_search.get_path_to(first)
+    equipment_compatible.focus_neighbor_bottom=NodePath() if first==null else equipment_compatible.get_path_to(first)
+    if first!=null:first.focus_neighbor_top=first.get_path_to(equipment_search)
+
+func _equipment_filter_changed() -> void:
+    var family:=_build_family_for_page()
+    if family.is_empty() or equipment_search==null:return
+    equipment_filter.remember(family,equipment_search.text,equipment_compatible.button_pressed)
+    refresh_build()
+
+func _sync_equipment_filter(at_workstation: bool) -> void:
+    if equipment_search==null:return
+    var family:=_build_family_for_page()
+    var shown:=at_workstation and not family.is_empty()
+    equipment_search.visible=shown
+    equipment_compatible.visible=shown
+    var row_height:=maxf(32.0,maxf(equipment_search.get_combined_minimum_size().y,equipment_compatible.get_combined_minimum_size().y))
+    equipment_search.size.y=row_height
+    equipment_compatible.size.y=row_height
+    var list_top:=180.0+row_height+8.0 if shown else 180.0
+    equipment_scroll.position=Vector2(34,list_top)
+    equipment_scroll.size=Vector2(575,532.0-list_top)
+    if not shown:return
+    var memory:=equipment_filter.page(family)
+    var blocked:=equipment_search.is_blocking_signals()
+    equipment_search.set_block_signals(true)
+    if equipment_search.text!=String(memory.query):equipment_search.text=String(memory.query)
+    equipment_search.set_block_signals(blocked)
+    equipment_compatible.set_pressed_no_signal(bool(memory.only_compatible))
 
 func toggle_build() -> void:
     build_panel.visible=not build_panel.visible
@@ -1676,6 +1737,7 @@ func _confirm_tool_resupply() -> void:
 
 func refresh_build() -> void:
     if build_grid==null:return
+    var system: Variant=level.call("get_build_system") if level!=null and level.has_method("get_build_system") else null
     var snapshot:=_build_snapshot()
     last_build_signature=JSON.stringify(snapshot)
     for child in build_grid.get_children():
@@ -1687,6 +1749,7 @@ func refresh_build() -> void:
         return
     var at_workstation:=_is_at_build_workstation(snapshot)
     var at_artisan:=not at_workstation and level!=null and level.has_method("is_near_artisan") and bool(level.call("is_near_artisan"))
+    _sync_equipment_filter(at_workstation)
     var seal_page:=at_workstation and build_category=="契印"
     build_art.visible=seal_page
     build_art_caption.visible=seal_page
@@ -1771,7 +1834,20 @@ func refresh_build() -> void:
                 var loadouts: Array=snapshot.get("loadouts",[])
                 entries.append({"id":id,"name":id,"description":"保存当前契印、技能、战具和铭饰。恢复时仍会检查解锁与槽位条件。","unlocked":true,"exists":loadouts.has(id)})
     for tab in build_tabs:tab.add_theme_stylebox_override("normal",_tab_style(String(tab.get_meta("build_category",""))==build_category))
-    if entries.is_empty():build_detail.text="此页暂无可用条目。"
+    if equipment_search!=null and equipment_search.visible:
+        var selected_slot: Dictionary=slots[build_assign_slot] if has_typed_layout and build_assign_slot<slots.size() else {}
+        var validator:=Callable()
+        if system!=null and system.has_method("quote_family_slot"):
+            validator=func(entry: Dictionary,family: String,slot: Dictionary):
+                return bool(system.quote_family_slot(String(entry.get("id","")),family,int(slot.get("index",build_assign_slot)),true).ok)
+        var filtered:=equipment_filter.select(entries,family_id,selected_slot,equipment_search.text,equipment_compatible.button_pressed,validator)
+        entries=filtered.entries
+        equipment_compatible.text="仅可装入此槽 · %d/%d" % [filtered.shown,filtered.total]
+        if entries.is_empty():
+            build_heading.text="没有匹配装备"
+            build_detail.text=String(filtered.empty_reason)
+            build_emblem.texture=null
+    if entries.is_empty() and (equipment_search==null or not equipment_search.visible):build_detail.text="此页暂无可用条目。"
     var first: Button
     for entry_value in entries:
         var entry: Dictionary=entry_value
@@ -1798,6 +1874,10 @@ func refresh_build() -> void:
         var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
         var item_family:=String(entry.get("slot_family",family_id))
         var can_assign: bool=bool(entry.get("unlocked",true)) and (not has_typed_layout or (bool(slot.get("unlocked",false)) and item_family==family_id and (compatible.is_empty() or compatible.has(id))))
+        if has_typed_layout:
+            can_assign=can_assign and equipment_filter.can_assign(entry,family_id,slot)
+            if system!=null and system.has_method("quote_family_slot"):
+                can_assign=bool(system.quote_family_slot(id,family_id,build_assign_slot,true).ok)
         if has_typed_layout and not compatible.is_empty() and not compatible.has(id):text="× "+text+" · 不兼容"
         var button:=_button(build_grid,text,Vector2.ZERO,Vector2(563,54),func():
             build_selection=id
@@ -1859,6 +1939,7 @@ func refresh_build() -> void:
                 var manage:=_button(build_grid,"重命名 / 复制「%s」" % id,Vector2.ZERO,Vector2(563,30),func():_open_loadout_manager(name_value))
                 manage.custom_minimum_size=Vector2(563,30)
                 manage.set_meta("loadout_manage",id)
+    _wire_equipment_result_focus()
     if first!=null:
         var current_focus:=get_viewport().gui_get_focus_owner()
         if build_panel.visible and (current_focus==null or not build_panel.is_ancestor_of(current_focus)):first.grab_focus()

@@ -211,7 +211,7 @@ func _active_accessory_count(families: Dictionary, crest: String) -> int:
             if not id.is_empty() and _slot_unlocked(family, slot, crest) and _slot_accepts(family, slot, id, crest): count += 1
     return count
 
-func equip_family_slot(item_id: String, family: String, slot: int, at_bell: bool = true) -> Dictionary:
+func quote_family_slot(item_id: String, family: String, slot: int, at_bell: bool = true) -> Dictionary:
     if not at_bell: return _fail("请在钟龛调整构筑")
     if not FAMILY_KEYS.has(family) or slot < 0 or slot >= int(FAMILY_CAPACITIES.get(family, 0)):
         return _fail("家族槽位无效")
@@ -229,7 +229,12 @@ func equip_family_slot(item_id: String, family: String, slot: int, at_bell: bool
     next[family][slot] = item_id
     var reason := _validate_family_arrays(next, String(state.crest))
     if not reason.is_empty(): return _fail(reason)
-    state.equipped_families = next
+    return _ok({"families":next})
+
+func equip_family_slot(item_id: String, family: String, slot: int, at_bell: bool = true) -> Dictionary:
+    var quote:=quote_family_slot(item_id,family,slot,at_bell)
+    if not quote.ok:return quote
+    state.equipped_families = quote.families
     if family == "tool": state.active_tool_slot = slot
     elif family == "thread_skill": state.active_skill_slot = slot
     _normalize_active_slots()
