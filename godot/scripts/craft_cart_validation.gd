@@ -16,6 +16,7 @@ func check(ok: bool,label: String) -> void:
 func snapshot(scene: Node) -> Dictionary:
     return {"build":scene.build_system.serialize(),"wallet":scene._build_wallet_snapshot(),"materials":scene.inventory_materials.duplicate(true),"hp":scene.player.hp,"energy":scene.player.energy,"profile":scene.player.build_profile.duplicate(true),"world":scene.world_state.data.duplicate(true)}
 func run() -> void:
+    preload("res://scripts/craft_material_plan_validation.gd").pure(self)
     var build:=BUILD.new();build.unlock_event("tool_mine_found");build.unlock_event("tool_lure_found")
     var wallet: Dictionary={"currency":500,"inventory_counts":{"wet_chitin":3,"pollen_wax":3,"evidence_counterweight_echo":1,"evidence_root_track":1}}
     var before: Dictionary=build.serialize();var wallet_before:=wallet.duplicate(true)
@@ -72,6 +73,7 @@ func run() -> void:
     var dialog=scene.ui_shell.craft_cart
     dialog.set_recipe("mod_mine",true);dialog.set_recipe("mod_lure",true)
     check(dialog.visible and dialog.get_cancel_button().has_focus() and dialog.quote.ok and state.writes==0,"real cart selection defaults to free cancellation")
+    await preload("res://scripts/craft_material_plan_validation.gd").native(self,scene,dialog,save_path)
     dialog.confirmed.emit()
     check(dialog.staged and state.writes==0,"first explicit confirmation stages exact totals")
     scene.build_system.catalog.recipes.mod_mine.currency+=1
