@@ -115,6 +115,9 @@ var tutorial_hint: Label
 var accessibility_path := "user://pilgrimage_accessibility.cfg"
 var controller_comfort_dialog: ConfirmationDialog
 var accessibility_controls: Dictionary={}
+var settings_persistence:=preload("res://scripts/settings_persistence.gd").new()
+var settings_save_notice: Label
+var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
 var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
@@ -954,6 +957,14 @@ func _build_settings() -> void:
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
+    # Row 332 to the right of the comfort button belongs to the danger-caption
+    # desk; the retry sits beside the NPC toggle, its notice by the section title.
+    settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
+    settings_save_retry.add_theme_font_size_override("font_size",13)
+    settings_save_retry.tooltip_text="保存本次已生效的设置与按键；不重置输入、音量或旅途资源。"
+    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),13,GOLD)
+    settings_save_notice.clip_text=true
+    _refresh_settings_save_notice()
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
     _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
     _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
@@ -1124,14 +1135,34 @@ func _on_joy_connection_changed(_device: int, connected: bool) -> void:
         if not overlay.is_empty() and not _is_navigable_focus(get_viewport().gui_get_focus_owner()):
             call_deferred("_focus_overlay",overlay,true)
 
-func _save_accessibility() -> Error:
+func _accessibility_config() -> ConfigFile:
     var config:=ConfigFile.new()
+    # Keep sections owned by other settings features when updating this panel.
+    config.load(accessibility_path)
     for key in accessibility:config.set_value("accessibility",key,accessibility[key])
     for action in REMAPPABLE_ACTIONS:
         if InputMap.has_action(action):config.set_value("bindings",action,InputMap.action_get_events(action))
-    var result:=config.save(accessibility_path)
+    return config
+
+func _save_accessibility() -> Error:
+    if is_queued_for_deletion():return ERR_UNAVAILABLE
+    var result: Error=settings_persistence.save(_accessibility_config(),accessibility_path)
+    _refresh_settings_save_notice()
     if result!=OK and toast!=null:toast.text="设置保存失败（%d），当前设置仍有效。" % result
     return result
+
+func _refresh_settings_save_notice() -> void:
+    if settings_save_notice!=null:
+        settings_save_notice.text="设置尚未保存" if settings_persistence.pending else ""
+        settings_save_notice.tooltip_text=settings_persistence.message()
+        settings_save_notice.visible=settings_persistence.pending
+    if settings_save_retry!=null:settings_save_retry.visible=settings_persistence.pending
+
+func _retry_accessibility_save() -> void:
+    if is_queued_for_deletion():return
+    var saved:=_save_accessibility()
+    if saved==OK and toast!=null:toast.text="当前设置与按键已保存。"
+    if saved==OK and settings!=null and settings.is_visible_in_tree():_focus_overlay("settings",false)
 
 func _apply_controller_deadzone() -> void:
     preload("res://scripts/controller_preferences.gd").apply_deadzone(float(accessibility.get("controller_deadzone",0.2)))
@@ -1160,6 +1191,9 @@ func _open_controller_comfort() -> void:
         return {"ok":true,"persisted":saved==OK})
 
 func _apply_accessibility() -> void:
+    if settings_persistence.pending:
+        settings_persistence.reconcile(_accessibility_config(),accessibility_path)
+        _refresh_settings_save_notice()
     _apply_controller_deadzone()
     _sync_accessibility_controls()
     if level!=null and is_instance_valid(level.get("audio_director")) and level.audio_director.has_method("set_npc_landmarks"):level.audio_director.set_npc_landmarks(bool(accessibility.get("npc_landmarks",true)))
@@ -2500,7 +2534,7 @@ func _refresh_journal() -> void:
     var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/hidden_clue_notes.gd").journal(preload("res://scripts/world_routes.gd").cached_hidden_clues(),level.story_flags))
-    records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
+    records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts,level.story_flags))
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
