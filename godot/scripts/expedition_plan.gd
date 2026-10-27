@@ -1,18 +1,21 @@
 extends RefCounted
 const LIMIT := 6
-var state := {"stops":[],"done":[],"active":false}
+var state := {"stops":[],"done":[],"deferred":[],"active":false}
 var store := preload("res://scripts/journey_desk_store.gd").new()
 
 func configure(journey: String) -> void:
     store.configure("expedition",journey)
     var raw := store.read()
-    state={"stops":[],"done":[],"active":false}
+    state={"stops":[],"done":[],"deferred":[],"active":false}
     if raw.get("stops") is Array:
         for key in raw.stops.slice(0,32):
             if key is String and key.length()<=180 and key.count(":")>=2 and not state.stops.has(key) and state.stops.size()<LIMIT:state.stops.append(key)
     if raw.get("done") is Array:
         for key in raw.done:
             if state.stops.has(key) and not state.done.has(key):state.done.append(key)
+    if raw.get("deferred") is Array:
+        for key in raw.deferred.slice(0,32):
+            if state.stops.has(key) and not state.done.has(key) and not state.deferred.has(key):state.deferred.append(key)
     if raw.get("active") is bool:state.active=raw.active and not state.stops.is_empty()
 
 func command(action: String, key: String, known: Array) -> Dictionary:
@@ -24,7 +27,7 @@ func command(action: String, key: String, known: Array) -> Dictionary:
             if candidate.stops.has(key):return {"ok":false,"reason":"行程已有此站。"}
             if candidate.stops.size()>=LIMIT:return {"ok":false,"reason":"一次最多六站。"}
             candidate.stops.append(key)
-        "remove":candidate.stops.erase(key);candidate.done.erase(key)
+        "remove":candidate.stops.erase(key);candidate.done.erase(key);candidate.deferred.erase(key)
         "up", "down":
             var index: int=candidate.stops.find(key)
             if index<0:return {"ok":false,"reason":"请选择行程中的一站。"}
@@ -33,14 +36,21 @@ func command(action: String, key: String, known: Array) -> Dictionary:
         "done":
             if not candidate.stops.has(key) or not keys.has(key):return {"ok":false,"reason":"只能勾选仍然已知的行程地点。"}
             if candidate.done.has(key):candidate.done.erase(key)
-            else:candidate.done.append(key)
+            else:candidate.done.append(key);candidate.deferred.erase(key)
+        "defer":
+            if not candidate.stops.has(key) or candidate.done.has(key):return {"ok":false,"reason":"只能暂缓尚未完成的行程站点。"}
+            if candidate.deferred.has(key):candidate.deferred.erase(key)
+            else:candidate.deferred.append(key)
+            if candidate.active and not candidate.stops.any(func(stop):return not candidate.done.has(stop) and not candidate.deferred.has(stop)):candidate.active=false
         "start":
             if candidate.stops.is_empty():return {"ok":false,"reason":"先加入一处已知地点。"}
+            if not candidate.deferred.is_empty() and not candidate.stops.any(func(stop):return not candidate.done.has(stop) and not candidate.deferred.has(stop)):
+                return {"ok":false,"reason":"其余站点均已完成或暂缓；恢复一站后再开始。"}
             for stop in candidate.stops:
-                if not keys.has(stop):return {"ok":false,"reason":"部分行程地点已不可见，请移除后再开始。"}
+                if not candidate.deferred.has(stop) and not keys.has(stop):return {"ok":false,"reason":"部分行程地点已不可见，请暂缓或移除后再开始。"}
             candidate.active=true
         "pause":candidate.active=false
-        "reset":candidate.done=[];candidate.active=false
+        "reset":candidate.done=[];candidate.deferred=[];candidate.active=false
         _:return {"ok":false,"reason":"无效行程操作。"}
     if candidate.stops.is_empty():candidate.active=false
     if not store.write(candidate):return {"ok":false,"reason":store.error}
@@ -50,7 +60,7 @@ func command(action: String, key: String, known: Array) -> Dictionary:
 func next_stop(known: Array) -> Dictionary:
     if not state.active:return {}
     for key in state.stops:
-        if state.done.has(key):continue
+        if state.done.has(key) or state.deferred.has(key):continue
         for row in known:
             if row.key==key:return row
         return {"unavailable":true}

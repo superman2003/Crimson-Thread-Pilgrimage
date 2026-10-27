@@ -1,0 +1,37 @@
+name: U04 defer itinerary stops
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/expedition_plan.gd'
+      - 'godot/scripts/expedition_desk.gd'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/expedition_defer_validation.gd'
+      - 'tools/run_expedition_defer_contract.py'
+      - '.github/workflows/ledger-expedition-defer.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: expedition_defer-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native production component contract
+        run: python3 tools/run_expedition_defer_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/native-contract"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: expedition_defer-logs
+          path: ${{ runner.temp }}/native-contract
+

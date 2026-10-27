@@ -17,6 +17,7 @@ var selected_from_plan:=false
 var add_button: Button
 var view_button: Button
 var done_button: Button
+var defer_button: Button
 var hud: Label
 var elapsed:=0.0
 
@@ -52,6 +53,8 @@ func _build() -> void:
     view_button=window.button(actions,"查看此站地图",view_selected)
     detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(900,110);window.column.add_child(detail)
     var controls: HBoxContainer=window.row(window.column)
+    defer_button=window.button(controls,"暂缓 / 恢复此站",func():act("defer"))
+    defer_button.tooltip_text="保留地点和顺序，暂时跳过这一站；不会标记完成或移动角色。"
     window.button(controls,"开始 / 继续",func():act("start"))
     window.button(controls,"暂停",func():act("pause"))
     window.button(controls,"重排行程进度",func():act("reset"))
@@ -83,11 +86,11 @@ func refresh() -> void:
     for index in plan.state.stops.size():
         var key: String=plan.state.stops[index]
         var row:=_row(key)
-        itinerary.add_item("%d. %s%s" % [index+1,"✓ " if plan.state.done.has(key) else "",String(row.get("title","地点暂不可见"))])
+        itinerary.add_item("%d. %s%s" % [index+1,"✓ " if plan.state.done.has(key) else "暂缓 · " if plan.state.deferred.has(key) else "",String(row.get("title","地点暂不可见"))])
         if key==plan_key:itinerary.select(index)
     if not plan.state.stops.has(plan_key):plan_key=""
     _selection()
-    window.status.text="%d/6站 · 已勾选%d · %s。%s" % [plan.state.stops.size(),plan.state.done.size(),"进行中" if plan.state.active else "暂停",plan.store.error]
+    window.status.text="%d/6站 · 已勾选%d · 暂缓%d · %s。%s" % [plan.state.stops.size(),plan.state.done.size(),plan.state.deferred.size(),"进行中" if plan.state.active else "暂停",plan.store.error]
     _refresh_hud()
 
 func _selection() -> void:
@@ -95,6 +98,7 @@ func _selection() -> void:
     var row:=_row(key)
     add_button.disabled=selected_from_plan or row.is_empty() or plan.state.stops.has(key)
     done_button.disabled=not selected_from_plan or row.is_empty()
+    defer_button.disabled=not selected_from_plan or not plan.state.stops.has(key) or plan.state.done.has(key)
     view_button.disabled=row.is_empty()
     detail.text="请选择已知地点或行程中的一站。" if row.is_empty() else String(row.region_name)+" · "+String(row.title)+"\n"+String(row.detail)+"\n"+route_summary(row)
 
