@@ -2534,6 +2534,7 @@ func _refresh_journal() -> void:
     var recall:=preload("res://scripts/death_recall.gd")
     var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/hidden_clue_notes.gd").journal(preload("res://scripts/world_routes.gd").cached_hidden_clues(),level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts,level.story_flags))
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     var progress: Dictionary={}
