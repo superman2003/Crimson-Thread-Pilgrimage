@@ -4,217 +4,147 @@
     {
       "id": "motivation_01",
       "npc": "npc_threadsmith_apprentice",
-      "question": "你为什么让我去听，而不是带一件宝物？",
+      "question": "你为什么把师父的针交给陌生人？",
       "requires": [
         {
           "kind": "flag",
           "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
+          "label": "接下寻找工人姓名的请求"
         },
         {
           "kind": "history",
           "id": "ch01_moss_bell_court_daily",
-          "label": "当地生产设施见闻"
+          "label": "开合试音模"
         }
       ],
       "lines": [
-        "宝物可以放进柜里，名字却得先有人愿意念。你看过试音模，就知道听见也曾是一门手艺。",
-        "我自己走不开，才请你帮忙；这不是你欠我师父的事。"
+        "不是放心，是屋里再也没人出去。我修好它，搁回去，第二天又拿起来。",
+        "你刚来时也不知道往哪走。我就把它交了，像是这样我们两个都能往前挪一点。"
       ],
-      "reflection": "委托出于具体的需要，不应被写成主角的先天义务。",
+      "reflection": "我原以为学徒认得我。他只是也需要有人迈出门。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
+            "label": "把名字带回钟庭"
           }
         ],
         "lines": [
-          "你把两处的话带回来了，我能开始缝，仍不能说他们因此全都回来了。",
-          "往后有人问，我会把消息从哪里来讲清楚，也记得是谁愿意听。"
+          "你回来了。我想了一路的谢辞，真见到名单却一句也没用上。",
+          "帮我把布角按好吧。今天先把第一个名字缝完。"
         ]
       }
     },
     {
       "id": "motivation_02",
       "npc": "npc_threadsmith_apprentice",
-      "question": "若我暂时找不到，你会一直等吗？",
+      "question": "如果我找不到，你会怪我吗？",
       "requires": [
         {
           "kind": "flag",
           "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
+          "label": "接下寻找工人姓名的请求"
         },
         {
           "kind": "history",
           "id": "ch01_moss_bell_court_daily",
-          "label": "当地生产设施见闻"
+          "label": "开合试音模"
         }
       ],
       "lines": [
-        "我会继续做手里的衣服，也请别的人打听。等你帮忙不该让你的整条路停在这里。",
-        "试音模有许多街口，我也该给消息留不止一条路。"
+        "我大概会盯着门看，也可能问得太急。那不是你欠我的。",
+        "若找不到，就把卡在哪儿告诉我。别为了一句“找到了”，带回来一个不认识的人名。"
       ],
-      "reflection": "人物的生活不应只在等待任务交付时存在。",
+      "reflection": "我答应带回查到的消息，没有答应把每一处空白都填满。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
+            "label": "把名字带回钟庭"
           }
         ],
         "lines": [
-          "如今名字带回来了，我还是想留住这条规矩。",
-          "你以后可以只来坐一会儿，不必每次都带回一件结果。"
+          "名单还有空处，我这回敢先留着了。你已经把能认出的带回来。",
+          "等我也走出这道门，再去问剩下的人。"
         ]
       }
     },
     {
       "id": "motivation_03",
       "npc": "npc_canal_child",
-      "question": "你想让我向外面的人说什么？",
+      "question": "我见到外面的人，要怎样说你爹？",
       "requires": [
         {
           "kind": "flag",
           "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
+          "label": "接下寻找工人姓名的请求"
         },
         {
           "kind": "history",
           "id": "ch02_rain_foundry_canal_daily",
-          "label": "当地生产设施见闻"
+          "label": "泵渠分流箱"
         }
       ],
       "lines": [
-        "说我还在这里，记得家里的人怎样敲管子；别替我说我已经不难过。",
-        "分流箱通向住处的时候，这些话也该有一条出去的路。"
+        "说阿禾。要是只来得及说一句，就说这个。",
+        "别说他很勇敢才配被记住。他有时候怕水，下雨还会抱着鞋跑。我也记得。"
       ],
-      "reflection": "任务完成可以带来变化，也应容纳未消失的悲伤。",
+      "reflection": "我把阿禾的名字记在最前面，旁边留了一双怕进水的鞋。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
+            "label": "把名字带回钟庭"
           }
         ],
         "lines": [
-          "学徒听见了名字，我很高兴；我还是会想他们。",
-          "高兴和想念可以一起在，不用挑一个给你当答复。"
-        ]
-      }
-    },
-    {
-      "id": "motivation_04",
-      "npc": "npc_canal_child",
-      "question": "我能替你保证有人会回来吗？",
-      "requires": [
-        {
-          "kind": "flag",
-          "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
-        },
-        {
-          "kind": "history",
-          "id": "ch02_rain_foundry_canal_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "别保证。若你不知道，就告诉我不知道，再把真的听见的那一段说给我。",
-        "水会沿分流箱走，人却不一定照我们盼的路回来。"
-      ],
-      "reflection": "可靠的陪伴来自如实回应，而非许下无法兑现的结果。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
-          }
-        ],
-        "lines": [
-          "名字被带回去以后，你没有替我许下假的归期。",
-          "所以我愿意下次还听你讲路上的事。"
+          "学徒肯叫他的名字了吗？那你再去时，告诉他领口别缝太硬。",
+          "爹最嫌刮脖子。柳叔知道，你可以问他。"
         ]
       }
     },
     {
       "id": "motivation_05",
       "npc": "npc_fugitive_scribe",
-      "question": "你为什么愿意替陌生人核对名字？",
+      "question": "名单上也有你改过的字吗？",
       "requires": [
         {
           "kind": "flag",
           "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
+          "label": "接下寻找工人姓名的请求"
         },
         {
           "kind": "history",
           "id": "ch03_saltwhite_archive_daily",
-          "label": "当地生产设施见闻"
+          "label": "运书压页台"
         }
       ],
       "lines": [
-        "因为名字一旦被划掉，后面的账就能装作从没欠过。压页台留下的屑末见过这种手法。",
-        "我能帮你核对，也会说出我核对不到的地方。"
+        "抄过总官批下的副本。那时我以为只要保住原页，手上做的就不算。",
+        "后来有人拿我的副本来问，为什么他父亲从来没登记过。我认得自己的笔，没敢认他。"
       ],
-      "reflection": "书记的帮助源于对记录的责任，也保留判断的边界。",
+      "reflection": "书记不是一直站在柜外的人。我把这段话也放进他交来的名单旁。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
+            "label": "把名字带回钟庭"
           }
         ],
         "lines": [
-          "学徒已经接住两处消息，这件事终于不只留在一页纸上。",
-          "若还有别的版本出现，请再带来；完成过一次，不代表从此不必查。"
-        ]
-      }
-    },
-    {
-      "id": "motivation_06",
-      "npc": "npc_fugitive_scribe",
-      "question": "你怕这次核对又带来麻烦吗？",
-      "requires": [
-        {
-          "kind": "flag",
-          "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
-        },
-        {
-          "kind": "history",
-          "id": "ch03_saltwhite_archive_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "怕。我从这里离开不是因为纸已经不会伤人。",
-        "但压页台的用途能被改，我也不能因为怕，就把手里能核对的东西全藏死。"
-      ],
-      "reflection": "人物可以带着恐惧行动，不必靠无畏证明正义。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
-          }
-        ],
-        "lines": [
-          "名字被送回去了，我仍会谨慎保管查验的来历。",
-          "你替我留下能再联系的方法就好，不必许诺永远护着我。"
+          "这次抄本我署了名。若还有错，能有人找回我这里。",
+          "你把名字交出去了，我也得把自己的那一笔交出去。"
         ]
       }
     },
     {
       "id": "motivation_07",
       "npc": "npc_old_gardener",
-      "question": "为什么把西门的事托给我？",
+      "question": "西门的囚徒，为什么你没先去找？",
       "requires": [
         {
           "kind": "flag",
@@ -224,32 +154,32 @@
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "我认得这里的根，却未必还能走到每个裂口。你能走的地方比我多。",
-        "养根槽提醒我，照料也可能把人留得太紧；这次先替他看退路。"
+        "我听过敲声，拿“等水槽接好”搪塞过自己。怕一过去就得承认，园子好好的时候也有人困着。",
+        "你若肯去，先问他还能不能站，别只替我带句原谅回来。"
       ],
-      "reflection": "委托者的需要不能盖过被救者的选择。",
+      "reflection": "园丁托我带的是退路。我没有答应替囚徒原谅他。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_root_rescue_complete",
-            "label": "心愿已经完成"
+            "label": "为根笼囚徒打通退路"
           }
         ],
         "lines": [
-          "他已经能离开，我就不该又用修园的需要把他叫回来。",
-          "若他以后愿意来，我给他留把空椅子。"
+          "他到了西门，我没先问愿不愿意帮忙。先给他腾了坐的地方。",
+          "有些话我得自己去说。你不必替我站在中间。"
         ]
       }
     },
     {
       "id": "motivation_08",
       "npc": "npc_root_prisoner",
-      "question": "离开根笼后，你最先想做什么？",
+      "question": "离开以后，你想让谁来接？",
       "requires": [
         {
           "kind": "flag",
@@ -259,32 +189,32 @@
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "先把手放松，再找一块不会把脚拉住的地方。别急着问我接下来能帮上什么。",
-        "养根槽能让受伤的根慢慢承力，我也想有这样的时间。"
+        "先不要一群人。我怕他们都伸手，自己又不知道往哪走。",
+        "你告诉园丁把灯留着就好。我看得见，走得动的时候会去。"
       ],
-      "reflection": "救援后的目标可以很小，而且属于被救者自己。",
+      "reflection": "我把他的要求原样带走：留灯，留路，先别围过来。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_root_rescue_complete",
-            "label": "心愿已经完成"
+            "label": "为根笼囚徒打通退路"
           }
         ],
         "lines": [
-          "现在有了退路，我最先做的还是坐一会儿。",
-          "今天能不等一声命令再起身，对我已经够多了。"
+          "我坐下了。坐了很久，腿还在疼。",
+          "园丁问要不要挪盆，我说今天不要。他真的把盆搬走了，我才觉得自己出了笼。"
         ]
       }
     },
     {
       "id": "motivation_09",
       "npc": "npc_beeswax_vendor",
-      "question": "你收花粉蜡，是为了多做生意吗？",
+      "question": "这趟取蜡，究竟给谁省了工钱？",
       "requires": [
         {
           "kind": "flag",
@@ -294,32 +224,32 @@
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "修灯确实要用蜡，可灯照着大家走的地方，我不能把每一寸光都算成柜台的货。",
-        "你看过养根槽，检修的人得先看清伤处，才不至于越帮越紧。"
+        "问得好。我原来打算把你的路钱压进下一笔买卖里，听起来像谁也不欠谁。",
+        "可受伤的是搬苗的人，绕远的是你。蜡到手就给钱，别拿以后会便宜哄你。"
       ],
-      "reflection": "人物的谋生与公共维护可以相连，交付仍应有边界。",
+      "reflection": "我把路钱问清楚才点头。帮忙可以商量，也可以拒绝。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_wax_lamps_complete",
-            "label": "心愿已经完成"
+            "label": "交付检修灯所需的花粉蜡"
           }
         ],
         "lines": [
-          "蜡补上以后，我能让灯多稳一会儿。",
-          "这不代表从此不缺材料，也不代表你欠下一次交货。"
+          "钱结清了，灯也补了。这回算清，下一回你才敢再来。",
+          "若你只想歇脚，也能进来，不必每次带点能卖的东西。"
         ]
       }
     },
     {
       "id": "motivation_10",
       "npc": "npc_lantern_sister",
-      "question": "为什么要先核对军册再改灯号？",
+      "question": "你为什么一定要先看军册？",
       "requires": [
         {
           "kind": "flag",
@@ -329,67 +259,32 @@
         {
           "kind": "history",
           "id": "ch05_obsidian_pilgrim_road_daily",
-          "label": "当地生产设施见闻"
+          "label": "营床点名轮"
         }
       ],
       "lines": [
-        "不看旧号怎样召人，只换一个亮法，很可能还会把同一批人叫回来。",
-        "点名轮的钉孔把这件事留得很清楚：光后面也可能牵着一张表。"
+        "我怕自己又把催人回来的光，当成送人回去的光。以前就是这么看错的。",
+        "军册把被叫回的人记在哪一行，我得先认清，才敢改那一拍。"
       ],
-      "reflection": "改变信号要先理解它曾经怎样被执行。",
+      "reflection": "修女不是缺一盏更亮的灯。她先要知道自己的灯叫回过谁。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_lantern_watch_complete",
-            "label": "心愿已经完成"
+            "label": "与修女校正归途灯号"
           }
         ],
         "lines": [
-          "如今灯号校正了，我还得向路过的人解释。",
-          "若他们仍会害怕，先听他们怕的是哪一种亮法。"
-        ]
-      }
-    },
-    {
-      "id": "motivation_11",
-      "npc": "npc_lantern_sister",
-      "question": "我若不愿帮，灯会一直坏下去吗？",
-      "requires": [
-        {
-          "kind": "flag",
-          "id": "quest_lantern_watch_started",
-          "label": "已经接下这份心愿"
-        },
-        {
-          "kind": "history",
-          "id": "ch05_obsidian_pilgrim_road_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "我会继续修能修的部分，再去请别人帮忙；不会拿今晚的黑暗全压在你肩上。",
-        "点名轮已经让太多人只剩一个必须到场的空位。"
-      ],
-      "reflection": "可选支线的请求不应被写成情感勒索。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "quest_lantern_watch_complete",
-            "label": "心愿已经完成"
-          }
-        ],
-        "lines": [
-          "这回你帮上了，我会记得这是你愿意做的事。",
-          "下回再遇见，我们仍可以先问候，不必先算谁该修哪盏灯。"
+          "这回灯亮后有人没来，我等他自己回光。",
+          "等得很难受，可我没补那一拍。你看，这才是我得修的地方。"
         ]
       }
     },
     {
       "id": "motivation_12",
       "npc": "npc_deserter_flagbearer",
-      "question": "为什么要我帮你辨认军令？",
+      "question": "你为什么不自己去拿军令？",
       "requires": [
         {
           "kind": "flag",
@@ -399,95 +294,60 @@
         {
           "kind": "history",
           "id": "ch05_obsidian_pilgrim_road_daily",
-          "label": "当地生产设施见闻"
+          "label": "营床点名轮"
         }
       ],
       "lines": [
-        "我怕自己一看见那种字，就又把它当成得立刻起身的号。你可以和我一起慢慢看。",
-        "点名轮上被钉回的木条，我已经见得太多。"
+        "我一靠近军阵，脚就会跟着踩拍。嘴上说逃了，身体还认路。",
+        "你可以去看完再决定带不带。我怕你也被叫住，更怕自己假装这点不重要。"
       ],
-      "reflection": "互助可以支持自主行动，不必建立新的依赖命令。",
+      "reflection": "逃旗手把危险说在请求前面。我先确认自己的退路，没有催他跟上。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_deserter_order_complete",
-            "label": "心愿已经完成"
+            "label": "交还逃旗手的召回军令"
           }
         ],
         "lines": [
-          "现在认清了召集线，我能把军令合起来，先去营地。",
-          "你帮的是这一次辨认，不必往后每声军号都替我挡住。"
-        ]
-      }
-    },
-    {
-      "id": "motivation_13",
-      "npc": "npc_deserter_flagbearer",
-      "question": "你要我替你决定回不回营地吗？",
-      "requires": [
-        {
-          "kind": "flag",
-          "id": "quest_deserter_order_started",
-          "label": "已经接下这份心愿"
-        },
-        {
-          "kind": "history",
-          "id": "ch05_obsidian_pilgrim_road_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "我想请你把路说清，再听我把话说完。决定总得让我自己试着拿回来。",
-        "点名轮把木条钉死，我不想换个人替我挑一个槽。"
-      ],
-      "reflection": "一次救助不赋予救助者持续的安排权。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "quest_deserter_order_complete",
-            "label": "心愿已经完成"
-          }
-        ],
-        "lines": [
-          "我现在选了营地，明天也许想往另一边走。",
-          "若你再来，先问我今天想去哪儿。"
+          "你把纸放下，我才敢看它。第一次读完，没有立刻收旗。",
+          "今天若留在营地，得是我自己留下。让我先想想晚饭想吃什么。"
         ]
       }
     },
     {
       "id": "motivation_14",
       "npc": "npc_threadsmith_apprentice",
-      "question": "做完心愿以后，我们还会聊什么？",
+      "question": "名字送到了，我还要替你做什么？",
       "requires": [
         {
           "kind": "flag",
           "id": "quest_bring_names_started",
-          "label": "已经接下这份心愿"
+          "label": "接下寻找工人姓名的请求"
         },
         {
           "kind": "history",
           "id": "ch01_moss_bell_court_daily",
-          "label": "当地生产设施见闻"
+          "label": "开合试音模"
         }
       ],
       "lines": [
-        "聊今天修了哪件衣服，或者街口谁第一次听懂试音。",
-        "若只在你带东西回来时开口，我们的相识就也像一张班表。"
+        "先坐。你每次到门口都像等人派活，我看着也不敢多说一句。",
+        "针脚还没收好，但能等。给我讲一件路上没用的事吧，什么都没换来的那种。"
       ],
-      "reflection": "人物关系应当在任务结束后继续生长。",
+      "reflection": "我坐在学徒身边。今天不交东西，也不接下一件事。",
       "continuation": {
         "requires": [
           {
             "kind": "flag",
             "id": "quest_bring_names_complete",
-            "label": "心愿已经完成"
+            "label": "把名字带回钟庭"
           }
         ],
         "lines": [
-          "名字已经缝回去，我们终于能把这件事放到身边，而不总挡在中间。",
-          "你想讲别的路，我也会听。"
+          "我把那件小事记在名单后面了，没写成你的功劳。",
+          "你以后再来，也可以什么都不带。那把椅子不按交货的次数算。"
         ]
       }
     }

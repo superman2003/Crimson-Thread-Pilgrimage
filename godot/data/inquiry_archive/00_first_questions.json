@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "first_mold",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "试音模为什么朝着街巷开口？",
+      "requires": [
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "师父说，钟做好以前，得先问街里的人听不听得见。模子的口朝向住处，不是朝向殿门。",
+        "后来同一条管道把声音收了回去。管子没有换方向，换的是谁能决定开口。"
+      ],
+      "reflection": "一件工具的用途会变，不能只凭铜管的走向判断是谁同意了它。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_01",
+            "label": "苔钟庭证词"
+          }
+        ],
+        "lines": [
+          "你带回的刻痕把两件事分开了：押上自己的心，与替后人答应，不是同一次承诺。",
+          "我能做的是把名字缝回衣领。谁愿意继续守钟，要留给穿衣服的人回答。"
+        ]
+      }
+    },
+    {
+      "id": "first_return",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "把名字缝回去，就算救回他们了吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "quest_bring_names_complete",
+          "label": "把名字带回来"
+        }
+      ],
+      "lines": [
+        "不能这样说。衣领能留下他们来过的痕迹，不能把已经过完的一生再缝出来。",
+        "可若连名字都不肯记，后来的人就只会看见空出来的工位，以为那里从来没人。"
+      ],
+      "reflection": "记名是接住别人留下的事实；救援还需要另一种行动。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "history",
+            "id": "ch01_moss_bell_court_daily",
+            "label": "开合试音模"
+          }
+        ],
+        "lines": [
+          "试音模也该留下原来的用途。这样孩子才知道，街里的声音曾经可以向钟提出要求。",
+          "下次修钟时，我想先问他们愿不愿意听，而不是先告诉他们应该唱什么。"
+        ]
+      }
+    }
+  ]
+}

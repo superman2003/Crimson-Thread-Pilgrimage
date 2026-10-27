@@ -90,6 +90,27 @@ func test_entry(entry: Dictionary) -> void:
 func run() -> void:
     var entries := INQUIRIES.catalog()
     check(not entries.is_empty(), "shipped questions loaded")
+    var archived := INQUIRIES.archived_catalog()
+    check(not archived.is_empty(), "published answers retained for old saves")
+    if not archived.is_empty():
+        var old_entry: Dictionary = archived[0]
+        var old_inventory: Dictionary = {}
+        var old_flags: Dictionary = {}
+        grant(old_entry.requires, old_inventory, old_flags)
+        var old_row := INQUIRIES.quote(old_entry, old_inventory, old_flags)
+        check(INQUIRIES.records(old_flags).is_empty(), "possessing old sources invents no archived memory")
+        old_flags[old_row.marker] = true
+        var old_records := INQUIRIES.records(old_flags)
+        check(old_records.size() == 1 and old_records[0].description.contains(old_entry.lines[0]), "old save recovers the exact published answer")
+        var active_rows := INQUIRIES.available(old_entry.npc, old_inventory, old_flags)
+        check(not active_rows.any(func(value): return value.fingerprint == old_row.fingerprint), "retired answer is absent from active questions")
+        check(active_rows.any(func(value): return not value.recorded), "rewritten answer requires its own reading")
+        var current := INQUIRIES.quote(INQUIRIES.find(old_entry.id), old_inventory, old_flags)
+        old_flags[current.marker] = true
+        check(INQUIRIES.records(old_flags).size() == 2, "old and rewritten confirmed versions coexist")
+        var detached_archive := INQUIRIES.archived_catalog()
+        detached_archive[0].lines[0] = "external mutation"
+        check(INQUIRIES.archived_catalog()[0].lines[0] != "external mutation", "archive snapshots are detached")
     for entry in entries:
         test_entry(entry)
     for value in [null, false, true, -1, 0, 0.5, INF, NAN, "1", [], {}, 1000001]:

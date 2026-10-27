@@ -4,6 +4,13 @@ on:
   pull_request:
     paths:
       - 'godot/data/world_narrative.json'
+      - 'godot/data/narrative_journey.json'
+      - 'godot/scripts/narrative_journey.gd'
+      - 'godot/scripts/ending_story_desk.gd'
+      - 'godot/scripts/narrative_closure_validation.gd'
+      - 'tools/validate_narrative_closure.py'
+      - 'tools/run_narrative_closure.py'
+      - 'docs/NARRATIVE_CANON.md'
       - 'godot/data/scene_history.json'
       - 'godot/scripts/scene_history*.gd'
       - 'tools/validate_scene_history.py'
@@ -55,6 +62,7 @@ jobs:
       - name: Validate JavaScript and campaign structure
         run: |
           python3 tools/validate_world_narrative.py
+          python3 tools/validate_narrative_closure.py
           npm test
           npm run test:campaign
       - name: Import resources with strict error checks
@@ -73,6 +81,13 @@ jobs:
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite ui_world_integration --suite ui_redesign --suite inventory_map \
             --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/journal"
+      - name: Validate story synthesis, explicit choices and relationship follow-ups
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_narrative_closure.py --engine "$engine" --software-gl \
+            --suite narrative_closure --suite ending_aftermath \
+            --suite npc_recollections \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/closure"
       - name: Validate observed environment history through the real World
         env:
           SCENE_HISTORY_CAPTURE_DIR: ${{ runner.temp }}/narrative-return-journey-logs/scene-history/captures
