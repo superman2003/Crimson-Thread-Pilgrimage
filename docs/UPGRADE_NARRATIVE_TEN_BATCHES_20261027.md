@@ -1,30 +1,25 @@
-# 2026-10-27：世界观与剧情十批升级
+# 2026-10-27：叙事重设计与提交顺序
 
-基线 main a559a1b8。十个 PR 按前后基底串接；每批只统计自己的差异，禁止把继承内容重复计数。现有 #405 的规范统一、人物重逢与结局确认保持独立，本轮以证据驱动的可选追问推进剧情理解。
+本轮将主线与结局 #405 纳入同一串提交，按 #405 → #406 → … → #415 合入。继承的内容不算后续 PR 自身新增。设计依据见 [NARRATIVE_REDESIGN.md](NARRATIVE_REDESIGN.md)。
 
-| 批次 | PR | 主题 | 非文档改动 | 全量专项检查 |
-| --- | --- | --- | ---: | ---: |
-| 01 | [#406](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/406) | 追问系统、保存与旅记 | 764 | 65 |
-| 02 | [#407](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/407) | 苔钟庭的承诺与归途 | 495 | 233 |
-| 03 | [#408](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/408) | 雨渠的身份与工坊生活 | 495 | 401 |
-| 04 | [#409](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/409) | 书库的改字证据链 | 495 | 569 |
-| 05 | [#410](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/410) | 温室的养护与控制 | 495 | 737 |
-| 06 | [#411](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/411) | 军册、灯号与返乡 | 495 | 905 |
-| 07 | [#412](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/412) | 冠核的总锁与决定权 | 495 | 1073 |
-| 08 | [#413](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/413) | 五条可选支线的人物动机 | 495 | 1241 |
-| 09 | [#414](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/414) | 主角身份与能力成长 | 500 | 1409 |
-| 10 | 当前 PR | 三结局后果与回访边界 | 513 | 1587 |
+验收围绕能复述的故事、角色的不同处境与真实交互，不再以每批 500 行、固定 14 问或断言数量衡量质量。重复追问已合并：当前 85 组、343 句基础与追加回答；原 128 组快照独立归档，只恢复旧存档已确认的版本。
 
-合计非文档改动 5242 行，平均 524.2 行。再剔除 CI 53 行及 UID 3 行，代码、测试与运行时数据仍为 5186 行，平均 518.6 行。内容不是格式重排：新增 128 组实际交互问题、512 段基础及追加回答。每个问题的题面、人物台词、主角手记、证据来源和追加条件均接入实际交谈与旅记。
+- [#405](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/405)：寻找阿禾的主线、五条支线的关键交谈、九则亲历手记与三种结局尾声。保留六证任意顺序、原任务与结局规则。
+- [#406](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/406)：两组开场追问，旧稿记忆兼容与新版重读。旧稿不进入问题列表，已确认的旧版和新版记录能共存。
+- [#407](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/407)：钟庭八问，针、后门、回程台阶与两次刻痕。
+- [#408](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/408)：雨渠八问，阿禾的铆钉、孩子的消息与工头留下的空位。
+- [#409](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/409)：书库八问，书记署名、叶开柜、读者的小注与改约手法。
+- [#410](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/410)：温室八问，徽的停拍、园丁的拖延与囚徒先站稳的左脚。
+- [#411](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/411)：黑曜道八问，替人应声的骑士、误补灯号的修女与离队后仍站直的旗手。
+- [#412](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/412)：王冠八问，各自不能替代的原件、未写明的来者与不替人签字的空位。
+- [#413](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/413)：支线十问，请求者自己的责任、说清的交易、未被承诺的原谅与完成后不用交货的相见。
+- [#414](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/414)：身份十一问，从今天的手腕、影门与停步出发；不凭熟练动作编造师承和身世。
+- [#415](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/415)：结局十四问，以领扣、后半夜、第三桶水与撤签，呈现三种选择后仍要面对的生活。
 
-## 解锁与交付
+## 本轮验证
 
-六章问答以实际证词和已观察设施为基础，战后追加回应。支线动机在接下请求时开放，完成后回应关系变化。主角身份追问依据实际能力与设施，持有证词后追加理解。终局问答仅属于已选择的分支，并与相关支线完成状态交叉回收。
+逐批来源检查与 Godot 4.6 原生隔离夹具通过；最终累计 1078 项，覆盖当前追问的解锁、逐句确认、基础与追加记忆、保存回滚及归档兼容。静态主线/结局校验与导出内容审计通过。
 
-关闭回答不提交；读完并成功保存才写入人物旅记。后续证据不自动改写旧记忆，须重新阅读追加版本。来源与回答指纹变化、离开人物、父交谈隐藏、切区、死亡、保存失败与重复确认均有明确检查。
+隔离夹具使用实际 GDScript、数据、控件与存档代码，但不载入完整 World 及其美术资源。4.6.1 全世界 CI 的结果应在每个 PR 的最新提交上核对。本文不沿用旧稿“全量 UI / 9798 项 / npm / campaign 全通过”的声明作为改稿后的证据。
 
-## 证据与范围
-
-每批数据校验和 Godot 4.6.1 严格无头专项均通过，检查数为该批全量状态而非相加成果。最终正式 World UI 集成、原叙事 9798 项、npm test、campaign 通过；初始两轮严格导入通过。远端检查以精确 PR head 为准，已观察系统及多个内容批次专项成功，其余仍可能排队。
-
-#405 与本轮 HEAD 的 merge-tree 无冲突，不等于已合入该 PR。自动组件及真实控件验证不替代原生画面、实体控制器或自然流程验收；N01–N05、T04 最终项继续开放。各批详情见 docs/report/20261027_story_01.md 至 story_10.md。
+自然游玩、陌生玩家理解、实体手柄与最终环境演出继续开放。任务完成不会凭尾声复活阿禾，未来维修计划也不等于已经接入新的物理场景。
