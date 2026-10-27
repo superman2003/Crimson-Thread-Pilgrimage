@@ -1720,12 +1720,14 @@ func _commit_world_dialogue() -> void:
         story_flags["reward_returned_names_claimed"] = true
     var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",result),displayed_index,String(config.get("id","")))
     if not recollection.is_empty():story_flags[recollection]=true
+    var response_memory := preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),result,displayed_index,flags_before,String(config.get("id","")))
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])
     currency_count += int(rewards.get("currency", 0))
     for flag in fresh_flags:
         story_flags[String(flag)] = true
+    if not response_memory.is_empty():story_flags[String(response_memory.marker)]=true
     if bool(story_flags.get("reward_returned_names_claimed", false)):
         story_flags["quest_bring_names_rewarded"] = true
     _check_wish_board_rewards(false)
@@ -7013,12 +7015,14 @@ func _wish_dialogue_candidate(area: Area2D, flags: Dictionary, wallet: int) -> D
         flags["reward_returned_names_claimed"] = true
     var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",area.get_meta("world_dialogue_result",{})),index,String(config.get("id","")))
     if not recollection.is_empty():flags[recollection]=true
+    var response_memory := preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),area.get_meta("world_dialogue_result",{}),index,flags,String(config.get("id","")))
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
     for flag in completion.flags:flags[String(flag)] = true
     wallet += int(completion.rewards.get("currency", 0))
     if bool(flags.get("reward_returned_names_claimed", false)):
         flags["quest_bring_names_rewarded"] = true
-    return {"flags":flags,"currency":wallet,"indices":indices}
+    if not response_memory.is_empty():flags[String(response_memory.marker)]=true
+    return {"flags":flags,"currency":wallet,"indices":indices,"response_text":String(response_memory.get("text",""))}
 
 ## Pure candidate shared by preview and the one-write transaction.
 func _wish_topic_plan(quest: Dictionary, area: Area2D) -> Dictionary:
@@ -7125,6 +7129,7 @@ func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
     _apply_world_npc_state(area)
     if testimony_completed:_play_sfx("ui_testimony_complete", -4.0)
     if delivered and not reward.is_empty():_toast("收入行囊 · " + _item_display_name(reward))
+    if not String(dialogue.get("response_text","")).is_empty():_toast(String(dialogue.response_text))
     _refresh_wish_board_overlay()
     _refresh_hud()
     return {"ok":true,"delivered":delivered}

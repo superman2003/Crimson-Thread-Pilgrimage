@@ -12,7 +12,7 @@ static func catalogue() -> Array:
             _combinations=data.get("combinations",[]) if data.get("combinations",[]) is Array else []
     return _catalogue.duplicate(true)
 
-static func records(inventory: Dictionary) -> Array[Dictionary]:
+static func records(inventory: Dictionary, flags: Dictionary={}) -> Array[Dictionary]:
     var result: Array[Dictionary]=[]
     for entry in catalogue():
         var value: Variant=inventory.get(String(entry.ability),0)
@@ -26,6 +26,7 @@ static func records(inventory: Dictionary) -> Array[Dictionary]:
         for ability in entry.requires:
             if not ability is String or not held(inventory.get(ability,0)):acquired=false;break
         if acquired:result.append({"id":"voice_combo_"+String(entry.id),"title":String(entry.get("title","")),"description":String(entry.get("text","")),"record_kind":"voice","acquired":true})
+    result.append_array(preload("res://scripts/protagonist_response_memory.gd").records(flags))
     return result
 
 static func held(value: Variant) -> bool:
