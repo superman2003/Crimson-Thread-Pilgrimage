@@ -50,6 +50,11 @@ const BUS_DEFAULT_DB := {"Master": 0.0, "BGM": 0.0, "SFX": 0.0, "Ambience": -14.
 const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "ambience": "Ambience"}
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
+var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
+var volume_preferences_dirty := false
+var volume_preferences_error := OK
+var volume_preferences_revision := 0
+var volume_preferences_saving := false
 
 const DIALOGUE_MUSIC_DUCK_DB := -4.0
 const DIALOGUE_AMBIENCE_DUCK_DB := -6.0
@@ -1168,9 +1173,12 @@ func _clear_death_lowpass() -> void:
 # ---- 用户音量（持久化 user://audio_settings.cfg）----
 
 func set_user_volume(which: String, percent: float) -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):return
     if not USER_VOLUME_BUS.has(which) or not is_finite(percent):
         return
     user_volumes[which] = clampf(percent, 0.0, 100.0)
+    volume_preferences_revision += 1
+    volume_preferences_dirty = true
     _apply_user_volume(which)
     _save_user_volumes()
 
@@ -1220,10 +1228,23 @@ func _load_user_volumes() -> void:
 
 
 func _save_user_volumes() -> void:
-    var cfg := ConfigFile.new()
-    for which in user_volumes.keys():
-        cfg.set_value("volumes", String(which), float(user_volumes[which]))
-    cfg.save(settings_path)
+    if volume_preferences_saving:return
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):return
+    volume_preferences_saving = true
+    var revision := volume_preferences_revision
+    volume_preferences_error = volume_preferences.save(settings_path, user_volumes.duplicate(true))
+    volume_preferences_saving = false
+    volume_preferences_dirty = volume_preferences_error != OK or revision != volume_preferences_revision
+
+func user_volume_save_status() -> Dictionary:
+    return {"persisted":not volume_preferences_dirty, "error":volume_preferences_error,
+        "reason":"" if not volume_preferences_dirty else "带*的音量尚未保存，当前会话仍有效；再次调节音量可重试。"}
+
+func retry_user_volume_save() -> Dictionary:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return {"persisted":false,"error":ERR_UNAVAILABLE,"reason":"当前声音设置页已失效。"}
+    if volume_preferences_dirty:_save_user_volumes()
+    return user_volume_save_status()
 
 
 # ---- 电平/混响工具 ----

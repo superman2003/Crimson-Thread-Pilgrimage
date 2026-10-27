@@ -948,8 +948,12 @@ func _build_settings() -> void:
         slider.value=level.audio_director.get_user_volume(key) if level.audio_director!=null else 100
         slider.value_changed.connect(func(value: float):
             level.settings_selection=i
-            refresh_settings_selection()
-            if level.audio_director!=null:level.audio_director.set_user_volume(key,value))
+            if level.audio_director!=null:
+                level.audio_director.set_user_volume(key,value)
+                if level.audio_director.has_method("user_volume_save_status"):
+                    var saved: Dictionary=level.audio_director.user_volume_save_status()
+                    if not saved.get("persisted",true) and is_instance_valid(toast):toast.text=String(saved.get("reason","音量尚未保存。"))
+            refresh_settings_selection())
         settings.add_child(slider)
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
@@ -2392,11 +2396,15 @@ func move_inventory_selection(delta: int) -> void:
 
 func refresh_settings_selection() -> void:
     var rows: Array=level.AUDIO_SETTINGS_ROWS
+    var saved: Dictionary={"persisted":true,"reason":""}
+    if level.audio_director!=null and level.audio_director.has_method("user_volume_save_status"):
+        saved=level.audio_director.user_volume_save_status()
     for i in rows.size():
         var key := String(rows[i][0])
         if not settings_labels.has(key):continue
         var selected: bool = i==level._settings_selection_clamped()
-        settings_labels[key].text=("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]
+        settings_labels[key].text=("▶ " if selected else "  ")+String(rows[i][1]).split(" ")[0]+(" *" if not saved.get("persisted",true) else "")
+        settings_labels[key].tooltip_text=String(saved.get("reason",""))
         settings_labels[key].add_theme_color_override("font_color",GOLD if selected else IVORY)
 
 func _binding_name(event: InputEvent) -> String:
