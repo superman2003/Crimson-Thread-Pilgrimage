@@ -174,7 +174,7 @@ func _check_storage_recovery() -> void:
         var parent_pid := int(stat.substr(stat.rfind(")") + 2).split(" ")[1])
         check(parent_pid > 0 and store._owner_running(parent_pid),"unrelated parent owner is alive through procfs rather than child-only waitpid")
         var owner_file := String(lock.path).path_join(String(lock.owner))
-        var parent_owner := "owner_%d_parent_fixture" % parent_pid
+        var parent_owner := "owner_%d_parentfixture" % parent_pid
         check(DirAccess.rename_absolute(owner_file,String(lock.path).path_join(parent_owner)) == OK,"publish another live process as lock owner")
         check(store.save(PATH,values()) == ERR_BUSY and FileAccess.get_file_as_bytes(PATH) == original,"foreign live owner retains lock and original settings")
         check(DirAccess.rename_absolute(String(lock.path).path_join(parent_owner),owner_file) == OK,"restore owned test lock for explicit release")
