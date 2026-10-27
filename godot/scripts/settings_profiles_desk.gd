@@ -9,6 +9,7 @@ var scope: OptionButton
 var confirm: ConfirmationDialog
 var selected:=""
 var pending: Dictionary={}
+var transfer: ConfirmationDialog
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -40,12 +41,19 @@ func _build() -> void:
     window.button(actions,"更新为当前",func():ask("replace"))
     window.button(actions,"删除所选",func():ask("delete"))
     window.button(window.column,"预览并应用所选范围",func():ask("apply"))
+    var sharing: HBoxContainer=window.row(window.column)
+    var export_button: Button=window.button(sharing,"导出所选分享码",func():open_transfer("export"))
+    export_button.name="ExportSettingsCode"
+    var import_button: Button=window.button(sharing,"从分享码创建方案",func():open_transfer("import"))
+    import_button.name="ImportSettingsCode"
     window.footer()
     confirm=ConfirmationDialog.new();confirm.title="核对设置方案";confirm.min_size=Vector2i(620,250);window.add_child(confirm)
     ui.register_text_entry_window(confirm)
     confirm.confirmed.connect(_confirm)
     window.visibility_changed.connect(func():
-        if not window.visible:confirm.hide();pending={})
+        if not window.visible:
+            confirm.hide();pending={}
+            if is_instance_valid(transfer):transfer.hide())
 
 func open() -> void:
     if not ui.settings.is_visible_in_tree():return
@@ -88,3 +96,15 @@ func _confirm() -> void:
     elif request.command=="apply":result=model.apply(String(request.name),ui,int(request.scope),request.snapshot)
     else:result=model.manage(String(request.command),String(request.name),"",model.capture(ui))
     refresh();window.status.text=String(result.reason)
+
+func open_transfer(mode: String) -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
+    if not is_instance_valid(transfer):
+        transfer=preload("res://scripts/settings_profile_transfer_dialog.gd").new()
+        transfer.name="SettingsProfileTransfer"
+        transfer.theme=ui.theme
+        window.add_child(transfer)
+        ui.register_text_entry_window(transfer)
+    var source:=window.find_child("ExportSettingsCode" if mode=="export" else "ImportSettingsCode",true,false) as Control
+    if mode=="export":transfer.open_export(self,source)
+    else:transfer.open_import(self,source)

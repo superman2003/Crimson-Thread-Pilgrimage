@@ -72,6 +72,7 @@ func run() -> void:
     check(desk.confirm.get_cancel_button().has_focus(),"destructive/apply confirmation defaults to cancel")
     ui.accessibility.subtitle_size=19;desk._confirm()
     check(ui.accessibility.subtitle_size==19 and desk.window.status.text.contains("变化"),"current changes after preview require reconfirmation")
+    await preload("res://scripts/settings_profile_transfer_validation.gd").run(self,main,desk)
     main._close_overlays()
     check(not desk.window.visible and not desk.confirm.visible,"closing settings dismisses both management and confirmation windows")
     var retirement:=preload("res://scripts/audio_retirement.gd")
