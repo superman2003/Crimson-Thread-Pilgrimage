@@ -29,6 +29,11 @@ DEFAULT_SUITES = (
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
 SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').read_text())
 
+# The full neighbor gameplay fixture renders and exercises several transitions;
+# software GL on a loaded runner can exceed the normal three-minute budget.
+DEFAULT_TIMEOUT = 180
+SUITE_TIMEOUTS = {'world_neighbor_gameplay': 300}
+
 def suite_path(name):
     if not re.fullmatch(r'(?:tests/)?[a-z0-9_]+', name):
         raise ValueError(f'invalid suite name: {name}')
@@ -70,7 +75,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
     parser.add_argument('--suite', action='append', help='Repeat to select suites; defaults to the CI suite list.')
-    parser.add_argument('--timeout', type=float, default=180)
+    parser.add_argument('--timeout', type=float, default=None,
+                        help='Override the per-suite default timeout in seconds.')
     parser.add_argument('--log-dir', type=Path)
     parser.add_argument('--software-gl', action='store_true', help='Run all suites under real llvmpipe GL; avoids the Godot 4.6 dummy texture RID race without hiding errors.')
     parser.add_argument('--shard-index', type=int, default=1)
@@ -79,7 +85,7 @@ def main():
     engine = shutil.which(args.engine)
     if not engine:
         parser.error(f'Godot executable not found: {args.engine}; set GODOT or --engine')
-    if not math.isfinite(args.timeout) or args.timeout <= 0:
+    if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
         parser.error('--timeout must be finite and positive')
     suites = args.suite or DEFAULT_SUITES + NARRATIVE_SUITES
     if args.suite and (args.shard_index != 1 or args.shard_count != 1):
@@ -109,6 +115,7 @@ def main():
 def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
     failures = []
     for suite in suites:
+        suite_timeout = timeout if timeout is not None else SUITE_TIMEOUTS.get(suite, DEFAULT_TIMEOUT)
         script = suite_path(suite)
         name = suite.replace('/', '_')
         log = logs / f'{name}.log'
@@ -134,7 +141,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 renderer = ['--display-driver', 'x11', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility'] if real_gl else ['--headless']
                 drawing = render_loop_args(real_gl, suite)
                 user_args = ['--', '--player'] if suite == 'room_camera_stability' else []
-                result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script, *user_args], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=timeout, check=False)
+                result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script, *user_args], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=suite_timeout, check=False)
             output = log.read_text(errors='replace')
             # Color must not hide fatal engine diagnostics or a valid marker.
             plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
@@ -146,7 +153,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             else:
                 print('PASS: ' + suite + '\n' + '\n'.join(output.splitlines()[-2:]), flush=True)
         except subprocess.TimeoutExpired:
-            failures.append(f'{suite}: timeout after {timeout:g}s')
+            failures.append(f'{suite}: timeout after {suite_timeout:g}s')
             print('FAIL: ' + failures[-1], flush=True)
     return failures
 

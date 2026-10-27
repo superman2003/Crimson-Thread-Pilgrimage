@@ -16,6 +16,29 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
+    def test_suite_timeout_defaults_and_explicit_override_still_fail_on_timeout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scripts = root / 'godot/scripts'
+            scripts.mkdir(parents=True)
+            for suite in ('world_neighbor_gameplay', 'enemy_visibility'):
+                (scripts / f'{suite}_validation.gd').touch()
+            logs = root / 'logs'
+            logs.mkdir()
+            with patch.object(runner, 'ROOT', root), patch.object(
+                runner.subprocess, 'run', side_effect=subprocess.TimeoutExpired('godot', 1)
+            ) as launch:
+                failures = runner.run_suites('godot', ['world_neighbor_gameplay', 'enemy_visibility'],
+                                             None, logs, root / 'scratch', False, {})
+                self.assertEqual([call.kwargs['timeout'] for call in launch.call_args_list], [300, 180])
+                self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 300s',
+                                            'enemy_visibility: timeout after 180s'])
+                launch.reset_mock()
+                failures = runner.run_suites('godot', ['world_neighbor_gameplay'],
+                                             0.05, logs, root / 'scratch', False, {})
+                self.assertEqual(launch.call_args.kwargs['timeout'], 0.05)
+                self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 0.05s'])
+
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
         self.assertEqual(len(all_suites), 182)
