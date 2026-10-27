@@ -4,24 +4,24 @@
     {
       "id": "chapter_04_01",
       "npc": "npc_broken_singer",
-      "question": "接弦与外箍为什么通向不同地方？",
+      "question": "旧弦进了树心，新铜箍又接到哪里？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "内侧的弦沿着旧伤接回树心；外箍后来接上钟网。你从切口能看见它们不是同时长出的。",
-        "一种连接让声音在这里继续，另一种把它带到别处；别只因为都叫弦就算成同意。"
+        "旧弦只要我停一拍，幼根就会颤。新铜箍没有停拍的地方。",
+        "他们说树快活了，叫我再唱一会儿。后来我连“一会儿”有多长都听不清了。"
       ],
-      "reflection": "相连的线路也可能承担不同的意志。",
+      "reflection": "我沿弦看见了两种接头。她守住母株的那个音，被新箍接去了钟网。",
       "continuation": {
         "requires": [
           {
@@ -31,32 +31,32 @@
           }
         ],
         "lines": [
-          "铜根主教倒下，外箍不会自己松开。",
-          "我想先听清剩下的弦，再决定哪一根值得保留。"
+          "铜根不再催拍，我还是会自己接上下一句。",
+          "你若还在，听我停一次。别敲铃，也别提醒我该唱了。"
         ]
       }
     },
     {
       "id": "chapter_04_02",
       "npc": "npc_broken_singer",
-      "question": "园主和唱歌的人有同一个愿望吗？",
+      "question": "园主变成了主教，歌守徽呢？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "照看一株树的人，也可能害怕树发出他不熟悉的声音。",
-        "接弦伤口留下了养护，外层铜箍留下了控制；不能只用照看两个字盖住它们。"
+        "我记得徽的音。园主从外面调弦，她总怕哪里漏了一声，越调越紧。",
+        "后来大家只管树有没有活，都不再问唱的人是谁。你问了，我想把名字再说一遍：徽。"
       ],
-      "reflection": "人物的好意与伤害可以同时留下。",
+      "reflection": "歌者把“徽”念得很轻。我把她和园主分别记下，免得再认错一次。",
       "continuation": {
         "requires": [
           {
@@ -66,67 +66,32 @@
           }
         ],
         "lines": [
-          "主教已经停下了，我却不想替他唱一段和解。",
-          "若要记他的事，就把他怎样照料、又怎样束住它都写上。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_03",
-      "npc": "npc_broken_singer",
-      "question": "你愿意唱，就代表愿意永远唱吗？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "我能为这一刻答应，不能替以后的每一次呼吸答应。",
-        "旧弦有接续的地方，也有该停下的断口。"
-      ],
-      "reflection": "守护需要休止，也需要重新询问。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教不再命令树根生长，我也该有停下来听雨的时刻。",
-          "你若听见安静，先别急着替我把弦拉紧。"
+          "主教倒下时，我以为自己会替她哭，嗓子却只觉得松。",
+          "让我先坐一会儿。她照看过这里，也把这里勒得太紧，我现在说不成一句整话。"
         ]
       }
     },
     {
       "id": "chapter_04_04",
       "npc": "npc_old_gardener",
-      "question": "养根槽为什么把切口露在外面？",
+      "question": "旧切口为什么一直没有遮起来？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "修过的地方要看得到。若被新铜箍盖住，病从哪里起就很难分清。",
-        "后来加的外箍太齐整，倒让人忘了里面的根还会变。"
+        "包得太紧会烂。我年轻时嫌它丑，缠过一回，拆开的时候连好根也伤了。",
+        "后来园主装外箍，我劝她留缝。她说等这一季过去。我信了。"
       ],
-      "reflection": "去除束缚也要顾及仍依赖它的生命。",
+      "reflection": "园丁扒开旧包布给我看。他把“我信了”说了两遍。",
       "continuation": {
         "requires": [
           {
@@ -136,67 +101,32 @@
           }
         ],
         "lines": [
-          "主教倒下以后，我会先看哪处已经能自己承力。",
-          "能松开的就慢慢松，别把所有支撑一口气拔掉。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_05",
-      "npc": "npc_old_gardener",
-      "question": "照料的办法为什么会变成束缚？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "照料的人若只问树有没有照着长，不再问它还能往哪里长，就很容易这样。",
-        "养根槽的旧切口与新外箍并排着，像两种回答叠在一起。"
-      ],
-      "reflection": "照料不应把生命缩成照料者的计划。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教的命令停了，我得学着让新枝长到我没画过的地方。",
-          "手伸出去之前，先看看它是不是真的需要。"
+          "箍松了，不等于根今天就长好。我会留着这些旧痕。",
+          "以后有人来接手，得让他知道哪一种照料曾经把树弄伤。"
         ]
       }
     },
     {
       "id": "chapter_04_06",
       "npc": "npc_old_gardener",
-      "question": "修复温室要恢复到哪一天？",
+      "question": "修好温室，你最想恢复哪一样？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "我说不出一日能让每株树都满意。有些活在后来添的根上，有些正被那些根勒住。",
-        "你看见的养根槽已经有好几次接续；不存在一层毫无改动的现在。"
+        "先让西门能从里面推开。以前搬苗的人抱着盆，得拿肩膀顶很久。",
+        "我总想着先修水槽，等腾出手再修门。等到门后换成根笼，我才知道自己等过了头。"
       ],
-      "reflection": "修复的目标应当面向活着的处境。",
+      "reflection": "园丁先说门，再说树。我记住了这个次序。",
       "continuation": {
         "requires": [
           {
@@ -206,32 +136,32 @@
           }
         ],
         "lines": [
-          "主教倒了，也不能把所有后来长出的枝都判成错。",
-          "先把正受伤的地方松开，再慢慢商量留下什么。"
+          "主教倒下了，门边还是有活要干。你要去别处就去吧，我得留在这里把铰链看住。",
+          "这次不把“等下季”刻在门上了。"
         ]
       }
     },
     {
       "id": "chapter_04_07",
       "npc": "npc_root_prisoner",
-      "question": "根笼裂开就算能走了吗？",
+      "question": "笼开了以后，你打算怎么下去？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "还要看脚能落在哪里，下一口气从哪里来。出口只是退路的一头。",
-        "母株那道旧切口也是这样，接上去以后还得承得住。"
+        "先把左脚挪出来。我太久没站在地上了，别一下把我拉走。",
+        "西门那盏灯我看得到。若中间枝台能落脚，你指给我看，我自己试。"
       ],
-      "reflection": "解开束缚要连同离开的条件一起确认。",
+      "reflection": "我指了枝台，等他把左脚放稳。救人比割开一根细根慢。",
       "continuation": {
         "requires": [
           {
@@ -241,102 +171,32 @@
           }
         ],
         "lines": [
-          "主教停了，我仍会先看通往西门的那段路。",
-          "有人愿意同行很好，没有人也该给我留个能自己走的口。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_08",
-      "npc": "npc_root_prisoner",
-      "question": "你离开后还会想念温室吗？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "会。困住我的根旁边也长着我认得的叶，我没法把记忆分得那么齐。",
-        "但想念不能替铜箍辩解；我看过它接向哪里。"
-      ],
-      "reflection": "留恋一个地方不等于同意继续受困。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教倒下以后，我或许会回来看看。",
-          "回来应当是我走进来，而不是它把我拉回去。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_09",
-      "npc": "npc_root_prisoner",
-      "question": "被救的人必须留下来修园吗？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "我愿意帮的时候会帮，但若把离开换成另一份必须留下的工，那只是换了个笼。",
-        "你已经看过根系怎样把养护接成命令，不该再接一次。"
-      ],
-      "reflection": "援手不应变成新的强制承诺。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教不在以后，我想先在西门坐一会儿。",
-          "能先坐一会儿，就是我今天想要的生活。"
+          "听见上面安静，我还是会先缩一下。你别从背后叫我。",
+          "等腿不抖了，我想去西门坐着。先坐，不替谁搬苗。"
         ]
       }
     },
     {
       "id": "chapter_04_10",
       "npc": "npc_beeswax_vendor",
-      "question": "检修灯是给根系还是给人用的？",
+      "question": "你的检修灯为什么总往低处挂？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "两边都需要光，可检修的人得先看得清自己的脚，才能看根哪里坏了。",
-        "养根槽旧伤露在灯下，比擦得发亮的外箍更诚实。"
+        "上面给人看路，下面才照得见漏口。我吃过只把门面照亮的亏。",
+        "花粉蜡能稳住灯芯。你愿意去取，我付路钱；不愿意，我少点几盏，先看紧有人走的地方。"
       ],
-      "reflection": "维护的视线需要落在日常使用者身上。",
+      "reflection": "商人先算能亮几盏，再算价钱。我看见他把灯往根缝下面挪了挪。",
       "continuation": {
         "requires": [
           {
@@ -346,32 +206,32 @@
           }
         ],
         "lines": [
-          "主教停了，灯也不能只照那一处大树。",
-          "小路、工具架、能坐下的地方，都还等着补。"
+          "主教不催灯数了，我想一盏盏试，看哪盏真照到人的脚。",
+          "少卖一点也行。亮给上面数的灯，我已经点得够多。"
         ]
       }
     },
     {
       "id": "chapter_04_11",
       "npc": "npc_beeswax_vendor",
-      "question": "补好一盏灯能改变什么？",
+      "question": "补一盏灯，值得绕那么远吗？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "至少有人能在夜里看清裂口，不必摸着发烫的铜边猜。",
-        "它不能替整个温室作决定，却能让下一次决定少一点盲目。"
+        "我不知道你那条路有多难，不能替你说值。",
+        "可灯灭时，搬苗的人会拿手去摸根缝。少一条裂口没看见，明天就得有人包手。"
       ],
-      "reflection": "小的维护也有独立于终局的意义。",
+      "reflection": "我问的是值不值，他说的是谁会受伤。我看了看自己还够不够走一趟的力气。",
       "continuation": {
         "requires": [
           {
@@ -381,102 +241,32 @@
           }
         ],
         "lines": [
-          "主教倒下后，修灯仍值得做。",
-          "大事停下的空隙里，住在这里的人还得过夜。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_12",
-      "npc": "npc_beeswax_vendor",
-      "question": "回响诱铃为什么要从园工铃改来？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "园工原来靠铃互报剪枝的节拍，听见它会知道旁边有人要动手。",
-        "拿同样的声音去引开危险，仍得记住那是一种彼此提醒的手艺。"
-      ],
-      "reflection": "声音工具的含义应由共同使用者核对。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教的指令没有了，我们可以重新约定哪些声是警告，哪些是在找人。",
-          "别让一个铃声又替所有人回答所有事。"
-        ]
-      }
-    },
-    {
-      "id": "chapter_04_13",
-      "npc": "npc_broken_singer",
-      "question": "该留下树心的伤痕吗？",
-      "requires": [
-        {
-          "kind": "item",
-          "id": "testimony_04",
-          "label": "第4区证词"
-        },
-        {
-          "kind": "history",
-          "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
-        }
-      ],
-      "lines": [
-        "若伤还疼，就先顾它疼不疼。不能为了让人看懂历史，故意不让它长好。",
-        "记下接弦与外箍的不同，已经能给后来的人一条查问的路。"
-      ],
-      "reflection": "保存历史不应要求生命持续受伤。",
-      "continuation": {
-        "requires": [
-          {
-            "kind": "flag",
-            "id": "boss_down_ch04",
-            "label": "第4区守门者战后"
-          }
-        ],
-        "lines": [
-          "主教停了以后，树有机会按自己的速度愈合。",
-          "我们可以记住伤口，不必要求它永远敞开。"
+          "现在能慢慢修了，我反倒想把报酬算得更清楚。",
+          "不能前头说“帮个忙”，后头就当你会一直帮。下一盏得重新问你。"
         ]
       }
     },
     {
       "id": "chapter_04_14",
       "npc": "npc_old_gardener",
-      "question": "这里的歌最终该由谁接下去？",
+      "question": "她停下来以后，谁接着照看母株？",
       "requires": [
         {
           "kind": "item",
           "id": "testimony_04",
-          "label": "第4区证词"
+          "label": "树心接弦伤口"
         },
         {
           "kind": "history",
           "id": "ch04_broken_string_greenhouse_daily",
-          "label": "当地生产设施见闻"
+          "label": "接弦养根槽"
         }
       ],
       "lines": [
-        "先由还想唱的人试一段，再让听的人说听见了什么。",
-        "树心需要的音与钟网索取的声，已经被你看见有多不同。"
+        "我先守水，能守多少记多少。别急着找另一个会唱的人塞进去。",
+        "你拿到的伤口说明，树活着也有好几种接法。旧箍最省事，未必最能让它活久。"
       ],
-      "reflection": "延续传统可以重新分配发声的位置。",
+      "reflection": "我没替歌者接下一句。园丁先去看水，我们得容得下这一阵安静。",
       "continuation": {
         "requires": [
           {
@@ -486,8 +276,8 @@
           }
         ],
         "lines": [
-          "主教不在了，我想把指挥的位置先空出来。",
-          "让歌在几个人之间传一传，看看能不能有新的节拍。"
+          "今天先这样。等她愿意说了，我问问旧弦该怎样接。",
+          "若她不愿意，我就再找办法。不能只因她最熟，就让她永远站在那儿。"
         ]
       }
     }

@@ -2996,6 +2996,9 @@ func _close_overlays() -> void:
     var recall_dialog := get_node_or_null(DEATH_RECALL.DIALOG)
     if recall_dialog != null:
         recall_dialog.hide()
+    var ending_story := get_node_or_null("EndingStoryDesk")
+    if ending_story != null:
+        ending_story.hide()
     _notify_dialogue_closed()
     active_overlay = ""
     if backpack_panel != null:
@@ -6472,7 +6475,7 @@ func _try_interact() -> void:
     elif kind == "world_portal":
         _activate_world_portal(nearby_interactable)
     elif kind == "ending_gate":
-        _activate_ending_gate(nearby_interactable)
+        preload("res://scripts/ending_story_desk.gd").open(self, nearby_interactable)
     elif kind == "challenge_shrine":
         _activate_challenge_shrine(nearby_interactable)
     elif kind == "hunt_track":
