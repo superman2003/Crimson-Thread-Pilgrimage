@@ -1,0 +1,51 @@
+name: U01 map control layout
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/map_control_layout*.gd'
+      - 'godot/scripts/cartography_runtime.gd'
+      - 'godot/scripts/world_atlas.gd'
+      - 'godot/scripts/map_room_context.gd'
+      - 'godot/assets/ui/cartography/**'
+      - 'godot/scripts/map_player_pins_runtime.gd'
+      - 'godot/scripts/expedition_desk.gd'
+      - 'godot/scripts/survey_map_view.gd'
+      - 'godot/scripts/journal_reading.gd'
+      - 'godot/scripts/dialogue_reading_memory.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/ui/inscription/v2/**'
+      - 'godot/assets/ui/seals/**'
+      - 'tools/run_map_control_layout_contract.py'
+      - '.github/workflows/ledger-u01-map-layout.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: u01-map-layout-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-map-layout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual reading UI dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/fonts/**,godot/assets/ui/inscription/v2/**,godot/assets/ui/seals/**,godot/assets/vfx/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate actual-font control geometry, full legend reading and retired callbacks
+        run: python3 tools/run_map_control_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/map-layout-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: u01-map-control-layout
+          path: ${{ runner.temp }}/map-layout-logs

@@ -25,8 +25,10 @@ jobs:
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
+      # Cold checkout imports thousands of assets, as in godot-integration.
+      # Only resource preparation uses this budget; focused tests retain 180s.
       - name: Import twice with strict error checks
-        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 180 --log-dir "$RUNNER_TEMP/upgrade-logs/import"
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/upgrade-logs/import"
       - name: Run focused production regression under software GL
         env:
           GODOT_ENGINE: ${{ runner.temp }}/engine/Godot_v4.6.1-stable_linux.x86_64

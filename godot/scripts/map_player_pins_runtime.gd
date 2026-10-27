@@ -62,6 +62,7 @@ static func setup(level: Node) -> void:
     status.add_theme_color_override("font_color", Color("e7ad7f"))
     level.map_panel.add_child(status)
     status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
+    status.tooltip_text=status.text
 
 ## Weak captures matter before the guard: Godot reports an engine error when
 ## invoking a lambda whose captured Node was freed, even if it checks liveness.
@@ -406,7 +407,9 @@ static func _blocked(level: Node) -> Dictionary:
 
 static func _notify(level: Node, message: String) -> void:
     var status: Label = level.map_panel.get_node_or_null("PlayerPinStatus")
-    if status != null: status.text = message
+    if status != null:
+        status.text = message
+        status.tooltip_text=message
     level._toast(message)
 
 static func _commit(level: Node, result: Dictionary) -> Dictionary:
