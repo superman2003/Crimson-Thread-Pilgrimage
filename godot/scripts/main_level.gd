@@ -3863,19 +3863,7 @@ func _sync_hidden_route_clues_with_visits() -> void:
 
 
 func _notice_hidden_route_clues() -> void:
-    # A notice behind the map or a dialogue would be lost; wait until it closes.
-    if not active_overlay.is_empty():
-        return
-    for clue in hidden_route_clues:
-        if not is_instance_valid(clue) or clue.found:
-            continue
-        var entry: Dictionary = clue.get_meta("hidden_route")
-        var flag := "hidden_clue_seen_" + String(entry.id)
-        if bool(story_flags.get(flag, false)) or player.global_position.distance_to(clue.global_position) > HIDDEN_CLUE_NOTICE_RANGE:
-            continue
-        story_flags[flag] = true
-        _save_world()
-        _toast(String(entry.clue.get("line", "")))
+    preload("res://scripts/hidden_clue_notes.gd").notice(self)
 
 
 func _mark_hidden_route_found() -> void:

@@ -42,6 +42,7 @@ static func records(configs: Dictionary, flags: Dictionary, inventory: Dictionar
         var item := _record("pin",str(pin.id),pin.region_id,config,room,point,"玩家自己的已知标记；查看不会移动角色。")
         item.title = "%s图钉 #%d · %s" % [PINS.NAMES[PINS.KINDS.find(pin.kind)],int(pin.id),String(room.get("name",room.id))]
         result.append(item)
+    result.append_array(preload("res://scripts/hidden_clue_notes.gd").map_records(preload("res://scripts/world_routes.gd").cached_hidden_clues(),configs,flags))
     return result
 
 static func _known_neighbors(config: Dictionary, known: Dictionary, id: String) -> String:
@@ -80,10 +81,11 @@ static func regions(rows: Array) -> Array[Dictionary]:
     result.sort_custom(func(a: Dictionary, b: Dictionary):return a.id < b.id)
     return result
 
-static func search(rows: Array, query: String, kind: String = "all", region: String = "") -> Array:
+static func search(rows: Array, query: String, kind: String = "all", region: String = "", clue_state: String = "") -> Array:
     var result: Array = []
     var tokens := query.left(64).to_lower().strip_edges().split(" ",false)
     for row in rows:
+        if not clue_state.is_empty() and (row.get("kind","")!="clue" or row.get("clue_state","")!=clue_state):continue
         if not region.is_empty() and row.region != region:continue
         if kind != "all" and row.kind != kind:continue
         var text := (String(row.title)+" "+String(row.region_name)+" "+String(row.detail)+" "+String(row.get("floor_name",""))).to_lower()

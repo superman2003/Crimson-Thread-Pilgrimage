@@ -53,6 +53,7 @@ func run() -> void:
 	await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
 	current_scene = scene
 	await tick(4)
+	await preload("res://scripts/hidden_clue_notes_validation.gd").run(self,scene)
 	var plan: Array = ROUTES.cached_data().get("hidden_route_plan", [])
 	check(plan.size() == 8, "eight hidden rooms have a planned clue")
 	var regions := {}
