@@ -1042,6 +1042,7 @@ func get_heal_readiness() -> Dictionary:
     elif not is_on_floor() and not _heal_airborne(): reason = "airborne"
     elif absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"): reason = "moving"
     return {"available":reason=="ready", "reason":reason, "cost":heal_energy_cost,
+        "reserved":heal_reserved_cost if heal_timer>0.0 else 0,
         "missing_energy":maxi(0,heal_energy_cost-energy), "amount":mini(heal_amount,maxi(0,max_hp-hp)),
         "duration":heal_duration, "remaining":heal_timer, "cooldown":heal_cooldown,
         "interrupt_loss":int(ceil(heal_reserved_cost*heal_reserved_loss_ratio)) if heal_timer>0.0 else int(ceil(heal_energy_cost*clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)))}

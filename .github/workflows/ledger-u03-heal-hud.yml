@@ -1,0 +1,46 @@
+name: U03 paid heal HUD
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/heal_resource*.gd'
+      - 'godot/scripts/heal_reservation_track.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/vfx/**'
+      - 'godot/assets/ui/**'
+      - 'tools/run_heal_hud_contract.py'
+      - 'tools/test_heal_hud_runner.py'
+      - '.github/workflows/ledger-u03-heal-layers.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: u03-heal-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-heal-hud:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual HUD and script dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/fonts/**,godot/assets/vfx/**,godot/assets/ui/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Verify strict runner rejects failure and misleading output
+        run: python3 -m unittest discover -s tools -p test_heal_hud_runner.py -v
+      - name: Validate paid reservation display and actual healing
+        run: python3 tools/run_heal_hud_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/heal-hud-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: u03-heal-layer-contracts
+          path: ${{ runner.temp }}/heal-hud-logs

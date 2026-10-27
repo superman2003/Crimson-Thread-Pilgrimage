@@ -7,6 +7,9 @@ const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const HUD_OCCLUSION := preload("res://scripts/hud_occlusion.gd")
+const HEAL_READOUT := preload("res://scripts/heal_resource_readout.gd")
+var healing_payment: Label
+var healing_payment_track: Control
 const IVORY := Color("e8d7b8")
 const GOLD := Color("bca07a")
 const MUTED := Color("a2b3aa")
@@ -444,6 +447,9 @@ func _icon(parent: Node, asset: Texture2D, position_value: Vector2, size_value: 
     return icon
 
 func _build_hud() -> void:
+    healing_payment=HEAL_READOUT.create_label(self,display_font(),GOLD)
+    healing_payment_track=preload("res://scripts/heal_reservation_track.gd").new()
+    add_child(healing_payment_track)
     hud_card=Control.new()
     hud_card.position=Vector2(26,24)
     hud_card.size=Vector2(330,106)
@@ -2372,6 +2378,8 @@ func _refresh_combat_status(player: Node) -> void:
             mechanism_status.text+=" · %s %.1fs" % [String(mechanism.get("heal_effect","治疗效果")),float(mechanism.heal_remaining)]
         combat_status.text+="\n"+mechanism_status.text
     var heal: Dictionary=state.get("heal",{})
+    var paid:=HEAL_READOUT.apply(healing_payment,heal,int(player.energy),int(player.max_energy),level.active_overlay!="")
+    if is_instance_valid(healing_payment_track):healing_payment_track.update_snapshot(paid,level.active_overlay!="")
     healing_status.visible=not heal.is_empty() and level.active_overlay==""
     if not heal.is_empty():
         var reason := String(heal.get("reason","busy"))
@@ -2706,7 +2714,7 @@ func _ending_status_label(entry: Dictionary) -> String:
     return "准备中"
 
 func _hud_groups() -> Dictionary:
-    return {"top":[hud_card,mechanism_status,healing_status,healing_bar,pinned],"tactical":tactical_cards}
+    return {"top":[hud_card,mechanism_status,healing_status,healing_bar,healing_payment,healing_payment_track,pinned],"tactical":tactical_cards}
 
 ## The player, enemies and their attacks take priority over HUD chrome: a group
 ## with any of them behind it on screen fades until the space is clear again.
