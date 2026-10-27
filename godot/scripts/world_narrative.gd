@@ -253,7 +253,9 @@ func main_line(inventory: Dictionary, flags: Dictionary, evidence: Dictionary = 
         {"label": "结局：" + ("已选择「%s」" % title if not selected.is_empty() else "尚未选择"), "complete": not selected.is_empty()},
     ]
     var guidance := "选择已经做出；回到各区看看它留下了什么。" if not selected.is_empty() else ("王冠已倒，结局之门在六印前廊等你。" if crown else "继续探索，击败守门者，前往无声王冠。")
-    return {"id": "main_line", "title": String(story_data.get("main_story", {}).get("title", "主线")), "goal": String(story_data.get("main_story", {}).get("protagonist_goal", "")), "steps": steps, "guidance": guidance}
+    var journey := preload("res://scripts/narrative_journey.gd")
+    var current_goal := "你已选择「%s」。沿旧路回到相识的人身边，看看它留下的代价。" % title if not selected.is_empty() else journey.goal(inventory, flags)
+    return {"id": "main_line", "title": String(story_data.get("main_story", {}).get("title", "主线")), "goal": current_goal, "steps": steps, "guidance": guidance, "reflections": journey.reflections(inventory, flags)}
 
 ## N05: what the chosen ending changed at this region's shrine; {} before a choice.
 func aftermath_scene(region_id: String, flags: Dictionary) -> Dictionary:

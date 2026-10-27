@@ -2732,6 +2732,11 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
             for row in entry.get("aftermath_rows",[]):
                 if bool(row.get("seen",false)):lines.append("● %s：%s" % [String(row.get("region_name","")),String(row.get("text",""))])
                 else:lines.append("○ %s：回到那里的钟龛看看。" % String(row.get("region_name","")))
+        if chosen:
+            for scene in preload("res://scripts/narrative_journey.gd").epilogue(String(entry.get("id","")),level.story_flags):
+                lines.append("\n尾声 · "+String(scene.title))
+                lines.append(String(scene.text))
+                lines.append("巡礼者 · "+String(scene.response))
     elif String(entry.get("record_kind",""))=="enemy":
         category="敌人 · 已击败"
         lines.append(String(entry.get("description","")))
@@ -2741,6 +2746,10 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         lines.append(String(entry.get("goal","")))
         for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
         lines.append("\n"+String(entry.get("guidance","")))
+        for reflection in entry.get("reflections",[]):
+            lines.append("\n已拼起的故事 · "+String(reflection.title))
+            lines.append(String(reflection.text))
+            lines.append("巡礼者手记："+String(reflection.question))
     elif String(entry.get("record_kind",""))=="quest":
         category="委托 · "+("已完成" if String(entry.get("status",""))=="complete" else "进行中")
         lines.append(String(entry.get("description","")))
