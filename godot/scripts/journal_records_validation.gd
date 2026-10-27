@@ -3,7 +3,7 @@ const JOURNAL := preload("res://scripts/enemy_journal.gd")
 const WORLD := preload("res://scripts/world_state.gd")
 
 static func filters_match(buttons: Dictionary) -> bool:
-    var expected:=["all","main","quest","evidence","enemy","ending","guide","ability","voice"]
+    var expected:=["all","main","quest","evidence","enemy","ending","guide","ability","people","voice"]
     if buttons.size()!=expected.size():return false
     for id in expected:
         if not buttons.get(id) is Button:return false
@@ -23,7 +23,7 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     ui.refresh_inventory()
     await tree.process_frame
     check.call(ui.bag_grid.get_child_count()==0 and ui.bag_name.text=="尚无敌人记录","empty enemy category explains discovery without listing future enemies")
-    check.call(ui.journal_filters.visible and filters_match(ui.journal_filter_buttons),"real journal contains exactly the six original filters, guide, earned ability and earned voice")
+    check.call(ui.journal_filters.visible and filters_match(ui.journal_filter_buttons),"real journal contains exactly the six original filters, guide, earned ability, people and earned voice")
     var contained := true
     for button in ui.journal_filter_buttons.values():contained=contained and ui.bag.get_global_rect().encloses(button.get_global_rect())
     check.call(contained and ui.bag_scroll.position.y>=ui.journal_filters.position.y+ui.journal_filters.size.y,"filter controls fit the scaled panel above the scrolling records")

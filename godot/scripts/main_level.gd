@@ -1715,6 +1715,8 @@ func _commit_world_dialogue() -> void:
     var result: Dictionary = area.get_meta("world_dialogue_result", {})
     if bool(story_flags.get("quest_bring_names_rewarded", false)):
         story_flags["reward_returned_names_claimed"] = true
+    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",result),displayed_index,String(config.get("id","")))
+    if not recollection.is_empty():story_flags[recollection]=true
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])
@@ -6917,6 +6919,13 @@ func _talk_to_npc(area: Area2D) -> void:
 # after_boss -> after_ability -> repeat. NPCs without story_dialogue fall back
 # to the legacy dialogue array untouched.
 func _resolve_npc_lines(area: Area2D) -> Array:
+    var lines:=_resolve_npc_lines_source(area)
+    if world_mode:
+        var result:=preload("res://scripts/npc_recollections.gd").resolved_result(String(area.get_meta("npc_id",area.name)),area.get_meta("world_dialogue_result",{}),String(area.get_meta("dialogue_state","repeat")),lines,String(config.get("id","")))
+        area.set_meta("world_recollection_result",result)
+    return lines
+
+func _resolve_npc_lines_source(area: Area2D) -> Array:
     var fallback: Array = area.get_meta("dialogue", [])
     if world_mode and world_narrative != null:
         var result := world_narrative.resolve(String(area.get_meta("npc_id", area.name)), fallback, inventory_counts.keys(), story_flags, inventory_counts)
@@ -6997,6 +7006,8 @@ func _wish_dialogue_candidate(area: Area2D, flags: Dictionary, wallet: int) -> D
         flags["npc_met_%s" % String(area.get_meta("npc_id", area.name))] = true
     if bool(flags.get("quest_bring_names_rewarded", false)):
         flags["reward_returned_names_claimed"] = true
+    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",area.get_meta("world_dialogue_result",{})),index,String(config.get("id","")))
+    if not recollection.is_empty():flags[recollection]=true
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
     for flag in completion.flags:flags[String(flag)] = true
     wallet += int(completion.rewards.get("currency", 0))

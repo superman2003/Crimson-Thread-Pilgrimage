@@ -589,7 +589,7 @@ func _build_bag() -> void:
     journal_filters.add_theme_constant_override("separation",9)
     journal_filters.visible=false
     bag.add_child(journal_filters)
-    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["voice","自述"]]
+    var filters:=[["all","全部"],["main","主线"],["quest","委托"],["evidence","证词"],["enemy","敌人"],["ending","结局"],["guide","手册"],["ability","能力"],["people","人物"],["voice","自述"]]
     var filter_width:=floorf((645.0-(filters.size()-1)*9.0)/filters.size())
     for pair in filters:
         var filter_id:=String(pair[0])
@@ -2410,6 +2410,7 @@ func _refresh_journal() -> void:
     var records: Array=preload("res://scripts/field_guide.gd").records(heal,guide_bindings,recall.bosses_defeated(level.story_flags)>=recall.REQUIRED_BOSSES,level.inventory_counts)
     records.append_array(preload("res://scripts/scene_history.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts))
+    records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -2479,6 +2480,9 @@ func _refresh_journal() -> void:
         if journal_filter=="ability":
             bag_name.text="尚无已取得的永久能力"
             bag_description.text="在旅途中实际取得能力后，这里会区分其用途与操作；不用装备铭饰就能使用已取得的永久能力。"
+        if journal_filter=="people":
+            bag_name.text="尚无已确认的交谈"
+            bag_description.text="完整读完交谈并成功留下记录后，可以在这里回看相识之人的话。"
         if journal_filter=="voice":
             bag_name.text="尚无自述"
             bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
@@ -2495,6 +2499,7 @@ func _refresh_journal() -> void:
         elif entry.record_kind=="main":status="主线"
         elif entry.record_kind=="guide":status=preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "可回看"
         elif entry.record_kind=="voice":status="旅途自述"
+        elif entry.record_kind=="people":status="已确认交谈 · %d处重逢" % entry.get("places",[]).size()
         elif entry.record_kind=="enemy":status="已击败"
         elif entry.record_kind=="ending":status=_ending_status_label(entry)
         var public:=_journal_presentation(entry)
@@ -2524,6 +2529,9 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         lines.append(String(entry.get("text","")))
         lines.append("\n地点："+String(entry.get("place","")))
         lines.append("\n环境见闻保留了观察，不计入六区原始证词。")
+    elif String(entry.get("record_kind",""))=="people":
+        category="人物重逢 · 已确认交谈"
+        lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="voice":
         category="自述 · 获得能力之后"
         lines.append(String(entry.get("description","")))
