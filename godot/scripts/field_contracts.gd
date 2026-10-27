@@ -42,6 +42,36 @@ static func entries(level: Node, accepted_only: bool=false) -> Array:
             "accepted":accepted,"claimed":claimed,"ready":complete,"reward_name":contract.reward_name,"region":contract.region})
     return result
 
+static func regions(rows: Array) -> Array[Dictionary]:
+    var seen: Dictionary={}
+    var result: Array[Dictionary]=[]
+    for row in rows:
+        var id:=String(row.get("region",""))
+        if id.is_empty() or seen.has(id):continue
+        seen[id]=true
+        result.append({"id":id,"name":String(row.get("title","")).get_slice("·",0)})
+    return result
+
+static func browse(rows: Array, query: String, mode: int = 0, region: String = "") -> Array:
+    var result: Array=[]
+    var tokens:=query.left(80).to_lower().replace("　"," ").replace("\t"," ").replace("\n"," ").split(" ",false)
+    for row in rows:
+        if not region.is_empty() and row.get("region")!=region:continue
+        var accepted:=marked(row,"accepted")
+        var claimed:=marked(row,"claimed")
+        var ready:=marked(row,"ready")
+        if mode==1 and (accepted or claimed):continue
+        if mode==2 and (not accepted or claimed):continue
+        if mode==3 and not claimed:continue
+        if mode==4 and (not accepted or not ready or claimed):continue
+        var text:=(String(row.get("title",""))+"\n"+String(row.get("description",""))).to_lower()
+        for step in row.get("steps",[]):text+="\n"+String(step.get("label","")).to_lower()
+        var matches:=true
+        for token in tokens:
+            if not text.contains(token):matches=false;break
+        if matches:result.append(row.duplicate(true))
+    return result
+
 static func quote(level: Node, id: String, action: String) -> Dictionary:
     if not preload("res://scripts/field_transaction.gd").ready(level):return {"ok":false,"reason":"请在钟龛旁打开构筑页。"}
     var canonical: Dictionary={}

@@ -6,6 +6,7 @@ var list: ItemList
 var detail: RichTextLabel
 var query: LineEdit
 var filter: OptionButton
+var region_filter: OptionButton
 var confirm: ConfirmationDialog
 var rows: Array=[]
 var selected:=""
@@ -28,10 +29,12 @@ func _build() -> void:
     ui.build_panel.add_child(window);window.title="六区巡礼契约";window.bind_overlay(ui,ui.build_panel)
     window.text(window.column,"每区巡查与守路两份契约。最多同时三份；真实探索记录可回溯登记，巡礼印只领取一次。",42)
     var filters: HBoxContainer=window.row(window.column)
-    query=window.search(filters,"搜索已到地区的契约",func(_value: String):refresh())
+    query=window.search(filters,"搜索契约与已公开的步骤",func(_value: String):refresh())
     filter=OptionButton.new();filters.add_child(filter)
-    for label in ["全部已知","可接取","进行中","已结算"]:filter.add_item(label)
+    for label in ["全部已知","可接取","进行中","已结算","待登记回礼"]:filter.add_item(label)
     filter.item_selected.connect(func(_index: int):refresh())
+    region_filter=OptionButton.new();filters.add_child(region_filter)
+    region_filter.item_selected.connect(func(_index: int):refresh())
     var columns: HBoxContainer=window.row(window.column)
     list=ItemList.new();list.custom_minimum_size=Vector2(315,310);columns.add_child(list)
     detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(575,310);columns.add_child(detail)
@@ -50,18 +53,21 @@ func open() -> void:
     refresh();window.popup_centered();query.grab_focus()
 
 func refresh() -> void:
+    var known:=CONTRACTS.entries(ui.level)
+    var region:=String(region_filter.get_selected_metadata()) if region_filter.item_count>0 else ""
+    region_filter.clear();region_filter.add_item("全部已知地区");region_filter.set_item_metadata(0,"")
+    for place in CONTRACTS.regions(known):
+        region_filter.add_item(String(place.name));var index:=region_filter.item_count-1
+        region_filter.set_item_metadata(index,String(place.id))
+        if place.id==region:region_filter.select(index)
     rows=[];list.clear()
-    for row in CONTRACTS.entries(ui.level):
-        if filter.selected==1 and row.accepted:continue
-        if filter.selected==2 and (not row.accepted or row.claimed):continue
-        if filter.selected==3 and not row.claimed:continue
-        if not query.text.strip_edges().is_empty() and not (String(row.title)+String(row.description)).contains(query.text.strip_edges()):continue
+    for row in CONTRACTS.browse(known,query.text,filter.selected,String(region_filter.get_selected_metadata())):
         rows.append(row);list.add_item(String(row.title)+(" · 已结算" if row.claimed else " · 可登记" if row.accepted and row.ready else " · 进行中" if row.accepted else " · 可接取"))
         if row.contract_id==selected:list.select(list.item_count-1)
     if list.get_selected_items().is_empty() and list.item_count>0:list.select(0);selected=String(rows[0].contract_id)
     if rows.is_empty():selected=""
     _selection()
-    window.status.text="可读契约%d份；接取、取消和回礼均须在钟龛旁确认。" % rows.size()
+    window.status.text="符合筛选%d / 已知%d份 · 待登记回礼%d份；操作仍须在钟龛旁确认。" % [rows.size(),known.size(),CONTRACTS.browse(known,"",4).size()]
 
 func _selection() -> void:
     detail.text="尚无匹配的已知契约。"
