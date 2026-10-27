@@ -473,6 +473,8 @@ func _tick_shrine_lullaby() -> void:
 ## 战斗层轮询：0.25s 一拍读取敌人 combat_engaged()（巡逻、回位、蛰伏、守点之外
 ## 即视为交战；旧接口按 last_ai_decision 的 patrol/return 判定），离战 4s 冷静期才收层（防抽泵）。
 func _tick_combat_layer(tick: float, enemies: Array) -> void:
+    if boss_active:
+        return
     var engaged := false
     for enemy_variant in enemies:
         var enemy_node := enemy_variant as Node
@@ -680,10 +682,12 @@ func _fade_explore_resume(seconds: float) -> void:
 
 func enter_combat() -> void:
     _stop_npc_landmarks()
-    if combat_active:
+    if boss_active or combat_active:
         return
     combat_active = true
-    if not autoplay_enabled or boss_active:
+    if lullaby_active:
+        stop_lullaby()
+    if not autoplay_enabled:
         return
     var stream := load_cached(_combat_layer_path(), true)
     if stream == null:
@@ -702,7 +706,7 @@ func enter_combat() -> void:
         return
     combat_player.stream = stream
     combat_player.volume_db = SILENT_DB
-    combat_player.play()
+    combat_player.play(preload("res://scripts/music_layer_phase.gd").start_position(explore_player, stream))
     if is_inside_tree():
         combat_tween = create_tween()
         combat_tween.tween_property(combat_player, "volume_db", COMBAT_LAYER_DB, 0.8)
@@ -728,6 +732,8 @@ func exit_combat() -> void:
 
 ## Boss 进场收战斗层：0.3s 快速淡出后停（原为硬停）。
 func _fade_out_combat_layer() -> void:
+    combat_active = false
+    combat_calm_time = 0.0
     if combat_tween != null and combat_tween.is_valid():
         combat_tween.kill()
     if combat_player == null or not is_instance_valid(combat_player) or not combat_player.playing:
@@ -750,6 +756,7 @@ func start_boss_music(boss_id: String) -> void:
     boss_active = true
     active_boss_id = boss_id
     boss_phase = 1
+    _fade_out_combat_layer()
     if not autoplay_enabled:
         return
     # 摇篮曲×Boss 互斥：boss_active 已置位，stop_lullaby 不会误恢复探索曲。
@@ -759,7 +766,6 @@ func start_boss_music(boss_id: String) -> void:
         # 终 Boss 三乐章预载进流缓存：相变切换零磁盘 IO。
         for movement_path in FINAL_BOSS_MOVEMENTS:
             load_cached(String(movement_path), true)
-    _fade_out_combat_layer()
     _fade_explore_to_pause(BOSS_ENTER_EXPLORE_FADE_S)
     var stream := load_cached(_boss_track_path(boss_id, 1), true)
     if stream == null:
@@ -826,9 +832,10 @@ func _finish_boss_stop() -> void:
 func start_lullaby() -> void:
     if lullaby_active:
         return
-    if boss_active:
-        # Boss 战中不进摇篮曲且不置位（修死锁）：Boss 收尾后由 _tick_shrine_lullaby 重触发。
+    if boss_active or combat_active:
+        # Active threats keep the shrine poll pending until the calm window ends.
         return
+    _fade_out_combat_layer()
     lullaby_active = true
     if not autoplay_enabled:
         return
