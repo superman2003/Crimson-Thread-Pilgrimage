@@ -44,6 +44,11 @@ func model_checks() -> void:
     check(FILTER.select(items,"tool",{},"",true).shown == 0, "family mismatch never becomes compatible")
     check(FILTER.select(items,"thread_skill",{},"",true).shown == 2, "legacy layouts remain filterable without inventing lock state")
     check(FILTER.select([null,4,"needle",{}],"tool",{},"needle",false).shown == 0, "malformed non-entries do not become matches")
+    var occupied:=entry("needle","丝针","thread_skill")
+    occupied.equipped_slots=[0]
+    check(not FILTER.can_assign(occupied,"thread_skill",slot("thread_skill",1,["needle"])), "compatible whitelist cannot duplicate an item in another slot")
+    check(FILTER.can_assign(occupied,"thread_skill",slot("thread_skill",0,["needle"])), "currently equipped slot may retain its own item")
+    check(FILTER.select([occupied],"thread_skill",slot("thread_skill",1,["needle"]),"",true).shown==0, "occupied-other-slot row is removed from actual compatible view")
     var memory := FILTER.new()
     for family in FILTER.FAMILIES:
         memory.remember(family,family,true)
@@ -200,9 +205,39 @@ func focus_checks() -> void:
     grid.queue_free()
     await process_frame
 
+func production_quote_checks() -> void:
+    var system:=preload("res://scripts/build_system.gd").new()
+    system.state.unlocked_passives=system.catalog.passives.keys()
+    system.state.mechanisms=["crimson"]
+    check(system.equip_family_slot("mender","combat_accessory",0).ok, "actual fixture equips first accessory")
+    var before:=system.serialize()
+    var duplicate: Dictionary=system.quote_family_slot("mender","combat_accessory",1)
+    check(not duplicate.ok and duplicate.reason.contains("两个槽位"), "production quote rejects occupied accessory")
+    check(system.serialize()==before, "quoting cannot change actual build")
+    check(system.quote_family_slot("mender","combat_accessory",0).ok, "production quote allows unchanged current slot")
+    check(system.equip_family_slot("reflux","combat_accessory",1).ok, "actual fixture prepares exclusion group")
+    var excluded: Dictionary=system.quote_family_slot("tide_reel","combat_accessory",2)
+    check(not excluded.ok and excluded.reason.contains("互斥"), "quote shares actual mutual-exclusion gate")
+    check(system.equip_family_slot("spur","travel_accessory",0).ok==false, "fixture cannot exceed actual crest capacity")
+    var snapshot: Dictionary=system.get_snapshot()
+    var row: Dictionary={}
+    for family in snapshot.slot_families:
+        if family.id=="combat_accessory":row=family
+    var validator:=func(value: Dictionary,family: String,selected: Dictionary):
+        return bool(system.quote_family_slot(String(value.id),family,int(selected.index)).ok)
+    var filtered:=FILTER.select(row.options,"combat_accessory",row.slots[2],"",true,validator)
+    var found: Array=[]
+    for value in filtered.entries:found.append(value.id)
+    check(not found.has("mender") and not found.has("tide_reel"), "actual filtered options exclude duplicates and mutually exclusive accessories")
+    check(not system.quote_family_slot("mender","combat_accessory",0,false).ok, "readiness cannot bypass workstation gate")
+    var quote: Dictionary=system.quote_family_slot("mender","combat_accessory",0)
+    quote.families.combat_accessory[0]=""
+    check(system.state.equipped_families.combat_accessory[0]=="mender", "quote data never aliases live equipment")
+
 func run() -> void:
     model_checks()
     await runtime_checks()
     await focus_checks()
+    production_quote_checks()
     print("EQUIPMENT_CATALOG_FILTER checks=%d failures=%d" % [checks,failures])
     quit(1 if failures else 0)

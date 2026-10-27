@@ -32,6 +32,11 @@ static func can_assign(entry: Dictionary, family: String, slot: Dictionary) -> b
         return false
     if String(entry.get("slot_family", family)) != family:
         return false
+    var occupied: Variant=entry.get("equipped_slots",[])
+    if not occupied is Array:return false
+    var selected:=int(slot.get("index",-1))
+    for index in occupied:
+        if not index is int or index!=selected:return false
     if slot.is_empty():
         return true
     if not bool(slot.get("unlocked", false)):
@@ -39,7 +44,7 @@ static func can_assign(entry: Dictionary, family: String, slot: Dictionary) -> b
     var compatible: Variant = slot.get("compatible", [])
     return compatible is Array and (compatible.is_empty() or compatible.has(String(entry.get("id", ""))))
 
-static func select(entries: Array, family: String, slot: Dictionary, query: String, only_compatible: bool) -> Dictionary:
+static func select(entries: Array, family: String, slot: Dictionary, query: String, only_compatible: bool, validator: Callable = Callable()) -> Dictionary:
     var visible: Array = []
     var total := 0
     for value in entries:
@@ -50,6 +55,8 @@ static func select(entries: Array, family: String, slot: Dictionary, query: Stri
         if not matches(entry, query):
             continue
         if only_compatible and not can_assign(entry, family, slot):
+            continue
+        if only_compatible and validator.is_valid() and not bool(validator.call(entry,family,slot)):
             continue
         visible.append(entry.duplicate(true))
     var empty_reason := "没有匹配的装备，试试其他名称或清除搜索。"

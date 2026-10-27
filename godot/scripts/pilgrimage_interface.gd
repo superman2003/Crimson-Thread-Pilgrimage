@@ -1737,6 +1737,7 @@ func _confirm_tool_resupply() -> void:
 
 func refresh_build() -> void:
     if build_grid==null:return
+    var system: Variant=level.call("get_build_system") if level!=null and level.has_method("get_build_system") else null
     var snapshot:=_build_snapshot()
     last_build_signature=JSON.stringify(snapshot)
     for child in build_grid.get_children():
@@ -1835,7 +1836,11 @@ func refresh_build() -> void:
     for tab in build_tabs:tab.add_theme_stylebox_override("normal",_tab_style(String(tab.get_meta("build_category",""))==build_category))
     if equipment_search!=null and equipment_search.visible:
         var selected_slot: Dictionary=slots[build_assign_slot] if has_typed_layout and build_assign_slot<slots.size() else {}
-        var filtered:=equipment_filter.select(entries,family_id,selected_slot,equipment_search.text,equipment_compatible.button_pressed)
+        var validator:=Callable()
+        if system!=null and system.has_method("quote_family_slot"):
+            validator=func(entry: Dictionary,family: String,slot: Dictionary):
+                return bool(system.quote_family_slot(String(entry.get("id","")),family,int(slot.get("index",build_assign_slot)),true).ok)
+        var filtered:=equipment_filter.select(entries,family_id,selected_slot,equipment_search.text,equipment_compatible.button_pressed,validator)
         entries=filtered.entries
         equipment_compatible.text="仅可装入此槽 · %d/%d" % [filtered.shown,filtered.total]
         if entries.is_empty():
@@ -1869,6 +1874,10 @@ func refresh_build() -> void:
         var compatible: Array=slot.get("compatible",[]) if not slot.is_empty() else []
         var item_family:=String(entry.get("slot_family",family_id))
         var can_assign: bool=bool(entry.get("unlocked",true)) and (not has_typed_layout or (bool(slot.get("unlocked",false)) and item_family==family_id and (compatible.is_empty() or compatible.has(id))))
+        if has_typed_layout:
+            can_assign=can_assign and equipment_filter.can_assign(entry,family_id,slot)
+            if system!=null and system.has_method("quote_family_slot"):
+                can_assign=bool(system.quote_family_slot(id,family_id,build_assign_slot,true).ok)
         if has_typed_layout and not compatible.is_empty() and not compatible.has(id):text="× "+text+" · 不兼容"
         var button:=_button(build_grid,text,Vector2.ZERO,Vector2(563,54),func():
             build_selection=id

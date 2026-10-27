@@ -68,6 +68,7 @@ def main():
             return 1
         cases = (
             ('equipment_catalog_filter_validation.gd', r'^EQUIPMENT_CATALOG_FILTER checks=[1-9][0-9]* failures=0$'),
+            ('seal_system_validation.gd', r'^SEAL SYSTEM PASS: [1-9][0-9]* checks$'),
             ('loadout_workbench_validation.gd', r'^LOADOUT_WORKBENCH checks=[1-9][0-9]* failures=0$'),
             ('world_reading_session_validation.gd', r'^WORLD_READING_SESSION checks=[1-9][0-9]* failures=0$'),
             ('build_slots_ui_validation.gd', r'^BUILD_SLOTS_UI_VALIDATION .* checks=[1-9][0-9]* failures=0 capture='),
