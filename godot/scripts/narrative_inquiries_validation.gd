@@ -33,6 +33,7 @@ class Level extends Node2D:
 
 class Shell extends Control:
     var level: Node
+    var dialogue: Control
     var dialogue_area: Area2D
     var dialogue_inquiry_button: Button
     var modal_closed_frame := -1
@@ -97,6 +98,9 @@ func run() -> void:
     check(INQUIRIES.held(1) and INQUIRIES.held(1.0), "positive integral ownership accepted")
     for value in [1, "true", [], {}]:
         check(not INQUIRIES.source_met({"kind":"flag", "id":"boss_down_ch01", "label":"test"}, {}, {"boss_down_ch01":value}), "flags require literal bool")
+    for ending in ["ending_a_done", "ending_b_done", "ending_c_done"]:
+        for value in [1, "true", []]:
+            check(not INQUIRIES.source_met({"kind":"flag", "id":ending, "label":"test"}, {}, {ending:value}), "malformed ending flag is not a choice")
     check(INQUIRIES.quote({"id":"forged"}, {}, {}).is_empty(), "malformed entry denied")
     check(not INQUIRIES.sources_met([], {}, {}), "empty requirements fail closed")
     var conflict := {"ending_a_done":true, "ending_b_done":true}
@@ -107,6 +111,8 @@ func run() -> void:
     level.add_child(level.player)
     var ui := Shell.new()
     root.add_child(ui)
+    ui.dialogue = Control.new()
+    ui.add_child(ui.dialogue)
     ui.level = level
     level.ui_shell = ui
     var area := Area2D.new()
@@ -140,6 +146,9 @@ func run() -> void:
     detached[0].question = "outside mutation"
     check(INQUIRIES.catalog()[0].question != detached[0].question, "catalog is detached")
     check(INQUIRIES.available("missing_npc", level.inventory_counts, level.story_flags).is_empty(), "unknown speaker has no questions")
+    ui.dialogue.hide()
+    check(not INQUIRIES.can_talk(ui, area), "hidden parent conversation denies commit")
+    ui.dialogue.show()
     area.position.x = 151
     check(not INQUIRIES.can_talk(ui, area), "distance rechecked")
     area.position.x = 0
