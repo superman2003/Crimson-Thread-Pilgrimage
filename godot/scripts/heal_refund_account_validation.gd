@@ -134,12 +134,16 @@ func reentrant_channel() -> void:
     check(player._try_heal(), "new-channel fixture pays original reservation")
     player.gain_energy(50)
     var entered := [false]
+    var states: Array[String]=[]
+    var state_observer:=func(state: String):states.append(state)
+    player.heal_state_changed.connect(state_observer)
     var watcher := func(_energy: int,_maximum: int):
         player.heal_cooldown = 0
         entered[0] = player._try_heal()
     player.energy_changed.connect(watcher,CONNECT_ONE_SHOT)
     player._interrupt_heal()
     check(entered[0] and player.heal_timer > 0, "listener can start an explicitly unlocked newer channel")
+    check(states==["started"], "outer interruption cannot publish stale state after newer channel starts")
     check(player.heal_reserved_practice == 10 and player.practice_energy == 0, "new channel reserves refunded practice before using real thread")
     var generation: int = player.heal_reservation_generation
     player._interrupt_heal()
@@ -161,6 +165,24 @@ func full_loss_and_completion() -> void:
     check(player.hp == 4 and player.energy == 40 and player.practice_energy == 0, "completed heal still spends original cost and grants authored HP")
     player._interrupt_heal()
     check(player.energy == 40, "completed heal cannot later be refunded")
+    await release(player)
+
+func reentrant_completion() -> void:
+    var player:=make_player()
+    check(player._try_heal(), "completion callback fixture begins")
+    var states: Array[String]=[]
+    var observer:=func(state: String):states.append(state)
+    player.heal_state_changed.connect(observer)
+    var listener:=func(_hp: int):
+        player.gain_energy(60)
+        player.heal_cooldown=0
+        player._try_heal()
+    player.hp_changed.connect(listener,CONNECT_ONE_SHOT)
+    player._update_heal(1.2)
+    check(player.hp==4 and player.heal_timer>0 and player.heal_reserved_cost==60, "HP callback can start an explicitly unlocked new paid channel")
+    check(states==["started"], "old completion cannot overtake new-channel notification")
+    player._interrupt_heal()
+    check(player.energy==70 and player.heal_timer==0, "new reservation remains independently refundable")
     await release(player)
 
 func provenance_changes() -> void:
@@ -253,6 +275,7 @@ func run() -> void:
     await reentrant_settlement()
     await reentrant_channel()
     await full_loss_and_completion()
+    await reentrant_completion()
     await provenance_changes()
     await reentrant_practice_payment()
     await actual_training_contacts()

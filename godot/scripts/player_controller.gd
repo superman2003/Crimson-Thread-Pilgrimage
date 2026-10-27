@@ -1079,6 +1079,7 @@ func _update_heal(delta: float) -> void:
     heal_timer = maxf(0.0, heal_timer - delta)
     if heal_timer <= 0.0:
         heal_reservation_generation += 1
+        var completed_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
@@ -1087,7 +1088,8 @@ func _update_heal(delta: float) -> void:
         _seal_heal_completed()
         HEAL_ART.completed(self)
         hp_changed.emit(hp)
-        heal_state_changed.emit("completed")
+        if heal_reservation_generation==completed_generation:
+            heal_state_changed.emit("completed")
 
 
 func _interrupt_heal() -> void:
@@ -1097,6 +1099,7 @@ func _interrupt_heal() -> void:
             energy,max_energy,practice_energy)
         # Clear the reservation and block recasts before emitting energy_changed.
         heal_reservation_generation += 1
+        var settled_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
@@ -1105,7 +1108,8 @@ func _interrupt_heal() -> void:
         # Publish provenance before gain_energy emits. Reentrant listeners may
         # leave practice or pay a newer heal before this call returns.
         _apply_thread_balance(int(settled.energy_after),int(settled.practice_after))
-        heal_state_changed.emit("interrupted")
+        if heal_reservation_generation==settled_generation:
+            heal_state_changed.emit("interrupted")
 
 
 func apply_build_stats(stats: Dictionary) -> void:
