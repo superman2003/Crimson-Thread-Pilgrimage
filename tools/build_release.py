@@ -14,6 +14,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from release_save_contract import smoke_save_contract
 
 ROOT = Path(__file__).resolve().parents[1]
 TARGETS = {
@@ -297,7 +298,8 @@ def main() -> int:
             manifest = {'schema_version': 1, 'source_commit': commit, 'source_dirty': dirty,
                         'target': args.target, 'engine': version,
                         'validation': ['source-inputs', 'isolated-import', 'release-export', 'archive-integrity',
-                                       'unpacked-first-start', 'unpacked-resume-writeback'],
+                                       'unpacked-first-start', 'unpacked-resume-writeback',
+                                       'unpacked-three-slot-isolation', 'unpacked-damaged-save-preservation'],
                         'qualification': 'candidate; headless startup is not full gameplay, visual, audio or ending acceptance'}
             archive = work / f'{name}.zip'
             package_directory(payload, archive, manifest)
@@ -306,6 +308,7 @@ def main() -> int:
             shutil.rmtree(payload)
             unpacked = unpack_verified_package(archive, work / 'unpacked')
             smoke_package(unpacked / executable, logs, args.timeout)
+            smoke_save_contract(unpacked / executable, logs, args.timeout, run_checked)
             shutil.copy2(archive, output / archive.name)
             shutil.copy2(archive.with_name(archive.name + '.sha256'), output / (archive.name + '.sha256'))
         print(f'RELEASE_CANDIDATE_PASS {output / (name + ".zip")}', flush=True)

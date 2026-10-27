@@ -7,7 +7,7 @@
     "font:check": "node tools/run_python_tool.mjs tools/apply_global_font.py check",
     "font:restore": "node tools/run_python_tool.mjs tools/apply_global_font.py restore",
     "font:coverage": "node tools/run_python_tool.mjs tools/check_font_coverage.py",
-    "test:export": "node tools/run_python_tool.mjs tools/test_export_audit.py && node tools/run_python_tool.mjs tools/audit_export_contents.py",
+    "test:export": "node tools/run_python_tool.mjs tools/test_export_audit.py && node tools/run_python_tool.mjs tools/test_release_save_contract.py && node tools/run_python_tool.mjs tools/audit_export_contents.py",
     "test:font": "node tools/run_python_tool.mjs tools/test_apply_global_font.py && node tools/run_python_tool.mjs tools/test_font_coverage.py && npm run font:check && npm run font:coverage",
     "check": "node --check tools/build_item_lore.mjs && node --check tools/handcraft_ch01_boxgarden.mjs && node --check tools/handcraft_ch02_boxgarden.mjs && node --check tools/run_python_tool.mjs",
     "test:enemy-runtime": "node tools/run_python_tool.mjs tools/validate_enemy_runtime_manifest_coverage.py --min-unique-enemies 40",
