@@ -151,6 +151,10 @@ func ui_checks() -> void:
     ui._refresh_combat_status(world.player)
     check(ui.healing_payment.visible and ui.healing_payment_track.visible, "actual production refresh updates both readouts")
     check(ui.healing_payment.text.contains("预留 60"), "production player snapshot reaches native HUD row")
+    ui.pinned.text="已钉住的旅记 · 下一处已知线索"
+    var pin_rect:=Rect2(ui.pinned.position,ui.pinned.size)
+    check(not pin_rect.intersects(Rect2(ui.healing_payment.position,ui.healing_payment.size)), "active reservation never overlaps pinned journal note")
+    check(not pin_rect.intersects(Rect2(ui.healing_payment_track.position,ui.healing_payment_track.size)), "reservation strip never overlaps pinned journal note")
     world.active_overlay = "map"
     ui._refresh_combat_status(world.player)
     check(not ui.healing_payment.visible and not ui.healing_payment_track.visible, "actual overlay refresh hides both readouts")
@@ -158,6 +162,7 @@ func ui_checks() -> void:
     world.player.heal_timer = 0
     ui._refresh_combat_status(world.player)
     check(not ui.healing_payment.visible, "actual completed-channel refresh clears reservation")
+    check(ui.pinned.position.y==212.0 and not ui.pinned.text.is_empty(), "settled channel restores pin layout and keeps note")
     check(ui.healing_payment is Label and not ui.healing_payment.visible, "production HUD installs quiet reservation row")
     check(ui.healing_payment.position == Vector2(30,208), "row uses space below the channel meter")
     check(ui.healing_payment.size.y <= 25 and ui.healing_payment.position.y >= ui.healing_bar.position.y + ui.healing_bar.size.y, "readout does not cover existing meter")

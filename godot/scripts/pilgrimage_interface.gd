@@ -2380,6 +2380,7 @@ func _refresh_combat_status(player: Node) -> void:
     var heal: Dictionary=state.get("heal",{})
     var paid:=HEAL_READOUT.apply(healing_payment,heal,int(player.energy),int(player.max_energy),level.active_overlay!="")
     if is_instance_valid(healing_payment_track):healing_payment_track.update_snapshot(paid,level.active_overlay!="")
+    if is_instance_valid(pinned):pinned.position.y=248.0 if bool(paid.active) else 212.0
     healing_status.visible=not heal.is_empty() and level.active_overlay==""
     if not heal.is_empty():
         var reason := String(heal.get("reason","busy"))
