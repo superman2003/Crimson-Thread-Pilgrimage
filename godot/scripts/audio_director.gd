@@ -145,6 +145,7 @@ var low_hp_active := false
 var dialogue_open := false
 var user_volumes := {"master": 100.0, "music": 100.0, "sfx": 100.0, "ambience": 100.0}
 var base_reverb_wet: Dictionary = {}
+var room_reverb_mix := preload("res://scripts/room_reverb_mix.gd").new()
 var duck_tween: Tween
 var duck_mix := preload("res://scripts/duck_mix.gd").new()
 var duck_layers: Dictionary = {}
@@ -180,6 +181,7 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    room_reverb_mix.release(self)
     _clear_duck_layers(instance == self)
     _remember_explore_position()
     if _explore_owners.get(_explore_path, 0) == get_instance_id():
@@ -1052,22 +1054,19 @@ func cancel_chapter_transition() -> void:
 ## 房型混响微调：hub/vista wet +0.10、corridor/secret wet -0.08，0.6s tween 回归基准。
 ## transit 房同时驱动钟道站厅音乐层。
 func on_room_changed(kind: String) -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return
     _update_transit_loop(kind == "transit")
     var delta := float(ROOM_REVERB_WET_DELTA.get(kind, 0.0))
     for bus_name in ["SFX", "Ambience"]:
         var reverb := _bus_reverb(String(bus_name))
         if reverb == null:
+            room_reverb_mix.release_bus(self, String(bus_name))
+            base_reverb_wet.erase(bus_name)
             continue
-        var target: float = clampf(float(base_reverb_wet.get(bus_name, reverb.wet)) + delta, 0.0, 1.0)
-        var old_tween: Tween = reverb_tweens.get(bus_name)
-        if old_tween != null and old_tween.is_valid():
-            old_tween.kill()
-        if not is_inside_tree():
-            reverb.wet = target
-            continue
-        var tween := create_tween()
-        tween.tween_property(reverb, "wet", target, 0.6)
-        reverb_tweens[bus_name] = tween
+        var baseline: float = room_reverb_mix.capture(self, String(bus_name), reverb)
+        base_reverb_wet[bus_name] = baseline
+        reverb_tweens[bus_name] = room_reverb_mix.fade(self, String(bus_name), reverb, baseline + delta, 0.6)
 
 
 ## 钟道站厅音乐层：transit 房以 -10dB 在 MusicStinger 总线起 bellway_transit_loop
@@ -1278,10 +1277,15 @@ func _tween_bus_db(bus_name: String, target: float, seconds: float) -> void:
 
 
 func _capture_base_reverb() -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return
     for bus_name in ["SFX", "Ambience"]:
         var reverb := _bus_reverb(String(bus_name))
         if reverb != null:
-            base_reverb_wet[bus_name] = reverb.wet
+            base_reverb_wet[bus_name] = room_reverb_mix.capture(self, String(bus_name), reverb)
+        else:
+            room_reverb_mix.release_bus(self, String(bus_name))
+            base_reverb_wet.erase(bus_name)
 
 
 func _bus_reverb(bus_name: String) -> AudioEffectReverb:
