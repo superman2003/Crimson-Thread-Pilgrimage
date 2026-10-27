@@ -111,3 +111,20 @@ static func edit(flags: Dictionary, configs: Dictionary, id: int, kind: String, 
         record.label = String(label).strip_edges()
         return {"ok": true, "records": next, "reason": "已更新图钉名称与类型。"}
     return {"ok": false, "reason": "图钉已删除或不再属于已补绘地点。"}
+
+static func relocate(flags: Dictionary, configs: Dictionary, id: int, region: String, point: Vector2, expected: Dictionary) -> Dictionary:
+    if not configs.has(region) or not allowed(flags,region,configs[region],point):
+        return {"ok":false,"reason":"只能移动到已购且已补绘的位置。"}
+    var next:=records(flags,configs)
+    for record in next:
+        if int(record.id)!=id:continue
+        if expected.is_empty() or record!=expected:return {"ok":false,"reason":"图钉已变化，请重新打开编辑。"}
+        var others: Array=[]
+        for other in next:
+            if int(other.id)!=id:others.append(other)
+        if _near(others,region,point):return {"ok":false,"reason":"目标位置附近已有其它图钉。"}
+        record.region_id=region
+        record.room_id=String(owner(configs[region],point).id)
+        record.position=[point.x,point.y]
+        return {"ok":true,"records":next,"reason":"已移动图钉；编号、名称与类型保留。"}
+    return {"ok":false,"reason":"图钉已删除或不再属于已补绘地点。"}
