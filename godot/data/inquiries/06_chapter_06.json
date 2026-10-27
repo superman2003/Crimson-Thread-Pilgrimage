@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_06_01",
+      "npc": "npc_crown_tongue",
+      "question": "钥位为什么原来分成几列？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "开门、停钟、放水本有不同的锁。把它们接到同一道铜轨以后，一次转动便能替许多人决定。",
+        "你见过分钥架，也带着吞钥的告解；门如何连接，比钥匙有多少更要紧。"
+      ],
+      "reflection": "打开集中控制的入口，还需辨认各条决定权。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "百钥守门人的门体已经打开，线路却仍留在这里。",
+          "不要把夺得总锁，当成所有选择都已经归还。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_02",
+      "npc": "npc_crown_tongue",
+      "question": "镇潮与锁住人声能分开吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "两种用途缠在同一套装置里，并不说明它们从来是一回事。",
+        "分钥架旧有的分工还看得出来，后来接上的铜轨也还在。"
+      ],
+      "reflection": "批判旧秩序也要如实面对替代方案的代价。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体倒下后，你有机会选择怎样继续。",
+          "每条路都有要承担的事，不能因为旧制有罪，就把下一步的代价写成空白。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_03",
+      "npc": "npc_crown_tongue",
+      "question": "吞下钥匙能证明最后的心意吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "它证明曾有一次主动不让门开。至于那一刻的每个念头，磨痕没有全部写下。",
+        "你可以拿告解与钥位核对，不必把猜测也当成铁铸的事实。"
+      ],
+      "reflection": "关键遗物不应被过度解释成完整内心。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体已开，猜测仍是猜测。",
+          "若留下这一段，就把确定看见的地方和仍不确定的地方分开。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_04",
+      "npc": "npc_crown_tongue",
+      "question": "总锁在手的人就是新的王吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "钥匙能让你转动一处机关，不能替所有被它牵住的人同意。",
+        "分开的钥位是线索：许多事原先可以各自办理。"
+      ],
+      "reflection": "取得控制力不等于取得永久代表权。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "百钥守门人倒下，只把眼前的选择交到你这里。",
+          "你仍得看清手里握住了什么，以及哪些不该继续由一只手握着。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_05",
+      "npc": "npc_six_mark_keeper",
+      "question": "六份证词为什么不能互相替代？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "每一份说明一处承诺怎样被延长、改写或挪用。一处人的话不能替另一处补签。",
+        "分钥架还分得清每列钥位，我们核对证词时也得保留这些分别。"
+      ],
+      "reflection": "共同改变不能用一部分人的经历代替全部。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "王冠门体已开，仍要实际持有全部原始证词，才能核对改写那条路。",
+          "旧记录里写着找到过，不等于眼下已经把六份都带到这里。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_06",
+      "npc": "npc_six_mark_keeper",
+      "question": "支线帮过的人会替我补齐证词吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "他们能说出自己经历的事，也能与你重逢；那并不会变出缺失的原始证词。",
+        "一份归还名字的记录有自己的价值，不必拿它冒充另一处守门者的证言。"
+      ],
+      "reflection": "支线的意义应独立于终局门槛。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体倒下后，仍可以回去完成未尽的事。",
+          "帮助别人不该变成买一张改约通行证。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_07",
+      "npc": "npc_six_mark_keeper",
+      "question": "把证词看完就必须改写吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "知道得更多，是让你看清选择；不是让你欠下另一道必须执行的命令。",
+        "你见过总锁怎样把分开的用途并成一次决定，别让知识也变成那样的锁。"
+      ],
+      "reflection": "充分知情仍应保留选择和暂缓的空间。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体已开，能够核对的路就在前面。",
+          "你可以先停下来，重读手里的话，再决定怎样承担。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_08",
+      "npc": "npc_six_mark_keeper",
+      "question": "不同的证词有矛盾时怎么办？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先看各自在说哪一个时刻、哪一处设施。有时相反的判断指向的是后来添的一层。",
+        "分钥架的旧钥列与新铜轨就能同时留在眼前，不必抹掉其中一种。"
+      ],
+      "reflection": "世界观的一致性不要求抹平人物的不同视角。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "王冠门体倒下后，也不要急着选一句最方便的话盖过别的。",
+          "能核对的逐项核对，不能核对的保留疑问。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_09",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "前人的巡礼能替我走完这一步吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "留下的回声只能告诉你曾有人走过。脚落在哪里，还得由现在站着的人确认。",
+        "分钥架的空位也一样：它记得一种用法，并不命令你照做。"
+      ],
+      "reflection": "前人经历可以提供参照，却不接管当下选择。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "百钥守门人已经停了，你不必把我的脚步当作接下来的鼓点。",
+          "愿意听就听一段，想安静也可以往旁边坐。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_10",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "为什么要把回声留下？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "因为后来的人可能想知道，这条路上不只有胜利的人。",
+        "你见过钥位如何被接回总锁，就该知道一条路也会被讲成只剩一个方向。"
+      ],
+      "reflection": "历史应保留没有走到同一终点的旅途。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体倒下后，我想让回声继续有回头的部分。",
+          "若有人从这里返回，也请把他那一段留下。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_11",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "我该替过去的人完成遗愿吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "若遗愿说得清，可以听它；若只剩一句被磨损的回声，别急着替它添完。",
+        "吞钥的告解留下一个动作，不能把每位前人的愿望都塞进那把钥匙。"
+      ],
+      "reflection": "对过去的责任也要照见现在的生命。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "守门人的门已开，你有比照着旧回声走更多的时间。",
+          "先问还活着的人今天需要什么。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_12",
+      "npc": "npc_black_tide_child",
+      "question": "听起来像人的声音就一定是人吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "你在问是谁说话，还是在问为什么听起来像你认识的谁？这两句不一样。",
+        "钥匙的磨痕能留在硬处，声音却会在管子里变得像另一段声音。"
+      ],
+      "reflection": "声音相似不足以证明身份，也不构成服从义务。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门体倒下后，你仍然可以不回答下一声。",
+          "听见并不让你欠一个答复。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_13",
+      "npc": "npc_black_tide_child",
+      "question": "不回答会不会也是一种伤害？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "有时等不到会难过。可若我因此拿走你开口的选择，难过就又被交给另一个人了。",
+        "分钥架把许多动作接成一个，我不想把你的每次安静也接成我的回答。"
+      ],
+      "reflection": "同情他人的缺失，也要保留自己的边界。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "守门人已经停了，你可以先听自己的呼吸。",
+          "若后来愿意说，再说；别为了填满这里就把所有声音交出来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_14",
+      "npc": "npc_six_mark_keeper",
+      "question": "终点为什么仍让人回去？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "第6区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "你带来的每份话都从住处、工坊、书架和路边来，不能只在门前才算有用。",
+        "分钥架的每列原本通向不同的事，旅途也有许多仍在继续的地方。"
+      ],
+      "reflection": "终局应当把选择重新送回世界。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "王冠门体倒下后，选择怎样留下后果，仍可以回到那些地方核对。",
+          "这里是作决定的一处，不是让六城停止生活的句号。"
+        ]
+      }
+    }
+  ]
+}
