@@ -2339,7 +2339,11 @@ func _show_journey_history() -> void:
         func(file: String,sha: String):
             if is_instance_valid(level) and level.has_method("get_journey_archive_detail"):
                 return level.get_journey_archive_detail(file,sha)
-            return {"ok":false,"reason":"当前入口尚未支持归档详情。"})
+            return {"ok":false,"reason":"当前入口尚未支持归档详情。"},
+        func(file: String,sha: String):
+            if is_instance_valid(level):
+                return preload("res://scripts/journey_archive_comparison.gd").inspect(String(level.world_save_path),file,sha)
+            return {"ok":false,"reason":"当前旅途已退出，请重新打开。"})
 
 func _journey_history_closed() -> void:
     journey_history_close_frame=Engine.get_process_frames()
