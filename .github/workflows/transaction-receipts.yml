@@ -1,0 +1,54 @@
+name: G01 committed field transaction receipts
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/transaction_receipt*.gd'
+      - 'godot/scripts/field_receipt_owner.gd'
+      - 'godot/scripts/field_transaction.gd'
+      - 'godot/scripts/material_exchange_desk.gd'
+      - 'tools/run_ledger_20261028_05.py'
+      - 'tools/run_field_contract_browser_contract.py'
+      - 'tools/run_material_exchange_maximum_contract.py'
+      - 'tools/run_transaction_receipt_contract.py'
+      - 'tools/test_transaction_receipt_runner.py'
+      - '.github/workflows/transaction-receipts.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: transaction-receipts-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-manifest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Runner failure propagation
+        run: python3 tools/test_transaction_receipt_runner.py
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native committed receipt ledger and scope contracts
+        run: python3 tools/run_transaction_receipt_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-native"
+      - name: Original isolated material workbench
+        run: python3 tools/run_ledger_20261028_05.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-goal"
+      - name: Two strict full-resource import passes
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/comparison-import"
+      - name: Actual World ownership and zero-write comparison
+        run: python3 tools/run_transaction_receipt_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/comparison-world"
+      - name: Original material and field transaction contracts
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite material_exchange --suite field_contracts --suite ui_world_integration --log-dir "$RUNNER_TEMP/comparison-existing"
+      - name: Existing isolated dependency contracts
+        run: |
+          python3 tools/run_material_exchange_maximum_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-maximum"
+          python3 tools/run_field_contract_browser_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-field"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transaction-receipts-logs
+          path: ${{ runner.temp }}/comparison-*
