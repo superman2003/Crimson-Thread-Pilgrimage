@@ -33,6 +33,7 @@ static func install(host: AcceptDialog,column: Control,dimensions: Vector2i) -> 
     adapter.body.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO
     adapter.body.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_AUTO
     adapter.body.follow_focus=true
+    adapter._body_font_baseline(column)
     host.add_child(adapter)
     return adapter
 func _ready() -> void:
@@ -85,6 +86,7 @@ func fit() -> void:
     var size_before: Vector2i=host.size
     body.custom_minimum_size=Vector2.ZERO
     host.min_size=Vector2i(200,140)
+    _body_font_baseline(column)
     POLICY.apply_reading(column,context[1])
     POLICY.apply_reading(host.get_ok_button(),context[1])
     var confirm:=host as ConfirmationDialog
@@ -116,3 +118,12 @@ func _exit_tree() -> void:
         if host.visibility_changed.is_connected(_visibility):host.visibility_changed.disconnect(_visibility)
         if host.size_changed.is_connected(_window_size_changed):host.size_changed.disconnect(_window_size_changed)
         if host.gui_focus_changed.is_connected(_focus_changed):host.gui_focus_changed.disconnect(_focus_changed)
+
+func _body_font_baseline(column: Control) -> void:
+    # Body paragraphs use the reading baseline, while authored small legends
+    # retain their explicit font hierarchy. Never overwrite captured bases.
+    var pending: Array[Node]=[column]
+    while not pending.is_empty():
+        var node: Node=pending.pop_back();pending.append_array(node.get_children())
+        if node is Label and not node.has_theme_font_size_override("font_size") and not node.has_meta("journey_layout_original_font_size"):
+            node.add_theme_font_size_override("font_size",21)
