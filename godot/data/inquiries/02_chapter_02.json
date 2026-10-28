@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_02_01",
+      "npc": "npc_rain_smith_liu",
+      "question": "你认得这枚磨圆的铆钉？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "阿禾嫌它刮破领口，来找我磨了两回。第二回没带钱，给我堵了半天漏水的管。",
+        "编号是后来压上去的。认编号的人会认错班，我认这道缺口不会。"
+      ],
+      "reflection": "柳认出的是自己修过的东西。工牌上的编号盖不住那道磨痕。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者倒了，孩子还是会来问我下工钟什么时候响。",
+          "我能修钟，不能给他定一个他爹回来的时辰。你去书库时，替我把这点说清。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_02",
+      "npc": "npc_rain_smith_liu",
+      "question": "拿剪刀的那个，就是沉井的铁匠吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "不是。那副剪子切的是回声线，工匠的锤子要把线铆牢。你看接口，手法都不一样。",
+        "湛沉在井底。有人借他的工坊发号施令，久了，连来修东西的人都把他们叫成一个。"
+      ],
+      "reflection": "我把两种工具画在纸边：锤子留下接头，剪子留下断口。执剪者不是湛。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "剪子停了，断口还得补。别把那东西的残片混进工牌里。",
+          "拿去核对名字的是人做过的活，不是你打赢的一场仗。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_04",
+      "npc": "npc_canal_child",
+      "question": "书库说没有阿禾，你还记得他什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "他抱我过水沟时，总先把鞋倒过来。里面有水，就倒在自己脚边。",
+        "你去书库，先说他的名字。要是他们问编号，你回来问我，别随便挑一个。"
+      ],
+      "reflection": "我记住阿禾倒鞋的样子。这件事不在工牌上，孩子却说得很清楚。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "刚才那声不是下工钟。我听得出来，你不用说“也许是”。",
+          "等你查到什么就告诉我。查不到，也回来告诉我。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_06",
+      "npc": "npc_canal_child",
+      "question": "这些工牌都带去书库吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "别叠着拿，会把背面的铆痕磨平。柳叔会生气。",
+        "爹这枚我想多看一眼。看完给你，你要拿给真的肯翻页的人。"
+      ],
+      "reflection": "孩子把工牌翻到背面才递来。我也照这个方向收好。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "你走以后，我会记你带了几枚。",
+          "不是怕你偷。要是你回来说有一枚查不到，我至少知道该接着等哪一个。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_07",
+      "npc": "npc_sluice_nun",
+      "question": "阀边的划痕，是你记的水位？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "长的是水位，短的是换班。别混在一起，我以前就混过。",
+        "有一班迟迟没来，我只顾把水压下去，没往住处看。后来工牌从下面浮上来，我才去找名单。"
+      ],
+      "reflection": "修女把长短两种划痕指给我。我看着她说不下去的那一截，没有替她接话。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "今天我会先去住处敲门，再回来看阀。多走一趟，水不至于立刻淹上来。",
+          "有人来接班，我得看见他到了，才肯放开手。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_09",
+      "npc": "npc_sluice_nun",
+      "question": "真到水涨时，你会先关哪一路？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "住处。我若先保炉火，屋里的人就得替我涉水。可炉子一熄，明天修闸的铁也得等。",
+        "你问我，我能说出次序；水真响起来时，我还得照次序做。"
+      ],
+      "reflection": "分流箱只有三根管，修女却在每一根后面都看见了人。我没有替她转阀。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "剪线使不再下令了，阀还是不会自己选。",
+          "我先把住处那一路写清楚。明天有人觉得不对，可以当面来找我。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_10",
+      "npc": "npc_drowned_foreman",
+      "question": "名册上的死人为什么还在当班？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "那一栏是我没划。我想留住名字，谁知道上面照着人数继续要工。",
+        "少一个就补一个，补的还是那个人的号。到后来，我自己也只报数字了。"
+      ],
+      "reflection": "工头想留名字，留下的空位却继续要人填。我把他的原话记在工牌背面的空处。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "现在没人催我报数，我反倒一时不知道从谁念起。",
+          "把阿禾放第一行吧。后面的我一个个认，认不出的先空着，别拿号码补。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_02_13",
+      "npc": "npc_rain_smith_liu",
+      "question": "既然铜管在收声，为什么不砸掉？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_02",
+          "label": "档案舱的两层工牌"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "这根送水，那根散热，贴着它的细线才收声。砸下去很快，接回来得有人爬到下面。",
+        "你把工牌捞上来，我才又敢说这里住过人。别急着把他们留下的东西也一并砸了。"
+      ],
+      "reflection": "柳让我顺着每个接头看。我要切断什么，得先认清它接去了哪里。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch02",
+            "label": "第2区守门者战后"
+          }
+        ],
+        "lines": [
+          "执剪者只会一剪了事，我不想学它。",
+          "带上工牌去书库。修管子的办法我有，账上被刮掉的字，要找拿笔的人。"
+        ]
+      }
+    }
+  ]
+}
