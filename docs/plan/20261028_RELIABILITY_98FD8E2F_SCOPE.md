@@ -1,6 +1,6 @@
 # 2026-10-28 设置、阅读与音频可靠性：十批升级范围
 
-状态：**已认领，待实现与验证**。本说明按用户要求先行公开，防止并行 agent 重复开发；不代表以下功能已交付，不计入原定十个功能 PR。
+状态：**十个功能 PR 已提交，本地专项通过；远端 CI 与人工验收分别核对**。本说明按用户要求先行公开，防止并行 agent 重复开发；不代表以下功能已交付，不计入原定十个功能 PR。
 
 ## 依据与基线
 
@@ -40,8 +40,8 @@
    - `.github/workflows/reliability-98fd8e2f-rNN.yml`
    - `docs/report/20261028_reliability_98fd8e2f_rNN.md`
 3. R01 → R02 共用偏好写入协议；R02 → R03 共用设置方案模型。按该依赖顺序串接并注明前置，不能把继承改动重复计作本批新增。其余批次尽量独立基于最新 main。
-4. R09／R10 只认领表列音乐切换和 NPC 地标方法，不认领整个 AudioDirector；保留既有房型混响交接、用户音量事务、全局声部预约与敌人危险声规则。
-5. 不触碰 #416 的十项生产文件／新增模块，或 #417 的 Player、Enemy、扫掠与攻击效果方法。也不重写 `main_level.gd`、`pilgrimage_interface.gd`、`build_system.gd`、`world_state.gd`、剧情 JSON、地形、角色和音频素材。
+4. R09 → R10 按 #447 → #448 串接，只认领表列音乐切换和 NPC 地标方法，不认领整个 AudioDirector；保留既有房型混响交接、用户音量事务、全局声部预约与敌人危险声规则。
+5. R01 为实现启动读取前恢复，额外仅接入 `pilgrimage_interface.gd::_load_accessibility` 的恢复调用两行，已在 #438 和报告登记；不修改其余界面方法。不触碰 #416 的十项生产文件／新增模块，或 #417 的 Player、Enemy、扫掠与攻击效果方法。也不重写 `main_level.gd`、`build_system.gd`、`world_state.gd`、剧情 JSON、地形、角色和音频素材。
 6. 每个功能 PR 发布前重新读取 main、开放 PR 与实际变更文件；同文件不同方法也必须检查 diff。遇到重叠时先在本说明更新边界，不能覆盖或强推其他 agent 的工作。共享新函数优先拆入本轮独立辅助脚本。
 7. 不整体格式化公共文件，不删除原验证，不放宽 CI／资源错误门禁，不合并或关闭任何 PR。说明和功能 PR 都保留供用户审查。
 
@@ -52,3 +52,22 @@
 偏好写入、控件、InputMap、音频和物理射线分别按实际涉及范围验证。Godot 版本、输入 SHA、已运行命令、失败与未验证部分逐 PR 如实记录；文件数、行数、断言数均不替代功能验收。
 
 本文只是范围说明，尚未运行上述功能测试。实体手柄、中文长文实读、耳机／扬声器听感、自然六区全流程和最终发行包仍待分别验收；不关闭 46 项最终任务。十个功能 PR 另行提交，本说明不会冒充其中一项。
+
+## 实际交付登记
+
+说明 PR #419 不计入以下十个功能 PR。没有合并或关闭任何 PR。
+
+| 批次 | 功能 PR | 本地 Godot 4.6.1 专项 |
+| --- | --- | --- |
+| R01 | [#438](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/438) | 26 项通过 |
+| R02 | [#439](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/439) | 23 项通过 |
+| R03 | [#440](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/440) | 21 项通过 |
+| R04 | [#442](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/442) | 11 项通过 |
+| R05 | [#443](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/443) | 12 项通过 |
+| R06 | [#444](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/444) | 10 项通过 |
+| R07 | [#445](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/445) | 9 项通过 |
+| R08 | [#446](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/446) | 7 项通过 |
+| R09 | [#447](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/447) | 11 项通过 |
+| R10 | [#448](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/448) | 11 项通过 |
+
+#438 → #439 → #440，以及 #447 → #448 为依赖链；其余独立面向 main。R01 另复验旧文件系统检查 33 项；R02/R03、R09/R10 的组合回归已分别记录。R10 组合复验发现运行器漏拷新依赖并修复，未删减旧断言。R08 本地只验证实际生产显示层，不冒充完整 Enemy/World。远端 CI 状态须按每个 PR 的最新 head 查询，本地结果不回填为远端通过。最终自然流程、实体设备、声音实听和发布包仍待验收。
