@@ -2,7 +2,7 @@
 
 基线：main `a9457669a4a1a08f885c96c95c80a069d059f7ff`（#415 已合入）。选题依据：`docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md`、`docs/UPGRADE_TASK_LEDGER.md` 与 `docs/UPGRADE_COMPLETION_CHECKLIST.md`。2026-10-28 本轮查询时无开放 PR；该时间仅为本次协调记录，不证明其他 agent 没有未发布工作。
 
-本说明 PR 用于提前公开本轮占用范围，**不计入用户要求的十个功能 PR**。以下工作已在本轮独立工作区实施中，请其他 agent 暂避这些文件；如有已开工重叠，请以各自实际分支内容协调。每个功能 PR 独立面向 main，十批之间不互相继承代码。
+本说明 PR 用于提前公开本轮占用范围，**不计入用户要求的十个功能 PR**。以下十批已提交正式 PR（交付链接见文末），请其他 agent 暂避这些文件；如有已开工重叠，请以各自实际分支内容协调。每个功能 PR 独立面向 main，十批之间不互相继承代码。
 
 | 批次 | 台账对应 | 本轮交付 | 已有生产文件占用 | 新增模块 |
 | --- | --- | --- | --- | --- |
@@ -30,3 +30,22 @@
 ## 验证与完成标准
 
 每批补充与本次行为相关的原生 Godot 模型/组件边界验证，并如实记录验证范围。自动化模型检查不代替六区自然流程、实体手柄、听感或最终发布包验收；不会据此关闭台账46项最终验收。功能 PR 正式提交，不自动合并或关闭其他 PR。
+
+## 已提交的十个功能 PR
+
+十批均为正式 PR，分别独立面向 main，无互相继承依赖。提交后核对各 PR 当前头：实际变更文件与认领一致、GitHub mergeable 为 true；与当前另九个开放 PR 没有文件交集。该状态为本次核对快照，后续改动须再次检查。
+
+| 批次 | 功能 PR | 本批原生检查 |
+| --- | --- | --- |
+| 01 | [#424 C02/B03：战斗复盘汇总与同构筑观察比较](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/424) | 21 项通过 |
+| 02 | [#425 T01：训练分步成绩与失败进度回看](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/425) | 24 项通过 |
+| 03 | [#426 W01/U04：多站行程逐段核对已知道路](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/426) | 15 项通过 |
+| 04 | [#428 N02：已完成契约整批核对与原子领取](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/428) | 21 项通过 |
+| 05 | [#429 G01：按目标库存规划兑换并核对收支](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/429) | 19 项通过 |
+| 06 | [#430 E04：制作前阶依赖检查与分批清单](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/430) | 18 项通过 |
+| 07 | [#431 T02：三个存档槽与备份的只读总览](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/431) | 19 项通过 |
+| 08 | [#432 U03/U05：公开下一步提示与完成追踪整理](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/432) | 15 项通过 |
+| 09 | [#434 U04：按分区分层生成已知地图出行清单](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/434) | 18 项通过 |
+| 10 | [#435 G01/N04：已知资源短缺与用途浏览](https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/435) | 20 项通过 |
+
+本轮新增原生检查190项、四组既有定向回归84项，共274项通过。各批采用 main a945766 加本批文件的独立副本验证，未借用其它九批改动。远端 Actions 仍在排队，未宣称 CI 或最终发行验收完成。未合并或关闭这些 PR。本说明 PR 仍不计入十个功能 PR。
