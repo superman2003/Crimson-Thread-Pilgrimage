@@ -1287,7 +1287,9 @@ func _update_camera(delta: float) -> void:
     var look_down := Input.is_action_pressed("aim_down")
     var direction := 0 if look_up == look_down else (-1 if look_up else 1)
     var eligible := is_on_floor() and absf(velocity.x) < 12.0 and absf(_move_axis()) < 0.1 and land_timer <= 0.0 and _can_start_action()
-    var observation: float = camera_focus.update(camera, delta, direction, eligible, strength)
+    var observation_strength: float = preload("res://scripts/camera_observation_preferences.gd").strength(_accessibility(),strength)
+    var observation_delay: float = preload("res://scripts/camera_observation_preferences.gd").normalize(_accessibility()).observation_delay
+    var observation: float = camera_focus.update(camera, delta, direction, eligible, observation_strength, observation_delay)
     camera.position = camera_focus.follow_position(camera, global_position, velocity, is_on_floor(), delta, strength, observation)
 
 

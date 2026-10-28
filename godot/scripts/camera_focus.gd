@@ -94,8 +94,9 @@ func apply_limits(camera: Camera2D) -> Dictionary:
     camera.limit_bottom = ceili(bounds.end.y)
     return selected
 
-func update(camera: Camera2D, delta: float, requested_direction: int, eligible: bool, strength: float) -> float:
+func update(camera: Camera2D, delta: float, requested_direction: int, eligible: bool, strength: float, delay: float = LOOK_DELAY) -> float:
     var selected := apply_limits(camera)
+    delay = clampf(delay,0.15,1.0) if is_finite(delay) else LOOK_DELAY
     delta = maxf(0.0, delta) if is_finite(delta) else 0.0
     strength = clampf(strength, 0.0, 1.0) if is_finite(strength) else 0.0
     requested_direction = clampi(requested_direction, -1, 1)
@@ -112,8 +113,8 @@ func update(camera: Camera2D, delta: float, requested_direction: int, eligible: 
         look_direction = direction
         look_timer = delta
     else:
-        look_timer = minf(LOOK_DELAY, look_timer + delta)
-    var target := float(direction) * LOOK_DISTANCE * strength if direction != 0 and look_timer >= LOOK_DELAY else 0.0
+        look_timer = minf(delay, look_timer + delta)
+    var target := float(direction) * LOOK_DISTANCE * strength if direction != 0 and look_timer >= delay else 0.0
     # Player camera already eases this target; avoid a second observation filter.
     look_offset = target
     return look_offset
