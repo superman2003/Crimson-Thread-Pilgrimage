@@ -32,6 +32,8 @@ func _build() -> void:
     var label:=Label.new();label.text="兑换份数";row.add_child(label)
     amount=SpinBox.new();amount.min_value=1;amount.max_value=MARKET.LIMIT;amount.step=1;amount.value=1;row.add_child(amount);amount.value_changed.connect(func(_value: float):refresh())
     maximum_button=window.button(row,"选择当前最多可换",select_maximum)
+    var conversion: Button=window.button(window.column,"规划已知材料兑换链",open_conversion)
+    conversion.name="MaterialConversionPlanButton"
     var planning: HBoxContainer=window.row(window.column)
     var target_label:=Label.new();target_label.text="希望目标材料持有总量";planning.add_child(target_label)
     target_stock=SpinBox.new();target_stock.min_value=0;target_stock.max_value=999999;target_stock.step=1;planning.add_child(target_stock)
@@ -51,6 +53,16 @@ func open() -> void:
     if not rows.is_empty():list.select(0)
     _default_target()
     refresh();window.popup_centered();amount.get_line_edit().grab_focus()
+
+func open_conversion() -> void:
+    if not is_instance_valid(window) or not window.visible:return
+    var dialog:=window.get_node_or_null("MaterialConversionPlan")
+    if dialog==null:
+        dialog=preload("res://scripts/material_conversion_plan_dialog.gd").new()
+        dialog.name="MaterialConversionPlan"
+        window.add_child(dialog)
+        dialog.setup(ui,window)
+    dialog.open()
 
 func refresh() -> void:
     maximum_button.disabled=true;review_button.disabled=true;deficit_button.disabled=true;deficit_label.text="请选择一条已知兑换。"
