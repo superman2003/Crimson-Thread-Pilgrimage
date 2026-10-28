@@ -17,6 +17,8 @@
 | 09 | U04 完整地图系统 | 从当前筛选的公开目录生成分区分层出行清单，不导出隐藏坐标或内部ID | `godot/scripts/map_directory_dialog.gd` | `godot/scripts/map_known_checklist.gd` |
 | 10 | G01 三类资源经济 / N04 用途与历史 | 资源用途按已知短缺、可用条件、名称与公开描述浏览 | `godot/scripts/resource_purpose_dialog.gd` | `godot/scripts/resource_purpose_browser.gd` |
 
+旧隔离运行器需要随新增依赖同步登记：批次02占用 `tools/run_practice_review_contract.py`，批次04占用 `tools/run_field_contract_browser_contract.py`，批次05占用 `tools/run_material_exchange_maximum_contract.py`，批次07占用 `tools/run_save_backup_difference_contract.py`。这四个文件各自只补本批模块到既有复制列表，不改原断言、超时或诊断门禁。
+
 每批同时独占自己的 `godot/scripts/ledger_20261028_XX_validation.gd`、`tools/run_ledger_20261028_XX.py`、`.github/workflows/ledger-20261028-XX.yml` 与 `docs/report/20261028_XX_*.md`。该命名空间 01–10 留作本轮验证与报告，避免共改全局回归清单。
 
 ## 避让边界
