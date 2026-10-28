@@ -3,7 +3,9 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/credits_catalog.gd', 'scripts/credits_reader.gd', 'scripts/credits_reader_validation.gd']
+DEPS = ['scripts/credits_catalog.gd', 'scripts/credits_reader.gd', 'scripts/credits_reader_validation.gd',
+        'scripts/build_receipt_dialog.gd', 'scripts/build_receipt_inspector.gd',
+        'scripts/journey_desk_window.gd', 'scripts/journey_window_layout.gd']
 MARKER = '^CREDITS_READER checks=[1-9][0-9]* failures=0$'
 
 def main():
