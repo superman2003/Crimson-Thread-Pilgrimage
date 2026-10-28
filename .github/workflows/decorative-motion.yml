@@ -1,0 +1,37 @@
+name: V03 decorative motion
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/decorative_motion*.gd'
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/ending_aftermath_scene.gd'
+      - 'godot/scripts/scene_history_prop.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/run_decorative_motion_contract.py'
+      - '.github/workflows/decorative-motion.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: decorative-motion-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-motion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native decorative clocks, discovery and persistence contracts
+        run: python3 tools/run_decorative_motion_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/output-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: decorative-motion-logs
+          path: ${{ runner.temp }}/output-logs
