@@ -1,7 +1,9 @@
 extends AcceptDialog
 const HISTORY := preload("res://scripts/journey_history.gd")
 const DETAIL := preload("res://scripts/journey_archive_detail.gd")
+const VIEW := preload("res://scripts/archive_page_view.gd")
 const PAGE_SIZE := 12
+var generation := 0
 var page_query: Callable
 var detail_query: Callable
 var offset := 0
@@ -72,6 +74,8 @@ func _button(parent: Node, caption: String, action: Callable) -> Button:
     return button
 
 func open(query: Callable, inspect: Callable) -> void:
+    generation+=1
+    loading=false
     page_query=query
     detail_query=inspect
     request_page(0)
@@ -81,8 +85,12 @@ func open(query: Callable, inspect: Callable) -> void:
 func request_page(requested: int) -> void:
     if loading:return
     loading=true
+    var request_generation:=generation
+    requested=clampi(requested,0,HISTORY.MAX_OFFSET)
+    requested=requested/PAGE_SIZE*PAGE_SIZE
     var result: Variant=page_query.call(clampi(requested,0,HISTORY.MAX_OFFSET),PAGE_SIZE) if page_query.is_valid() else {}
-    page=result.duplicate(true) if result is Dictionary else {}
+    if not is_instance_valid(self) or is_queued_for_deletion() or request_generation!=generation:return
+    page=VIEW.page(result,requested,PAGE_SIZE,HISTORY.MAX_OFFSET)
     offset=int(page.get("offset",0))
     var values: Variant=page.get("entries",[])
     rows=values.duplicate(true) if values is Array else []
@@ -117,9 +125,11 @@ func request_page(requested: int) -> void:
 func select_entry(index: int) -> void:
     if loading or index<0 or index>=rows.size():return
     var row: Dictionary=rows[index]
+    var request_generation:=generation
     if not row.get("valid",false):
         detail_text.text="无法读取此记录："+String(row.get("error","记录不可读"))+"；文件仍保留。"
         return
     var result: Variant=detail_query.call(String(row.get("file","")),String(row.get("sha256",""))) if detail_query.is_valid() else {}
-    detail_text.text=DETAIL.text(result if result is Dictionary else DETAIL.failure("归档详情暂不可用。"))
+    if not is_instance_valid(self) or is_queued_for_deletion() or request_generation!=generation:return
+    detail_text.text=DETAIL.text(VIEW.detail(result))
     detail_text.scroll_to_line(0)
