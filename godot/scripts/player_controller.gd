@@ -4,6 +4,7 @@ signal hp_changed(value: int)
 signal player_respawned
 signal energy_changed(value: int, maximum: int)
 var arrival_guard_timer := 0.0
+var combat_effect_generation := 0
 
 signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 signal heal_state_changed(state: String)
@@ -721,6 +722,10 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    combat_effect_generation += 1
+    if is_inside_tree():
+        for effect in get_tree().get_nodes_in_group("player_combat_effect"):
+            if is_instance_valid(effect) and effect.get("owner_player") == self and effect.has_method("cancel"): effect.cancel()
     CONTACT_ART.clear_player(self)
     ABILITY_ART.clear(self)
     HOOK_ART.clear(self)
