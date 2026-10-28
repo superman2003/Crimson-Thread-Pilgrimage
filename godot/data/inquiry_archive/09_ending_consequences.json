@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "aftermath_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "钟重新响了，衣领里的名字呢？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "我还是会缝。钟声能让街里听见时辰，却没把旧约从孩子的衣领上解下来。",
+        "试音模朝着住处开口，我现在更想知道住在里面的人愿意怎样回答。"
+      ],
+      "reflection": "重鸣恢复镇潮，也保留了需要继续面对的旧约。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你带回的名字已经留在线结里，它们没有因为钟响就失去意义。",
+          "可我也不能把缝好的线结，说成世袭的扣子已经松了。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_02",
+      "npc": "npc_rain_smith_liu",
+      "question": "水稳下来以后，工牌能翻到正面了吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "能拿出来看，仍不等于名字就不再被拿去抵押。旧约还在，工牌上多一道公开的字也替不了它。",
+        "分流箱继续供水，我会修；修的时候，也要记谁在承担。"
+      ],
+      "reflection": "安稳与公正并非同一项成果，应分别核对。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你帮忙把名字送回去，让我至少不用再说这里只有班次。",
+          "但稳定的水声，不能盖过还没归还的那些话。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_03",
+      "npc": "npc_fugitive_scribe",
+      "question": "重鸣以后还查改字的旧案吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "查。如今执行的仍是旧约，更该把它如何改过写清。",
+        "压页台上那些屑末不能因为钟重新响，就被扫成无关的灰。"
+      ],
+      "reflection": "恢复秩序不会撤销追查其来历的必要。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你把名字带回去了，查验也因此有了人能接住的地方。",
+          "往后的副本旁，我会留下这一段来历，不让安定代替核对。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_04",
+      "npc": "npc_old_gardener",
+      "question": "钟网稳定了，外箍就能放心留着吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "根不再摇得那么厉害是好事，可箍勒在哪里，还是得逐处看。",
+        "养根槽里有些支撑让它活着，有些连接却让它没法停下来。"
+      ],
+      "reflection": "宏观稳定不能代替对具体束缚的检查。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "根笼那个人有了退路，我更不能把所有留下都叫作愿意。",
+          "愿意回来修园的人，我会另问；旧约不会替我问这一句。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_05",
+      "npc": "npc_deserter_flagbearer",
+      "question": "钟声回来后，你又得站回去吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "旧令还会找人，我听见熟悉的声也仍会绷紧。",
+        "点名轮的木条不会因为钟声好听，就忽然不再被钉住。"
+      ],
+      "reflection": "结局的制度代价需要在人物处境中继续可见。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_deserter_order_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "我们认过那份军令，我能记得自己曾经把它合起来。",
+          "这份记忆至少能让我在起身之前，再问今天是谁在叫。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_06",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "能说话以后，第一件衣服给谁缝？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "先给今晚还要挡潮的人，也给准备离开这里的人。衣领里的名字终于可以由他们自己念。",
+        "钟网停了，旧试音管还在；我们得商量它还能怎样传消息。"
+      ],
+      "reflection": "断冠归还声音，同时留下具体的生存工作。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你带回的名字如今能在人声里再说一遍，我很想听。",
+          "但今晚的潮不会因为这一声高兴就自己退下去，衣缝还是得结实。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_07",
+      "npc": "npc_rain_smith_liu",
+      "question": "没有旧钟网，水阀由谁守？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "得由用水的人一起排，谁能来、能守多久，都当面说。",
+        "分流箱本来就分着住处和炉膛；往后不能只按炉子的需要催人。"
+      ],
+      "reflection": "新的协作需要承担时间与分工成本。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "名字带回来了，排班时就该叫得出人，也容得下他今天不能来。",
+          "这会比一声令慢，但慢一些也得学会。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_08",
+      "npc": "npc_lantern_sister",
+      "question": "灯现在要照着哪里撤离？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "看潮往哪里逼，再把光留给能落脚的路。灯不召兵以后，仍然要有人看懂它。",
+        "点名轮的旧钉孔会提醒我，不要又把疏散的人排成不能离开的队。"
+      ],
+      "reflection": "断冠后的灯号既要指路，也要持续复核。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_lantern_watch_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "我们校过的号已经有了共同的读法，能让这件事容易一点。",
+          "路变了还得再校，不能把上一次看懂当成永远看懂。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_09",
+      "npc": "npc_deserter_flagbearer",
+      "question": "自由以后为什么还留在营地？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "因为今天我想在这里帮人挡雨。能走以后，留下才终于能算我的决定。",
+        "点名轮可以记下谁愿意值夜，不必再把拿下的木条钉回去。"
+      ],
+      "reflection": "自由包含主动留下，也包含以后改变主意。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_deserter_order_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "辨清军令以后，我知道怎么让那一页停止发令。",
+          "若明天我改主意，也希望营地的人仍愿意听我说完。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_10",
+      "npc": "npc_old_gardener",
+      "question": "失去镇潮器，温室能扛住吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "我不能保证。今晚先看水从哪边来，把怕涝的根托高，能帮忙的人先说自己能做多少。",
+        "养根槽教过我们怎样接续，也提醒过我们别把支撑勒成命令。"
+      ],
+      "reflection": "面对共同危机仍要保留个体退出的边界。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "根笼的人已经能离开，我不会因为眼下缺人就把他又拴回来。",
+          "愿意来的人一起做，做不到的地方也得如实告诉大家。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_11",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "新约下的衣领还要留线结吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "要，留给愿意守夜的人自己系，也让想停下的人能解开。",
+        "试音模终于又像一个问题：街里的人听到了吗，愿不愿意再听一声？"
+      ],
+      "reflection": "可退出的承诺需要落实到日常的做法中。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你带回的名字已经有了各自的位置，不必再挤成一段无人认领的声。",
+          "我会继续缝，也会把怎么拆这道线教给穿衣服的人。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_12",
+      "npc": "npc_fugitive_scribe",
+      "question": "新约怎样避免再被刮掉一个字？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "让更多人能查，让每次改动留下谁提出、谁同意的来历。没有纸能替人永远守住这些。",
+        "压页台仍能刮字，所以光换一张新纸还不够。"
+      ],
+      "reflection": "改写需要持续可查，而非一次签署后的永久信任。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "名字带回去的经历说明，记录要有能继续询问的人接着。",
+          "若后来有人想退出，也得把那一笔当成新记录，不能当作污点刮去。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_13",
+      "npc": "npc_root_prisoner",
+      "question": "修复温室会成为你新的笼吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "我今天用自己的名字来帮，明天累了就先停；这句话也该能写在名字旁边。",
+        "养根槽可以让根慢慢承力，人也该有自己能承受多少的说法。"
+      ],
+      "reflection": "自愿参与需要被允许暂停和撤回。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "离开根笼以后，我才知道再走回来和从没能走开有多不同。",
+          "若哪一天我不来了，先问问我过得怎样，别先问缺了谁的工。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_14",
+      "npc": "npc_six_mark_keeper",
+      "question": "抵押清单注销以后，你守什么？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "此前已经观察的当地设施"
+        }
+      ],
+      "lines": [
+        "守这里还能让人来核对，守新的签署不被又合成一把只许一人转的总锁。",
+        "分钥架的每列仍能辨清各自用途，这比把旧清单换一个封面更要紧。"
+      ],
+      "reflection": "新制度的后果要靠持续参与和复核兑现。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "心愿已经完成"
+          }
+        ],
+        "lines": [
+          "你曾把名字带回相识的人那里，知道一份记录怎样才会有人接住。",
+          "新页也该如此：签的人能看，改的时候能问，不愿继续也能留下清楚的一笔。"
+        ]
+      }
+    }
+  ]
+}

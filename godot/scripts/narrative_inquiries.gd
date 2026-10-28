@@ -120,7 +120,11 @@ static func source_met(source: Dictionary, inventory: Dictionary, flags: Diction
         "flag":
             # Resolve legacy ending conflicts through the production authority.
             if String(source.id).begins_with("ending_"):
-                var restored: Dictionary = preload("res://scripts/world_narrative.gd").new().restored_ending_flags(flags)
+                var checked := flags.duplicate(true)
+                for ending in ["ending_a_done", "ending_b_done", "ending_c_done"]:
+                    if not checked.get(ending) is bool:
+                        checked.erase(ending)
+                var restored: Dictionary = preload("res://scripts/world_narrative.gd").new().restored_ending_flags(checked)
                 return true_flag(restored, String(source.id))
             return true_flag(flags, String(source.id))
     return false
@@ -211,6 +215,9 @@ static func can_talk(ui: Node, area: Area2D) -> bool:
     if not is_instance_valid(level) or not bool(level.get("world_mode")) or bool(level.get("world_loading")):
         return false
     if ui.get("dialogue_area") != area or level.get("active_overlay") != "dialogue":
+        return false
+    var dialogue: CanvasItem = ui.get("dialogue")
+    if not is_instance_valid(dialogue) or not dialogue.is_visible_in_tree():
         return false
     var player: Node2D = level.get("player")
     if level.get("ui_shell") != ui or not is_instance_valid(player) or int(player.get("hp")) <= 0 or level.get("world_state") == null:
