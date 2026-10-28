@@ -1,0 +1,85 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473,
+    475,
+    476,
+    477,
+    478,
+    479,
+    480
+  ],
+  "current_upgrade": {
+    "ordinal": 35,
+    "title": "T03 性能与生命周期",
+    "branch": "codex/ledger-t03-goal-update-budget-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "fully locally verified; count only after actual PR creation",
+    "scope": "Suspend unused goal evaluations, share one snapshot across periodic HUD/workbench and explicit changes, filter cached rows without delaying progress, retire separately parented HUD/window"
+  },
+  "validation": {
+    "baseline": "Isolated unmodified production _process:20 hidden HUD-off ticks request rows40 times; this is a row-request observation, not an FPS benchmark.",
+    "native": "17 scheduling checks passed",
+    "world": "31 actual World checks with real NarrativeProbe super evaluation passed; zero idle calls, bounded active cadence,20 filters zero reevaluations and preference/gameplay byte preservation",
+    "regressions": "original goal_desk24/UI World/isolated goal15 passed; two strict imports/npm/campaign passed",
+    "combined": "Git three-way merge with #4806b46 clean; combined actual goal31 and known_wish28 passed",
+    "runner": "3 strict failure propagation and workflow suite declaration tests passed"
+  },
+  "independent_lines": {
+    "production": 95,
+    "tests_ci": 303,
+    "data": 0,
+    "non_document": 398,
+    "batch_after_actual_pr": 17330,
+    "average_after_actual_pr": 495.14285714285717,
+    "remaining_for_40_average500": 2670
+  },
+  "latest_ci": {
+    "480": "6b46ca5963df7fb24363743cb857f3d83d1a0867 method location only moved to avoid adjacent shared-file hunk conflict, expected_sha pushed; wish28 passed;8 checks still in progress",
+    "479": "d16d999 all applicable latest checks and Actions passed",
+    "478": "27cc8f0 all applicable latest checks and Actions passed",
+    "477": "b7f63a3 all applicable latest checks and Actions passed",
+    "476": "247167 all applicable latest checks and Actions passed",
+    "475": "40eb681 all applicable latest checks and Actions passed"
+  },
+  "constraints": [
+    "User arranges reviews; do not read/respond/fix review comments or review/merge/close PRs.",
+    "Fresh branch refs/current SHA, latest suite/check/run attempts/statuses before next PR. Preserve all strict tests/time limits.",
+    "Isolated worktrees and expected_sha guarded updates, preserve concurrent commits/shared downstream fixes.",
+    "Do not restore browser game, count inherited changes or pad to meet line totals."
+  ],
+  "known_limits": [
+    "No measured overall FPS/CPU speedup, real device performance or natural playthrough acceptance claimed.",
+    "Visible goals remain on original half-second progress cadence; local text filters use last accepted snapshot without delaying periodic refresh.",
+    "35 is smaller398 meaningful code lines; final batch average is not yet500. Remaining5 upgrades need2670 real code lines."
+  ],
+  "next": "Continue36–40 by reading actual ledger gaps and claims; do not duplicate N02 known wish manifest, saved-pair comparison or goal scheduling. Re-read latest main and all open CI first."
+}

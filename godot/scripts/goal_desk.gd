@@ -16,8 +16,10 @@ var hud_option: CheckButton
 var hud: Label
 var visible_rows: Array = []
 var selected := ""
-var elapsed := 0.0
+var update_budget:=preload("res://scripts/goal_update_budget.gd").new()
 var signature := ""
+var visible_snapshot: Array=[]
+var snapshot_ready:=false
 var cleanup: ConfirmationDialog
 var cleanup_quote: Dictionary={}
 
@@ -73,12 +75,14 @@ func _build() -> void:
     ui.bag.add_child(window)
     window.title = "任务追踪工作台"
     window.bind_overlay(ui,ui.bag)
+    window.visibility_changed.connect(func():
+        if not window.visible:visible_snapshot=[];snapshot_ready=false;signature="")
     window.text(window.column,"追踪最多三项已知主线/委托，置顶决定HUD顺序。备注只属于本存档，不修改剧情。",42)
     var filters: HBoxContainer = window.row(window.column)
-    query = window.search(filters,"搜索公开步骤或当前存档的追踪备注",func(_value: String):refresh())
+    query = window.search(filters,"搜索公开步骤或当前存档的追踪备注",func(_value: String):_refresh_filtered())
     mode = OptionButton.new();filters.add_child(mode)
     for title_text in ["全部目标","进行中","已完成","已追踪目标"]:mode.add_item(title_text)
-    mode.item_selected.connect(func(_index: int):refresh())
+    mode.item_selected.connect(func(_index: int):_refresh_filtered())
     var columns: HBoxContainer = window.row(window.column)
     list = ItemList.new();list.custom_minimum_size=Vector2(350,280);columns.add_child(list)
     list.item_selected.connect(func(index: int):selected=String(visible_rows[index].key);_selection())
@@ -105,7 +109,20 @@ func open() -> void:
 
 func refresh() -> void:
     if not is_instance_valid(window):return
-    var known := rows()
+    _refresh_rows(rows())
+
+func _refresh_rows(known: Array, identity: String="") -> void:
+    update_budget.observed()
+    signature=identity if not identity.is_empty() else JSON.stringify(known)
+    visible_snapshot=known.duplicate(true);snapshot_ready=true
+    _render_rows(visible_snapshot)
+
+func _refresh_filtered() -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.bag.is_visible_in_tree() or ui.level.world_loading:return
+    if not snapshot_ready:refresh();return
+    _render_rows(visible_snapshot)
+
+func _render_rows(known: Array) -> void:
     visible_rows = MODEL.filter_rows(known,query.text,mode.selected,model.state)
     visible_rows.sort_custom(func(a: Dictionary,b: Dictionary):
         var first: int = model.state.pins.find(a.key)
@@ -122,7 +139,7 @@ func refresh() -> void:
     hud_option.set_pressed_no_signal(bool(model.state.hud))
     window.status.text="已知目标 %d · 已追踪 %d/3。%s" % [known.size(),model.state.pins.size(),model.store.error]
     _selection()
-    _refresh_hud()
+    _refresh_hud(known)
 
 func _selected_row() -> Dictionary:
     for row in visible_rows:
@@ -142,8 +159,9 @@ func _selection() -> void:
     if not row.is_empty():detail.text="下一步："+preload("res://scripts/goal_watchlist_review.gd").next_hint(row)+"\n\n"+detail.text
 
 func act(command: String, value: Variant = null) -> void:
-    var result: Dictionary = model.change(command,selected,rows(),value)
-    refresh()
+    var known:=rows()
+    var result: Dictionary = model.change(command,selected,known,value)
+    _refresh_rows(known)
     window.status.text=String(result.get("reason","已保存。"))
 
 func _read_selected() -> void:
@@ -153,23 +171,37 @@ func _read_selected() -> void:
     ui.bag_category="旅记"
     ui.journal_filter="all"
     ui.refresh_inventory()
-    ui._show_journal_record(row.entry)
+    ui._show_journal_record(row.entry.duplicate(true))
 
-func _refresh_hud() -> void:
-    var lines: Array[String]=preload("res://scripts/goal_watchlist_review.gd").hud_lines(model.state,rows())
+func _wants_hud() -> bool:
+    if not is_instance_valid(ui) or not is_instance_valid(ui.level) or ui.is_queued_for_deletion() or ui.level.is_queued_for_deletion():return false
+    return not ui.level.world_loading and bool(model.state.hud) and not model.state.pins.is_empty() and String(ui.level.active_overlay).is_empty()
+
+func _refresh_hud(known: Variant=null) -> void:
+    if not _wants_hud():hud.visible=false;return
+    var public_rows: Array=rows() if known==null else known
+    var lines: Array[String]=preload("res://scripts/goal_watchlist_review.gd").hud_lines(model.state,public_rows)
     hud.text="追踪目标\n"+"\n".join(lines)
-    hud.visible=bool(model.state.hud) and not lines.is_empty() and String(ui.level.active_overlay).is_empty()
+    hud.visible=not lines.is_empty()
 
 func _process(delta: float) -> void:
-    if not is_instance_valid(ui) or not ui.construction_complete:return
-    elapsed+=delta
-    if elapsed<0.5:return
-    elapsed=0.0
-    var current:=JSON.stringify(rows())
-    if current!=signature:
-        signature=current
-        if is_instance_valid(window) and window.visible:refresh()
-    _refresh_hud()
+    if not is_instance_valid(ui) or ui.is_queued_for_deletion() or not ui.construction_complete or not is_instance_valid(ui.level) or ui.level.is_queued_for_deletion():
+        update_budget.reset();return
+    var window_visible:=is_instance_valid(window) and window.visible
+    var hud_needed:=_wants_hud()
+    if not hud_needed:hud.visible=false
+    if ui.level.world_loading:update_budget.reset();return
+    if not update_budget.advance(delta,window_visible,hud_needed):return
+    var known:=rows()
+    var current:=JSON.stringify(known)
+    if window_visible and current!=signature:_refresh_rows(known,current)
+    else:_refresh_hud(known)
+    signature=current
+
+func _exit_tree() -> void:
+    update_budget.reset();visible_snapshot=[];snapshot_ready=false
+    if is_instance_valid(hud) and not hud.is_queued_for_deletion():hud.queue_free()
+    if is_instance_valid(window) and not window.is_queued_for_deletion():window.queue_free()
 
 func ask_cleanup() -> void:
     if not is_instance_valid(window) or not window.visible:return
@@ -185,5 +217,6 @@ func ask_cleanup() -> void:
 
 func _apply_cleanup() -> void:
     if not window.visible or cleanup_quote.is_empty():return
-    var result:=preload("res://scripts/goal_watchlist_review.gd").apply(model,rows(),String(cleanup_quote.get("fingerprint","")))
-    cleanup_quote={};refresh();window.status.text=String(result.reason)
+    var known:=rows()
+    var result:=preload("res://scripts/goal_watchlist_review.gd").apply(model,known,String(cleanup_quote.get("fingerprint","")))
+    cleanup_quote={};_refresh_rows(known);window.status.text=String(result.reason)
