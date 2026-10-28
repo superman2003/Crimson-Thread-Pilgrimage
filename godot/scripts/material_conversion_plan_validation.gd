@@ -40,7 +40,7 @@ func run() -> void:
     check(not MODEL.search(duplicate,inventory,100,"salt_crystal_shard",1).ok,"duplicate recipe identities rejected")
     var bad_rate:=known.duplicate(true);bad_rate[0].input_amount=0
     check(not MODEL.search(bad_rate,inventory,100,"salt_crystal_shard",1).ok,"zero-cost material source cannot be synthesized")
-    var direct:=known[0].duplicate(true);direct.id="direct";direct.output="salt_crystal_shard";direct.currency=20;direct.input_amount=9
+    var direct: Dictionary=known[0].duplicate(true);direct.id="direct";direct.output="salt_crystal_shard";direct.currency=20;direct.input_amount=9
     var choices:=known.duplicate(true);choices.append(direct)
     var cheaper:=MODEL.search(choices,inventory,32,"salt_crystal_shard",1)
     check(cheaper.ok and cheaper.cost==20 and cheaper.path.size()==1,"minimum spending wins over canonical two-hop choice")
