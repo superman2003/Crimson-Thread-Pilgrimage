@@ -1,4 +1,5 @@
 extends SceneTree
+const SOURCE:=preload("res://scripts/material_conversion_plan_source.gd")
 const MODEL:=preload("res://scripts/material_conversion_plan.gd")
 var checks:=0
 var failures:=0
@@ -47,4 +48,30 @@ func run() -> void:
     var node:={"counts":{"moss_chitin":3,"wet_chitin":999999},"money":100,"path":[]}
     check(MODEL.transition(node,known[0],1).is_empty(),"save capacity cannot overflow in a hypothetical step")
     check(MODEL.transition({"counts":inventory,"money":100,"path":[]},known[0],11).is_empty(),"per-transaction ten-batch bound retained")
+    var session:=MODEL.begin(known,inventory,32,"salt_crystal_shard",1)
+    session.advance(1)
+    check(session.popped<=1,"one UI slice consumes at most its requested work budget")
+    session.cancel()
+    check(session.done and session.result.get("cancelled",false),"incremental work can be cancelled without becoming a solution")
+    check(session.frontier.is_empty() and session.visited.is_empty(),"cancel releases all retained search states")
+    var prior:=session.result.duplicate(true)
+    session.advance(32)
+    check(session.result==prior,"cancelled session cannot resume or publish late result")
+    var repeated:=MODEL.begin(known,inventory,32,"salt_crystal_shard",1)
+    while not repeated.done:repeated.advance(1)
+    check(repeated.result.ok and repeated.result.cost==result.cost,"incremental and synchronous searches agree on optimal canonical budget")
+    check(repeated.frontier.is_empty() and repeated.visited.is_empty(),"completed search releases retained frontier and visited set")
+    check(SOURCE.allowance(100,32,68).spendable==32,"budget and explicit holdback intersect without changing actual wallet")
+    check(SOURCE.allowance(100,100,90).spendable==10,"holdback can constrain a larger declared spending budget")
+    check(not SOURCE.allowance(100,101,0).ok,"budget cannot exceed actual wallet")
+    check(not SOURCE.allowance(100,32,101).ok,"reserve cannot exceed actual wallet")
+    check(not SOURCE.allowance(100,true,0).ok,"boolean budget cannot become numeric spending")
+    var bounded:=MODEL.begin(known,inventory,32,"salt_crystal_shard",1)
+    bounded.expanded=512
+    bounded.advance(1)
+    check(bounded.done and bounded.result.limited and not bounded.result.ok,"work bound is explicitly inconclusive rather than impossible")
+    var capacity:=MODEL.begin(known,inventory,32,"salt_crystal_shard",1)
+    capacity.generated=1024
+    capacity.advance(1)
+    check(capacity.done and capacity.result.limited,"admission bound cannot be reported as an optimal or impossible route")
     print("MATERIAL_CONVERSION_PLAN checks=%d failures=%d" % [checks,failures]);quit(0 if failures==0 else 1)

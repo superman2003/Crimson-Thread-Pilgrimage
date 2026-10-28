@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/material_conversion_plan.gd', 'data/material_exchange.json', 'scripts/material_conversion_plan_validation.gd']
+DEPS = ['scripts/material_conversion_plan.gd', 'scripts/material_conversion_plan_source.gd', 'data/material_exchange.json', 'scripts/material_conversion_plan_validation.gd']
 MARKER = '^MATERIAL_CONVERSION_PLAN checks=[1-9][0-9]* failures=0$'
 
 def invoke(command, env, log, marker):

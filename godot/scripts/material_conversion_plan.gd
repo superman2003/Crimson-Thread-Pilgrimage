@@ -48,37 +48,92 @@ static func signature(node: Dictionary,ids: Array) -> String:
     var values: Array=[node.path.size()]
     for id in ids:values.append(node.counts[id])
     return var_to_str(values)
-static func search(recipes: Array,inventory: Dictionary,money: Variant,target: String,required: Variant) -> Dictionary:
+static func begin(recipes: Array,inventory: Dictionary,money: Variant,target: String,required: Variant) -> RefCounted:
+    var session:=SearchSession.new()
+    session.transition_step=transition
+    session.state_key=signature
+    session.target=target
+    session.required=int(required) if natural(required,MAX_STOCK) else 0
     var start:=initial(recipes,inventory,money,target,required)
-    if not start.ok:return start
-    var ordered:=recipes.duplicate(true)
-    ordered.sort_custom(func(a: Dictionary,b: Dictionary):return String(a.id)<String(b.id))
+    if not start.ok:
+        session.finish(start)
+        return session
+    session.start_money=int(start.money)
+    session.recipes=recipes.duplicate(true)
+    session.recipes.sort_custom(func(left: Dictionary,right: Dictionary):return String(left.id)<String(right.id))
+    session.ids=start.counts.keys()
+    session.ids.sort()
     var first:={"counts":start.counts,"money":start.money,"path":[]}
-    var ids: Array=start.counts.keys();ids.sort()
-    var frontier: Array=[first]
-    var visited:={signature(first,ids):int(start.money)}
-    var expanded:=0;var generated:=1
-    while not frontier.is_empty():
-        # Maximum remaining wallet first: the first accepted result is cheapest
-        # inside this explicit four-operation search, if the bound is not hit.
-        frontier.sort_custom(func(a: Dictionary,b: Dictionary):
-            return a.money>b.money if a.money!=b.money else a.path.size()<b.path.size())
-        var node: Dictionary=frontier.pop_front()
-        if int(visited.get(signature(node,ids),-1))>int(node.money):continue
-        if int(node.counts[target])>=int(required):
-            return {"ok":true,"counts":node.counts.duplicate(),"money":int(node.money),"cost":int(start.money)-int(node.money),"path":node.path.duplicate(true),"expanded":expanded,"generated":generated,"limited":false}
-        if node.path.size()>=MAX_STEPS:continue
-        if expanded>=MAX_EXPANSIONS:return failure("搜索达到工作上限，未判断是否存在方案。",true)
-        expanded+=1
-        for recipe in ordered:
-            for batches in range(1,11):
-                var next:=transition(node,recipe,batches)
-                if next.is_empty():continue
-                var key:=signature(next,ids)
-                if int(visited.get(key,-1))>=int(next.money):continue
-                if generated>=MAX_STATES:return failure("搜索达到容量上限，未判断是否存在方案。",true)
-                visited[key]=int(next.money);frontier.append(next);generated+=1
-    return failure("在四次交易、每次最多十份的范围内未找到可行方案。")
+    session.frontier=[first]
+    session.visited[signature(first,session.ids)]=session.start_money
+    return session
+
+static func search(recipes: Array,inventory: Dictionary,money: Variant,target: String,required: Variant) -> Dictionary:
+    var session:=begin(recipes,inventory,money,target,required)
+    while not session.done:
+        session.advance(32)
+    return session.result.duplicate(true)
+
+class SearchSession extends RefCounted:
+    var done:=false
+    var result: Dictionary={}
+    var frontier: Array=[]
+    var visited: Dictionary={}
+    var recipes: Array=[]
+    var ids: Array=[]
+    var target:=""
+    var required:=0
+    var start_money:=0
+    var expanded:=0
+    var generated:=1
+    var popped:=0
+    var transition_step: Callable
+    var state_key: Callable
+
+    func finish(value: Dictionary) -> void:
+        result=value.duplicate(true)
+        done=true
+        frontier.clear()
+        visited.clear()
+
+    func cancel() -> void:
+        if done:return
+        finish({"ok":false,"limited":false,"cancelled":true,"reason":"本次规划已取消，库存没有改变。"})
+
+    func advance(work: int=32) -> void:
+        if done:return
+        var quota:=clampi(work,1,32)
+        var consumed:=0
+        while consumed<quota and not frontier.is_empty():
+            consumed+=1
+            popped+=1
+            frontier.sort_custom(func(left: Dictionary,right: Dictionary):
+                return left.money>right.money if left.money!=right.money else left.path.size()<right.path.size())
+            var node: Dictionary=frontier.pop_front()
+            var current_key: String=state_key.call(node,ids)
+            if int(visited.get(current_key,-1))>int(node.money):continue
+            if int(node.counts[target])>=required:
+                finish({"ok":true,"counts":node.counts,"money":int(node.money),"cost":start_money-int(node.money),"path":node.path,"expanded":expanded,"generated":generated,"limited":false})
+                return
+            if node.path.size()>=4:continue
+            if expanded>=512:
+                finish({"ok":false,"limited":true,"reason":"搜索达到工作上限，未判断是否存在方案。"})
+                return
+            expanded+=1
+            for recipe in recipes:
+                for batches in range(1,11):
+                    var next: Dictionary=transition_step.call(node,recipe,batches)
+                    if next.is_empty():continue
+                    var key: String=state_key.call(next,ids)
+                    if int(visited.get(key,-1))>=int(next.money):continue
+                    if generated>=1024:
+                        finish({"ok":false,"limited":true,"reason":"搜索达到容量上限，未判断是否存在方案。"})
+                        return
+                    visited[key]=int(next.money)
+                    frontier.append(next)
+                    generated+=1
+        if frontier.is_empty():
+            finish({"ok":false,"limited":false,"reason":"在四次交易、每次最多十份的范围内未找到可行方案。"})
 static func verify(recipes: Array,inventory: Dictionary,money: Variant,target: String,required: Variant,result: Dictionary) -> bool:
     var start:=initial(recipes,inventory,money,target,required)
     if not start.ok or not result.get("ok",false) or not result.get("path") is Array or result.path.size()>MAX_STEPS:return false

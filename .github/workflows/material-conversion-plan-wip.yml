@@ -1,30 +1,64 @@
-name: G01 material conversion core WIP
+name: G01 known material conversion planner
 on:
+  pull_request:
+    paths:
+      - 'godot/scripts/material_conversion_plan*.gd'
+      - 'godot/scripts/material_exchange_desk.gd'
+      - 'godot/scripts/material_exchange.gd'
+      - 'godot/data/material_exchange.json'
+      - 'tools/*material_conversion_plan*.py'
+      - '.github/workflows/material-conversion-plan-wip.yml'
   push:
-    branches: [codex/ledger-g01-material-conversion-plan-wip-21ca]
+    branches: [main, codex/ledger-g01-material-conversion-plan-wip-21ca]
 permissions:
   contents: read
+concurrency:
+  group: material-conversion-plan-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
-  native-core:
+  native-planner:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
+          lfs: true
           sparse-checkout: |
-            /godot/scripts/material_conversion_plan.gd
-            /godot/scripts/material_conversion_plan_validation.gd
-            /godot/data/material_exchange.json
-            /tools/run_material_conversion_plan_contract.py
-          sparse-checkout-cone-mode: false
+            godot
+            tools
+            .github
+          sparse-checkout-cone-mode: true
+      - name: Strict runner negative and workflow tests
+        run: python3 tools/test_material_conversion_plan_runner.py
       - name: Install pinned Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
-      - name: Strict native read-only canonical conversion core
+      - name: Native canonical rates and incremental cancellation
         run: python3 tools/run_material_conversion_plan_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/conversion-native"
+      - name: Existing isolated material workbench
+        run: |
+          python3 tools/run_ledger_20261028_05.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/conversion-isolated"
+          python3 tools/run_material_exchange_maximum_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/conversion-maximum"
+      - name: Two strict full native resource imports
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/conversion-import"
+      - name: Actual World knowledge, live invalidation and zero-write UI
+        run: python3 tools/run_material_conversion_plan_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/conversion-world"
+      - name: Original trade, contract and actual UI regressions
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite material_exchange --suite field_contracts --suite ui_world_integration --log-dir "$RUNNER_TEMP/conversion-existing"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: material-conversion-core-logs
-          path: ${{ runner.temp }}/conversion-native
+          name: material-conversion-planner-logs
+          path: ${{ runner.temp }}/conversion-*
+  static-gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Full existing static and campaign gates
+        run: |
+          npm test
+          npm run test:campaign
