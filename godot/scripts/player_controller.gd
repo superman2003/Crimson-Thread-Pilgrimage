@@ -1417,24 +1417,24 @@ func _update_attack(delta: float) -> void:
         attack_shape.disabled = true
         return
 
+    if not is_finite(delta) or delta <= 0.0: return
+    var previous := attack_duration - attack_timer
     attack_timer = maxf(0.0, attack_timer - delta)
     var elapsed := attack_duration - attack_timer
-    var active := elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+    var window := preload("res://scripts/action_time_window.gd")
+    var crossed: bool = window.intersects(previous, elapsed, attack_windup, attack_active_time)
+    var active: bool = attack_timer > 0 and window.contains(elapsed, attack_windup, attack_active_time)
     var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
-    if not active_skill.is_empty() and elapsed > attack_windup + attack_active_time and not seal_recovery_shown:
-        seal_recovery_shown = true
-        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
-    if active and not attack_vfx_started:
+    if crossed and not attack_vfx_started:
         attack_vfx_started = true
         if not active_skill.is_empty():
             _seal_present(String(active_skill.get("id", "cleave")), "active")
-        if not special:
-            _spawn_attack_vfx(current_attack)
-    if active and special and not skill_effect_started:
+        if not special: _spawn_attack_vfx(current_attack)
+    if crossed and special and not skill_effect_started:
         skill_effect_started = true
         _apply_special_skill()
     attack_shape.disabled = not active or special
-    if active and not special:
+    if crossed and not special:
         if String(active_skill.get("id", "")) == "cleave":
             var progress := clampf((elapsed - attack_windup) / maxf(0.01, attack_active_time), 0.0, 1.0)
             var displacement := 64.0 * progress
@@ -1446,6 +1446,9 @@ func _update_attack(delta: float) -> void:
             for terrain in get_tree().get_nodes_in_group("fragile_terrain"):
                 if terrain is Node2D and terrain.has_method("receive_ability_action") and terrain.global_position.distance_to(global_position) < 100.0:
                     terrain.receive_ability_action("thorn_downstrike", global_position, Vector2.DOWN)
+    if not active_skill.is_empty() and elapsed >= attack_windup + attack_active_time and not seal_recovery_shown:
+        seal_recovery_shown = true
+        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
 
 
 func _apply_attack_hits() -> void:
