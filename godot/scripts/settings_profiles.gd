@@ -8,6 +8,7 @@ const EXTRA := ["npc_landmarks","tutorial_hints","navigation_assist"]
 var profiles: Dictionary={}
 var store:=preload("res://scripts/journey_desk_store.gd").new()
 var apply_writer: Callable
+var preference_writer := preload("res://scripts/settings_persistence.gd").new()
 
 func configure(scope: String="global") -> void:
     profiles={}
@@ -87,6 +88,8 @@ func apply(name: String, ui: Control, scope: int, expected: Dictionary) -> Dicti
     var candidate:=quote(name,ui,scope)
     if not candidate.ok:return candidate
     if candidate.snapshot!=expected:return {"ok":false,"reason":"方案内容已变化，请重新预览确认。"}
+    var recovery: Error=preference_writer.recover(ui.accessibility_path)
+    if recovery!=OK:return {"ok":false,"reason":"设置文件正在写入或尚未恢复（%d），当前设置保留。" % recovery}
     var config:=ConfigFile.new()
     config.load(ui.accessibility_path)
     for key in candidate.values:config.set_value("accessibility",key,candidate.values[key])
@@ -94,10 +97,7 @@ func apply(name: String, ui: Control, scope: int, expected: Dictionary) -> Dicti
     var result:=OK
     if apply_writer.is_valid():result=int(apply_writer.call(config,ui.accessibility_path))
     else:
-        var temporary: String=ui.accessibility_path+".profile.tmp"
-        result=config.save(temporary)
-        if result==OK:result=DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary),ProjectSettings.globalize_path(ui.accessibility_path))
-        if result!=OK:DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+        result=preference_writer.save(config,ui.accessibility_path)
     if result!=OK:return {"ok":false,"reason":"设置写入失败（%d），当前输入与画面均保留。" % result}
     for key in candidate.values:ui.accessibility[key]=candidate.values[key]
     for action in ui.REMAPPABLE_ACTIONS:
