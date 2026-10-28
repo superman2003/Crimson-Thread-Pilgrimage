@@ -587,7 +587,7 @@ func _build_bag() -> void:
     bag.name="BackpackOverlay"
     _well(bag,Vector2(724,136),Vector2(356,444))
     _well(bag,Vector2(26,186),Vector2(665,354))
-    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(640,26),16,MUTED)
+    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(260,26),16,MUTED)
     _icon(bag,ART.item("currency"),Vector2(848,31),Vector2(28,28))
     bag_currency=_label(bag,"",Vector2(883,32),Vector2(120,30),20,GOLD)
     var categories:= ["全部","织具","遗物","材料","要物","旅记"]
@@ -689,6 +689,7 @@ func _build_bag() -> void:
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
+    preload("res://scripts/journal_mark_desk.gd").install(self)
     legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     legacy_bag_text.visible=false
     legacy_bag_detail.visible=false
@@ -703,6 +704,7 @@ func _matches(category: String) -> bool:
 
 func refresh_inventory() -> void:
     if bag_grid==null:return
+    if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
     if journal_filters!=null:
         journal_filters.visible=bag_category=="旅记"
         bag_scroll.position.y=279 if journal_filters.visible else 194
@@ -2862,6 +2864,7 @@ func _refresh_journal_actions() -> void:
     journal_batch_button.disabled=not journal_catalog.batch_quote(_journal_batch_documents()).get("ok",false)
     journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
     journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
+    if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
 
 func _journal_preference_result(result: Dictionary) -> void:
     if not String(result.get("reason","")).is_empty() and is_instance_valid(toast):toast.text=String(result.reason)
@@ -2924,6 +2927,7 @@ func _apply_journal_scroll(key: String, text: String, offset: float, request_gen
         var bar:=bag_description.get_v_scroll_bar()
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
         journal_restore_pending=false
+        if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
 
 func _scroll_journal(step: int) -> void:
     if bag_description==null:return

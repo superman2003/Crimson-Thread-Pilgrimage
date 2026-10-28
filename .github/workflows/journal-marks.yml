@@ -1,0 +1,51 @@
+name: U05 explicit persistent reading marks
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/journal_mark*.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/settings_persistence.gd'
+      - 'godot/scripts/preference_file_transaction.gd'
+      - 'tools/*journal_mark*.py'
+      - '.github/workflows/journal-marks.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: journal-marks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native bookmark store and two independent process contracts
+        run: python3 tools/run_journal_mark_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journal-marks-isolated"
+      - name: Import full resources with existing strict gates
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/journal-marks-import"
+      - name: Actual journal bookmark UI and unchanged gameplay bytes
+        run: python3 tools/run_journal_mark_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/journal-marks-world"
+      - name: Existing journal and reading ownership regressions
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite journal_desk --suite ui_world_integration --log-dir "$RUNNER_TEMP/journal-marks-existing"
+          python3 tools/run_journal_batch_read_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journal-marks-batch"
+          python3 tools/run_world_reading_session_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journal-marks-session"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: journal-marks-logs
+          path: |
+            ${{ runner.temp }}/journal-marks-isolated
+            ${{ runner.temp }}/journal-marks-import
+            ${{ runner.temp }}/journal-marks-world
+            ${{ runner.temp }}/journal-marks-existing
+            ${{ runner.temp }}/journal-marks-batch
+            ${{ runner.temp }}/journal-marks-session
