@@ -101,7 +101,7 @@ func run() -> void:
 	# --- The settings page lays out all of them inside the panel without overlap. ---
 	scene._toggle_audio_settings()
 	await tick(3)
-	check(ui.settings.visible and ui.remap_buttons.size() == UI.REMAPPABLE_ACTIONS.size() and UI.REMAPPABLE_ACTIONS.size() == 20, "the settings page shows a button for each of the 20 actions")
+	check(ui.settings.visible and ui.remap_buttons.size() == UI.REMAPPABLE_ACTIONS.size() and UI.REMAPPABLE_ACTIONS.size() == 21, "the settings page shows a button for each of the 21 actions")
 	var panel := Rect2(Vector2.ZERO, ui.settings.size)
 	var rects: Array = []
 	for action in ui.remap_buttons:

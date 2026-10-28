@@ -172,12 +172,14 @@ var inventory_build_selection := ""
 
 const BINDING_POLICY = preload("res://scripts/input_binding_policy.gd")
 var binding_recovery_notice := ""
+var build_shortcut: Node
+var remap_scroll: ScrollContainer
 
 const REMAPPABLE_ACTIONS := {"jump":"跳跃","attack":"普攻","heal":"治疗","skill_1":"施放技能","skill_cycle":"切换技能","tool_cast":"使用战具","tool_cycle":"切换战具","dash":"冲刺","interact":"互动",
     # U06: movement and the four permanent abilities are remappable too.
     "move_left":"左移","move_right":"右移","aim_up":"向上","aim_down":"向下",
     "hook":"回声钩索","bell_guard":"钟壳格挡","lantern_phase":"灯影相位","crown_resonance":"王冠共鸣",
-    "inventory":"行囊","map":"地图","audio_settings":"设置"}
+    "inventory":"行囊","map":"地图","audio_settings":"设置","build_menu":"构筑"}
 const REMAP_COLUMNS := 4
 ## Bindings as the game ships them, recorded once per run before saved ones apply.
 static var default_bindings: Dictionary = {}
@@ -990,13 +992,26 @@ func _build_settings() -> void:
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
     reset_bindings_button.add_theme_font_size_override("font_size",13)
-    var action_index:=0
+    remap_scroll=ScrollContainer.new()
+    remap_scroll.name="RemapScroll"
+    remap_scroll.position=Vector2(34,414)
+    remap_scroll.size=Vector2(938,130)
+    remap_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
+    remap_scroll.follow_focus=true
+    settings.add_child(remap_scroll)
+    var remap_grid:=GridContainer.new()
+    remap_grid.columns=REMAP_COLUMNS
+    remap_grid.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+    remap_grid.add_theme_constant_override("h_separation",6)
+    remap_grid.add_theme_constant_override("v_separation",1)
+    remap_scroll.add_child(remap_grid)
     for action in REMAPPABLE_ACTIONS:
         var action_id:=String(action)
-        var button:=_button(settings,"",Vector2(34+(action_index%REMAP_COLUMNS)*236,414+(action_index/REMAP_COLUMNS)*27),Vector2(226,26),func():_begin_remap(action_id))
+        var button:=_button(remap_grid,"",Vector2.ZERO,Vector2(224,26),func():_begin_remap(action_id))
+        button.custom_minimum_size=Vector2(224,26)
+        button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-        action_index+=1
     remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),13,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -1229,6 +1244,7 @@ func _record_default_bindings() -> void:
 ## U06: one press puts every remappable action back to the shipped bindings.
 func _reset_bindings() -> void:
     remap_target=""
+    if is_instance_valid(build_shortcut):build_shortcut.clear()
     for action in default_bindings:
         InputMap.action_erase_events(action)
         for event in default_bindings[action]:InputMap.action_add_event(action,event.duplicate())
@@ -1241,6 +1257,7 @@ func _begin_remap(action: String) -> void:
     if not REMAPPABLE_ACTIONS.has(action) or settings==null or not settings.is_visible_in_tree():return
     remap_target=action
     remap_status.text="请为「%s」按键、鼠标按钮或手柄输入；Esc 取消。" % REMAPPABLE_ACTIONS[action]
+    if action=="build_menu":remap_status.text="构筑使用键盘、鼠标按钮或非导航手柄按键；确认、返回、方向键和滚轮保留给界面。Esc 取消。"
 
 func _cancel_remap(reason: String) -> void:
     if remap_target.is_empty():return
@@ -1254,6 +1271,7 @@ func _remap_visibility_changed() -> void:
 func _notification(what: int) -> void:
     if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
         _cancel_remap("窗口已失去焦点，重映射已取消；原绑定保留。")
+        if is_instance_valid(build_shortcut):build_shortcut.clear()
 
 func _refresh_remap_labels() -> void:
     for action in remap_buttons:
@@ -1263,9 +1281,11 @@ func _refresh_remap_labels() -> void:
         remap_buttons[action].text=String(REMAPPABLE_ACTIONS[action])+" · "+(" / ".join(names) if not names.is_empty() else "未设置")
         remap_buttons[action].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
         remap_buttons[action].tooltip_text=remap_buttons[action].text
+    _refresh_quick_action_bindings()
 
 func _input(event: InputEvent) -> void:
     if level==null or not construction_complete:return
+    var build_pressed: bool=is_instance_valid(build_shortcut) and build_shortcut.consume(event)
     PROMPT_BINDINGS.observe(event)
     if not settings.visible:remap_target=""
     if not remap_target.is_empty():
@@ -1284,6 +1304,10 @@ func _input(event: InputEvent) -> void:
                 get_viewport().set_input_as_handled()
                 return
             var action:=remap_target
+            if not BINDING_POLICY.allowed_for(action,accepted):
+                remap_status.text="此输入需要留给界面导航；构筑请改用字母/功能键、鼠标按钮或非导航手柄按键。"
+                get_viewport().set_input_as_handled()
+                return
             var conflicts: Array[String]=[]
             for other in BINDING_POLICY.conflicts(accepted,action,BINDING_POLICY.snapshot()):
                 conflicts.append(String(REMAPPABLE_ACTIONS.get(other,"其他动作")))
@@ -1295,6 +1319,7 @@ func _input(event: InputEvent) -> void:
             for old in InputMap.action_get_events(action):
                 if BINDING_POLICY.family(old)==BINDING_POLICY.family(accepted):InputMap.action_erase_event(action,old)
             InputMap.action_add_event(action,accepted)
+            if action=="build_menu" and is_instance_valid(build_shortcut):build_shortcut.suppress_capture(event)
             remap_target=""
             _apply_controller_deadzone()
             _save_accessibility()
@@ -1324,11 +1349,16 @@ func _input(event: InputEvent) -> void:
         # so one key never advances both the gameplay selection and focus.
         get_viewport().set_input_as_handled()
         return
-    if (event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_B) or (event is InputEventJoypadButton and event.pressed and event.button_index==JOY_BUTTON_LEFT_STICK):
+    if build_pressed:
         _request_build_toggle()
         get_viewport().set_input_as_handled()
 
 func _bind_ui_navigation() -> void:
+    preload("res://scripts/build_shortcut_input.gd").ensure_action()
+    if not is_instance_valid(build_shortcut):
+        build_shortcut=preload("res://scripts/build_shortcut_input.gd").new()
+        build_shortcut.name="BuildShortcutInput"
+        add_child(build_shortcut)
     for pair in [["ui_up",JOY_BUTTON_DPAD_UP],["ui_down",JOY_BUTTON_DPAD_DOWN],["ui_left",JOY_BUTTON_DPAD_LEFT],["ui_right",JOY_BUTTON_DPAD_RIGHT],["ui_accept",JOY_BUTTON_A],["close_overlay",JOY_BUTTON_B],["inventory",JOY_BUTTON_START],["map",JOY_BUTTON_RIGHT_STICK],["interact",JOY_BUTTON_BACK]]:
         var action:=String(pair[0])
         if not InputMap.has_action(action):InputMap.add_action(action)
@@ -2472,10 +2502,10 @@ func _short_binding(action: String) -> String:
     return PROMPT_BINDINGS.action_label(action)
 
 func _refresh_quick_action_bindings() -> void:
-    var actions := ["", "inventory", "map", "audio_settings"]
+    var actions := ["build_menu", "inventory", "map", "audio_settings"]
     var titles := ["构筑", "行囊", "地图", "设置"]
     for index in mini(quick_actions.size(), actions.size()):
-        var hint := ("手柄 L3" if PROMPT_BINDINGS.controller_device >= 0 else "B") if index == 0 else _short_binding(actions[index])
+        var hint := _short_binding(actions[index])
         quick_actions[index].text = hint + " " + titles[index]
         quick_actions[index].text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
         quick_actions[index].tooltip_text = quick_actions[index].text
