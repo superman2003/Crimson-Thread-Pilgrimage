@@ -1,0 +1,45 @@
+name: U06 independent manual camera observation
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/camera_observation*.gd'
+      - 'godot/scripts/camera_focus.gd'
+      - 'godot/scripts/player_controller.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/run_camera_observation_contract.py'
+      - 'tools/test_camera_observation_runner.py'
+      - '.github/workflows/camera-observation.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: camera-observation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-manifest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Runner failure propagation
+        run: python3 tools/test_camera_observation_runner.py
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native manual observation preferences and scope contracts
+        run: python3 tools/run_camera_observation_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-native"
+      - name: Two strict full-resource import passes
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/comparison-import"
+      - name: Actual World ownership and camera preference ownership
+        run: python3 tools/run_camera_observation_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/comparison-world"
+      - name: Original camera, settings and profile contracts
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite camera_focus --suite room_camera_stability --suite settings_remap --suite controller_comfort --suite settings_profiles --suite ui_world_integration --log-dir "$RUNNER_TEMP/comparison-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: camera-observation-logs
+          path: ${{ runner.temp }}/comparison-*
