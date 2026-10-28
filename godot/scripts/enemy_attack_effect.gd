@@ -128,9 +128,8 @@ func _physics_process(delta: float) -> void:
         if not reflected and not hit_player and _hits_player(center):
             # Consume before callbacks: damage can synchronously re-enter or cancel us.
             hit_player=true
-            if target.has_method("take_damage"):
-                target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
-            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):
+            var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
+            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):
                 target.apply_snare(snare)
             if effect_kind=="projectile":
                 _finish_impact(global_position)
@@ -342,8 +341,8 @@ func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wal
     var time:=SWEEP.circle_time(start,finish,center,radius+23)
     if time>=limit or time>1:return false
     global_position=start.lerp(finish,time);hit_player=true
-    if target.has_method("take_damage"):target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
-    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):target.apply_snare(snare)
+    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
+    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):target.apply_snare(snare)
     if not cancelled and not is_queued_for_deletion():_finish_impact(global_position)
     return true
 
@@ -375,9 +374,9 @@ func _advance_wave(delta: float, target: Node2D) -> void:
                 if time < limit and time <= 1.0:
                     hit_player = true
                     var contact := start.lerp(finish, time)
-                    if target.has_method("take_damage"): target.take_damage(damage, contact, bool(get_meta("blockable", true)))
+                    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, contact, bool(get_meta("blockable", true)))
                     if cancelled or is_queued_for_deletion(): return
-                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and target.has_method("apply_snare"): target.apply_snare(snare)
+                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and accepted and target.has_method("apply_snare"): target.apply_snare(snare)
             if not wall.is_empty():
                 global_position = wall.position
                 cancel()
