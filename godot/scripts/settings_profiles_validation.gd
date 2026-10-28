@@ -17,7 +17,7 @@ func run() -> void:
         check(CODEC.encode(CODEC.decode(encoded))==encoded,"JSON event codec preserves supported family and modifiers")
     check(CODEC.decode({"type":"key","physical":true,"logical":0})==null and CODEC.decode({"type":"axis","axis":0,"value":NAN})==null,"malformed and non-finite event fields are rejected")
     var model:=MODEL.new();model.configure("profile_unit")
-    var sample:={"values":{},"bindings":{}}
+    var sample: Dictionary=JSON.parse_string(JSON.stringify({"values":MODEL.values({}),"bindings":{"heal":[CODEC.encode(key)]}},"",true,true))
     for index in 6:check(model.manage("save","","方案"+str(index),sample).ok,"named setting slot saves")
     check(not model.manage("save","","第七套",sample).ok,"profile capacity is bounded")
     check(not model.manage("rename","方案0","方案1").ok,"rename cannot overwrite another profile")
