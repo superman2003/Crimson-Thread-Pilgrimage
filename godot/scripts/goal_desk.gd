@@ -20,6 +20,7 @@ var elapsed := 0.0
 var signature := ""
 var cleanup: ConfirmationDialog
 var cleanup_quote: Dictionary={}
+var wish_manifest: AcceptDialog
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -94,6 +95,8 @@ func _build() -> void:
     note = window.search(notes,"当前目标备注，最多160字",func(_value: String):pass);note.max_length=160
     note_button = window.button(notes,"保存备注",func():act("note",note.text))
     window.button(window.column,"整理已完成追踪",ask_cleanup)
+    var wish_button: Button=window.button(window.column,"已询问心愿交付清单",open_wish_manifest)
+    wish_button.name="KnownWishManifestButton"
     window.footer()
 
 func open() -> void:
@@ -187,3 +190,16 @@ func _apply_cleanup() -> void:
     if not window.visible or cleanup_quote.is_empty():return
     var result:=preload("res://scripts/goal_watchlist_review.gd").apply(model,rows(),String(cleanup_quote.get("fingerprint","")))
     cleanup_quote={};refresh();window.status.text=String(result.reason)
+
+func open_wish_manifest() -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.bag.is_visible_in_tree() or ui.level.world_loading:return
+    if not is_instance_valid(wish_manifest):
+        wish_manifest=preload("res://scripts/known_wish_dialog.gd").new()
+        wish_manifest.name="KnownWishManifestWindow";window.add_child(wish_manifest)
+        var reference: WeakRef=weakref(wish_manifest)
+        var parent_ref: WeakRef=weakref(window)
+        window.visibility_changed.connect(func():
+            var child:=reference.get_ref() as Window
+            var parent:=parent_ref.get_ref() as Window
+            if is_instance_valid(child) and (not is_instance_valid(parent) or not parent.visible):child.hide())
+    wish_manifest.open_for(self)
