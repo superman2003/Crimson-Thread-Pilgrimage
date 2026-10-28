@@ -129,6 +129,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
+    effect.beam_max_length=effect.length
     if effect_kind == "beam" and is_inside_tree():
         if get_parent().has_method("_ensure_collision_segment"):
             get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
