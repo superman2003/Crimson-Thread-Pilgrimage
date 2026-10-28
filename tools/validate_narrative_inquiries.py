@@ -20,6 +20,11 @@ def authorities():
                 if 'boss_trial' not in p.name]
     npcs = {row['id']: row for chapter in chapters for row in chapter.get('npcs', [])}
     items = {row['item_id'] for chapter in chapters for row in chapter.get('collectibles', [])}
+    # The World merges route-authored pickups into chapter data at runtime.
+    # Some permanent abilities (including double jump) exist only in this layer.
+    routes = load(DATA / 'world_routes.json')
+    for chapter in routes['chapters'].values():
+        items.update(row['item_id'] for row in chapter.get('collectibles', []) if 'item_id' in row)
     history = {row['id']: row for row in load(DATA / 'scene_history.json')['entries']}
     # Production scripts and authored chapter/NPC states own these flags.
     text = '\n'.join(p.read_text(encoding='utf-8') for p in (ROOT / 'godot/scripts').glob('*.gd')

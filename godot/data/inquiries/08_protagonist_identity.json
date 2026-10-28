@@ -1,0 +1,390 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "identity_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "我一握住钩就知道怎么用。以前也这样吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "echo_hook",
+          "label": "已取得回声丝钩"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "你第一次在我这儿拿针，先看了针眼，再看自己的手。我记得的只有那一次。",
+        "钩是不是旧习惯，得找别的凭据。你若愿意，下次把不会的也拿来，我们一起试，别总挑会的证明自己。"
+      ],
+      "reflection": "我会用钩。我第一次拿针时看过自己的手。先把知道的这两件事分开记下。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_01",
+            "label": "井喉抵押刻痕"
+          }
+        ],
+        "lines": [
+          "证词里一颗心、一根新线，也不是同一时候留下的。你的手或许也要一点点查。",
+          "今天先不用给过去起名字。把磨破的那处包好，明天还得用。"
+        ]
+      }
+    },
+    {
+      "id": "identity_03",
+      "npc": "npc_gate_pilgrim",
+      "question": "如果没人叫得出我的名字，你怎么叫我？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我先叫你巡礼者。你回了头，这次就够了。",
+        "若有一天你不回头，我会问是不是叫错，不会追着把这个称呼套上。"
+      ],
+      "reflection": "有人叫我，我回了头。我还不知道来处，却已经有了一次相见。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "守母战后"
+          }
+        ],
+        "lines": [
+          "守母停下后，我也不一定还守这道门。到时候你可能得换个地方找我。",
+          "称呼可以慢慢学，别把第一次见面的地方当成谁都不能走的地方。"
+        ]
+      }
+    },
+    {
+      "id": "identity_04",
+      "npc": "npc_gear_cartographer",
+      "question": "我跳上去了，为什么还是想不起自己？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "double_thread_jump",
+          "label": "已取得双线跃"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "因为上面只多一块落脚处。我给你画的是路，没有本事画回记忆。",
+        "你可以失望。但先站稳，再想；别在半空追一个不肯落地的答案。"
+      ],
+      "reflection": "高处没有等着我想起的脸。我先把脚下的台沿记进图里。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_03",
+            "label": "封存书堆的改字页"
+          }
+        ],
+        "lines": [
+          "原页上的字，也得有人下来挨近了看。你带到这里，它才补上我图上看不到的一截。",
+          "以后想不起时可以回来。地图放这儿，不用每次都跳得更高。"
+        ]
+      }
+    },
+    {
+      "id": "identity_05",
+      "npc": "npc_rain_smith_liu",
+      "question": "我没想就接住了一击。你能认出是谁教的吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "bell_guard",
+          "label": "已取得钟壳格挡"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "认不出。手上起茧的人很多，我不能看见一副好架势，就往你身上安一个师父。",
+        "但你右手收得急。无论以前谁教过，今天这一下会伤手腕。我能替你改的是这个。"
+      ],
+      "reflection": "柳没有替我编一个师父。他看出我今天的手腕收得太急。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_02",
+            "label": "档案舱的两层工牌"
+          }
+        ],
+        "lines": [
+          "工牌要看铆痕，人也得找真留下过的痕。哪天找到你的，我们再认。",
+          "认不出也别硬挡下一击。活到明天，才有工夫继续问。"
+        ]
+      }
+    },
+    {
+      "id": "identity_06",
+      "npc": "npc_canal_child",
+      "question": "你听见的我，是什么声音？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "echo_hook",
+          "label": "已取得回声丝钩"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "你在听。我停下说爹的时候，你没有马上走。",
+        "别的我还不知道。你要是想说一件自己的事，我也能坐在这儿听。"
+      ],
+      "reflection": "孩子记得我停下来过。我想起自己也有话可以慢慢说。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_02",
+            "label": "档案舱的两层工牌"
+          }
+        ],
+        "lines": [
+          "你把爹的工牌拿稳了，我就把它交给你。",
+          "以后若你找到自己的东西，也可以先给我看。我不会先问它能做什么。"
+        ]
+      }
+    },
+    {
+      "id": "identity_08",
+      "npc": "npc_quiet_reader",
+      "question": "我不回答时，你会替我写下去吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "bell_guard",
+          "label": "已取得钟壳格挡"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "我以前替一处空白补过“同意”。老师说这样誊起来齐整，我就照做了。",
+        "现在轮到我等你的回答，才知道那两个字有多重。你不说，我就停笔。"
+      ],
+      "reflection": "读者把笔抬了起来。纸上仍有空处，我没有急着填。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_03",
+            "label": "封存书堆的改字页"
+          }
+        ],
+        "lines": [
+          "你找回的原页让我知道，留白不会把一座城弄坏；擅自补字却会。",
+          "若你以后改了主意，再来找我。这次我会标上是哪一天听你亲口说的。"
+        ]
+      }
+    },
+    {
+      "id": "identity_09",
+      "npc": "npc_broken_singer",
+      "question": "我的线除了割断，还能做什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "thorn_downstrike",
+          "label": "已取得棘丝下劈"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "接弦养根槽"
+        }
+      ],
+      "lines": [
+        "先替我把这截断弦按住。松一点，对，就是这样。",
+        "你不用唱。让它别把我的指头勒紧，就已经帮上忙了。"
+      ],
+      "reflection": "我按住断弦，没有拉。线在手里，也可以只是让别人松开手。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_04",
+            "label": "树心接弦伤口"
+          }
+        ],
+        "lines": [
+          "树心留下那道伤口，我一听就会接着唱。今天我想先不唱。",
+          "你在这里坐一会儿就好。等烦了可以走，不必替我把安静守成一项差事。"
+        ]
+      }
+    },
+    {
+      "id": "identity_11",
+      "npc": "npc_deserter_flagbearer",
+      "question": "穿过影门出来，你还认得我吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "lantern_phase",
+          "label": "已取得灯影穿行"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "认得你停在门外，没有把我往前推。至于你自己觉得哪儿变了，要问你。",
+        "我也想知道，哪天不带旗出来，还有没有人认得我。"
+      ],
+      "reflection": "影门后面，他认出的是我停下的那一步。我也看见了旗以外的他。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_05",
+            "label": "巡礼军墓的重编名册"
+          }
+        ],
+        "lines": [
+          "军册写我离队，我拿回来读了三遍。那三个字没把以前的我抹掉。",
+          "你也别急着把自己分成门前门后两个人。先看看今天还想往哪走。"
+        ]
+      }
+    },
+    {
+      "id": "identity_12",
+      "npc": "npc_obsidian_guide",
+      "question": "我总想往前冲，停下来会不会错过什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "thread_dash",
+          "label": "已取得绯线突进"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "会错过一段路，也可能看见脚边漏掉的台阶。我没法替你算哪样更值。",
+        "今晚营地还有地方。你可以先睡，醒了再看要不要追那道光。"
+      ],
+      "reflection": "我在营地坐了一会儿。没得到新能力，也没把这段时间划掉。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_05",
+            "label": "巡礼军墓的重编名册"
+          }
+        ],
+        "lines": [
+          "军册把停下的人又编回队里。你现在停着，恰好不用替它补一员。",
+          "灯亮时若还困，就再睡。我会先去看看路，不会掀你被子。"
+        ]
+      }
+    },
+    {
+      "id": "identity_13",
+      "npc": "npc_crown_tongue",
+      "question": "王冠回应我的时候，我差点以为它在叫我。",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "crown_resonance",
+          "label": "已取得王冠共鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "它能认你的线，不能替你认完一个人。许多锁一插对钥匙，就显得很亲近。",
+        "你若觉得自己终于被认出来了，也先看看这把锁还扣着谁。"
+      ],
+      "reflection": "共鸣让我听见回应。我把手收回来，又看了一眼锁后面的路。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_06",
+            "label": "冠肋吞钥告解"
+          }
+        ],
+        "lines": [
+          "告解里的钥匙也是能开门的，最后却留在肋骨里。",
+          "你要继承什么，不能只问它愿不愿给。还得问自己准备把谁关在外面。"
+        ]
+      }
+    },
+    {
+      "id": "identity_14",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "我还没想起自己，有资格在这里落针吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "crown_resonance",
+          "label": "已取得王冠共鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "你已经会先问这一句了。可我不能拿它给你发一张不会犯错的凭据。",
+        "把找到的看完，把不知道的留明白，再亲口说你准备做什么。能做到的，也就从这里开始。"
+      ],
+      "reflection": "我还不知道过去的名字。我要做的这一件事，却不能再借别人的嘴回答。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_06",
+            "label": "冠肋吞钥告解"
+          }
+        ],
+        "lines": [
+          "六份告解没替你补出身世，它们把六个不能省略的人带到了这里。",
+          "落针时记得他们。落完以后，也回去听他们说你有没有做错。"
+        ]
+      }
+    }
+  ]
+}
