@@ -1784,6 +1784,10 @@ func _aim_attack(command: Dictionary, target: CharacterBody2D) -> void:
 
 
 func _update_active(delta: float) -> void:
+    # A zero step evaluates contact in place; only invalid or negative steps stop.
+    if not is_finite(delta) or delta < 0.0: return
+    delta = minf(delta, maxf(0.0, state_timer))
+    var previous_position := global_position
     var attack_type := String(active_attack.get("type", "melee"))
     attack_elapsed+=delta
     var progress := clampf(attack_elapsed/maxf(.01,float(active_attack.get("active",.24))),0,1)
@@ -1804,9 +1808,10 @@ func _update_active(delta: float) -> void:
         var sway := sin(state_timer * TAU * 8.0) * float(active_attack.get("feint_sway", 78.0)) * delta
         position.x += attack_direction * sway
     _clamp_movement_bounds()
+    global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, previous_position, global_position)
 
     if attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6):
-        _try_damage_player(active_attack)
+        _try_damage_player(active_attack, previous_position)
     if dying or is_queued_for_deletion():
         return
     if bool(active_attack.get("trail",false)):
@@ -1823,7 +1828,7 @@ func _update_active(delta: float) -> void:
         _pose_sprite("recover", active_attack)
         _clear_telegraph()
         if attack_type=="vault":
-            global_position.y=attack_start_position.y
+            global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, global_position, Vector2(global_position.x, attack_start_position.y))
 
 
 func _update_recover(delta: float) -> void:
@@ -1864,7 +1869,7 @@ func contact_attack_rect(command: Dictionary) -> Rect2:
     return Rect2(center - size * 0.5, size)
 
 
-func _try_damage_player(command: Dictionary) -> void:
+func _try_damage_player(command: Dictionary, previous_position: Vector2 = Vector2.INF) -> void:
     if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
         return
     var target := _target_player()
@@ -1872,7 +1877,8 @@ func _try_damage_player(command: Dictionary) -> void:
         return
     var attack_rect := contact_attack_rect(command)
     var player_rect := Rect2(target.global_position - Vector2(24.0, 84.0), Vector2(48.0, 88.0))
-    if attack_rect.intersects(player_rect):
+    var crossed := previous_position.is_finite() and preload("res://scripts/enemy_motion_sweep.gd").contact(previous_position, global_position, attack_rect, player_rect)
+    if crossed or attack_rect.intersects(player_rect):
         attack_has_hit = true
         target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
         if not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
