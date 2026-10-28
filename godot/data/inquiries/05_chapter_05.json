@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_05_01",
+      "npc": "npc_obsidian_guide",
+      "question": "这些木条明明能拆，为什么又钉回去？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "空槽曾经表示人不回来了。后来上面嫌空槽难看，叫我们钉满。",
+        "我指路的时候也爱说“前面总会有人接你”。说得太顺，竟没想过那些人能不能走。"
+      ],
+      "reflection": "我摸到木条后的旧钉孔。向导没有替“总有人接”找借口。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "统帅停了，路口不会立刻都有人。我得把空位标出来。",
+          "你若见到没人接，回来骂我也好，别以为是自己走错了。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_03",
+      "npc": "npc_obsidian_guide",
+      "question": "你会不会把回头的人再送回队里？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "以前会。我说前面更安全，他就跟我走了；其实我也没去看过后面。",
+        "现在我先把两边的落脚处说清。你选哪边，我送到能自己走的地方。"
+      ],
+      "reflection": "向导肯承认自己带错过人。我先让他把回程也说了一遍。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "有人不想再上路，我也得给他留营地的位置。",
+          "不是所有床都要朝着出发的方向摆。今天我才想起这事。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_04",
+      "npc": "npc_blind_bell_knight",
+      "question": "你每次点名，是在等谁回答？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "起初等活着的。后来我只求能再听一声，没分清从哪里传来。",
+        "名册上写着归队，我便替他们应了。我的声音还响，他们自己的倒越来越远。"
+      ],
+      "reflection": "骑士没有继续往下念。我在那一声停顿里，听见了他不敢承认的回答。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "今天点到空位，我把那一拍留了出来。很长，长得我差点又开口。",
+          "下次你经过，若听见我替他们应，叫住我。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_05",
+      "npc": "npc_blind_bell_knight",
+      "question": "白纱上有名字，为什么军册上只剩号？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "名字是统帅亲手留的。军令却凭号码把他们召回。她把两样都攥着，最后谁也松不开。",
+        "我不能替她挑一面说。那是我的统帅，我记得她，也怕她叫我。"
+      ],
+      "reflection": "骑士说到“怕”时，把白纱攥得更紧。我没有伸手替他解开。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "她停下了，我却还站得像在等令。",
+          "给我一点工夫。我答应过守这儿，得想清楚是还想守，还是只怕走。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_07",
+      "npc": "npc_lantern_sister",
+      "question": "同一盏灯，怎么既能引路又能召兵？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "亮法只差一拍。我从前嫌撤离的人走得慢，补过那一拍，想叫他们快些。",
+        "他们真的回来了。回来得太整齐，没人再问路。",
+        "军册上的重编记录，把我最怕的猜想坐实了。"
+      ],
+      "reflection": "修女认得多出的那一拍。军册上的编号，终于有了她不敢再回避的来处。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "如今我能把整段灯号重新试完。先停在安全台上，再给下一道光。",
+          "你若觉得在催，伸手告诉我。我宁肯多等一阵。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_09",
+      "npc": "npc_lantern_sister",
+      "question": "灯号没看见的人，你会去找吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "会先看最后确认过的位置。以前我只数到齐没有，从没记谁在哪儿停过。",
+        "你走过影门，知道一阵暗就能把人隔开。下回别硬追光，站稳，让我回光找你。"
+      ],
+      "reflection": "我记住最后一道回光的位置。走散以后，不能只靠更快地往前跑。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "今天灯暗时我没有补召集号。桥那边过了很久才回一闪。",
+          "我等到了。原来等待也得练，不能只练怎么把人叫回来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_10",
+      "npc": "npc_deserter_flagbearer",
+      "question": "军令拿回来了，你还留着这面旗做什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "当过枕头，也堵过漏。剪掉军号以后，它还是一块结实的布。",
+        "但你要我把它举起来，我会怕。怕一举，又有人以为我替他们答应了。"
+      ],
+      "reflection": "逃旗手把旗卷在膝上。我没有请他举起来给我看。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "统帅停了，手还会自己去摸旗杆。摸到半截，我把它放下了。",
+          "你若要我帮忙，直接叫我。别叫旗手，先叫我一声。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_12",
+      "npc": "npc_deserter_flagbearer",
+      "question": "你要把自己的名字也从军册里刮掉吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "巡礼军墓的重编名册"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "不。我想让人知道我来过，也知道我是哪天走的。",
+        "书库刮掉名字，人就像从来没活过。我不想拿同一把刀给自己找自由。"
+      ],
+      "reflection": "我把他递来的军令翻平，没有刮去任何一个名字。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "今天能把“离队”两个字写全了。我写得很慢，怕手一快又落成“归队”。",
+          "写完再去搬水。搬水是我自己答应的，军册管不着。"
+        ]
+      }
+    }
+  ]
+}
