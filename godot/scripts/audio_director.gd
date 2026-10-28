@@ -50,6 +50,7 @@ const BUS_DEFAULT_DB := {"Master": 0.0, "BGM": 0.0, "SFX": 0.0, "Ambience": -14.
 const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "ambience": "Ambience"}
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
+var music_retry_after: Dictionary = {}
 var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
 var volume_preferences_dirty := false
 var volume_preferences_error := OK
@@ -756,11 +757,31 @@ func _fade_out_combat_layer() -> void:
 
 # ---- Boss 曲（规格 §3；终 Boss 三乐章）----
 
+## Retry missing music without poisoning the general audio cache forever or
+## emitting a warning every frame while the scene keeps requesting the same state.
+func _music_candidate(path: String) -> AudioStream:
+    var key := "%s|1" % path
+    var now := Time.get_ticks_msec()
+    if _stream_cache.has(key) and _stream_cache[key]==null:
+        if now<int(music_retry_after.get(path,0)):return null
+        _stream_cache.erase(key)
+    var stream := load_cached(path,true)
+    if stream==null:
+        music_retry_after.erase(path)
+        music_retry_after[path]=now+1000
+        while music_retry_after.size()>16:music_retry_after.erase(music_retry_after.keys()[0])
+    else:music_retry_after.erase(path)
+    return stream
+
 func start_boss_music(boss_id: String) -> void:
     _stop_npc_landmarks()
     if boss_active and active_boss_id == boss_id \
             and boss_player != null and is_instance_valid(boss_player) and boss_player.playing:
         return
+    var stream: AudioStream
+    if autoplay_enabled:
+        stream=_music_candidate(_boss_track_path(boss_id,1))
+        if stream==null:return
     boss_active = true
     active_boss_id = boss_id
     boss_phase = 1
@@ -775,9 +796,6 @@ func start_boss_music(boss_id: String) -> void:
         for movement_path in FINAL_BOSS_MOVEMENTS:
             load_cached(String(movement_path), true)
     _fade_explore_to_pause(BOSS_ENTER_EXPLORE_FADE_S)
-    var stream := load_cached(_boss_track_path(boss_id, 1), true)
-    if stream == null:
-        return
     if boss_player == null or not is_instance_valid(boss_player):
         boss_player = AudioStreamPlayer.new()
         boss_player.name = "MusicBossPlayer"
@@ -790,18 +808,17 @@ func start_boss_music(boss_id: String) -> void:
 
 
 func set_boss_phase(p: int) -> void:
-    if not boss_active or p == boss_phase:
+    var next_phase := clampi(p,1,3)
+    if not boss_active or next_phase==boss_phase:return
+    if not autoplay_enabled or active_boss_id!=FINAL_BOSS_ID:
+        boss_phase=next_phase
         return
-    boss_phase = clampi(p, 1, 3)
-    if not autoplay_enabled or active_boss_id != FINAL_BOSS_ID:
-        return
-    if boss_player == null or not is_instance_valid(boss_player):
-        return
-    var stream := load_cached(_boss_track_path(active_boss_id, boss_phase), true)
-    if stream == null:
-        return
-    boss_player.stream = stream
+    if not is_instance_valid(boss_player):return
+    var stream := _music_candidate(_boss_track_path(active_boss_id,next_phase))
+    if stream==null:return
+    boss_player.stream=stream
     boss_player.play()
+    boss_phase=next_phase
 
 
 func stop_boss_music() -> void:
@@ -843,12 +860,13 @@ func start_lullaby() -> void:
     if boss_active or combat_active:
         # Active threats keep the shrine poll pending until the calm window ends.
         return
+    var stream: AudioStream
+    if autoplay_enabled:
+        stream=_music_candidate(_lullaby_path())
+        if stream==null:return
     _fade_out_combat_layer()
     lullaby_active = true
     if not autoplay_enabled:
-        return
-    var stream := load_cached(_lullaby_path(), true)
-    if stream == null:
         return
     if lullaby_player == null or not is_instance_valid(lullaby_player):
         lullaby_player = AudioStreamPlayer.new()
