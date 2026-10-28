@@ -67,7 +67,7 @@ func refresh() -> void:
         if name==selected:list.select(list.item_count-1)
     if list.get_selected_items().is_empty() and list.item_count>0:selected=String(model.profiles.keys()[0]);list.select(0)
     if list.item_count==0:selected=""
-    window.status.text="%d/6套。%s" % [model.profiles.size(),model.store.error]
+    window.status.text="%d/6套。%s" % [model.profiles.size(),model.store.error+model.rejected_summary()]
     _preview()
 
 func _preview() -> void:
