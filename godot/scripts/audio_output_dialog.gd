@@ -35,6 +35,7 @@ func setup(shell: Control) -> void:
         button.pressed.connect(entry[1]);actions.add_child(button)
     status=Label.new();status.custom_minimum_size=Vector2(610,90)
     status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(status)
+    preload("res://scripts/settings_dialog_layout.gd").install(window,column,Vector2i(660,460))
     confirm=ConfirmationDialog.new();confirm.title="核对声音输出";confirm.min_size=Vector2i(600,220)
     window.add_child(confirm);ui.register_text_entry_window(confirm)
     confirm.confirmed.connect(commit)
