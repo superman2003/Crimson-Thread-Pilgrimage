@@ -6,7 +6,8 @@ on:
       - 'godot/scripts/material_exchange_desk.gd'
       - 'godot/scripts/material_exchange.gd'
       - 'godot/data/material_exchange.json'
-      - 'tools/*material_conversion_plan*.py'
+      - 'tools/run_material_conversion_plan_contract.py'
+      - 'tools/test_material_conversion_plan_runner.py'
       - '.github/workflows/material-conversion-plan-wip.yml'
   push:
     branches: [main, codex/ledger-g01-material-conversion-plan-wip-21ca]
