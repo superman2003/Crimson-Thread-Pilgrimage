@@ -4,6 +4,7 @@ const MAX_SCAN := 128
 const MAX_DISTANCE := 620.0
 const GROUPS := preload("res://scripts/danger_caption_groups.gd")
 const TELLS := {"melee":"近身挥击","lunge":"突进","rush":"冲锋","fan":"散射","pool":"地面危险","dive":"俯冲","guard":"防守反击","combo":"连续挥击","wave":"地面波","vault":"跃击","mortar":"抛射","beam":"直线照射","rootline":"沿地蔓延","pulse":"范围震荡","projectile":"远程射击","throw":"投掷","slam":"重砸","sweep":"横扫"}
+var surface:=preload("res://scripts/danger_caption_surface.gd").new()
 var level: Node
 var ui: Control
 var panel: PanelContainer
@@ -14,13 +15,12 @@ var scanned:=0
 
 func setup(world: Node,shell: Control) -> void:
     level=world;ui=shell
-    panel=PanelContainer.new();panel.name="DangerCaptionPanel";panel.mouse_filter=Control.MOUSE_FILTER_IGNORE;panel.z_index=100
-    panel.theme=ui.theme;panel.position=Vector2(430,88);panel.size=Vector2(420,0);ui.add_child(panel)
-    var column:=VBoxContainer.new();column.mouse_filter=Control.MOUSE_FILTER_IGNORE;panel.add_child(column)
-    for unused in 3:
-        var label:=Label.new();label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;label.custom_minimum_size.x=410
-        label.mouse_filter=Control.MOUSE_FILTER_IGNORE;column.add_child(label);labels.append(label)
-    panel.hide()
+    var installed: Dictionary=surface.install(shell)
+    if installed.is_empty():panel=null;labels=[];return
+    panel=installed.panel;labels=installed.labels
+
+func _exit_tree() -> void:
+    surface.clear()
 
 static func direction(delta: Vector2) -> String:
     if delta.length()<45:return "身侧"
@@ -50,8 +50,9 @@ func observe(actor: Node) -> Dictionary:
 
 func refresh(candidates: Array) -> void:
     rows=[];scanned=0
+    if not is_instance_valid(panel) or panel.is_queued_for_deletion() or not is_instance_valid(ui) or ui.is_queued_for_deletion():return
     if not is_instance_valid(level) or not is_instance_valid(level.player) or level.player.hp<=0 or level.world_loading or not level.active_overlay.is_empty() or ui.get_accessibility("danger_captions",false)!=true:
-        panel.hide();return
+        surface.hide();return
     var seen: Dictionary={}
     if not candidates.is_empty():
         for offset in mini(MAX_SCAN,candidates.size()):
@@ -64,8 +65,7 @@ func refresh(candidates: Array) -> void:
         cursor=(cursor+MAX_SCAN)%candidates.size()
     var preferences:=preload("res://scripts/controller_preferences.gd").normalize(ui.accessibility)
     rows=GROUPS.select(rows,int(preferences.danger_caption_limit))
-    var style:=StyleBoxFlat.new();style.bg_color=Color(0.02,0.025,0.03,0.95 if preferences.danger_caption_contrast else 0.72)
-    style.content_margin_top=5;style.content_margin_bottom=5;panel.add_theme_stylebox_override("panel",style)
+    surface.apply(preferences)
     GROUPS.render(labels,rows,int(preferences.subtitle_size))
     panel.visible=not rows.is_empty()
 

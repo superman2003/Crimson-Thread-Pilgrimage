@@ -55,6 +55,8 @@ func _production_refresh() -> void:
     host.level=level;host.ui=ui;host.panel=PanelContainer.new();ui.add_child(host.panel)
     for unused in 3:
         var label := Label.new();host.panel.add_child(label);host.labels.append(label)
+    host.surface.panel=host.panel
+    host.surface.labels=host.labels
     var candidates: Array=[]
     for index in 4:
         var actor := Node.new();level.add_child(actor);candidates.append(actor)
