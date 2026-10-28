@@ -651,6 +651,7 @@ func _build_bag() -> void:
     journal_sort.add_theme_font_size_override("font_size",13)
     journal_sort.custom_minimum_size=Vector2(127,30)
     journal_tools.add_child(journal_sort)
+    preload("res://scripts/journal_find_dialog.gd").install(self)
     journal_sort.item_selected.connect(func(_index: int):journal_selection=0;refresh_inventory())
     journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
     bag_grid=GridContainer.new()
@@ -2674,6 +2675,7 @@ func _refresh_journal() -> void:
     journal_selection=clampi(journal_selection,0,maxi(0,records.size()-1))
     if records.is_empty():
         journal_current_document={}
+        if bag.has_node("JournalDocumentFind"):bag.get_node("JournalDocumentFind").refresh_launcher()
         _refresh_journal_actions()
         journal_reading_key=""
         journal_restore_pending=false
@@ -2817,6 +2819,7 @@ func _show_journal_record(entry: Dictionary) -> void:
     journal_reading_text=text
     journal_restore_pending=not journal_reading_key.is_empty()
     call_deferred("_restore_journal_scroll",key,text,journal_reading.resume(key,text),reading_session_generation)
+    if bag.has_node("JournalDocumentFind"):bag.get_node("JournalDocumentFind").refresh_launcher()
 
 func register_text_entry_window(window: Window) -> void:
     for reference in text_entry_windows:
