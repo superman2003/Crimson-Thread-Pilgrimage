@@ -1,0 +1,46 @@
+name: U06 saved settings pair comparison
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/settings_profile*.gd'
+      - 'godot/scripts/settings_comparison*.gd'
+      - 'godot/scripts/controller_preferences.gd'
+      - 'godot/scripts/input_binding_policy.gd'
+      - 'godot/scripts/input_prompt_bindings.gd'
+      - 'tools/run_settings_comparison_contract.py'
+      - 'tools/test_settings_comparison_runner.py'
+      - '.github/workflows/settings-comparison.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: settings-comparison-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-comparison:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Runner failure propagation
+        run: python3 tools/test_settings_comparison_runner.py
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native saved-value and legacy omission contracts
+        run: python3 tools/run_settings_comparison_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-native"
+      - name: Two strict full-resource import passes
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/comparison-import"
+      - name: Actual World ownership and zero-write comparison
+        run: python3 tools/run_settings_comparison_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/comparison-world"
+      - name: Original profiles sharing and UI regression contracts
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite settings_profiles --suite settings_remap --suite build_slots_ui --suite ui_world_integration --log-dir "$RUNNER_TEMP/comparison-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: settings-comparison-logs
+          path: ${{ runner.temp }}/comparison-*

@@ -40,30 +40,35 @@
     "title": "U06 设置无障碍",
     "branch": "codex/ledger-u06-saved-pair-comparison-21ca",
     "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
-    "status": "WIP, no PR, do not count",
+    "status": "locally fully verified; count only after actual PR exists for this branch",
     "scope": "Read-only saved-to-saved profile comparison, setting/input/device filters, explicit legacy omissions without current InputMap fallback, owner-close and changed-record invalidation"
   },
   "validation": {
-    "native": "30 checks passed through strict new isolated runner",
-    "world": "not yet run; restoring complete source/LFS/resources first",
-    "remaining": [
-      "actual World fixture",
-      "original settings_profiles/settings_remap/build_slots_ui and transfer regression",
-      "two strict imports",
-      "npm/campaign",
-      "workflow and line count"
-    ]
+    "native": "30 strict native saved-record comparisons passed",
+    "world": "23 actual World checks passed",
+    "regressions": "original settings_profiles155 including sharing, settings_remap23, build_slots_ui58, UI World passed",
+    "imports": "two clean strict imports passed after full native resource restoration",
+    "tools": "3 runner propagation/workflow suite guards; complete npm test and campaign passed"
   },
   "known_ci": {
-    "478": "currentf4db has nonexistent ui suite in published workflow; local correction and two input-declaration tests passed; appropriate native regression blocked temporarily by restoring unhydrated assets, no gate weakened",
-    "475": "all current checks success",
-    "476": "247167 all current checks success",
-    "477": "b7f63a3 all current checks success"
+    "478": "27cc8f0 expected-sha fix pushed; local workflow guards2 + original UI58/actual UI World passed; new9 checks pending",
+    "475": "40eb681 all latest checks and Actions success",
+    "476": "247167 all latest checks and Actions success",
+    "477": "b7f63a3 all latest checks and Actions success"
   },
   "constraints": [
     "User arranges review; never read/respond/fix review comments, review/merge/close PRs.",
     "No browser-game restoration or test weakening; existing branch expected_sha updates and remote ref/git checks.",
     "32 existing upgrades15916 real lines, final40 average500 needs4084 across8; do not pad or count WIP."
   ],
-  "next": "Resume this remote branch, complete actual World and strict validation, publish as33 only after real PR creation. Continue34 through40; do not stop at CI sweep."
+  "next": "Before34 re-read source and claims; inspect N02 already-known wish delivery requirements and any existing batch turn-in before choosing a gap. Avoid duplicating known saved-profile comparison or existing current-to-saved preview. Continue34–40.",
+  "independent_lines": {
+    "production": 181,
+    "tests_ci": 308,
+    "data": 0,
+    "non_document": 489,
+    "batch_non_document_after_actual_pr": 16405,
+    "average_after_actual_pr": 497.1212121212121,
+    "remaining_for_40_average_500": 3595
+  }
 }
