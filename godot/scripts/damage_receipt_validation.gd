@@ -42,6 +42,7 @@ func run() -> void:
     var dead := Node2D.new(); stage.add_child(dead); dead.free()
     check(not CONTACT.apply(dead, 1, Vector2.ZERO, true), "freed receiver rejected before method dispatch")
     var retirement := preload("res://scripts/audio_retirement.gd"); retirement.retire_tree(stage); stage.free(); await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
     check(await retirement.drain(self), "real player audio retired")
     print("DAMAGE_RECEIPT checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

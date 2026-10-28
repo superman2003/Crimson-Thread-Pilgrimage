@@ -46,6 +46,7 @@ func run() -> void:
     check(player.grapple_timer == timer and player.velocity.is_finite(), "invalid step cannot divide by zero or spend tether time")
     player._stop_grapple()
     var retirement := preload("res://scripts/audio_retirement.gd"); retirement.retire_tree(stage); stage.free(); await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
     check(await retirement.drain(self), "fixture drains actual player audio")
     print("GRAPPLE_PATH checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
