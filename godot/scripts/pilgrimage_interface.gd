@@ -265,6 +265,7 @@ func finish_bind() -> void:
     preload("res://scripts/sparring_desk.gd").install(self)
     preload("res://scripts/material_exchange_desk.gd").install(self)
     preload("res://scripts/danger_caption_desk.gd").install(self)
+    preload("res://scripts/credits_reader.gd").install(self)
 
 ## Styles and geometry are set while the control is outside the tree (cheap:
 ## no text to shape yet); text is assigned only after it joins the tree. Text
@@ -586,7 +587,7 @@ func _build_bag() -> void:
     bag.name="BackpackOverlay"
     _well(bag,Vector2(724,136),Vector2(356,444))
     _well(bag,Vector2(26,186),Vector2(665,354))
-    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(640,26),16,MUTED)
+    _label(bag,"器物有用途，旧物有来处。",Vector2(34,101),Vector2(260,26),16,MUTED)
     _icon(bag,ART.item("currency"),Vector2(848,31),Vector2(28,28))
     bag_currency=_label(bag,"",Vector2(883,32),Vector2(120,30),20,GOLD)
     var categories:= ["全部","织具","遗物","材料","要物","旅记"]
@@ -689,6 +690,7 @@ func _build_bag() -> void:
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),15,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
+    preload("res://scripts/journal_mark_desk.gd").install(self)
     legacy_bag_detail=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     legacy_bag_text.visible=false
     legacy_bag_detail.visible=false
@@ -703,6 +705,7 @@ func _matches(category: String) -> bool:
 
 func refresh_inventory() -> void:
     if bag_grid==null:return
+    if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
     if journal_filters!=null:
         journal_filters.visible=bag_category=="旅记"
         bag_scroll.position.y=279 if journal_filters.visible else 194
@@ -958,6 +961,7 @@ func close_dialogue() -> void:
 func _build_settings() -> void:
     settings=_panel(self,"设置与无障碍",Vector2(135,48),Vector2(1010,618))
     settings.name="AudioSettingsOverlay"
+    preload("res://scripts/decorative_motion_settings.gd").install(self)
     _well(settings,Vector2(22,98),Vector2(458,280))
     _well(settings,Vector2(500,98),Vector2(487,280))
     _label(settings,"声音",Vector2(34,100),Vector2(440,26),20,GOLD)
@@ -1036,6 +1040,7 @@ func _build_settings() -> void:
     _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",13)
     journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
     journey_history_button.add_theme_font_size_override("font_size",13)
+    preload("res://scripts/audio_output_dialog.gd").install(self)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
     refresh_settings_selection()
@@ -2340,7 +2345,11 @@ func _show_journey_history() -> void:
         func(file: String,sha: String):
             if is_instance_valid(level) and level.has_method("get_journey_archive_detail"):
                 return level.get_journey_archive_detail(file,sha)
-            return {"ok":false,"reason":"当前入口尚未支持归档详情。"})
+            return {"ok":false,"reason":"当前入口尚未支持归档详情。"},
+        func(file: String,sha: String):
+            if is_instance_valid(level):
+                return preload("res://scripts/journey_archive_comparison.gd").inspect(String(level.world_save_path),file,sha)
+            return {"ok":false,"reason":"当前旅途已退出，请重新打开。"})
 
 func _journey_history_closed() -> void:
     journey_history_close_frame=Engine.get_process_frames()
@@ -2862,6 +2871,7 @@ func _refresh_journal_actions() -> void:
     journal_batch_button.disabled=not journal_catalog.batch_quote(_journal_batch_documents()).get("ok",false)
     journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
     journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
+    if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
 
 func _journal_preference_result(result: Dictionary) -> void:
     if not String(result.get("reason","")).is_empty() and is_instance_valid(toast):toast.text=String(result.reason)
@@ -2924,6 +2934,7 @@ func _apply_journal_scroll(key: String, text: String, offset: float, request_gen
         var bar:=bag_description.get_v_scroll_bar()
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
         journal_restore_pending=false
+        if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
 
 func _scroll_journal(step: int) -> void:
     if bag_description==null:return

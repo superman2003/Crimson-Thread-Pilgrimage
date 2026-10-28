@@ -17,6 +17,10 @@ var next: Button
 var refresh_button: Button
 var page_label: Label
 var loading := false
+var compare_query: Callable
+var compare_button: Button
+var selected_index:=-1
+var selection_generation:=0
 
 func _ready() -> void:
     title="当前存档槽 · 旧旅途"
@@ -38,6 +42,13 @@ func _ready() -> void:
     navigation.add_child(page_label)
     next=_button(navigation,"下一页",func():request_page(offset+PAGE_SIZE))
     refresh_button=_button(navigation,"刷新记录",func():request_page(offset))
+    compare_button=_button(navigation,"核对当前已存进度",compare_selected)
+    compare_button.disabled=true
+    visibility_changed.connect(func():
+        if not visible:
+            selection_generation+=1
+            loading=false
+            compare_button.disabled=true)
     var panes:=HSplitContainer.new()
     panes.custom_minimum_size=Vector2(840,410)
     root.add_child(panes)
@@ -73,17 +84,21 @@ func _button(parent: Node, caption: String, action: Callable) -> Button:
     parent.add_child(button)
     return button
 
-func open(query: Callable, inspect: Callable) -> void:
+func open(query: Callable, inspect: Callable, compare: Callable=Callable()) -> void:
     generation+=1
     loading=false
     page_query=query
     detail_query=inspect
+    compare_query=compare
     request_page(0)
     popup_centered()
     get_ok_button().grab_focus()
 
 func request_page(requested: int) -> void:
     if loading:return
+    selection_generation+=1
+    selected_index=-1
+    compare_button.disabled=true
     loading=true
     var request_generation:=generation
     requested=clampi(requested,0,HISTORY.MAX_OFFSET)
@@ -124,12 +139,30 @@ func request_page(requested: int) -> void:
 
 func select_entry(index: int) -> void:
     if loading or index<0 or index>=rows.size():return
+    selected_index=index
+    selection_generation+=1
     var row: Dictionary=rows[index]
+    compare_button.disabled=not row.get("valid",false) or not compare_query.is_valid()
     var request_generation:=generation
     if not row.get("valid",false):
         detail_text.text="无法读取此记录："+String(row.get("error","记录不可读"))+"；文件仍保留。"
         return
     var result: Variant=detail_query.call(String(row.get("file","")),String(row.get("sha256",""))) if detail_query.is_valid() else {}
     if not is_instance_valid(self) or is_queued_for_deletion() or request_generation!=generation:return
+    detail_text.text=DETAIL.text(VIEW.detail(result))
+    detail_text.scroll_to_line(0)
+
+func compare_selected() -> void:
+    if loading or not visible or selected_index<0 or selected_index>=rows.size():return
+    var row: Dictionary=rows[selected_index]
+    if not row.get("valid",false) or not compare_query.is_valid():return
+    var request_generation:=generation
+    var request_selection:=selection_generation
+    loading=true
+    compare_button.disabled=true
+    var result: Variant=compare_query.call(String(row.file),String(row.sha256))
+    if not is_instance_valid(self) or is_queued_for_deletion() or not visible or request_generation!=generation or request_selection!=selection_generation:return
+    loading=false
+    compare_button.disabled=false
     detail_text.text=DETAIL.text(VIEW.detail(result))
     detail_text.scroll_to_line(0)

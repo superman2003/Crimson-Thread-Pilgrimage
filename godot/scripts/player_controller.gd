@@ -271,6 +271,7 @@ const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
+const BASIC_ATTACK_VFX := preload("res://scripts/player_basic_attack_vfx.gd")
 const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
@@ -2059,7 +2060,7 @@ func _spawn_attack_vfx(animation: StringName) -> void:
 
 
 func _spawn_slash_vfx() -> void:
-    MELEE_FEEDBACK.spawn_swing(self, sprite, attack_active_time, _accessibility())
+    BASIC_ATTACK_VFX.spawn(self, sprite, current_attack_direction, not attack_started_grounded, attack_active_time, _accessibility())
 
 
 ## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
@@ -2169,15 +2170,15 @@ func practice_guard_contact(source_position: Vector2) -> bool:
     return guard_timer <= 0.0
 
 
-func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> void:
+func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> bool:
     if arrival_guard_timer > 0.0:
-        return
+        return false
     if debug_invulnerable:
-        return
+        return false
     if hurt_timer > 0.0 or death_timer > 0.0:
-        return
+        return false
     if amount <= 0:
-        return
+        return false
     camera_focus.clear_look()
     _clear_action_buffer()
     var source_side := signf(source_position.x - global_position.x)
@@ -2194,7 +2195,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         hurt_timer = 0.12
         GUARD_ART.blocked(self, perfect)
         combat_observed.emit({"kind":"guard","perfect":perfect})
-        return
+        return false
     GUARD_ART.clear(self)
     CONTACT_ART.clear_player(self)
     ABILITY_ART.clear(self)
@@ -2238,7 +2239,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             _add_trauma(0.60)
             _black_frame(global_position, 3)
         _play(&"death")
-        return
+        return true
     HURT_ART.hurt(self, source_position)
     if feel != null:
         feel.hitstop(110.0)
@@ -2258,6 +2259,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     else:
         velocity = Vector2(knockback_dir * 260.0 * float(build_profile.get("knockback_mult", 1.0)), -170.0)
     _play(&"hurt")
+    return true
 
 
 ## 受伤丝线崩断（规格 §2.10）：从受击点向外 5 条绯线绷断飞散。

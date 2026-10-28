@@ -129,6 +129,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
+    effect.beam_max_length=effect.length
     if effect_kind == "beam" and is_inside_tree():
         if get_parent().has_method("_ensure_collision_segment"):
             get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
@@ -1880,8 +1881,8 @@ func _try_damage_player(command: Dictionary, previous_position: Vector2 = Vector
     var crossed := previous_position.is_finite() and preload("res://scripts/enemy_motion_sweep.gd").contact(previous_position, global_position, attack_rect, player_rect)
     if crossed or attack_rect.intersects(player_rect):
         attack_has_hit = true
-        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
-        if not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
+        var accepted := preload("res://scripts/damage_contact.gd").apply(target, int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
+        if accepted and not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
 
 

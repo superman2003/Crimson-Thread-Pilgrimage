@@ -36,26 +36,20 @@
     "title": "U05 旅记与对话",
     "ordinal": 29,
     "branch": "codex/ledger-u05-literal-find-wip-21ca",
-    "base_sha": "eeaae57f72728abae5a8076dbc26bcaf75f68a24",
-    "status": "REMOTE WIP ONLY; NO PR; DO NOT COUNT AS DELIVERED",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "locally verified, ready to reconcile actual PR/latest CI",
     "scope": "Read-only literal search of one selected known journal body, Unicode native selection, case option, bounded results, bidirectional wrapping, unchanged original reading position",
     "validation": {
-      "recorded_before_environment_loss": "30 native component checks and 23 actual World checks passed on local prefinal source. Native headless geometry/focus/selection only, not physical device acceptance.",
-      "recovery": "Bulk dependency retrieval stalled and was aborted; scratch was subsequently reclaimed. This is still WIP, NOT a PR, and final full validation did not complete. Prefer complete mirror checkout or small bounded download batches; avoid hundreds of simultaneous connector calls.",
-      "remaining": [
-        "Restore COMPLETE checkout including godot/journey and godot/tests, not only scripts/data/assets",
-        "Rerun actual remote native33 and World23 sources against chosen current main",
-        "Complete both strict resource imports, original journal/UI World/reading session/batch contracts",
-        "Complete full npm test/campaign and explicit font/export audits",
-        "Refresh all open PR current refs, latest Actions attempts/check-runs/statuses/conflicts; create actual task29 PR only after necessary checks"
-      ],
-      "recorded_after_environment_recovery": "Reconstructed prefinal source checked out and native30 rerun; Enter/Shift+Enter/echo tests added, native33 passed. Font audit caught literal emoji and unsupported return-arrow; tests now construct supplementary codepoints and UI preview uses supported ASCII separator, without weakening font gate."
+      "native": 33,
+      "actual_world": 23,
+      "original": "journal40, World reading355, UI fixture58, batch26 and UI World passed",
+      "other": "two strict resource imports, full npm test/campaign passed",
+      "limits": "native headless fixtures do not establish physical-device or natural-flow acceptance"
     }
   },
   "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
   "next_candidates": [
-    "Finish and revalidate this task29 remote WIP before creating its PR; do not create duplicate implementation or call this a submitted PR.",
-    "Then continue tasks30–40 per actual canonical ledger and current implementation/claims."
+    "Task30: inspect W01 named multi-stop itinerary drafts, if current source and claims leave a real gap. Existing single itinerary already persists, do not repeat it."
   ],
   "constraints": [
     "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
@@ -91,12 +85,13 @@
     "457": "e91480bd461209caa2b58293bf53e5df0ddc6f85",
     "461": "6e4d90fa85ae6aa300b5193f932fe9ed020aabec"
   },
-  "ci_status": "Last completed scan: all current heads no failures/cancel/timeout, all mergeable but many pending; #473 latest29 queued. Must refresh.",
+  "ci_status": "Fresh GitHub pre29 read: no open PRs; do not count WIP until actual PR exists. No reviews, merges or closes performed.",
   "independent_lines": {
-    "submitted_batch_non_document": 14058,
-    "submitted_batch_average": 502.07142857142856,
-    "remaining_real_prs": 12,
-    "wip_lines_excluded_from_count": true,
-    "required_remaining_total_for_40_average_500": 5942
+    "production": 164,
+    "tests_ci": 274,
+    "non_document": 438,
+    "submitted_batch_after_actual_pr": 14496,
+    "average_after_actual_pr": 499.86206896551727,
+    "required_remaining_total_for_40_average_500": 5504
   }
 }

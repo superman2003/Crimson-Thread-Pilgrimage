@@ -1,0 +1,89 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461
+  ],
+  "current_upgrade": {
+    "title": "T02 存档迁移",
+    "ordinal": 27,
+    "branch": "codex/ledger-t02-archive-comparison-21ca",
+    "base_sha": "08e8e0c22dbb8b62f45a0960684de522a1851fbc",
+    "status": "locally verified; reconcile actual PR/latest ref/CI before counting",
+    "scope": "Same-slot preserved journey versus current saved record: named inventory, regions and actual room/shortcut identity overlap, equipment, already-known quests/evidence and chosen ending; no installation/recovery/writes",
+    "validation": "41 isolated native file/model/browser checks; 22 actual World settings history checks; original browser R07 9, backup difference18, save_product45 and UI World integration; two resource imports; full npm/campaign passed"
+  },
+  "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
+  "next_candidates": [
+    "Re-read source, current real PRs and all active claims before task28. Avoid current E01/E02/E03/B04/W03/V01/V02/G02/T04/U03 claimed scopes, C04/N01/E05 and scope-only PRs."
+  ],
+  "constraints": [
+    "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
+    "Use exact canonical ledger titles and substantial real Godot changes; average at least 500 non-document changed lines, excluding inherited changes.",
+    "Check all open PR current heads, latest CI attempts and conflicts before publishing the next PR; repair real failures first.",
+    "Do not restore browser games, weaken CI, remove valid tests, merge or close PRs.",
+    "Use isolated checkouts and expected-SHA guarded updates; preserve other agents' work and shared downstream fixes.",
+    "CI being green does not finish this continuation task; proceed with the next verified ledger upgrade until 40 are actually submitted.",
+    "C04/N01/E05 already claimed by open branches #441/#457/#449/#450; do not duplicate or count documentation scope PRs."
+  ],
+  "checkpoint_policy": "Use unique docs/continuation/NNN_task.json paths for concurrent upgrades; reconcile latest actual PRs, never overwrite earlier branches or count fix commits as new PRs.",
+  "review_assignment": "User arranges reviews. Focus only on new ledger PRs and necessary pre-submission validation; do not process review comments, merge or close PRs.",
+  "known_ci": {
+    "389": {
+      "head": "79c77d04ebd6f507da1fb54045928bb66ebf576a",
+      "status": "merged by another actor; no duplicate repair"
+    },
+    "396": {
+      "head": "6f1014b847f4f07107fd8b6f65883f86eef90d7a",
+      "status": "merged by another actor"
+    },
+    "397": {
+      "head": "e0a4069766b6e7a910057050e5c015455eb68af7",
+      "status": "merged by another actor; re-read new open PRs"
+    }
+  },
+  "ci_repairs": {
+    "433": "2673ff070157038bf458953b5d5ad73abe3a35a5",
+    "436": "9448e6cb30bd4038372b13d1fa7f595efbaec77b",
+    "440": "51dbcfc55522ff1cf2dfd4197629b80505de0a69",
+    "446": "b9f10fc58f710839587123956714622b79d5c9b5",
+    "448": "529e8d2a8d125653f57214df4d25d0a6646683da",
+    "457": "e91480bd461209caa2b58293bf53e5df0ddc6f85",
+    "461": "6e4d90fa85ae6aa300b5193f932fe9ed020aabec"
+  },
+  "ci_status": "Pre27 full open-PR current-ref sweep found U01 material-exchange isolated missing dependency; fixed all three relevant copy lists and verified 28+19+19 native. New U01 head confirmed API/git, checks queued. Other current heads no failure/cancel/timeout at scan; all mergeable, queues remain.",
+  "independent_lines": {
+    "production": 210,
+    "tests_ci": 300,
+    "non_document": 510,
+    "batch_non_document": 13507,
+    "batch_average_so_far": 500.25925925925924,
+    "required_remaining_total_for_40_average_500": 6493
+  }
+}

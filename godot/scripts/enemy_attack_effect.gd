@@ -19,6 +19,7 @@ var velocity := Vector2.ZERO
 var gravity := 0.0
 var radius := 10.0
 var length := 260.0
+var beam_max_length := -1.0
 var duration := 2.5
 var arm_delay := 0.0
 var damage := 1
@@ -47,6 +48,7 @@ func _ready() -> void:
     owner_required = is_instance_valid(owner_actor)
     add_to_group("hostile_attack")
     VISUAL_POLICY.place_danger(self)
+    if effect_kind == "beam" and beam_max_length < 0: beam_max_length = length
 
 func _physics_process(delta: float) -> void:
     if cancelled or is_queued_for_deletion() or (owner_required and not is_instance_valid(owner_actor)):
@@ -61,6 +63,9 @@ func _physics_process(delta: float) -> void:
     if target != null and (target.get("ui_input_locked") == true):
         return
     if not is_finite(delta) or delta <= 0.0: return
+    if effect_kind == "beam":
+        _advance_beam(delta, target)
+        return
     if effect_kind == "wave":
         _advance_wave(delta, target)
         return
@@ -128,9 +133,8 @@ func _physics_process(delta: float) -> void:
         if not reflected and not hit_player and _hits_player(center):
             # Consume before callbacks: damage can synchronously re-enter or cancel us.
             hit_player=true
-            if target.has_method("take_damage"):
-                target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
-            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):
+            var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
+            if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):
                 target.apply_snare(snare)
             if effect_kind=="projectile":
                 _finish_impact(global_position)
@@ -342,8 +346,8 @@ func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wal
     var time:=SWEEP.circle_time(start,finish,center,radius+23)
     if time>=limit or time>1:return false
     global_position=start.lerp(finish,time);hit_player=true
-    if target.has_method("take_damage"):target.take_damage(damage,global_position,bool(get_meta("blockable",true)))
-    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):target.apply_snare(snare)
+    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
+    if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and accepted and target.has_method("apply_snare"):target.apply_snare(snare)
     if not cancelled and not is_queued_for_deletion():_finish_impact(global_position)
     return true
 
@@ -375,9 +379,9 @@ func _advance_wave(delta: float, target: Node2D) -> void:
                 if time < limit and time <= 1.0:
                     hit_player = true
                     var contact := start.lerp(finish, time)
-                    if target.has_method("take_damage"): target.take_damage(damage, contact, bool(get_meta("blockable", true)))
+                    var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, contact, bool(get_meta("blockable", true)))
                     if cancelled or is_queued_for_deletion(): return
-                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and target.has_method("apply_snare"): target.apply_snare(snare)
+                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and accepted and target.has_method("apply_snare"): target.apply_snare(snare)
             if not wall.is_empty():
                 global_position = wall.position
                 cancel()
@@ -401,3 +405,24 @@ func _wave_wall(start: Vector2, finish: Vector2) -> Dictionary:
         var rock: Dictionary = level._rock_ray_hit(start, finish)
         if not rock.is_empty() and (wall.is_empty() or start.distance_squared_to(rock.position) < start.distance_squared_to(wall.position)): wall = rock
     return wall
+
+
+func _advance_beam(delta: float, target: Node2D) -> void:
+    var maximum := beam_max_length if beam_max_length >= 0 else length
+    length = preload("res://scripts/beam_channel.gd").reach(self, maximum)
+    if length < 0:
+        length = 0
+        cancel()
+        return
+    var next_age := age + delta
+    var active_seconds := maxf(0.0, minf(next_age, duration) - maxf(age, arm_delay))
+    age = minf(next_age, duration)
+    if active_seconds > 0 and length > 0 and not hit_player and is_instance_valid(target) and not target.is_queued_for_deletion() and _hits_player(target.global_position - Vector2(0, 42)):
+        hit_player = true
+        var accepted := preload("res://scripts/damage_contact.gd").apply(target, damage, global_position, bool(get_meta("blockable", true)))
+        if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and accepted and snare > 0 and target.has_method("apply_snare"): target.apply_snare(snare)
+    if cancelled or is_queued_for_deletion(): return
+    if age >= duration:
+        cancel()
+        return
+    queue_redraw()

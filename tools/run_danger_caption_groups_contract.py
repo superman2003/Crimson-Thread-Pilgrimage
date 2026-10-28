@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["danger_caption_groups.gd", "danger_caption_groups_validation.gd", "controller_preferences.gd"]
+SCRIPTS = ["danger_caption_groups.gd", "danger_caption_groups_validation.gd", "controller_preferences.gd", "danger_caption_surface.gd"]
 MARKER = re.compile("^DANGER_CAPTION_GROUPS checks=[1-9][0-9]* failures=0$", re.M)
 
 
@@ -55,7 +55,7 @@ def main():
         source = (ROOT / "godot/scripts/danger_captions.gd").read_text(encoding="utf-8")
         refresh = re.search(r"^func refresh\(.*?(?=^func |\Z)", source, re.M | re.S)
         if refresh is None:raise ValueError("production danger refresh missing")
-        host = 'extends Node\nconst MAX_SCAN := 128\nconst GROUPS := preload("res://scripts/danger_caption_groups.gd")\nvar level: Node\nvar ui: Control\nvar panel: PanelContainer\nvar labels: Array[Label]=[]\nvar rows: Array=[]\nvar cursor:=0\nvar scanned:=0\nfunc observe(actor: Node) -> Dictionary:return actor.get_meta("tell",{}).duplicate(true)\n'
+        host = 'extends Node\nconst MAX_SCAN := 128\nconst GROUPS := preload("res://scripts/danger_caption_groups.gd")\nvar surface = preload("res://scripts/danger_caption_surface.gd").new()\nvar level: Node\nvar ui: Control\nvar panel: PanelContainer\nvar labels: Array[Label]=[]\nvar rows: Array=[]\nvar cursor:=0\nvar scanned:=0\nfunc observe(actor: Node) -> Dictionary:return actor.get_meta("tell",{}).duplicate(true)\n'
         (scripts / "danger_caption_refresh_contract.gd").write_text(host + refresh.group(),encoding="utf-8")
         (project / "project.godot").write_text(
             'config_version=5\n[application]\nconfig/name="danger caption groups"\n'

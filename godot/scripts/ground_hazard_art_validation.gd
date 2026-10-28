@@ -9,8 +9,9 @@ class Target extends CharacterBody2D:
     var ui_input_locked := false
     var damage_received := 0
     var snares: Array[float] = []
-    func take_damage(amount: int, _point: Vector2, _blockable: bool = true) -> void:
+    func take_damage(amount: int, _point: Vector2, _blockable: bool = true) -> bool:
         damage_received += amount
+        return true
     func apply_snare(seconds: float) -> void:
         snares.append(seconds)
 
