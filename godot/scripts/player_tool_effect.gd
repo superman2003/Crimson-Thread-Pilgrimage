@@ -40,10 +40,14 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
     if is_queued_for_deletion():
         return
+    if not is_finite(delta) or delta <= 0.0: return
+    var id := String(payload.get("id", ""))
+    if not trap and id not in ["shard", "fog", "lure"]:
+        _advance_projectile(delta)
+        return
     elapsed += delta
     if not art_family.is_empty() or not tool_art_family.is_empty():
         queue_redraw()
-    var id := String(payload.get("id", ""))
     if not is_instance_valid(owner_player):
         queue_free()
         return
@@ -120,23 +124,7 @@ func _physics_process(delta: float) -> void:
             if enemy.has_method("apply_target_interference"):
                 enemy.apply_target_interference(2.0)
             continue
-        targets[enemy.get_instance_id()] = true
-        enemy.take_hit(maxi(1, int(payload.get("damage", 1))), direction)
-        if bool(payload.get("skill_effect",false)) and enemy.has_method("report_skill_contact"):
-            enemy.report_skill_contact(owner_player,String(payload.get("practice_skill_id","")),int(payload.get("practice_cast_serial",0)))
-        if bool(payload.get("salt_mark", false)) and enemy.has_method("apply_salt_mark"):
-            enemy.apply_salt_mark(5.0)
-        if float(payload.get("stagger", 0.0)) > 0.0 and enemy.has_method("apply_stagger"):
-            enemy.apply_stagger(float(payload.stagger))
-        if String(payload.get("kind", "")) == "snare_field" and enemy.has_method("apply_snare"):
-            var control_duration := float(payload.get("duration", 1.5))
-            if bool(payload.get("salt_consume", false)) and enemy.has_method("consume_salt_mark") and enemy.consume_salt_mark():
-                control_duration += 1.5
-            enemy.apply_snare(control_duration)
-        elif trap and enemy.has_method("apply_trip"):
-            enemy.apply_trip(0.7)
-        elif trap and enemy.has_method("apply_snare"):
-            enemy.apply_snare(1.5)
+        _apply_contact(enemy)
         if not trap and id != "shard" and String(payload.get("kind", "")) != "wave":
             _finish_skill("hit", point)
             return
@@ -165,3 +153,85 @@ func _finish_skill(reason: String, point: Vector2) -> void:
     hide()
     set_physics_process(false)
     queue_free()
+
+
+## Targets and terrain compete on one segment. Terrain wins exact ties.
+func _advance_projectile(delta: float) -> void:
+    if not is_instance_valid(owner_player) or not owner_player is CollisionObject2D:
+        queue_free()
+        return
+    var lifetime := maxf(0.0, float(payload.get("duration", 5.0)))
+    var reach := maxf(0.0, float(payload.get("range", 420.0)))
+    if not is_finite(lifetime) or not is_finite(reach):
+        queue_free()
+        return
+    var seconds := minf(delta, maxf(0.0, lifetime - elapsed))
+    var distance := minf(620.0 * seconds, maxf(0.0, reach - travelled))
+    if distance <= 0.0:
+        _finish_skill("expiry", global_position)
+        return
+    var start := global_position
+    var finish := start + Vector2(direction * distance, 0)
+    var wall := _terrain_contact(start, finish)
+    var wall_time := preload("res://scripts/attack_sweep.gd").fraction(start, finish, wall.position) if not wall.is_empty() else INF
+    var contacts: Array[Dictionary] = []
+    for enemy in get_tree().get_nodes_in_group("enemy"):
+        if not _eligible_target(enemy): continue
+        var box: Rect2 = enemy.get_hurtbox_rect() if enemy.has_method("get_hurtbox_rect") else Rect2(enemy.global_position - Vector2(34, 38), Vector2(68, 76))
+        var time := preload("res://scripts/attack_sweep.gd").rect_time(start, finish, box.grow(8.0))
+        if time >= wall_time or time > 1.0: continue
+        contacts.append({"actor": enemy, "time": time, "path": String(enemy.get_path())})
+    contacts.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+        return a.time < b.time if not is_equal_approx(a.time, b.time) else a.path < b.path)
+    for contact in contacts:
+        var enemy: Node2D = contact.actor
+        if not _eligible_target(enemy): continue
+        global_position = start.lerp(finish, contact.time)
+        _apply_contact(enemy)
+        if is_queued_for_deletion(): return
+        if String(payload.get("kind", "")) != "wave":
+            travelled += start.distance_to(global_position)
+            elapsed += seconds * contact.time
+            _finish_skill("hit", global_position)
+            return
+    global_position = wall.position if not wall.is_empty() else finish
+    travelled += start.distance_to(global_position)
+    elapsed += seconds
+    if not wall.is_empty():
+        _finish_skill("wall", global_position)
+    elif elapsed >= lifetime or travelled >= reach:
+        _finish_skill("expiry", global_position)
+    queue_redraw()
+
+func _eligible_target(enemy: Node) -> bool:
+    return is_instance_valid(enemy) and enemy is Node2D and not enemy.is_queued_for_deletion() and enemy.get("dying") != true and enemy.has_method("take_hit") and not targets.has(enemy.get_instance_id()) and (not enemy.has_method("world_residency_active") or enemy.world_residency_active())
+
+func _terrain_contact(start: Vector2, finish: Vector2) -> Dictionary:
+    var level := get_parent()
+    if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(start, finish)
+    var query := PhysicsRayQueryParameters2D.create(start, finish, 1, [owner_player.get_rid()])
+    query.collide_with_areas = false
+    var hit := get_world_2d().direct_space_state.intersect_ray(query)
+    if level.has_method("_rock_ray_hit"):
+        var rock: Dictionary = level._rock_ray_hit(start, finish)
+        if not rock.is_empty() and (hit.is_empty() or start.distance_squared_to(rock.position) < start.distance_squared_to(hit.position)): hit = rock
+    return hit
+
+func _apply_contact(enemy: Node2D) -> void:
+    targets[enemy.get_instance_id()] = true
+    enemy.take_hit(maxi(1, int(payload.get("damage", 1))), direction)
+    if bool(payload.get("skill_effect",false)) and enemy.has_method("report_skill_contact"):
+        enemy.report_skill_contact(owner_player,String(payload.get("practice_skill_id","")),int(payload.get("practice_cast_serial",0)))
+    if bool(payload.get("salt_mark", false)) and enemy.has_method("apply_salt_mark"):
+        enemy.apply_salt_mark(5.0)
+    if float(payload.get("stagger", 0.0)) > 0.0 and enemy.has_method("apply_stagger"):
+        enemy.apply_stagger(float(payload.stagger))
+    if String(payload.get("kind", "")) == "snare_field" and enemy.has_method("apply_snare"):
+        var control_duration := float(payload.get("duration", 1.5))
+        if bool(payload.get("salt_consume", false)) and enemy.has_method("consume_salt_mark") and enemy.consume_salt_mark():
+            control_duration += 1.5
+        enemy.apply_snare(control_duration)
+    elif trap and enemy.has_method("apply_trip"):
+        enemy.apply_trip(0.7)
+    elif trap and enemy.has_method("apply_snare"):
+        enemy.apply_snare(1.5)
