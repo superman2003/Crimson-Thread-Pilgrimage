@@ -1,0 +1,82 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473,
+    475,
+    476,
+    477,
+    478,
+    479
+  ],
+  "submitted_count_before_current": 33,
+  "current_upgrade": {
+    "ordinal": 34,
+    "title": "N02 NPC与愿望",
+    "branch": "codex/ledger-n02-known-wish-manifest-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "fully locally validated; count only once real PR exists",
+    "scope": "Already asked/completed delivery wishes from visited canonical regions; public filtering, show-vs-consume aggregate with optional retained proof; no delivery/reward/save mutation"
+  },
+  "validation": {
+    "native": "30 native known gating, counters, shared show/consume budget and overflow checks passed",
+    "world": "28 actual World checks including visited-region gating, canonical source reading, filters, invalid stock/completion and exact save bytes unchanged passed",
+    "regression": "goal_desk24, wish_reward_atomic46, UI World, isolated original goal15 passed",
+    "gates": "two clean strict imports, full npm test/campaign,3 runner negative/workflow declarations passed"
+  },
+  "independent_lines": {
+    "production": 207,
+    "tests_ci": 320,
+    "data": 0,
+    "non_document": 527,
+    "batch_after_actual_pr": 16932,
+    "average_after_actual_pr": 498.0,
+    "remaining_for_40_average500": 3068
+  },
+  "ci_before_current": {
+    "479": "d16d999 all applicable results so far normal,4 checks pending, mergeable true",
+    "478": "27cc8f0 suite-name correction+guards local passed;4 checks pending, mergeable true",
+    "477": "b7f63a3 all applicable latest checks/Actions success",
+    "476": "247167 all applicable latest checks/Actions success",
+    "475": "40eb681 all applicable latest checks/Actions success"
+  },
+  "constraints": [
+    "User arranges reviews: never read/respond/fix review comments or review/merge/close PRs.",
+    "Fresh current head/ref, suite-aware checks/latest run attempts and statuses before next PR; no weakening gates or browser restoration.",
+    "Existing branch expected_sha protection and API/git remote identity verification; isolated worktree.",
+    "Do not count documentation/other agents/old PR fixes or pad line totals."
+  ],
+  "known_limits": [
+    "Accepted/cross-region state in World fixture is explicitly seeded, not natural discovery or traversal acceptance.",
+    "Projection lists registered region names, not guaranteed current NPC location; actual interaction still requires official live quote.",
+    "Aggregate assumes show-before-consume when reusing tokens; retained-proof toggle separately reserves one, never auto-executes."
+  ],
+  "next": "Inspect T03 goal workbench update scheduling: current _process serializes rows then _refresh_hud recomputes rows every0.5s, even when workbench hidden and HUD disabled. Measure actual evaluation counts and avoid conflicting hunk with this PR; no34 claim means entire title complete."
+}
