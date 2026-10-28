@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["build_system.gd", "field_contracts.gd", "field_transaction.gd", "journey_desk_window.gd", "material_exchange.gd", "material_exchange_desk.gd", "material_exchange_maximum_validation.gd", "resupply_budget.gd", "world_coordinates.gd", "world_state.gd"]
+SCRIPTS = ["exchange_stock_plan.gd", "build_system.gd", "field_contracts.gd", "field_transaction.gd", "journey_desk_window.gd", "material_exchange.gd", "material_exchange_desk.gd", "material_exchange_maximum_validation.gd", "resupply_budget.gd", "world_coordinates.gd", "world_state.gd"]
 MARKER = re.compile("^MATERIAL_EXCHANGE_MAXIMUM checks=[1-9][0-9]* failures=0$", re.M)
 
 
