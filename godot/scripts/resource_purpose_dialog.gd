@@ -12,6 +12,7 @@ var scope: OptionButton
 var order: OptionButton
 var visible_resources: Array=[]
 var count_label: Label
+var thread_budget: AcceptDialog
 
 func _ready() -> void:
     title="资源用途核对"
@@ -31,6 +32,8 @@ func _ready() -> void:
     refresh_button=Button.new()
     refresh_button.text="刷新当前资源"
     filters.add_child(refresh_button)
+    var budget_button:=Button.new();budget_button.text="绯线行动预算";filters.add_child(budget_button)
+    budget_button.pressed.connect(open_thread_budget)
     ready_only.toggled.connect(func(_value: bool):render_detail())
     refresh_button.pressed.connect(refresh)
     var search_row:=HBoxContainer.new();column.add_child(search_row)
@@ -130,3 +133,14 @@ static func setup(ui: Control) -> void:
     button.add_theme_font_size_override("font_size",15)
     ui.bag.visibility_changed.connect(func():
         if not ui.bag.visible:dialog.hide();dialog.report={})
+
+func open_thread_budget() -> void:
+    if not visible or not usable():return
+    if not is_instance_valid(thread_budget):
+        thread_budget=preload("res://scripts/thread_budget_dialog.gd").new()
+        thread_budget.name="ThreadBudgetWindow";add_child(thread_budget)
+        var reference: WeakRef=weakref(thread_budget)
+        visibility_changed.connect(func():
+            var child:=reference.get_ref() as Window
+            if is_instance_valid(child) and not visible:child.hide())
+    thread_budget.open_for(self)
