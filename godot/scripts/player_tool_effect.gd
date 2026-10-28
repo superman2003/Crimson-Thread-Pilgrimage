@@ -2,6 +2,9 @@ extends Node2D
 ## Finite swept effects; tools never generate attack energy.
 const SKILL_ART := preload("res://scripts/player_skill_art.gd")
 const TOOL_ART := preload("res://scripts/player_tool_art.gd")
+const LIFECYCLE := preload("res://scripts/player_effect_lifecycle.gd")
+var owner_generation := 0
+var cancelled := false
 var art_family := ""
 var tool_art_family := ""
 var payload: Dictionary = {}
@@ -17,6 +20,8 @@ var warning_timer := -1.0
 var landing_ray_origin := Vector2.INF
 
 func _ready() -> void:
+    add_to_group("player_combat_effect")
+    if is_instance_valid(owner_player): owner_generation = LIFECYCLE.generation(owner_player)
     var id := String(payload.get("id", ""))
     trap = String(payload.get("kind", "")) == "trap" or id == "mine"
     if String(payload.get("kind", "")) == "snare_field":
@@ -38,8 +43,12 @@ func _ready() -> void:
     add_child(visual)
 
 func _physics_process(delta: float) -> void:
-    if is_queued_for_deletion():
+    if cancelled or is_queued_for_deletion(): return
+    var state := LIFECYCLE.state(owner_player, get_parent(), owner_generation)
+    if state == LIFECYCLE.RETIRED:
+        cancel()
         return
+    if state == LIFECYCLE.PAUSED: return
     if not is_finite(delta) or delta <= 0.0: return
     var id := String(payload.get("id", ""))
     if not trap and id not in ["shard", "fog", "lure"]:
@@ -235,3 +244,11 @@ func _apply_contact(enemy: Node2D) -> void:
         enemy.apply_trip(0.7)
     elif trap and enemy.has_method("apply_snare"):
         enemy.apply_snare(1.5)
+
+
+func cancel() -> void:
+    if cancelled: return
+    cancelled = true
+    hide()
+    set_physics_process(false)
+    queue_free()
