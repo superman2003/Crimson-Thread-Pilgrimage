@@ -16,7 +16,9 @@ static func install(shell: Control) -> void:
 
 func setup(shell: Control) -> void:
     ui=shell;model.initialize()
-    var launcher: Button=ui._button(ui.settings,"声音输出设备",Vector2(245,332),Vector2(200,32),open)
+    # Row 332 already holds the comfort and danger-caption launchers; use the
+    # free header space left of the journey workbench entry.
+    var launcher: Button=ui._button(ui.settings,"声音输出设备",Vector2(420,60),Vector2(210,30),open)
     launcher.name="AudioOutputDeviceButton";launcher.add_theme_font_size_override("font_size",15)
     window=AcceptDialog.new();window.title="声音输出设备";window.min_size=Vector2i(660,360)
     ui.settings.add_child(window);ui.register_text_entry_window(window)
