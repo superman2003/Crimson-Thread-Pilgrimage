@@ -1,0 +1,26 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "ordinal": 23,
+  "canonical_title": "C04 技能成长：现有陪练中的临时校习方向试用",
+  "status": "scope_claimed",
+  "base_sha": "513daa613625e2888d6ed1e71311928c520d8d7f",
+  "scope_report": "docs/report/20261028_c04_skill_growth_trial.md",
+  "related_open_prs_checked": [437, 438],
+  "production_paths_reserved": [
+    "陪练/技能成长生产脚本",
+    "对应原生 UI",
+    "C04 独立回归夹具"
+  ],
+  "excluded_paths": [
+    "设置可靠性（PR #438）",
+    "既有旅记、音频与其他 agent 的 continuation 文件"
+  ],
+  "next_action": "实现前再次读取 open PR 当前 head 与改动文件；若 C04 已被认领则放弃本范围并选择下一个未认领候选。",
+  "completion_definition": [
+    "临时校习状态仅在当前陪练回合生效",
+    "取消、离开、读档、重启和过期均清理临时状态",
+    "失败写入保留原状态并可重试",
+    "显式夹具和自然流程验证分别报告"
+  ]
+}
