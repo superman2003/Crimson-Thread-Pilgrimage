@@ -1,0 +1,44 @@
+name: U01 adaptive journey windows
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/journey_desk_window.gd'
+      - 'godot/scripts/journey_window*.gd'
+      - 'tools/*journey_window*.py'
+      - '.github/workflows/journey-window-layout.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: journey-window-layout-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Strict native runner boundaries
+        run: |
+          python3 tools/test_journey_window_layout_runner.py
+      - name: Native viewport, font and focus contracts
+        run: python3 tools/run_journey_window_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journey-window-isolated"
+      - name: Import full resources with existing strict gates
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/journey-window-import"
+      - name: Actual settings, practice and contract desks
+        run: python3 tools/run_journey_window_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/journey-window-world"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: journey-window-layout-logs
+          path: |
+            ${{ runner.temp }}/journey-window-isolated
+            ${{ runner.temp }}/journey-window-import
+            ${{ runner.temp }}/journey-window-world
