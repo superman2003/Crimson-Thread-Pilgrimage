@@ -1,6 +1,6 @@
 {
   "target_pr_count": 40,
-  "submitted_pr_count": 39,
+  "submitted_pr_count": 40,
   "submitted_prs": [
     369,
     370,
@@ -40,14 +40,18 @@
     482,
     483,
     484,
-    485
+    485,
+    486
   ],
   "current_upgrade": {
     "ordinal": 40,
     "title": "G01 三类资源经济",
     "branch": "codex/ledger-g01-material-conversion-plan-wip-21ca",
     "validated_source": "5ff211dfa7ec930359a38ea44690138b01894792",
-    "status": "Full implementation and required verification passed; count40 only after actual PR exists. Historic WIP path/branch retained."
+    "status": "Actual PR created. Target40 reached; stop further upgrade additions, retain continuous CI maintenance.",
+    "pr_number": 486,
+    "pr_url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/486",
+    "documentation_parent_head": "2fb16da475bad1e6fd384bb1a31974033575674a"
   },
   "validation": {
     "native": "39 production model/source budget/incremental tests passed locally and in previous push run",
@@ -72,5 +76,7 @@
     "Planning is read-only, no trading/reservation/resource grants/character movement/game-save writes. Travel, combat and future pickups are not simulated.",
     "Initial World save failure correctly rejected StringName fixture keys. Explicit String inventory keys fixed; production save validation and all exact-byte assertions retained."
   ],
-  "next": "Create only the final real upgrade PR, record its actual number and batch index, then stop additions at40 while continuing all-open-PR CI maintenance. No review/comment handling, approval, merge or close."
+  "next": "Maintain current/future open PR CI only. Fresh current head/suite/run_attempt/status checks; failures and current cancellations handled without review/merge/close. Do not add41st upgrade.",
+  "stop_new_upgrade_prs": true,
+  "continue_ci_maintenance": true
 }
