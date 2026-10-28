@@ -5,6 +5,7 @@ static func ready(level: Node) -> bool:
 
 static func commit(level: Node, counts: Dictionary, flags: Dictionary, money: int) -> Dictionary:
     if not ready(level):return {"ok":false,"reason":"请回到真实钟龛旁，在构筑页重新确认。"}
+    var receipt_before:=preload("res://scripts/field_receipt_owner.gd").capture(level)
     var prepared: Dictionary=level._prepare_world_checkpoint({"inventory_counts":counts,"story_flags":flags,"currency":money,
         "current_region":String(level.config.id),"entry":level.active_spawn,"hp":level.player.hp,
         "energy":maxi(0,level.player.energy-level.player.practice_energy),"build_state":level.build_system.serialize()})
@@ -13,5 +14,6 @@ static func commit(level: Node, counts: Dictionary, flags: Dictionary, money: in
     level.world_state.data=prepared.candidate
     level.story_flags=flags
     level._set_build_wallet({"inventory_counts":counts,"currency":money})
+    preload("res://scripts/field_receipt_owner.gd").committed(level,receipt_before)
     level._refresh_hud()
     return {"ok":true,"reason":"已写入归途记录。"}
