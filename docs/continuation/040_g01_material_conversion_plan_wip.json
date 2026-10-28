@@ -1,17 +1,26 @@
 {
   "ordinal": 40,
   "target_pr_count": 40,
-  "actual_submitted": 38,
-  "status": "WIP core only; NO PR, not counted.39 separately in validation.",
+  "actual_submitted": 39,
+  "status": "WIP core only; NO PR40, not counted.39 actually created as #485.",
   "branch": "codex/ledger-g01-material-conversion-plan-wip-21ca",
   "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
   "scope": "Known material conversion chain planning; bounded uniform-cost search <=4 actual operations, <=10 batches each, <=1024 states and512 expansions. Read-only balances, wallet, capacity and replay verification. Known/proof source filter authored.",
-  "validation": "Native strict push job provided, not yet completed. No UI, World or full regression acceptance. Do not claim completion.",
+  "validation": {
+    "source_sha": "b44b77d882798f8628111bcbfd63f3bf99d4bb36",
+    "native": "26 core assertions passed in run40774781785, strict120s with all error propagation retained.",
+    "pending": "UI/World/full regressions/imports/npm/campaign not implemented or validated for40. Do not turn this core into a PR or claim whole feature completion."
+  },
   "remaining": [
     "Inspect/finish actual nested material desk UI, public labels, snapshot invalidation and owner lifecycle; avoid #482 receipt entry conflict by container-based new row.",
     "Validate knowledge source against real World both visited regions and held non-consumed permit; do not infer future regions from all recipes.",
     "Run actual World, zero-write save-byte checks, original material/contract/UI regressions, strict imports, full npm/campaign and runner negative tests.",
     "Before real PR40 verify39 actually exists. Final total40 average>=500 requires actual independent line accounting; no padding."
   ],
-  "continuation": "Latest completed38 in #484 docs/continuation/038_w01_itinerary_handoff.json; 39 WIP0ef9e4de515a53cef6f630a8af45148f78df6ccc on codex/ledger-u01-settings-dialog-layout-wip-21ca. Actual submitted count remains38 until39 PR exists."
+  "continuation": "39 actual #485 U01 UI规范, a6d071ff28c5dc86a1689524d3b177234a64ddf1; pre-PR source0ef all native/World/regressions/npm/campaign passed.39 final doc-only head CI pending, mergeable. Read its docs/continuation/039_u01_settings_dialog_layout_wip.json. Actual count39/40.",
+  "independent_lines": {
+    "verified_previous_39_total": 19191,
+    "last_PR40_minimum_for_final_average500": 809,
+    "current_WIP": "not counted; actual complete feature needed, do not pad"
+  }
 }
