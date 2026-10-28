@@ -8,6 +8,7 @@ const PALE := Color("8caaa1")
 var entry: Dictionary = {}
 var seen := false
 var elapsed := 0.0
+var motion:=preload("res://scripts/decorative_motion.gd").new()
 var inspection_focused := false
 var inspection_caption: Label
 
@@ -46,8 +47,8 @@ func _process(delta: float) -> void:
         queue_redraw()
     inspection_caption.visible=focused
     inspection_caption.text=inspection_text()
-    if visible and is_finite(delta) and delta>=0 and String(entry.get("look",""))=="pump_manifold":
-        elapsed+=delta
+    if String(entry.get("look",""))=="pump_manifold" and motion.step(self,delta):
+        elapsed=motion.elapsed
         queue_redraw()
 
 func accessible_from(player: CharacterBody2D) -> bool:

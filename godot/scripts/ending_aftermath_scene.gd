@@ -5,14 +5,16 @@ extends Node2D
 const LOOKS := {"bells": Color("f6d27a"), "barrier": Color("e8746f"), "names": Color("84e8f2")}
 var look := "bells"
 var elapsed := 0.0
+var motion:=preload("res://scripts/decorative_motion.gd").new()
 
 func _ready() -> void:
 	# Behind wayfinding signs (portal signs draw at -1): a decoration never hides a route.
 	z_index = -2
 
 func _process(delta: float) -> void:
-	elapsed += delta
-	queue_redraw()
+	if motion.step(self,delta):
+		elapsed=motion.elapsed
+		queue_redraw()
 
 func _draw() -> void:
 	var tint: Color = LOOKS.get(look, LOOKS.bells)

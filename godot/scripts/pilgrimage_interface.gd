@@ -957,6 +957,7 @@ func close_dialogue() -> void:
 func _build_settings() -> void:
     settings=_panel(self,"设置与无障碍",Vector2(135,48),Vector2(1010,618))
     settings.name="AudioSettingsOverlay"
+    preload("res://scripts/decorative_motion_settings.gd").install(self)
     _well(settings,Vector2(22,98),Vector2(458,280))
     _well(settings,Vector2(500,98),Vector2(487,280))
     _label(settings,"声音",Vector2(34,100),Vector2(440,26),20,GOLD)
