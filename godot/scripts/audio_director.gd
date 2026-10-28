@@ -51,6 +51,7 @@ const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "amb
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
 var music_retry_after: Dictionary = {}
+var landmark_spatial_refresh:=preload("res://scripts/landmark_spatial_refresh.gd").new()
 var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
 var volume_preferences_dirty := false
 var volume_preferences_error := OK
@@ -1499,6 +1500,7 @@ func play_npc_landmark(source: Node2D) -> bool:
     return true
 
 func _retire_invalid_landmarks() -> void:
+    var active: Array[AudioStreamPlayer2D]=[]
     for child in get_children():
         if not child is AudioStreamPlayer2D or not bool(child.get_meta("npc_landmark",false)):continue
         var reference: Variant=child.get_meta("landmark_source",null)
@@ -1509,6 +1511,14 @@ func _retire_invalid_landmarks() -> void:
         if not valid:
             preload("res://scripts/audio_retirement.gd").watch_player(child)
             child.stop();child.stream=null;child.queue_free()
+        elif not child.is_queued_for_deletion() and child.has_method("refresh_spatial"):
+            active.append(child)
+    for index in landmark_spatial_refresh.choose(active.size(),Time.get_ticks_msec()):
+        var voice:=active[index]
+        var source: Node2D=voice.get_meta("landmark_source").get_ref()
+        if not is_instance_valid(source) or not voice.refresh_spatial(source.global_position,runtime_player):
+            preload("res://scripts/audio_retirement.gd").watch_player(voice)
+            voice.stop();voice.stream=null;voice.queue_free()
 
 func _stop_npc_landmarks() -> void:
     for child in get_children():

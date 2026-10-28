@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/audio_director.gd', 'scripts/audio_retirement.gd', 'scripts/audio_volume_preferences.gd', 'scripts/duck_mix.gd', 'scripts/music_layer_phase.gd', 'scripts/npc_landmark_schedule.gd', 'scripts/room_reverb_mix.gd', 'scripts/spatial_enemy_alert.gd', 'scripts/reliability_98fd8e2f_r09_validation.gd']
+DEPS = ['scripts/audio_director.gd', 'scripts/audio_retirement.gd', 'scripts/audio_volume_preferences.gd', 'scripts/duck_mix.gd', 'scripts/music_layer_phase.gd', 'scripts/npc_landmark_schedule.gd', 'scripts/room_reverb_mix.gd', 'scripts/spatial_enemy_alert.gd', 'scripts/landmark_spatial_refresh.gd', 'scripts/reliability_98fd8e2f_r09_validation.gd']
 MARKER = '^RELIABILITY_R09 checks=[1-9][0-9]* failures=0$'
 
 def main():
@@ -16,7 +16,15 @@ def main():
         base = Path(temporary)
         project = base / 'project'; project.mkdir()
         (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Reliability fixtures"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
-        for name in DEPS:
+        dependencies = list(DEPS)
+        pending = list(DEPS)
+        while pending:
+            source = pending.pop()
+            if not source.endswith('.gd'):continue
+            for dependency in re.findall(r'preload\("res://(scripts/[^"\n]+)"\)', (ROOT/'godot'/source).read_text()):
+                if dependency not in dependencies:
+                    dependencies.append(dependency);pending.append(dependency)
+        for name in dependencies:
             target = project/name;target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT/'godot'/name, target)
         env = dict(os.environ, XDG_DATA_HOME=str(base/'userdata'), APPDATA=str(base/'userdata'), GODOT_SILENCE_ROOT_WARNING='1')
