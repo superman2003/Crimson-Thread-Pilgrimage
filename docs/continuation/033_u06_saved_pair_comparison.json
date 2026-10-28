@@ -1,0 +1,69 @@
+{
+  "target_pr_count": 40,
+  "submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473,
+    475,
+    476,
+    477,
+    478
+  ],
+  "submitted_count": 32,
+  "current_upgrade": {
+    "ordinal": 33,
+    "title": "U06 设置无障碍",
+    "branch": "codex/ledger-u06-saved-pair-comparison-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "WIP, no PR, do not count",
+    "scope": "Read-only saved-to-saved profile comparison, setting/input/device filters, explicit legacy omissions without current InputMap fallback, owner-close and changed-record invalidation"
+  },
+  "validation": {
+    "native": "30 checks passed through strict new isolated runner",
+    "world": "not yet run; restoring complete source/LFS/resources first",
+    "remaining": [
+      "actual World fixture",
+      "original settings_profiles/settings_remap/build_slots_ui and transfer regression",
+      "two strict imports",
+      "npm/campaign",
+      "workflow and line count"
+    ]
+  },
+  "known_ci": {
+    "478": "currentf4db has nonexistent ui suite in published workflow; local correction and two input-declaration tests passed; appropriate native regression blocked temporarily by restoring unhydrated assets, no gate weakened",
+    "475": "all current checks success",
+    "476": "247167 all current checks success",
+    "477": "b7f63a3 all current checks success"
+  },
+  "constraints": [
+    "User arranges review; never read/respond/fix review comments, review/merge/close PRs.",
+    "No browser-game restoration or test weakening; existing branch expected_sha updates and remote ref/git checks.",
+    "32 existing upgrades15916 real lines, final40 average500 needs4084 across8; do not pad or count WIP."
+  ],
+  "next": "Resume this remote branch, complete actual World and strict validation, publish as33 only after real PR creation. Continue34 through40; do not stop at CI sweep."
+}
