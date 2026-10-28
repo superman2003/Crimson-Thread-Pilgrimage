@@ -16,6 +16,7 @@ var launcher: Button
 var positions: Dictionary={}
 var generation:=0
 var catalog_identity:=""
+var build_receipt: AcceptDialog
 
 static func install(shell: Control) -> void:
     if shell.has_node("CreditsReader"):return
@@ -49,7 +50,7 @@ func _build() -> void:
     reader.bbcode_enabled=false;reader.selection_enabled=true;reader.scroll_active=true;reader.focus_mode=Control.FOCUS_ALL
     columns.add_child(reader)
     var navigation:=HBoxContainer.new();column.add_child(navigation)
-    for entry in [["回到正文开头",top],["到正文末尾",bottom],["清除检索",clear_search]]:
+    for entry in [["回到正文开头",top],["到正文末尾",bottom],["清除检索",clear_search],["发行构建与核对",open_build_receipt]]:
         var button:=Button.new();button.text=entry[0];button.custom_minimum_size=Vector2(200,32)
         button.pressed.connect(entry[1]);navigation.add_child(button)
     status=Label.new();status.custom_minimum_size=Vector2(910,42);status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
@@ -120,3 +121,16 @@ func restore_position(id: String, version: int) -> void:
     var previous: Variant=positions.get(id,0.0)
     if typeof(previous) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(previous)):return
     bar.value=clampf(float(previous),0.0,maxf(0.0,bar.max_value-bar.page))
+
+func open_build_receipt() -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
+    if not is_instance_valid(build_receipt):
+        build_receipt=preload("res://scripts/build_receipt_dialog.gd").new()
+        build_receipt.name="BuildReceiptWindow";window.add_child(build_receipt)
+        var reference: WeakRef=weakref(build_receipt)
+        var source: WeakRef=weakref(window)
+        window.visibility_changed.connect(func():
+            var child:=reference.get_ref() as Window
+            var parent:=source.get_ref() as Window
+            if is_instance_valid(child) and (not is_instance_valid(parent) or not parent.visible):child.hide())
+    build_receipt.open_for(self)
