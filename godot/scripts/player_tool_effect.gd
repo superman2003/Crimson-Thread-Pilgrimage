@@ -228,7 +228,11 @@ func _terrain_contact(start: Vector2, finish: Vector2) -> Dictionary:
 
 func _apply_contact(enemy: Node2D) -> void:
     targets[enemy.get_instance_id()] = true
+    var hp_before: Variant = enemy.get("hp")
     enemy.take_hit(maxi(1, int(payload.get("damage", 1))), direction)
+    if cancelled or is_queued_for_deletion() or not is_instance_valid(enemy) or enemy.is_queued_for_deletion() or enemy.get("dying") == true: return
+    var hp_after: Variant = enemy.get("hp")
+    if (hp_before is int or hp_before is float) and (hp_after is int or hp_after is float) and float(hp_after) >= float(hp_before): return
     if bool(payload.get("skill_effect",false)) and enemy.has_method("report_skill_contact"):
         enemy.report_skill_contact(owner_player,String(payload.get("practice_skill_id","")),int(payload.get("practice_cast_serial",0)))
     if bool(payload.get("salt_mark", false)) and enemy.has_method("apply_salt_mark"):

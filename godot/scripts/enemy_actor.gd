@@ -1879,8 +1879,8 @@ func _try_damage_player(command: Dictionary, previous_position: Vector2 = Vector
     var crossed := previous_position.is_finite() and preload("res://scripts/enemy_motion_sweep.gd").contact(previous_position, global_position, attack_rect, player_rect)
     if crossed or attack_rect.intersects(player_rect):
         attack_has_hit = true
-        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
-        if not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
+        var accepted := preload("res://scripts/damage_contact.gd").apply(target, int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
+        if accepted and not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
 
 
