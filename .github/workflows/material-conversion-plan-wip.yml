@@ -1,0 +1,30 @@
+name: G01 material conversion core WIP
+on:
+  push:
+    branches: [codex/ledger-g01-material-conversion-plan-wip-21ca]
+permissions:
+  contents: read
+jobs:
+  native-core:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /godot/scripts/material_conversion_plan.gd
+            /godot/scripts/material_conversion_plan_validation.gd
+            /godot/data/material_exchange.json
+            /tools/run_material_conversion_plan_contract.py
+          sparse-checkout-cone-mode: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Strict native read-only canonical conversion core
+        run: python3 tools/run_material_conversion_plan_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/conversion-native"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: material-conversion-core-logs
+          path: ${{ runner.temp }}/conversion-native
