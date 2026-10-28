@@ -54,7 +54,7 @@ func run() -> void:
     session.cancel()
     check(session.done and session.result.get("cancelled",false),"incremental work can be cancelled without becoming a solution")
     check(session.frontier.is_empty() and session.visited.is_empty(),"cancel releases all retained search states")
-    var prior:=session.result.duplicate(true)
+    var prior: Dictionary=session.result.duplicate(true)
     session.advance(32)
     check(session.result==prior,"cancelled session cannot resume or publish late result")
     var repeated:=MODEL.begin(known,inventory,32,"salt_crystal_shard",1)
