@@ -18,6 +18,8 @@ var visible_rows: Array = []
 var selected := ""
 var elapsed := 0.0
 var signature := ""
+var cleanup: ConfirmationDialog
+var cleanup_quote: Dictionary={}
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -91,6 +93,7 @@ func _build() -> void:
     var notes: HBoxContainer = window.row(window.column)
     note = window.search(notes,"当前目标备注，最多160字",func(_value: String):pass);note.max_length=160
     note_button = window.button(notes,"保存备注",func():act("note",note.text))
+    window.button(window.column,"整理已完成追踪",ask_cleanup)
     window.footer()
 
 func open() -> void:
@@ -136,6 +139,7 @@ func _selection() -> void:
     note.editable=pinned
     note.text=String(model.state.notes.get(selected,""))
     detail.text="没有符合条件的已知目标。清空搜索或切换筛选。" if row.is_empty() else String(row.title)+"\n\n"+String(row.text)
+    if not row.is_empty():detail.text="下一步："+preload("res://scripts/goal_watchlist_review.gd").next_hint(row)+"\n\n"+detail.text
 
 func act(command: String, value: Variant = null) -> void:
     var result: Dictionary = model.change(command,selected,rows(),value)
@@ -152,11 +156,7 @@ func _read_selected() -> void:
     ui._show_journal_record(row.entry)
 
 func _refresh_hud() -> void:
-    var known := {}
-    for row in rows():known[row.key]=row
-    var lines: Array[String] = []
-    for key in model.state.pins:
-        if known.has(key):lines.append(("✓ " if known[key].complete else "○ ")+String(known[key].title))
+    var lines: Array[String]=preload("res://scripts/goal_watchlist_review.gd").hud_lines(model.state,rows())
     hud.text="追踪目标\n"+"\n".join(lines)
     hud.visible=bool(model.state.hud) and not lines.is_empty() and String(ui.level.active_overlay).is_empty()
 
@@ -170,3 +170,20 @@ func _process(delta: float) -> void:
         signature=current
         if is_instance_valid(window) and window.visible:refresh()
     _refresh_hud()
+
+func ask_cleanup() -> void:
+    if not is_instance_valid(window) or not window.visible:return
+    cleanup_quote=preload("res://scripts/goal_watchlist_review.gd").quote(model.state,rows())
+    if not cleanup_quote.ok:window.status.text=String(cleanup_quote.reason);return
+    if not is_instance_valid(cleanup):
+        cleanup=ConfirmationDialog.new();cleanup.title="整理已完成追踪";cleanup.min_size=Vector2i(650,300)
+        cleanup.get_ok_button().text="确认整理追踪";window.add_child(cleanup);ui.register_text_entry_window(cleanup)
+        cleanup.confirmed.connect(_apply_cleanup)
+        window.visibility_changed.connect(func():
+            if not window.visible:cleanup.hide();cleanup_quote={})
+    cleanup.dialog_text=String(cleanup_quote.summary);cleanup.popup_centered();cleanup.get_cancel_button().grab_focus()
+
+func _apply_cleanup() -> void:
+    if not window.visible or cleanup_quote.is_empty():return
+    var result:=preload("res://scripts/goal_watchlist_review.gd").apply(model,rows(),String(cleanup_quote.get("fingerprint","")))
+    cleanup_quote={};refresh();window.status.text=String(result.reason)
