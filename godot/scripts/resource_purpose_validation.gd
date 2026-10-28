@@ -194,7 +194,11 @@ func run(tree: SceneTree, level: Node, check: Callable) -> void:
     level.world_collected_ids=original_collected
     level.visited_rooms=original_visited
     dialog.refresh_button.pressed.emit()
-    check.call(dialog.selected=="currency" and not dialog.detail.text.contains(String(known_source.label)),"refresh removes disappeared material and stale hidden-source detail")
+    # A material named by an unlocked cost stays listed at zero stock; otherwise
+    # the selection falls back to currency. Either way no stale source remains.
+    var zero_row: Array=dialog.visible_resources.filter(func(row: Dictionary):return row.id==known_source.item_id)
+    var reselected: bool=(zero_row.is_empty() and dialog.selected=="currency") or (not zero_row.is_empty() and dialog.selected==known_source.item_id and int(zero_row[0].count)==0)
+    check.call(reselected and not dialog.detail.text.contains(String(known_source.label)),"refresh removes disappeared material and stale hidden-source detail")
     var state_after:=var_to_str([level.build_system.serialize(),level.inventory_counts,level.story_flags,level.currency_count,level.player.energy,level.player.hp,level.world_state.data])
     check.call(state_after==state_before and FileAccess.get_file_as_bytes(level.world_save_path)==disk_before,"open select filter refresh leave actual inventory wallet build hp energy flags and save bytes unchanged")
     dialog.hide()
