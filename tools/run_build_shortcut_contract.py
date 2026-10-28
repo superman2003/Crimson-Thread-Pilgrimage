@@ -13,7 +13,7 @@ SCRIPTS = (
     'build_shortcut_contract_validation.gd', 'build_shortcut_validation.gd', 'build_shortcut_input.gd',
     'settings_profile_codec.gd', 'settings_profiles.gd', 'settings_profile_transfer.gd',
     'controller_preferences.gd', 'journey_desk_store.gd', 'input_binding_policy.gd',
-    'input_prompt_bindings.gd',
+    'input_prompt_bindings.gd', 'settings_persistence.gd', 'preference_file_transaction.gd',
 )
 MARKER = r'^BUILD_SHORTCUT_CONTRACT checks=[1-9][0-9]* failures=0$'
 ERROR = re.compile(r'^\s*(?:ERROR|SCRIPT ERROR|USER ERROR|Parse Error):', re.M)
