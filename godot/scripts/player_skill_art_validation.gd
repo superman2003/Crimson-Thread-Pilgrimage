@@ -173,7 +173,9 @@ func _physics(tree:SceneTree)->void:
     _check(target.hits==1 and target.damage==2 and target.marked and inactive.hits==0,"real swept needle hits one resident enemy and preserves salt mark")
     _check(needle.is_queued_for_deletion() and not needle.is_physics_processing(),"needle retires damage immediately before cosmetic impact")
     var marks:=tree.get_nodes_in_group(POLICY.CONTACT_GROUP)
-    _check(marks.size()==1 and marks[0].global_position.distance_to(Vector2(60,-42))<.01,"needle impact uses swept contact point instead of overshot endpoint")
+    # The needle stops where it first enters the target's padded hurtbox (20px box
+    # + 8px sweep padding): x=60-10-8, not the target centre or overshot end.
+    _check(marks.size()==1 and marks[0].global_position.distance_to(Vector2(42,-42))<.01,"needle impact uses swept contact point instead of overshot endpoint")
     needle._physics_process(.01);_check(target.hits==1,"retired needle cannot hit again")
     target.queue_free();inactive.queue_free()
     for mark in marks:mark.queue_free()
