@@ -16,7 +16,15 @@ def main():
         base = Path(temporary)
         project = base / 'project'; project.mkdir()
         (project/'project.godot').write_text('config_version=5\n[application]\nconfig/name="Reliability fixtures"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
-        for name in DEPS:
+        dependencies = list(DEPS)
+        pending = list(DEPS)
+        while pending:
+            source = pending.pop()
+            if not source.endswith('.gd'):continue
+            for dependency in re.findall(r'preload\("res://(scripts/[^"\n]+)"\)', (ROOT/'godot'/source).read_text()):
+                if dependency not in dependencies:
+                    dependencies.append(dependency);pending.append(dependency)
+        for name in dependencies:
             target = project/name;target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT/'godot'/name, target)
         env = dict(os.environ, XDG_DATA_HOME=str(base/'userdata'), APPDATA=str(base/'userdata'), GODOT_SILENCE_ROOT_WARNING='1')
