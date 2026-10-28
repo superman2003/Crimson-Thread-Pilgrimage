@@ -1,0 +1,95 @@
+{
+  "name": "Player Basic Slash air down",
+  "w": 96,
+  "h": 96,
+  "frames": 8,
+  "fps": 24,
+  "loop": false,
+  "seed": 41,
+  "ramps": {
+    "main": [
+      "#26131c",
+      "#76243a",
+      "#c94e60",
+      "#ffe0c9"
+    ],
+    "spark": [
+      "#6b3041",
+      "#d58b98",
+      "#fff5df"
+    ]
+  },
+  "outline": "outside",
+  "outlineColor": "#170e16",
+  "cleanup": true,
+  "pivot": [
+    0.5,
+    0.5
+  ],
+  "layers": [
+    {
+      "type": "slash",
+      "ramp": "$main",
+      "r": 0.79,
+      "th": 0.144,
+      "a0": -55,
+      "a1": 125,
+      "angle": 0,
+      "sweep": 0.34,
+      "trail": 0.94,
+      "erode": 0.78,
+      "t0": 0.04,
+      "t1": 0.88,
+      "gain": 0.92
+    },
+    {
+      "type": "slash",
+      "ramp": "$spark",
+      "r": 0.7200000000000001,
+      "th": 0.056,
+      "a0": -55,
+      "a1": 125,
+      "angle": 0,
+      "sweep": 0.34,
+      "trail": 0.86,
+      "erode": 0.92,
+      "t0": 0.15,
+      "t1": 0.76,
+      "gain": 0.9
+    },
+    {
+      "type": "particles",
+      "ramp": "$spark",
+      "mode": "burst",
+      "count": 5,
+      "speed": [
+        0.35,
+        0.75
+      ],
+      "life": [
+        0.25,
+        0.7
+      ],
+      "dir": 90,
+      "spread": 48,
+      "area": 0.18,
+      "shape": "streak",
+      "size": [
+        1,
+        1
+      ],
+      "t0": 0.18,
+      "t1": 0.84,
+      "gain": 0.8
+    },
+    {
+      "type": "flash",
+      "ramp": "$spark",
+      "r": 0.09,
+      "dur": 0.08,
+      "t0": 0.04,
+      "t1": 0.22,
+      "gain": 0.85
+    }
+  ]
+}
