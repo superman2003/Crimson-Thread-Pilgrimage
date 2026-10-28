@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["permanent_ability_roles.gd", "save_backup_difference_validation.gd", "save_desk.gd", "save_inspector.gd", "world_coordinates.gd", "world_state.gd"]
+SCRIPTS = ["save_slot_overview.gd", "permanent_ability_roles.gd", "save_backup_difference_validation.gd", "save_desk.gd", "save_inspector.gd", "world_coordinates.gd", "world_state.gd"]
 MARKER = re.compile("^SAVE_BACKUP_DIFFERENCE checks=[1-9][0-9]* failures=0$", re.M)
 
 
