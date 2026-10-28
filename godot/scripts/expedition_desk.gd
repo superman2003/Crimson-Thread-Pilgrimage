@@ -20,6 +20,7 @@ var done_button: Button
 var defer_button: Button
 var hud: Label
 var elapsed:=0.0
+var route_review: AcceptDialog
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -58,6 +59,7 @@ func _build() -> void:
     window.button(controls,"开始 / 继续",func():act("start"))
     window.button(controls,"暂停",func():act("pause"))
     window.button(controls,"重排行程进度",func():act("reset"))
+    window.button(controls,"核对逐站路线",review_itinerary)
     window.footer()
 
 func open() -> void:
@@ -131,6 +133,32 @@ func view_selected() -> void:
     var result: Dictionary=DIRECTORY.focus(ui.level,{"key":key})
     if bool(result.get("ok",false)):window.hide()
     else:window.status.text=String(result.get("reason","地点已不可见。"))
+
+func review_itinerary() -> void:
+    if not is_instance_valid(window) or not window.visible or ui.level.world_loading:return
+    var room_ids: Array=[]
+    var names: Dictionary={}
+    var region:=String(ui.level.config.id)
+    for room in ui.level.config.get("map_rooms",[]):
+        if not JOURNAL.charted_any(ui.level.story_flags,region,room):continue
+        var area:=0.0
+        for part in JOURNAL.charted_parts(ui.level.story_flags,region,room):area+=part.get_area()
+        if area+1.0<preload("res://scripts/cartography_runtime.gd").room_rect(room).get_area():continue
+        room_ids.append(String(room.id));names[String(room.id)]=String(room.get("name","已补绘房间"))
+    var route:=func(start: String,target: String):
+        return PLAN.path(ui.level.config,room_ids,start,target,ui.level.inventory_counts,ui.level.opened_shortcuts)
+    var legs:=preload("res://scripts/expedition_route_review.gd").collect(plan.state,DIRECTORY.rows(ui.level),region,String(ui.level.current_room_id),preload("res://scripts/cartography_runtime.gd").shows_position(ui.level),route)
+    if not is_instance_valid(route_review):
+        route_review=AcceptDialog.new();route_review.title="逐站行程核对";route_review.min_size=Vector2i(780,540)
+        var text:=RichTextLabel.new();text.name="RouteReviewText";text.custom_minimum_size=Vector2(730,450)
+        text.bbcode_enabled=false;text.focus_mode=Control.FOCUS_ALL;route_review.add_child(text)
+        window.add_child(route_review);ui.register_text_entry_window(route_review)
+        window.visibility_changed.connect(func():
+            if not window.visible:route_review.hide())
+        route_review.confirmed.connect(func():
+            if window.visible:itinerary.grab_focus())
+    route_review.get_node("RouteReviewText").text=preload("res://scripts/expedition_route_review.gd").describe(legs,names)
+    route_review.popup_centered();route_review.get_node("RouteReviewText").grab_focus()
 
 func _refresh_hud() -> void:
     if not plan.state.active:hud.hide();return
