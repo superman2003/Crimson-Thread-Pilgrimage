@@ -86,9 +86,11 @@ func _selection() -> void:
         for stage in course.stages:lines.append("· %s × %d" % [String(stage.label),int(stage.count)])
         lines.append("\n只统计实际接受的动作；失败施放、格挡架势和中断疗伤不算完成。课程不补充生命、绯线、战具，不授予校习资格。")
         var recent: Array=curriculum.recent(selected,ui.level.inventory_counts)
+        lines.append("\n"+preload("res://scripts/practice_attempt_review.gd").summary(curriculum.history,selected))
         lines.append("\n最近已保存的训练记录" if not recent.is_empty() else "\n尚无已保存的训练记录。")
         for record in recent:
             lines.append("· %s · %.1f秒 · %s" % ["完成" if record.complete else "未完成",float(record.seconds),String(record.reason)])
+            lines.append(preload("res://scripts/practice_attempt_review.gd").describe(record))
         detail.text="\n".join(lines)
 
 func start_selected() -> void:

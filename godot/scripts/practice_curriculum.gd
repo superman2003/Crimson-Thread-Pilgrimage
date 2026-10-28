@@ -8,6 +8,7 @@ var pending: Dictionary={}
 var store:=preload("res://scripts/journey_desk_store.gd").new()
 
 func configure(journey: String) -> void:
+    history=[]
     store.configure("curriculum",journey)
     var raw: Variant=JSON.parse_string(FileAccess.get_file_as_string(PATH))
     courses=raw.get("courses",[]).duplicate(true) if raw is Dictionary else []
@@ -17,7 +18,9 @@ func configure(journey: String) -> void:
             if not record is Dictionary or not record.get("course") is String or not record.get("complete") is bool:continue
             var seconds: Variant=record.get("seconds")
             if typeof(seconds) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(seconds)) or float(seconds)<0.0 or float(seconds)>3600.0:continue
-            history.append({"course":record.course,"complete":record.complete,"seconds":float(seconds),"reason":String(record.get("reason","")).left(80)})
+            var restored: Dictionary={"course":record.course,"complete":record.complete,"seconds":float(seconds),"reason":String(record.get("reason","")).left(80)}
+            restored.merge(preload("res://scripts/practice_attempt_review.gd").restore(record))
+            history.append(restored)
 
 static func earned(inventory: Dictionary, ability: String) -> bool:
     var value: Variant=inventory.get(ability,0)
@@ -52,12 +55,15 @@ func start(id: String, inventory: Dictionary) -> Dictionary:
     if not active.is_empty() or not pending.is_empty():return {"ok":false,"reason":"先结束当前课程或处理待保存记录。"}
     for course in available(inventory):
         if course.id!=id:continue
-        active={"course":course.duplicate(true),"stage":0,"count":0,"seconds":0.0,"seen":{}}
+        active={"course":course.duplicate(true),"stage":0,"count":0,"seconds":0.0,"seen":{},"split_seconds":{}}
         return {"ok":true,"reason":"课程开始；只观察真实动作，不授予资源或能力。"}
     return {"ok":false,"reason":"课程尚不可用。"}
 
 func tick(delta: float) -> void:
-    if not active.is_empty() and is_finite(delta) and delta>0.0:active.seconds+=minf(delta,1.0)
+    if not active.is_empty() and is_finite(delta) and delta>0.0:
+        var elapsed:=minf(delta,1.0)
+        active.seconds+=elapsed
+        active.split_seconds[active.stage]=float(active.split_seconds.get(active.stage,0.0))+elapsed
 
 func accept(action: String, frame: int) -> bool:
     if active.is_empty():return false
@@ -73,6 +79,7 @@ func accept(action: String, frame: int) -> bool:
 func finish(complete: bool, reason: String) -> void:
     if active.is_empty():return
     pending={"course":String(active.course.id),"complete":complete,"seconds":float(active.seconds),"reason":reason.left(80)}
+    pending.merge(preload("res://scripts/practice_attempt_review.gd").capture(active))
     active={}
     retry()
 
