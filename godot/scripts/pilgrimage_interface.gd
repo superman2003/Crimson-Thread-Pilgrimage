@@ -1077,6 +1077,8 @@ func get_accessibility(key: String, fallback: Variant=null) -> Variant:
 func _load_accessibility() -> void:
     # Before any saved preference applies, even when there is no preference file yet.
     _record_default_bindings()
+    # Recover an interrupted replacement before treating a missing file as defaults.
+    if settings_persistence.recover(accessibility_path)!=OK:return
     var config:=ConfigFile.new()
     if config.load(accessibility_path)!=OK:return
     # A malformed preference must not prevent the settings screen from opening.
