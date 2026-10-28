@@ -15,6 +15,7 @@ var calibration_status: Label
 var measure_button: Button
 var stage_button: Button
 var sample_elapsed := 0.0
+var measurement_session := -1
 
 func _ready() -> void:
     title = "手柄校准与舒适设置"
@@ -58,6 +59,7 @@ func _ready() -> void:
     get_ok_button().text = "应用这些变化"
     get_cancel_button().text = "保留原设置"
     confirmed.connect(_apply_candidate)
+    Input.joy_connection_changed.connect(_connection_changed)
     visibility_changed.connect(func():
         if not visible:calibration.cancel();sample_elapsed=0.0)
 
@@ -98,6 +100,8 @@ func _process(delta: float) -> void:
         sample_elapsed=0.0
 
 func _refresh_devices() -> void:
+    var measured_delta := sample_elapsed
+    sample_elapsed=0.0
     var devices := POLICY.devices()
     var next_ids: Array=[]
     for device in devices:next_ids.append(device.id)
@@ -115,7 +119,7 @@ func _refresh_devices() -> void:
         if device.id==device_picker.get_selected_metadata():selected=device;break
     var values: Array=selected.get("axes",[])
     var selected_id:=int(selected.get("id",-1))
-    if calibration.active and sample_elapsed>0.0:calibration.sample(selected_id,values,sample_elapsed)
+    if calibration.active and measured_delta>0.0:calibration.sample(selected_id,values,measured_delta)
     elif not calibration.active and calibration.device>=0 and calibration.device!=selected_id:calibration.cancel("设备已切换或断开，请重新测量。")
     measure_button.disabled=selected.is_empty() or calibration.active
     stage_button.disabled=calibration.active or not calibration.result.get("ok",false) or selected_id!=calibration.device
@@ -131,12 +135,27 @@ func _apply_candidate() -> void:
 func _start_measurement() -> void:
     if not visible or device_picker.selected<0:return
     calibration.start(int(device_picker.get_selected_metadata()))
+    measurement_session=calibration.session
     sample_elapsed=0.0
     _refresh_devices()
 
 func _stage_measurement() -> void:
     if not visible or calibration.active or not calibration.result.get("ok",false):return
     if device_picker.selected<0 or int(device_picker.get_selected_metadata())!=calibration.device:return
-    candidate.controller_deadzone=float(calibration.result.deadzone)
+    var suggestion: Dictionary=calibration.recommendation(int(device_picker.get_selected_metadata()),measurement_session)
+    if suggestion.is_empty():return
+    candidate.controller_deadzone=float(suggestion.deadzone)
     deadzone.set_value_no_signal(float(candidate.controller_deadzone))
     _refresh_changes()
+
+func _connection_changed(id: int, _connected: bool) -> void:
+    if id==calibration.device:
+        calibration.cancel("设备连接已变化，请重新测量。")
+        sample_elapsed=0.0
+        if is_instance_valid(stage_button):stage_button.disabled=true
+
+func _notification(what: int) -> void:
+    if what==NOTIFICATION_APPLICATION_FOCUS_OUT:
+        calibration.cancel("窗口已失焦，请重新测量。")
+        sample_elapsed=0.0
+        if is_instance_valid(stage_button):stage_button.disabled=true

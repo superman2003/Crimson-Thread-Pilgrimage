@@ -4,6 +4,7 @@ const DURATION := 3.0
 const MIN_SAMPLES := 24
 const MARGIN := 0.04
 const MAX_NEUTRAL := 0.55
+var session := 0
 var device := -1
 var active := false
 var elapsed := 0.0
@@ -18,6 +19,7 @@ func start(id: int) -> void:
     active = true
 
 func cancel(reason: String = "") -> void:
+    session += 1
     device = -1
     active = false
     elapsed = 0.0
@@ -49,9 +51,14 @@ func sample(id: int, values: Array, delta: float) -> void:
     for value in peaks:peak = maxf(peak,value)
     # Round upward so the largest measured neutral value is always covered.
     var recommendation := clampf(ceilf((peak+MARGIN)*100.0)/100.0,0.1,0.6)
-    result = {"ok":true,"deadzone":recommendation,"peak":peak,"samples":samples,"peaks":peaks.duplicate()}
+    result = {"ok":true,"deadzone":recommendation,"peak":peak,"samples":samples,"peaks":peaks.duplicate(),"session":session}
 
 func status() -> String:
     if active:return "松开两支摇杆：测量中 %.1f / %.1f 秒（%d 次）" % [minf(elapsed,DURATION),DURATION,samples]
     if result.get("ok",false):return "中立漂移峰值 %.2f；建议死区 %d%%。可先暂存，再核对下方变化。" % [float(result.peak),int(round(float(result.deadzone)*100))]
     return String(result.get("reason","点击测量，在三秒内松开两支摇杆。"))
+
+func recommendation(expected_device: int, expected_session: int) -> Dictionary:
+    if active or device!=expected_device or session!=expected_session or not result.get("ok",false):return {}
+    if int(result.get("session",-1))!=session:return {}
+    return result.duplicate(true)
