@@ -239,7 +239,6 @@ func _lifetime(tree: SceneTree) -> void:
     _check(eruption._hits_player(Vector2(578.01,208.01)) and not eruption._hits_player(Vector2(577.99,208)) and not eruption._hits_player(Vector2(600,207.99)) and not eruption._hits_player(Vector2(600,308)), "eruption retains exact 44x100 rectangle and exclusive bottom edge")
     target.position=Vector2(1000,1000)
     var before := tree.get_nodes_in_group(POLICY.CONTACT_GROUP).size()
-    var wave_point: Vector2 = wave.global_position
     wave._physics_process(3)
     eruption._physics_process(.6)
     _check(wave.cancelled and eruption.cancelled and not wave.is_in_group("hostile_attack") and not eruption.is_in_group("hostile_attack"), "expiry immediately retires both dangerous objects")
@@ -248,7 +247,7 @@ func _lifetime(tree: SceneTree) -> void:
     for mark in tree.get_nodes_in_group(POLICY.CONTACT_GROUP):
         mark.set_process(false)
         _check(not mark.is_in_group("hostile_attack"), "fade has no damage group")
-        if mark.family == "surge": _check(mark.global_position == wave_point and mark.direction < 0, "wave fade snapshots final floor point and direction")
+        if mark.family == "surge": _check(mark.global_position == wave.global_position and mark.direction < 0, "wave fade snapshots final floor point and direction")
         selected.clear()
         mark.paint=func(_host,_family,frame,_radius,_direction,_tint):selected.append(frame)
         mark.age=.001;mark._draw();mark.age=1/ART.FPS+.001;mark._draw()
