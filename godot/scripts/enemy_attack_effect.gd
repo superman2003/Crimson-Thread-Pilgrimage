@@ -60,6 +60,10 @@ func _physics_process(delta: float) -> void:
         target = null
     if target != null and (target.get("ui_input_locked") == true):
         return
+    if not is_finite(delta) or delta <= 0.0: return
+    if effect_kind == "wave":
+        _advance_wave(delta, target)
+        return
     age += delta
     if age >= duration:
         # Fade is cosmetic and starts only after the existing damaging lifetime.
@@ -342,3 +346,58 @@ func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wal
     if not cancelled and not is_queued_for_deletion() and is_instance_valid(target) and not target.is_queued_for_deletion() and snare>0 and target.has_method("apply_snare"):target.apply_snare(snare)
     if not cancelled and not is_queued_for_deletion():_finish_impact(global_position)
     return true
+
+
+## Ground waves traverse their active time, including a final partial step.
+## Substeps sample authored floors; each segment competes with solid terrain.
+func _advance_wave(delta: float, target: Node2D) -> void:
+    var observed_active := age >= arm_delay
+    var next_age := age + delta
+    var seconds := maxf(0.0, minf(next_age, duration) - maxf(age, arm_delay))
+    age = minf(next_age, duration)
+    if seconds > 0.0:
+        var steps := clampi(ceili(velocity.length() * seconds / 32.0), 1, 128)
+        var step := seconds / steps
+        for index in range(steps):
+            if cancelled or is_queued_for_deletion(): return
+            var start := global_position
+            velocity.y += gravity * step
+            var finish := start + velocity * step
+            var terrain: Node = get_parent().get("chapter_terrain")
+            if is_instance_valid(terrain):
+                var floor_y: float = terrain.floor_height(finish.x, finish.y + 18, 150)
+                if is_finite(floor_y): finish.y = floor_y - 18
+            var wall := _wave_wall(start, finish)
+            var limit := SWEEP.fraction(start, finish, wall.position) if not wall.is_empty() else INF
+            if is_instance_valid(target) and not target.is_queued_for_deletion() and not hit_player:
+                var center := target.global_position - Vector2(0, 42)
+                var time := SWEEP.circle_time(start, finish, center, radius + 23)
+                if time < limit and time <= 1.0:
+                    hit_player = true
+                    var contact := start.lerp(finish, time)
+                    if target.has_method("take_damage"): target.take_damage(damage, contact, bool(get_meta("blockable", true)))
+                    if cancelled or is_queued_for_deletion(): return
+                    if is_instance_valid(target) and not target.is_queued_for_deletion() and snare > 0 and target.has_method("apply_snare"): target.apply_snare(snare)
+            if not wall.is_empty():
+                global_position = wall.position
+                cancel()
+                return
+            global_position = finish
+            travelled += start.distance_to(finish)
+    if age >= duration:
+        if duration > arm_delay and seconds > 0 and observed_active:
+            TERRAIN_ART.spawn_fade(get_parent(), global_position, TERRAIN_ART.family_for(effect_kind, skin, owner_actor), radius, velocity.x, tint)
+        cancel()
+        return
+    queue_redraw()
+
+func _wave_wall(start: Vector2, finish: Vector2) -> Dictionary:
+    var level := get_parent()
+    if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(start, finish)
+    var ray := PhysicsRayQueryParameters2D.create(start, finish, 1)
+    ray.collide_with_areas = false
+    var wall := get_world_2d().direct_space_state.intersect_ray(ray)
+    if level.has_method("_rock_ray_hit"):
+        var rock: Dictionary = level._rock_ray_hit(start, finish)
+        if not rock.is_empty() and (wall.is_empty() or start.distance_squared_to(rock.position) < start.distance_squared_to(wall.position)): wall = rock
+    return wall
