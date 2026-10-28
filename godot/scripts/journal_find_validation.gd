@@ -26,13 +26,13 @@ func query(dialog: Window,value: String) -> void:
     dialog.query.text=value;dialog.query.text_changed.emit(value)
 func run() -> void:
     root.size=Vector2i(1280,720);root.gui_embed_subwindows=true
-    var source:="引言\r\n针线 Needle 😀needle\r尾声针线"
+    var source:="引言\r\n针线 Needle "+String.chr(0x1f600)+"needle\r尾声针线"
     var result:=FIND.search(source,"针线")
     check(result.ok and result.matches.size()==2 and not result.limited,"literal Chinese matches search this body only")
-    check(result.text=="引言\n针线 Needle 😀needle\n尾声针线","CRLF and CR normalize to native plain-text editor lines")
+    check(result.text=="引言\n针线 Needle "+String.chr(0x1f600)+"needle\n尾声针线","CRLF and CR normalize to native plain-text editor lines")
     check(result.matches[0].line==1 and result.matches[0].column==0 and result.matches[1].line==2 and result.matches[1].column==2,"original Unicode codepoint positions map to normalized line and column")
     check(FIND.search(source,"needle").matches.size()==2 and FIND.search(source,"needle",true).matches.size()==1,"optional case sensitivity has separate literal semantics")
-    var emoji: Dictionary=FIND.search(source,"😀needle",true).matches[0]
+    var emoji: Dictionary=FIND.search(source,String.chr(0x1f600)+"needle",true).matches[0]
     check(emoji.end-emoji.start==7 and emoji.column==10,"emoji does not shift following native selection by UTF-16 units")
     var overlap:=FIND.search("aaaa","aa")
     check(overlap.matches.size()==3 and overlap.matches[2].start==2,"overlapping matches advance safely and remain individually selectable")
@@ -71,6 +71,13 @@ func run() -> void:
     query(dialog,"not present");check(dialog.next.disabled and dialog.previous.disabled and dialog.editor.get_selected_text().is_empty(),"no matches clears stale selection and disables navigation")
     query(dialog,"针线");await frames()
     check(dialog.editor.get_selected_text()=="针线" and dialog.query.has_focus(),"Unicode selection does not steal typing focus")
+    var enter:=InputEventKey.new();enter.keycode=KEY_ENTER;enter.pressed=true
+    var before_enter: int=dialog.selected;dialog._query_input(enter)
+    check(dialog.visible and dialog.selected==(before_enter+1)%dialog.report.matches.size(),"Enter moves forward without closing")
+    enter.shift_pressed=true;dialog._query_input(enter)
+    check(dialog.selected==before_enter,"Shift Enter moves back")
+    enter.echo=true;dialog._query_input(enter)
+    check(dialog.selected==before_enter,"echo does not repeat navigation")
     check(ui.bag_description.text==source_before,"finding and selecting never rewrites original rich text")
     ui.reading_session_generation+=1;dialog.next.pressed.emit();await frames()
     check(not dialog.visible and dialog.source.is_empty() and dialog.editor.text.is_empty(),"expired reading generation closes and clears captured content")

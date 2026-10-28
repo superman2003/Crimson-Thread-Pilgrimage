@@ -38,7 +38,7 @@ static func search(source: String, query: String, match_case: bool=false) -> Dic
         var end:=index+needle.length()
         var first:=coordinates(starts,index);var last:=coordinates(starts,end)
         var preview_start:=maxi(0,index-20)
-        var preview:=text.substr(preview_start,mini(text.length()-preview_start,needle.length()+60)).replace("\n"," ↵ ")
+        var preview:=text.substr(preview_start,mini(text.length()-preview_start,needle.length()+60)).replace("\n"," / ")
         result.matches.append({"start":index,"end":end,"line":first.y,"column":first.x,"end_line":last.y,"end_column":last.x,"preview":preview})
         # Include overlapping literal occurrences; movement still advances one codepoint.
         cursor=index+1
