@@ -647,10 +647,7 @@ func _try_start_grapple() -> bool:
     var best: Node2D = null
     var best_score := INF
     for candidate in get_tree().get_nodes_in_group("grapple_anchor"):
-        if not candidate is Node2D or not candidate.is_inside_tree() or not candidate.is_visible_in_tree():
-            continue
-        if not bool(candidate.get_meta("grapple_enabled", true)):
-            continue
+        if not preload("res://scripts/grapple_path.gd").available(candidate): continue
         var offset: Vector2 = candidate.global_position - origin
         var distance := offset.length()
         if distance < 36.0 or distance > grapple_range:
@@ -658,12 +655,9 @@ func _try_start_grapple() -> bool:
         var alignment := aim.dot(offset.normalized())
         if alignment < 0.35:
             continue
-        var query := PhysicsRayQueryParameters2D.create(origin, candidate.global_position, collision_mask, [get_rid()])
-        var hit := get_world_2d().direct_space_state.intersect_ray(query)
-        if not hit.is_empty() and hit.get("collider") != candidate:
-            continue
+        if not preload("res://scripts/grapple_path.gd").clear(self, candidate): continue
         var score := distance + (1.0 - alignment) * grapple_range
-        if score < best_score:
+        if preload("res://scripts/grapple_path.gd").preferred(score, candidate, best_score, best):
             best = candidate
             best_score = score
     if best == null:
@@ -690,7 +684,8 @@ func _try_start_grapple() -> bool:
 
 
 func _update_grapple(delta: float) -> void:
-    if not is_instance_valid(grapple_anchor) or not grapple_anchor.is_inside_tree():
+    if not is_finite(delta) or delta <= 0.0: return
+    if not preload("res://scripts/grapple_path.gd").available(grapple_anchor):
         _stop_grapple()
         return
     var offset := grapple_anchor.global_position - (global_position + Vector2(0.0, -42.0))
@@ -700,10 +695,7 @@ func _update_grapple(delta: float) -> void:
         velocity *= 0.35
         return
     # Sweep each physics tick instead of teleporting through solid terrain.
-    var origin := global_position + Vector2(0.0, -42.0)
-    var query := PhysicsRayQueryParameters2D.create(origin, grapple_anchor.global_position, collision_mask, [get_rid()])
-    var hit := get_world_2d().direct_space_state.intersect_ray(query)
-    if not hit.is_empty() and hit.get("collider") != grapple_anchor:
+    if offset.length() > grapple_range * 1.15 or not preload("res://scripts/grapple_path.gd").clear(self, grapple_anchor):
         _stop_grapple()
         return
     velocity = offset.normalized() * minf(grapple_speed, maxf(0.0, offset.length() - 30.0) / delta)
