@@ -36,11 +36,12 @@ func _build() -> void:
     region_filter=OptionButton.new();filters.add_child(region_filter)
     region_filter.item_selected.connect(func(_index: int):refresh())
     var columns: HBoxContainer=window.row(window.column)
-    list=ItemList.new();list.custom_minimum_size=Vector2(315,310);columns.add_child(list)
-    detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(575,310);columns.add_child(detail)
+    list=ItemList.new();list.custom_minimum_size=Vector2(315,275);columns.add_child(list)
+    detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(575,275);columns.add_child(detail)
     list.item_selected.connect(func(index: int):selected=String(rows[index].contract_id);_selection())
     var actions: HBoxContainer=window.row(window.column)
     window.button(actions,"接取所选",func():ask("accept"));window.button(actions,"确认登记与回礼",func():ask("claim"));window.button(actions,"取消所选",func():ask("cancel"))
+    window.button(window.column,"核对当前筛选全部回礼",ask_batch)
     window.footer()
     confirm=ConfirmationDialog.new();confirm.title="核对巡礼契约";confirm.min_size=Vector2i(640,240);window.add_child(confirm);ui.register_text_entry_window(confirm)
     confirm.confirmed.connect(_confirm)
@@ -87,5 +88,36 @@ func ask(action: String) -> void:
 func _confirm() -> void:
     if pending.is_empty() or not window.visible:return
     var request:=pending.duplicate(true);pending={}
+    if request.get("action")=="batch":
+        var fresh:=batch_quote(request.ids)
+        if not fresh.ok:refresh();window.status.text=String(fresh.reason);return
+        if fresh.fingerprint!=request.fingerprint:
+            refresh();window.status.text="契约或库存已经变化，请重新核对整批回礼。";return
+        var settled:=preload("res://scripts/field_transaction.gd").commit(ui.level,fresh.counts,fresh.flags,int(ui.level.currency_count))
+        refresh();window.status.text=String(settled.reason)
+        return
     var result: Dictionary=CONTRACTS.perform(ui.level,String(request.id),String(request.action),String(request.fingerprint))
     refresh();window.status.text=String(result.reason)
+
+func batch_quote(ids: Array) -> Dictionary:
+    var known:=CONTRACTS.entries(ui.level)
+    var selected_rows: Array=[]
+    for id in ids:
+        var found:=false
+        for row in known:
+            if row.contract_id!=id:continue
+            if not row.accepted or not row.ready or row.claimed:return {"ok":false,"reason":"整批中的契约已不再待领取，请重新核对。"}
+            selected_rows.append(row);found=true;break
+        if not found:return {"ok":false,"reason":"整批中的契约已不可见，请重新核对。"}
+    return preload("res://scripts/contract_batch_settlement.gd").quote(selected_rows,ui.level.inventory_counts,ui.level.story_flags,func(id: String):return CONTRACTS.quote(ui.level,id,"claim"))
+
+func ask_batch() -> void:
+    if not is_instance_valid(window) or not window.visible:return
+    var ids: Array=[]
+    for row in rows:
+        if row.accepted and row.ready and not row.claimed:ids.append(String(row.contract_id))
+    var quote:=batch_quote(ids)
+    if not quote.ok:window.status.text=String(quote.reason);return
+    pending={"action":"batch","ids":ids.duplicate(),"fingerprint":quote.fingerprint}
+    confirm.dialog_text=String(quote.summary)+"\n仅领取当前筛选中的这些回礼；不接取或取消其它契约。保存失败整批保留。"
+    confirm.popup_centered();confirm.get_cancel_button().grab_focus()
