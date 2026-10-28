@@ -23,6 +23,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/run_expedition_defer_contract.py
+            /godot/scripts/expedition_plan.gd
+            /godot/scripts/journey_desk_store.gd
+            /godot/scripts/expedition_defer_validation.gd
       - name: Install pinned Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip

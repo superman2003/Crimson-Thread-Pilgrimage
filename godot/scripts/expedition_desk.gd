@@ -60,6 +60,7 @@ func _build() -> void:
     window.button(controls,"暂停",func():act("pause"))
     window.button(controls,"重排行程进度",func():act("reset"))
     window.button(controls,"核对逐站路线",review_itinerary)
+    window.button(controls,"具名行程草案",open_drafts)
     window.footer()
 
 func open() -> void:
@@ -173,3 +174,15 @@ func _process(delta: float) -> void:
     elapsed=0.0
     if is_instance_valid(window) and window.visible:refresh()
     else:_refresh_hud()
+
+func open_drafts() -> void:
+    if not is_instance_valid(window) or not window.visible or ui.level.active_overlay!="map":return
+    var dialog: Window=window.get_node_or_null("ExpeditionDraftLibrary")
+    if dialog==null:
+        dialog=preload("res://scripts/expedition_draft_dialog.gd").new();dialog.name="ExpeditionDraftLibrary";window.add_child(dialog)
+        var reference: WeakRef=weakref(dialog)
+        var parent_reference: WeakRef=weakref(window)
+        window.visibility_changed.connect(func():
+            var popup: Window=reference.get_ref();var source: Window=parent_reference.get_ref()
+            if is_instance_valid(popup) and (not is_instance_valid(source) or not source.visible):popup.hide())
+    dialog.open_for(self)
