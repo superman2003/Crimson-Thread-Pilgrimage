@@ -1,0 +1,38 @@
+name: Reliability R07
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/archive_page_view.gd'
+      - 'godot/scripts/build_system.gd'
+      - 'godot/scripts/journey_archive_detail.gd'
+      - 'godot/scripts/journey_history.gd'
+      - 'godot/scripts/journey_history_browser.gd'
+      - 'godot/scripts/narrative_journey.gd'
+      - 'godot/scripts/resupply_budget.gd'
+      - 'godot/scripts/world_coordinates.gd'
+      - 'godot/scripts/world_narrative.gd'
+      - 'godot/scripts/world_state.gd'
+      - 'godot/scripts/reliability_98fd8e2f_r07_validation.gd'
+      - 'tools/run_reliability_98fd8e2f_r07.py'
+      - '.github/workflows/reliability-98fd8e2f-r07.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot
+        run: |
+          curl --fail -L -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot-bin
+      - name: Native production regression
+        run: python tools/run_reliability_98fd8e2f_r07.py --engine /tmp/godot-bin/Godot_v4.6.1-stable_linux.x86_64 --log-dir artifacts/reliability_98fd8e2f_r07
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reliability_98fd8e2f_r07
+          path: artifacts/reliability_98fd8e2f_r07
