@@ -1784,7 +1784,8 @@ func _aim_attack(command: Dictionary, target: CharacterBody2D) -> void:
 
 
 func _update_active(delta: float) -> void:
-    if not is_finite(delta) or delta <= 0.0: return
+    # A zero step evaluates contact in place; only invalid or negative steps stop.
+    if not is_finite(delta) or delta < 0.0: return
     delta = minf(delta, maxf(0.0, state_timer))
     var previous_position := global_position
     var attack_type := String(active_attack.get("type", "melee"))
