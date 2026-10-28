@@ -180,12 +180,22 @@ func _process(delta: float) -> void:
         if current.get("fingerprint")!=context.get("fingerprint"):
             invalidate("库存、地图知识、凭证或地区已改变。旧规划已清除，请重新读取。")
             context={}
+            target.clear()
+            counter.text=""
             compute.disabled=true
             return
     if job==null:return
     job.advance(8)
     counter.text="已核对状态 %d；生成状态 %d。" % [job.popped,job.generated]
     if not job.done:return
+    var latest:=SOURCE.snapshot(owner.level)
+    if latest.get("fingerprint")!=request.get("fingerprint"):
+        invalidate("计算期间库存或机会已改变，未发布旧规划。")
+        context={}
+        target.clear()
+        counter.text=""
+        compute.disabled=true
+        return
     result=job.result.duplicate(true)
     job=null
     cancel.disabled=true
@@ -204,3 +214,5 @@ func _closed() -> void:
     request={}
     result={}
     if is_instance_valid(detail):detail.text=""
+    if is_instance_valid(target):target.clear()
+    if is_instance_valid(counter):counter.text=""

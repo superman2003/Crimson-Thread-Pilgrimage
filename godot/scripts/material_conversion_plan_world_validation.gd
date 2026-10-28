@@ -113,6 +113,18 @@ func run() -> void:
     check(not dialog.detail.text.contains("exchange_") and not dialog.detail.text.contains("moss_chitin"),"result does not expose internal recipe or material keys")
     check(dialog.detail.text.contains("真实钟龛"),"cross-region plan explicitly requires actual visits")
     check(snapshot(world)==game_before and FileAccess.get_file_as_bytes(world.world_save_path)==bytes,"planning and cancellation preserve precise economy and game save bytes")
+    dialog.start()
+    dialog.elapsed=0.0
+    world.currency_count=99
+    for index in 200:
+        dialog._process(0.0)
+        if dialog.job==null:break
+    check(dialog.context.is_empty() and dialog.result.is_empty(),"completion revalidates snapshot even before periodic source polling")
+    check(dialog.target.item_count==0,"invalidated completion removes stale public choices")
+    world.currency_count=100
+    dialog.refresh_context()
+    select_target(dialog,"salt_crystal_shard")
+    dialog.budget.value=32
     dialog.reserve.value=69
     dialog.start()
     await settled(dialog)
@@ -136,6 +148,7 @@ func run() -> void:
     world.inventory_counts.erase("pilgrim_permit_02")
     dialog._process(0.3)
     check(dialog.context.is_empty() and dialog.job==null,"loss of proof invalidates in-flight multi-region plan")
+    check(dialog.target.item_count==0,"lost proof cannot retain old selectable conversion targets")
     world.inventory_counts.pilgrim_permit_02=1
     dialog.refresh_context()
     select_target(dialog,"salt_crystal_shard")
