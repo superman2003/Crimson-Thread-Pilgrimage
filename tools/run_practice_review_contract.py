@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["journey_desk_store.gd", "journey_desk_window.gd", "practice_curriculum.gd", "practice_desk.gd", "practice_review_validation.gd"]
+SCRIPTS = ["practice_attempt_review.gd", "journey_desk_store.gd", "journey_desk_window.gd", "practice_curriculum.gd", "practice_desk.gd", "practice_review_validation.gd"]
 MARKER = re.compile("^PRACTICE_REVIEW checks=[1-9][0-9]* failures=0$", re.M)
 
 
