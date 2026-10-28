@@ -89,7 +89,7 @@ func run() -> void:
     settings.store.path="user://motion_fixture.json"
     settings.store.writer=func(_data: Dictionary):return ERR_CANT_CREATE
     settings.toggle()
-    check(not MOTION.enabled and settings.dirty and settings.status.text.contains("未保存"),"runtime toggle and failed persistence are distinguished")
+    check(not MOTION.enabled and settings.dirty and settings.notice.contains("未保存"),"runtime toggle and failed persistence are distinguished")
     settings.store.writer=func(_data: Dictionary):return OK
     settings.save()
     check(not settings.dirty and settings.retry.disabled,"explicit save retry preserves chosen motion state")
@@ -108,7 +108,7 @@ func run() -> void:
     var bytes:=FileAccess.get_file_as_bytes(durable.path)
     shell=Shell.new();root.add_child(shell);SETTINGS.install(shell)
     settings=shell.get_node("DecorativeMotionSettings")
-    check(not settings.store.writable and settings.status.text.contains("损坏"),"damaged motion record remains visible and quarantined")
+    check(not settings.store.writable and settings.notice.contains("损坏"),"damaged motion record remains visible and quarantined")
     check(FileAccess.get_file_as_bytes(durable.path)==bytes,"bad motion file bytes preserved")
     shell.free();await process_frame
     DirAccess.remove_absolute(ProjectSettings.globalize_path(durable.path))

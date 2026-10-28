@@ -5,7 +5,6 @@ var store:=preload("res://scripts/journey_desk_store.gd").new()
 var ui: Control
 var button: Button
 var retry: Button
-var status: Label
 var dirty:=false
 var notice:=""
 
@@ -27,15 +26,13 @@ func setup(shell: Control) -> void:
     button.tooltip_text="只控制钟龛尾声和泵渠旧物的装饰动作；危险预警、角色动作、受击闪光与声音保持原规则。此偏好不随设置方案或分享码转移。"
     retry=ui._button(ui.settings,"重试保存",Vector2(802,20),Vector2(100,32),save)
     retry.name="DecorativeMotionRetry";retry.add_theme_font_size_override("font_size",14)
-    status=ui._label(ui.settings,"",Vector2(600,58),Vector2(303,22),12)
-    status.clip_text=true
     refresh()
 
 func refresh() -> void:
-    button.text="装饰动态："+("开启" if MOTION.enabled else "静止")
+    button.text="装饰动态："+("开启" if MOTION.enabled else "静止")+(" · 未存" if dirty else "")
+    button.add_theme_font_size_override("font_size",13 if dirty else 15)
     retry.disabled=not dirty
-    status.text=notice if not notice.is_empty() else "静止装饰仍保留形状、名称与交互。"
-    status.tooltip_text=status.text
+    button.tooltip_text="只控制钟龛尾声和泵渠旧物；危险预警、角色、受击闪光与声音不变。独立保存，不随分享码转移。\n"+(notice if not notice.is_empty() else "静止装饰仍保留形状、名称与交互。")
 
 func toggle() -> void:
     if not is_instance_valid(ui) or not ui.settings.is_visible_in_tree():return
