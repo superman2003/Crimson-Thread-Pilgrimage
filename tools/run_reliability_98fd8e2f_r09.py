@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/audio_director.gd', 'scripts/audio_retirement.gd', 'scripts/audio_volume_preferences.gd', 'scripts/duck_mix.gd', 'scripts/music_layer_phase.gd', 'scripts/npc_landmark_schedule.gd', 'scripts/room_reverb_mix.gd', 'scripts/spatial_enemy_alert.gd', 'scripts/reliability_98fd8e2f_r09_validation.gd']
+DEPS = ['scripts/audio_director.gd', 'scripts/audio_retirement.gd', 'scripts/audio_volume_preferences.gd', 'scripts/duck_mix.gd', 'scripts/music_layer_phase.gd', 'scripts/npc_landmark_schedule.gd', 'scripts/room_reverb_mix.gd', 'scripts/spatial_enemy_alert.gd', 'scripts/landmark_spatial_refresh.gd', 'scripts/reliability_98fd8e2f_r09_validation.gd']
 MARKER = '^RELIABILITY_R09 checks=[1-9][0-9]* failures=0$'
 
 def main():
