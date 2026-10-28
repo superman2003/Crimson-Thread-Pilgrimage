@@ -27,7 +27,8 @@ func run() -> void:
     root.add_child(dialog)
     dialog.open({},func(_value):return {"ok":true})
     await process_frame
-    dialog.calibration.start(7)
+    # Mirror _start_measurement: the dialog only accepts its own measurement round.
+    dialog.calibration.start(7);dialog.measurement_session=dialog.calibration.session
     for index in 32:dialog.calibration.sample(7,[0.12,0,0,0],0.1)
     dialog.device_picker.add_item("fixture");dialog.device_picker.set_item_metadata(0,7);dialog.device_picker.select(0)
     var before: Dictionary=dialog.baseline.duplicate(true)
