@@ -16,7 +16,7 @@ Godot `4.6.1.stable.official.14d19694e`，使用基线原文件加本批文件�
 python3 tools/run_ledger_20261028_01.py --engine /path/to/Godot_v4.6.1-stable_linux.x86_64 --log-dir /tmp/ledger-01
 ```
 
-生产脚本及其真实预加载依赖逐项编译通过；本批原生行为 `20` 项通过，进程正常退出，严格运行器未检测到引擎/脚本 ERROR 或 ObjectDB 退出警告。原生模型与实际复盘窗口：范围、损坏记录、零分母、加权速率、比较身份、周期刷新、空搜索、输入不变。
+生产脚本及其真实预加载依赖逐项编译通过；本批原生行为 `21` 项通过，进程正常退出，严格运行器未检测到引擎/脚本 ERROR 或 ObjectDB 退出警告。原生模型与实际复盘窗口：范围、损坏记录、零分母、加权速率、比较身份、周期刷新、空搜索、输入不变。
 
 新增独立工作流 `.github/workflows/ledger-20261028-01.yml`，日志作为 CI artifact 保留；远端状态以本 PR 实际头提交为准。未用本地结果预先宣称远端 CI 成功。
 
@@ -28,5 +28,5 @@ python3 tools/run_ledger_20261028_01.py --engine /path/to/Godot_v4.6.1-stable_li
 
 ## 本批生产输入 SHA-256
 
-- `godot/scripts/combat_desk.gd`：`775602774f58a633250a09590a96f272c25c80b1dcc8d9249504e8cadb68b15c`
+- `godot/scripts/combat_desk.gd`：`6565959c73082eab641e8191596197be7e1d80bec47ad39803ce6155474b18f8`
 - `godot/scripts/combat_review_analysis.gd`：`04f5f3a638fbea242ef924593227ab8521259ecf475f0ce2d4e04642adddc2b0`

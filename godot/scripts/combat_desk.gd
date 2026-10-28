@@ -51,7 +51,7 @@ func _build() -> void:
     window.button(actions,"开始观察",start_observation)
     window.button(actions,"结束并保存",func():ledger.finish("主动结束");refresh())
     window.button(actions,"重试保存",func():ledger.retry();refresh())
-    window.button(actions,"比较较早一条",func():compare=not compare;_selection())
+    window.button(actions,"比较较早一条",func():comparison_baseline={};compare=not compare;_selection())
     window.button(actions,"导出所选复盘",export_selected)
     var review: HBoxContainer=window.row(window.column)
     window.button(review,"查看观察汇总",func():_analysis();analysis_window.popup_centered();analysis.grab_focus())

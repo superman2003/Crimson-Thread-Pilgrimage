@@ -49,6 +49,9 @@ func run() -> void:
     check(desk.detail.text.contains("指定同地区同契印"),"native explicit baseline updates detail")
     desk.refresh()
     check(desk.comparison.selected==1 and desk.detail.text.contains("指定同地区同契印"),"periodic refresh preserves selected comparison baseline")
+    for button in desk.window.find_children("*","Button",true,false):
+        if button.text=="比较较早一条":button.pressed.emit();break
+    check(desk.comparison_baseline.is_empty() and desk.compare and desk.detail.text.contains("与较早所选"),"switching to adjacent comparison clears explicit baseline")
     desk.query.text="absent";desk.refresh()
     check(desk.visible_records.is_empty() and desk.comparison.disabled,"empty search clears comparison")
     ui.free();finish()
