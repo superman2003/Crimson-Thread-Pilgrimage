@@ -6,7 +6,7 @@ const RETIRED := 2
 static func generation(player: Node) -> int:
     var value: Variant = player.get("combat_effect_generation")
     return int(value) if value is int else 0
-static func state(player: Node2D, host: Node, expected: int) -> int:
+static func state(player: Variant, host: Node, expected: int) -> int:
     if not is_instance_valid(player) or player.is_queued_for_deletion() or not player.is_inside_tree() or player.get_parent() != host:
         return RETIRED
     if generation(player) != expected: return RETIRED
