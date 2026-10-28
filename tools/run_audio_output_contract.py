@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/audio_output_preferences.gd', 'scripts/audio_output_dialog.gd', 'scripts/journey_desk_store.gd', 'scripts/audio_output_validation.gd']
+DEPS = ['scripts/audio_output_preferences.gd', 'scripts/audio_output_dialog.gd', 'scripts/settings_dialog_layout.gd', 'scripts/journey_window_layout.gd', 'scripts/journey_desk_store.gd', 'scripts/audio_output_validation.gd']
 MARKER = '^AUDIO_OUTPUT checks=[1-9][0-9]* failures=0$'
 
 def main():

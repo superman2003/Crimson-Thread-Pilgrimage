@@ -59,6 +59,7 @@ func _ready() -> void:
     get_ok_button().text = "应用这些变化"
     get_cancel_button().text = "保留原设置"
     confirmed.connect(_apply_candidate)
+    preload("res://scripts/settings_dialog_layout.gd").install(self,column,Vector2i(720,620))
     Input.joy_connection_changed.connect(_connection_changed)
     visibility_changed.connect(func():
         if not visible:calibration.cancel();sample_elapsed=0.0)
