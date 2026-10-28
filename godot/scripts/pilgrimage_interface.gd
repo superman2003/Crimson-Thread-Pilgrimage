@@ -64,6 +64,8 @@ var dialogue_hint: Label
 var dialogue_portrait: TextureRect
 var dialogue_area: Area2D
 var dialogue_quest_button: Button
+var dialogue_inquiry_button: Button
+var narrative_inquiry_desk: AcceptDialog
 var dialogue_continue_button: Button
 var dialogue_route_button: Button
 const READING_SESSION := preload("res://scripts/world_reading_session.gd")
@@ -788,7 +790,7 @@ func _build_dialogue() -> void:
     dialogue.get_child(0).kind="dialogue"
     _well(dialogue,Vector2(18,16),Vector2(188,220))
     dialogue_portrait=_icon(dialogue,null,Vector2(23,21),Vector2(173,191))
-    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(770,37),26,GOLD)
+    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),26,GOLD)
     dialogue_identity=_label(dialogue,"",Vector2(221,57),Vector2(770,28),14,MUTED)
     dialogue_scroll=ScrollContainer.new()
     dialogue_scroll.position=Vector2(221,93)
@@ -810,6 +812,7 @@ func _build_dialogue() -> void:
             else:level._talk_to_npc(dialogue_area))
     dialogue_route_button=_button(dialogue,"问问道路",Vector2(380,250),Vector2(147,34),func():_topic("route"))
     dialogue_quest_button=_button(dialogue,"询问心愿",Vector2(540,250),Vector2(147,34),func():_topic("wish"))
+    dialogue_inquiry_button=_button(dialogue,"追问线索",Vector2(990,20),Vector2(125,30),_open_narrative_inquiries)
     var reader:=preload("res://scripts/dialogue_reader.gd").new()
     reader.name="DialogueReader"
     reader.position=Vector2(696,250)
@@ -830,6 +833,7 @@ func show_speaker(area: Area2D) -> void:
     dialogue_continue_button.text="记入旅记" if history else "继续交谈"
     dialogue_route_button.visible=not history
     dialogue_quest_button.visible=not history
+    dialogue_inquiry_button.visible=not history and level.world_mode and not preload("res://scripts/narrative_inquiries.gd").available(String(area.get_meta("npc_id","")),level.inventory_counts,level.story_flags).is_empty()
     dialogue_hint.text=_dialogue_binding_hint()
     dialogue_hint.tooltip_text=dialogue_hint.text
     var topics: Dictionary=area.get_meta("dialogue_topics",{})
@@ -843,6 +847,14 @@ func show_speaker(area: Area2D) -> void:
             dialogue_quest_button.text="回访心愿"
     var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
     if sprite!=null:sprite.play("talk")
+
+func _open_narrative_inquiries() -> void:
+    if not preload("res://scripts/narrative_inquiries.gd").can_talk(self,dialogue_area):return
+    if not is_instance_valid(narrative_inquiry_desk):
+        narrative_inquiry_desk=preload("res://scripts/narrative_inquiry_desk.gd").new()
+        add_child(narrative_inquiry_desk)
+        register_text_entry_window(narrative_inquiry_desk)
+    narrative_inquiry_desk.open(self,dialogue_area)
 
 func _topic(key: String) -> void:
     if not is_instance_valid(dialogue_area):return
@@ -2598,6 +2610,7 @@ func _refresh_journal() -> void:
     records.append_array(preload("res://scripts/hidden_clue_notes.gd").journal(preload("res://scripts/world_routes.gd").cached_hidden_clues(),level.story_flags))
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts,level.story_flags))
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/narrative_inquiries.gd").records(level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
