@@ -1035,6 +1035,7 @@ func _build_settings() -> void:
     _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",13)
     journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
     journey_history_button.add_theme_font_size_override("font_size",13)
+    preload("res://scripts/audio_output_dialog.gd").install(self)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
     refresh_settings_selection()
