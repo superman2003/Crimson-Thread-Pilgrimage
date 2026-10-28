@@ -271,6 +271,7 @@ const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
+const BASIC_ATTACK_VFX := preload("res://scripts/player_basic_attack_vfx.gd")
 const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
@@ -2059,7 +2060,7 @@ func _spawn_attack_vfx(animation: StringName) -> void:
 
 
 func _spawn_slash_vfx() -> void:
-    MELEE_FEEDBACK.spawn_swing(self, sprite, attack_active_time, _accessibility())
+    BASIC_ATTACK_VFX.spawn(self, sprite, current_attack_direction, not attack_started_grounded, attack_active_time, _accessibility())
 
 
 ## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
