@@ -5,7 +5,12 @@ var store := preload("res://scripts/journey_desk_store.gd").new()
 
 func configure(journey: String) -> void:
     store.configure("expedition",journey)
+    var before:=disk_identity()
     var raw := store.read()
+    if before!=disk_identity():store.writable=false;store.error="读取期间行程被另一处更新，请重新打开旅途。"
+    restore_payload(raw)
+
+func restore_payload(raw: Dictionary) -> void:
     state={"stops":[],"done":[],"deferred":[],"active":false}
     if raw.get("stops") is Array:
         for key in raw.stops.slice(0,32):
@@ -53,9 +58,31 @@ func command(action: String, key: String, known: Array) -> Dictionary:
         "reset":candidate.done=[];candidate.deferred=[];candidate.active=false
         _:return {"ok":false,"reason":"无效行程操作。"}
     if candidate.stops.is_empty():candidate.active=false
-    if not store.write(candidate):return {"ok":false,"reason":store.error}
-    state=candidate
+    if not commit(candidate):return {"ok":false,"reason":store.error}
     return {"ok":true,"reason":"行程已保存；仅安排次序，不会移动角色。"}
+
+func disk_identity() -> String:
+    if store.path.is_empty():return "unconfigured"
+    if not FileAccess.file_exists(store.path):return "missing"
+    var file:=FileAccess.open(store.path,FileAccess.READ)
+    if file==null or file.get_length()>store.MAX_BYTES:return "unreadable"
+    return file.get_buffer(file.get_length()).hex_encode().sha256_text()
+
+func commit(candidate: Dictionary) -> bool:
+    if not store.writable or store.path.is_empty():return false
+    var parent:=ProjectSettings.globalize_path(store.path.get_base_dir())
+    if DirAccess.make_dir_recursive_absolute(parent)!=OK:store.error="无法建立行程记录目录。";return false
+    var lock:=ProjectSettings.globalize_path(store.path+".route_writer_lock")
+    if DirAccess.make_dir_absolute(lock)!=OK:store.error="行程正在另一处写入，请稍后重新打开。";return false
+    var reader: RefCounted=get_script().new()
+    reader.store.path=store.path
+    reader.restore_payload(reader.store.read())
+    if not reader.store.writable or reader.state!=state:
+        DirAccess.remove_absolute(lock);store.error="行程文件已变化或不可读，请重新进入旅途后再安排。";return false
+    var success:=store.write(candidate)
+    if success:state=candidate.duplicate(true)
+    DirAccess.remove_absolute(lock)
+    return success
 
 func next_stop(known: Array) -> Dictionary:
     if not state.active:return {}
