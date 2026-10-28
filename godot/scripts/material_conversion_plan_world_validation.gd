@@ -70,19 +70,20 @@ func run() -> void:
     check(empty.is_empty(),"no map knowledge or permit cannot reveal conversion opportunities")
     check(world.world_state.capture_region("demo_ch02_rain_foundry_canal",{}),"seed actual visited adjacent region")
     check(SOURCE.entries(world).is_empty(),"visited neighbor alone does not supply source permit")
-    world.inventory_counts.pilgrim_permit_01=1
+    world.inventory_counts["pilgrim_permit_01"]=1
     var first: Array=SOURCE.entries(world)
     check(first.size()==1 and first[0].id=="exchange_01_02","one actual known pair and held source permit reveal only that opportunity")
-    world.inventory_counts.pilgrim_permit_02=true
+    world.inventory_counts["pilgrim_permit_02"]=true
     check(SOURCE.entries(world).size()==1,"boolean permit cannot enable second region exchange")
-    world.inventory_counts.pilgrim_permit_02=1
+    world.inventory_counts["pilgrim_permit_02"]=1
     check(world.world_state.capture_region("demo_ch03_saltwhite_archive",{}),"seed actual second visited region")
-    world.inventory_counts.moss_chitin=9
-    world.inventory_counts.wet_chitin=0
-    world.inventory_counts.salt_crystal_shard=0
+    world.inventory_counts["moss_chitin"]=9
+    world.inventory_counts["wet_chitin"]=0
+    world.inventory_counts["salt_crystal_shard"]=0
     world.currency_count=100
     check(SOURCE.entries(world).size()==3,"known ring exposes only three permitted directed exchanges")
     check(not SOURCE.snapshot(world).targets.has("pollen_wax"),"unknown next-region material is absent from public target choices")
+    check(world.inventory_counts.keys().all(func(key):return key is String),"fixture inventory uses actual JSON String keys")
     check(world._save_world(),"save exact canonical fixture state")
     var game_before:=snapshot(world)
     var bytes:=FileAccess.get_file_as_bytes(world.world_save_path)
@@ -149,7 +150,7 @@ func run() -> void:
     dialog._process(0.3)
     check(dialog.context.is_empty() and dialog.job==null,"loss of proof invalidates in-flight multi-region plan")
     check(dialog.target.item_count==0,"lost proof cannot retain old selectable conversion targets")
-    world.inventory_counts.pilgrim_permit_02=1
+    world.inventory_counts["pilgrim_permit_02"]=1
     dialog.refresh_context()
     select_target(dialog,"salt_crystal_shard")
     dialog.budget.value=32
