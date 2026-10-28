@@ -58,6 +58,10 @@ func run() -> void:
     check(is_equal_approx(pot.warning_timer, 0.2) and not pot.cancelled, "landed pot fuse pauses with UI")
     shooter.ui_input_locked = false; pot._physics_process(0.1)
     check(is_equal_approx(pot.warning_timer, 0.1), "fuse resumes from same warning")
-    pot.cancel(); pot.free(); stage.free()
+    pot.cancel(); pot.free()
+    var orphan := EFFECT.new(); orphan.owner_player = shooter; orphan.payload = {"kind": "projectile"}
+    stage.add_child(orphan); orphan.set_physics_process(false); shooter.free(); orphan._physics_process(0.1)
+    check(orphan.cancelled and orphan.elapsed == 0, "freed owner retires before typed object access")
+    orphan.free(); stage.free()
     print("PLAYER_EFFECT_LIFECYCLE checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
