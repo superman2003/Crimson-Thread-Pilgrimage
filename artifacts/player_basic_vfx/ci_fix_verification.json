@@ -1,0 +1,18 @@
+{
+  "initial_pr_head": "4a085872e7375921279ab0286086ec010fb8b415",
+  "failed_run": 40679017364,
+  "failure": "CompletionContractTests.test_default_suites_all_have_compilable_completion_contracts: 191 != 190",
+  "cause": "player_basic_attack_vfx was added to DEFAULT_SUITES but omitted from the explicit suite-count registry",
+  "fix": "Register player_basic_attack_vfx as an explicit combat addition and require its presence; preserve exact marker membership, duplicate checks and timeout/error contracts",
+  "local_validation": {
+    "platform": "Windows, Python 3.12 with PYTHONUTF8=1",
+    "npm_test": "pass",
+    "npm_test_campaign": "pass",
+    "completion_contracts": {"passed": 2, "posix_fixture_tests_skipped": 31},
+    "ci_shards": {"passed": 3},
+    "integration_workflow": {"passed": 6},
+    "player_basic_attack_vfx": {"checks": 224, "failures": 0},
+    "player_melee_feedback": {"checks": 112, "result": "pass"}
+  },
+  "remote_validation": "A new CI run is required for the fix commit; initial-head failures do not describe the new commit"
+}

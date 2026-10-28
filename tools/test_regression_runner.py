@@ -45,6 +45,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_projectile_contact', 'player_effect_lifecycle', 'enemy_wave_sweep',
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
+            'player_basic_attack_vfx',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
@@ -102,6 +103,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
         self.assertIn("player_motion_continuity", DEFAULT_SUITES)
         self.assertIn("player_melee_feedback", DEFAULT_SUITES)
+        self.assertIn("player_basic_attack_vfx", DEFAULT_SUITES)
         self.assertIn("spike_pogo", DEFAULT_SUITES)
         for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
             self.assertIn(suite, DEFAULT_SUITES)

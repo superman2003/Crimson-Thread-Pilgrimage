@@ -11,3 +11,5 @@ Pixel VFX Forge 生成六份配方和透明素材：左右横斩、地面上下�
 保留的失败和限制：独立工作树资源导入首轮和补缓存后的重试均触发原 **180 秒**超时，未提高上限或将其计作导入通过。`hero_animation` 在候选和上述原始基线各运行一次，均 **101 项、43 项失败**；逐条错误文本完全一致，均为旧校验对 supplement 路径的断言。本批未改该校验，也未将其计为通过。新工作树另有 MetroidvaniaSystem 资源 UID 回退警告；远端完整 CI 待发布后确认。
 
 证据：`artifacts/player_basic_vfx/verification_pr.json`、`hero_baseline_comparison.json`、逐套 `.txt` 日志及 `blade_follow_preview.gif` / `.mp4`。配方和原始输出保存在 `godot/assets/vfx/player_basic_attack/`，重建工具接受独立下载的 Forge 渲染器路径；外部渲染器源码未并入本仓库。
+
+首轮 PR CI 在 JavaScript/结构检查阶段发现本批遗漏：新增 `player_basic_attack_vfx` 默认套件，却未加入 `CompletionContractTests` 的显式计数登记，导致 `191 != 190`。已补登记并新增必含断言，保留原有精确数量、去重和完成标记要求。Windows 使用 `PYTHONUTF8=1` 后，完整 `npm test` 和 `npm run test:campaign` 通过；跨平台完成契约 2 项通过（31 项 POSIX 可执行夹具在 Windows 跳过），分片覆盖 3 项、工作流契约 6 项通过，刀光 224 项和近战 112 项再验证通过。此修复的新提交需独立观察远端 CI；不将首次失败解释为此前的动画基线错误。详见 `artifacts/player_basic_vfx/ci_fix_verification.json`。
