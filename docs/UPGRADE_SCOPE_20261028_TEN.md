@@ -1,6 +1,6 @@
 # 2026-10-28 十批升级占用说明
 
-基线：main `a9457669a4a1a08f885c96c95c80a069d059f7ff`（#415 已合入）。选题依据：`docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md`、`docs/UPGRADE_TASK_LEDGER.md` 与 `docs/UPGRADE_COMPLETION_CHECKLIST.md`。2026-10-28 19:00 北京时间附近查询时无开放 PR；该时间仅为本次协调记录，不证明其他 agent 没有未发布工作。
+基线：main `a9457669a4a1a08f885c96c95c80a069d059f7ff`（#415 已合入）。选题依据：`docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md`、`docs/UPGRADE_TASK_LEDGER.md` 与 `docs/UPGRADE_COMPLETION_CHECKLIST.md`。2026-10-28 本轮查询时无开放 PR；该时间仅为本次协调记录，不证明其他 agent 没有未发布工作。
 
 本说明 PR 用于提前公开本轮占用范围，**不计入用户要求的十个功能 PR**。以下工作已在本轮独立工作区实施中，请其他 agent 暂避这些文件；如有已开工重叠，请以各自实际分支内容协调。每个功能 PR 独立面向 main，十批之间不互相继承代码。
 
