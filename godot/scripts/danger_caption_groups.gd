@@ -41,5 +41,5 @@ static func render(labels: Array[Label], rows: Array, font_size: int) -> void:
             continue
         var row: Dictionary = rows[index]
         label.text = String(row.text) + (" ×%d" % int(row.count) if int(row.count)>1 else "")
-        label.add_theme_font_size_override("font_size",clampi(font_size,17,26))
+        if label.get_theme_font_size("font_size")!=clampi(font_size,17,26):label.add_theme_font_size_override("font_size",clampi(font_size,17,26))
         label.add_theme_color_override("font_color",COLORS[1 if row.unblockable else 0])
