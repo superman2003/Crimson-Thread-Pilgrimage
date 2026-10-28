@@ -78,10 +78,11 @@
   "ci_status": "Fresh ref SHA checks for all 16 open PRs: no current failure/cancel/timeout; all mergeable true, some checks pending. New upgrade CI not yet run.",
   "independent_lines": {
     "production": 143,
-    "tests_ci": 343,
-    "non_document": 486,
-    "batch_non_document": 12991,
-    "batch_average_so_far": 499.65384615384613,
-    "required_remaining_total_for_40_average_500": 7009
-  }
+    "tests_ci": 349,
+    "non_document": 492,
+    "batch_non_document": 12997,
+    "batch_average_so_far": 499.88461538461536,
+    "required_remaining_total_for_40_average_500": 7003
+  },
+  "ci_repair": "Current U01 head isolated material exchange job failed because layout dependency not copied. Stage layout in all three affected isolated runners. 28+19+19 real checks passed, no assertions or timeout gates changed. New head CI must be re-read."
 }
