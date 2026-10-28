@@ -9,6 +9,8 @@ var plan: Dictionary={}
 var query: LineEdit
 var unfinished: CheckButton
 var staged := false
+var dependency_window: ConfirmationDialog
+var dependency_quote: Dictionary={}
 func _ready() -> void:
     title="工匠 · 多件制作清单"
     min_size=Vector2i(760,540);dialog_hide_on_ok=false
@@ -25,12 +27,16 @@ func _ready() -> void:
     summary=RichTextLabel.new();summary.custom_minimum_size=Vector2(700,220);summary.bbcode_enabled=false;summary.scroll_active=true
     summary.focus_mode=Control.FOCUS_ALL;summary.add_theme_font_size_override("normal_font_size",17);column.add_child(summary)
     get_ok_button().text="核对整单";get_cancel_button().text="取消制作"
+    add_button("规划前阶分批",true,"dependencies")
     var clear:=add_button("清空已选",true,"clear")
     clear.tooltip_text="只清空制作清单，不消费资源。筛选隐藏的选择也会清空。"
     custom_action.connect(func(action: String):
+        if action=="dependencies" and visible:open_dependencies();return
         if action!="clear" or not visible:return
         selected.clear();staged=false;_render_recipes();_refresh_quote();get_cancel_button().grab_focus())
     confirmed.connect(_confirm_cart)
+    visibility_changed.connect(func():
+        if not visible and is_instance_valid(dependency_window):dependency_window.hide();dependency_quote={})
 func setup(ui: Node) -> void:owner_ref=weakref(ui)
 func open() -> void:
     var ui=owner_ref.get_ref()
@@ -96,3 +102,34 @@ func _confirm_cart() -> void:
     var result: Dictionary=ui.level.perform_build_action("craft_batch","",selected)
     if result.get("ok",false):hide();ui.refresh_build()
     else:_refresh_quote();staged=false;summary.text=String(result.get("reason","制作失败"))+"\n"+summary.text
+
+func _dependency_plan() -> Dictionary:
+    var ui: Variant=owner_ref.get_ref() if owner_ref!=null else null
+    if not is_instance_valid(ui) or not is_instance_valid(ui.level):return {"ok":false,"reason":"工匠界面已关闭。"}
+    return preload("res://scripts/craft_dependency_plan.gd").plan(ui.level.build_system.catalog.recipes,ui.level.build_system.state.crafted,selected,ui.level.near_artisan_id())
+
+func open_dependencies() -> void:
+    dependency_quote=_dependency_plan()
+    if not dependency_quote.ok:summary.text=String(dependency_quote.reason);return
+    if not is_instance_valid(dependency_window):
+        dependency_window=ConfirmationDialog.new();dependency_window.title="前阶改制分批核对"
+        dependency_window.min_size=Vector2i(720,480);dependency_window.dialog_hide_on_ok=false
+        dependency_window.get_ok_button().text="使用下一批清单"
+        var text:=RichTextLabel.new();text.name="DependencyText";text.custom_minimum_size=Vector2(660,380)
+        text.bbcode_enabled=false;text.focus_mode=Control.FOCUS_ALL;dependency_window.add_child(text)
+        add_child(dependency_window)
+        var ui: Variant=owner_ref.get_ref();ui.register_text_entry_window(dependency_window)
+        dependency_window.confirmed.connect(_use_dependencies)
+    dependency_window.get_node("DependencyText").text=preload("res://scripts/craft_dependency_plan.gd").describe(dependency_quote)
+    dependency_window.popup_centered();dependency_window.get_cancel_button().grab_focus()
+
+func _use_dependencies() -> void:
+    if not visible or not dependency_window.visible:return
+    var fresh:=_dependency_plan()
+    if not fresh.ok:dependency_window.hide();summary.text=String(fresh.reason);return
+    if fresh.fingerprint!=dependency_quote.get("fingerprint",""):
+        dependency_quote=fresh
+        dependency_window.get_node("DependencyText").text="前阶或目标已变化，请重新核对。\n"+preload("res://scripts/craft_dependency_plan.gd").describe(fresh)
+        dependency_window.get_cancel_button().grab_focus();return
+    selected.assign(fresh.batches[0].ids);staged=false
+    dependency_window.hide();_render_recipes();_refresh_quote();get_cancel_button().grab_focus()
