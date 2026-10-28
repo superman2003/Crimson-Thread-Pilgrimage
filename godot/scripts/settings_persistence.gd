@@ -4,11 +4,17 @@ extends RefCounted
 var pending := false
 var last_error: Error = OK
 var attempts := 0
+var transaction := preload("res://scripts/preference_file_transaction.gd").new()
 
 func save(config: ConfigFile, path: String) -> Error:
     attempts += 1
     pending = true
-    var temporary := path + ".pending.tmp"
+    if path.is_empty() or config == null:
+        last_error = ERR_INVALID_PARAMETER
+        return last_error
+    last_error = recover(path)
+    if last_error != OK:return last_error
+    var temporary: String = transaction.temporary(path)
     last_error = _write(config, temporary)
     if last_error == OK and not _verified(config, temporary):
         last_error = ERR_FILE_CORRUPT
@@ -63,7 +69,10 @@ func _same(first: Variant, second: Variant) -> bool:
     return first==second
 
 func _install(temporary: String, path: String) -> Error:
-    return DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), ProjectSettings.globalize_path(path))
+    return transaction.install(temporary, path)
+
+func recover(path: String) -> Error:
+    return transaction.recover(path) as Error
 
 func reconcile(config: ConfigFile, path: String) -> void:
     if pending and _verified(config, path):
