@@ -17,6 +17,11 @@ var list: ItemList
 var detail: RichTextLabel
 var clue_states: OptionButton
 var locate_button: Button
+var checklist: AcceptDialog
+var checklist_rows: ItemList
+var checklist_text: RichTextLabel
+var checklist_details: CheckButton
+var checklist_data: Dictionary={}
 const KINDS := ["all","room","gate","shortcut","hazard","pin","clue"]
 
 func _ready() -> void:
@@ -64,6 +69,11 @@ func _ready() -> void:
     locate_button.pressed.connect(_locate_selected)
     list.gui_input.connect(_list_input)
     get_ok_button().text="返回地图"
+    add_button("生成当前筛选出行清单",true,"checklist")
+    custom_action.connect(func(action: String):
+        if action=="checklist" and visible:open_checklist())
+    visibility_changed.connect(func():
+        if not visible and is_instance_valid(checklist):checklist.hide();checklist_data={})
 
 func open(records: Array, action: Callable) -> void:
     rows=records.duplicate(true);locate=action
@@ -145,3 +155,45 @@ func _list_input(event: InputEvent) -> void:
         list.select(list.item_count-1);list.ensure_current_is_visible();_selection();list.accept_event()
     elif event.keycode==KEY_F and (event.ctrl_pressed or event.meta_pressed):
         search.grab_focus();search.select_all();list.accept_event()
+
+func open_checklist() -> void:
+    if not visible:return
+    if not is_instance_valid(checklist):
+        checklist=AcceptDialog.new();checklist.title="当前已知地点出行清单";checklist.min_size=Vector2i(850,650)
+        var column:=VBoxContainer.new();column.add_theme_constant_override("separation",10);checklist.add_child(column)
+        var intro:=Label.new();intro.text="可多选地点后勾选；只属于本次清单，关闭地图后不会保留。";column.add_child(intro)
+        checklist_rows=ItemList.new();checklist_rows.select_mode=ItemList.SELECT_MULTI
+        checklist_rows.custom_minimum_size=Vector2(790,200);column.add_child(checklist_rows)
+        var actions:=HBoxContainer.new();column.add_child(actions)
+        var toggle:=Button.new();toggle.text="勾选 / 撤销所选";actions.add_child(toggle)
+        toggle.pressed.connect(func():
+            preload("res://scripts/map_known_checklist.gd").toggle(checklist_data,checklist_rows.get_selected_items());_render_checklist())
+        var reset:=Button.new();reset.text="重新生成当前筛选";actions.add_child(reset)
+        reset.pressed.connect(_snapshot_checklist)
+        checklist_details=CheckButton.new();checklist_details.text="附公开说明";actions.add_child(checklist_details)
+        checklist_details.toggled.connect(func(_enabled: bool):_render_checklist())
+        var copy:=Button.new();copy.text="复制清单文本";actions.add_child(copy)
+        copy.pressed.connect(func():DisplayServer.clipboard_set(preload("res://scripts/map_known_checklist.gd").document(checklist_data,checklist_details.button_pressed)))
+        checklist_text=RichTextLabel.new();checklist_text.custom_minimum_size=Vector2(790,300)
+        checklist_text.bbcode_enabled=false;checklist_text.focus_mode=Control.FOCUS_ALL;column.add_child(checklist_text)
+        add_child(checklist)
+        var ui:=get_parent()
+        while ui!=null and not ui.has_method("register_text_entry_window"):
+            var shell: Variant=ui.get("ui_shell")
+            if is_instance_valid(shell) and shell.has_method("register_text_entry_window"):ui=shell;break
+            ui=ui.get_parent()
+        if ui!=null:ui.register_text_entry_window(checklist)
+    _snapshot_checklist();checklist.popup_centered();checklist_rows.grab_focus()
+
+func _snapshot_checklist() -> void:
+    checklist_data=preload("res://scripts/map_known_checklist.gd").snapshot(visible_rows)
+    checklist_details.set_pressed_no_signal(false);_render_checklist()
+
+func _render_checklist() -> void:
+    var selected_indices:=checklist_rows.get_selected_items()
+    checklist_rows.clear()
+    for index in checklist_data.get("rows",[]).size():
+        var row: Dictionary=checklist_data.rows[index]
+        checklist_rows.add_item(("✓ " if checklist_data.checked.has(index) else "○ ")+String(row.region_name)+" · "+String(row.floor_name)+" · "+String(row.title))
+        if selected_indices.has(index):checklist_rows.select(index,false)
+    checklist_text.text=preload("res://scripts/map_known_checklist.gd").document(checklist_data,checklist_details.button_pressed)
