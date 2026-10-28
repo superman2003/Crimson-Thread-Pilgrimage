@@ -14,6 +14,12 @@ var compare:=false
 var player: Node
 var energy_before:=0
 var elapsed:=0.0
+var analysis_scope: OptionButton
+var analysis: RichTextLabel
+var comparison: OptionButton
+var analysis_window: AcceptDialog
+var comparison_anchor: Dictionary={}
+var comparison_baseline: Dictionary={}
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -45,8 +51,23 @@ func _build() -> void:
     window.button(actions,"开始观察",start_observation)
     window.button(actions,"结束并保存",func():ledger.finish("主动结束");refresh())
     window.button(actions,"重试保存",func():ledger.retry();refresh())
-    window.button(actions,"比较较早一条",func():compare=not compare;_selection())
+    window.button(actions,"比较较早一条",func():comparison_baseline={};compare=not compare;_selection())
     window.button(actions,"导出所选复盘",export_selected)
+    var review: HBoxContainer=window.row(window.column)
+    window.button(review,"查看观察汇总",func():_analysis();analysis_window.popup_centered();analysis.grab_focus())
+    analysis_window=AcceptDialog.new();analysis_window.title="已保存观察汇总";analysis_window.min_size=Vector2i(760,540)
+    window.add_child(analysis_window);ui.register_text_entry_window(analysis_window)
+    var analysis_column:=VBoxContainer.new();analysis_column.add_theme_constant_override("separation",12);analysis_window.add_child(analysis_column)
+    analysis_scope=OptionButton.new();analysis_column.add_child(analysis_scope)
+    for label in preload("res://scripts/combat_review_analysis.gd").SCOPES:analysis_scope.add_item(label)
+    analysis_scope.item_selected.connect(func(_index: int):_analysis())
+    comparison=OptionButton.new();review.add_child(comparison)
+    comparison.item_selected.connect(func(_index: int):_comparison())
+    analysis=RichTextLabel.new();analysis.custom_minimum_size=Vector2(700,440)
+    analysis.bbcode_enabled=false;analysis.focus_mode=Control.FOCUS_ALL
+    analysis_column.add_child(analysis)
+    window.visibility_changed.connect(func():
+        if not window.visible:analysis_window.hide())
     window.footer()
 
 func open() -> void:
@@ -71,9 +92,35 @@ func refresh() -> void:
     window.status.text="历史 %d/20 · %s" % [ledger.history.size(),ledger.store.error]
 
 func _selection() -> void:
-    if visible_records.is_empty():detail.text="没有符合条件的复盘。开始观察后照常游玩，结束时保存。";return
+    if visible_records.is_empty():
+        detail.text="没有符合条件的复盘。开始观察后照常游玩，结束时保存。"
+        comparison_anchor={};comparison_baseline={}
+        _analysis();return
+    if comparison_anchor!=visible_records[selected]:comparison_anchor=visible_records[selected].duplicate(true);comparison_baseline={}
     var previous: Dictionary=visible_records[selected+1] if compare and selected+1<visible_records.size() else {}
+    if not comparison_baseline.is_empty() and ledger.history.has(comparison_baseline):previous=comparison_baseline
     detail.text=ledger.report(visible_records[selected],previous)
+    if not comparison_baseline.is_empty():detail.text=detail.text.replace("与较早所选记录比较","与指定同地区同契印记录比较")
+    _analysis()
+
+func _analysis() -> void:
+    var anchor: Dictionary=visible_records[selected] if not visible_records.is_empty() else {}
+    analysis.text=preload("res://scripts/combat_review_analysis.gd").report(ledger.history,anchor,analysis_scope.selected)
+    comparison.clear();comparison.add_item("选择同地区同契印的比较记录")
+    for row in preload("res://scripts/combat_review_analysis.gd").comparable(ledger.history,anchor) if not anchor.is_empty() else []:
+        comparison.add_item("%s · %.1f秒 · %s" % [row.date,row.seconds,row.reason])
+        comparison.set_item_metadata(comparison.item_count-1,row)
+        if row==comparison_baseline:comparison.select(comparison.item_count-1)
+    comparison.disabled=comparison.item_count<=1
+
+func _comparison() -> void:
+    if visible_records.is_empty():return
+    if comparison.selected<=0:comparison_baseline={};_selection();return
+    var baseline: Variant=comparison.get_selected_metadata()
+    if not baseline is Dictionary:return
+    compare=false
+    comparison_baseline=baseline.duplicate(true)
+    detail.text=ledger.report(visible_records[selected],baseline).replace("与较早所选记录比较","与指定同地区同契印记录比较")
 
 func start_observation() -> void:
     if ui.level.world_loading or not is_instance_valid(ui.level.player) or ui.level.player.hp<=0:window.status.text="等待角色与地区就绪。";return
