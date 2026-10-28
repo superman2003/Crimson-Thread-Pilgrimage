@@ -6,19 +6,48 @@ const VISUAL := ["danger_captions","danger_caption_limit","danger_caption_contra
 const CONTROLLER := ["controller_deadzone","vibration_enabled","vibration_strength"]
 const EXTRA := ["npc_landmarks","tutorial_hints","navigation_assist"]
 var profiles: Dictionary={}
+var rejected_profiles: Dictionary={}
 var store:=preload("res://scripts/journey_desk_store.gd").new()
 var apply_writer: Callable
 var preference_writer := preload("res://scripts/settings_persistence.gd").new()
 
 func configure(scope: String="global") -> void:
-    profiles={}
+    profiles={};rejected_profiles={}
     store.configure("settings_profiles",scope)
     var data:=store.read()
-    if data.get("profiles") is Dictionary:
-        for name in data.profiles:
-            if valid_name(name) and data.profiles[name] is Dictionary and profiles.size()<LIMIT:
-                var profile: Variant=data.profiles[name]
-                if profile.get("values") is Dictionary and profile.get("bindings") is Dictionary:profiles[name]=profile.duplicate(true)
+    if not data.get("profiles") is Dictionary:return
+    for name in data.profiles:
+        var profile: Variant=data.profiles[name]
+        if not valid_name(name) or not profile_error(profile).is_empty() or profiles.size()>=LIMIT:
+            rejected_profiles[name]=profile
+        else:profiles[name]=profile.duplicate(true)
+
+static func profile_error(profile: Variant) -> String:
+    if not profile is Dictionary or profile.size()!=2 or not profile.get("values") is Dictionary or not profile.get("bindings") is Dictionary:return "方案结构损坏"
+    var defaults:=values({})
+    var normalized:=values(profile.values)
+    for key in profile.values:
+        if not defaults.has(key):return "未知设置字段"
+        var raw: Variant=profile.values[key]
+        if defaults[key] is bool:
+            if not raw is bool:return "开关字段损坏"
+        elif typeof(raw) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(raw)) or float(raw)!=float(normalized[key]):return "设置数值无效"
+    if profile.bindings.is_empty():return "缺少按键方案"
+    for action in profile.bindings:
+        if not action is String or action.is_empty():return "动作名称无效"
+        var events: Variant=profile.bindings[action]
+        if not events is Array or events.is_empty() or events.size()>12:return "事件数量无效"
+        var seen:={}
+        for raw in events:
+            var event:=CODEC.decode(raw)
+            if event==null:return "输入事件损坏"
+            var signature:=JSON.stringify(CODEC.encode(event),"",true)
+            if seen.has(signature):return "重复输入事件"
+            seen[signature]=true
+    return ""
+
+func rejected_summary() -> String:
+    return "另有%d套不可用方案，原记录保留；不会应用为默认值。" % rejected_profiles.size() if not rejected_profiles.is_empty() else ""
 
 static func valid_name(value: Variant) -> bool:
     if not value is String or value.is_empty() or value.length()>24 or value!=value.strip_edges():return false
@@ -37,7 +66,7 @@ func capture(ui: Control) -> Dictionary:
 func manage(command: String, source: String, target: String, snapshot: Dictionary={}) -> Dictionary:
     var candidate:=profiles.duplicate(true)
     if command not in ["delete","replace"] and not valid_name(target):return {"ok":false,"reason":"名称需1—24字，不能含控制字符或首尾空白。"}
-    if command in ["save","copy","rename"] and candidate.has(target):return {"ok":false,"reason":"同名方案已存在，不会覆盖。"}
+    if command in ["save","copy","rename"] and (candidate.has(target) or rejected_profiles.has(target)):return {"ok":false,"reason":"同名方案已存在，不会覆盖。"}
     if command in ["save","copy"] and candidate.size()>=LIMIT:return {"ok":false,"reason":"最多六套设置方案。"}
     match command:
         "save":candidate[target]=snapshot.duplicate(true)
@@ -50,13 +79,17 @@ func manage(command: String, source: String, target: String, snapshot: Dictionar
             if command=="rename":candidate.erase(source)
         "delete":candidate.erase(source)
         _:return {"ok":false,"reason":"操作无效。"}
-    if not store.write({"profiles":candidate}):return {"ok":false,"reason":store.error}
+    var persisted:=rejected_profiles.duplicate(true)
+    persisted.merge(candidate,true)
+    if not store.write({"profiles":persisted}):return {"ok":false,"reason":store.error}
     profiles=candidate
     return {"ok":true,"reason":"设置方案已保存。"}
 
 func quote(name: String, ui: Control, scope: int) -> Dictionary:
     if scope not in [0,1,2,3]:return {"ok":false,"reason":"设置应用范围无效。"}
     if not profiles.has(name):return {"ok":false,"reason":"请选择一套现有方案。"}
+    var problem:=profile_error(profiles[name])
+    if not problem.is_empty():return {"ok":false,"reason":problem+"；原方案保留。"}
     var profile: Dictionary=profiles[name]
     var current: Dictionary=values(ui.accessibility)
     var candidate: Dictionary=current.duplicate()

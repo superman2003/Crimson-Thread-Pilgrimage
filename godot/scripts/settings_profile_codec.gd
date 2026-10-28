@@ -15,6 +15,10 @@ static func integer(value: Variant, maximum: int) -> bool:
 
 static func decode(raw: Variant) -> InputEvent:
     if not raw is Dictionary or not raw.get("type") is String:return null
+    var fields: Array={"key":["type","physical","logical","shift","alt","ctrl","meta"],"mouse":["type","button","shift","alt","ctrl","meta"],"button":["type","button"],"axis":["type","axis","value"]}.get(raw.type,[])
+    if fields.is_empty() or raw.size()!=fields.size():return null
+    for field in raw:
+        if not fields.has(field):return null
     var event: InputEvent
     match raw.type:
         "key":
@@ -74,10 +78,14 @@ static func restore(raw: Dictionary, actions: Dictionary) -> Dictionary:
     for action in actions:
         if not source.get(action) is Array:return {"ok":false,"reason":"按键方案缺少动作："+String(actions[action])}
         var events: Array=[]
+        var seen: Dictionary={}
         if source[action].is_empty() or source[action].size()>12:return {"ok":false,"reason":"按键事件数量无效。"}
         for value in source[action]:
             var event:=decode(value)
             if event==null or POLICY.is_reserved(event) or not POLICY.allowed_for(String(action),event):return {"ok":false,"reason":"按键方案含无效或保留输入。"}
+            var signature:=JSON.stringify(encode(event),"",true)
+            if seen.has(signature):return {"ok":false,"reason":"按键方案含重复输入。"}
+            seen[signature]=true
             events.append(event)
         result[action]=events
     var candidate: Dictionary=POLICY.restore(POLICY.snapshot(),result,actions)
