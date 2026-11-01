@@ -1,0 +1,43 @@
+name: W01 named itinerary drafts
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/expedition_draft*.gd'
+      - 'godot/scripts/expedition_draft_library.gd'
+      - 'godot/scripts/expedition_desk.gd'
+      - 'tools/run_expedition_draft_contract.py'
+      - '.github/workflows/expedition-drafts.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: expedition-drafts-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native named-order and persistence contracts
+        run: python3 tools/run_expedition_draft_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/find-native"
+      - name: Two strict resource imports
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/find-import"
+      - name: Actual World reader and unchanged state
+        run: python3 tools/run_expedition_draft_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/find-world"
+      - name: Original itinerary contracts
+        run: |
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite expedition_desk --suite map_directory --log-dir "$RUNNER_TEMP/find-existing"
+          python3 tools/run_expedition_defer_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/find-defer"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: expedition-drafts-logs
+          path: ${{ runner.temp }}/find-*

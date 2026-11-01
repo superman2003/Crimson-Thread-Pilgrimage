@@ -23,6 +23,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: true
+          sparse-checkout: |
+            godot
+            tools
+            .github
+          sparse-checkout-cone-mode: true
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip

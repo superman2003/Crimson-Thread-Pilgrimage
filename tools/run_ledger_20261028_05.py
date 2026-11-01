@@ -35,9 +35,9 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, target)
             if source.suffix == ".gd":
-                content = source.read_text(encoding="utf-8")
-                todo.extend(Path(value) for value in RESOURCE.findall(content))
-                todo.extend(Path(value) for value in re.findall(r"^\s*extends\s+['\"]res://([^'\"]+)['\"]", content, re.M))
+                text=source.read_text(encoding="utf-8")
+                todo.extend(Path(value) for value in RESOURCE.findall(text))
+                todo.extend(Path(value) for value in re.findall(r"^\s*extends\s+['\"]res://([^'\"]+)['\"]",text,re.M))
         shutil.copytree(ROOT / "godot/data", project / "data", dirs_exist_ok=True)
         (project / "project.godot").write_text('config_version=5\n[application]\nconfig/name="Ledger 05"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n', encoding="utf-8")
         user = str(Path(temporary) / "userdata")
