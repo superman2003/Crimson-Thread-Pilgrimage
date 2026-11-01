@@ -257,7 +257,7 @@ func finish_bind() -> void:
     # its button row and content joined for d-pad navigation.
     if not get_tree().node_added.is_connected(_bridge_dialog_focus):
         get_tree().node_added.connect(_bridge_dialog_focus)
-    for dialog in find_children("*","AcceptDialog",true,false):_bridge_dialog_focus(dialog)
+    for dialog in (level.find_children("*","AcceptDialog",true,false) if level is Node else find_children("*","AcceptDialog",true,false)):_bridge_dialog_focus(dialog)
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -3085,7 +3085,8 @@ func _sync_reading_session() -> void:
     dialogue_reading_key = ""
 
 func _bridge_dialog_focus(node: Node) -> void:
-    if node is AcceptDialog and is_ancestor_of(node):DIALOG_FOCUS.install(node)
+    # Map, recall and new-journey dialogs live under the level, not this shell.
+    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):DIALOG_FOCUS.install(node)
 
 func _exit_tree() -> void:
     if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)

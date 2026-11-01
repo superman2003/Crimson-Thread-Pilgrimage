@@ -9,6 +9,7 @@ extends RefCounted
 const OWN_TOP := "dialog_bridge_top"
 const OWN_BOTTOM := "dialog_bridge_bottom"
 const PENDING := "dialog_bridge_pending"
+const RELINK := "dialog_bridge_relink"
 
 static func install(dialog: AcceptDialog) -> void:
     if dialog.has_meta("dialog_focus_bridge"):
@@ -26,8 +27,11 @@ static func install(dialog: AcceptDialog) -> void:
         if is_instance_valid(owner) and owner.visible and not owner.has_meta(PENDING):
             owner.set_meta(PENDING, true)
             run.call_deferred()
+    dialog.set_meta(RELINK, relink)
     dialog.visibility_changed.connect(relink)
     dialog.gui_focus_changed.connect(relink)
+    # Layout adapters resize a dialog after it opens; positions change then.
+    dialog.size_changed.connect(relink)
 
 static func row_buttons(dialog: AcceptDialog) -> Array:
     var result: Array = []
@@ -75,6 +79,12 @@ static func link(dialog: AcceptDialog) -> Dictionary:
     var buttons := row_buttons(dialog)
     var row := dialog.get_ok_button().get_parent()
     var content := content_controls(dialog, row, [])
+    # Links depend on positions: re-run whenever a container re-sorts.
+    var relink: Variant = dialog.get_meta(RELINK, null)
+    if relink is Callable:
+        for container in dialog.find_children("*", "Container", true, false):
+            if container.get_window() == dialog and not container.sort_children.is_connected(relink):
+                container.sort_children.connect(relink)
     for control in content + buttons:
         _release(control)
     var usable: Array = content.filter(_usable)
@@ -116,7 +126,11 @@ static func link(dialog: AcceptDialog) -> Dictionary:
             _claim(button, "focus_neighbor_top", OWN_TOP, lowest)
     var linked := 0
     for control in content:
-        if control.focus_neighbor_bottom.is_empty() and control.find_valid_focus_neighbor(SIDE_BOTTOM) == null:
+        if not control.focus_neighbor_bottom.is_empty():
+            continue
+        # Clipped scroll content can get a "bottom" neighbour that is above it.
+        var below: Control = control.find_valid_focus_neighbor(SIDE_BOTTOM)
+        if below == null or below.get_global_rect().position.y < control.get_global_rect().end.y - 1.0:
             _claim(control, "focus_neighbor_bottom", OWN_BOTTOM, default_button)
             linked += 1
     return {"buttons": buttons.size(), "content": content.size(), "lowest": lowest, "default": default_button, "linked": linked, "chained": chained}

@@ -129,6 +129,9 @@ func run() -> void:
 				before[window] = window.visible
 			launcher.pressed.emit()
 			await frames(4)
+			# Layout adapters refit on a 0.1s timer; check the settled dialog.
+			await create_timer(0.25).timeout
+			await frames(2)
 			for window in windows(ui):
 				if window is AcceptDialog and window.visible and not before.get(window, false) and not seen_dialogs.has(window):
 					seen_dialogs[window] = true
@@ -140,6 +143,30 @@ func run() -> void:
 					window.hide()
 			await frames(2)
 	check(dialogs >= 15, "launcher sweep opened at least fifteen dialogs (%d)" % dialogs)
+	# Dialogs owned by the level rather than the shell are bridged as well,
+	# including ones created after startup (the map pin editor pattern).
+	for name in ["MapPurchaseDialog"]:
+		var owned: Node = world.find_child(name, true, false)
+		check(owned != null and owned.has_meta("dialog_focus_bridge"), "level-owned %s is bridged" % name)
+	await open_page("map")
+	var editor := ConfirmationDialog.new()
+	editor.name = "FixturePinEditor"
+	world.map_panel.add_child(editor)
+	var fields := VBoxContainer.new()
+	editor.add_child(fields)
+	var field := LineEdit.new()
+	fields.add_child(field)
+	var choice := OptionButton.new()
+	choice.add_item("A")
+	fields.add_child(choice)
+	editor.popup_centered(Vector2i(420, 240))
+	editor.get_cancel_button().grab_focus()
+	await frames(4)
+	check(editor.has_meta("dialog_focus_bridge"), "a dialog added under the map panel later is bridged")
+	dialog_reach(editor, "level-owned map dialog")
+	editor.hide()
+	editor.queue_free()
+	await frames(2)
 	# Real joypad input: the danger-caption dialog opens on its safe Cancel
 	# button and d-pad up now enters the options instead of staying put.
 	await open_page("settings")
