@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/stick_calibration.gd', 'scripts/controller_comfort_dialog.gd', 'scripts/controller_preferences.gd', 'scripts/stick_response_meter.gd', 'scripts/reliability_98fd8e2f_r04_validation.gd']
+DEPS = ['scripts/stick_calibration.gd', 'scripts/controller_comfort_dialog.gd', 'scripts/settings_dialog_layout.gd', 'scripts/journey_window_layout.gd', 'scripts/controller_preferences.gd', 'scripts/stick_response_meter.gd', 'scripts/reliability_98fd8e2f_r04_validation.gd']
 MARKER = '^RELIABILITY_R04 checks=[1-9][0-9]* failures=0$'
 
 def main():
@@ -26,7 +26,10 @@ def main():
             output = result.stdout+result.stderr
             good = result.returncode == 0
         except subprocess.TimeoutExpired as exc:
-            output = str(exc)+'\nERROR: native fixture timeout\n';good = False
+            output = ''
+            for stream in (exc.stdout, exc.stderr):
+                if stream: output += stream.decode(errors='replace') if isinstance(stream, bytes) else stream
+            output += '\nERROR: native fixture timeout\n';good = False
         (args.log_dir/'native.log').write_text(output)
         print(output, end='')
         good = good and re.search(MARKER, output, re.M) is not None
