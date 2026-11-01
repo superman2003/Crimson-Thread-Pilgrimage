@@ -69,6 +69,8 @@ func run() -> void:
     dialog.case_button.button_pressed=true;dialog.case_button.toggled.emit(true);await frames()
     check(dialog.report.matches.size()==1 and dialog.editor.get_selected_text()=="needle","case toggle rebuilds actual selected matches")
     query(dialog,"not present");check(dialog.next.disabled and dialog.previous.disabled and dialog.editor.get_selected_text().is_empty(),"no matches clears stale selection and disables navigation")
+    query(dialog,"x".repeat(FIND.MAX_QUERY+1));await frames()
+    check(dialog.query.text.length()==FIND.MAX_QUERY+1 and not dialog.report.ok and dialog.next.disabled and dialog.count_label.text.contains("80"),"overlong typed query reaches explicit rejection instead of being truncated")
     query(dialog,"针线");await frames()
     check(dialog.editor.get_selected_text()=="针线" and dialog.query.has_focus(),"Unicode selection does not steal typing focus")
     var enter:=InputEventKey.new();enter.keycode=KEY_ENTER;enter.pressed=true

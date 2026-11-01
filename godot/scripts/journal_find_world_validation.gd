@@ -53,6 +53,9 @@ func run() -> void:
     dialog.previous.pressed.emit();await frames()
     check(dialog.selected==initial,"actual previous action reverses match navigation")
     check(body.text==original and is_equal_approx(bar.value,offset),"modal search does not move original reading position or edit original body")
+    var find_key:=InputEventKey.new();find_key.keycode=KEY_F;find_key.ctrl_pressed=true;find_key.pressed=true
+    dialog.editor.grab_focus();ui._input(find_key)
+    check(dialog.visible and dialog.query.has_focus() and not ui.journal_search.has_focus(),"Ctrl+F keeps focus in the open page-find query, not the cross-record filter behind it")
     var letter:=InputEventKey.new();letter.physical_keycode=KEY_B;letter.keycode=KEY_B;letter.unicode=98;letter.pressed=true
     dialog.query.grab_focus();ui._input(letter)
     check(world.active_overlay=="backpack","typing action letters cannot open the build screen behind native reader")

@@ -33,7 +33,7 @@ func _ready() -> void:
     var column:=VBoxContainer.new();column.custom_minimum_size.x=860;column.add_theme_constant_override("separation",9);add_child(column)
     var intro:=Label.new();intro.text="只读查看当前已知正文；按字面查找，不使用跨记录筛选语法。回车到下一处，Shift+回车到上一处。";intro.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;intro.custom_minimum_size.x=860;column.add_child(intro)
     var tools:=HBoxContainer.new();tools.add_theme_constant_override("separation",8);column.add_child(tools)
-    query=LineEdit.new();query.placeholder_text="本条正文中的文字";query.max_length=FIND.MAX_QUERY;query.custom_minimum_size=Vector2(310,34);query.size_flags_horizontal=Control.SIZE_EXPAND_FILL;tools.add_child(query)
+    query=LineEdit.new();query.placeholder_text="本条正文中的文字";query.custom_minimum_size=Vector2(310,34);query.size_flags_horizontal=Control.SIZE_EXPAND_FILL;tools.add_child(query)
     query.text_changed.connect(func(_value: String):rebuild());query.gui_input.connect(_query_input)
     case_button=CheckButton.new();case_button.text="区分大小写";tools.add_child(case_button);case_button.toggled.connect(func(_value: bool):rebuild())
     previous=_button(tools,"上一处",func():move(-1));next=_button(tools,"下一处",func():move(1))

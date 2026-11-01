@@ -1348,7 +1348,11 @@ func _input(event: InputEvent) -> void:
             get_viewport().set_input_as_handled()
         return
     if bag.visible and bag_category=="旅记" and event is InputEventKey and event.pressed and event.ctrl_pressed and event.keycode==KEY_F:
-        journal_search.grab_focus()
+        var finder:=bag.get_node_or_null("JournalDocumentFind") as Window
+        if finder!=null and finder.visible:
+            finder.query.grab_focus();finder.query.select_all()
+        elif has_modal_window():return
+        else:journal_search.grab_focus()
         get_viewport().set_input_as_handled()
         return
     if has_modal_window():return
