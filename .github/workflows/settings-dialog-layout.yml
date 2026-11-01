@@ -1,0 +1,65 @@
+name: U01 adaptive native settings dialogs
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/settings_dialog_layout*.gd'
+      - 'godot/scripts/controller_comfort_dialog.gd'
+      - 'godot/scripts/audio_output_dialog.gd'
+      - 'godot/scripts/journey_window_layout.gd'
+      - 'tools/run_settings_dialog_layout_contract.py'
+      - 'tools/test_settings_dialog_layout_runner.py'
+      - '.github/workflows/settings-dialog-layout.yml'
+  push:
+    branches: [main, codex/ledger-u01-settings-dialog-layout-wip-21ca]
+permissions:
+  contents: read
+concurrency:
+  group: settings-dialog-layout-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-forms:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          sparse-checkout: |
+            godot
+            tools
+            .github
+          sparse-checkout-cone-mode: true
+      - name: Runner failure propagation
+        run: python3 tools/test_settings_dialog_layout_runner.py
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native actual settings forms and focus lifecycle
+        run: python3 tools/run_settings_dialog_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/settings-layout-native"
+      - name: Original isolated audio output dependency contract
+        run: python3 tools/run_audio_output_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/settings-layout-audio"
+      - name: Existing isolated calibration interruption contract
+        run: python3 tools/run_reliability_98fd8e2f_r04.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/settings-layout-r04"
+      - name: Two strict full-resource import passes
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/settings-layout-import"
+      - name: Actual World settings focus and unchanged save bytes
+        run: python3 tools/run_settings_dialog_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/settings-layout-world"
+      - name: Original comfort, remapping and actual UI regressions
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite controller_comfort --suite settings_remap --suite ui_world_integration --log-dir "$RUNNER_TEMP/settings-layout-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: settings-dialog-layout-native-logs
+          path: ${{ runner.temp }}/settings-layout-*
+  static-gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Full existing static and campaign gates
+        run: |
+          npm test
+          npm run test:campaign

@@ -1,0 +1,82 @@
+{
+  "target_pr_count": 40,
+  "submitted_pr_count": 38,
+  "submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473,
+    475,
+    476,
+    477,
+    478,
+    479,
+    480,
+    481,
+    482,
+    483,
+    484
+  ],
+  "current_upgrade": {
+    "ordinal": 39,
+    "title": "U01 UI规范",
+    "branch": "codex/ledger-u01-settings-dialog-layout-wip-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "Verified source commit0ef9e4de; actual PR creation next. Historic WIP branch/path retained, not a second upgrade.",
+    "scope": "Reuse journey_window_layout frame/font policy for actual controller comfort and audio output native dialogs; focus scrolling, live reading size, non-compounding font bases, viewport/lifecycle ownership."
+  },
+  "validation": {
+    "source_sha": "0ef9e4de515a53cef6f630a8af45148f78df6ccc",
+    "run": 40773984380,
+    "native": "20 actual native form checks, original audio output48 passed",
+    "world": "24 actual World checks, exact game/preference bytes, draft state, viewport and ownership passed",
+    "regressions": "controller_comfort31 settings_remap23 UI World passed",
+    "gates": "both strict imports,3 runner negatives, complete npm test and campaign passed; both workflow jobs completed success",
+    "earlier_failure": "a3b287 World body-font expectations correctly failed. Production now gives unstyled body paragraphs21 baseline before relative font scaling; explicit authored small text retained. Original World assertions unchanged."
+  },
+  "independent_lines": {
+    "production": 131,
+    "tests_ci": 312,
+    "non_document": 443,
+    "inherited_checkout_excluded": 7,
+    "batch_after_actual_PR39": 19191,
+    "remaining_last_PR_to_average500": 809
+  },
+  "ci": {
+    "pr483_current_head": "e1b6180d460d038d4713054f338ad2782bfdd363",
+    "pr483": "Old head2e266f0 journal-marks native-reader cancelled at15min after repo fetch10m42/LFS~1m38 and import~2m42; native marks38+seed2+reload3 passed, no real FAIL in log. Current sparse native-source checkout fix uses expected_sha and API ref/branch verification; latest CI pending. No timeout/test changes.",
+    "pr484_head": "e29ce3a29677f74a565dbbe7166ec99479eb0664",
+    "pr484": "All latest applicable checks and Actions completed success",
+    "pr475_to482": "All applicable latest check-runs and Actions completed success at latest read; still refresh heads."
+  },
+  "constraints": [
+    "No review/comment reading or handling, approvals, merges or closures.",
+    "Do not count WIP as PR; count remains38.",
+    "Preserve full tests and strict limits. Do not duplicate existing general record import/export or pad code."
+  ],
+  "next": "Finish actual UI/World/full gates for40 from b44b77d882798f8628111bcbfd63f3bf99d4bb36 conversion WIP; core26 passed but no UI/World. Keep actual count until PR exists; final500 average requires809 independent lines."
+}
