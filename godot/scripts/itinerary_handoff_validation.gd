@@ -74,4 +74,8 @@ func run() -> void:
     check(loaded.state==plan.state and loaded.state==view.candidate,"fresh process model restores exact adopted paused order")
     check(not BRIDGE.apply(f.payload,f.known,plan,"fixture","slot-a",view).ok,"old confirmation is consumed by route revision")
     check(plan.command("start","",f.known).ok and plan.next_stop(f.known).key==f.known[1].key,"original HUD start and next-stop behavior preserved")
+    DirAccess.make_dir_absolute(lock)
+    check(not plan.command("pause","",f.known).ok and plan.state.active,"fresh lock still blocks a concurrent route writer")
+    plan.lock_stale_seconds=-1.0
+    check(plan.command("pause","",f.known).ok and not plan.state.active and not DirAccess.dir_exists_absolute(lock),"lock abandoned by a crashed writer is reclaimed instead of blocking routes forever")
     print("ITINERARY_HANDOFF checks=%d failures=%d" % [checks,failures]);quit(0 if failures==0 else 1)

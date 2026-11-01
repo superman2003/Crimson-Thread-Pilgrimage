@@ -2,6 +2,8 @@ extends RefCounted
 const LIMIT := 6
 var state := {"stops":[],"done":[],"deferred":[],"active":false}
 var store := preload("res://scripts/journey_desk_store.gd").new()
+# A writer holds the lock for one synchronous save; older locks were left by a crash.
+var lock_stale_seconds := 10.0
 
 func configure(journey: String) -> void:
     store.configure("expedition",journey)
@@ -73,7 +75,10 @@ func commit(candidate: Dictionary) -> bool:
     var parent:=ProjectSettings.globalize_path(store.path.get_base_dir())
     if DirAccess.make_dir_recursive_absolute(parent)!=OK:store.error="无法建立行程记录目录。";return false
     var lock:=ProjectSettings.globalize_path(store.path+".route_writer_lock")
-    if DirAccess.make_dir_absolute(lock)!=OK:store.error="行程正在另一处写入，请稍后重新打开。";return false
+    if DirAccess.make_dir_absolute(lock)!=OK:
+        var age:=Time.get_unix_time_from_system()-float(FileAccess.get_modified_time(lock))
+        if age<lock_stale_seconds or DirAccess.remove_absolute(lock)!=OK or DirAccess.make_dir_absolute(lock)!=OK:
+            store.error="行程正在另一处写入，请稍后重新打开。";return false
     var reader: RefCounted=get_script().new()
     reader.store.path=store.path
     reader.restore_payload(reader.store.read())
