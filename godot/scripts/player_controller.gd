@@ -586,11 +586,8 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if _consume_action_input(&"attack"):
+    if _consume_action_input(&"attack") or _consume_action_input(&"hook"):
         pass
-    elif Input.is_action_just_pressed("hook") and _can_start_action() and attack_cancel_lock <= 0.0:
-        if not _try_start_grapple():
-            _start_attack(&"hook_throw")
     elif Input.is_action_just_pressed("skill_1") and _can_start_action() and attack_cancel_lock <= 0.0:
         _try_skill_burst()
 
@@ -865,6 +862,10 @@ func _sample_action_input(delta: float) -> void:
         action = &"dash"
     elif Input.is_action_just_pressed("attack"):
         action = &"attack"
+    elif Input.is_action_just_pressed("hook"):
+        # C01: a hook pressed during a swing, its owed recovery or a dash waits
+        # like the nail does instead of being dropped.
+        action = &"hook"
     if action == &"":
         return
     buffered_action = action
@@ -897,6 +898,9 @@ func _consume_action_input(action: StringName) -> bool:
         sprite.flip_h = facing < 0
     if action == &"attack":
         _start_attack(&"attack_1", true, direction)
+    elif action == &"hook":
+        if not _try_start_grapple():
+            _start_attack(&"hook_throw")
     else:
         _cancel_attack_recovery()
         _start_dash()
