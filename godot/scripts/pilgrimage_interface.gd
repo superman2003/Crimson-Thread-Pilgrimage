@@ -122,7 +122,7 @@ var settings_persistence:=preload("res://scripts/settings_persistence.gd").new()
 var settings_save_notice: Label
 var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
-var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"tutorial_hints":false,"navigation_assist":false}
+var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -1000,6 +1000,7 @@ func _build_settings() -> void:
     _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
     _accessibility_slider("camera_shake","镜头震动",Vector2(512,204),0,1,0.25)
     _accessibility_slider("camera_lookahead","镜头前瞻",Vector2(512,238),0,1,0.25)
+    preload("res://scripts/camera_observation_dialog.gd").install(self)
     _accessibility_slider("vibration_strength","手柄力度",Vector2(512,272),0,1,0.25)
     _accessibility_toggle("flash_enabled","受击闪光",Vector2(512,305))
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
@@ -1096,6 +1097,10 @@ func _load_accessibility() -> void:
     accessibility["subtitle_speed"]=_finite_setting(config,"subtitle_speed",0.5,2.0)
     accessibility["camera_shake"]=_finite_setting(config,"camera_shake",0,1)
     accessibility["camera_lookahead"]=_finite_setting(config,"camera_lookahead",0,1)
+    var observation:=preload("res://scripts/camera_observation_preferences.gd").DEFAULTS.duplicate()
+    for key in observation:observation[key]=config.get_value("accessibility",key,observation[key])
+    observation=preload("res://scripts/camera_observation_preferences.gd").normalize(observation)
+    for key in observation:accessibility[key]=observation[key]
     accessibility["vibration_strength"]=_finite_setting(config,"vibration_strength",0,1)
     var saved := {}
     for action in REMAPPABLE_ACTIONS:
