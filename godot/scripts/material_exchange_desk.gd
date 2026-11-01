@@ -13,6 +13,7 @@ var pending: Dictionary={}
 var target_stock: SpinBox
 var deficit_label: Label
 var deficit_button: Button
+var receipts: AcceptDialog
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -38,7 +39,9 @@ func _build() -> void:
     target_stock.value_changed.connect(func(_value: float):refresh())
     deficit_button=window.button(planning,"按目标选择份数",select_deficit)
     deficit_label=window.text(window.column,"",52)
-    detail=window.text(window.column,"",110);review_button=window.button(window.column,"核对本次兑换",ask);window.footer()
+    detail=window.text(window.column,"",110);review_button=window.button(window.column,"核对本次兑换",ask)
+    var receipt_button: Button=window.button(window.column,"查看本次运行钟龛收支",open_receipts)
+    receipt_button.name="FieldReceiptsButton";window.footer()
     confirm=ConfirmationDialog.new();confirm.title="核对材料与费用";window.add_child(confirm);ui.register_text_entry_window(confirm);confirm.confirmed.connect(_confirm)
     window.visibility_changed.connect(func():
         if not window.visible:confirm.hide();pending={})
@@ -106,3 +109,16 @@ func _confirm() -> void:
     var request:=pending.duplicate(true);pending={}
     var result:=MARKET.perform(ui.level,String(request.id),request.amount,String(request.fingerprint))
     refresh();window.status.text=String(result.reason)
+
+func open_receipts() -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.build_panel.is_visible_in_tree():return
+    if not is_instance_valid(receipts):
+        receipts=preload("res://scripts/transaction_receipt_dialog.gd").new()
+        receipts.name="FieldReceiptsWindow";window.add_child(receipts)
+        var reference: WeakRef=weakref(receipts)
+        var parent_ref: WeakRef=weakref(window)
+        window.visibility_changed.connect(func():
+            var child:=reference.get_ref() as Window
+            var parent:=parent_ref.get_ref() as Window
+            if is_instance_valid(child) and (not is_instance_valid(parent) or not parent.visible):child.hide())
+    receipts.open_for(self)

@@ -16,6 +16,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: false
+          sparse-checkout: |
+            /godot/scripts/camera_focus.gd
+            /godot/tests/reliability_camera_samples.gd
+          sparse-checkout-cone-mode: false
       - name: Install pinned engine
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot-builds/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
