@@ -29,7 +29,7 @@ SOURCE_ROOTS = (ROOT / "art_requests",)
 FPS = {"idle": 8, "walk": 16, "windup": 12, "attack": 18, "recover": 14, "hurt": 16, "death": 10, "talk": 10, "greet": 8, "rest": 4}
 
 def read(path):
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 def looping(name):
     return name in ("idle","walk","talk","charge","travel") or name.endswith("_charge") or name.endswith("_travel")
@@ -145,6 +145,10 @@ def build(folder: Path, check=False):
     left = min(p["left"] for p in poses)
     right = max(p["left"]+p["region"][2] for p in poses)
     half = int(np.ceil(max(-left,right)))+8
+    # Preserve the old rig's half-width parity when a reviewed batch adds wider
+    # poses. Python's half-even rounding must not shift existing .5px anchors.
+    parity = record.get("character_motion_v5", {}).get("rig_half_parity", half % 2)
+    half += (parity - half) % 2
     height = max(p["height"] for p in poses)+16
     canvas = [2*half,height]
     if any(p["scale"] != 1.0 or p["isolated"] for p in poses):
@@ -182,7 +186,7 @@ def build(folder: Path, check=False):
         frames=[]
         for pose in entries:
             _,_,w,h=pose["region"]
-            frames.append({"atlas":"res://"+str((folder/pose["sheet"]).relative_to(ROOT/"godot")), "region":pose["region"], "margin":[int(round(half+pose["left"])),height-8-h,canvas[0]-w,height-h]})
+            frames.append({"atlas":"res://"+(folder/pose["sheet"]).relative_to(ROOT/"godot").as_posix(), "region":pose["region"], "margin":[int(round(half+pose["left"])),height-8-h,canvas[0]-w,height-h]})
         fps = FPS.get(name,12)
         if name in ("idle", "walk"):
             old = source_animations[name]
@@ -193,10 +197,10 @@ def build(folder: Path, check=False):
     encoded=json.dumps(output,ensure_ascii=False,indent=2)+"\n"
     dest=folder/"motion_manifest.json"
     if check:
-        if not dest.exists() or dest.read_text()!=encoded:
+        if not dest.exists() or dest.read_text(encoding="utf-8")!=encoded:
             raise ValueError(f"{folder.name}: motion manifest differs; rebuild")
     else:
-        dest.write_text(encoded)
+        dest.write_text(encoded, encoding="utf-8")
     return {"id":folder.name,"family":folder.parent.name,"animations":{k:len(v) for k,v in per_animation.items()},"frames":len(poses),"canvas":canvas,"source_hash":sha256((folder/"manifest.json").read_bytes()).hexdigest()}
 
 def main():

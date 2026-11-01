@@ -107,3 +107,11 @@ artifacts/silent_crown/*.webp -filter -diff -merge -text
 
 # Creature attack runtime captures are small, directly viewable Git blobs.
 artifacts/creature_attack_motion/*.jpg -filter -diff -merge -text
+
+# Boss motion sources and native review evidence are complete Git blobs.
+art_requests/boss_motion_v6/**/*.png -filter -diff -merge -text
+artifacts/boss_motion_v6/*.mp4 -filter -diff -merge -text
+artifacts/motion_v5_runtime/*.jpg -filter -diff -merge -text
+artifacts/boss_motion_v6/**/*.log -text whitespace=cr-at-eol
+artifacts/motion_v5_runtime/**/*.log -text whitespace=cr-at-eol
+artifacts/boss_motion_v6/first_capture.log whitespace=cr-at-eol,-blank-at-eof

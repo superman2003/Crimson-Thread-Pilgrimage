@@ -55,9 +55,108 @@ func run() -> void:
     _check_attack_specific_poses(stage)
     _check_production_attack_cels(stage)
     _check_elite_profiles(stage)
+    await _check_v5_playback(stage)
+    _check_v6_registration()
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
+
+func _check_v5_playback(stage: Node2D) -> void:
+    var bosses := ["broken_string_gardener", "rust_crown_guardian", "saltwhite_contract_judge", "sunken_hammer_smith", "silent_crown_core", "silent_pilgrim_commander"]
+    var sheets := 0
+    var new_cels := 0
+    var kinds: Array = bosses + ["ash_banner_imp", "echo_contract_scribe", "wax_lancer", "delayed_shadow", "pipe_thrower", "npc_blind_bell_knight", "npc_deserter_flagbearer"]
+    for kind: String in kinds:
+        var family := "original_npcs" if kind.begins_with("npc_") else "original_creatures"
+        var path := "res://assets/sprites/" + family + "/" + kind + "/"
+        var record: Dictionary = ART.manifest(path + "motion_generation.json")
+        check(record.has("character_motion_v5"), kind + " v5 registration exists")
+        if not record.has("character_motion_v5"): continue
+        var batch: Dictionary = record.character_motion_v5
+        var registered: Dictionary = record.get("boss_motion_v6", {}).get("baseline_frames", record.runtime_frames)
+        for sheet: Dictionary in batch.sheets:
+            sheets += 1
+            new_cels += int(sheet.frames)
+            var entries: Array = registered[sheet.animation]
+            var start := int(sheet.index) if sheet.mode == "frame" else 0
+            for cel in int(sheet.frames):
+                check(String(entries[start + cel].source).ends_with("/" + String(sheet.image)), kind + " consumes delivered cel " + str(cel))
+            if sheet.mode == "prepend":
+                check(entries.size() == int(sheet.frames) + batch.baseline_frames.recover.size(), kind + "/" + String(sheet.animation) + " preserves generic recovery after transition")
+                for index in batch.baseline_frames.recover.size():
+                    check(entries[index + int(sheet.frames)] == batch.baseline_frames.recover[index], kind + " original recovery registration preserved")
+        if family == "original_npcs": continue
+        var enemy = ENEMY.new()
+        enemy.configure({"id":"v5_" + kind, "kind":kind, "hp":40}, "", kind in bosses)
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        var sprite: AnimatedSprite2D = enemy.animated_sprite
+        var recovered := {}
+        for command: Dictionary in enemy.ai_commands:
+            var animation := String(command.get("animation", "attack"))
+            if kind not in bosses or animation not in ["heavy", "cast", "phase"]: continue
+            recovered[animation] = true
+            for facing in [-1, 1]:
+                enemy._set_sprite_flip(facing < 0)
+                enemy._pose_sprite("active", command)
+                check(sprite.animation == StringName(animation), kind + "/" + animation + " actual command selects strike")
+                var duration := float(command.get("recover", 0.42))
+                var original_command := command.duplicate(true)
+                enemy.active_attack = command.duplicate(true)
+                enemy.state = "recover"
+                enemy.state_timer = duration
+                enemy._pose_sprite("recover", command)
+                var expected := animation + "_recover"
+                check(sprite.animation == StringName(expected) and sprite.frame == 0, kind + "/" + expected + " starts from transition")
+                var count := sprite.sprite_frames.get_frame_count(expected)
+                check(is_equal_approx(count / (sprite.sprite_frames.get_animation_speed(expected) * sprite.speed_scale), duration), kind + " recovery fits original combat window")
+                check(sprite.flip_h == (facing < 0), kind + " recovery retains facing")
+                # Let real AnimatedSprite2D playback present each authored cel,
+                # then advance the real state timer at its original boundary.
+                var seen := {}
+                var elapsed := 0.0
+                while elapsed < duration + 0.025:
+                    seen[sprite.frame] = true
+                    await process_frame
+                    elapsed += root.get_process_delta_time()
+                check(seen.size() == count, kind + "/" + expected + " presents transition and generic cels")
+                enemy._pose_sprite("recover", command)
+                check(sprite.frame == 0 and sprite.is_playing(), kind + " repeated recovery restarts")
+                enemy._update_recover(duration - 0.001)
+                check(enemy.state == "recover", kind + " keeps original punish window")
+                enemy._update_recover(0.002)
+                check(enemy.state == "patrol" and sprite.animation == &"idle", kind + " returns to idle at original boundary")
+                check(command == original_command, kind + " playback never changes attack costs/timing")
+        if kind in bosses:
+            check(recovered.size() == 3, kind + " all three real special commands exercised")
+        enemy.queue_free()
+        await process_frame
+    check(sheets == 32 and new_cels == 67, "all 32 delivered v5 sheets / 67 cels registered exactly once")
+
+func _check_v6_registration() -> void:
+    var bosses := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
+    var total := 0
+    for kind: String in bosses:
+        var record: Dictionary = ART.manifest("res://assets/sprites/original_creatures/" + kind + "/motion_generation.json")
+        check(record.has("boss_motion_v6"), kind + " new in-between batch exists")
+        if not record.has("boss_motion_v6"): continue
+        var batch: Dictionary = record.boss_motion_v6
+        check(batch.sources.size() == 8 and int(batch.new_drawings) == 48, kind + " eight sheets / 48 authored drawings")
+        total += int(batch.new_drawings)
+        var runtime: Dictionary = record.runtime_frames
+        check(runtime.idle.size() == 8 and runtime.walk.size() == 16, kind + " idle and gait include loop seam drawings")
+        for animation in ["windup","attack","heavy_windup","heavy","cast_windup","cast","phase_windup","phase"]:
+            check(runtime[animation].size() == 7, kind + "/" + animation + " three new anatomical in-betweens")
+        check(runtime.recover.size() == batch.baseline_frames.recover.size()+6, kind + " generic return to guard gains six drawings")
+        for animation in ["heavy_recover","cast_recover","phase_recover"]:
+            check(runtime[animation].size() == batch.baseline_frames[animation].size()+8, kind + "/" + animation + " bridges and shared generic in-betweens")
+        for animation: String in batch.baseline_frames:
+            var cursor := 0
+            for original: Dictionary in batch.baseline_frames[animation]:
+                while cursor < runtime[animation].size() and runtime[animation][cursor] != original: cursor += 1
+                check(cursor < runtime[animation].size(), kind + "/" + animation + " keeps original pose order")
+                cursor += 1
+    check(total == 288, "six production Bosses gain 288 authored poses")
 func _check_frames(frames: SpriteFrames, manifest: Dictionary, id: String) -> void:
     characters += 1
     check(frames != null, id + " frames loaded")

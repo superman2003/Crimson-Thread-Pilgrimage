@@ -140,14 +140,15 @@
         "anchor_x": 141.0
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/H_npc_deserter_flagbearer_talk6.png",
         "region": [
-          828,
-          517,
-          260,
-          244
+          0,
+          0,
+          1024,
+          1024
         ],
-        "anchor_x": 126.4
+        "scale": 0.315679,
+        "anchor_x": 559.587
       },
       {
         "sheet": "motion_expanded.png",
@@ -209,5 +210,111 @@
     "visual_inspected": true,
     "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
     "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  },
+  "character_motion_v5": {
+    "tool": "tools/build_character_motion_v5.py",
+    "brief": "art_requests/character_motion_v5/README.md",
+    "baseline_frames": {
+      "talk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            105,
+            263,
+            235,
+            243
+          ],
+          "anchor_x": 125.05
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            455,
+            262,
+            270,
+            245
+          ],
+          "anchor_x": 143.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            841,
+            262,
+            269,
+            244
+          ],
+          "anchor_x": 132.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1203,
+            262,
+            259,
+            244
+          ],
+          "anchor_x": 135.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            102,
+            516,
+            249,
+            245
+          ],
+          "anchor_x": 105.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            456,
+            517,
+            254,
+            244
+          ],
+          "anchor_x": 141.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            828,
+            517,
+            260,
+            244
+          ],
+          "anchor_x": 126.4
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1207,
+            517,
+            254,
+            245
+          ],
+          "anchor_x": 136.5
+        }
+      ]
+    },
+    "references": {
+      "H_npc_deserter_flagbearer_talk6.png": {
+        "area": 22997,
+        "anchor_offset": -3.5
+      }
+    },
+    "sheets": [
+      {
+        "image": "H_npc_deserter_flagbearer_talk6.png",
+        "sha256": "809fcfe0a6c96b2cde94a50b4d60bc039d9c8c8d993cbd12764a0a2ebed34acf",
+        "animation": "talk",
+        "mode": "frame",
+        "index": 6,
+        "frames": 1,
+        "scale": 0.315679
+      }
+    ],
+    "rig_half_parity": 0
   }
 }

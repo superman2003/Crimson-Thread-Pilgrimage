@@ -2,7 +2,7 @@
   "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
   "kind": "rust_crown_guardian",
   "canvas": [
-    450,
+    498,
     279
   ],
   "display_height": 224,
@@ -16,7 +16,7 @@
   "animations": [
     {
       "name": "idle",
-      "fps": 6.0,
+      "fps": 12.0,
       "loop": true,
       "frames": [
         {
@@ -28,9 +28,9 @@
             214
           ],
           "margin": [
-            139,
+            163,
             57,
-            240,
+            288,
             65
           ]
         },
@@ -39,171 +39,351 @@
           "region": [
             212,
             0,
-            200,
-            212
-          ],
-          "margin": [
-            147,
-            59,
-            250,
-            67
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            414,
-            0,
-            209,
-            216
-          ],
-          "margin": [
-            135,
-            55,
-            241,
-            63
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            625,
-            0,
-            205,
-            217
-          ],
-          "margin": [
-            146,
-            54,
-            245,
-            62
-          ]
-        }
-      ]
-    },
-    {
-      "name": "walk",
-      "fps": 18.0,
-      "loop": true,
-      "frames": [
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            832,
-            0,
-            214,
-            214
-          ],
-          "margin": [
-            145,
-            57,
-            236,
-            65
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            1048,
-            0,
-            206,
-            215
-          ],
-          "margin": [
-            139,
-            56,
-            244,
-            64
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            1256,
-            0,
-            224,
-            198
-          ],
-          "margin": [
-            150,
-            73,
-            226,
-            81
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            1482,
-            0,
-            210,
-            201
-          ],
-          "margin": [
-            160,
-            70,
-            240,
-            78
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            1694,
-            0,
-            228,
-            197
-          ],
-          "margin": [
-            156,
-            74,
-            222,
-            82
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            1924,
-            0,
-            227,
-            206
-          ],
-          "margin": [
-            156,
-            65,
-            223,
-            73
-          ]
-        },
-        {
-          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
-          "region": [
-            2153,
-            0,
-            227,
+            195,
             204
           ],
           "margin": [
-            157,
+            170,
             67,
-            223,
+            303,
             75
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2382,
+            409,
             0,
+            200,
+            212
+          ],
+          "margin": [
+            171,
+            59,
+            298,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            611,
+            0,
+            209,
+            200
+          ],
+          "margin": [
+            166,
+            71,
+            289,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            822,
+            0,
+            209,
+            216
+          ],
+          "margin": [
+            159,
+            55,
+            289,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1033,
+            0,
+            227,
+            195
+          ],
+          "margin": [
+            162,
+            76,
+            271,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1262,
+            0,
+            205,
+            217
+          ],
+          "margin": [
+            170,
+            54,
+            293,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1469,
+            0,
+            224,
+            193
+          ],
+          "margin": [
+            158,
+            78,
+            274,
+            86
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1695,
+            0,
+            214,
+            214
+          ],
+          "margin": [
+            169,
+            57,
+            284,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1911,
+            0,
+            234,
+            189
+          ],
+          "margin": [
+            159,
+            82,
+            264,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2147,
+            0,
+            206,
+            215
+          ],
+          "margin": [
+            163,
+            56,
+            292,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2355,
+            0,
+            238,
+            178
+          ],
+          "margin": [
+            161,
+            93,
+            260,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2595,
+            0,
+            224,
+            198
+          ],
+          "margin": [
+            174,
+            73,
+            274,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2821,
+            0,
+            210,
+            189
+          ],
+          "margin": [
+            180,
+            82,
+            288,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3033,
+            0,
+            210,
+            201
+          ],
+          "margin": [
+            184,
+            70,
+            288,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3245,
+            0,
+            224,
+            190
+          ],
+          "margin": [
+            177,
+            81,
+            274,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3471,
+            0,
+            228,
+            197
+          ],
+          "margin": [
+            180,
+            74,
+            270,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3701,
+            0,
+            224,
+            188
+          ],
+          "margin": [
+            182,
+            83,
+            274,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            0,
+            219,
+            227,
+            206
+          ],
+          "margin": [
+            180,
+            65,
+            271,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            229,
+            219,
+            224,
+            182
+          ],
+          "margin": [
+            177,
+            89,
+            274,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            455,
+            219,
+            227,
+            204
+          ],
+          "margin": [
+            181,
+            67,
+            271,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            684,
+            219,
+            226,
+            183
+          ],
+          "margin": [
+            172,
+            88,
+            272,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            912,
+            219,
             235,
             200
           ],
           "margin": [
-            146,
+            170,
             71,
-            215,
+            263,
             79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1149,
+            219,
+            216,
+            188
+          ],
+          "margin": [
+            169,
+            83,
+            282,
+            91
           ]
         }
       ]
@@ -216,60 +396,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2619,
-            0,
+            1367,
+            219,
             235,
             200
           ],
           "margin": [
-            146,
+            170,
             71,
-            215,
+            263,
             79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2856,
-            0,
+            1604,
+            219,
+            234,
+            187
+          ],
+          "margin": [
+            161,
+            84,
+            264,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1840,
+            219,
             235,
             201
           ],
           "margin": [
-            151,
+            175,
             70,
-            215,
+            263,
             78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3093,
-            0,
+            2077,
+            219,
+            252,
+            183
+          ],
+          "margin": [
+            161,
+            88,
+            246,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2331,
+            219,
             227,
             202
           ],
           "margin": [
-            156,
+            180,
             69,
-            223,
+            271,
             77
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3322,
-            0,
+            2560,
+            219,
+            226,
+            182
+          ],
+          "margin": [
+            175,
+            89,
+            272,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2788,
+            219,
             204,
             204
           ],
           "margin": [
-            155,
+            179,
             67,
-            246,
+            294,
             75
           ]
         }
@@ -283,45 +508,75 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3528,
-            0,
+            2994,
+            219,
             228,
             150
           ],
           "margin": [
-            131,
+            155,
             121,
-            222,
+            270,
             129
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3758,
-            0,
+            3224,
+            219,
+            278,
+            141
+          ],
+          "margin": [
+            160,
+            130,
+            220,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3504,
+            219,
             282,
             161
           ],
           "margin": [
-            159,
+            183,
             110,
-            168,
+            216,
             118
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            0,
+            3788,
             219,
+            239,
+            168
+          ],
+          "margin": [
+            171,
+            103,
+            259,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            0,
+            427,
             244,
             171
           ],
           "margin": [
-            144,
+            168,
             100,
-            206,
+            254,
             108
           ]
         },
@@ -329,14 +584,29 @@
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
             246,
+            427,
             219,
+            188
+          ],
+          "margin": [
+            176,
+            83,
+            279,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            467,
+            427,
             188,
             180
           ],
           "margin": [
-            152,
+            176,
             91,
-            262,
+            310,
             99
           ]
         }
@@ -350,90 +620,180 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            436,
-            219,
+            657,
+            427,
             200,
             198
           ],
           "margin": [
-            140,
+            164,
             73,
-            250,
+            298,
             81
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            638,
-            219,
+            859,
+            427,
+            235,
+            177
+          ],
+          "margin": [
+            144,
+            94,
+            263,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1096,
+            427,
             212,
             197
           ],
           "margin": [
-            145,
+            169,
             74,
-            238,
+            286,
             82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            852,
-            219,
+            1310,
+            427,
+            213,
+            192
+          ],
+          "margin": [
+            170,
+            79,
+            285,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1525,
+            427,
             208,
             197
           ],
           "margin": [
-            144,
+            168,
             74,
-            242,
+            290,
             82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1062,
-            219,
+            1735,
+            427,
+            211,
+            193
+          ],
+          "margin": [
+            164,
+            78,
+            287,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1948,
+            427,
             214,
             196
           ],
           "margin": [
-            148,
+            172,
             75,
-            236,
+            284,
             83
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1278,
-            219,
+            2164,
+            427,
+            222,
+            175
+          ],
+          "margin": [
+            156,
+            96,
+            276,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2388,
+            427,
             210,
             201
           ],
           "margin": [
-            145,
+            169,
             70,
-            240,
+            288,
             78
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1490,
-            219,
+            2600,
+            427,
+            201,
+            191
+          ],
+          "margin": [
+            170,
+            80,
+            297,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2803,
+            427,
+            223,
+            175
+          ],
+          "margin": [
+            154,
+            96,
+            275,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3028,
+            427,
             217,
             199
           ],
           "margin": [
-            144,
+            168,
             72,
-            233,
+            281,
             80
           ]
         }
@@ -447,30 +807,30 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1709,
-            219,
+            3247,
+            427,
             199,
             171
           ],
           "margin": [
-            143,
+            167,
             100,
-            251,
+            299,
             108
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1910,
-            219,
+            3448,
+            427,
             175,
             163
           ],
           "margin": [
-            150,
+            174,
             108,
-            275,
+            323,
             116
           ]
         }
@@ -484,60 +844,60 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2087,
-            219,
+            3625,
+            427,
             202,
             185
           ],
           "margin": [
-            146,
+            170,
             86,
-            248,
+            296,
             94
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2291,
-            219,
+            3829,
+            427,
             207,
             146
           ],
           "margin": [
-            132,
+            156,
             125,
-            243,
+            291,
             133
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2500,
-            219,
+            0,
+            630,
             233,
             97
           ],
           "margin": [
-            107,
+            131,
             174,
-            217,
+            265,
             182
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2735,
-            219,
+            235,
+            630,
             222,
             77
           ],
           "margin": [
-            119,
+            143,
             194,
-            228,
+            276,
             202
           ]
         }
@@ -551,60 +911,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2959,
-            219,
+            459,
+            630,
             231,
             213
           ],
           "margin": [
-            147,
+            171,
             58,
-            219,
+            267,
             66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3192,
-            219,
+            692,
+            630,
+            264,
+            218
+          ],
+          "margin": [
+            145,
+            53,
+            234,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            958,
+            630,
             247,
             247
           ],
           "margin": [
-            143,
+            167,
             24,
-            203,
+            251,
             32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3441,
-            219,
+            1207,
+            630,
+            245,
+            234
+          ],
+          "margin": [
+            167,
+            37,
+            253,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1454,
+            630,
             255,
             252
           ],
           "margin": [
-            140,
+            164,
             19,
-            195,
+            243,
             27
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3698,
-            219,
+            1711,
+            630,
+            256,
+            212
+          ],
+          "margin": [
+            154,
+            59,
+            242,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1969,
+            630,
             234,
             263
           ],
           "margin": [
-            144,
+            168,
             8,
-            216,
+            264,
             16
           ]
         }
@@ -618,60 +1023,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            0,
-            484,
+            2205,
+            630,
             212,
             247
           ],
           "margin": [
-            157,
+            181,
             24,
-            238,
+            286,
             32
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            214,
-            484,
+            2419,
+            630,
+            222,
+            216
+          ],
+          "margin": [
+            133,
+            55,
+            276,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2643,
+            630,
             235,
             200
           ],
           "margin": [
-            61,
+            85,
             71,
-            215,
+            263,
             79
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            451,
-            484,
+            2880,
+            630,
+            239,
+            138
+          ],
+          "margin": [
+            72,
+            133,
+            259,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3121,
+            630,
             235,
             129
           ],
           "margin": [
-            36,
+            60,
             142,
-            215,
+            263,
             150
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            688,
-            484,
+            3358,
+            630,
+            188,
+            194
+          ],
+          "margin": [
+            133,
+            77,
+            310,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3548,
+            630,
             202,
             214
           ],
           "margin": [
-            163,
+            187,
             57,
-            248,
+            296,
             65
           ]
         }
@@ -685,60 +1135,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            892,
-            484,
+            3752,
+            630,
             236,
             239
           ],
           "margin": [
-            147,
+            171,
             32,
-            214,
+            262,
             40
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1130,
-            484,
+            0,
+            895,
+            236,
+            215
+          ],
+          "margin": [
+            170,
+            56,
+            262,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            238,
+            895,
             241,
             210
           ],
           "margin": [
-            139,
+            163,
             61,
-            209,
+            257,
             69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1373,
-            484,
+            481,
+            895,
+            249,
+            197
+          ],
+          "margin": [
+            161,
+            74,
+            249,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            732,
+            895,
             247,
             236
           ],
           "margin": [
-            139,
+            163,
             35,
-            203,
+            251,
             43
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1622,
-            484,
+            981,
+            895,
+            218,
+            229
+          ],
+          "margin": [
+            179,
+            42,
+            280,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1201,
+            895,
             228,
             234
           ],
           "margin": [
-            147,
+            171,
             37,
-            222,
+            270,
             45
           ]
         }
@@ -752,60 +1247,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            1852,
-            484,
+            1431,
+            895,
             166,
             213
           ],
           "margin": [
-            153,
+            177,
             58,
-            284,
+            332,
             66
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2020,
-            484,
+            1599,
+            895,
+            230,
+            185
+          ],
+          "margin": [
+            182,
+            86,
+            268,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1831,
+            895,
             229,
             210
           ],
           "margin": [
-            153,
+            177,
             61,
-            221,
+            269,
             69
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2251,
-            484,
+            2062,
+            895,
+            220,
+            185
+          ],
+          "margin": [
+            187,
+            86,
+            278,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2284,
+            895,
             247,
             206
           ],
           "margin": [
-            149,
+            173,
             65,
-            203,
+            251,
             73
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2500,
-            484,
+            2533,
+            895,
+            209,
+            208
+          ],
+          "margin": [
+            172,
+            63,
+            289,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2744,
+            895,
             192,
             206
           ],
           "margin": [
-            147,
+            171,
             65,
-            258,
+            306,
             73
           ]
         }
@@ -819,60 +1359,105 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2694,
-            484,
+            2938,
+            895,
             239,
             176
           ],
           "margin": [
-            122,
+            146,
             95,
-            211,
+            259,
             103
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            2935,
-            484,
+            3179,
+            895,
+            241,
+            172
+          ],
+          "margin": [
+            142,
+            99,
+            257,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3422,
+            895,
             245,
             193
           ],
           "margin": [
-            120,
+            144,
             78,
-            205,
+            253,
             86
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3182,
-            484,
+            3669,
+            895,
+            244,
+            201
+          ],
+          "margin": [
+            154,
+            70,
+            254,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            0,
+            1133,
             237,
             191
           ],
           "margin": [
-            127,
+            151,
             80,
-            213,
+            261,
             88
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3421,
-            484,
+            239,
+            1133,
+            248,
+            220
+          ],
+          "margin": [
+            176,
+            51,
+            250,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            489,
+            1133,
             254,
             230
           ],
           "margin": [
-            139,
+            163,
             41,
-            196,
+            244,
             49
           ]
         }
@@ -886,61 +1471,847 @@
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            3677,
-            484,
-            228,
-            150
+            745,
+            1133,
+            367,
+            131
           ],
           "margin": [
-            131,
             121,
-            222,
-            129
+            140,
+            131,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1114,
+            1133,
+            327,
+            131
+          ],
+          "margin": [
+            136,
+            140,
+            171,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1443,
+            1133,
+            301,
+            187
+          ],
+          "margin": [
+            175,
+            84,
+            197,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1746,
+            1133,
+            198,
+            226
+          ],
+          "margin": [
+            187,
+            45,
+            300,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1946,
+            1133,
+            245,
+            216
+          ],
+          "margin": [
+            163,
+            55,
+            253,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2193,
+            1133,
+            251,
+            190
+          ],
+          "margin": [
+            160,
+            81,
+            247,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2446,
+            1133,
+            318,
+            170
+          ],
+          "margin": [
+            123,
+            101,
+            180,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_recover",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2766,
+            1133,
+            203,
+            201
+          ],
+          "margin": [
+            175,
+            70,
+            295,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2971,
+            1133,
+            218,
+            193
+          ],
+          "margin": [
+            153,
+            78,
+            280,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3191,
+            1133,
+            182,
+            201
+          ],
+          "margin": [
+            177,
+            70,
+            316,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3375,
+            1133,
+            183,
+            198
+          ],
+          "margin": [
+            174,
+            73,
+            315,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3560,
+            1133,
+            200,
+            198
+          ],
+          "margin": [
+            164,
+            73,
+            298,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3762,
+            1133,
+            235,
+            177
+          ],
+          "margin": [
+            144,
+            94,
+            263,
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
             0,
-            733,
-            282,
-            161
+            1365,
+            212,
+            197
           ],
           "margin": [
-            159,
-            110,
-            168,
-            118
+            169,
+            74,
+            286,
+            82
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
+            214,
+            1365,
+            213,
+            192
+          ],
+          "margin": [
+            170,
+            79,
+            285,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            429,
+            1365,
+            208,
+            197
+          ],
+          "margin": [
+            168,
+            74,
+            290,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            639,
+            1365,
+            211,
+            193
+          ],
+          "margin": [
+            164,
+            78,
+            287,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            852,
+            1365,
+            214,
+            196
+          ],
+          "margin": [
+            172,
+            75,
             284,
-            733,
-            244,
-            171
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1068,
+            1365,
+            222,
+            175
+          ],
+          "margin": [
+            156,
+            96,
+            276,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1292,
+            1365,
+            210,
+            201
+          ],
+          "margin": [
+            169,
+            70,
+            288,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1504,
+            1365,
+            201,
+            191
+          ],
+          "margin": [
+            170,
+            80,
+            297,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1707,
+            1365,
+            223,
+            175
+          ],
+          "margin": [
+            154,
+            96,
+            275,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1932,
+            1365,
+            217,
+            199
+          ],
+          "margin": [
+            168,
+            72,
+            281,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "name": "phase_recover",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2151,
+            1365,
+            241,
+            173
+          ],
+          "margin": [
+            150,
+            98,
+            257,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2394,
+            1365,
+            195,
+            193
+          ],
+          "margin": [
+            166,
+            78,
+            303,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2591,
+            1365,
+            190,
+            194
+          ],
+          "margin": [
+            172,
+            77,
+            308,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2783,
+            1365,
+            222,
+            172
+          ],
+          "margin": [
+            146,
+            99,
+            276,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3007,
+            1365,
+            200,
+            198
+          ],
+          "margin": [
+            164,
+            73,
+            298,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3209,
+            1365,
+            235,
+            177
           ],
           "margin": [
             144,
-            100,
-            206,
-            108
+            94,
+            263,
+            102
           ]
         },
         {
           "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
           "region": [
-            530,
-            733,
-            188,
+            3446,
+            1365,
+            212,
+            197
+          ],
+          "margin": [
+            169,
+            74,
+            286,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3660,
+            1365,
+            213,
+            192
+          ],
+          "margin": [
+            170,
+            79,
+            285,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3875,
+            1365,
+            208,
+            197
+          ],
+          "margin": [
+            168,
+            74,
+            290,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            0,
+            1568,
+            211,
+            193
+          ],
+          "margin": [
+            164,
+            78,
+            287,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            213,
+            1568,
+            214,
+            196
+          ],
+          "margin": [
+            172,
+            75,
+            284,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            429,
+            1568,
+            222,
+            175
+          ],
+          "margin": [
+            156,
+            96,
+            276,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            653,
+            1568,
+            210,
+            201
+          ],
+          "margin": [
+            169,
+            70,
+            288,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            865,
+            1568,
+            201,
+            191
+          ],
+          "margin": [
+            170,
+            80,
+            297,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1068,
+            1568,
+            223,
+            175
+          ],
+          "margin": [
+            154,
+            96,
+            275,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1293,
+            1568,
+            217,
+            199
+          ],
+          "margin": [
+            168,
+            72,
+            281,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cast_recover",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1512,
+            1568,
+            212,
+            193
+          ],
+          "margin": [
+            148,
+            78,
+            286,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1726,
+            1568,
+            224,
+            184
+          ],
+          "margin": [
+            143,
+            87,
+            274,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            1952,
+            1568,
+            186,
+            195
+          ],
+          "margin": [
+            167,
+            76,
+            312,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2140,
+            1568,
+            223,
             180
           ],
           "margin": [
-            152,
+            154,
             91,
-            262,
+            275,
             99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2365,
+            1568,
+            200,
+            198
+          ],
+          "margin": [
+            164,
+            73,
+            298,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2567,
+            1568,
+            235,
+            177
+          ],
+          "margin": [
+            144,
+            94,
+            263,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            2804,
+            1568,
+            212,
+            197
+          ],
+          "margin": [
+            169,
+            74,
+            286,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3018,
+            1568,
+            213,
+            192
+          ],
+          "margin": [
+            170,
+            79,
+            285,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3233,
+            1568,
+            208,
+            197
+          ],
+          "margin": [
+            168,
+            74,
+            290,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3443,
+            1568,
+            211,
+            193
+          ],
+          "margin": [
+            164,
+            78,
+            287,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3656,
+            1568,
+            214,
+            196
+          ],
+          "margin": [
+            172,
+            75,
+            284,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            3872,
+            1568,
+            222,
+            175
+          ],
+          "margin": [
+            156,
+            96,
+            276,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            0,
+            1771,
+            210,
+            201
+          ],
+          "margin": [
+            169,
+            70,
+            288,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            212,
+            1771,
+            201,
+            191
+          ],
+          "margin": [
+            170,
+            80,
+            297,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            415,
+            1771,
+            223,
+            175
+          ],
+          "margin": [
+            154,
+            96,
+            275,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/rust_crown_guardian/motion_runtime.png",
+          "region": [
+            640,
+            1771,
+            217,
+            199
+          ],
+          "margin": [
+            168,
+            72,
+            281,
+            80
           ]
         }
       ]

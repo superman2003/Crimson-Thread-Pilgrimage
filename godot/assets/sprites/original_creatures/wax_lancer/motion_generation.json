@@ -962,6 +962,28 @@
     ],
     "recover": [
       {
+        "source": "art_requests/character_motion_v5/incoming/G_wax_lancer_recover.png",
+        "region": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "scale": 0.389346,
+        "anchor_x": 329.374
+      },
+      {
+        "source": "art_requests/character_motion_v5/incoming/G_wax_lancer_recover.png",
+        "region": [
+          768,
+          0,
+          768,
+          1024
+        ],
+        "scale": 0.389346,
+        "anchor_x": 413.374
+      },
+      {
         "sheet": "motion_expanded.png",
         "region": [
           29,
@@ -1509,5 +1531,95 @@
         }
       }
     ]
+  },
+  "character_motion_v5": {
+    "tool": "tools/build_character_motion_v5.py",
+    "brief": "art_requests/character_motion_v5/README.md",
+    "baseline_frames": {
+      "recover": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            29,
+            973,
+            185,
+            182
+          ],
+          "component_seeds": [
+            [
+              64,
+              1080
+            ]
+          ],
+          "anchor_x": 99.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            311,
+            970,
+            177,
+            185
+          ],
+          "component_seeds": [
+            [
+              421,
+              1069
+            ]
+          ],
+          "anchor_x": 73.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            556,
+            957,
+            168,
+            198
+          ],
+          "component_seeds": [
+            [
+              640,
+              1079
+            ]
+          ],
+          "anchor_x": 84.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            786,
+            965,
+            160,
+            195
+          ],
+          "component_seeds": [
+            [
+              941,
+              1088
+            ]
+          ],
+          "anchor_x": 110.0
+        }
+      ]
+    },
+    "references": {
+      "G_wax_lancer_recover.png": {
+        "area": 12590,
+        "anchor_offset": 5.5
+      }
+    },
+    "sheets": [
+      {
+        "image": "G_wax_lancer_recover.png",
+        "sha256": "949e37dd18d51299dc0261acb4affb0034c18ad8e5f7858658bae7ceb760d067",
+        "animation": "recover",
+        "mode": "prepend",
+        "index": null,
+        "frames": 2,
+        "scale": 0.389346
+      }
+    ],
+    "rig_half_parity": 1
   }
 }

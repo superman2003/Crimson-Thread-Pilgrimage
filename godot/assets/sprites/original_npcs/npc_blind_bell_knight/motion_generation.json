@@ -110,14 +110,15 @@
         "anchor_x": 117.05
       },
       {
-        "sheet": "motion_expanded.png",
+        "source": "art_requests/character_motion_v5/incoming/H_npc_blind_bell_knight_talk3.png",
         "region": [
-          984,
-          351,
-          199,
-          272
+          0,
+          0,
+          1024,
+          1024
         ],
-        "anchor_x": 108.5
+        "scale": 0.328528,
+        "anchor_x": 551.461
       },
       {
         "sheet": "motion_expanded.png",
@@ -209,5 +210,111 @@
     "visual_inspected": true,
     "notes": "Same costume, props and ink/watercolor identity preserved; 16 complete distinct poses. Per-pose reviewed silhouette bounds with 1px alpha<=24 border, rather than naive equal-grid cuts. Four idle, eight talk, two greet, two rest. Original alpha pixels preserved.",
     "ground_anchor": "Each frame origin uses center of lower 8% silhouette (10th–90th percentile x); prevents hand gesture width from translating body."
+  },
+  "character_motion_v5": {
+    "tool": "tools/build_character_motion_v5.py",
+    "brief": "art_requests/character_motion_v5/README.md",
+    "baseline_frames": {
+      "talk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            60,
+            356,
+            238,
+            267
+          ],
+          "anchor_x": 117.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            371,
+            351,
+            200,
+            273
+          ],
+          "anchor_x": 111.0
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            674,
+            350,
+            232,
+            273
+          ],
+          "anchor_x": 117.05
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            984,
+            351,
+            199,
+            272
+          ],
+          "anchor_x": 108.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            53,
+            643,
+            199,
+            276
+          ],
+          "anchor_x": 114.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            364,
+            645,
+            209,
+            274
+          ],
+          "anchor_x": 108.8
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            683,
+            647,
+            202,
+            272
+          ],
+          "anchor_x": 110.5
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            986,
+            649,
+            228,
+            268
+          ],
+          "anchor_x": 116.5
+        }
+      ]
+    },
+    "references": {
+      "H_npc_blind_bell_knight_talk3.png": {
+        "area": 29347,
+        "anchor_offset": -10.5
+      }
+    },
+    "sheets": [
+      {
+        "image": "H_npc_blind_bell_knight_talk3.png",
+        "sha256": "31115be15dcfe4784cace6d483f0bf2710824f737006e4bd5831ac559b3a0c48",
+        "animation": "talk",
+        "mode": "frame",
+        "index": 3,
+        "frames": 1,
+        "scale": 0.328528
+      }
+    ],
+    "rig_half_parity": 0
   }
 }

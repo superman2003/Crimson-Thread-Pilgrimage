@@ -1,0 +1,96 @@
+{
+  "bosses": 1,
+  "new_drawings": 48,
+  "coverage": [
+    {
+      "kind": "silent_pilgrim_commander",
+      "new_drawings": 48,
+      "sources": [
+        {
+          "image": "silent_pilgrim_commander_combat_01.png",
+          "sha256": "cf97095644dc098dd1c05a51aefd10763d110d1016403ec0818b9889bac94d59",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "combat_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_combat_02.png",
+          "sha256": "c60f9438e30985c18d917ab902d77b23f510bb11eea597c843749b5f3cb684e3",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "combat_02",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_combat_03.png",
+          "sha256": "1bf1cb48c58c4a2832032f050ee56597f3d049a686d5a2807ac9029a5cd9dfd9",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "combat_03",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_combat_04.png",
+          "sha256": "ca7f58c9880024c1bae8df9ef4127068627d14ced9529380e97523ec7a91708a",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "combat_04",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_recovery_01.png",
+          "sha256": "e677ca726534c0add7ac56394c6fc2f470e6b588d5cc848b25caf3ad936cf558",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "recovery_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_recovery_02.png",
+          "sha256": "9f36c67e08cca3e63301645725bdbdc58cd51c93381649a0c16b239fc04d6185",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "recovery_02",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_locomotion_01.png",
+          "sha256": "5bf6e26d0903585e877b332b9a7f0eb458d3eac6743a3c30ac7b2c88e03207bc",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "locomotion_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_pilgrim_commander_locomotion_02.png",
+          "sha256": "ba30c7fe4176f4770081381dd667e43112c91f0877ca9d61221e596b0438b8c3",
+          "prompt_sha256": "5980d488fd677be3f1731088b259261a265aa920b4793dac119e225e14a43b94",
+          "role": "locomotion_02",
+          "frames": 6
+        }
+      ],
+      "runtime": {
+        "id": "silent_pilgrim_commander",
+        "family": "original_creatures",
+        "animations": {
+          "idle": 8,
+          "walk": 16,
+          "windup": 7,
+          "attack": 7,
+          "recover": 13,
+          "hurt": 2,
+          "death": 4,
+          "heavy_windup": 7,
+          "heavy": 7,
+          "cast_windup": 7,
+          "cast": 7,
+          "phase_windup": 7,
+          "phase": 7,
+          "heavy_recover": 17,
+          "phase_recover": 17,
+          "cast_recover": 17
+        },
+        "frames": 150,
+        "canvas": [
+          464,
+          261
+        ],
+        "source_hash": "34a9ddbe27cd03fa3bf2b832b186da6ab665a4a6581b588983590f326e95ffed"
+      }
+    }
+  ]
+}

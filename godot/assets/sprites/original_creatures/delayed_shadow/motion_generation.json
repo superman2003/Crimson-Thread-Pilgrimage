@@ -338,21 +338,15 @@
     ],
     "recover": [
       {
-        "sheet": "motion_recover.png",
+        "source": "art_requests/character_motion_v5/incoming/H_delayed_shadow_recover0.png",
         "region": [
-          60,
-          192,
-          634,
-          407
+          0,
+          0,
+          1024,
+          1024
         ],
-        "component_seeds": [
-          [
-            248,
-            423
-          ]
-        ],
-        "scale": 0.44763860369609854,
-        "anchor_x": 211.5
+        "scale": 0.324843,
+        "anchor_x": 342.687
       },
       {
         "sheet": "motion_recover.png",
@@ -1380,5 +1374,99 @@
         }
       }
     ]
+  },
+  "character_motion_v5": {
+    "tool": "tools/build_character_motion_v5.py",
+    "brief": "art_requests/character_motion_v5/README.md",
+    "baseline_frames": {
+      "recover": [
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            60,
+            192,
+            634,
+            407
+          ],
+          "component_seeds": [
+            [
+              248,
+              423
+            ]
+          ],
+          "scale": 0.44763860369609854,
+          "anchor_x": 211.5
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            631,
+            149,
+            430,
+            449
+          ],
+          "component_seeds": [
+            [
+              960,
+              395
+            ]
+          ],
+          "scale": 0.44763860369609854,
+          "anchor_x": 183.5
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            1190,
+            124,
+            346,
+            473
+          ],
+          "component_seeds": [
+            [
+              1344,
+              402
+            ]
+          ],
+          "scale": 0.44763860369609854,
+          "anchor_x": 167.5
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            1676,
+            110,
+            359,
+            493
+          ],
+          "component_seeds": [
+            [
+              1877,
+              386
+            ]
+          ],
+          "scale": 0.44763860369609854,
+          "anchor_x": 224.5
+        }
+      ]
+    },
+    "references": {
+      "H_delayed_shadow_recover0.png": {
+        "area": 14215,
+        "anchor_offset": 29.5
+      }
+    },
+    "sheets": [
+      {
+        "image": "H_delayed_shadow_recover0.png",
+        "sha256": "01ea1ad38934d9b47383d0945f6863e3198e33b32e299c295cf17f96c0db2c0f",
+        "animation": "recover",
+        "mode": "frame",
+        "index": 0,
+        "frames": 1,
+        "scale": 0.324843
+      }
+    ],
+    "rig_half_parity": 0
   }
 }
