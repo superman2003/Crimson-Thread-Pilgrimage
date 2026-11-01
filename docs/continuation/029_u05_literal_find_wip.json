@@ -1,0 +1,97 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473
+  ],
+  "current_upgrade": {
+    "title": "U05 旅记与对话",
+    "ordinal": 29,
+    "branch": "codex/ledger-u05-literal-find-wip-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "locally verified, ready to reconcile actual PR/latest CI",
+    "scope": "Read-only literal search of one selected known journal body, Unicode native selection, case option, bounded results, bidirectional wrapping, unchanged original reading position",
+    "validation": {
+      "native": 33,
+      "actual_world": 23,
+      "original": "journal40, World reading355, UI fixture58, batch26 and UI World passed",
+      "other": "two strict resource imports, full npm test/campaign passed",
+      "limits": "native headless fixtures do not establish physical-device or natural-flow acceptance"
+    }
+  },
+  "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
+  "next_candidates": [
+    "Task30: inspect W01 named multi-stop itinerary drafts, if current source and claims leave a real gap. Existing single itinerary already persists, do not repeat it."
+  ],
+  "constraints": [
+    "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
+    "Use exact canonical ledger titles and substantial real Godot changes; average at least 500 non-document changed lines, excluding inherited changes.",
+    "Check all open PR current heads, latest CI attempts and conflicts before publishing the next PR; repair real failures first.",
+    "Do not restore browser games, weaken CI, remove valid tests, merge or close PRs.",
+    "Use isolated checkouts and expected-SHA guarded updates; preserve other agents' work and shared downstream fixes.",
+    "CI being green does not finish this continuation task; proceed with the next verified ledger upgrade until 40 are actually submitted.",
+    "C04/N01/E05 already claimed by open branches #441/#457/#449/#450; do not duplicate or count documentation scope PRs."
+  ],
+  "checkpoint_policy": "Use unique docs/continuation/NNN_task.json paths for concurrent upgrades; reconcile latest actual PRs, never overwrite earlier branches or count fix commits as new PRs.",
+  "review_assignment": "User arranges reviews. Focus only on new ledger PRs and necessary pre-submission validation; do not process review comments, merge or close PRs.",
+  "known_ci": {
+    "389": {
+      "head": "79c77d04ebd6f507da1fb54045928bb66ebf576a",
+      "status": "merged by another actor; no duplicate repair"
+    },
+    "396": {
+      "head": "6f1014b847f4f07107fd8b6f65883f86eef90d7a",
+      "status": "merged by another actor"
+    },
+    "397": {
+      "head": "e0a4069766b6e7a910057050e5c015455eb68af7",
+      "status": "merged by another actor; re-read new open PRs"
+    }
+  },
+  "ci_repairs": {
+    "433": "2673ff070157038bf458953b5d5ad73abe3a35a5",
+    "436": "9448e6cb30bd4038372b13d1fa7f595efbaec77b",
+    "440": "51dbcfc55522ff1cf2dfd4197629b80505de0a69",
+    "446": "b9f10fc58f710839587123956714622b79d5c9b5",
+    "448": "529e8d2a8d125653f57214df4d25d0a6646683da",
+    "457": "e91480bd461209caa2b58293bf53e5df0ddc6f85",
+    "461": "6e4d90fa85ae6aa300b5193f932fe9ed020aabec"
+  },
+  "ci_status": "Fresh GitHub pre29 read: no open PRs; do not count WIP until actual PR exists. No reviews, merges or closes performed.",
+  "independent_lines": {
+    "production": 164,
+    "tests_ci": 274,
+    "non_document": 438,
+    "submitted_batch_after_actual_pr": 14496,
+    "average_after_actual_pr": 499.86206896551727,
+    "required_remaining_total_for_40_average_500": 5504
+  }
+}

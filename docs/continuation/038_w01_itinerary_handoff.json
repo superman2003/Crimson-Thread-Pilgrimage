@@ -1,0 +1,78 @@
+{
+  "target_pr_count": 40,
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395,
+    396,
+    397,
+    404,
+    458,
+    459,
+    460,
+    461,
+    472,
+    473,
+    475,
+    476,
+    477,
+    478,
+    479,
+    480,
+    481,
+    482,
+    483
+  ],
+  "current_upgrade": {
+    "ordinal": 38,
+    "title": "W01 探索路线",
+    "branch": "codex/ledger-w01-itinerary-handoff-21ca",
+    "base_sha": "5af735c7a5a8dd8e0d29879996aa1c6ebdc372aa",
+    "status": "locally verified; count after actual PR exists",
+    "scope": "Bridge existing advanced itinerary candidate solver to actual paused six-stop HUD plan after live map knowledge and explicit confirmation; no duplicated analysis/import/export"
+  },
+  "validation": {
+    "native": "32 native solver/knowledge/confirmation/real disk writer conflict checks passed",
+    "world": "25 actual workbench/map/HUD checks including 12 repeated child open/close cycles, exact game save bytes unchanged",
+    "regression": "original itinerary27, defer30, advanced analysis/records module, UI World passed; actual prior #476 draft library36 with new plan implementation passed",
+    "gates": "two clean strict imports, complete npm test and campaign,3 strict negative/workflow runner tests passed"
+  },
+  "independent_lines": {
+    "production": 157,
+    "tests_ci": 323,
+    "data": 0,
+    "non_document": 480,
+    "batch_after_real_pr": 18748,
+    "average_after_real_pr": 493.36842105263156,
+    "remaining_for_40_average500": 1252
+  },
+  "ci_status": "Latest open heads no current failed/cancelled checks; #483 and #482 pending, not pass. Fresh refs and latest attempts must be read before39.",
+  "constraints": [
+    "No review/comment handling, approval, merge or close; user arranges reviews.",
+    "Preserve tests and strict time limits; no browser game restoration or padded code/data counts.",
+    "Expected_sha updates, remote API/ref/git verification, isolated worktrees."
+  ],
+  "limits": [
+    "Candidate solution is computed from its recorded graph; only live known target order is adopted. Time, distance, abilities, physical passability and movement are not installed.",
+    "Authoritative native fixture seeds visited/charted rooms, not natural exploration. Strict World runner caught freed closure despite passing counters; weak ownership/disconnection fixed and clean re-run accepted.",
+    "Route writer locks cover current plan commands and handoff; a busy or changed disk state is rejected, not forcibly recovered."
+  ],
+  "next": "Inspect U01 actual small-viewport/large-font controller and output settings dialog reachability; reuse existing journey_window_layout, do not duplicate it. Continue39–40.",
+  "inherited_fix": "Preserve #476 exact-four-source sparse checkout in ledger-expedition-defer.yml; inherited change excluded from independent count."
+}

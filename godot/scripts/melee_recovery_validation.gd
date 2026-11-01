@@ -218,13 +218,51 @@ func _recovery_cancel(player: CharacterBody2D) -> void:
 	await _until(func() -> bool: return player.dash_timer <= 0.0 and player.is_on_floor(), 90)
 	player._reset_traversal_state()
 	await _frames(2)
-	player._start_attack(&"hook_throw")
-	await _until(func() -> bool: return player.attack_duration - player.attack_timer > player.attack_windup + player.attack_active_time and player.attack_timer > 0.0)
+	Input.action_press("hook")
+	var hook_started := await _until(func() -> bool: return player.attack_timer > 0.0, 4)
+	Input.action_release("hook")
+	var hook_frame := Engine.get_physics_frames()
+	_check(hook_started and player.current_attack == &"hook_throw", "hook probe throw starts from real input")
+	_check(await _until(in_active), "hook probe reaches the active frames")
 	await _tap("jump")
-	_check(player.jump_buffer_timer > 0.0 and player.attack_timer > 0.0 and player.velocity.y >= 0.0 and player.recovery_cancel_count == 2, "a hook throw keeps its full recovery")
+	_check(player.attack_timer > 0.0 and player.velocity.y >= 0.0 and player.recovery_cancel_count == 2, "a jump during the hook's active frames does not cut the throw")
+	player.jump_buffer_timer = 0.0
+	_check(await _until(in_recovery), "hook probe reaches the recovery")
+	var hook_left: float = player.attack_timer
+	await _tap("jump")
+	_check(player.attack_timer == 0.0 and player.velocity.y < 0.0 and player.recovery_cancel_count == 3, "a jump in the hook recovery cuts the throw and leaves the ground")
+	_check(player.attack_cancel_lock > 0.0 and player.attack_cancel_lock <= hook_left, "the cut hook recovery is owed as a strike lock")
+	await _tap("hook")
+	_check(player.attack_timer == 0.0, "a hook pressed while its recovery is owed does not throw again")
+	await _tap("attack")
+	_check(player.attack_timer == 0.0 and player.buffered_action == &"attack", "a swing pressed under the owed hook recovery waits")
+	_check(await _until(func() -> bool: return player.attack_timer > 0.0, 16), "the buffered swing starts once the hook recovery is paid")
+	var hook_cadence := float(Engine.get_physics_frames() - hook_frame) * tick
+	_check(hook_cadence >= 0.42 - tick * 1.5, "jump-cancelling a hook never strikes sooner than its full recovery (%.3fs >= 0.420s)" % hook_cadence)
 	await _until(func() -> bool: return player.attack_timer <= 0.0 and player.is_on_floor(), 90)
 	player._reset_traversal_state()
+	await _frames(2)
+	player._start_attack(&"hook_throw")
+	await _until(in_recovery)
+	var dash_x: float = player.global_position.x
+	await _tap("dash")
+	_check(player.dash_timer > 0.0 and player.attack_timer == 0.0 and player.recovery_cancel_count == 4, "a dash in the hook recovery cuts the throw")
+	await _frames(3)
+	_check(absf(player.global_position.x - dash_x) > 20.0, "the hook-cancelling dash actually moves the player")
+	await _until(func() -> bool: return player.dash_timer <= 0.0 and player.is_on_floor(), 90)
+	player._reset_traversal_state()
 	_check(player.attack_cancel_lock == 0.0, "traversal reset clears an owed recovery")
+	player.energy = 100
+	player.skill_cooldown = 0.0
+	await _frames(2)
+	_check(player.cast_selected_skill() and not player.active_skill.is_empty(), "a thread art starts for the commitment probe")
+	var art_recovery := func() -> bool:
+		return player.attack_timer > 0.0 and player.attack_duration - player.attack_timer > player.attack_windup + player.attack_active_time
+	_check(await _until(art_recovery), "the thread art reaches its recovery")
+	await _tap("jump")
+	_check(player.attack_timer > 0.0 and player.recovery_cancel_count == 4, "a thread art still keeps its full recovery")
+	await _until(func() -> bool: return player.attack_timer <= 0.0 and player.is_on_floor(), 90)
+	player._reset_traversal_state()
 	await _frames(2)
 
 
