@@ -338,8 +338,8 @@ var dash_timer: float = 0.0
 var dash_cooldown: float = 0.0
 var land_timer: float = 0.0
 var attack_timer: float = 0.0
-## C01: jump/dash may cut a nail swing's recovery, but the rest of that
-## recovery is still owed before the next strike (attack, hook throw, art).
+## C01: jump/dash may cut a nail swing's or hook throw's recovery, but the rest
+## of that recovery is still owed before the next strike (attack, hook throw, art).
 var attack_cancel_lock := 0.0
 ## Diagnostic: swings whose recovery was cut by a jump or dash.
 var recovery_cancel_count := 0
@@ -903,10 +903,10 @@ func _consume_action_input(action: StringName) -> bool:
     return true
 
 
-## A plain nail swing (not a hook throw or thread art) commits through its
-## wind-up and active frames; only its recovery may be cut.
+## A nail swing or hook throw (not a thread art) commits through its wind-up
+## and active frames; only its recovery may be cut.
 func _attack_recovery_cancelable() -> bool:
-    if attack_timer <= 0.0 or not active_skill.is_empty() or current_attack not in [&"attack_1", &"attack_2"]:
+    if attack_timer <= 0.0 or not active_skill.is_empty() or current_attack not in [&"attack_1", &"attack_2", &"hook_throw"]:
         return false
     return attack_duration - attack_timer > attack_windup + attack_active_time
 
