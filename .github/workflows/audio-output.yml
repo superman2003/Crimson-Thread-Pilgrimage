@@ -22,6 +22,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: false
+          sparse-checkout: |
+            /godot/scripts/audio_output_preferences.gd
+            /godot/scripts/audio_output_dialog.gd
+            /godot/scripts/journey_desk_store.gd
+            /godot/scripts/audio_output_validation.gd
+            /tools/run_audio_output_contract.py
+          sparse-checkout-cone-mode: false
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip

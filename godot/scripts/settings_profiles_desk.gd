@@ -10,6 +10,7 @@ var confirm: ConfirmationDialog
 var selected:=""
 var pending: Dictionary={}
 var transfer: ConfirmationDialog
+var comparison: AcceptDialog
 
 static func install(shell: Control) -> void:
     var world: Variant=shell.level.get("world_mode")
@@ -46,6 +47,8 @@ func _build() -> void:
     export_button.name="ExportSettingsCode"
     var import_button: Button=window.button(sharing,"从分享码创建方案",func():open_transfer("import"))
     import_button.name="ImportSettingsCode"
+    var compare_button: Button=window.button(sharing,"比较两套保存方案",open_comparison)
+    compare_button.name="CompareSavedSettings"
     window.footer()
     confirm=ConfirmationDialog.new();confirm.title="核对设置方案";confirm.min_size=Vector2i(620,250);window.add_child(confirm)
     ui.register_text_entry_window(confirm)
@@ -53,7 +56,8 @@ func _build() -> void:
     window.visibility_changed.connect(func():
         if not window.visible:
             confirm.hide();pending={}
-            if is_instance_valid(transfer):transfer.hide())
+            if is_instance_valid(transfer):transfer.hide()
+            if is_instance_valid(comparison):comparison.hide())
 
 func open() -> void:
     if not ui.settings.is_visible_in_tree():return
@@ -108,3 +112,10 @@ func open_transfer(mode: String) -> void:
     var source:=window.find_child("ExportSettingsCode" if mode=="export" else "ImportSettingsCode",true,false) as Control
     if mode=="export":transfer.open_export(self,source)
     else:transfer.open_import(self,source)
+
+func open_comparison() -> void:
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
+    if not is_instance_valid(comparison):
+        comparison=preload("res://scripts/settings_comparison_dialog.gd").new()
+        comparison.name="SettingsComparisonWindow";window.add_child(comparison)
+    comparison.open_for(self)

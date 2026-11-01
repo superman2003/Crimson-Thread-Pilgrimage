@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["contract_batch_settlement.gd", "field_contract_browser_validation.gd", "field_contract_desk.gd", "field_contracts.gd", "field_transaction.gd", "journey_desk_window.gd", "journey_window_layout.gd", "world_coordinates.gd", "world_state.gd"]
+SCRIPTS = ["contract_batch_settlement.gd", "field_contract_browser_validation.gd", "field_contract_desk.gd", "field_contracts.gd", "field_transaction.gd", "field_receipt_owner.gd", "transaction_receipt_ledger.gd", "journey_desk_window.gd", "journey_window_layout.gd", "world_coordinates.gd", "world_state.gd"]
 MARKER = re.compile("^FIELD_CONTRACT_BROWSER checks=[1-9][0-9]* failures=0$", re.M)
 
 

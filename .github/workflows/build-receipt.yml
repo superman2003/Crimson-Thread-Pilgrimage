@@ -1,0 +1,45 @@
+name: T05 native release build receipt
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/build_receipt*.gd'
+      - 'godot/scripts/credits_reader.gd'
+      - 'tools/build_release.py'
+      - 'tools/run_build_receipt_contract.py'
+      - 'tools/test_build_receipt_runner.py'
+      - '.github/workflows/build-receipt.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: build-receipt-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-receipt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Strict runner failure propagation and real packager receipt
+        run: |
+          python3 tools/test_build_receipt_runner.py
+          python3 tools/run_build_receipt_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/receipt-native"
+      - name: Two strict resource imports
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/receipt-import"
+      - name: Actual World nested receipt and original reading contracts
+        run: |
+          python3 tools/run_build_receipt_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/receipt-world"
+          python3 tools/run_credits_reader_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/receipt-credits"
+          python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite settings_remap --suite ui_world_integration --log-dir "$RUNNER_TEMP/receipt-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-receipt-logs
+          path: ${{ runner.temp }}/receipt-*
