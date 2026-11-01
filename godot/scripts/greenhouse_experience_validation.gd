@@ -190,6 +190,9 @@ func room_views() -> void:
     world.player.respawn_at(Vector2(5110, 762))
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "dome_approach", "Actual respawn signal restores the dome rest before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the dome rest")
+    await vine_exit_jumps(world)
+    await root_vault_steps(world)
+    await crown_return_jumps(world)
     var next_path := "res://data/demo_ch05_obsidian_pilgrim_road.json"
     var next_data: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(next_path))
     world._travel_world(next_path, Vector2(next_data.player_start[0], next_data.player_start[1]))
@@ -202,3 +205,132 @@ func room_views() -> void:
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## Positioned production geometry fixture. Actors and region scheduling are
+## paused; only the actual Player physics runs. This is not natural traversal.
+func vine_exit_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Vine exit fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(5480,1360)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Vine exit fixture stands on the actual ninth vine")
+    var hp: int=player.hp
+    for point in [Vector2(5350,1252),Vector2(5360,1186)]:
+        if not await vine_exit_jump(world,point):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary vine exit jumps preserve health with actors paused")
+    pause_world(world)
+
+func vine_exit_jump(world: Node,target: Vector2,label: String="vine exit") -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    Input.action_press("jump")
+    for frame in 100:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if frame>5 and player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["jump","move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary jump reaches "+label+" "+str(target))
+            return true
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production ordinary %s jump blocked at %s toward %s" % [label,world.player.position,target])
+    return false
+
+## Production root-vault shaft fixture; actors remain paused and harmless.
+## The positioned fixture exercises ordinary movement, not natural exploration.
+func root_vault_steps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Root vault fixture uses ordinary movement without extra climbing abilities")
+    player.global_position=Vector2(2750,1602)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Root vault fixture stands on the actual tree heart")
+    var hp: int=player.hp
+    for target in [Vector2(2560,1732),Vector2(2730,1856)]:
+        if not await root_vault_walk(world,target):
+            pause_world(world)
+            return
+    if not await root_vault_walk(world,Vector2(2656,1856)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2550,1732),"root vault lower step return"):
+        pause_world(world)
+        return
+    if not await root_vault_walk(world,Vector2(2590,1732)):
+        pause_world(world)
+        return
+    if not await vine_exit_jump(world,Vector2(2770,1602),"tree heart return"):
+        pause_world(world)
+        return
+    check(player.hp==hp,"Ordinary root vault descent and return preserve health with actors paused")
+    pause_world(world)
+
+func root_vault_walk(world: Node,target: Vector2) -> bool:
+    for action in ["jump","move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    await frames(3)
+    for frame in 150:
+        var player: CharacterBody2D=world.player
+        var dx: float=target.x-player.position.x
+        for action in ["move_left","move_right"]:
+            if Input.is_action_pressed(action):Input.action_release(action)
+        if absf(dx)>4:Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if player.is_on_floor() and absf(dx)<16 and absf(player.position.y-target.y)<8:
+            for action in ["move_left","move_right"]:
+                if Input.is_action_pressed(action):Input.action_release(action)
+            check(true,"Production ordinary root vault walk reaches "+str(target))
+            return true
+    for action in ["move_left","move_right"]:
+        if Input.is_action_pressed(action):Input.action_release(action)
+    check(false,"Production root vault drop blocked at %s toward %s" % [world.player.position,target])
+    return false
+
+## Positioned production return to the canopy, with ordinary jumps only.
+func crown_return_jumps(world: Node) -> void:
+    pause_world(world)
+    var player: CharacterBody2D=world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked,"Crown return fixture uses ordinary jumps without extra climbing abilities")
+    player.global_position=Vector2(3660,1054)
+    player.velocity=Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    pause_world(world)
+    for enemy in get_nodes_in_group("enemy"):
+        if enemy is Area2D:enemy.set_deferred("monitoring",false)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(),"Crown return fixture stands on the actual fifth rising vine")
+    var hp: int=player.hp
+    for target in [Vector2(3770,948),Vector2(3770,882)]:
+        if not await vine_exit_jump(world,target,"crown return"):
+            pause_world(world)
+            return
+    check(player.hp==hp,"Ordinary crown return reaches the canopy without damage with actors paused")
+    pause_world(world)

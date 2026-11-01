@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_drain_leech.png",
+  "kind": "drain_leech",
+  "image_sha256": "4fa0d6c3ee73efbe00abdf9bdbf61607d8c4e8d9d65e4e3943461f8a2f0438d4",
+  "prompt_sha256": "009c7ae693c0c75d70ce83c7b9ffe70a48bdbc949d523aaa08f2ac60592c684b",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/drain_leech.png",
+  "reference_sha256": "22898b9573becf583f42aedadac0595fcc2ee240b342bcce5979a8d740c2b198",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "leech_drain_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        527,
+        273
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        172,
+        49,
+        428,
+        251
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "leech_drain_warning",
+      "rect_xyxy": [
+        527,
+        0,
+        1031,
+        273
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        666,
+        49,
+        921,
+        252
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "leech_drain_warning",
+      "rect_xyxy": [
+        1031,
+        0,
+        1536,
+        273
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1159,
+        49,
+        1439,
+        251
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "leech_drain_execution",
+      "rect_xyxy": [
+        0,
+        273,
+        489,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        86,
+        311,
+        435,
+        483
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "leech_drain_execution",
+      "rect_xyxy": [
+        489,
+        273,
+        1065,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        545,
+        299,
+        1024,
+        488
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "leech_drain_execution",
+      "rect_xyxy": [
+        1065,
+        273,
+        1536,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1107,
+        337,
+        1484,
+        479
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "leech_leap_warning",
+      "rect_xyxy": [
+        0,
+        511,
+        503,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        203,
+        532,
+        417,
+        725
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "leech_leap_warning",
+      "rect_xyxy": [
+        503,
+        511,
+        1024,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        690,
+        532,
+        907,
+        725
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "leech_leap_warning",
+      "rect_xyxy": [
+        1024,
+        511,
+        1536,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1176,
+        532,
+        1408,
+        725
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "leech_leap_execution",
+      "rect_xyxy": [
+        0,
+        739,
+        511,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        83,
+        791,
+        447,
+        979
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "leech_leap_execution",
+      "rect_xyxy": [
+        511,
+        739,
+        1046,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        576,
+        749,
+        1013,
+        980
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "leech_leap_execution",
+      "rect_xyxy": [
+        1046,
+        739,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1081,
+        760,
+        1478,
+        981
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "?????????????????/?????????????",
+    "rows_reviewed": [
+      "leech_drain_warning",
+      "leech_drain_execution",
+      "leech_leap_warning",
+      "leech_leap_execution"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

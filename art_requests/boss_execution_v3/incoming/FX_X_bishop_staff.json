@@ -1,0 +1,144 @@
+{
+  "schema": "boss-execution-source-v3",
+  "image": "FX_X_bishop_staff.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/boss_execution_v3/README.md",
+  "image_sha256": "390d7f5819ca8778f844d5100e8882e81aa6d8721158ddbffc981d0956e2cc84",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_X_bishop_staff.txt",
+  "prompt_sha256": "0a7ed822079123624393d8351112f9540490a5f98fd18cb1799d13769d272b29",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      512
+    ],
+    "canvas_size": [
+      1536,
+      1024
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "See godot/assets/vfx/boss_skills/manifest.json for measured per-cel registration and scale.",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        471,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        43,
+        52,
+        405,
+        449
+      ],
+      "fully_transparent_pixels": 158693
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        471,
+        0,
+        1015,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        521,
+        34,
+        1003,
+        482
+      ],
+      "fully_transparent_pixels": 153863
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1015,
+        0,
+        1536,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1030,
+        27,
+        1524,
+        495
+      ],
+      "fully_transparent_pixels": 97071
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        511,
+        510,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        18,
+        529,
+        507,
+        978
+      ],
+      "fully_transparent_pixels": 117827
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        510,
+        511,
+        1049,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        550,
+        537,
+        1018,
+        979
+      ],
+      "fully_transparent_pixels": 159167
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1049,
+        511,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1082,
+        605,
+        1504,
+        958
+      ],
+      "fully_transparent_pixels": 197526
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "../combat_presentation_v2/refs/broken_string_gardener.png",
+      "sha256": "2212526912785e31ffb39ecbdf4960bf14bd67fe85225d525c15381daf62c9b5"
+    }
+  ],
+  "usage": "Source QA only. Original PNG bytes retained. Actual runtime atlas registration and visual/regression evidence are recorded separately in art_requests/boss_execution_v3/README.md.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "date": "2026-10-23",
+    "notes": "Inspected generated six-cel sheet: material follows the referenced boss, active contours differ from anticipation, no characters or scenery, six distinct release/follow-through cels. Selected sources pass alpha and measured gutter checks.",
+    "runtime_acceptance": "pending"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "integrated_base": "f26b9c2d0686d61d3982274f81987fb6cc12be1e",
+  "tested_integration_head": "56c28d276f31d85377430ad973e34ce8c28ba14f",
+  "scope": "MSDF font remains shared on zoomed content; fixed title/buttons/hints reuse HUD font. No deferred work at map opening, no controls removed, no scale/size/gameplay changes.",
+  "targeted": "Same observer and world wrapper: first pin-control construction109125 to6849us; map panel68635 to10875us. This is method timing, not target-hardware FPS acceptance.",
+  "full_profile": "Same diagnostic,3 cycles/21 transitions/3 deaths/63 UI operations, no failure/ERROR/warning and final orphan/voice zero. Overall max sampled frame153701 to184688us worsened in a region construction batch; no overall peak-frame improvement claimed. Initial World load~1.1s remains.",
+  "source_scope": "Timing QA includes previous Player prewarm prototype and #173 spawn pruning, differs from current main. Four relevant function bodies match final integration. Source hashes captured after verification; CRLF and LF hashes distinguished.",
+  "tests": "Initial six native GL suites pass assertions; four have one ObjectDB warning each. After integrating current main including #168/#170/#172, map-player-pins150 and async-loading492 pass with zero exit warnings. Original warnings retained, not credited as a local font fix. Two strict imports were on initial base before integration.",
+  "mutation": "Restoring original whole-panel font causes exactly two expected new semantic assertion failures. Original production file bytes restored. Expected ERROR log retained separately.",
+  "visual": "Actual1280x720 native GL regional/world/4x fixture views before/after manually examined, static toolbar remains fixed, scalable glyphs retained. Bounded4x viewport crop identical;1x views differ slightly, no full-image identity claim. Geometry/zoom/input assertions are separate evidence; not natural gameplay or physical-controller acceptance.",
+  "remaining": "Other construction/frame spikes including observed185ms, World initial load, integrated long soak, actual controller/audio/user playtests and final exported release gates remain open."
+}

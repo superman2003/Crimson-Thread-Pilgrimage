@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_haze.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_haze.txt",
+  "prompt_sha256": "fb74f3971bdb990ff456fb6551cac1be09611f7fc03dce8c6d1f6b8a197b9439",
+  "image_sha256": "10ad2c45b4ebfccd85d94ef0cc021850e700928b47dbca27683778f5bed70b15",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1219737,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/rain_censer_mote.png",
+      "sha256": "60a83b3a71bc090f531d6aaa7fdb3985b01e4979caa7e383015d5ae5c36ec830"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/pollen_lutist.png",
+      "sha256": "e081c6b10f1c4a748accd32b27e3ecc3e69fcd089bf6526a22c23697f3b198a8"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        433,
+        470
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        54,
+        290,
+        390,
+        385
+      ],
+      "fully_transparent_pixels": 175647
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        433,
+        0,
+        885,
+        470
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        478,
+        245,
+        860,
+        387
+      ],
+      "fully_transparent_pixels": 169315
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        885,
+        0,
+        1326,
+        470
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        908,
+        221,
+        1302,
+        388
+      ],
+      "fully_transparent_pixels": 154181
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1326,
+        0,
+        1774,
+        470
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1353,
+        228,
+        1745,
+        387
+      ],
+      "fully_transparent_pixels": 160655
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        470,
+        448,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        34,
+        616,
+        426,
+        789
+      ],
+      "fully_transparent_pixels": 135157
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        448,
+        470,
+        893,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        470,
+        614,
+        868,
+        791
+      ],
+      "fully_transparent_pixels": 128028
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        893,
+        470,
+        1332,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        920,
+        621,
+        1270,
+        786
+      ],
+      "fully_transparent_pixels": 139100
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1332,
+        470,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1398,
+        628,
+        1703,
+        783
+      ],
+      "fully_transparent_pixels": 157654
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "煙圈",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

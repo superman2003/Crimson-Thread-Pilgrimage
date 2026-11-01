@@ -2,7 +2,7 @@ extends Control
 ## A quiet room silhouette. Room metadata retains the full survey geometry;
 ## the overview deliberately omits subpixel platforms and collision edges.
 const PAPER := Color("172321")
-const INK := Color("c7cbb5")
+const INK := Color("dfcfb0")
 const MUTED := Color("8b9c90")
 const ACCENT := Color("e7ad7f")
 const GOLD := Color("bda176")
@@ -64,9 +64,9 @@ static func boundaries(rooms: Array[Rect2]) -> Array[PackedVector2Array]:
     return result
 
 func _draw() -> void:
-    for rect in base_rooms: draw_rect(rect, Color("23322e"))
-    for polygon in base_edges: edge(polygon, Color("53675c"), 1.0)
-    for rect in charted_rooms: draw_rect(rect, Color("3a5148"))
+    for rect in base_rooms: draw_rect(rect, Color("18292a"))
+    for polygon in base_edges: edge(polygon, Color("52635a"), 1.0)
+    for rect in charted_rooms: draw_rect(rect, Color("263a36"))
     for polygon in charted_edges: edge(polygon, INK, 1.0)
     # No perimeter strokes on terrain: they previously turned every platform
     # into a tiny ladder and doubled shared room boundaries.

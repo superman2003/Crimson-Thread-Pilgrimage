@@ -1,0 +1,43 @@
+extends "res://scripts/main_level.gd"
+var spawn_profile: Array[Dictionary] = []
+var _active: Dictionary = {}
+func _record(label: String, start: int) -> void:
+    if _active.is_empty(): return
+    _active[label+"_usec"] = int(_active.get(label+"_usec",0)) + Time.get_ticks_usec()-start
+    _active[label+"_calls"] = int(_active.get(label+"_calls",0)) + 1
+func _enemy(data: Dictionary) -> Area2D:
+    _active={"region":String(config.get("id","")),"id":String(data.get("id","")),"kind":String(data.get("kind",""))}
+    var start:=Time.get_ticks_usec()
+    var result: Area2D=super._enemy(data)
+    _record("total",start)
+    _active["position"]=[result.position.x,result.position.y]
+    _active["floor"]=String(result.get_meta("platform_id",""))
+    spawn_profile.append(_active)
+    _active={}
+    return result
+func _resolve_enemy_spawn_position(data: Dictionary) -> Vector2:
+    var start:=Time.get_ticks_usec()
+    var result: Vector2=super._resolve_enemy_spawn_position(data)
+    _record("resolve",start)
+    return result
+func _enemy_platform_movement_bounds(id: String,position: Vector2,data: Dictionary) -> Array:
+    var start:=Time.get_ticks_usec()
+    var result: Array=super._enemy_platform_movement_bounds(id,position,data)
+    _record("bounds",start)
+    if not _active.is_empty(): _active["bounds"]=result
+    return result
+func _enemy_spawn_rect_clear(position: Vector2,width: float=36.0,height: float=104.0,floor_id: String="") -> bool:
+    var start:=Time.get_ticks_usec()
+    var result: bool=super._enemy_spawn_rect_clear(position,width,height,floor_id)
+    _record("clearance",start)
+    return result
+func _make_enemy_prefab(data: Dictionary,profile: Dictionary) -> Area2D:
+    var start:=Time.get_ticks_usec()
+    var result: Area2D=super._make_enemy_prefab(data,profile)
+    _record("prefab",start)
+    return result
+func _take_gameplay_prefab(kind: String,data: Dictionary,profile: Dictionary={}) -> Area2D:
+    var start:=Time.get_ticks_usec()
+    var result: Area2D=super._take_gameplay_prefab(kind,data,profile)
+    _record("take_prefab",start)
+    return result

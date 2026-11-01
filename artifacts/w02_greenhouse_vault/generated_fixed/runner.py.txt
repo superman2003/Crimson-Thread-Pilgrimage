@@ -1,0 +1,30 @@
+import pathlib,subprocess,json,os,time,re,datetime,sys,gzip
+root=pathlib.Path.cwd();out=root/'artifacts'/'w02_greenhouse_vault'/sys.argv[1];out.mkdir(parents=True,exist_ok=True);engine=pathlib.Path(os.environ['TEMP'])/'ctp-godot-4.6.1/Godot_v4.6.1-stable_win64.exe';markers=json.loads((root/'tools/godot_suite_success_markers.json').read_text(encoding='utf-8'));results=[]
+sys.path.insert(0,str(root/'tools'));from run_damage_route import freeze
+from run_godot_regressions import render_loop_args
+original_freeze=freeze
+import hashlib
+def freeze():
+ result=original_freeze()
+ for name in ['output/run_greenhouse_vault_suites.py','tools/run_godot_regressions.py','tools/godot_suite_success_markers.json','tools/build_chapter_terrain.py','tools/build_cave_world.py','godot/scripts/world_greenhouse_route_playback.gd','tools/run_greenhouse_route.py','artifacts/t04_salt_judge/earned_judge_seed.json','godot/scripts/world_greenhouse_vault_playback.gd','tools/run_greenhouse_vault.py','artifacts/t04_greenhouse/earned_heart_seed.json']:
+  result[name]=hashlib.sha256((root/name).read_bytes()).hexdigest()
+ return result
+(out/'validation.gd.txt').write_bytes((root/'godot/scripts/greenhouse_experience_validation.gd').read_bytes())
+(out/'runner.py.txt').write_bytes(pathlib.Path(__file__).read_bytes())
+(out/'source.diff').write_bytes(subprocess.check_output(['git','-c','core.safecrlf=false','diff','HEAD','--','godot'],cwd=root))
+before=freeze()
+for name in sys.argv[2:]:
+ cmd=[str(engine),'--path',str(root/'godot'),'--script','res://scripts/'+name+'_validation.gd','--fixed-fps','60','--audio-driver','Dummy','--position','-32000,-32000']
+ cmd+=render_loop_args(True,name)
+ start=time.monotonic();code=None;timeout=False;print('Running',name,flush=True)
+ p=out/(name+'.log')
+ with p.open('w',encoding='utf-8',newline='\n') as f:
+  try:code=subprocess.run(cmd,stdout=f,stderr=subprocess.STDOUT,timeout=180).returncode
+  except subprocess.TimeoutExpired:timeout=True
+ t=p.read_text(encoding='utf-8',errors='replace');errors=re.findall(r'^\s*(?:ERROR:|SCRIPT ERROR:).*$',t,re.M);marker=re.search(markers[name],t,re.M)
+ item=dict(suite=name,command=cmd,seconds=round(time.monotonic()-start,2),exit=code,timed_out=timeout,engine_errors=errors,completion=marker.group(0) if marker else None,objectdb_warnings=t.count('ObjectDB instances leaked'),passed=code==0 and not timeout and not errors and bool(marker));results.append(item);print(item,flush=True)
+ (out/(name+'.log.gz')).write_bytes(gzip.compress(p.read_bytes(),mtime=0));p.unlink()
+after=freeze()
+for k,v in [('before',before),('after',after)]: (out/('source-'+k+'.json.gz')).write_bytes(gzip.compress((json.dumps(v,indent=2)+'\n').encode(),mtime=0))
+(out/'verification.json').write_text(json.dumps(dict(date=datetime.datetime.now().astimezone().isoformat(),head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),source_files=len(before),source_unchanged=before==after,engine='Godot 4.6.1 native NVIDIA GL',timeout_seconds=180,results=results),indent=2)+'\n',encoding='utf-8',newline='\n')
+sys.exit(0 if before==after and all(r['passed'] for r in results) else 1)

@@ -1,0 +1,29 @@
+Running lift_service
+PASS: lift_service
+CHECK PASS calling from landing never teleports waiting player
+LIFT_SERVICE checks=20 failures=0
+Running input_prompt
+PASS: input_prompt
+AUDIO_RETIREMENT pending=0 elapsed_msec=26 observed=3 retired=6
+INPUT_PROMPT_VALIDATION checks=38 failures=0
+Running obsidian_dock_clearance
+PASS: obsidian_dock_clearance
+PASS upper gallery actual ground reached with ordinary jump
+OBSIDIAN_DOCK_CLEARANCE failures=0
+Running application_close
+PASS: application_close
+AUDIO_RETIREMENT pending=0 elapsed_msec=9 observed=2 retired=2
+APPLICATION_CLOSE_VALIDATION checks=12 failures=0
+Running save_desk
+PASS: save_desk
+CHECK PASS all replaced Worlds release actual playback
+SAVE_DESK checks=27 failures=0
+Running craft_cart
+PASS: craft_cart
+CHECK PASS cart fixture releases real World audio ownership
+CRAFT_CART checks=31 failures=0
+Running wish_reward_atomic
+PASS: wish_reward_atomic
+CHECK PASS World audio ownership retires
+WISH_REWARD_ATOMIC checks=46 failures=0
+GODOT_REGRESSIONS suites=7 failures=0

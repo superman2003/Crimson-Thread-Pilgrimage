@@ -1,0 +1,177 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_death_unweave.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "02aaa930cf817e3e2835a12e479a6f963a20296152b98921265c3db07e285b75",
+  "image_size": [
+    1774,
+    887
+  ],
+  "prompt_file": "FX_H2_death_unweave.txt",
+  "prompt_sha256": "2c92c0731c6ff4cad6f53738eaaa68751eba1b31b149741038280a0bddf71403",
+  "requested_frames": 8,
+  "requested_layout": {
+    "columns": 4,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1536,
+      768
+    ]
+  },
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "requested_anchor": "body",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        463,
+        458
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        44,
+        65,
+        414,
+        415
+      ],
+      "fully_transparent_pixels": 149190
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        463,
+        0,
+        880,
+        458
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        512,
+        53,
+        816,
+        416
+      ],
+      "fully_transparent_pixels": 121366
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        880,
+        0,
+        1328,
+        458
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        945,
+        55,
+        1271,
+        417
+      ],
+      "fully_transparent_pixels": 129064
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1328,
+        0,
+        1774,
+        458
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1387,
+        60,
+        1737,
+        419
+      ],
+      "fully_transparent_pixels": 131284
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        458,
+        454,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        54,
+        502,
+        405,
+        841
+      ],
+      "fully_transparent_pixels": 124551
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        454,
+        458,
+        891,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        506,
+        510,
+        836,
+        845
+      ],
+      "fully_transparent_pixels": 126836
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        891,
+        458,
+        1345,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        947,
+        500,
+        1283,
+        850
+      ],
+      "fully_transparent_pixels": 140996
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1345,
+        458,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1409,
+        512,
+        1710,
+        838
+      ],
+      "fully_transparent_pixels": 154628
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "8 cels in 4x2: empty silk cocoon loses tension and unravels into separated ribbons. No corpse, gore or successful-heal knot. Source sequence visually distinct from weaving on respawn.",
+    "runtime_acceptance": "pending"
+  }
+}

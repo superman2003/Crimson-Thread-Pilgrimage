@@ -113,6 +113,12 @@ func _run() -> void:
     hook_enemy.queue_free()
     await _frames(2)
 
+    # The hook uses a real authored recovery. Render/physics scheduling must
+    # not turn this independent skill check into an unintended cancel attempt.
+    for recovery_frame in 60:
+        if player._can_start_action(): break
+        await _frames(1)
+    _assert(player._can_start_action(), "hook recovery settles before the independent skill case")
     var burst_enemy := _spawn_enemy(Vector2(154, 140), 4, profiles.get("moss_larva", {}))
     await _frames(3)
     player.energy = player.skill_energy_cost

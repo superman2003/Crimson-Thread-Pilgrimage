@@ -1,0 +1,39 @@
+name: T01 C04 course review and completion filters
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/journey_desk_store.gd'
+      - 'godot/scripts/journey_desk_window.gd'
+      - 'godot/scripts/practice_curriculum.gd'
+      - 'godot/scripts/practice_desk.gd'
+      - 'godot/scripts/practice_review_validation.gd'
+      - 'tools/run_practice_review_contract.py'
+      - '.github/workflows/ledger-practice-review.yml'
+      - 'godot/data/practice_curriculum.json'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: practice_review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native production component contract
+        run: python3 tools/run_practice_review_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/native-contract"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: practice_review-logs
+          path: ${{ runner.temp }}/native-contract
+

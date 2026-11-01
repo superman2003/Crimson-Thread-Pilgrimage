@@ -1,0 +1,36 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Invalid access to property or key 'world_mode' on a base object of type 'Node (FixtureLevel)'.
+          at: install (res://scripts/goal_desk.gd:23)
+          GDScript backtrace (most recent call first):
+              [0] install (res://scripts/goal_desk.gd:23)
+              [1] finish_bind (res://scripts/pilgrimage_interface.gd:229)
+              [2] _run (res://scripts/input_settings_regression_validation.gd:69)
+SCRIPT ERROR: Invalid access to property or key 'world_mode' on a base object of type 'Node (FixtureLevel)'.
+          at: install (res://scripts/expedition_desk.gd:24)
+          GDScript backtrace (most recent call first):
+              [0] install (res://scripts/expedition_desk.gd:24)
+              [1] finish_bind (res://scripts/pilgrimage_interface.gd:230)
+              [2] _run (res://scripts/input_settings_regression_validation.gd:69)
+SCRIPT ERROR: Invalid access to property or key 'world_mode' on a base object of type 'Node (FixtureLevel)'.
+          at: install (res://scripts/practice_desk.gd:17)
+          GDScript backtrace (most recent call first):
+              [0] install (res://scripts/practice_desk.gd:17)
+              [1] finish_bind (res://scripts/pilgrimage_interface.gd:231)
+              [2] _run (res://scripts/input_settings_regression_validation.gd:69)
+SCRIPT ERROR: Invalid access to property or key 'world_mode' on a base object of type 'Node (FixtureLevel)'.
+          at: install (res://scripts/settings_profiles_desk.gd:14)
+          GDScript backtrace (most recent call first):
+              [0] install (res://scripts/settings_profiles_desk.gd:14)
+              [1] finish_bind (res://scripts/pilgrimage_interface.gd:232)
+              [2] _run (res://scripts/input_settings_regression_validation.gd:69)
+SCRIPT ERROR: Invalid access to property or key 'world_mode' on a base object of type 'Node (FixtureLevel)'.
+          at: install (res://scripts/combat_desk.gd:19)
+          GDScript backtrace (most recent call first):
+              [0] install (res://scripts/combat_desk.gd:19)
+              [1] finish_bind (res://scripts/pilgrimage_interface.gd:233)
+              [2] _run (res://scripts/input_settings_regression_validation.gd:69)
+INPUT_SETTINGS_REGRESSION checks=91 failures=0

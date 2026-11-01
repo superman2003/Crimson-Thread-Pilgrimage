@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-20",
+  "base": "56c28d276f31d85377430ad973e34ce8c28ba14f",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "map_player_pins",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 11.75,
+      "markers": [
+        "MAP PLAYER PINS PASS checks=150"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 33.98,
+      "markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

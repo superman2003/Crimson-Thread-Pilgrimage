@@ -1,0 +1,56 @@
+name: U06 build shortcut input and protocol
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/build_shortcut*.gd'
+      - 'godot/scripts/input_binding_policy.gd'
+      - 'godot/scripts/input_prompt_bindings.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/settings_profile*.gd'
+      - 'tools/run_build_shortcut_contract.py'
+      - 'tools/test_build_shortcut_runner.py'
+      - '.github/workflows/ledger-u06-build-shortcut.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: u06-build-shortcut-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-shortcut:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install verified Godot 4.6.1
+        run: |
+          python3 - <<'PY'
+          import hashlib, os, pathlib, urllib.request, zipfile
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'shortcut-engine'
+          root.mkdir()
+          base = 'https://github.com/godotengine/godot/releases/download/4.6.1-stable/'
+          name = 'Godot_v4.6.1-stable_linux.x86_64'
+          sums = urllib.request.urlopen(base + 'SHA512-SUMS.txt').read().decode()
+          expected = {row.split()[-1]: row.split()[0] for row in sums.splitlines() if row.strip()}
+          archive = root / (name + '.zip')
+          urllib.request.urlretrieve(base + archive.name, archive)
+          with archive.open('rb') as source:
+              assert hashlib.file_digest(source, 'sha512').hexdigest() == expected[archive.name]
+          with zipfile.ZipFile(archive) as source:
+              source.extract(name, root)
+          (root / name).chmod(0o755)
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('GODOT=' + str(root / name) + '\n')
+          PY
+      - name: Verify strict runner failure propagation
+        run: python3 tools/test_build_shortcut_runner.py
+      - name: Verify native press edges and profile protocol
+        run: python3 tools/run_build_shortcut_contract.py --engine "$GODOT" --log-dir "$RUNNER_TEMP/build-shortcut-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: u06-build-shortcut-logs
+          path: ${{ runner.temp }}/build-shortcut-logs

@@ -253,6 +253,7 @@ func production_world() -> void:
     check(world.toast_label.text == "无声王冠", "Arrival uses the player-facing region name")
     check(READY.original_camera_zones(world) == 15, "All 15 crown rooms keep their authored camera ranges")
     check(not world.player.debug_invulnerable, "Production waiting fixtures keep ordinary damage rules")
+    elite_first_defeat(world, data)
     await wait_at_safe_points(world, data, {"save_late_runback": ["E14"], "save_hidden_upper_respite": ["E11"], "save_ch06_lower_loop": ["E07"]})
     await engages_on_its_platform(world, "E07", Vector2(2200, 2538))
     await engages_on_its_platform(world, "E13", Vector2(2040, 2320))
@@ -290,3 +291,31 @@ func production_world() -> void:
     check(await AUDIO.drain(self), "Crown fixture releases playback")
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## B04: an elite's first defeat pays a one-time bonus; respawns and regular
+## enemies pay only the ordinary kill reward.
+func elite_first_defeat(world: Node, data: Dictionary) -> void:
+    var drop := String(data.enemy_drop_item)
+    world.currency_count = 0
+    var materials: int = int(world.inventory_counts.get(drop, 0))
+    world._on_enemy_died("E01", false, "echo_waterwheel_knight")
+    check(world.toast_label.text.contains("精英首胜"), "The elite reward message is shown")
+    check(world.currency_count == 8 + world.ELITE_FIRST_CURRENCY and int(world.inventory_counts.get(drop, 0)) == materials + 1 + world.ELITE_FIRST_MATERIALS, "First elite defeat pays the kill reward plus the one-time elite bonus")
+    check(bool(world.story_flags.get("elite_first_demo_ch06_silent_crown_core_E01", false)), "The elite bonus is recorded in story flags")
+    world._on_enemy_died("E01", false, "echo_waterwheel_knight")
+    check(world.currency_count == 16 + world.ELITE_FIRST_CURRENCY, "A respawned elite pays only the ordinary kill reward")
+    world._on_enemy_died("E09", false, "echo_waterwheel_knight")
+    check(world.currency_count == 24 + world.ELITE_FIRST_CURRENCY, "A regular enemy never pays the elite bonus")
+    var saved = JSON.parse_string(FileAccess.get_file_as_string(SAVE_PATH))
+    check(saved is Dictionary and bool(saved.get("story_flags", {}).get("elite_first_demo_ch06_silent_crown_core_E01", false)), "The elite bonus flag is written to disk")
+    # Review case: a first-time elite that is the region's last enemy keeps its
+    # reward message inside the combat-clear toast.
+    world.story_flags.erase("elite_first_demo_ch06_silent_crown_core_E08")
+    world.enemy_defeated = world.enemy_total - 1
+    var was_clear: bool = world._combat_goal_met()
+    world._on_enemy_died("E08", false, "echo_pilgrim_commander_minor")
+    if world._combat_progression_enabled() and not was_clear:
+        check(world.toast_label.text.contains("本区敌群已清") and world.toast_label.text.contains("精英首胜"), "A combat clear keeps the elite reward message visible")
+    else:
+        check(world.toast_label.text.contains("精英首胜"), "The last elite's reward message stays visible")
+

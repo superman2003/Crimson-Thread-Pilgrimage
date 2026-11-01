@@ -13,7 +13,23 @@ REFUNDS = {"crosscut": 10}  # player_controller.gd: empowered crosscut refunds a
 def validate(catalog: dict) -> list[str]:
     errors = []
     meter = min(int(c["max_energy"]) for c in catalog["crests"].values())
+    rows = []
     for key, row in catalog["skills"].items():
+        rows.append((key, row))
+        # C04: every 校习 direction must keep the same limits as the base skill.
+        branches = row.get("branches", {})
+        if sorted(branches) != ["a", "b"]:
+            errors.append(f"{key}: needs exactly two 校习 directions a and b")
+        for branch, data in branches.items():
+            variant = dict(row)
+            for stat, delta in data.get("modifiers", {}).items():
+                variant[stat] = variant.get(stat, 0) + delta
+            if variant.get("kind") == "defense" and variant.get("duration", 0) > 0.65:
+                errors.append(f"{key}/{branch}: guard window {variant['duration']} exceeds the 0.65 s runtime clamp")
+            if min(variant["windup"], variant["recovery"], variant.get("damage", 0)) < 0:
+                errors.append(f"{key}/{branch}: a modifier drives timing or damage below zero")
+            rows.append((f"{key}/{branch}", variant))
+    for key, row in rows:
         action = row["windup"] + row["active"] + row["recovery"] + (row.get("duration", 0) if row["kind"] == "defense" else 0)
         if row["kind"] == "control":
             if not row["cooldown"] > row.get("duration", 0):

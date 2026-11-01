@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_focus.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_focus.txt",
+  "prompt_sha256": "e46a0c123b17c5199cd7b69a81f4dcced324b289886ad3a9b5bd5862981bb401",
+  "image_sha256": "a2fe94aa6b9165f9f2b79c5cedcf2c92a698fa24274b780343b6bc3250ffee65",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 991373,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/isotope_lumen.png",
+      "sha256": "7418b57d4837ad397547fd692caecc9e2d7c641ab0d6ee617f8394cf58f4a268"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        444,
+        465
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        78,
+        215,
+        350,
+        355
+      ],
+      "fully_transparent_pixels": 151394
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        444,
+        0,
+        883,
+        465
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        503,
+        199,
+        823,
+        364
+      ],
+      "fully_transparent_pixels": 127506
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        883,
+        0,
+        1324,
+        465
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        936,
+        214,
+        1270,
+        365
+      ],
+      "fully_transparent_pixels": 123804
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1324,
+        0,
+        1774,
+        465
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1384,
+        190,
+        1711,
+        364
+      ],
+      "fully_transparent_pixels": 131398
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        465,
+        445,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        61,
+        630,
+        385,
+        791
+      ],
+      "fully_transparent_pixels": 107240
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        445,
+        465,
+        890,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        503,
+        630,
+        824,
+        791
+      ],
+      "fully_transparent_pixels": 106428
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        890,
+        465,
+        1330,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        966,
+        624,
+        1259,
+        787
+      ],
+      "fully_transparent_pixels": 114566
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1330,
+        465,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1398,
+        641,
+        1700,
+        779
+      ],
+      "fully_transparent_pixels": 129037
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "聚光",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。 已重画为短低聚光，保留完整底部留白。"
+  }
+}

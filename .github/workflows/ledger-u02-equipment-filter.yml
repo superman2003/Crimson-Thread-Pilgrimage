@@ -1,0 +1,46 @@
+name: U02 equipment catalog filtering
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/build_system.gd'
+      - 'godot/data/build_catalog.json'
+      - 'godot/scripts/equipment_catalog_filter*.gd'
+      - 'godot/assets/fonts/**'
+      - 'godot/assets/vfx/**'
+      - 'godot/assets/ui/**'
+      - 'tools/run_equipment_filter_contract.py'
+      - 'tools/test_equipment_filter_runner.py'
+      - '.github/workflows/ledger-u02-equipment-filter.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: u02-equipment-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-equipment-filter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual HUD and script dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/fonts/**,godot/assets/vfx/**,godot/assets/ui/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Verify strict runner rejects failure and misleading output
+        run: python3 -m unittest discover -s tools -p test_equipment_filter_runner.py -v
+      - name: Validate typed catalog filtering, focus and resource isolation
+        run: python3 tools/run_equipment_filter_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/equipment-filter-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: u02-equipment-layer-contracts
+          path: ${{ runner.temp }}/equipment-filter-logs

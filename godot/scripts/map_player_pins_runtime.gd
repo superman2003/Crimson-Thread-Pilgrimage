@@ -12,7 +12,7 @@ static func setup(level: Node) -> void:
     var toolbar := Control.new()
     toolbar.name = "PlayerPinToolbar"
     toolbar.position = Vector2(350, 18)
-    toolbar.size = Vector2(580, 34)
+    toolbar.size = Vector2(668, 34)
     toolbar.mouse_filter = Control.MOUSE_FILTER_IGNORE
     level.map_panel.add_child(toolbar)
     var host_ref: WeakRef = weakref(level)
@@ -22,8 +22,8 @@ static func setup(level: Node) -> void:
     kinds.name = "PinKind"
     kinds.size = Vector2(96, 34)
     kinds.focus_mode = Control.FOCUS_ALL
-    for index in PINS.KINDS.size(): kinds.add_item(PINS.SYMBOLS[index] + " " + PINS.NAMES[index], index)
     toolbar.add_child(kinds)
+    for index in PINS.KINDS.size(): kinds.add_item(PINS.SYMBOLS[index] + " " + PINS.NAMES[index], index)
     var add_button: Button = level.ui_shell._button(toolbar, "标记当前位置", Vector2(102, 0), Vector2(140, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "add"))
     add_button.name = "PinCurrent"
@@ -31,14 +31,24 @@ static func setup(level: Node) -> void:
     var list := OptionButton.new()
     list.name = "PinList"
     list.position = Vector2(248, 0)
-    list.size = Vector2(218, 34)
+    list.size = Vector2(150, 34)
     list.clip_text = true
     list.focus_mode = Control.FOCUS_ALL
     toolbar.add_child(list)
-    var delete_button: Button = level.ui_shell._button(toolbar, "删除图钉", Vector2(472, 0), Vector2(92, 34), func():
+    var locate_button: Button = level.ui_shell._button(toolbar,"查看图钉",Vector2(404,0),Vector2(76,34),func():
+        _dispatch(host_ref,toolbar_ref,view_ref,"locate"))
+    locate_button.name="PinLocate"
+    locate_button.add_theme_font_size_override("font_size",13)
+    locate_button.tooltip_text="把已知图钉移到视野内；跨区图钉使用世界图，不移动角色。"
+    var delete_button: Button = level.ui_shell._button(toolbar, "删除图钉", Vector2(486, 0), Vector2(92, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "delete"))
     delete_button.name = "PinDelete"
     delete_button.tooltip_text = "删除列表中选中的自定义图钉。"
+    var edit_button: Button = level.ui_shell._button(toolbar, "编辑图钉", Vector2(584, 0), Vector2(84, 34), func():
+        _dispatch(host_ref, toolbar_ref, view_ref, "edit"))
+    edit_button.name = "PinEdit"
+    edit_button.add_theme_font_size_override("font_size", 13)
+    edit_button.tooltip_text = "给已知图钉命名、更改类型，或移至已定位的当前位置。"
     list.item_selected.connect(func(_index: int):
         _dispatch(host_ref, toolbar_ref, view_ref, "selection"))
     view.secondary_pressed.connect(func(point: Vector2):
@@ -50,8 +60,9 @@ static func setup(level: Node) -> void:
     status.size = Vector2(1108, 17)
     status.add_theme_font_size_override("font_size", 12)
     status.add_theme_color_override("font_color", Color("e7ad7f"))
-    status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
     level.map_panel.add_child(status)
+    status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
+    status.tooltip_text=status.text
 
 ## Weak captures matter before the guard: Godot reports an engine error when
 ## invoking a lambda whose captured Node was freed, even if it checks liveness.
@@ -63,8 +74,13 @@ static func _dispatch(host_ref: WeakRef, toolbar_ref: WeakRef, view_ref: WeakRef
     match action:
         "add": add_current(level)
         "delete": delete_selected(level)
+        "locate": locate_selected(level)
+        "edit": edit_selected(level)
         "point": add_at_content(level, point)
-        "selection": toolbar.get_node("PinDelete").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
+        "selection":
+            toolbar.get_node("PinDelete").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
+            toolbar.get_node("PinLocate").disabled = toolbar.get_node("PinList").get_selected_id() <= 0
+            toolbar.get_node("PinEdit").disabled = toolbar.get_node("PinList").get_selected_id() <= 0 or level.world_save_blocked
 
 static func _owns(level: Variant, toolbar: Control, view: Control) -> bool:
     return is_instance_valid(level) and level.is_inside_tree() and not level.is_queued_for_deletion() and is_instance_valid(toolbar) and toolbar.is_inside_tree() and not toolbar.is_queued_for_deletion() and is_instance_valid(view) and view.is_inside_tree() and not view.is_queued_for_deletion() and toolbar.get_parent() == level.map_panel and toolbar == level.map_panel.get_node_or_null("PlayerPinToolbar") and view.get_parent() == level.map_panel and view == level.survey_map_view
@@ -108,11 +124,37 @@ static func refresh(level: Node) -> void:
         marker.set_meta("map_anchor", anchor)
         level.map_draw_root.add_child(marker)
         markers.append(marker)
-    declutter(markers)
+    declutter(markers, Rect2(Vector2.ZERO, level.map_draw_root.size))
+    _add_leaders(markers, level.map_draw_root)
     toolbar.get_node("PinCurrent").disabled = level.world_save_blocked or not PINS.allowed(level.story_flags, String(level.config.id), level.config, level.player.global_position)
     toolbar.get_node("PinDelete").disabled = level.world_save_blocked or list.get_selected_id() <= 0
+    toolbar.get_node("PinLocate").disabled = list.get_selected_id() <= 0
+    toolbar.get_node("PinEdit").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
     level.map_text.text += "    右键标记 · 上方按钮支持手柄"
+
+## Crowded edge labels may need to exceed the preferred drift. Thin leaders
+## preserve the actual per-pin locations without moving the map or saved pins.
+static func _add_leaders(markers: Array[Label], host: Control) -> void:
+    for marker in markers:
+        if not marker.visible: continue
+        var anchors := represented(marker)
+        var ids: Array = [int(marker.get_meta("pin_id"))]
+        ids.append_array(marker.get_meta("joined_pins", []))
+        for index in anchors.size():
+            var anchor: Vector2 = anchors[index]
+            var end := marker.position + LABEL_ORIGIN
+            if anchor.distance_to(end) <= MAX_DRIFT: continue
+            var leader := Line2D.new()
+            leader.name = "PlayerMapPinLeader_" + str(ids[index])
+            leader.points = PackedVector2Array([anchor, end])
+            leader.width = 1.0
+            leader.default_color = Color(0.45, 0.35, 0.25, 0.6)
+            leader.antialiased = true
+            leader.set_meta("pin_id", ids[index])
+            leader.set_meta("label_id", int(marker.get_meta("pin_id")))
+            host.add_child(leader)
+            host.move_child(leader, marker.get_index())
 
 const LABEL_ORIGIN := Vector2(8, 12)
 const CLUSTER_RADIUS := 24.0
@@ -120,42 +162,153 @@ const CLUSTER_STEP := 30.0
 
 ## Pins from nearby rooms (or neighbouring regions on the world overview) can
 ## project onto almost the same point. Each label keeps its true anchor in
-## metadata; labels within CLUSTER_RADIUS of a group fan out in a row around
-## the group's centre so every number stays readable.
-static func declutter(markers: Array[Label]) -> void:
-    var groups: Array = []
+## metadata and is placed at the nearest free spot around it: candidates are
+## tried ring by ring out to the preferred MAX_DRIFT. The paper bounds take
+## precedence in an impossible crowd, with leaders back to the true anchors. Pins with fewer neighbours are placed first, so an
+## isolated pin keeps its exact position unless its label would leave the paper.
+const MAX_DRIFT := 62.0
+
+static func declutter(markers: Array[Label], paper: Rect2 = Rect2()) -> void:
+    var neighbours := {}
     for marker in markers:
         var anchor: Vector2 = marker.get_meta("map_anchor")
-        var joined := false
-        for group in groups:
-            if (group.center as Vector2).distance_to(anchor) < CLUSTER_RADIUS:
-                group.members.append(marker)
-                group.center = ((group.center as Vector2) * (group.members.size() - 1) + anchor) / group.members.size()
-                joined = true
+        var count := 1
+        for other in markers:
+            if other != marker and (other.get_meta("map_anchor") as Vector2).distance_to(anchor) < CLUSTER_RADIUS: count += 1
+        neighbours[marker] = count
+        marker.set_meta("cluster_size", count)
+    var ordered := markers.duplicate()
+    ordered.sort_custom(func(a, b):
+        if neighbours[a] != neighbours[b]: return neighbours[a] < neighbours[b]
+        var pa: Vector2 = a.get_meta("map_anchor")
+        var pb: Vector2 = b.get_meta("map_anchor")
+        return pa.x < pb.x or (pa.x == pb.x and pa.y < pb.y))
+    # Retry the whole layout after each merge. A merge is legal only when its
+    # centre is near every represented anchor; never absorb a distant label just
+    # because an increasingly wide row happens to cover it.
+    var groups: Array[Label] = ordered
+    for attempt in markers.size():
+        if _layout(groups, paper): return
+        var pair := _nearest_merge(groups)
+        # Too crowded to keep every number near its pin: a farther number is
+        # still readable, an overlap is not, so merge the nearest pair anyway.
+        if pair.is_empty(): pair = _nearest_merge(groups, false)
+        if pair.is_empty():
+            # All numbers now share one label. If no near placement exists,
+            # readability inside the paper wins over the preferred drift.
+            _layout(groups, paper, false)
+            return
+        _join(groups[pair[0]], groups[pair[1]])
+        groups.remove_at(pair[1])
+
+static func _layout(groups: Array[Label], paper: Rect2, near_only: bool = true) -> bool:
+    var placed: Array[Rect2] = []
+    for marker in groups:
+        var spot: Variant = _free_spot(marker, placed, paper, near_only)
+        if spot == null: return false
+        marker.position = spot
+        placed.append(_label_rect(marker, marker.position))
+    return true
+
+static func _nearest_merge(groups: Array[Label], bounded: bool = true) -> Array[int]:
+    var best: Array[int] = []
+    var distance := INF
+    for i in groups.size():
+        for j in range(i + 1, groups.size()):
+            var anchors := represented(groups[i])
+            anchors.append_array(represented(groups[j]))
+            var center := Vector2.ZERO
+            for anchor in anchors: center += anchor
+            center /= anchors.size()
+            var near := true
+            for anchor in (anchors if bounded else []):
+                if center.distance_to(anchor) > MAX_DRIFT:
+                    near = false
+                    break
+            if not near: continue
+            var gap := (groups[i].get_meta("map_anchor") as Vector2).distance_squared_to(groups[j].get_meta("map_anchor"))
+            if gap < distance:
+                distance = gap
+                best.assign([i, j])
+    return best
+
+## Every pin a label shows: its own and any it has absorbed.
+static func represented(label: Label) -> Array:
+    var anchors: Array = [label.get_meta("map_anchor")]
+    anchors.append_array(label.get_meta("joined_anchors", []))
+    return anchors
+
+static func _join(host: Label, marker: Label) -> void:
+    var numbers: Array = host.get_meta("pin_numbers", [host.text])
+    numbers.append_array(marker.get_meta("pin_numbers", [marker.text]))
+    host.set_meta("pin_numbers", numbers)
+    var rows: Array[String] = []
+    for index in numbers.size():
+        if index % 3 == 0: rows.append(String(numbers[index]))
+        else: rows[rows.size() - 1] += " " + String(numbers[index])
+    host.text = "\n".join(rows)
+    var pins: Array = host.get_meta("joined_pins", [])
+    pins.append(int(marker.get_meta("pin_id", -1)))
+    pins.append_array(marker.get_meta("joined_pins", []))
+    host.set_meta("joined_pins", pins)
+    var anchors: Array = host.get_meta("joined_anchors", [])
+    anchors.append_array(represented(marker))
+    host.set_meta("joined_anchors", anchors)
+    marker.visible = false
+    marker.position = (marker.get_meta("map_anchor") as Vector2) - LABEL_ORIGIN
+    marker.set_meta("joined_into", int(host.get_meta("pin_id", -1)))
+
+## The nearest free candidate around the centre of every pin the label shows,
+## respecting the preferred drift unless this is the final crowded fallback;
+## null when none is free.
+static func _free_spot(marker: Label, placed: Array, paper: Rect2, near_only: bool) -> Variant:
+    var anchors := represented(marker)
+    var center := Vector2.ZERO
+    for anchor in anchors: center += anchor
+    center /= anchors.size()
+    var size := _label_rect(marker, Vector2.ZERO).size
+    for offset in _candidate_offsets():
+        var position: Vector2 = center + offset - LABEL_ORIGIN
+        if paper.has_area(): position = position.clamp(paper.position, paper.end - size)
+        var point := position + LABEL_ORIGIN
+        var near := true
+        for anchor in (anchors if near_only else []):
+            if point.distance_to(anchor) > MAX_DRIFT:
+                near = false
                 break
-        if not joined: groups.append({"center": anchor, "members": [marker]})
-    for group in groups:
-        var count: int = group.members.size()
-        # Lay the row out by real label widths so two-digit numbers never touch.
-        var widths: Array[float] = []
-        var total := 0.0
-        for marker in group.members:
-            var width := maxf(CLUSTER_STEP, _text_width(marker) + 6.0)
-            widths.append(width)
-            total += width
-        var left := (group.center as Vector2).x - total * 0.5
-        for index in count:
-            var marker: Label = group.members[index]
-            marker.set_meta("cluster_size", count)
-            if count > 1:
-                marker.position = Vector2(left + widths[index] * 0.5, (group.center as Vector2).y) - LABEL_ORIGIN
-            left += widths[index]
+        if not near: continue
+        var rect := Rect2(position, size)
+        var clear := true
+        for other in placed:
+            if rect.intersects(other):
+                clear = false
+                break
+        if clear: return position
+    return null
+
+## Offsets around a pin, nearest first, never farther than MAX_DRIFT.
+static func _candidate_offsets() -> Array[Vector2]:
+    var offsets: Array[Vector2] = [Vector2.ZERO]
+    for radius in [16.0, 28.0, 40.0, 52.0, MAX_DRIFT]:
+        for step in 16:
+            var angle := TAU * float(step) / 16.0
+            offsets.append(Vector2(cos(angle), sin(angle)) * radius)
+    return offsets
+
+static func _label_rect(marker: Label, position: Vector2) -> Rect2:
+    # Label includes the actual font height and inter-line spacing immediately,
+    # including after joining numbers, before the next Control layout pass.
+    var minimum := marker.get_combined_minimum_size()
+    return Rect2(position, Vector2(maxf(CLUSTER_STEP, minimum.x + 6.0), maxf(26.0, minimum.y)))
 
 ## A fresh Label has no layout yet, so measure its text with its own font.
 static func _text_width(label: Label) -> float:
     var font := label.get_theme_font("font")
     if font == null: return 0.0
-    return font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x
+    var width := 0.0
+    for line in label.text.split("\n"):
+        width = maxf(width, font.get_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, -1, label.get_theme_font_size("font_size")).x)
+    return width
 
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.
@@ -166,7 +319,7 @@ static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs:
     for record in known:
         var room: Dictionary = PINS.owner(configs[record.region_id], Vector2(record.position[0], record.position[1]))
         var title := String(configs[record.region_id].get("chapter_name", record.region_id)) + " · " + String(room.get("name", room.id))
-        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + " · " + title)
+        labels.append(PINS.NAMES[PINS.KINDS.find(record.kind)] + str(record.id) + (" · " + String(record.get("label", "")) if not String(record.get("label", "")).is_empty() else "") + " · " + title)
         ids.append(int(record.id))
     var unchanged := list.item_count == ids.size()
     if unchanged:
@@ -179,6 +332,7 @@ static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs:
     list.clear()
     for index in ids.size():
         list.add_item(labels[index], ids[index])
+        list.set_item_tooltip(index,labels[index])
         if ids[index] == selected: list.select(index)
 
 static func project(level: Node, region: String, point: Vector2) -> Vector2:
@@ -231,6 +385,21 @@ static func delete_selected(level: Node) -> Dictionary:
     var list: OptionButton = level.map_panel.get_node("PlayerPinToolbar/PinList")
     return _commit(level, PINS.remove(level.story_flags, configurations(level), list.get_selected_id()))
 
+static func locate_selected(level: Node) -> Dictionary:
+    if not _editable(level):return {"ok":false,"reason":"请在当前地图中查看。"}
+    var list: OptionButton=level.map_panel.get_node("PlayerPinToolbar/PinList")
+    var selected:=list.get_selected_id()
+    for record in PINS.visible(level.story_flags,configurations(level)):
+        if int(record.id)!=selected:continue
+        if not level.world_map_view and record.region_id!=String(level.config.id):
+            level.world_map_view=true
+            level._refresh_map_overlay()
+        var point:=project(level,record.region_id,Vector2(record.position[0],record.position[1]))
+        if not level.survey_map_view.center_on(point):return {"ok":false,"reason":"图钉位置无法显示。"}
+        _notify(level,"正在查看图钉 %d；角色与旅途进度不变。" % selected)
+        return {"ok":true,"id":selected}
+    return {"ok":false,"reason":"请选择一个已知图钉。"}
+
 static func _blocked(level: Node) -> Dictionary:
     var result := {"ok": false, "reason": "归途记录暂停写入，暂不能修改图钉。"}
     _notify(level, result.reason)
@@ -238,7 +407,9 @@ static func _blocked(level: Node) -> Dictionary:
 
 static func _notify(level: Node, message: String) -> void:
     var status: Label = level.map_panel.get_node_or_null("PlayerPinStatus")
-    if status != null: status.text = message
+    if status != null:
+        status.text = message
+        status.tooltip_text=message
     level._toast(message)
 
 static func _commit(level: Node, result: Dictionary) -> Dictionary:
@@ -255,3 +426,63 @@ static func _commit(level: Node, result: Dictionary) -> Dictionary:
     level._refresh_map_overlay()
     _notify(level, result.reason)
     return result
+
+## The editor belongs to the map; a hidden/retired map invalidates its callback.
+static func edit_selected(level: Node) -> void:
+    if not _editable(level) or level.world_save_blocked:return
+    var toolbar: Control = level.map_panel.get_node("PlayerPinToolbar")
+    var id: int = toolbar.get_node("PinList").get_selected_id()
+    for record in PINS.visible(level.story_flags, configurations(level)):
+        if int(record.id) != id:continue
+        var existing: Node = level.map_panel.get_node_or_null("PinEditor")
+        if existing != null:return
+        var dialog := ConfirmationDialog.new()
+        dialog.exclusive = true
+        dialog.name = "PinEditor";dialog.title = "编辑图钉 #%d" % id
+        dialog.min_size = Vector2i(480, 300);dialog.dialog_hide_on_ok = false
+        level.map_panel.add_child(dialog)
+        var column := VBoxContainer.new();column.name="Fields";dialog.add_child(column)
+        var note := Label.new();note.text = "名称最多24字；留空恢复默认。可选择移至当前位置，需要罗盘或导航辅助，目标须已补绘；角色不会移动。";note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;note.custom_minimum_size.x = 440;column.add_child(note)
+        var input := LineEdit.new();input.name = "PinLabel";input.placeholder_text="图钉名称，可留空";input.max_length = PINS.LABEL_LIMIT;input.text = String(record.get("label", ""));column.add_child(input)
+        var kind := OptionButton.new();kind.name = "PinType";column.add_child(kind)
+        for text in PINS.NAMES:kind.add_item(text)
+        kind.select(PINS.KINDS.find(record.kind))
+        var move_current := CheckBox.new();move_current.name="PinMoveToCurrent";move_current.text="移至当前已定位位置";column.add_child(move_current)
+        move_current.disabled=not SURVEY.shows_position(level) or not PINS.allowed(level.story_flags,String(level.config.id),level.config,level.player.global_position)
+        move_current.tooltip_text="只移动标记，不移动角色；保留原编号，不占用新的图钉名额。"
+        var expected_region:=String(level.config.id)
+        var expected_point: Vector2=level.player.global_position
+        var status := Label.new();status.name = "PinEditorStatus";status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART;column.add_child(status)
+        var host_ref: WeakRef = weakref(level);var dialog_ref: WeakRef = weakref(dialog)
+        var expected: Dictionary = record.duplicate(true)
+        dialog.confirmed.connect(func():
+            var host: Variant = host_ref.get_ref();var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if not is_instance_valid(host) or not is_instance_valid(popup) or not _editable(host) or host.world_save_blocked:return
+            var configs:=configurations(host)
+            var move: bool=popup.get_node("Fields/PinMoveToCurrent").button_pressed
+            var source_flags: Dictionary=host.story_flags
+            var result: Dictionary
+            if move:
+                if not SURVEY.shows_position(host) or String(host.config.id)!=expected_region or host.player.global_position.distance_to(expected_point)>1.0:
+                    popup.get_node("Fields/PinEditorStatus").text="定位条件或当前位置已变化，请重新打开编辑。";return
+                result=PINS.relocate(host.story_flags,configs,id,expected_region,expected_point,expected)
+                if not result.ok:popup.get_node("Fields/PinEditorStatus").text=result.reason;return
+                source_flags=host.story_flags.duplicate(true);source_flags[PINS.KEY]=result.records
+            result = PINS.edit(source_flags, configs, id, PINS.KINDS[popup.get_node("Fields/PinType").selected], popup.get_node("Fields/PinLabel").text, {} if move else expected)
+            result = _commit(host, result)
+            if result.ok:popup.hide()
+            else:popup.get_node("Fields/PinEditorStatus").text = result.reason)
+        dialog.visibility_changed.connect(func():
+            var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if is_instance_valid(popup) and not popup.visible:popup.queue_free())
+        var close := func():
+            var popup: ConfirmationDialog = dialog_ref.get_ref()
+            if is_instance_valid(popup):popup.hide()
+        level.map_panel.visibility_changed.connect(close)
+        var panel_ref: WeakRef=weakref(level.map_panel)
+        dialog.tree_exiting.connect(func():
+            var panel: Control=panel_ref.get_ref()
+            if is_instance_valid(panel) and panel.visibility_changed.is_connected(close):panel.visibility_changed.disconnect(close))
+        dialog.get_ok_button().text = "保存图钉修改";dialog.get_cancel_button().text = "保留原图钉"
+        dialog.popup_centered();dialog.get_cancel_button().grab_focus()
+        return

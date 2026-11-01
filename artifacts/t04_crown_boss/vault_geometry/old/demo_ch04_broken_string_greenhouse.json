@@ -1,0 +1,7844 @@
+{
+  "id": "demo_ch04_broken_string_greenhouse",
+  "name": "断弦温室试玩章",
+  "world": {
+    "width": 7610,
+    "height": 2718,
+    "fall_y": 2782
+  },
+  "player_start": [
+    330,
+    1740
+  ],
+  "boss_checkpoint": [
+    5430,
+    754
+  ],
+  "required_keys": 0,
+  "goal": "从温室西门沿西阶降到根须南廊，一路向东经蜂蜡暗屋攀上东藤壁，从棚架东角踏上树冠步道向西横越，到西眺台隔玻璃望见裂纹穹顶后跃入树心；拉下根库拉杆接通断弦辐桥回环，再沿树心枝桠爬回树冠，登穹顶前廊击败铜根主教。",
+  "completion_message": "DEMO COMPLETE: 铜根主教已被击败，断弦失声印记已回收",
+  "completion_toast": "断弦温室闭环完成：NPC、清怪、Boss门和章节奖励均已验证。",
+  "enemy_drop_item": "pollen_wax",
+  "asset_policy": {
+    "rule": "只使用项目内已登记的免费、开源或可商用友好素材；敌人使用 OpenGameArt 暗黑素材，旧同族素材只作友方 NPC。",
+    "enemies": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "npc": "godot/assets/sprites/gothicvania/demo/*.png 仅友方 NPC 使用，并带 FriendlyTalkBadge/FriendlyHalo",
+    "ui_fx": "Kenney CC0 UI 与程序化 VFX 节点",
+    "audio": "godot/assets/audio 本地 OGG 与后续 CC0 候选",
+    "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
+    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "environment": "Crimson Thread original map art",
+    "platform_tiles": "godot/assets/sprites/original_map/string_greenhouse/platform_*.png",
+    "background_layers": "godot/assets/sprites/original_map/string_greenhouse/sky.png, far.png, mid.png, near.png",
+    "map_art_root": "godot/assets/sprites/original_map/string_greenhouse",
+    "map_art_ownership": "project-owned"
+  },
+  "world_story": {
+    "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
+    "protagonist": {
+      "codename": "缄",
+      "identity": "第七签署者留下的绯线回响，能看见命线、契约线和被删掉的名字残痕。"
+    },
+    "core_conflict": "继续重鸣能保住城市秩序，却延续活人声音作为封印材料；切断王冠能归还声音，却可能放出黑潮。真结局需要集齐六处证词，用绯线改写契约。",
+    "truth_ladder": [
+      "王冠是一口倒扣巨钟。",
+      "钟壁铸入过活人名字。",
+      "盐白契约删掉第七签署者。",
+      "六枚印记曾是六位活人守门者心脏。",
+      "失败巡礼者被重编为静音军队。",
+      "第七签署者把改写契约的后门藏进绯线。"
+    ],
+    "endings": [
+      "重鸣：城市安全但名字仍在钟里。",
+      "断冠：声音归还但黑潮涌出。",
+      "绯线真结局：钟声只封黑潮，不再吞人声。"
+    ]
+  },
+  "inventory": {
+    "currency_name": "断弦碎片",
+    "starting_tools": [
+      "thread_burst",
+      "menders_right",
+      "thorn_downstrike"
+    ],
+    "starting_relics": [
+      "moss_lens"
+    ],
+    "catalog": {
+      "heart_knot": {
+        "name": "心结",
+        "category": "Upgrades",
+        "description": "增加最大生命。打了死结的绯线，攥紧就不冷。"
+      },
+      "greenhouse_seed_key": {
+        "name": "藤桥守卫",
+        "category": "Combat",
+        "description": "打开弦桥温室捷径的章节战斗标记。"
+      },
+      "thread_burst": {
+        "name": "绯线爆裂",
+        "category": "Tools",
+        "description": "消耗30点能量，打出一次重型线刃。"
+      },
+      "menders_right": {
+        "name": "缝补右手",
+        "category": "Tools",
+        "description": "按治疗键缝补伤口；消耗、回复量与能否空中缝补由所装契印决定，详见构筑页的契印说明。"
+      },
+      "moss_lens": {
+        "name": "苔光镜",
+        "category": "Relics",
+        "description": "记录已探索房间的破损镜片。"
+      },
+      "pollen_wax": {
+        "name": "花粉蜂蜡",
+        "category": "Materials",
+        "description": "断弦章节敌人掉落的材料。"
+      },
+      "silent_mark_greenhouse": {
+        "name": "断弦失声印记",
+        "category": "Quest",
+        "description": "铜根主教掉落的章节奖励。"
+      },
+      "thorn_downstrike": {
+        "name": "棘线下劈",
+        "category": "Tools",
+        "description": "铜根主教掉落的章节奖励。"
+      },
+      "living_cover_vein": {
+        "name": "活封面脉络",
+        "category": "Tools",
+        "description": "铜根主教掉落的章节奖励。"
+      },
+      "testimony_04": {
+        "name": "证词·其四",
+        "category": "Relics",
+        "description": "六份证词之四：枯萎母株的最后一段歌，第四守门者的遗音。"
+      },
+      "evidence_beeswax_echo": {
+        "name": "证据·蜂蜡余响",
+        "category": "Relics",
+        "description": "蜂蜡暗屋挑战房留下的蜡膜残响。不挡主线，却能证明你敲响过暗屋余响钟。 图样可带给蜂蜡商人制作「蜂蜡缝托」，证据不会收走。"
+      },
+      "evidence_root_track": {
+        "name": "证据·根网爪痕",
+        "category": "Relics",
+        "description": "根笼猎物留下的根网爪痕。不挡主线，却能证明你循迹敲响过根库余响钟。"
+      }
+    }
+  },
+  "map_rooms": [
+    {
+      "id": "west_gate",
+      "name": "温室西门",
+      "range": [
+        200,
+        600
+      ],
+      "depth": 3,
+      "kind": "entry",
+      "archetype": "entry",
+      "layout_rect": [
+        200,
+        1418,
+        400,
+        466
+      ],
+      "map_rect": [
+        0,
+        630,
+        236,
+        168
+      ],
+      "objective": "从西门读懂温室的呼吸，向下进入根须南廊。",
+      "guide": "藤蔓先颤，再动；急着跳的人会被温室记住。",
+      "danger": "落点干净，但花粉会盖住藤蔓的前摇。",
+      "next": "西阶下行",
+      "setpiece": "碎玻璃西门",
+      "traversal_focus": "在园丁旁观察西阶与树冠回访方向，再下探根须南廊",
+      "pacing_role": "arrival_and_orientation",
+      "visit_rects": [
+        [
+          200,
+          1418,
+          400,
+          466
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          364,
+          1351
+        ],
+        "size": [
+          200,
+          373
+        ]
+      },
+      "camera_bounds": [
+        160,
+        1170,
+        480,
+        930
+      ]
+    },
+    {
+      "id": "gate_descent",
+      "name": "西阶下行",
+      "range": [
+        480,
+        930
+      ],
+      "depth": 4,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        480,
+        1746,
+        450,
+        604
+      ],
+      "map_rect": [
+        0,
+        840,
+        236,
+        168
+      ],
+      "objective": "沿西阶之字下到温室底层。",
+      "guide": "左右交替落点，湿土会滑。",
+      "danger": "台阶间落差大，别贪跳。",
+      "next": "根须南廊",
+      "setpiece": "苔垫西阶",
+      "traversal_focus": "顺阶下落时保持脚下下一块苗床可见",
+      "pacing_role": "readable_descent",
+      "visit_rects": [
+        [
+          480,
+          1746,
+          450,
+          604
+        ]
+      ],
+      "camera_bounds": [
+        440,
+        1480,
+        530,
+        1040
+      ]
+    },
+    {
+      "id": "south_rootrun",
+      "name": "根须南廊",
+      "range": [
+        820,
+        4600
+      ],
+      "depth": 5,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        820,
+        2262,
+        3780,
+        320
+      ],
+      "map_rect": [
+        560,
+        1050,
+        236,
+        168
+      ],
+      "objective": "沿南廊向东穿过根须与苗床，直到蜂蜡暗屋。",
+      "guide": "大树的根就在你头顶，记住它的位置。",
+      "danger": "根笼猎手在苗床间巡行。",
+      "next": "蜂蜡暗屋",
+      "setpiece": "根须苗床长廊",
+      "traversal_focus": "先看腐叶地床和孢囊，南廊出口花灵提供单独交战空间",
+      "pacing_role": "ground_hazards_then_bloom",
+      "visit_rects": [
+        [
+          820,
+          2262,
+          3780,
+          320
+        ]
+      ],
+      "camera_bounds": [
+        780,
+        1960,
+        3860,
+        780
+      ]
+    },
+    {
+      "id": "beeswax_nook",
+      "name": "蜂蜡暗屋",
+      "range": [
+        4620,
+        5200
+      ],
+      "depth": 4,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        4620,
+        2150,
+        580,
+        288
+      ],
+      "map_rect": [
+        1120,
+        840,
+        236,
+        168
+      ],
+      "objective": "在蜂蜡暗屋补给，找到藏在蜡壁后的暗灯。",
+      "guide": "隐藏存档点藏在蜡壁后。 余响钟可开启挑战房。",
+      "danger": "蜂蜡地板黏脚，撤退要提前。",
+      "next": "东藤壁",
+      "setpiece": "蜂蜡商屋",
+      "traversal_focus": "与蜂蜡商人交谈、补给和寻找暗灯，再进东藤壁",
+      "pacing_role": "supply_and_hidden_respite",
+      "visit_rects": [
+        [
+          4620,
+          2150,
+          580,
+          288
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          4858,
+          2109
+        ],
+        "size": [
+          290,
+          230
+        ]
+      },
+      "camera_bounds": [
+        4580,
+        1820,
+        660,
+        850
+      ]
+    },
+    {
+      "id": "vine_ascent",
+      "name": "东藤壁",
+      "range": [
+        5190,
+        5700
+      ],
+      "depth": 3,
+      "kind": "vertical",
+      "archetype": "vertical",
+      "layout_rect": [
+        5190,
+        1102,
+        510,
+        1302
+      ],
+      "map_rect": [
+        1400,
+        630,
+        236,
+        168
+      ],
+      "objective": "沿东墙藤蔓一路向上。",
+      "guide": "藤台是单向的，可以从下方穿过。",
+      "danger": "蜂蜡蛾贴着墙面俯冲。",
+      "next": "棚架东角",
+      "setpiece": "东墙大藤",
+      "traversal_focus": "逐层观察藤壁两侧落脚枝，镜头跟随当前高度",
+      "pacing_role": "vertical_ascent",
+      "visit_rects": [
+        [
+          5190,
+          1102,
+          510,
+          1302
+        ]
+      ],
+      "camera_bounds": [
+        5150,
+        880,
+        590,
+        1710
+      ]
+    },
+    {
+      "id": "trellis_corner",
+      "name": "棚架东角",
+      "range": [
+        4680,
+        5510
+      ],
+      "depth": 1,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        4680,
+        856,
+        830,
+        420
+      ],
+      "map_rect": [
+        1400,
+        210,
+        236,
+        168
+      ],
+      "objective": "从棚架东角登上树冠步道。",
+      "guide": "棚架横木承得住你，但承不住犹豫。",
+      "danger": "花粉琴师在棚架上布风。",
+      "next": "树冠步道",
+      "setpiece": "东角棚架",
+      "traversal_focus": "斜向爬升",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          4680,
+          856,
+          830,
+          420
+        ]
+      ],
+      "camera_bounds": [
+        4640,
+        570,
+        910,
+        900
+      ]
+    },
+    {
+      "id": "canopy_east",
+      "name": "树冠东道",
+      "range": [
+        3600,
+        4790
+      ],
+      "depth": 0,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        3600,
+        732,
+        1190,
+        288
+      ],
+      "map_rect": [
+        1120,
+        0,
+        236,
+        168
+      ],
+      "objective": "沿树冠步道向西横越温室顶层。",
+      "guide": "玻璃穹顶漏下的光会指路。",
+      "danger": "断弦平台会突然塌断。",
+      "next": "树冠西道",
+      "setpiece": "树冠玻璃光带",
+      "traversal_focus": "高层横越",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          3600,
+          732,
+          1190,
+          288
+        ]
+      ],
+      "camera_bounds": [
+        3560,
+        400,
+        1270,
+        790
+      ]
+    },
+    {
+      "id": "canopy_west",
+      "name": "树冠西道",
+      "range": [
+        2500,
+        3600
+      ],
+      "depth": 0,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        2500,
+        724,
+        1100,
+        288
+      ],
+      "map_rect": [
+        560,
+        0,
+        236,
+        168
+      ],
+      "objective": "继续向西，直到西眺台。",
+      "guide": "树冠正下方就是大树的心。",
+      "danger": "高处风大，花粉成浪。",
+      "next": "西眺台",
+      "setpiece": "树冠西光带",
+      "traversal_focus": "高层横越",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2500,
+          724,
+          1100,
+          288
+        ]
+      ],
+      "camera_bounds": [
+        2460,
+        400,
+        1180,
+        790
+      ]
+    },
+    {
+      "id": "canopy_overlook",
+      "name": "西眺台",
+      "range": [
+        1810,
+        2440
+      ],
+      "depth": 0,
+      "kind": "overlook",
+      "archetype": "overlook",
+      "layout_rect": [
+        1810,
+        726,
+        630,
+        278
+      ],
+      "map_rect": [
+        0,
+        0,
+        236,
+        168
+      ],
+      "objective": "站上西眺台，隔着玻璃看清东北的裂纹穹顶。",
+      "guide": "从这里能看见首领穹顶的裂缝。",
+      "danger": "眺台边缘只有半块玻璃。",
+      "next": "树冠（跃入树心）",
+      "setpiece": "西眺玻璃台",
+      "traversal_focus": "见而未达",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          1810,
+          726,
+          630,
+          278
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          2068,
+          686
+        ],
+        "size": [
+          315,
+          222
+        ]
+      },
+      "camera_bounds": [
+        1770,
+        410,
+        710,
+        750
+      ]
+    },
+    {
+      "id": "tree_crown",
+      "name": "树冠之心",
+      "range": [
+        2920,
+        3890
+      ],
+      "depth": 1,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        2920,
+        798,
+        970,
+        778
+      ],
+      "map_rect": [
+        560,
+        210,
+        236,
+        168
+      ],
+      "objective": "从树冠跃入大树内部。",
+      "guide": "树心的枝桠是单向的，可以再爬回树冠。",
+      "danger": "跃入时留意断枝。",
+      "next": "大树之心",
+      "setpiece": "空心树冠",
+      "traversal_focus": "从树冠缺口坠回树心，保持下方枝台可判断",
+      "pacing_role": "controlled_return_drop",
+      "visit_rects": [
+        [
+          2920,
+          798,
+          970,
+          778
+        ]
+      ],
+      "camera_bounds": [
+        2880,
+        550,
+        1050,
+        1150
+      ]
+    },
+    {
+      "id": "tree_heart",
+      "name": "大树之心",
+      "range": [
+        2640,
+        3240
+      ],
+      "depth": 2,
+      "kind": "hub",
+      "archetype": "hub",
+      "layout_rect": [
+        2640,
+        1452,
+        600,
+        256
+      ],
+      "map_rect": [
+        560,
+        420,
+        236,
+        168
+      ],
+      "objective": "以大树之心为枢纽：下有根库拉杆，西有断弦辐桥，上可回树冠。",
+      "guide": "断弦歌者守在树心，听她唱完再走。",
+      "danger": "树心开阔，也开阔给敌人。",
+      "next": "根库 / 断弦辐桥",
+      "setpiece": "大树之心",
+      "traversal_focus": "先停在暖灯或听歌者，再进入猎手领地；根据根网前摇换位置",
+      "pacing_role": "respite_then_hunter",
+      "visit_rects": [
+        [
+          2640,
+          1452,
+          600,
+          256
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          2886,
+          1412
+        ],
+        "size": [
+          300,
+          220
+        ]
+      },
+      "camera_bounds": [
+        2600,
+        1130,
+        680,
+        850
+      ]
+    },
+    {
+      "id": "root_vault",
+      "name": "根库",
+      "range": [
+        2320,
+        2850
+      ],
+      "depth": 3,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        2320,
+        1582,
+        530,
+        504
+      ],
+      "map_rect": [
+        560,
+        840,
+        236,
+        168
+      ],
+      "objective": "拉下根库拉杆：清怪后西辐桥接通，首领之路解锁。",
+      "guide": "从背面打开的捷径会长期有效。 余响钟可开启追踪狩猎。",
+      "danger": "库房狭窄，根笼囚徒的话别全信。",
+      "next": "断弦辐桥",
+      "setpiece": "根库绞盘",
+      "traversal_focus": "先与囚徒交谈，向东处理猎手，再接通根库回环",
+      "pacing_role": "conversation_then_shortcut",
+      "visit_rects": [
+        [
+          2320,
+          1582,
+          530,
+          504
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          2537,
+          1509
+        ],
+        "size": [
+          265,
+          403
+        ]
+      },
+      "camera_bounds": [
+        2280,
+        1320,
+        610,
+        940
+      ]
+    },
+    {
+      "id": "west_spoke",
+      "name": "断弦辐桥",
+      "range": [
+        600,
+        2320
+      ],
+      "depth": 2,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        600,
+        1370,
+        1720,
+        576
+      ],
+      "map_rect": [
+        280,
+        420,
+        236,
+        168
+      ],
+      "objective": "沿断弦辐桥向西，直通温室西门上层。",
+      "guide": "这条辐桥是打通后最快的回环。",
+      "danger": "桥板半朽，别停在中段。",
+      "next": "温室西门",
+      "setpiece": "断弦辐桥",
+      "traversal_focus": "高层回环",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          600,
+          1370,
+          1720,
+          576
+        ]
+      ],
+      "camera_bounds": [
+        560,
+        1090,
+        1800,
+        1030
+      ]
+    },
+    {
+      "id": "dome_approach",
+      "name": "穹顶前廊",
+      "range": [
+        4720,
+        5570
+      ],
+      "depth": 0,
+      "kind": "preboss",
+      "archetype": "preboss",
+      "layout_rect": [
+        4720,
+        612,
+        850,
+        278
+      ],
+      "map_rect": [
+        1400,
+        0,
+        236,
+        168
+      ],
+      "objective": "登上穹顶前廊直达裂纹穹顶，死亡回跑很短。",
+      "guide": "前廊有暖灯存档点。",
+      "danger": "前廊风口敌人密集。",
+      "next": "裂纹穹顶",
+      "setpiece": "穹顶前廊",
+      "traversal_focus": "在前廊暖灯休整，哨兵驻守之后的Boss门前平台",
+      "pacing_role": "respite_then_threshold_guard",
+      "visit_rects": [
+        [
+          4720,
+          612,
+          850,
+          278
+        ]
+      ],
+      "camera_bounds": [
+        4680,
+        310,
+        930,
+        750
+      ]
+    },
+    {
+      "id": "fracture_dome",
+      "name": "裂纹穹顶",
+      "range": [
+        5600,
+        6320
+      ],
+      "depth": 0,
+      "kind": "boss",
+      "archetype": "boss",
+      "layout_rect": [
+        5600,
+        682,
+        720,
+        262
+      ],
+      "map_rect": [
+        1680,
+        0,
+        236,
+        168
+      ],
+      "objective": "击败铜根主教，取回断弦印记，打开东琉璃台的出口。",
+      "guide": "入口会在战斗时封闭。",
+      "danger": "主教的藤鞭与花粉风覆盖全场。",
+      "next": "东琉璃台",
+      "setpiece": "裂纹穹顶",
+      "traversal_focus": "首领战",
+      "pacing_role": "boss",
+      "visit_rects": [
+        [
+          5600,
+          682,
+          720,
+          262
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          5895,
+          642
+        ],
+        "size": [
+          360,
+          220
+        ]
+      },
+      "camera_bounds": [
+        5560,
+        340,
+        800,
+        760
+      ]
+    },
+    {
+      "id": "victory_terrace",
+      "name": "东琉璃台",
+      "range": [
+        6350,
+        7290
+      ],
+      "depth": 1,
+      "kind": "exit",
+      "archetype": "exit",
+      "layout_rect": [
+        6350,
+        594,
+        940,
+        294
+      ],
+      "map_rect": [
+        1960,
+        210,
+        236,
+        168
+      ],
+      "objective": "沿东琉璃台离开温室。",
+      "guide": "出口通往第五章：黑曜巡礼道。",
+      "danger": "战后玻璃仍在剥落。",
+      "next": "第五章：黑曜巡礼道",
+      "setpiece": "东琉璃台",
+      "traversal_focus": "战后收束",
+      "pacing_role": "denouement",
+      "visit_rects": [
+        [
+          6350,
+          594,
+          940,
+          294
+        ]
+      ],
+      "landmark_art": {
+        "motif": "leaf",
+        "position": [
+          6770,
+          552
+        ],
+        "size": [
+          400,
+          235
+        ]
+      },
+      "camera_bounds": [
+        6310,
+        270,
+        1020,
+        800
+      ]
+    }
+  ],
+  "ai_profiles": {
+    "vine_crawler": {
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出",
+      "tactical_role": "ambush",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "vine_bite",
+          "name": "藤口咬",
+          "type": "melee",
+          "range": 92,
+          "windup": 0.42,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 82,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "藤口咬"
+        },
+        {
+          "id": "vine_roots",
+          "name": "三段根刺",
+          "type": "rootline",
+          "range": 320,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "三段根刺",
+          "shot_count": 3,
+          "spacing": 85,
+          "warning": 0.55,
+          "hazard_life": 0.5,
+          "radius": 24
+        }
+      ]
+    },
+    "wax_bee": {
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向",
+      "tactical_role": "aerial",
+      "move_speed": 80,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "bee_dive",
+          "name": "蜡蜂刺冲",
+          "type": "dive",
+          "range": 280,
+          "windup": 0.62,
+          "active": 0.48,
+          "recover": 0.85,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "蜡蜂刺冲"
+        },
+        {
+          "id": "bee_stingers",
+          "name": "双针连射",
+          "type": "fan",
+          "range": 400,
+          "windup": 0.65,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双针连射",
+          "shot_count": 2,
+          "spread": 0.22,
+          "projectile_speed": 310,
+          "skin": "thorn"
+        }
+      ],
+      "hover_height": 125
+    },
+    "root_cage_hunter": {
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "tactical_role": "patrol",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "cage_net",
+          "name": "根网投掷",
+          "type": "projectile",
+          "range": 360,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根网投掷",
+          "projectile_speed": 220,
+          "skin": "thorn",
+          "radius": 14,
+          "snare": 1.2
+        },
+        {
+          "id": "cage_pounce",
+          "name": "根笼扑刺",
+          "type": "vault",
+          "range": 280,
+          "windup": 0.55,
+          "active": 0.6,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根笼扑刺",
+          "jump_height": 100,
+          "lunge_speed": 290
+        }
+      ]
+    },
+    "pollen_lutist": {
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈",
+      "tactical_role": "ranged",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "pollen_arcs",
+          "name": "弦音花粉",
+          "type": "fan",
+          "range": 440,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "弦音花粉",
+          "shot_count": 4,
+          "spread": 0.6,
+          "projectile_speed": 145,
+          "skin": "pollen",
+          "snare": 0.85
+        },
+        {
+          "id": "pollen_spots",
+          "name": "错位花粉圈",
+          "type": "pool",
+          "range": 400,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "错位花粉圈",
+          "shot_count": 2,
+          "spacing": 105,
+          "radius": 36,
+          "warning": 0.95,
+          "hazard_life": 1.5
+        }
+      ]
+    },
+    "thorn_sentinel": {
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙",
+      "tactical_role": "guard",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "thorn_ring",
+          "name": "荆针轮射",
+          "type": "nova",
+          "range": 400,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "荆针轮射",
+          "shot_count": 6,
+          "projectile_speed": 185,
+          "skin": "thorn"
+        },
+        {
+          "id": "thorn_wall",
+          "name": "根墙封路",
+          "type": "rootline",
+          "range": 380,
+          "windup": 0.45,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 4,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "根墙封路",
+          "shot_count": 3,
+          "spacing": 90,
+          "warning": 0.8,
+          "radius": 24,
+          "hazard_life": 0.75
+        }
+      ]
+    },
+    "broken_string_gardener": {
+      "locomotion": "ground",
+      "combat_identity": "定点根刺、缓速藤种；半血后交错根墙",
+      "tactical_role": "boss",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
+      "attacks": [
+        {
+          "id": "boss_bishop_staff",
+          "name": "根杖敲击",
+          "type": "melee",
+          "range": 185,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.8,
+          "cooldown": 2.7,
+          "hit_width": 180,
+          "hit_height": 125,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "根杖敲击"
+        },
+        {
+          "id": "boss_bishop_seeds",
+          "name": "藤种布道",
+          "type": "fan",
+          "range": 680,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "藤种布道",
+          "shot_count": 5,
+          "spread": 0.68,
+          "projectile_speed": 160,
+          "skin": "pollen",
+          "snare": 0.8
+        },
+        {
+          "id": "boss_bishop_roots",
+          "name": "循地根刺",
+          "type": "rootline",
+          "range": 650,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "循地根刺",
+          "shot_count": 4,
+          "spacing": 110,
+          "warning": 0.68,
+          "radius": 26,
+          "hazard_life": 0.72
+        },
+        {
+          "id": "boss_bishop_cage",
+          "name": "交错根笼",
+          "type": "pool",
+          "range": 670,
+          "windup": 1.15,
+          "active": 0.24,
+          "recover": 1.2,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "交错根笼",
+          "shot_count": 4,
+          "spacing": 120,
+          "radius": 34,
+          "warning": 0.9,
+          "hazard_life": 1.6,
+          "phase": 2
+        }
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "根笼讲坛"
+    },
+    "thorn_bloom_mote": {
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针",
+      "tactical_role": "aerial",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "bloom_seeds",
+          "name": "花种落刺",
+          "type": "rootline",
+          "range": 340,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "花种落刺",
+          "shot_count": 2,
+          "spacing": 80,
+          "targeted": true,
+          "warning": 0.7,
+          "radius": 25
+        },
+        {
+          "id": "bloom_needle",
+          "name": "花蕊针",
+          "type": "projectile",
+          "range": 340,
+          "windup": 0.5,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "花蕊针",
+          "projectile_speed": 240,
+          "skin": "thorn"
+        }
+      ],
+      "hover_height": 135
+    }
+  },
+  "platforms": [
+    {
+      "id": "gate_floor",
+      "rect": [
+        240,
+        1780,
+        320,
+        44
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 0,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": true,
+        "body_variants": [
+          1,
+          3,
+          6
+        ]
+      },
+      "terrain_id": "terrain_entry_root_0_0",
+      "terrain_flat_span": [
+        240,
+        560
+      ]
+    },
+    {
+      "id": "gate_upper_landing",
+      "rect": [
+        300,
+        1568,
+        240,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          11,
+          2
+        ]
+      }
+    },
+    {
+      "id": "wd_step_a",
+      "rect": [
+        680,
+        1896,
+        190,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 1,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          2,
+          5
+        ]
+      }
+    },
+    {
+      "id": "wd_step_b",
+      "rect": [
+        520,
+        2018,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 2,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "wd_step_c",
+      "rect": [
+        720,
+        2140,
+        170,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 3,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "wd_step_d",
+      "rect": [
+        540,
+        2266,
+        160,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 4,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          3,
+          6
+        ]
+      }
+    },
+    {
+      "id": "south_run_a",
+      "rect": [
+        860,
+        2420,
+        380,
+        40
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 5,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          6,
+          10
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        860,
+        1240
+      ]
+    },
+    {
+      "id": "south_bed_b",
+      "rect": [
+        1340,
+        2474,
+        300,
+        34
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 6,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          8,
+          0
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        1340,
+        1640
+      ]
+    },
+    {
+      "id": "south_run_c",
+      "rect": [
+        1750,
+        2412,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 7,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          4,
+          8
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        1750,
+        2010
+      ]
+    },
+    {
+      "id": "south_bed_d",
+      "rect": [
+        2120,
+        2478,
+        340,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 8,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          6,
+          9
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        2120,
+        2460
+      ]
+    },
+    {
+      "id": "south_run_e",
+      "rect": [
+        2570,
+        2422,
+        300,
+        34
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 9,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          8,
+          11
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        2570,
+        2870
+      ]
+    },
+    {
+      "id": "south_bed_f",
+      "rect": [
+        2990,
+        2484,
+        360,
+        38
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 10,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": false,
+        "body_variants": [
+          3,
+          4,
+          7
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        2990,
+        3350
+      ]
+    },
+    {
+      "id": "south_run_g",
+      "rect": [
+        3470,
+        2428,
+        280,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 11,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": true,
+        "body_variants": [
+          8,
+          10,
+          1
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        3470,
+        3750
+      ]
+    },
+    {
+      "id": "south_bed_h",
+      "rect": [
+        3870,
+        2486,
+        320,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 12,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          1,
+          4
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        3870,
+        4190
+      ]
+    },
+    {
+      "id": "south_run_i",
+      "rect": [
+        4300,
+        2432,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 13,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          9,
+          0
+        ]
+      },
+      "terrain_id": "terrain_garden_floor_0_0",
+      "terrain_flat_span": [
+        4300,
+        4560
+      ]
+    },
+    {
+      "id": "bw_step",
+      "rect": [
+        4660,
+        2354,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 14,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          8,
+          0
+        ]
+      },
+      "terrain_id": "terrain_wax_bank_0_0",
+      "terrain_flat_span": [
+        4660,
+        4801.79
+      ]
+    },
+    {
+      "id": "bw_floor",
+      "rect": [
+        4880,
+        2300,
+        280,
+        34
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 15,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          4,
+          7
+        ]
+      },
+      "terrain_id": "terrain_wax_bank_0_0",
+      "terrain_flat_span": [
+        4888.21,
+        5160
+      ]
+    },
+    {
+      "id": "vine_v1",
+      "rect": [
+        5230,
+        2322,
+        150,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 16,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "vine_v2",
+      "rect": [
+        5415,
+        2210,
+        120,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 17,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": false,
+        "body_variants": [
+          7,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "vine_v3",
+      "rect": [
+        5235,
+        2098,
+        175,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 18,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": true,
+        "body_variants": [
+          8,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "vine_rest",
+      "rect": [
+        5450,
+        2000,
+        210,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 19,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "vine_v4",
+      "rect": [
+        5245,
+        1900,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 20,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "vine_v5",
+      "rect": [
+        5445,
+        1795,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 21,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "vine_v6",
+      "rect": [
+        5240,
+        1678,
+        115,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 22,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "vine_v7",
+      "rect": [
+        5455,
+        1570,
+        185,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 23,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "id": "vine_v8",
+      "rect": [
+        5250,
+        1462,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 24,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "vine_v9",
+      "rect": [
+        5460,
+        1360,
+        195,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 25,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "vine_v10",
+      "rect": [
+        5255,
+        1252,
+        125,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 26,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "trellis_a",
+      "rect": [
+        5230,
+        1186,
+        240,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 27,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "trellis_b",
+      "rect": [
+        4950,
+        1120,
+        200,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 28,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "trellis_rise",
+      "rect": [
+        4720,
+        1006,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 29,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": true,
+        "body_variants": [
+          8,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "canopy_e_a",
+      "rect": [
+        4420,
+        892,
+        330,
+        34
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 30,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": true,
+        "body_variants": [
+          2,
+          11,
+          3
+        ]
+      },
+      "terrain_id": "terrain_canopy_east_0_0",
+      "terrain_flat_span": [
+        4420,
+        4750
+      ]
+    },
+    {
+      "id": "canopy_e_b",
+      "rect": [
+        4010,
+        928,
+        290,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 31,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": false,
+        "body_variants": [
+          3,
+          0,
+          4
+        ]
+      },
+      "terrain_id": "terrain_canopy_east_0_0",
+      "terrain_flat_span": [
+        4010,
+        4300
+      ]
+    },
+    {
+      "id": "canopy_e_c",
+      "rect": [
+        3640,
+        882,
+        250,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 32,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          3,
+          6
+        ]
+      }
+    },
+    {
+      "id": "canopy_w_a",
+      "rect": [
+        3250,
+        920,
+        310,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 33,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          7,
+          10
+        ]
+      },
+      "terrain_id": "terrain_canopy_west_0_0",
+      "terrain_flat_span": [
+        3250,
+        3560
+      ]
+    },
+    {
+      "id": "canopy_w_b",
+      "rect": [
+        2880,
+        874,
+        240,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 34,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_canopy_west_0_0",
+      "terrain_flat_span": [
+        2885.21,
+        3120
+      ]
+    },
+    {
+      "id": "canopy_w_c",
+      "rect": [
+        2540,
+        918,
+        280,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 35,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          0,
+          4
+        ]
+      },
+      "terrain_id": "terrain_canopy_west_0_0",
+      "terrain_flat_span": [
+        2540,
+        2814.79
+      ]
+    },
+    {
+      "id": "overlook_walk",
+      "rect": [
+        2170,
+        876,
+        230,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 36,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_bishop_approach_0_0",
+      "terrain_flat_span": [
+        2170,
+        2400
+      ]
+    },
+    {
+      "id": "overlook_deck",
+      "rect": [
+        1850,
+        912,
+        260,
+        32
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 37,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          3,
+          7
+        ]
+      }
+    },
+    {
+      "id": "crown_top",
+      "rect": [
+        2960,
+        1162,
+        220,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 38,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": true,
+        "body_variants": [
+          2,
+          7,
+          10
+        ]
+      }
+    },
+    {
+      "id": "crown_mid",
+      "rect": [
+        3200,
+        1292,
+        180,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 39,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          2,
+          6
+        ]
+      }
+    },
+    {
+      "id": "crown_up_a",
+      "rect": [
+        3500,
+        1494,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": false,
+        "body_variants": [
+          7,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "crown_up_b",
+      "rect": [
+        3680,
+        1384,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "crown_up_c",
+      "rect": [
+        3510,
+        1274,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "crown_up_d",
+      "rect": [
+        3700,
+        1164,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "id": "crown_up_e",
+      "rect": [
+        3530,
+        1054,
+        150,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": false,
+        "body_variants": [
+          7,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "crown_up_f",
+      "rect": [
+        3720,
+        948,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 8,
+        "flip_h": true,
+        "body_variants": [
+          8,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "heart_floor",
+      "rect": [
+        2680,
+        1602,
+        520,
+        46
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 40,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          2,
+          5
+        ]
+      },
+      "terrain_id": "terrain_garden_heart_0_0",
+      "terrain_flat_span": [
+        2680,
+        3200
+      ]
+    },
+    {
+      "id": "rv_step_a",
+      "rect": [
+        2480,
+        1732,
+        130,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 41,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          11,
+          3
+        ]
+      }
+    },
+    {
+      "id": "rv_step_b",
+      "rect": [
+        2660,
+        1856,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 42,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "vault_floor",
+      "rect": [
+        2360,
+        1982,
+        340,
+        44
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 43,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          10,
+          1
+        ]
+      },
+      "terrain_id": "terrain_root_vault_0_0",
+      "terrain_flat_span": [
+        2360,
+        2700
+      ]
+    },
+    {
+      "id": "spoke_lift_a",
+      "rect": [
+        2140,
+        1864,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "spoke_lift_b",
+      "rect": [
+        1980,
+        1756,
+        140,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "spoke_lift_c",
+      "rect": [
+        2150,
+        1650,
+        130,
+        22
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch",
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "spoke_run_a",
+      "rect": [
+        1730,
+        1562,
+        300,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          9,
+          0
+        ]
+      },
+      "terrain_id": "terrain_broken_spoke_0_0",
+      "terrain_flat_span": [
+        1730,
+        2030
+      ]
+    },
+    {
+      "id": "spoke_run_b",
+      "rect": [
+        1310,
+        1604,
+        280,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          1,
+          5
+        ]
+      },
+      "terrain_id": "terrain_broken_spoke_0_0",
+      "terrain_flat_span": [
+        1310,
+        1590
+      ]
+    },
+    {
+      "id": "spoke_gap_c",
+      "rect": [
+        950,
+        1556,
+        220,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          11,
+          2
+        ]
+      }
+    },
+    {
+      "id": "spoke_gap_d",
+      "rect": [
+        640,
+        1520,
+        150,
+        24
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          11,
+          3
+        ]
+      }
+    },
+    {
+      "id": "dome_rise",
+      "rect": [
+        4760,
+        806,
+        150,
+        24
+      ],
+      "color": "3f5e3a",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 44,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "id": "dome_deck",
+      "rect": [
+        4980,
+        762,
+        260,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 45,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": true,
+        "body_variants": [
+          1,
+          5,
+          8
+        ]
+      }
+    },
+    {
+      "id": "boss_threshold",
+      "rect": [
+        5330,
+        794,
+        200,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 46,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_bishop_approach_1_0",
+      "terrain_flat_span": [
+        5330,
+        5530
+      ]
+    },
+    {
+      "id": "dome_floor",
+      "rect": [
+        5640,
+        832,
+        640,
+        52
+      ],
+      "color": "22301a",
+      "material": "root_boss",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 47,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          8,
+          5
+        ]
+      },
+      "terrain_id": "terrain_root_dome_0_0",
+      "terrain_flat_span": [
+        5640,
+        6280
+      ]
+    },
+    {
+      "id": "vt_walk",
+      "rect": [
+        6390,
+        788,
+        220,
+        30
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 48,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "vt_step",
+      "rect": [
+        6720,
+        744,
+        170,
+        26
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 49,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          3,
+          7
+        ]
+      }
+    },
+    {
+      "id": "exit_dock",
+      "rect": [
+        6990,
+        792,
+        260,
+        36
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 50,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          2,
+          6
+        ]
+      }
+    },
+    {
+      "id": "cave_dock_0",
+      "rect": [
+        5020.0,
+        2300,
+        650.0,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "greenhouse_loam",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "cave_dock_1",
+      "rect": [
+        5350.0,
+        1186,
+        320.0,
+        28
+      ],
+      "color": "1d2e1c",
+      "material": "glassvine_bridge",
+      "collision_role": "one_way",
+      "route_role": "branch"
+    }
+  ],
+  "locked_gates": [],
+  "hazards": [
+    {
+      "id": "ch04_hazard_south_bed",
+      "kind": "fake_moss_floor",
+      "rect": [
+        1490,
+        2468,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "苗床的腐叶层一踩就陷。",
+      "platform_id": "south_bed_b"
+    },
+    {
+      "id": "ch04_hazard_south_root",
+      "kind": "spore_chest",
+      "rect": [
+        3225,
+        2478,
+        110,
+        22
+      ],
+      "damage": 1,
+      "message": "根须间的孢囊猛然炸开。",
+      "platform_id": "south_bed_f"
+    },
+    {
+      "id": "ch04_hazard_canopy_string",
+      "kind": "fake_moss_floor",
+      "rect": [
+        4420,
+        886,
+        130,
+        22
+      ],
+      "damage": 1,
+      "message": "断弦平台突然塌断。",
+      "platform_id": "canopy_e_a"
+    },
+    {
+      "id": "ch04_hazard_canopy_clapper",
+      "kind": "falling_clapper",
+      "rect": [
+        2680,
+        912,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "玻璃穹顶的挂铃砸落。",
+      "platform_id": "canopy_w_c"
+    },
+    {
+      "id": "ch04_hazard_crown_gap",
+      "kind": "bell_gap",
+      "rect": [
+        3300,
+        1286,
+        100,
+        22
+      ],
+      "damage": 1,
+      "message": "树心裂口深不见底。",
+      "platform_id": "crown_mid"
+    },
+    {
+      "id": "ch04_hazard_spoke_plank",
+      "kind": "fake_moss_floor",
+      "rect": [
+        1740,
+        1556,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "辐桥朽板一踩就断。",
+      "platform_id": "spoke_run_a"
+    }
+  ],
+  "collectibles": [
+    {
+      "id": "col_testimony_04",
+      "kind": "item",
+      "room_id": "tree_heart",
+      "item_id": "testimony_04",
+      "position": [
+        2760,
+        1562
+      ],
+      "ability_name": "证词其四",
+      "label": "证词·其四",
+      "note": "大树之心母株脚下（枯萎母株口径），真结局收集品；地图重做后迁至 thorn_downstrike 门后。"
+    },
+    {
+      "id": "col_branch_beeswax_nook",
+      "kind": "item",
+      "item_id": "pollen_wax",
+      "amount": 5,
+      "position": [
+        5020,
+        2254
+      ],
+      "room_id": "beeswax_nook",
+      "platform_id": "bw_floor",
+      "reward_role": "optional_exploration"
+    },
+    {
+      "id": "col_branch_root_vault",
+      "kind": "item",
+      "item_id": "pollen_wax",
+      "amount": 5,
+      "position": [
+        2530,
+        1936
+      ],
+      "room_id": "root_vault",
+      "platform_id": "vault_floor",
+      "reward_role": "optional_exploration"
+    }
+  ],
+  "interactives": [
+    {
+      "id": "ch04_broken_string_greenhouse_shortcut_lever",
+      "kind": "lever",
+      "position": [
+        2620,
+        1942
+      ],
+      "requires_keys": 0,
+      "label": "战斗门控制器",
+      "shortcut_id": "ch04_west_spoke_shortcut"
+    },
+    {
+      "id": "ch04_broken_string_greenhouse_boss_gate",
+      "kind": "boss_gate",
+      "position": [
+        5710,
+        792
+      ]
+    },
+    {
+      "id": "ch04_chapter_exit",
+      "kind": "chapter_exit",
+      "label": "前往第五章：黑曜巡礼道",
+      "position": [
+        7140,
+        752
+      ],
+      "next_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
+      "next_config_path": "res://data/demo_ch05_obsidian_pilgrim_road.json",
+      "requires_demo_complete": true,
+      "interaction_size": [
+        240,
+        180
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_old_gardener",
+      "name": "老园丁弦伯",
+      "position": [
+        490,
+        1740
+      ],
+      "role": "main_witness",
+      "dialogue": [
+        "踩在根床边，别踩嫩芽。它们不认识战场，长出来就只顾着向上。",
+        "南边地床是长路，上面树冠是捷径。根笼亮起时换位置，别在同一块土上等它收紧。"
+      ],
+      "identity": "温室前厅的老园丁，曾修剪活封面和守门者根系。",
+      "motive": "想让主角知道温室不是花园，而是六位守门者的病房。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "踩在根床边，别踩嫩芽。它们不认识战场，长出来就只顾着向上。",
+          "南边地床是长路，上面树冠是捷径。根笼亮起时换位置，别在同一块土上等它收紧。"
+        ],
+        "repeat": [
+          "剪掉坏枝不难，难的是承认自己也浇过让它生病的水。"
+        ],
+        "after_ability": [
+          "下劈能开旧根封。看准下面是什么，有些壳会碎，有些是还活着的家。"
+        ],
+        "after_boss": [
+          "主教不讲了，树还在长。我们要做的是解开根，不是烧光根。"
+        ],
+        "late_game": [
+          "这条活脉还认得我的手。好，我就当它肯再给园丁一次机会。"
+        ],
+        "true_ending_branch": [
+          "契约里留一句让花按自己的季节开。园丁可以修路，不能替每片叶子安排寿命。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": null
+      },
+      "dialogue_topics": {
+        "route": "西阶下面是根须南廊，沿苗床走到尽头才到蜂蜡暗屋。东藤壁能爬上树冠；若从树心回来，就找那盏还暖着的灯。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "wish": "把活壳脉络带回来让我摸摸。我想知道园子里的根还连着谁。"
+      }
+    },
+    {
+      "id": "npc_beeswax_vendor",
+      "name": "蜂蜡商人蜜岚",
+      "position": [
+        4950,
+        2260
+      ],
+      "role": "vendor_sidequest",
+      "dialogue": [
+        "闻闻这块蜡，像不像暖天？这城里少见暖天，所以我把它们做成一小罐一小罐。",
+        "蜂蜡丘过后是树冠回路。脚下长路走得稳，高处枝桥看得远，你不用一路都跳。"
+      ],
+      "identity": "蜂蜡小屋商人，靠收集花粉过滤器、盐页和蜡封护符生存。",
+      "motive": "想赚钱，也想把温室里还能被带走的证据交给真正会用的人。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "闻闻这块蜡，像不像暖天？这城里少见暖天，所以我把它们做成一小罐一小罐。",
+          "蜂蜡丘过后是树冠回路。脚下长路走得稳，高处枝桥看得远，你不用一路都跳。"
+        ],
+        "repeat": [
+          "生意最好的时候，没人赶着走。那会儿我多送半勺蜂蜜，不催人付款。"
+        ],
+        "after_ability": [
+          "你的下劈够利了。敲蜡时轻一点，我卖的是封灯的料，不是练刀的靶子。"
+        ],
+        "after_boss": [
+          "主教停下，蜂群却还忙。我给他们多留些花，不再把每滴蜜都换成钱。"
+        ],
+        "late_game": [
+          "证词也需要封套？来，拿这一张。收我一声早安就够了。"
+        ],
+        "true_ending_branch": [
+          "新城第一笔生意，我想卖生日蜡烛。不是祭灯，生日，你知道的那一种。"
+        ],
+        "sidequest_done": [
+          "蜡色正好。来，心结编好了，往后记得在灯下收针。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "item_pollen_wax_returned",
+        "leave": null
+      },
+      "dialogue_topics": {
+        "route": "蜂蜡丘过后是树冠回路。脚下长路走得稳，高处枝桥看得远，你不用一路都跳。",
+        "wish": "带一块花粉蜡给我，我替你编个心结。货换货，说话算数。",
+        "quest": {
+          "item": "pollen_wax",
+          "complete_flag": "item_pollen_wax_returned",
+          "accept_flag": "wish_accepted_npc_beeswax_vendor",
+          "reward": "heart_knot",
+          "consume": true,
+          "thanks": "蜡色正好。来，心结编好了，往后记得在灯下收针。"
+        }
+      }
+    },
+    {
+      "id": "npc_broken_singer",
+      "name": "断弦歌者",
+      "position": [
+        3090,
+        1562
+      ],
+      "role": "keeper_truth",
+      "dialogue": [
+        "我的弦只剩两根。别替我补好，先听听断了以后，还有什么声音留着。",
+        "树冠西枝绕回弦心，往东才是根穹顶。主教举杖后留意地面，根刺不全从他脚边来。"
+      ],
+      "identity": "第四位守门者残留人格，歌声维持温室上方裂缝沉睡。",
+      "motive": "不想再被当作材料，但仍害怕主角拿走印记后裂缝醒来。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "我的弦只剩两根。别替我补好，先听听断了以后，还有什么声音留着。",
+          "树冠西枝绕回弦心，往东才是根穹顶。主教举杖后留意地面，根刺不全从他脚边来。"
+        ],
+        "repeat": [
+          "完整的歌未必说真话。我以前唱得很好，也替别人把求救盖住过。"
+        ],
+        "after_ability": [
+          "你的线能往下斩了。别把每次断开都当成伤害，有的东西等着被放出来。"
+        ],
+        "after_boss": [
+          "他讲了太多年，终于有人能插一句话。今晚我让囚徒先唱，不替他们定调。"
+        ],
+        "late_game": [
+          "脉络里还传来人声。把耳朵贴近一点，这一段，别急着记成一句漂亮的话。"
+        ],
+        "true_ending_branch": [
+          "改契约时别唱齐声。每个人各唱各的，才像一座终于能说话的城。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": {
+          "condition": "ending_a_done",
+          "effect": "重新成为印记；消失前播告别句：「钟重鸣了；我回去了。别道歉——只是下次路过温室，别停下来。」原位余一根不再颤动的弦（拾取）"
+        }
+      },
+      "dialogue_topics": {
+        "route": "树冠西枝绕回弦心，往东才是根穹顶。主教举杖后留意地面，根刺不全从他脚边来。",
+        "wish": "如果你愿意，把井里听见的那一声带回来。我想给它留两个音的位置。"
+      }
+    },
+    {
+      "id": "npc_root_prisoner",
+      "name": "根笼囚徒",
+      "position": [
+        2440,
+        1942
+      ],
+      "role": "gate_hint",
+      "dialogue": [
+        "你看，我的手已经能伸出来一点。根以为抱住就是保护，我一直没能解释。",
+        "根牢下面有支路，上方的封根能用下劈打开。打开后先退开，别连自己也困进去。"
+      ],
+      "identity": "被根笼困住的失败采集者，身体被温室当成警示。",
+      "motive": "想被释放，或至少让主角替他证明根笼下方有暗道。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "你看，我的手已经能伸出来一点。根以为抱住就是保护，我一直没能解释。",
+          "根牢下面有支路，上方的封根能用下劈打开。打开后先退开，别连自己也困进去。"
+        ],
+        "repeat": [
+          "这颗种子是我唯一能带走的东西。我给它讲外面的路，希望它别再长成笼子。"
+        ],
+        "after_ability": [
+          "你能破根封了？那别急着试在我身上，先找笼子的结，结比枝条怕疼。"
+        ],
+        "after_boss": [
+          "主教的声音断了，笼子松了。我想自己站起来，你在旁边等一等就好。"
+        ],
+        "late_game": [
+          "这份证词里也有被根抱住的人吗？有的话，告诉他们，伸手的人还没放弃。"
+        ],
+        "true_ending_branch": [
+          "新契约让人可以离开，也可以回来。我要先离开一次，才知道什么叫回来。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "thorn_downstrike",
+        "testimony_ref": "testimony_04",
+        "quest_flag": "",
+        "leave": {
+          "condition": "after_ability 播毕（获救）",
+          "effect": "迁至 west_gate 门口；after_boss 起在新位置播放"
+        }
+      },
+      "dialogue_topics": {
+        "route": "根牢下面有支路，上方的封根能用下劈打开。打开后先退开，别连自己也困进去。",
+        "wish": "替我打开封根。以后这颗种子若长大，你再路过，我会给你留一块阴凉。"
+      }
+    }
+  ],
+  "guides": [],
+  "enemy_spawns": [
+    {
+      "id": "E01",
+      "kind": "vine_crawler",
+      "position": [
+        1150,
+        2380
+      ],
+      "platform_id": "south_run_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
+      "visual_offset": [
+        0,
+        18.32116788321168
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
+    },
+    {
+      "id": "E02",
+      "kind": "root_cage_hunter",
+      "position": [
+        2290,
+        2438
+      ],
+      "platform_id": "south_bed_d",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
+      "visual_offset": [
+        0,
+        5.335463258785943
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "elite": true
+    },
+    {
+      "id": "E03",
+      "kind": "vine_crawler",
+      "position": [
+        3090,
+        2444
+      ],
+      "platform_id": "south_bed_f",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
+      "visual_offset": [
+        0,
+        18.32116788321168
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
+    },
+    {
+      "id": "E04",
+      "kind": "thorn_sentinel",
+      "position": [
+        4030,
+        2446
+      ],
+      "platform_id": "south_bed_h",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
+      "visual_offset": [
+        0,
+        4.662379421221864
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙"
+    },
+    {
+      "id": "E05",
+      "kind": "thorn_bloom_mote",
+      "position": [
+        4470,
+        2392
+      ],
+      "platform_id": "south_run_i",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 35,
+      "sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/manifest.json",
+      "visual_scale": 0.26480836236933797,
+      "visual_offset": [
+        0,
+        15.763066202090592
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_bloom_mote/atlas.png",
+      "leash_radius": 90,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 36,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "花心投种，落点生刺；近处吐针",
+      "encounter_role": "south_exit_bloom",
+      "encounter_profile": {
+        "aggro_range": 220
+      }
+    },
+    {
+      "id": "E06",
+      "kind": "wax_bee",
+      "position": [
+        5555,
+        1960
+      ],
+      "platform_id": "vine_rest",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+      "visual_scale": 0.26936026936026936,
+      "visual_offset": [
+        0,
+        13.824915824915827
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向"
+    },
+    {
+      "id": "E07",
+      "kind": "pollen_lutist",
+      "position": [
+        5350,
+        1146
+      ],
+      "platform_id": "trellis_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
+      "visual_offset": [
+        0,
+        9.39622641509434
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
+    },
+    {
+      "id": "E08",
+      "kind": "wax_bee",
+      "position": [
+        4215,
+        888
+      ],
+      "platform_id": "canopy_e_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+      "visual_scale": 0.26936026936026936,
+      "visual_offset": [
+        0,
+        13.824915824915827
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向"
+    },
+    {
+      "id": "E09",
+      "kind": "vine_crawler",
+      "position": [
+        3345,
+        880
+      ],
+      "platform_id": "canopy_w_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/vine_crawler/manifest.json",
+      "visual_scale": 0.26277372262773724,
+      "visual_offset": [
+        0,
+        18.32116788321168
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/vine_crawler/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "藤口咬击，身前三段根刺依次冒出"
+    },
+    {
+      "id": "E10",
+      "kind": "wax_bee",
+      "position": [
+        2285,
+        836
+      ],
+      "platform_id": "overlook_walk",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+      "visual_scale": 0.26936026936026936,
+      "visual_offset": [
+        0,
+        13.824915824915827
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 40,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "快速蜂刺俯冲，双针封住后撤方向"
+    },
+    {
+      "id": "E11",
+      "kind": "root_cage_hunter",
+      "position": [
+        2930,
+        1562
+      ],
+      "platform_id": "heart_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 30,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
+      "visual_offset": [
+        0,
+        5.335463258785943
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+      "leash_radius": 65,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "encounter_role": "heart_hunter_between_respite_points",
+      "encounter_profile": {
+        "aggro_range": 180,
+        "attacks": [
+          {
+            "id": "cage_net",
+            "name": "根网投掷",
+            "type": "projectile",
+            "range": 360,
+            "windup": 0.7,
+            "active": 0.24,
+            "recover": 1.1,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "根网投掷",
+            "projectile_speed": 220,
+            "skin": "thorn",
+            "radius": 14,
+            "snare": 1.2,
+            "blockable": true,
+            "start_cooldown": 0.8
+          },
+          {
+            "id": "cage_pounce",
+            "name": "根笼扑刺",
+            "type": "vault",
+            "range": 280,
+            "windup": 0.55,
+            "active": 0.6,
+            "recover": 1.2000000000000002,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "根笼扑刺",
+            "jump_height": 100,
+            "lunge_speed": 290,
+            "blockable": false,
+            "start_cooldown": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "E12",
+      "kind": "root_cage_hunter",
+      "position": [
+        2650,
+        1942
+      ],
+      "platform_id": "vault_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 15,
+      "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+      "visual_scale": 0.33226837060702874,
+      "visual_offset": [
+        0,
+        5.335463258785943
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+      "leash_radius": 55,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "投出根网减速，再长距离扑刺",
+      "encounter_role": "vault_hunter_away_from_prisoner",
+      "encounter_profile": {
+        "aggro_range": 160
+      }
+    },
+    {
+      "id": "E13",
+      "kind": "pollen_lutist",
+      "position": [
+        1450,
+        1564
+      ],
+      "platform_id": "spoke_run_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/pollen_lutist/manifest.json",
+      "visual_scale": 0.3018867924528302,
+      "visual_offset": [
+        0,
+        9.39622641509434
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/pollen_lutist/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 56,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "拨弦散出缓速花粉，错位落圈"
+    },
+    {
+      "id": "E14",
+      "kind": "thorn_sentinel",
+      "position": [
+        5430,
+        754
+      ],
+      "platform_id": "boss_threshold",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 0,
+      "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+      "visual_scale": 0.33440514469453375,
+      "visual_offset": [
+        0,
+        4.662379421221864
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
+      "leash_radius": 90,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 64,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "守住根床，放射荆针与横向根墙",
+      "encounter_role": "dome_threshold_sentinel",
+      "encounter_profile": {
+        "aggro_range": 240
+      }
+    }
+  ],
+  "boss": {
+    "id": "C4_B01",
+    "name": "铜根主教",
+    "kind": "broken_string_gardener",
+    "position": [
+      6070,
+      792
+    ],
+    "hp": 22,
+    "damage": 1,
+    "patrol": 260,
+    "reward_item": "silent_mark_greenhouse",
+    "story_drop": "活封面证词补全第七签署者名字第二段，黑曜巡礼道开放。",
+    "sprite": "res://assets/sprites/original_creatures/broken_string_gardener/manifest.json",
+    "visual_scale": 0.7058823529411765,
+    "visual_offset": [
+      0,
+      -50.70588235294119
+    ],
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
+    "visual_role": "high_fidelity_boss_04_copperroot_bishop",
+    "body_size": [
+      158,
+      146
+    ],
+    "hurtbox_size": [
+      176,
+      166
+    ],
+    "hurtbox_offset": [
+      0,
+      -50
+    ],
+    "source_sprite": "res://assets/sprites/original_creatures/broken_string_gardener/atlas.png",
+    "sprite_faces_left": false,
+    "arena_min_x": 5670,
+    "arena_max_x": 6250,
+    "lock_x": 5592,
+    "lock_height": 560,
+    "lock_width": 42,
+    "platform_id": "dome_floor",
+    "locomotion": "ground",
+    "combat_identity": "定点根刺、缓速藤种；半血后交错根墙",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 188,
+    "combat_resistance": {
+      "trip_immune": true,
+      "lure_immune": true,
+      "snare_mult": 0.35
+    }
+  },
+  "labels": [
+    {
+      "text": "温室西门：安全试跳",
+      "position": [
+        400,
+        1710
+      ],
+      "color": "cdeec0"
+    },
+    {
+      "text": "根须南廊 →",
+      "position": [
+        1050,
+        2344
+      ],
+      "color": "b8e0a8"
+    },
+    {
+      "text": "蜂蜡暗屋",
+      "position": [
+        5020,
+        2230
+      ],
+      "color": "f0d9a0"
+    },
+    {
+      "text": "东藤壁 ↑",
+      "position": [
+        5475,
+        2154
+      ],
+      "color": "a8d8b0"
+    },
+    {
+      "text": "树冠步道 ← 西眺台",
+      "position": [
+        4155,
+        848
+      ],
+      "color": "d8f0c0"
+    },
+    {
+      "text": "大树之心：下库 · 西桥 · 上冠",
+      "position": [
+        2940,
+        1506
+      ],
+      "color": "c0e8a8"
+    },
+    {
+      "text": "穹顶前廊 →",
+      "position": [
+        5110,
+        682
+      ],
+      "color": "f2b873"
+    }
+  ],
+  "save_points": [
+    {
+      "id": "save_hidden_upper_respite",
+      "label": "蜂蜡暗灯",
+      "position": [
+        5100,
+        2260
+      ],
+      "hidden": true,
+      "note": "藏在蜂蜡暗屋蜡壁后，奖励下环探索。"
+    },
+    {
+      "id": "save_ch04_lower_loop",
+      "label": "树心暖灯",
+      "position": [
+        2750,
+        1562
+      ],
+      "hidden": false,
+      "note": "大树之心的常明灯，稳住中环节奏。"
+    },
+    {
+      "id": "save_late_runback",
+      "label": "穹顶前暖灯",
+      "position": [
+        5110,
+        722
+      ],
+      "hidden": false,
+      "note": "裂纹穹顶门前的检查点，死亡回跑很短。"
+    }
+  ],
+  "fall_y": 2782,
+  "chapter_transition": {
+    "from_runtime_config_id": "demo_ch04_broken_string_greenhouse",
+    "to_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
+    "next_config_path": "res://data/demo_ch05_obsidian_pilgrim_road.json",
+    "exit_interactive_id": "ch04_chapter_exit",
+    "entry_hint": "铜根主教沉入根井后，温室外墙裂开，黑曜巡礼道的号角从雾里传来。",
+    "entry_spawn": [
+      330,
+      1740
+    ]
+  },
+  "entry_from_previous": {
+    "from_runtime_config_id": "demo_ch03_saltwhite_archive",
+    "position": [
+      330,
+      1740
+    ],
+    "message": "第4章：断弦温室。书库后门之后，是被藤蔓吞没的温室栈道。"
+  },
+  "progression_mode": "combat_clear",
+  "parkour_segments": [
+    {
+      "id": "ch04_vine_wall_climb",
+      "room_id": "vine_ascent",
+      "technique": "one-way vine ascent",
+      "platforms": [
+        "bw_floor",
+        "vine_v1",
+        "vine_v2",
+        "vine_v3",
+        "vine_rest",
+        "vine_v4",
+        "vine_v5",
+        "vine_v6",
+        "vine_v7",
+        "vine_v8",
+        "vine_v9",
+        "vine_v10",
+        "trellis_a"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 118,
+        "minimum_full_jump_clearance": 232
+      }
+    },
+    {
+      "id": "ch04_crown_drop",
+      "room_id": "tree_crown",
+      "technique": "controlled canopy drop",
+      "platforms": [
+        "canopy_w_b",
+        "crown_top",
+        "crown_mid",
+        "heart_floor"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 0,
+        "minimum_full_jump_clearance": 232
+      }
+    },
+    {
+      "id": "ch04_crown_return",
+      "room_id": "tree_crown",
+      "technique": "one-way branch ascent",
+      "platforms": [
+        "heart_floor",
+        "crown_up_a",
+        "crown_up_b",
+        "crown_up_c",
+        "crown_up_d",
+        "crown_up_e",
+        "crown_up_f",
+        "canopy_e_c"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 112,
+        "minimum_full_jump_clearance": 232
+      }
+    }
+  ],
+  "art_theme": "string_greenhouse",
+  "map_layout_tags": [
+    "handcrafted",
+    "true_2d",
+    "glass_ring",
+    "central_tree_hub",
+    "canopy_crown_loop",
+    "see_then_return",
+    "hidden_beeswax_bench",
+    "back_door_shortcut",
+    "short_boss_run",
+    "string_greenhouse"
+  ],
+  "connections": [
+    {
+      "from": "west_gate",
+      "to": "gate_descent",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "gate_descent",
+      "to": "south_rootrun",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "south_rootrun",
+      "to": "beeswax_nook",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "beeswax_nook",
+      "to": "vine_ascent",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "vine_ascent",
+      "to": "trellis_corner",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "trellis_corner",
+      "to": "canopy_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "canopy_east",
+      "to": "canopy_west",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "canopy_west",
+      "to": "canopy_overlook",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "canopy_west",
+      "to": "tree_crown",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
+    },
+    {
+      "from": "tree_crown",
+      "to": "tree_heart",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "tree_crown",
+      "to": "canopy_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "tree_heart",
+      "to": "root_vault",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "root_vault",
+      "to": "west_spoke",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "west_spoke",
+      "to": "west_gate",
+      "type": "shortcut",
+      "edge_kind": "unlock_shortcut",
+      "bidirectional": true,
+      "action": "unlock_shortcut",
+      "shortcut_id": "ch04_west_spoke_shortcut"
+    },
+    {
+      "from": "canopy_east",
+      "to": "dome_approach",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "dome_approach",
+      "to": "fracture_dome",
+      "type": "boss_gate",
+      "edge_kind": "boss_gate",
+      "bidirectional": true,
+      "action": "boss_gate",
+      "shortcut_id": ""
+    },
+    {
+      "from": "fracture_dome",
+      "to": "victory_terrace",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    }
+  ],
+  "runtime_geometry": {
+    "schema_version": 3,
+    "migration": "tools/handcraft_2d_lib.mjs",
+    "spatial_grammar": "greenhouse_glass_ring_2d",
+    "player_body": [
+      34,
+      84
+    ],
+    "physics": {
+      "jump_velocity": -710,
+      "gravity": 1850,
+      "dash_speed": 780,
+      "dash_time": 0.16
+    },
+    "safety": {
+      "main_max_gap": 176,
+      "main_max_rise": 110,
+      "minimum_corridor_clearance": 112,
+      "minimum_full_jump_clearance": 232,
+      "recovery_drop": 300,
+      "minimum_recovery_landing": 320
+    },
+    "critical_route": [
+      "gate_floor",
+      "wd_step_a",
+      "wd_step_b",
+      "wd_step_c",
+      "wd_step_d",
+      "south_run_a",
+      "south_bed_b",
+      "south_run_c",
+      "south_bed_d",
+      "south_run_e",
+      "south_bed_f",
+      "south_run_g",
+      "south_bed_h",
+      "south_run_i",
+      "bw_step",
+      "bw_floor",
+      "vine_v1",
+      "vine_v2",
+      "vine_v3",
+      "vine_rest",
+      "vine_v4",
+      "vine_v5",
+      "vine_v6",
+      "vine_v7",
+      "vine_v8",
+      "vine_v9",
+      "vine_v10",
+      "trellis_a",
+      "trellis_b",
+      "trellis_rise",
+      "canopy_e_a",
+      "canopy_e_b",
+      "canopy_e_c",
+      "canopy_w_a",
+      "canopy_w_b",
+      "canopy_w_c",
+      "overlook_walk",
+      "overlook_deck",
+      "crown_top",
+      "crown_mid",
+      "heart_floor",
+      "rv_step_a",
+      "rv_step_b",
+      "vault_floor",
+      "dome_rise",
+      "dome_deck",
+      "boss_threshold",
+      "dome_floor",
+      "vt_walk",
+      "vt_step",
+      "exit_dock"
+    ],
+    "upper_loop": [
+      "canopy_e_a",
+      "canopy_e_b",
+      "canopy_e_c",
+      "canopy_w_a",
+      "canopy_w_b",
+      "canopy_w_c",
+      "overlook_walk",
+      "overlook_deck",
+      "crown_top",
+      "crown_mid",
+      "crown_up_a",
+      "crown_up_b",
+      "crown_up_c",
+      "crown_up_d",
+      "crown_up_e",
+      "crown_up_f",
+      "dome_rise",
+      "dome_deck",
+      "boss_threshold"
+    ],
+    "recovery_loop": [
+      "south_run_a",
+      "south_bed_b",
+      "south_run_c",
+      "south_bed_d",
+      "south_run_e",
+      "south_bed_f",
+      "south_run_g",
+      "south_bed_h",
+      "south_run_i",
+      "bw_step",
+      "bw_floor",
+      "rv_step_a",
+      "rv_step_b",
+      "vault_floor",
+      "spoke_lift_a",
+      "spoke_lift_b",
+      "spoke_lift_c",
+      "spoke_run_a",
+      "spoke_run_b",
+      "spoke_gap_c",
+      "spoke_gap_d"
+    ],
+    "branch_programs": [
+      "glass_ring_walk",
+      "crown_drop_return",
+      "west_spoke_shortcut"
+    ],
+    "route_tags": [
+      "glass_ring",
+      "central_tree_hub",
+      "canopy_crown_loop",
+      "west_spoke_return",
+      "handcrafted_2d"
+    ],
+    "main_route_orders": 51,
+    "map_art": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  },
+  "open_assets": {
+    "environment": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  },
+  "map_topology": {
+    "topology_id": "greenhouse_glass_ring_2d",
+    "nodes": [
+      {
+        "id": "west_gate",
+        "room_type": "E",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "gate_descent",
+        "room_type": "T",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "south_rootrun",
+        "room_type": "C",
+        "layer": 5,
+        "span_u": 17,
+        "map_rect": [
+          560,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "beeswax_nook",
+        "room_type": "R",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          1120,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "vine_ascent",
+        "room_type": "V",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "trellis_corner",
+        "room_type": "T",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_east",
+        "room_type": "T",
+        "layer": 0,
+        "span_u": 5,
+        "map_rect": [
+          1120,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_west",
+        "room_type": "T",
+        "layer": 0,
+        "span_u": 5,
+        "map_rect": [
+          560,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "canopy_overlook",
+        "room_type": "O",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          0,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "tree_crown",
+        "room_type": "L",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "tree_heart",
+        "room_type": "H",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "root_vault",
+        "room_type": "R",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "west_spoke",
+        "room_type": "L",
+        "layer": 2,
+        "span_u": 8,
+        "map_rect": [
+          280,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "dome_approach",
+        "room_type": "P",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "fracture_dome",
+        "room_type": "B",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          1680,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "victory_terrace",
+        "room_type": "E",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          1960,
+          210,
+          236,
+          168
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "west_gate",
+        "to": "gate_descent",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "gate_descent",
+        "to": "south_rootrun",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "south_rootrun",
+        "to": "beeswax_nook",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "beeswax_nook",
+        "to": "vine_ascent",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "vine_ascent",
+        "to": "trellis_corner",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "trellis_corner",
+        "to": "canopy_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_east",
+        "to": "canopy_west",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_west",
+        "to": "canopy_overlook",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "canopy_west",
+        "to": "tree_crown",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_crown",
+        "to": "tree_heart",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_crown",
+        "to": "canopy_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "tree_heart",
+        "to": "root_vault",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "root_vault",
+        "to": "west_spoke",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "west_spoke",
+        "to": "west_gate",
+        "type": "shortcut",
+        "edge_kind": "unlock_shortcut",
+        "bidirectional": true,
+        "action": "unlock_shortcut",
+        "shortcut_id": "ch04_west_spoke_shortcut"
+      },
+      {
+        "from": "canopy_east",
+        "to": "dome_approach",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "dome_approach",
+        "to": "fracture_dome",
+        "type": "boss_gate",
+        "edge_kind": "boss_gate",
+        "bidirectional": true,
+        "action": "boss_gate",
+        "shortcut_id": ""
+      },
+      {
+        "from": "fracture_dome",
+        "to": "victory_terrace",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      }
+    ],
+    "main_visit_order": [
+      "west_gate",
+      "gate_descent",
+      "south_rootrun",
+      "beeswax_nook",
+      "vine_ascent",
+      "trellis_corner",
+      "canopy_east",
+      "canopy_west",
+      "canopy_overlook",
+      "tree_crown",
+      "tree_heart",
+      "root_vault",
+      "west_spoke",
+      "west_gate",
+      "tree_heart",
+      "tree_crown",
+      "canopy_east",
+      "dome_approach",
+      "fracture_dome",
+      "victory_terrace"
+    ],
+    "graph_fingerprint": {
+      "vertices": 16,
+      "edges": 17,
+      "cycle_rank": 2,
+      "maximum_degree": 4,
+      "degree_sequence": [
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        4
+      ]
+    },
+    "forbidden_motifs": [
+      "horizontal_36_platform_chain",
+      "shared_upper_loop_recovery_loop"
+    ]
+  },
+  "map_title": "断弦温室 · 巡礼地图",
+  "environment_blocks": [
+    {
+      "id": "ch04_back_wall",
+      "rect": [
+        0,
+        324,
+        7610,
+        2718
+      ],
+      "color": "101a10",
+      "z_index": -95,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_tree_trunk",
+      "rect": [
+        2620,
+        1150,
+        900,
+        1360
+      ],
+      "color": "16240f",
+      "z_index": -91,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_glass_dome_glow",
+      "rect": [
+        5520,
+        700,
+        900,
+        300
+      ],
+      "color": "27331b",
+      "z_index": -92,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_canopy_band",
+      "rect": [
+        1800,
+        960,
+        3100,
+        220
+      ],
+      "color": "142010",
+      "z_index": -90,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_south_soil_mass",
+      "rect": [
+        820,
+        2520,
+        3800,
+        300
+      ],
+      "color": "0d160b",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch04_arena_floor_mass",
+      "rect": [
+        5600,
+        884,
+        720,
+        300
+      ],
+      "color": "0e1509",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/string_greenhouse",
+      "ownership": "project-owned"
+    }
+  ],
+  "design_note": {
+    "source": "hand-authored (tools/handcraft_ch04_2d.mjs)",
+    "intent": "True-2D greenhouse: a full glass ring (west gate, south root run, east vine wall, top canopy) wrapped around a hollow tree hub; the canopy drops into the crown, the root vault lever opens a west spoke shortcut back to the gate, and crown branches climb one-way back to the canopy for a short dome runback.",
+    "coordinate_mapping": {
+      "note": "explicit 2D world coordinates, rooms stacked vertically and horizontally"
+    }
+  },
+  "map_art": {
+    "style": "flat_2d_side_view",
+    "platform_variant_count": 12,
+    "variant_usage": {
+      "0": 5,
+      "1": 5,
+      "2": 4,
+      "3": 5,
+      "4": 5,
+      "5": 5,
+      "6": 7,
+      "7": 7,
+      "8": 6,
+      "9": 5,
+      "10": 6,
+      "11": 5
+    },
+    "repeat_rule": "avoid matching nearby platforms; preserve end caps; vary long-platform middle segments",
+    "background": "res://assets/sprites/flat_maps/string_greenhouse/background.png"
+  },
+  "terrain": [
+    {
+      "id": "terrain_entry_root_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          240,
+          1780
+        ],
+        [
+          560,
+          1780
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "gate_floor"
+      ]
+    },
+    {
+      "id": "terrain_garden_floor_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          860,
+          2420
+        ],
+        [
+          1240,
+          2420
+        ],
+        [
+          1340,
+          2474
+        ],
+        [
+          1640,
+          2474
+        ],
+        [
+          1750,
+          2412
+        ],
+        [
+          2010,
+          2412
+        ],
+        [
+          2120,
+          2478
+        ],
+        [
+          2460,
+          2478
+        ],
+        [
+          2570,
+          2422
+        ],
+        [
+          2870,
+          2422
+        ],
+        [
+          2990,
+          2484
+        ],
+        [
+          3350,
+          2484
+        ],
+        [
+          3470,
+          2428
+        ],
+        [
+          3750,
+          2428
+        ],
+        [
+          3870,
+          2486
+        ],
+        [
+          4190,
+          2486
+        ],
+        [
+          4300,
+          2432
+        ],
+        [
+          4560,
+          2432
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "south_run_a",
+        "south_bed_b",
+        "south_run_c",
+        "south_bed_d",
+        "south_run_e",
+        "south_bed_f",
+        "south_run_g",
+        "south_bed_h",
+        "south_run_i"
+      ]
+    },
+    {
+      "id": "terrain_wax_bank_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          4660,
+          2354
+        ],
+        [
+          4801.79,
+          2354
+        ],
+        [
+          4888.21,
+          2300
+        ],
+        [
+          5160,
+          2300
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "bw_step",
+        "bw_floor"
+      ]
+    },
+    {
+      "id": "terrain_canopy_east_0_0",
+      "kind": "bridge",
+      "surface": [
+        [
+          4010,
+          928
+        ],
+        [
+          4300,
+          928
+        ],
+        [
+          4420,
+          892
+        ],
+        [
+          4750,
+          892
+        ]
+      ],
+      "depth": 72,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "canopy_e_b",
+        "canopy_e_a"
+      ]
+    },
+    {
+      "id": "terrain_canopy_west_0_0",
+      "kind": "bridge",
+      "surface": [
+        [
+          2540,
+          918
+        ],
+        [
+          2814.79,
+          918
+        ],
+        [
+          2885.21,
+          874
+        ],
+        [
+          3120,
+          874
+        ],
+        [
+          3250,
+          920
+        ],
+        [
+          3560,
+          920
+        ]
+      ],
+      "depth": 72,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "canopy_w_c",
+        "canopy_w_b",
+        "canopy_w_a"
+      ]
+    },
+    {
+      "id": "terrain_garden_heart_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          2680,
+          1602
+        ],
+        [
+          3200,
+          1602
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "heart_floor"
+      ]
+    },
+    {
+      "id": "terrain_root_vault_0_0",
+      "kind": "tunnel",
+      "surface": [
+        [
+          2360,
+          1982
+        ],
+        [
+          2700,
+          1982
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": [
+        "vault_floor"
+      ]
+    },
+    {
+      "id": "terrain_broken_spoke_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          1310,
+          1604
+        ],
+        [
+          1590,
+          1604
+        ],
+        [
+          1730,
+          1562
+        ],
+        [
+          2030,
+          1562
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "spoke_run_b",
+        "spoke_run_a"
+      ]
+    },
+    {
+      "id": "terrain_bishop_approach_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          2170,
+          876
+        ],
+        [
+          2400,
+          876
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "overlook_walk"
+      ]
+    },
+    {
+      "id": "terrain_bishop_approach_1_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          5330,
+          794
+        ],
+        [
+          5530,
+          794
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "boss_threshold"
+      ]
+    },
+    {
+      "id": "terrain_root_dome_0_0",
+      "kind": "arena",
+      "surface": [
+        [
+          5640,
+          832
+        ],
+        [
+          6280,
+          832
+        ]
+      ],
+      "depth": 140,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "dome_floor"
+      ]
+    },
+    {
+      "id": "cave_link_00",
+      "kind": "cave_road",
+      "surface": [
+        [
+          5124,
+          2300
+        ],
+        [
+          5160,
+          2300
+        ],
+        [
+          5230,
+          2322
+        ],
+        [
+          5266,
+          2322
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_01",
+      "kind": "cave_road",
+      "surface": [
+        [
+          2364,
+          876
+        ],
+        [
+          2400,
+          876
+        ],
+        [
+          2540,
+          918
+        ],
+        [
+          2576,
+          918
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_02",
+      "kind": "cave_road",
+      "surface": [
+        [
+          5204,
+          762
+        ],
+        [
+          5240,
+          762
+        ],
+        [
+          5330,
+          794
+        ],
+        [
+          5366,
+          794
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_03",
+      "kind": "cave_road",
+      "surface": [
+        [
+          5494,
+          794
+        ],
+        [
+          5530,
+          794
+        ],
+        [
+          5640,
+          832
+        ],
+        [
+          5676,
+          832
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_04",
+      "kind": "cave_road",
+      "surface": [
+        [
+          6244,
+          832
+        ],
+        [
+          6280,
+          832
+        ],
+        [
+          6390,
+          788
+        ],
+        [
+          6426,
+          788
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_05",
+      "kind": "cave_road",
+      "surface": [
+        [
+          6574,
+          788
+        ],
+        [
+          6610,
+          788
+        ],
+        [
+          6720,
+          744
+        ],
+        [
+          6756,
+          744
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    },
+    {
+      "id": "cave_link_06",
+      "kind": "cave_road",
+      "surface": [
+        [
+          6854,
+          744
+        ],
+        [
+          6890,
+          744
+        ],
+        [
+          6990,
+          792
+        ],
+        [
+          7026,
+          792
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    }
+  ],
+  "terrain_design": {
+    "view": "orthographic_side_2d",
+    "max_ramp_degrees": 32,
+    "route_kinds": [
+      "ground",
+      "slope",
+      "tunnel",
+      "bridge",
+      "basin",
+      "vertical_climb"
+    ],
+    "notes": "Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.",
+    "cave_envelope": true
+  },
+  "chapter_name": "断弦温室",
+  "interaction_design": {
+    "key": "F",
+    "selection": "nearest_available",
+    "story_items": "manual_pickup",
+    "materials": "automatic_pickup",
+    "dialogue_choices": [
+      "continue",
+      "route",
+      "wish"
+    ]
+  },
+  "cave_lifts": [
+    {
+      "id": "ch04_cave_lift",
+      "x": 5740,
+      "bottom_y": 2300,
+      "top_y": 1186,
+      "speed": 300,
+      "label": "巡礼升降笼：F 呼叫 / 乘坐"
+    }
+  ],
+  "cave_world": {
+    "version": 1,
+    "solid_rects": [
+      [
+        -256,
+        -256,
+        8096,
+        672
+      ],
+      [
+        -256,
+        416,
+        5344,
+        32
+      ],
+      [
+        5152,
+        416,
+        96,
+        32
+      ],
+      [
+        5632,
+        416,
+        1024,
+        32
+      ],
+      [
+        6944,
+        416,
+        896,
+        32
+      ],
+      [
+        -256,
+        448,
+        5120,
+        32
+      ],
+      [
+        5632,
+        448,
+        256,
+        32
+      ],
+      [
+        6272,
+        448,
+        128,
+        32
+      ],
+      [
+        7168,
+        448,
+        672,
+        32
+      ],
+      [
+        -256,
+        480,
+        4992,
+        32
+      ],
+      [
+        7232,
+        480,
+        608,
+        32
+      ],
+      [
+        -256,
+        512,
+        4928,
+        32
+      ],
+      [
+        7296,
+        512,
+        544,
+        288
+      ],
+      [
+        -256,
+        544,
+        2400,
+        32
+      ],
+      [
+        2464,
+        544,
+        384,
+        32
+      ],
+      [
+        3168,
+        544,
+        480,
+        32
+      ],
+      [
+        3872,
+        544,
+        736,
+        32
+      ],
+      [
+        -256,
+        576,
+        2144,
+        32
+      ],
+      [
+        4128,
+        576,
+        64,
+        32
+      ],
+      [
+        -256,
+        608,
+        2112,
+        32
+      ],
+      [
+        -256,
+        640,
+        2048,
+        288
+      ],
+      [
+        7232,
+        800,
+        608,
+        32
+      ],
+      [
+        5344,
+        832,
+        96,
+        32
+      ],
+      [
+        6400,
+        832,
+        1440,
+        32
+      ],
+      [
+        5216,
+        864,
+        32,
+        32
+      ],
+      [
+        6368,
+        864,
+        1472,
+        64
+      ],
+      [
+        -256,
+        928,
+        2144,
+        32
+      ],
+      [
+        5536,
+        928,
+        64,
+        32
+      ],
+      [
+        6304,
+        928,
+        1536,
+        32
+      ],
+      [
+        -256,
+        960,
+        2272,
+        32
+      ],
+      [
+        2880,
+        960,
+        32,
+        32
+      ],
+      [
+        5536,
+        960,
+        96,
+        128
+      ],
+      [
+        6272,
+        960,
+        1568,
+        32
+      ],
+      [
+        -256,
+        992,
+        2400,
+        32
+      ],
+      [
+        2176,
+        992,
+        256,
+        32
+      ],
+      [
+        2560,
+        992,
+        352,
+        32
+      ],
+      [
+        3232,
+        992,
+        224,
+        32
+      ],
+      [
+        4352,
+        992,
+        320,
+        32
+      ],
+      [
+        5856,
+        992,
+        1984,
+        1408
+      ],
+      [
+        -256,
+        1024,
+        3168,
+        160
+      ],
+      [
+        3424,
+        1024,
+        32,
+        288
+      ],
+      [
+        4032,
+        1024,
+        704,
+        32
+      ],
+      [
+        4032,
+        1056,
+        736,
+        32
+      ],
+      [
+        4032,
+        1088,
+        800,
+        32
+      ],
+      [
+        4032,
+        1120,
+        864,
+        32
+      ],
+      [
+        4032,
+        1152,
+        960,
+        32
+      ],
+      [
+        -256,
+        1184,
+        3392,
+        32
+      ],
+      [
+        4032,
+        1184,
+        1056,
+        32
+      ],
+      [
+        -256,
+        1216,
+        800,
+        32
+      ],
+      [
+        960,
+        1216,
+        2176,
+        32
+      ],
+      [
+        4032,
+        1216,
+        1120,
+        32
+      ],
+      [
+        -256,
+        1248,
+        608,
+        32
+      ],
+      [
+        1248,
+        1248,
+        480,
+        32
+      ],
+      [
+        1952,
+        1248,
+        1184,
+        32
+      ],
+      [
+        4032,
+        1248,
+        1088,
+        64
+      ],
+      [
+        -256,
+        1280,
+        512,
+        128
+      ],
+      [
+        2080,
+        1280,
+        1056,
+        32
+      ],
+      [
+        2176,
+        1312,
+        448,
+        32
+      ],
+      [
+        3264,
+        1312,
+        192,
+        64
+      ],
+      [
+        3968,
+        1312,
+        1152,
+        32
+      ],
+      [
+        2336,
+        1344,
+        288,
+        32
+      ],
+      [
+        3936,
+        1344,
+        1184,
+        32
+      ],
+      [
+        2464,
+        1376,
+        64,
+        32
+      ],
+      [
+        3936,
+        1376,
+        1216,
+        64
+      ],
+      [
+        -256,
+        1408,
+        384,
+        384
+      ],
+      [
+        3936,
+        1440,
+        1184,
+        192
+      ],
+      [
+        864,
+        1568,
+        128,
+        32
+      ],
+      [
+        928,
+        1600,
+        320,
+        32
+      ],
+      [
+        928,
+        1632,
+        544,
+        32
+      ],
+      [
+        3328,
+        1632,
+        1792,
+        32
+      ],
+      [
+        960,
+        1664,
+        640,
+        32
+      ],
+      [
+        3264,
+        1664,
+        1856,
+        32
+      ],
+      [
+        960,
+        1696,
+        960,
+        64
+      ],
+      [
+        3232,
+        1696,
+        1888,
+        32
+      ],
+      [
+        2848,
+        1728,
+        2272,
+        128
+      ],
+      [
+        960,
+        1760,
+        1056,
+        64
+      ],
+      [
+        -256,
+        1792,
+        544,
+        32
+      ],
+      [
+        -256,
+        1824,
+        640,
+        32
+      ],
+      [
+        960,
+        1824,
+        1088,
+        32
+      ],
+      [
+        -256,
+        1856,
+        672,
+        32
+      ],
+      [
+        960,
+        1856,
+        1120,
+        32
+      ],
+      [
+        2848,
+        1856,
+        2304,
+        32
+      ],
+      [
+        -256,
+        1888,
+        736,
+        384
+      ],
+      [
+        992,
+        1888,
+        1184,
+        32
+      ],
+      [
+        2752,
+        1888,
+        2368,
+        64
+      ],
+      [
+        992,
+        1920,
+        1280,
+        32
+      ],
+      [
+        992,
+        1952,
+        1312,
+        64
+      ],
+      [
+        2752,
+        1952,
+        2336,
+        32
+      ],
+      [
+        2752,
+        1984,
+        2080,
+        32
+      ],
+      [
+        992,
+        2016,
+        1504,
+        32
+      ],
+      [
+        2560,
+        2016,
+        2112,
+        32
+      ],
+      [
+        1024,
+        2048,
+        3520,
+        32
+      ],
+      [
+        1120,
+        2080,
+        640,
+        32
+      ],
+      [
+        2016,
+        2080,
+        672,
+        32
+      ],
+      [
+        2784,
+        2080,
+        1632,
+        32
+      ],
+      [
+        1408,
+        2112,
+        160,
+        32
+      ],
+      [
+        2208,
+        2112,
+        480,
+        32
+      ],
+      [
+        3008,
+        2112,
+        320,
+        32
+      ],
+      [
+        3872,
+        2112,
+        320,
+        32
+      ],
+      [
+        2368,
+        2144,
+        160,
+        32
+      ],
+      [
+        2400,
+        2176,
+        128,
+        32
+      ],
+      [
+        -256,
+        2272,
+        768,
+        32
+      ],
+      [
+        -256,
+        2304,
+        832,
+        32
+      ],
+      [
+        -256,
+        2336,
+        928,
+        32
+      ],
+      [
+        -256,
+        2368,
+        1024,
+        32
+      ],
+      [
+        4864,
+        2368,
+        96,
+        32
+      ],
+      [
+        -256,
+        2400,
+        1056,
+        32
+      ],
+      [
+        4736,
+        2400,
+        224,
+        32
+      ],
+      [
+        5824,
+        2400,
+        2016,
+        32
+      ],
+      [
+        -256,
+        2432,
+        1184,
+        32
+      ],
+      [
+        4608,
+        2432,
+        3232,
+        32
+      ],
+      [
+        -256,
+        2464,
+        1344,
+        32
+      ],
+      [
+        1792,
+        2464,
+        160,
+        32
+      ],
+      [
+        2688,
+        2464,
+        64,
+        32
+      ],
+      [
+        4480,
+        2464,
+        3360,
+        32
+      ],
+      [
+        -256,
+        2496,
+        1600,
+        32
+      ],
+      [
+        1600,
+        2496,
+        544,
+        32
+      ],
+      [
+        2432,
+        2496,
+        544,
+        32
+      ],
+      [
+        3392,
+        2496,
+        416,
+        32
+      ],
+      [
+        4256,
+        2496,
+        3584,
+        32
+      ],
+      [
+        -256,
+        2528,
+        8096,
+        416
+      ]
+    ],
+    "outlines": [
+      [
+        [
+          -256.0,
+          -256.0
+        ],
+        [
+          -256.0,
+          2944.0
+        ],
+        [
+          7840.0,
+          2944.0
+        ],
+        [
+          7840.0,
+          -256.0
+        ],
+        [
+          -256.0,
+          -256.0
+        ]
+      ],
+      [
+        [
+          1344.0,
+          2496.0
+        ],
+        [
+          1088.0,
+          2496.0
+        ],
+        [
+          1088.0,
+          2464.0
+        ],
+        [
+          928.0,
+          2464.0
+        ],
+        [
+          928.0,
+          2432.0
+        ],
+        [
+          800.0,
+          2432.0
+        ],
+        [
+          800.0,
+          2400.0
+        ],
+        [
+          768.0,
+          2400.0
+        ],
+        [
+          768.0,
+          2368.0
+        ],
+        [
+          672.0,
+          2368.0
+        ],
+        [
+          672.0,
+          2336.0
+        ],
+        [
+          576.0,
+          2336.0
+        ],
+        [
+          576.0,
+          2304.0
+        ],
+        [
+          512.0,
+          2304.0
+        ],
+        [
+          512.0,
+          2272.0
+        ],
+        [
+          480.0,
+          2272.0
+        ],
+        [
+          480.0,
+          1888.0
+        ],
+        [
+          416.0,
+          1888.0
+        ],
+        [
+          416.0,
+          1856.0
+        ],
+        [
+          384.0,
+          1856.0
+        ],
+        [
+          384.0,
+          1824.0
+        ],
+        [
+          288.0,
+          1824.0
+        ],
+        [
+          288.0,
+          1792.0
+        ],
+        [
+          128.0,
+          1792.0
+        ],
+        [
+          128.0,
+          1408.0
+        ],
+        [
+          256.0,
+          1408.0
+        ],
+        [
+          256.0,
+          1280.0
+        ],
+        [
+          352.0,
+          1280.0
+        ],
+        [
+          352.0,
+          1248.0
+        ],
+        [
+          544.0,
+          1248.0
+        ],
+        [
+          544.0,
+          1216.0
+        ],
+        [
+          960.0,
+          1216.0
+        ],
+        [
+          960.0,
+          1248.0
+        ],
+        [
+          1248.0,
+          1248.0
+        ],
+        [
+          1248.0,
+          1280.0
+        ],
+        [
+          1728.0,
+          1280.0
+        ],
+        [
+          1728.0,
+          1248.0
+        ],
+        [
+          1952.0,
+          1248.0
+        ],
+        [
+          1952.0,
+          1280.0
+        ],
+        [
+          2080.0,
+          1280.0
+        ],
+        [
+          2080.0,
+          1312.0
+        ],
+        [
+          2176.0,
+          1312.0
+        ],
+        [
+          2176.0,
+          1344.0
+        ],
+        [
+          2336.0,
+          1344.0
+        ],
+        [
+          2336.0,
+          1376.0
+        ],
+        [
+          2464.0,
+          1376.0
+        ],
+        [
+          2464.0,
+          1408.0
+        ],
+        [
+          2528.0,
+          1408.0
+        ],
+        [
+          2528.0,
+          1376.0
+        ],
+        [
+          2624.0,
+          1376.0
+        ],
+        [
+          2624.0,
+          1312.0
+        ],
+        [
+          3136.0,
+          1312.0
+        ],
+        [
+          3136.0,
+          1184.0
+        ],
+        [
+          2912.0,
+          1184.0
+        ],
+        [
+          2912.0,
+          960.0
+        ],
+        [
+          2880.0,
+          960.0
+        ],
+        [
+          2880.0,
+          992.0
+        ],
+        [
+          2560.0,
+          992.0
+        ],
+        [
+          2560.0,
+          1024.0
+        ],
+        [
+          2432.0,
+          1024.0
+        ],
+        [
+          2432.0,
+          992.0
+        ],
+        [
+          2176.0,
+          992.0
+        ],
+        [
+          2176.0,
+          1024.0
+        ],
+        [
+          2144.0,
+          1024.0
+        ],
+        [
+          2144.0,
+          992.0
+        ],
+        [
+          2016.0,
+          992.0
+        ],
+        [
+          2016.0,
+          960.0
+        ],
+        [
+          1888.0,
+          960.0
+        ],
+        [
+          1888.0,
+          928.0
+        ],
+        [
+          1792.0,
+          928.0
+        ],
+        [
+          1792.0,
+          640.0
+        ],
+        [
+          1856.0,
+          640.0
+        ],
+        [
+          1856.0,
+          608.0
+        ],
+        [
+          1888.0,
+          608.0
+        ],
+        [
+          1888.0,
+          576.0
+        ],
+        [
+          2144.0,
+          576.0
+        ],
+        [
+          2144.0,
+          544.0
+        ],
+        [
+          2464.0,
+          544.0
+        ],
+        [
+          2464.0,
+          576.0
+        ],
+        [
+          2848.0,
+          576.0
+        ],
+        [
+          2848.0,
+          544.0
+        ],
+        [
+          3168.0,
+          544.0
+        ],
+        [
+          3168.0,
+          576.0
+        ],
+        [
+          3648.0,
+          576.0
+        ],
+        [
+          3648.0,
+          544.0
+        ],
+        [
+          3872.0,
+          544.0
+        ],
+        [
+          3872.0,
+          576.0
+        ],
+        [
+          4128.0,
+          576.0
+        ],
+        [
+          4128.0,
+          608.0
+        ],
+        [
+          4192.0,
+          608.0
+        ],
+        [
+          4192.0,
+          576.0
+        ],
+        [
+          4608.0,
+          576.0
+        ],
+        [
+          4608.0,
+          544.0
+        ],
+        [
+          4672.0,
+          544.0
+        ],
+        [
+          4672.0,
+          512.0
+        ],
+        [
+          4736.0,
+          512.0
+        ],
+        [
+          4736.0,
+          480.0
+        ],
+        [
+          4864.0,
+          480.0
+        ],
+        [
+          4864.0,
+          448.0
+        ],
+        [
+          5088.0,
+          448.0
+        ],
+        [
+          5088.0,
+          416.0
+        ],
+        [
+          5152.0,
+          416.0
+        ],
+        [
+          5152.0,
+          448.0
+        ],
+        [
+          5248.0,
+          448.0
+        ],
+        [
+          5248.0,
+          416.0
+        ],
+        [
+          5632.0,
+          416.0
+        ],
+        [
+          5632.0,
+          480.0
+        ],
+        [
+          5888.0,
+          480.0
+        ],
+        [
+          5888.0,
+          448.0
+        ],
+        [
+          6272.0,
+          448.0
+        ],
+        [
+          6272.0,
+          480.0
+        ],
+        [
+          6400.0,
+          480.0
+        ],
+        [
+          6400.0,
+          448.0
+        ],
+        [
+          6656.0,
+          448.0
+        ],
+        [
+          6656.0,
+          416.0
+        ],
+        [
+          6944.0,
+          416.0
+        ],
+        [
+          6944.0,
+          448.0
+        ],
+        [
+          7168.0,
+          448.0
+        ],
+        [
+          7168.0,
+          480.0
+        ],
+        [
+          7232.0,
+          480.0
+        ],
+        [
+          7232.0,
+          512.0
+        ],
+        [
+          7296.0,
+          512.0
+        ],
+        [
+          7296.0,
+          800.0
+        ],
+        [
+          7232.0,
+          800.0
+        ],
+        [
+          7232.0,
+          832.0
+        ],
+        [
+          6400.0,
+          832.0
+        ],
+        [
+          6400.0,
+          864.0
+        ],
+        [
+          6368.0,
+          864.0
+        ],
+        [
+          6368.0,
+          928.0
+        ],
+        [
+          6304.0,
+          928.0
+        ],
+        [
+          6304.0,
+          960.0
+        ],
+        [
+          6272.0,
+          960.0
+        ],
+        [
+          6272.0,
+          992.0
+        ],
+        [
+          5856.0,
+          992.0
+        ],
+        [
+          5856.0,
+          2400.0
+        ],
+        [
+          5824.0,
+          2400.0
+        ],
+        [
+          5824.0,
+          2432.0
+        ],
+        [
+          4960.0,
+          2432.0
+        ],
+        [
+          4960.0,
+          2368.0
+        ],
+        [
+          4864.0,
+          2368.0
+        ],
+        [
+          4864.0,
+          2400.0
+        ],
+        [
+          4736.0,
+          2400.0
+        ],
+        [
+          4736.0,
+          2432.0
+        ],
+        [
+          4608.0,
+          2432.0
+        ],
+        [
+          4608.0,
+          2464.0
+        ],
+        [
+          4480.0,
+          2464.0
+        ],
+        [
+          4480.0,
+          2496.0
+        ],
+        [
+          4256.0,
+          2496.0
+        ],
+        [
+          4256.0,
+          2528.0
+        ],
+        [
+          3808.0,
+          2528.0
+        ],
+        [
+          3808.0,
+          2496.0
+        ],
+        [
+          3392.0,
+          2496.0
+        ],
+        [
+          3392.0,
+          2528.0
+        ],
+        [
+          2976.0,
+          2528.0
+        ],
+        [
+          2976.0,
+          2496.0
+        ],
+        [
+          2752.0,
+          2496.0
+        ],
+        [
+          2752.0,
+          2464.0
+        ],
+        [
+          2688.0,
+          2464.0
+        ],
+        [
+          2688.0,
+          2496.0
+        ],
+        [
+          2432.0,
+          2496.0
+        ],
+        [
+          2432.0,
+          2528.0
+        ],
+        [
+          2144.0,
+          2528.0
+        ],
+        [
+          2144.0,
+          2496.0
+        ],
+        [
+          1952.0,
+          2496.0
+        ],
+        [
+          1952.0,
+          2464.0
+        ],
+        [
+          1792.0,
+          2464.0
+        ],
+        [
+          1792.0,
+          2496.0
+        ],
+        [
+          1600.0,
+          2496.0
+        ],
+        [
+          1600.0,
+          2528.0
+        ],
+        [
+          1344.0,
+          2528.0
+        ],
+        [
+          1344.0,
+          2496.0
+        ]
+      ],
+      [
+        [
+          992.0,
+          1568.0
+        ],
+        [
+          864.0,
+          1568.0
+        ],
+        [
+          864.0,
+          1600.0
+        ],
+        [
+          928.0,
+          1600.0
+        ],
+        [
+          928.0,
+          1664.0
+        ],
+        [
+          960.0,
+          1664.0
+        ],
+        [
+          960.0,
+          1888.0
+        ],
+        [
+          992.0,
+          1888.0
+        ],
+        [
+          992.0,
+          2048.0
+        ],
+        [
+          1024.0,
+          2048.0
+        ],
+        [
+          1024.0,
+          2080.0
+        ],
+        [
+          1120.0,
+          2080.0
+        ],
+        [
+          1120.0,
+          2112.0
+        ],
+        [
+          1408.0,
+          2112.0
+        ],
+        [
+          1408.0,
+          2144.0
+        ],
+        [
+          1568.0,
+          2144.0
+        ],
+        [
+          1568.0,
+          2112.0
+        ],
+        [
+          1760.0,
+          2112.0
+        ],
+        [
+          1760.0,
+          2080.0
+        ],
+        [
+          2016.0,
+          2080.0
+        ],
+        [
+          2016.0,
+          2112.0
+        ],
+        [
+          2208.0,
+          2112.0
+        ],
+        [
+          2208.0,
+          2144.0
+        ],
+        [
+          2368.0,
+          2144.0
+        ],
+        [
+          2368.0,
+          2176.0
+        ],
+        [
+          2400.0,
+          2176.0
+        ],
+        [
+          2400.0,
+          2208.0
+        ],
+        [
+          2528.0,
+          2208.0
+        ],
+        [
+          2528.0,
+          2144.0
+        ],
+        [
+          2688.0,
+          2144.0
+        ],
+        [
+          2688.0,
+          2080.0
+        ],
+        [
+          2784.0,
+          2080.0
+        ],
+        [
+          2784.0,
+          2112.0
+        ],
+        [
+          3008.0,
+          2112.0
+        ],
+        [
+          3008.0,
+          2144.0
+        ],
+        [
+          3328.0,
+          2144.0
+        ],
+        [
+          3328.0,
+          2112.0
+        ],
+        [
+          3872.0,
+          2112.0
+        ],
+        [
+          3872.0,
+          2144.0
+        ],
+        [
+          4192.0,
+          2144.0
+        ],
+        [
+          4192.0,
+          2112.0
+        ],
+        [
+          4416.0,
+          2112.0
+        ],
+        [
+          4416.0,
+          2080.0
+        ],
+        [
+          4544.0,
+          2080.0
+        ],
+        [
+          4544.0,
+          2048.0
+        ],
+        [
+          4672.0,
+          2048.0
+        ],
+        [
+          4672.0,
+          2016.0
+        ],
+        [
+          4832.0,
+          2016.0
+        ],
+        [
+          4832.0,
+          1984.0
+        ],
+        [
+          5088.0,
+          1984.0
+        ],
+        [
+          5088.0,
+          1952.0
+        ],
+        [
+          5120.0,
+          1952.0
+        ],
+        [
+          5120.0,
+          1888.0
+        ],
+        [
+          5152.0,
+          1888.0
+        ],
+        [
+          5152.0,
+          1856.0
+        ],
+        [
+          5120.0,
+          1856.0
+        ],
+        [
+          5120.0,
+          1440.0
+        ],
+        [
+          5152.0,
+          1440.0
+        ],
+        [
+          5152.0,
+          1376.0
+        ],
+        [
+          5120.0,
+          1376.0
+        ],
+        [
+          5120.0,
+          1248.0
+        ],
+        [
+          5152.0,
+          1248.0
+        ],
+        [
+          5152.0,
+          1216.0
+        ],
+        [
+          5088.0,
+          1216.0
+        ],
+        [
+          5088.0,
+          1184.0
+        ],
+        [
+          4992.0,
+          1184.0
+        ],
+        [
+          4992.0,
+          1152.0
+        ],
+        [
+          4896.0,
+          1152.0
+        ],
+        [
+          4896.0,
+          1120.0
+        ],
+        [
+          4832.0,
+          1120.0
+        ],
+        [
+          4832.0,
+          1088.0
+        ],
+        [
+          4768.0,
+          1088.0
+        ],
+        [
+          4768.0,
+          1056.0
+        ],
+        [
+          4736.0,
+          1056.0
+        ],
+        [
+          4736.0,
+          1024.0
+        ],
+        [
+          4672.0,
+          1024.0
+        ],
+        [
+          4672.0,
+          992.0
+        ],
+        [
+          4352.0,
+          992.0
+        ],
+        [
+          4352.0,
+          1024.0
+        ],
+        [
+          4032.0,
+          1024.0
+        ],
+        [
+          4032.0,
+          1312.0
+        ],
+        [
+          3968.0,
+          1312.0
+        ],
+        [
+          3968.0,
+          1344.0
+        ],
+        [
+          3936.0,
+          1344.0
+        ],
+        [
+          3936.0,
+          1632.0
+        ],
+        [
+          3328.0,
+          1632.0
+        ],
+        [
+          3328.0,
+          1664.0
+        ],
+        [
+          3264.0,
+          1664.0
+        ],
+        [
+          3264.0,
+          1696.0
+        ],
+        [
+          3232.0,
+          1696.0
+        ],
+        [
+          3232.0,
+          1728.0
+        ],
+        [
+          2848.0,
+          1728.0
+        ],
+        [
+          2848.0,
+          1888.0
+        ],
+        [
+          2752.0,
+          1888.0
+        ],
+        [
+          2752.0,
+          2016.0
+        ],
+        [
+          2560.0,
+          2016.0
+        ],
+        [
+          2560.0,
+          2048.0
+        ],
+        [
+          2496.0,
+          2048.0
+        ],
+        [
+          2496.0,
+          2016.0
+        ],
+        [
+          2304.0,
+          2016.0
+        ],
+        [
+          2304.0,
+          1952.0
+        ],
+        [
+          2272.0,
+          1952.0
+        ],
+        [
+          2272.0,
+          1920.0
+        ],
+        [
+          2176.0,
+          1920.0
+        ],
+        [
+          2176.0,
+          1888.0
+        ],
+        [
+          2080.0,
+          1888.0
+        ],
+        [
+          2080.0,
+          1856.0
+        ],
+        [
+          2048.0,
+          1856.0
+        ],
+        [
+          2048.0,
+          1824.0
+        ],
+        [
+          2016.0,
+          1824.0
+        ],
+        [
+          2016.0,
+          1760.0
+        ],
+        [
+          1920.0,
+          1760.0
+        ],
+        [
+          1920.0,
+          1696.0
+        ],
+        [
+          1600.0,
+          1696.0
+        ],
+        [
+          1600.0,
+          1664.0
+        ],
+        [
+          1472.0,
+          1664.0
+        ],
+        [
+          1472.0,
+          1632.0
+        ],
+        [
+          1248.0,
+          1632.0
+        ],
+        [
+          1248.0,
+          1600.0
+        ],
+        [
+          992.0,
+          1600.0
+        ],
+        [
+          992.0,
+          1568.0
+        ]
+      ],
+      [
+        [
+          3232.0,
+          992.0
+        ],
+        [
+          3232.0,
+          1024.0
+        ],
+        [
+          3424.0,
+          1024.0
+        ],
+        [
+          3424.0,
+          1312.0
+        ],
+        [
+          3264.0,
+          1312.0
+        ],
+        [
+          3264.0,
+          1376.0
+        ],
+        [
+          3456.0,
+          1376.0
+        ],
+        [
+          3456.0,
+          992.0
+        ],
+        [
+          3232.0,
+          992.0
+        ]
+      ],
+      [
+        [
+          5440.0,
+          864.0
+        ],
+        [
+          5440.0,
+          832.0
+        ],
+        [
+          5344.0,
+          832.0
+        ],
+        [
+          5344.0,
+          864.0
+        ],
+        [
+          5440.0,
+          864.0
+        ]
+      ],
+      [
+        [
+          5248.0,
+          896.0
+        ],
+        [
+          5248.0,
+          864.0
+        ],
+        [
+          5216.0,
+          864.0
+        ],
+        [
+          5216.0,
+          896.0
+        ],
+        [
+          5248.0,
+          896.0
+        ]
+      ],
+      [
+        [
+          5632.0,
+          1088.0
+        ],
+        [
+          5632.0,
+          960.0
+        ],
+        [
+          5600.0,
+          960.0
+        ],
+        [
+          5600.0,
+          928.0
+        ],
+        [
+          5536.0,
+          928.0
+        ],
+        [
+          5536.0,
+          1088.0
+        ],
+        [
+          5632.0,
+          1088.0
+        ]
+      ]
+    ],
+    "cell_size": 32,
+    "visibility": "normal",
+    "vision_radius": 540,
+    "dark_vision_radius": 360,
+    "ray_count": 96,
+    "walk_links": 7,
+    "design": "Excavated rooms and shafts inside opaque solid rock; normal room visibility; authored dark rooms use local line-of-sight lighting."
+  },
+  "boss_route_via_exploration": true,
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch04_beeswax_nook_trial",
+      "name": "蜂蜡试炼",
+      "kind": "challenge_room",
+      "room_id": "beeswax_nook",
+      "clear_flag": "challenge_clear_ch04_beeswax",
+      "bypass_note": "不敲钟可拿花粉蜡与暗灯离开，继续东藤壁；主线不依赖此房。封门只封西侧根须南廊入口，东侧仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "shrine": {
+        "id": "challenge_shrine_ch04_beeswax",
+        "position": [
+          4920,
+          2265
+        ],
+        "label": "余响钟 · 蜂蜡试炼"
+      },
+      "lock_rect": [
+        4648,
+        2160,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH04_N1",
+          "kind": "thorn_sentinel",
+          "position": [
+            5040,
+            2265
+          ],
+          "sprite": "res://assets/sprites/original_creatures/thorn_sentinel/manifest.json",
+          "visual_scale": 0.33440514469453375,
+          "visual_offset": [
+            0,
+            4.662379421221864
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/thorn_sentinel/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 64,
+          "elite": true
+        },
+        {
+          "id": "CH04_N2",
+          "kind": "wax_bee",
+          "position": [
+            5160,
+            2265
+          ],
+          "sprite": "res://assets/sprites/original_creatures/wax_bee/manifest.json",
+          "visual_scale": 0.26936026936026936,
+          "visual_offset": [
+            0,
+            13.824915824915827
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/wax_bee/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 40,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 30,
+        "material_amount": 2,
+        "item_id": "evidence_beeswax_echo",
+        "item_amount": 1,
+        "toast": "蜂蜡首清：取得蜂蜡余响证据，并得额外碎钱与材料。图样可带给蜂蜡商人制作「蜂蜡缝托」，证据不会收走。"
+      }
+    },
+    {
+      "id": "ch04_root_cage_hunt",
+      "name": "根网追踪",
+      "kind": "tracking_hunt",
+      "room_id": "root_vault",
+      "clear_flag": "challenge_clear_ch04_root_hunt",
+      "bypass_note": "不循残迹、不敲钟可照常取花粉蜡、与根笼囚徒对话、拉根库拉杆离开，经树心继续；主线不依赖此猎。封门只封东侧树心阶入口，西侧库底仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "tracks": [
+        {
+          "id": "hunt_track_ch04_root_a",
+          "flag": "hunt_track_ch04_root_a",
+          "room_id": "canopy_overlook",
+          "position": [
+            1980,
+            880
+          ],
+          "label": "根网残迹 · 西眺台",
+          "hint": "干裂根丝往断弦辐桥坠去。"
+        },
+        {
+          "id": "hunt_track_ch04_root_b",
+          "flag": "hunt_track_ch04_root_b",
+          "room_id": "west_spoke",
+          "position": [
+            1400,
+            1570
+          ],
+          "label": "根网残迹 · 辐桥",
+          "hint": "爪痕沉向树心下的根库。"
+        }
+      ],
+      "shrine": {
+        "id": "challenge_shrine_ch04_root_hunt",
+        "position": [
+          2480,
+          1942
+        ],
+        "label": "余响钟 · 根笼猎物"
+      },
+      "lock_rect": [
+        2688,
+        1860,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH04_H1",
+          "kind": "root_cage_hunter",
+          "position": [
+            2560,
+            1942
+          ],
+          "sprite": "res://assets/sprites/original_creatures/root_cage_hunter/manifest.json",
+          "visual_scale": 0.33226837060702874,
+          "visual_offset": [
+            0,
+            5.335463258785943
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/root_cage_hunter/atlas.png",
+          "patrol": 60,
+          "leash_radius": 200,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 64,
+          "elite": true,
+          "hp": 9,
+          "encounter_role": "tracking_hunt_quarry"
+        }
+      ],
+      "reward": {
+        "currency": 40,
+        "material_amount": 3,
+        "item_id": "evidence_root_track",
+        "item_amount": 1,
+        "toast": "根网首清：取得根网爪痕证据，并得额外碎钱与花粉蜂蜡。"
+      }
+    }
+  ]
+}

@@ -2,9 +2,11 @@ extends Node2D
 ## Original needle/thread/copper action cues. Visual only: never mutates combat stats.
 ## Add as player child. Effects are world anchored and expire even if the player moves.
 const RETIREMENT := preload("res://scripts/audio_retirement.gd")
+const POLICY := preload("res://scripts/combat_visual_policy.gd")
 const IDS := ["crimson", "bell", "salt", "cleave", "needle", "snare", "ward", "shockwave", "crosscut", "shard", "mine", "fog", "lure", "reflux", "spur", "shell", "stride", "mender", "needlecase"]
 const MAX_EFFECTS := 8
 const MAX_VOICES := 4
+const AUDIO := preload("res://scripts/audio_director.gd")
 var muted := false
 var reduced_flash := false
 var _effects: Array[Node2D] = []
@@ -83,8 +85,9 @@ func play_action(action_id: String, stage: String, direction: int = 1, details: 
     if not IDS.has(action_id) or not ["prepare", "active", "recovery"].has(stage):
         return
     var trace := _trace(action_id, stage, global_position, direction)
-    trace.span = clampf(float(details.get("range", 80.0)), 16.0, 240.0)
-    trace.lifetime = {"prepare": 0.16, "active": 0.25, "recovery": 0.13}[stage]
+    if trace != null:
+        trace.span = clampf(float(details.get("range", 80.0)), 16.0, 240.0)
+        trace.lifetime = {"prepare": 0.16, "active": 0.25, "recovery": 0.13}[stage]
     if stage != "recovery":
         _sound(action_id + "_" + stage, global_position)
 
@@ -92,26 +95,38 @@ func play_hit(action_id: String, world_position: Vector2) -> void:
     if not IDS.has(action_id):
         return
     var trace := _trace(action_id, "active", world_position, 1)
-    trace.span = 20
-    trace.lifetime = 0.13
+    if trace != null:
+        trace.span = 20
+        trace.lifetime = 0.13
     _sound(action_id + "_hit", world_position)
 
 func cue_unblockable(world_position: Vector2) -> void:
     var trace := _trace("unblockable", "active", world_position, 1)
-    trace.lifetime = 0.35
+    if trace != null: trace.lifetime = 0.35
     _sound("unblockable", world_position)
 
 func _trace(action_id: String, stage: String, world_position: Vector2, direction: int) -> ActionTrace:
     _effects = _effects.filter(func(effect): return is_instance_valid(effect) and not effect.is_queued_for_deletion())
     if _effects.size() >= MAX_EFFECTS:
-        _effects.pop_front().queue_free()
+        var oldest_decoration := -1
+        for index in range(_effects.size()):
+            if _effects[index].action_id != "unblockable":
+                oldest_decoration = index
+                break
+        if oldest_decoration >= 0:
+            _effects[oldest_decoration].queue_free()
+            _effects.remove_at(oldest_decoration)
+        elif action_id == "unblockable":
+            _effects.pop_front().queue_free()
+        else:
+            return null
     var trace := ActionTrace.new()
     trace.action_id = action_id
     trace.stage = stage
     trace.direction = 1 if direction >= 0 else -1
     trace.subtle = reduced_flash
-    trace.z_index = 8
-    add_child(trace)
+    if not POLICY.attach_action_trace(self, trace, action_id == "unblockable"):
+        return null
     trace.top_level = true
     trace.global_position = world_position
     _effects.append(trace)
@@ -126,11 +141,23 @@ func _sound(cue: String, world_position: Vector2) -> void:
             return
         _streams[cue] = load(path)
     _voices = _voices.filter(func(voice): return is_instance_valid(voice) and not voice.is_queued_for_deletion())
+    var priority := 0 if cue == "unblockable" else 2
     if _voices.size() >= MAX_VOICES:
-        var oldest := _voices.pop_front() as AudioStreamPlayer2D
+        var victim := -1
+        var victim_priority := priority-1
+        for index in _voices.size():
+            var candidate_priority := int(_voices[index].get_meta("voice_priority",2))
+            if candidate_priority >= priority and candidate_priority > victim_priority:
+                victim=index
+                victim_priority=candidate_priority
+        if victim < 0:return
+        var oldest := _voices.pop_at(victim) as AudioStreamPlayer2D
         _retire_voice(oldest)
         oldest.queue_free()
+    var ticket := AUDIO.reserve_voice("seal_"+cue,priority,0,AUDIO.MAX_GLOBAL_VOICES)
+    if ticket == 0:return
     var voice := AudioStreamPlayer2D.new()
+    voice.set_meta("voice_priority",priority)
     voice.stream = _streams[cue]
     voice.volume_db = -6
     voice.max_distance = 1200
@@ -142,7 +169,7 @@ func _sound(cue: String, world_position: Vector2) -> void:
     voice.finished.connect(voice.queue_free)
     voice.tree_exiting.connect(_retire_voice.bind(voice))
     _voices.append(voice)
-    voice.play()
+    AUDIO.start_reserved_voice(ticket,voice)
     RETIREMENT.watch(voice)
 
 func active_effect_count() -> int:

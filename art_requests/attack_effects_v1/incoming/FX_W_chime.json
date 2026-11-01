@@ -1,0 +1,181 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_W_chime.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_W_chime.txt",
+  "prompt_sha256": "a60605b9408c02b35675ba3929c155a62f30688179a523770ee8d95211042f29",
+  "image_sha256": "da232a95b23cd9b324e8cc78973c66bb2e280b2f7b8a1baa88ccc9caab75b5bd",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1024083,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/bellroot_acolyte.png",
+      "sha256": "aa96f1204218103cec71ef1ee906f50695c224006b817ae1a050c26ad32c4c1a"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/silent_bugbler.png",
+      "sha256": "102f3d8d9b024896e61b881e8cfa05477aa78ae50fbd9b6861e2bc575743ffb3"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/obsidian_bellwheel.png",
+      "sha256": "ae3b540b034e4fedd24444a826a131784e02a4232ee9f2bca3141ac7845631ec"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+      "sha256": "389aa8089bd4f19d0cf55170e0a75436046feec8b984c5f9983fa71c8ef5a0d2"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/silent_crown_core.png",
+      "sha256": "aea97f5bdffffefd8ee75107db7a872d30ff0681e1a6a4dfec27250c53ffc96e"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        435,
+        481
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        51,
+        290,
+        400,
+        405
+      ],
+      "fully_transparent_pixels": 175149
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        435,
+        0,
+        876,
+        481
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        475,
+        171,
+        837,
+        405
+      ],
+      "fully_transparent_pixels": 139636
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        876,
+        0,
+        1325,
+        481
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        918,
+        143,
+        1294,
+        405
+      ],
+      "fully_transparent_pixels": 128733
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1325,
+        0,
+        1774,
+        481
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1358,
+        157,
+        1743,
+        405
+      ],
+      "fully_transparent_pixels": 128293
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        481,
+        452,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        31,
+        565,
+        430,
+        817
+      ],
+      "fully_transparent_pixels": 102226
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        452,
+        481,
+        900,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        483,
+        567,
+        870,
+        817
+      ],
+      "fully_transparent_pixels": 94094
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        900,
+        481,
+        1345,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        935,
+        630,
+        1301,
+        818
+      ],
+      "fully_transparent_pixels": 120722
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1345,
+        481,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1399,
+        722,
+        1688,
+        817
+      ],
+      "fully_transparent_pixels": 135230
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "鐘聲地波",
+    "observed_cels": 8,
+    "note": "已目检升起、行进与消退共 8 格，朝右地波。脚底线和持续循环需运行时验收。"
+  }
+}

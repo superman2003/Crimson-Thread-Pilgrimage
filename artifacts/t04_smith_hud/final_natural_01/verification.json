@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-21T18:41:40.117331+08:00",
+  "scope": "31 real-input steps: all four smith moves, earned hook, vault reward, return and new-process restart",
+  "head": "521aeaae08c3d63330ca0c367e0e11bb489c15b3",
+  "command": [
+    "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp/ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+    "--position",
+    "-32000,-32000",
+    "--audio-driver",
+    "Dummy",
+    "--rendering-method",
+    "gl_compatibility",
+    "--fixed-fps",
+    "60",
+    "--path",
+    "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+    "--script",
+    "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot\\scripts\\world_smith_route_playback.gd"
+  ],
+  "seed_sha256": "76864acc5c96fa519db1424d671e1a09757c6c647a7121301090518a2627d50f",
+  "seconds": 106.17,
+  "timeout_seconds": 180,
+  "exit": 0,
+  "timed_out": false,
+  "engine_errors": [],
+  "objectdb_warnings": 0,
+  "source_files": 8737,
+  "source_unchanged": true,
+  "completion": "WORLD_SMITH_ROUTE steps=31 failures=0 damage_events=2 heals=2 deaths=0 damage_suppression=false earned_checkpoint=true",
+  "restart": {
+    "command": [
+      "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp/ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+      "--position",
+      "-32000,-32000",
+      "--audio-driver",
+      "Dummy",
+      "--rendering-method",
+      "gl_compatibility",
+      "--fixed-fps",
+      "60",
+      "--path",
+      "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+      "--script",
+      "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot\\scripts\\world_smith_route_playback.gd",
+      "--",
+      "--smith-restart-proof={\"checkpoint\":\"save_ch02_forge\",\"inventory\":{\"double_thread_jump\":1,\"echo_hook\":1,\"heart_knot\":1,\"menders_right\":1,\"moss_chitin\":2,\"moss_lens\":1,\"rain_gauge\":1,\"salt_crystal_shard\":2,\"silk_wall_grip\":1,\"smith_oath_plate\":1,\"testimony_returned_name\":1,\"thread_burst\":1,\"wet_chitin\":11,\"worker_badge\":1},\"pid\":11364,\"region\":\"demo_ch02_rain_foundry_canal\",\"wallet\":124}"
+    ],
+    "seconds": 5.58,
+    "timeout_seconds": 180,
+    "exit": 1,
+    "timed_out": false,
+    "engine_errors": [
+      "ERROR: restart retains exact item counts, including hook, oath plate and vault badge"
+    ],
+    "objectdb_warnings": 0,
+    "completion": null,
+    "passed": false
+  },
+  "passed": false
+}

@@ -1,0 +1,44 @@
+name: Upgrade G10 10-route-cues
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/upgrade-g-10-route-cues.yml'
+      - 'godot/scripts/world_atlas.gd'
+      - 'godot/scripts/atlas_route_cue.gd'
+      - 'godot/tests/upgrade_g10_route_cues.gd'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: upgrade-g10-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  focused-runtime:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Hydrate runtime assets and install pinned engine
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
+      - name: Import project and run focused checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          engine="$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/logs/import"
+          timeout 90 "$engine" --headless --path godot --script res://tests/upgrade_g10_route_cues.gd 2>&1 | tee "$RUNNER_TEMP/logs/specialized.log"
+          ! grep -E '^(SCRIPT ERROR|ERROR|USER ERROR):' "$RUNNER_TEMP/logs/specialized.log"
+          grep -E '^UPGRADE_G10 checks=[1-9][0-9]* failures=0$' "$RUNNER_TEMP/logs/specialized.log"
+          python3 tools/run_godot_regressions.py --engine "$engine" --suite world_map --log-dir "$RUNNER_TEMP/logs/existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: upgrade-g10-logs
+          path: ${{ runner.temp }}/logs

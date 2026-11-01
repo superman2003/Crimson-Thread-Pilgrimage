@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-20",
+  "base": "b373b13c7acd8684f99603c414c320960c42adb1",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "settings_remap",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.06,
+      "markers": [
+        "SETTINGS_REMAP checks=23 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_settings_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.56,
+      "markers": [
+        "INPUT_SETTINGS_REGRESSION checks=76 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "input_prompt",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.86,
+      "markers": [
+        "INPUT_PROMPT_VALIDATION checks=36 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.86,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.97,
+      "markers": [
+        "FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true",
+        "UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "build_slots_ui",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.83,
+      "markers": [
+        "BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=36 failures=0 capture=user://build_slots_ui_validation_fixture.png"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.56,
+      "markers": [
+        "SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "save_recovery",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 15.98,
+      "markers": [
+        "SAVE_RECOVERY checks=35 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_outcomes",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.2,
+      "markers": [
+        "NARRATIVE_GROUP reward_transactions checks=217 failures=0",
+        "NARRATIVE_GROUP variable_quest_order checks=227 failures=0",
+        "NARRATIVE_GROUP ending_world_phase checks=234 failures=0",
+        "NARRATIVE_OUTCOMES checks=9798 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "narrative_return_runtime",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 7.55,
+      "markers": [
+        "NARRATIVE_RETURN_RUNTIME_PASS checks=27 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.39,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=10",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "seal_presentation",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 2.19,
+      "markers": [
+        "SEAL_PRESENTATION_VALIDATION: 175 checks, 0 failures"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "enemy_ai_behavior",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.83,
+      "markers": [
+        "SPATIAL_ENEMY_ALERT checks=13",
+        "ENEMY_AI_BEHAVIOR checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "tool_practice",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 30.98,
+      "markers": [
+        "PLAYER_TOOL_ART_VALIDATION checks=312 failures=0 families=4 frames=28",
+        "TOOL_PRACTICE checks=98 failures=0"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR",
+  "integration_commit": "b373b13c7acd8684f99603c414c320960c42adb1",
+  "prior_integration": "a07af5ba3dad3775ff8b40bb8389c530b1d4621c",
+  "new_pr_heads": {
+    "160": "b04b1569a50edbe95466434888dbab1c8681ce09",
+    "161": "154461bde4d7de407729680aeaa90129a807fea1",
+    "162": "dd38e8d8ab96d2ecd641cfbf0b91ff6665b9595c",
+    "163": "00f377e0cb450e51b5eec05314abc3d46b928dca",
+    "164": "aafe71c4a3aba2da975eef24e3b99b4f7ddc8d24"
+  },
+  "prior_prs": [
+    154,
+    155,
+    156,
+    157,
+    158,
+    159
+  ],
+  "merge_resolution": "Retained both POLICY and AUDIO preloads in seal_presentation.gd; all functional changes otherwise auto-merged.",
+  "scope": "Local integration only; no GitHub PR or main was merged."
+}

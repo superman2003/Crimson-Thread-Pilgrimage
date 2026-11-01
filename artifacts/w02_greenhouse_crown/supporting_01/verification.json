@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-22T19:13:06.955111+08:00",
+  "head": "2e6e9f3a8bcd7aa7b4501b3756cc0c78b6b60f14",
+  "source_files": 8755,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "chapter_route_regression",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/chapter_route_regression_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 12.86,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=270",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "cave_route_walk",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/cave_route_walk_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 15.06,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "CAVE_ROUTE_WALK_VALIDATION traversals=78 failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "world_platform_streaming",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_platform_streaming_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 12.74,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD PLATFORM STREAMING PASS: 13652 checks; authored physics/visual parity, pins, blockers, arrival and teardown",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "seal_combat",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/seal_combat_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 16.74,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SEAL_COMBAT_VALIDATION PASS checks=194 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    }
+  ]
+}

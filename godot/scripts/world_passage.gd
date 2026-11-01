@@ -94,6 +94,10 @@ func _release_arrival_token() -> void:
 func try_walk_entry() -> void:
     if active or settling or host.world_loading or host.chapter_transitioning or host.world_portal_request_pending or not host.active_overlay.is_empty() or host.player.hp <= 0:
         return
+    # The parent checks mouths before Player consumes jump input. Respect the
+    # same-frame jump intent rather than admitting a still-grounded body first.
+    if Input.is_action_pressed("jump"):
+        return
     if not ROUTES.cache_is_current():
         host.world_loader.request_manifest_refresh(host)
         return

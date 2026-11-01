@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_bishop_seeds.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "f16fccb82c748f1c75784acb3b74db031938f9a64eb18824586a5e5dd9ba368a",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_bishop_seeds.txt",
+  "prompt_sha256": "16d28d63a84ebbf8c056a582091b939d2fe355bfb417932fe280e10c1caa72c4",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        511,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        56,
+        25,
+        462,
+        477
+      ],
+      "fully_transparent_pixels": 123802
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        511,
+        0,
+        1020,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        562,
+        25,
+        979,
+        476
+      ],
+      "fully_transparent_pixels": 106925
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1020,
+        0,
+        1536,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1066,
+        24,
+        1495,
+        476
+      ],
+      "fully_transparent_pixels": 101744
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        503,
+        521,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        33,
+        537,
+        480,
+        991
+      ],
+      "fully_transparent_pixels": 101625
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        521,
+        503,
+        1032,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        543,
+        529,
+        1010,
+        991
+      ],
+      "fully_transparent_pixels": 90638
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1032,
+        503,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1056,
+        531,
+        1516,
+        991
+      ],
+      "fully_transparent_pixels": 84803
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/broken_string_gardener.png",
+      "sha256": "2212526912785e31ffb39ecbdf4960bf14bd67fe85225d525c15381daf62c9b5"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: three closed orange seed husks and copper-green tendrils gather locally, distinct from the moss-boss spore buds. No launched fan or trajectory. Runtime anchor, bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

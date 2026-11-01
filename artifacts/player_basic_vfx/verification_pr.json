@@ -1,0 +1,70 @@
+{
+  "base_commit": "6dcf727769c2920c362d9c2db6dd8ca5a42d1724",
+  "date": "2026-10-28",
+  "engine": "4.6.stable.official.89cea1439",
+  "tests": {
+    "player_basic_attack_vfx": {
+      "engine_errors": 0,
+      "warnings": 8,
+      "log": "player_basic_attack_vfx.txt"
+    },
+    "player_melee_feedback": {
+      "engine_errors": 0,
+      "warnings": 8,
+      "log": "player_melee_feedback.txt"
+    },
+    "combat": {
+      "engine_errors": 0,
+      "warnings": 8,
+      "log": "combat.txt"
+    },
+    "player_contact_art": {
+      "engine_errors": 0,
+      "warnings": 8,
+      "log": "player_contact_art.txt"
+    },
+    "hero_animation_candidate": {
+      "engine_errors": 43,
+      "warnings": 8,
+      "log": "hero_animation_candidate.txt"
+    },
+    "hero_animation_baseline": {
+      "engine_errors": 43,
+      "warnings": 8,
+      "log": "hero_animation_baseline.txt"
+    },
+    "combat_visual_budget": {
+      "engine_errors": 0,
+      "warnings": 0,
+      "log": "combat_visual_budget.txt"
+    },
+    "capture": {
+      "engine_errors": 0,
+      "warnings": 0,
+      "log": "capture.txt"
+    }
+  },
+  "import_attempts": [
+    {
+      "result": "timeout",
+      "limit_seconds": 180,
+      "phase": "cold worktree import, pass 1"
+    },
+    {
+      "result": "timeout",
+      "limit_seconds": 180,
+      "phase": "reused missing local cache files, pass 1"
+    }
+  ],
+  "source_hashes": {
+    "godot/scripts/player_basic_attack_vfx.gd": "2ec636ae7e347c20d2717e56da26fd58a088630dbbbb4ec39cab47ae25fb411d",
+    "godot/scripts/player_basic_attack_vfx_validation.gd": "994540176ab20a23b95e103484398d0915a5288aa19df286babc8228c256483c",
+    "godot/scripts/player_controller.gd": "daea3e6241f8698243417b23fe93481092707725ee73212adafa9874ca104a7d"
+  },
+  "preview": {
+    "video": "blade_follow_preview.mp4",
+    "gif": "blade_follow_preview.gif",
+    "type": "staged real GL production Player, 24 manually stepped frames at 60Hz, followed by 0.6s end hold; not natural World gameplay"
+  },
+  "ci": "not yet observed; do not count prior-branch results as this PR validation"
+}

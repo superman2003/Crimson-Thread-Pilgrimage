@@ -1,0 +1,113 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Public PR209 raw victory seed, independent normal-Input acquisition at the C6 first echo.
+## Only the first18 input steps are reused from a route snapshot, never an intermediate save.
+const RESONANCE_SAVE:="user://test_v04_resonance_world_20261024.json"
+const PUBLIC_SEED:="res://../artifacts/t04_bride_retry/earned_bride_seed.json"
+const POLICY:=preload("res://scripts/combat_visual_policy.gd")
+const RETIREMENT:=preload("res://scripts/audio_retirement.gd")
+const AUDIO:=preload("res://scripts/audio_director.gd")
+var output:=""
+func artwork() -> Array:
+    return get_nodes_in_group(POLICY.SECONDARY_GROUP).filter(func(n):return n.has_meta("player_ability_art") and n.family=="resonance" and not n.is_queued_for_deletion())
+func capture(label:String) -> void:
+    if output.is_empty():return
+    await RenderingServer.frame_post_draw
+    _check(root.get_texture().get_image().save_png(output.path_join(label+".png"))==OK,"native capture")
+func _run() -> void:
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+    var bytes:=FileAccess.get_file_as_bytes(PUBLIC_SEED);var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(bytes)
+    _check(hash.finish().hex_encode()=="d8e950d6fac3e1be55b4fb7bbb5b85eac09fdfdc45a6d8ed9fbc6410535e443f","exact public Bride victory bytes")
+    var file:=FileAccess.open(RESONANCE_SAVE,FileAccess.WRITE);file.store_buffer(bytes);file.close()
+    scene=load("res://scenes/World.tscn").instantiate();scene.world_resume=true;scene.world_save_path=RESONANCE_SAVE;root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene);current_scene=scene;await _tick(15)
+    _check(scene.currency_count==435 and scene.player.hp==5 and scene.player.max_hp==6 and scene.player.energy==100 and not scene.player.dash_unlocked and not scene.player.crown_resonance_unlocked and not scene.player.debug_invulnerable,"public victory remains HP5/max6, energy100, no unearned dash or resonance")
+    var route: Array=[
+        ["leap",4490,656,20,"physical mirror threshold after actual victory"],
+        ["fight"],
+        ["walk",4560,656],
+        ["leap",4790,700,999,"ordinary jump through defeated Bride gate"],
+        ["walk",5315,700],
+        ["leap",5550,850,999,"ordinary jump onto first cable landing"],
+        ["walk",5780,1140],
+        ["walk",5580,1440],
+        ["walk",5810,1745],
+        ["walk",5600,2050],
+        ["walk",5820,2355],
+        ["walk",5610,2650],
+        ["cable_fight"],
+        ["walk",5730,2650],
+        ["leap",6000,2724,20,"normal cable base to silent gate approach"],
+        ["walk",6110,2724],
+        ["leap",6330,2680,999,"ordinary jump to silent gate step"],
+        ["leap",6650,2722,20,"actual exit dock"],
+    ]
+    for action in route:
+        var ok:=true
+        if action[0]=="cable_fight":ok=await _clear_cable_censor()
+        elif action[0]=="leap":ok=await _leap(Vector2(action[1],action[2]),action[3],action[4])
+        elif action[0]=="walk":ok=await _walk_without_jump(Vector2(action[1],action[2]))
+        else:ok=await _clear_nearby()
+        if not ok:await finish_resonance();return
+    await _world_interact()
+    if scene.world_passage.active:
+        _axis(signf(scene.world_passage.destination_point.x-scene.world_passage.source_point.x))
+        for frame in 3600:
+            await _tick()
+            if not scene.world_passage.active:break
+        _release()
+    for frame in 2000:
+        if not _transition_busy():break
+        await process_frame
+    await _tick(15);_check(String(scene.config.id)=="demo_ch06_silent_crown_core","normal physical causeway reaches C6 foyer")
+    if failures>0:await finish_resonance();return
+    _check(not scene.player.crown_resonance_unlocked and not scene.inventory_counts.has("crown_resonance"),"arrival itself cannot grant resonance")
+    if not await _heart_interact("npc_first_pilgrim_echo",3050):await finish_resonance();return
+    _check(scene.active_overlay=="dialogue" and scene.inventory_counts.get("crown_resonance",0)==1 and scene.player.crown_resonance_unlocked,"actual F first-echo conversation grants real resonance")
+    print("RESONANCE_WORLD_ACQUIRED pos=",scene.player.position," hp=",scene.player.hp," energy=",scene.player.energy," wallet=",scene.currency_count," resonance=",scene.inventory_counts.get("crown_resonance",0))
+    Input.action_press("close_overlay");await _tick(3);Input.action_release("close_overlay");await _tick(5)
+    var energy_before:int=scene.player.energy
+    Input.action_press("crown_resonance");await process_frame;await _tick(3);Input.action_release("crown_resonance")
+    _check(scene.player.energy==energy_before-20 and scene.player.resonance_cooldown>0 and scene.player.attack_timer>0 and artwork().size()==1,"actual unlocked R pays20, starts original action/cooldown and owns one crown material")
+    await capture("world_resonance_started");await _tick(5)
+    _check(scene.player.skill_effect_started,"actual original resonance active frame executes")
+    print("RESONANCE_WORLD_CAST pos=",scene.player.position," hp=",scene.player.hp," energy=",scene.player.energy," attack=",scene.player.attack_timer," cooldown=",scene.player.resonance_cooldown)
+    await capture("world_resonance_active");await _tick(40)
+    _check(artwork().is_empty() and deaths==0,"real action retires without death or state repair")
+    await finish_resonance()
+func finish_resonance() -> void:
+    _release();Input.action_release("skill_1");Input.action_release("crown_resonance");Input.action_release("close_overlay")
+    RETIREMENT.retire_tree(scene);scene.queue_free();scene=null
+    for i in 10:await process_frame
+    AUDIO._stream_cache.clear();AUDIO._npc_voice_cache.clear();_check(await RETIREMENT.drain(self),"observable audio retirement")
+    for suffix in ["", ".bak", ".tmp", ".previous"]:
+        if FileAccess.file_exists(RESONANCE_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(RESONANCE_SAVE+suffix))
+    print("PLAYER_RESONANCE_WORLD steps=%d failures=%d deaths=%d input_only=true acquisition=first_echo"%[steps,failures,deaths]);quit(1 if failures else 0)
+func _near_foe() -> Node2D:
+    if is_instance_valid(scene) and is_instance_valid(scene.player) and String(scene.config.id)=="demo_ch05_obsidian_pilgrim_road" and scene.player.position.y>2300:
+        for foe in get_nodes_in_group("enemy"):
+            if is_instance_valid(foe) and foe.spawn_id=="E14" and foe.hp>0 and absf(foe.position.x-scene.player.position.x)<250 and absf(foe.position.y-scene.player.position.y)<240:return foe
+    return super._near_foe()
+func _clear_cable_censor() -> bool:
+    steps+=1
+    _release()
+    var jumped_at: int=-100
+    combat_enabled=true
+    for frame in 600:
+        var foe:=_near_foe()
+        if foe==null:
+            _release()
+            combat_enabled=false
+            return true
+        var p: CharacterBody2D=scene.player
+        var dx: float=foe.position.x-p.position.x
+        _axis(signf(dx) if absf(dx)>90 or p.facing!=signi(dx) else 0)
+        if frame-jumped_at>=25:Input.action_release("jump")
+        if foe.position.y<p.position.y-90 and p.is_on_floor() and p.hurt_timer<=0 and p.attack_timer<=0 and frame-jumped_at>50:
+            Input.action_press("jump");jumped_at=frame;await process_frame
+        await _tick()
+        if deaths>0:break
+    combat_enabled=false
+    _release()
+    _check(false,"actual cable censor normal air attacks finish")
+    return false

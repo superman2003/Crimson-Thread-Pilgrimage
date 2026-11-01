@@ -1,0 +1,90 @@
+extends SceneTree
+const WINDOW:=preload("res://scripts/journey_desk_window.gd")
+const LAYOUT:=preload("res://scripts/journey_window_layout.gd")
+var checks:=0
+var failures:=0
+class Shell extends Control:
+    var accessibility:={"subtitle_size":21}
+    var registrations:=0
+    func register_text_entry_window(_window: Window) -> void:registrations+=1
+func _initialize() -> void:call_deferred("run")
+func check(ok: bool,label: String) -> void:
+    checks+=1
+    if not ok:failures+=1;push_error(label)
+func frames() -> void:
+    for unused in 3:await process_frame
+func run() -> void:
+    for dimensions in [Vector2i(320,240),Vector2i(640,360),Vector2i(800,600),Vector2i(1280,720),Vector2i(1920,1080)]:
+        var viewport:=Rect2(Vector2(11,17),dimensions)
+        var plan:=LAYOUT.frame(viewport,Vector2i(960,610))
+        check(plan.ok and viewport.encloses(Rect2(plan.rect)),"window frame stays inside supported viewport")
+        check(plan.rect.size.x<=960 and plan.rect.size.y<=610,"larger screen does not enlarge authored minimum")
+    for viewport in [Rect2(0,0,0,0),Rect2(0,0,-640,360),Rect2(0,0,INF,360),Rect2(NAN,0,640,360)]:
+        check(not LAYOUT.frame(viewport,Vector2i(960,610)).ok,"unknown or malformed viewport is not applied")
+    check(not LAYOUT.frame(Rect2(0,0,1280,720),Vector2i.ZERO).ok,"zero preferred size rejected")
+    for value in [null,true,NAN,INF,"26"]:check(LAYOUT.reading_size(value)==21,"malformed reading setting keeps default")
+    check(LAYOUT.reading_size(100)==26 and LAYOUT.reading_size(-1)==17,"reading size remains bounded")
+    var viewport:=SubViewport.new();viewport.size=Vector2i(640,360);viewport.gui_embed_subwindows=true
+    root.add_child(viewport)
+    var ui:=Shell.new();viewport.add_child(ui)
+    var overlay:=Control.new();ui.add_child(overlay)
+    var window:=WINDOW.new();overlay.add_child(window);window.bind_overlay(ui,overlay)
+    var subscription_count:=overlay.visibility_changed.get_connections().size()
+    window.bind_overlay(ui,overlay)
+    check(overlay.visibility_changed.get_connections().size()==subscription_count,"repeated bind has one overlay callback")
+    var paragraph:=window.text(window.column,"长文与可滚动内容。".repeat(80),80)
+    window.footer()
+    var buttons: Array[Button]=[]
+    for index in 16:buttons.append(window.button(window.column,"操作 %d" % index,func():pass))
+    var editor:=window.search(window.column,"底部输入",func(_value: String):pass)
+    var rich:=RichTextLabel.new();rich.custom_minimum_size=Vector2(800,100);rich.text="Plain body";window.column.add_child(rich)
+    window.popup_centered();await frames()
+    check(window.size.x<=640 and window.size.y<=360,"actual native window fits small embedded viewport")
+    check(window.position.x>=0 and window.position.y>=0,"native window is centered in its hosting viewport")
+    check(window.body.get_parent()==window and window.column.get_parent()==window.body,"scroll contains body while dialog close remains outside")
+    check(window.body.follow_focus,"scroll follows keyboard and controller focus")
+    check(window.get_ok_button().is_visible_in_tree(),"close action stays outside long scrolling content")
+    editor.grab_focus();await frames()
+    check(editor.has_focus() and window.body.scroll_vertical>0,"bottom field focus scrolls actual native body")
+    check(window.body.get_h_scroll_bar().max_value>window.body.size.x,"wide authored rows can be reached horizontally")
+    var first_font:=paragraph.get_theme_font_size("font_size")
+    check(first_font==21,"default body reading size remains21")
+    ui.accessibility.subtitle_size=26;window.hide();window.popup_centered();await frames()
+    check(paragraph.get_theme_font_size("font_size")==26,"body follows selected large reading size")
+    check(buttons[0].get_theme_font_size("font_size")==LAYOUT.scaled_font(15,26),"button hierarchy scales from authored size")
+    var rebuilt:=window.row(window.column)
+    var late_button:=window.button(rebuilt,"筛选后新行",func():pass)
+    var late_text:=window.text(rebuilt,"筛选结果")
+    late_text.add_theme_font_size_override("font_size",18)
+    var late_input:=LineEdit.new();rebuilt.add_child(late_input)
+    var input_base:=late_input.get_theme_font_size("font_size")
+    await frames()
+    check(late_button.get_theme_font_size("font_size")==LAYOUT.scaled_font(15,26),"rebuilt result actions use current reading size while open")
+    check(late_text.get_theme_font_size("font_size")==LAYOUT.scaled_font(18,26),"late caller font override is captured after construction")
+    check(late_input.get_theme_font_size("font_size")==LAYOUT.scaled_font(input_base,26),"manually added filter controls follow the same reading scale")
+    var large_rich:=rich.get_theme_font_size("normal_font_size")
+    window.hide();window.popup_centered();await frames()
+    check(paragraph.get_theme_font_size("font_size")==26 and rich.get_theme_font_size("normal_font_size")==large_rich,"reopening cannot compound inherited font scales")
+    ui.accessibility.subtitle_size=17;window.hide();window.popup_centered();await frames()
+    check(paragraph.get_theme_font_size("font_size")==17,"smaller reading preset can reverse previous enlargement")
+    ui.accessibility.subtitle_size=21;window.hide();window.popup_centered();await frames()
+    check(paragraph.get_theme_font_size("font_size")==first_font,"original body size restores exactly")
+    check(late_text.get_theme_font_size("font_size")==18 and late_input.get_theme_font_size("font_size")==input_base,"rebuilt rows also restore original authored typography")
+    viewport.size=Vector2i(1280,720);await frames()
+    check(window.size==Vector2i(960,610),"live viewport growth restores authored preferred size")
+    viewport.size=Vector2i(480,320);await frames()
+    check(window.size.x<=480 and window.size.y<=320,"live shrink refits without reopening")
+    overlay.hide();await frames()
+    check(not window.visible,"closing parent overlay hides the adaptive dialog")
+    var other:=Control.new();ui.add_child(other);window.bind_overlay(ui,other)
+    check(overlay.visibility_changed.get_connections().size()==subscription_count-1,"rebinding disconnects previous owner")
+    other.hide();await frames()
+    check(not window.visible,"new owner owns visibility")
+    var root_connections:=viewport.size_changed.get_connections().size()
+    window.queue_free();await frames()
+    check(other.visibility_changed.get_connections().is_empty(),"retired dialog disconnects owner callback")
+    check(viewport.size_changed.get_connections().size()==root_connections-1,"retired dialog releases viewport subscription")
+    viewport.size=Vector2i(800,600);await frames()
+    viewport.free();await process_frame
+    print("JOURNEY_WINDOW_LAYOUT checks=%d failures=%d" % [checks,failures])
+    quit(0 if failures==0 else 1)

@@ -1,0 +1,22 @@
+{
+  "final": "final_source_01",
+  "scope": "Failed diagnostics remain failures; expected old-data failure and generated-data checks are recorded in temporary_data_verification.json.",
+  "runs": [
+    {
+      "path": "attempt_01/verification.json",
+      "passed": false
+    },
+    {
+      "path": "attempt_02_open_shaft/verification.json",
+      "passed": true
+    },
+    {
+      "path": "final_source_01/verification.json",
+      "passed": true
+    },
+    {
+      "path": "restart_checks/verification.json",
+      "passed": true
+    }
+  ]
+}

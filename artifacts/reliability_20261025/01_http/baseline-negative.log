@@ -1,0 +1,20 @@
+✖ preview serves media and survives malformed URLs and escaped paths (30.2711ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 300185.966817
+
+✖ failing tests:
+
+test at ../../../../tmp/pilgrimage-http-baseline/tests/preview-http.test.mjs:10:1
+✖ preview serves media and survives malformed URLs and escaped paths (30.2711ms)
+  URIError [Error]: URI malformed
+      at decodeURIComponent (<anonymous>)
+      at Server.<anonymous> (file:///tmp/pilgrimage-http-baseline/server.js:22:62)
+      at Server.emit (node:events:514:28)
+      at parserOnIncoming (node:_http_server:1293:12)
+      at HTTPParser.parserOnHeadersComplete (node:_http_common:125:17)

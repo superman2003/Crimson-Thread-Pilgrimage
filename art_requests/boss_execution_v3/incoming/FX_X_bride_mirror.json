@@ -1,0 +1,144 @@
+{
+  "schema": "boss-execution-source-v3",
+  "image": "FX_X_bride_mirror.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/boss_execution_v3/README.md",
+  "image_sha256": "cbf8fd0cff78b19d58a537ed3e3eac5db858294bc4e4ff2c95af65e29d4062a1",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_X_bride_mirror.txt",
+  "prompt_sha256": "1321126822f2e055a0f2eeceb3d362eae617cacda124dc42c4d64b2beaef201b",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      512
+    ],
+    "canvas_size": [
+      1536,
+      1024
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "See godot/assets/vfx/boss_skills/manifest.json for measured per-cel registration and scale.",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        475,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        70,
+        95,
+        433,
+        444
+      ],
+      "fully_transparent_pixels": 143866
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        475,
+        0,
+        1012,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        506,
+        54,
+        994,
+        495
+      ],
+      "fully_transparent_pixels": 101137
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1012,
+        0,
+        1536,
+        519
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1021,
+        20,
+        1524,
+        513
+      ],
+      "fully_transparent_pixels": 47679
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        519,
+        530,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        16,
+        528,
+        526,
+        1006
+      ],
+      "fully_transparent_pixels": 71429
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        530,
+        519,
+        1057,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        546,
+        541,
+        1014,
+        988
+      ],
+      "fully_transparent_pixels": 102525
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1057,
+        519,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1099,
+        577,
+        1470,
+        930
+      ],
+      "fully_transparent_pixels": 150930
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "../combat_presentation_v2/refs/silent_pilgrim_commander.png",
+      "sha256": "3539fd4480efad99f7a614472e9ac7d956fd919ca2285ef4094dd3a083dbfa8a"
+    }
+  ],
+  "usage": "Source QA only. Original PNG bytes retained. Actual runtime atlas registration and visual/regression evidence are recorded separately in art_requests/boss_execution_v3/README.md.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "date": "2026-10-23",
+    "notes": "Inspected generated six-cel sheet: material follows the referenced boss, active contours differ from anticipation, no characters or scenery, six distinct release/follow-through cels. Selected sources pass alpha and measured gutter checks.",
+    "runtime_acceptance": "pending"
+  }
+}

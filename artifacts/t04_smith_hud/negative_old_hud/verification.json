@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-21T18:39:44.993401+08:00",
+  "head": "521aeaae08c3d63330ca0c367e0e11bb489c15b3",
+  "source_files": 8732,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "ui_world_integration",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_world_integration_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 5.81,
+      "exit": 1,
+      "timed_out": false,
+      "engine_errors": [
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance.",
+        "ERROR: HUD continues to refresh the journal after Boss retirement",
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance.",
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance.",
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance.",
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance.",
+        "SCRIPT ERROR: Trying to assign invalid previously freed instance."
+      ],
+      "completion": null,
+      "objectdb_warnings": 1,
+      "passed": false
+    }
+  ]
+}

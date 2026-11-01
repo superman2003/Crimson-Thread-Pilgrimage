@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-20",
+  "base": "896b127e870b239a21ee5fd833e9c8377aac0fef",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 3.52,
+      "markers": [
+        "CHARACTER_ART_PREWARM checks=835 failures=0 sync_loads=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_streaming",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 8.98,
+      "markers": [
+        "WORLD STREAMING PASS: 2554 checks; six-region visual coverage, unchanged collisions, bounded prefetch and stale-job retirement"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_startup_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 9.33,
+      "markers": [
+        "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

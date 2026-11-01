@@ -1,0 +1,21 @@
+Running build_slots_ui
+FAIL: build_slots_ui: exit=1 engine_errors=1 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: Reading shortcuts fit between the detail pane and its footer
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/build_slots_ui_validation.gd:309)
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=52 failures=1 capture=user://build_slots_ui_validation_fixture.png
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=true
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+Running input_settings_regression
+PASS: input_settings_regression
+
+INPUT_SETTINGS_REGRESSION checks=91 failures=0
+GODOT_REGRESSIONS suites=3 failures=1

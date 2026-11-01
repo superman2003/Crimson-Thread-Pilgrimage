@@ -1,0 +1,6078 @@
+{
+  "schema": 1,
+  "scope": "six enabled chapter bosses, 24 commands",
+  "cell": 192,
+  "material_footprint": 160,
+  "commands": {
+    "boss_moss_scythe": {
+      "boss": "rust_crown_guardian",
+      "type": "melee",
+      "warning": {
+        "boss": "rust_crown_guardian",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_moss_scythe.png",
+        "sha256": "ec32888c6c97e3ba23ac9c44ec70be397cb0a98b0468acdc336b159acb390405",
+        "prompt_sha256": "39fdec191d3562c07994e12a38dc9993563ff5c98c58c06935c64bb78aacb9db",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              513,
+              503
+            ],
+            "source_anchor": [
+              260.5,
+              267.5
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34557235421166305,
+              0.45584045584045585
+            ]
+          },
+          {
+            "source_rect": [
+              513,
+              0,
+              1024,
+              503
+            ],
+            "source_anchor": [
+              768.0,
+              262.0
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34782608695652173,
+              0.4166666666666667
+            ]
+          },
+          {
+            "source_rect": [
+              1024,
+              0,
+              1536,
+              503
+            ],
+            "source_anchor": [
+              1280.0,
+              262.0
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3448275862068966,
+              0.418848167539267
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              503,
+              512,
+              1024
+            ],
+            "source_anchor": [
+              258.5,
+              755.0
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.40404040404040403
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              503,
+              1025,
+              1024
+            ],
+            "source_anchor": [
+              771.5,
+              761.0
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3426124197002141,
+              0.3902439024390244
+            ]
+          },
+          {
+            "source_rect": [
+              1025,
+              503,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1283.5,
+              760.5
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3382663847780127,
+              0.38369304556354916
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "rust_crown_guardian",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_moss_scythe.png",
+        "sha256": "d441dc35ac7cc59aa8780fc2e16aeb16943395f2d8e56537b6fa04d00147315d",
+        "prompt_sha256": "e792a075dffb5b66b1e349782bb89760be49ed0a053fa4bcf451427b98767b91",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              500,
+              542
+            ],
+            "source_anchor": [
+              288.0,
+              286.0
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              500,
+              0,
+              1007,
+              542
+            ],
+            "source_anchor": [
+              764.0,
+              290.5
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              1007,
+              0,
+              1536,
+              542
+            ],
+            "source_anchor": [
+              1288.0,
+              294.5
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              542,
+              559,
+              1024
+            ],
+            "source_anchor": [
+              300.5,
+              764.0
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              559,
+              542,
+              1066,
+              1024
+            ],
+            "source_anchor": [
+              801.5,
+              780.0
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              1066,
+              542,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1306.5,
+              769.5
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35555555555555557,
+              0.4155844155844156
+            ]
+          }
+        ]
+      }
+    },
+    "boss_moss_stamp": {
+      "boss": "rust_crown_guardian",
+      "type": "wave",
+      "warning": {
+        "boss": "rust_crown_guardian",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_moss_stamp.png",
+        "sha256": "d149006a3f30be38a2bf866c4729b8cd2aa0450c375a74075c09f4257a7ce03f",
+        "prompt_sha256": "d561df2d8ed35bb847cf04befe624bd8a7ac1c48625b627fb5999f08c0c4d969",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              518,
+              526
+            ],
+            "source_anchor": [
+              267.0,
+              301.5
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37037037037037035,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              518,
+              0,
+              1023,
+              526
+            ],
+            "source_anchor": [
+              771.0,
+              281.5
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37037037037037035,
+              0.3931203931203931
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              0,
+              1536,
+              526
+            ],
+            "source_anchor": [
+              1277.0,
+              281.5
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37209302325581395,
+              0.38929440389294406
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              526,
+              520,
+              1024
+            ],
+            "source_anchor": [
+              269.5,
+              773.5
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36446469248291574,
+              0.4134366925064599
+            ]
+          },
+          {
+            "source_rect": [
+              520,
+              526,
+              1023,
+              1024
+            ],
+            "source_anchor": [
+              773.0,
+              773.5
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36036036036036034,
+              0.4155844155844156
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              526,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1274.5,
+              768.0
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3611738148984199,
+              0.3902439024390244
+            ]
+          }
+        ]
+      }
+    },
+    "boss_moss_spores": {
+      "boss": "rust_crown_guardian",
+      "type": "fan",
+      "warning": {
+        "boss": "rust_crown_guardian",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_moss_spores.png",
+        "sha256": "53c915293115490e76fe386f136324e8554a2af28cd81991e7b625efab5e267f",
+        "prompt_sha256": "720cdad388de89ac95482e10c12b0a0a8a19050c380047e6d48563b9eac91f6a",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              509,
+              523
+            ],
+            "source_anchor": [
+              265.5,
+              271.0
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4071246819338422,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              509,
+              0,
+              1011,
+              523
+            ],
+            "source_anchor": [
+              764.5,
+              271.0
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.40100250626566414,
+              0.4166666666666667
+            ]
+          },
+          {
+            "source_rect": [
+              1011,
+              0,
+              1536,
+              523
+            ],
+            "source_anchor": [
+              1268.5,
+              270.0
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3931203931203931,
+              0.41237113402061853
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              523,
+              520,
+              1024
+            ],
+            "source_anchor": [
+              260.0,
+              754.0
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39800995024875624,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              520,
+              523,
+              1019,
+              1024
+            ],
+            "source_anchor": [
+              769.5,
+              754.5
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4071246819338422,
+              0.4092071611253197
+            ]
+          },
+          {
+            "source_rect": [
+              1019,
+              523,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1279.0,
+              754.0
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39800995024875624,
+              0.40816326530612246
+            ]
+          }
+        ]
+      }
+    },
+    "boss_moss_roots": {
+      "boss": "rust_crown_guardian",
+      "type": "rootline",
+      "warning": {
+        "boss": "rust_crown_guardian",
+        "topology": "eruption",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_moss_roots.png",
+        "sha256": "8b4dbfa6f0a4a5ba371222eedf93c081ee889b92d98f0267ce78e3f8e511eaa0",
+        "prompt_sha256": "75c673e979f3aa9e8e62ca71f9fbdb8ad622ecbd17b5b063a06561080aa1fadd",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              514,
+              504
+            ],
+            "source_anchor": [
+              261.5,
+              329.5
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.6324110671936759
+            ]
+          },
+          {
+            "source_rect": [
+              514,
+              0,
+              1026,
+              504
+            ],
+            "source_anchor": [
+              771.0,
+              316.0
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3404255319148936,
+              0.5755395683453237
+            ]
+          },
+          {
+            "source_rect": [
+              1026,
+              0,
+              1536,
+              504
+            ],
+            "source_anchor": [
+              1282.5,
+              320.5
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.5904059040590406
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              504,
+              519,
+              1024
+            ],
+            "source_anchor": [
+              261.5,
+              813.0
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.583941605839416
+            ]
+          },
+          {
+            "source_rect": [
+              519,
+              504,
+              1026,
+              1024
+            ],
+            "source_anchor": [
+              771.0,
+              806.5
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3404255319148936,
+              0.5574912891986062
+            ]
+          },
+          {
+            "source_rect": [
+              1026,
+              504,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1282.5,
+              803.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.5460750853242321
+            ]
+          }
+        ]
+      }
+    },
+    "boss_shears_close": {
+      "boss": "sunken_hammer_smith",
+      "type": "melee",
+      "warning": {
+        "boss": "sunken_hammer_smith",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_shears_close.png",
+        "sha256": "fb88c7eceae2390f5b3fda1bde5c493f3973cac911382044dadd5191a9c1e766",
+        "prompt_sha256": "87e29b6b92c4db7cd7ca319d4196e0f11edbaace56301f77a8a1632ad192f0ce",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              522,
+              516
+            ],
+            "source_anchor": [
+              260.5,
+              278.0
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3611738148984199,
+              0.4419889502762431
+            ]
+          },
+          {
+            "source_rect": [
+              522,
+              0,
+              1029,
+              516
+            ],
+            "source_anchor": [
+              773.5,
+              276.0
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3818615751789976,
+              0.43010752688172044
+            ]
+          },
+          {
+            "source_rect": [
+              1029,
+              0,
+              1536,
+              516
+            ],
+            "source_anchor": [
+              1283.0,
+              269.5
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3827751196172249,
+              0.4359673024523161
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              516,
+              519,
+              1024
+            ],
+            "source_anchor": [
+              261.5,
+              768.0
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3485838779956427,
+              0.418848167539267
+            ]
+          },
+          {
+            "source_rect": [
+              519,
+              516,
+              1031,
+              1024
+            ],
+            "source_anchor": [
+              775.5,
+              773.0
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3579418344519016,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              1031,
+              516,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1287.0,
+              772.0
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36036036036036034,
+              0.40404040404040403
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "sunken_hammer_smith",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_shears_close.png",
+        "sha256": "9953e9438ddcd0b006e174ab3fdaebf919c6144163e210aa6b5bf217ad19b0f7",
+        "prompt_sha256": "fdb8bd49e544563770504748bd0809a4394fa73d620159fddf6d4b3419ecde98",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              487,
+              527
+            ],
+            "source_anchor": [
+              270.5,
+              281.0
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              487,
+              0,
+              997,
+              527
+            ],
+            "source_anchor": [
+              762.0,
+              284.0
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              997,
+              0,
+              1536,
+              527
+            ],
+            "source_anchor": [
+              1264.0,
+              279.0
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              527,
+              542,
+              1024
+            ],
+            "source_anchor": [
+              279.5,
+              761.0
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              542,
+              527,
+              1045,
+              1024
+            ],
+            "source_anchor": [
+              778.5,
+              769.5
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          },
+          {
+            "source_rect": [
+              1045,
+              527,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1270.5,
+              783.5
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37735849056603776,
+              0.40609137055837563
+            ]
+          }
+        ]
+      }
+    },
+    "boss_shears_thread": {
+      "boss": "sunken_hammer_smith",
+      "type": "beam",
+      "warning": {
+        "boss": "sunken_hammer_smith",
+        "topology": "beam",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_shears_thread.png",
+        "sha256": "63576122b5141143501ac08a545fae6e0b463bf996cdabdeeb7dc9c53ab64c25",
+        "prompt_sha256": "3ffd471cde25ecebbd077b36bef4e5b3884b6e40ecdaae2b15b93aed6c71c9a8",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              724,
+              368
+            ],
+            "source_anchor": [
+              360.5,
+              207.5
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22191400832177532,
+              0.7804878048780488
+            ]
+          },
+          {
+            "source_rect": [
+              724,
+              0,
+              1448,
+              368
+            ],
+            "source_anchor": [
+              1086.5,
+              211.0
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22253129346314326,
+              0.8163265306122449
+            ]
+          },
+          {
+            "source_rect": [
+              1448,
+              0,
+              2172,
+              368
+            ],
+            "source_anchor": [
+              1811.5,
+              205.0
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22253129346314326,
+              0.7339449541284404
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              368,
+              724,
+              724
+            ],
+            "source_anchor": [
+              360.5,
+              541.5
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22191400832177532,
+              0.7655502392344498
+            ]
+          },
+          {
+            "source_rect": [
+              724,
+              368,
+              1448,
+              724
+            ],
+            "source_anchor": [
+              1086.0,
+              545.5
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2222222222222222,
+              0.7174887892376681
+            ]
+          },
+          {
+            "source_rect": [
+              1448,
+              368,
+              2172,
+              724
+            ],
+            "source_anchor": [
+              1811.0,
+              545.0
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22284122562674094,
+              0.7142857142857143
+            ]
+          }
+        ]
+      }
+    },
+    "boss_shears_knots": {
+      "boss": "sunken_hammer_smith",
+      "type": "pool",
+      "warning": {
+        "boss": "sunken_hammer_smith",
+        "topology": "pool",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_shears_knots.png",
+        "sha256": "4fa915897ce07c864386b236217d74f5c69ce2a3ac42bd42ad7a75ee9ebef9ab",
+        "prompt_sha256": "8ddf452628f8ee9d5cebbf28808d38ab9898bbcefe079bf3d7a6495de2d71a15",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              509,
+              546
+            ],
+            "source_anchor": [
+              258.5,
+              346.5
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3258655804480652,
+              0.5818181818181818
+            ]
+          },
+          {
+            "source_rect": [
+              509,
+              0,
+              1018,
+              546
+            ],
+            "source_anchor": [
+              765.0,
+              345.0
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3252032520325203,
+              0.5755395683453237
+            ]
+          },
+          {
+            "source_rect": [
+              1018,
+              0,
+              1536,
+              546
+            ],
+            "source_anchor": [
+              1273.5,
+              330.5
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32323232323232326,
+              0.5211726384364821
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              546,
+              512,
+              1024
+            ],
+            "source_anchor": [
+              260.0,
+              798.0
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32,
+              0.5
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              546,
+              1019,
+              1024
+            ],
+            "source_anchor": [
+              765.5,
+              783.0
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.45714285714285713
+            ]
+          },
+          {
+            "source_rect": [
+              1019,
+              546,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1275.5,
+              785.5
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.463768115942029
+            ]
+          }
+        ]
+      }
+    },
+    "boss_shears_turn": {
+      "boss": "sunken_hammer_smith",
+      "type": "vault",
+      "warning": {
+        "boss": "sunken_hammer_smith",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_shears_turn.png",
+        "sha256": "2bebb154061680b150fc70fa9d080cb3aabd121c9f2c86558f9308624f1f69b7",
+        "prompt_sha256": "1e99958d6e44e0e7c1009692ec82d3d5e263116b04b5d4b4d6951937d8bec384",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              529,
+              503
+            ],
+            "source_anchor": [
+              271.0,
+              263.5
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36199095022624433,
+              0.3747072599531616
+            ]
+          },
+          {
+            "source_rect": [
+              529,
+              0,
+              1037,
+              503
+            ],
+            "source_anchor": [
+              773.5,
+              257.0
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39119804400978,
+              0.39408866995073893
+            ]
+          },
+          {
+            "source_rect": [
+              1037,
+              0,
+              1536,
+              503
+            ],
+            "source_anchor": [
+              1290.0,
+              259.0
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.42328042328042326,
+              0.39215686274509803
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              503,
+              527,
+              1024
+            ],
+            "source_anchor": [
+              260.0,
+              759.0
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34334763948497854,
+              0.3827751196172249
+            ]
+          },
+          {
+            "source_rect": [
+              527,
+              503,
+              1023,
+              1024
+            ],
+            "source_anchor": [
+              774.5,
+              748.5
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3764705882352941,
+              0.3695150115473441
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              503,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1280.5,
+              749.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3611738148984199,
+              0.36613272311212813
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "sunken_hammer_smith",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_shears_turn.png",
+        "sha256": "c7459091f3a78269446f256fe4dc6802ed5ef8484a38bea70c0544067750adb7",
+        "prompt_sha256": "83fc8b0a82a1568bbea271fabd5b780e66a80097e467d04e65365d9fa53ef3b3",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              488,
+              514
+            ],
+            "source_anchor": [
+              277.0,
+              298.5
+            ],
+            "atlas_rect": [
+              0,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              488,
+              0,
+              1004,
+              514
+            ],
+            "source_anchor": [
+              772.0,
+              286.5
+            ],
+            "atlas_rect": [
+              192,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              1004,
+              0,
+              1536,
+              514
+            ],
+            "source_anchor": [
+              1279.5,
+              285.0
+            ],
+            "atlas_rect": [
+              384,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              514,
+              573,
+              1024
+            ],
+            "source_anchor": [
+              304.5,
+              768.5
+            ],
+            "atlas_rect": [
+              576,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              573,
+              514,
+              1030,
+              1024
+            ],
+            "source_anchor": [
+              784.5,
+              768.5
+            ],
+            "atlas_rect": [
+              768,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          },
+          {
+            "source_rect": [
+              1030,
+              514,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1299.0,
+              756.5
+            ],
+            "atlas_rect": [
+              960,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34408602150537637,
+              0.44077134986225897
+            ]
+          }
+        ]
+      }
+    },
+    "boss_mantis_guard": {
+      "boss": "saltwhite_contract_judge",
+      "type": "guard",
+      "warning": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "guard",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_mantis_guard.png",
+        "sha256": "c135522cf4fadabdccab75eb32a077a848163eb3de4443df1b9c10e6685d851c",
+        "prompt_sha256": "a77b14cf7a8f6ecea409fbc6a334ad55f87564062bcb8ee5b78fc03a8bc1b775",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              515,
+              513
+            ],
+            "source_anchor": [
+              345.0,
+              273.5
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.5970149253731343,
+              0.37122969837587005
+            ]
+          },
+          {
+            "source_rect": [
+              515,
+              0,
+              1058,
+              513
+            ],
+            "source_anchor": [
+              833.5,
+              269.5
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.5536332179930796,
+              0.36446469248291574
+            ]
+          },
+          {
+            "source_rect": [
+              1058,
+              0,
+              1536,
+              513
+            ],
+            "source_anchor": [
+              1321.0,
+              271.0
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4819277108433735,
+              0.36363636363636365
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              513,
+              560,
+              1024
+            ],
+            "source_anchor": [
+              318.5,
+              757.0
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.471976401179941,
+              0.365296803652968
+            ]
+          },
+          {
+            "source_rect": [
+              560,
+              513,
+              1057,
+              1024
+            ],
+            "source_anchor": [
+              819.0,
+              756.5
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.47058823529411764,
+              0.36446469248291574
+            ]
+          },
+          {
+            "source_rect": [
+              1057,
+              513,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1312.0,
+              756.5
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.43243243243243246,
+              0.36446469248291574
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_mantis_guard.png",
+        "sha256": "7f555ce57cae7d1d76277eb7d176d933e46ede906a6b3d572ee12d53b78c0533",
+        "prompt_sha256": "5b543707119e88517cfdf45891474528014b01f030c85e9bf8422544818c4784",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              493,
+              522
+            ],
+            "source_anchor": [
+              279.5,
+              294.0
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              493,
+              0,
+              1012,
+              522
+            ],
+            "source_anchor": [
+              776.5,
+              312.5
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              1012,
+              0,
+              1536,
+              522
+            ],
+            "source_anchor": [
+              1274.0,
+              295.0
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              522,
+              543,
+              1024
+            ],
+            "source_anchor": [
+              295.5,
+              760.0
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              543,
+              522,
+              1031,
+              1024
+            ],
+            "source_anchor": [
+              767.5,
+              758.0
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          },
+          {
+            "source_rect": [
+              1031,
+              522,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1255.5,
+              754.0
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.42105263157894735
+            ]
+          }
+        ]
+      }
+    },
+    "boss_mantis_lunge": {
+      "boss": "saltwhite_contract_judge",
+      "type": "lunge",
+      "warning": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_mantis_lunge.png",
+        "sha256": "85bc912ad4bf723f75cef9775cb4eb686700d49fea19721d720c9d52443af0a2",
+        "prompt_sha256": "cfb1dc0ce6a5f37a04187144fde374595e7cc36fe12ab3fb3ea249116d8aee9d",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              512,
+              503
+            ],
+            "source_anchor": [
+              261.0,
+              265.5
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3508771929824561,
+              0.903954802259887
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              0,
+              1018,
+              503
+            ],
+            "source_anchor": [
+              772.0,
+              269.0
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34782608695652173,
+              0.7142857142857143
+            ]
+          },
+          {
+            "source_rect": [
+              1018,
+              0,
+              1536,
+              503
+            ],
+            "source_anchor": [
+              1274.5,
+              265.0
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33542976939203356,
+              0.6666666666666666
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              503,
+              509,
+              1024
+            ],
+            "source_anchor": [
+              261.0,
+              756.0
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3418803418803419,
+              0.6299212598425197
+            ]
+          },
+          {
+            "source_rect": [
+              509,
+              503,
+              1021,
+              1024
+            ],
+            "source_anchor": [
+              767.5,
+              755.5
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33126293995859213,
+              0.5947955390334573
+            ]
+          },
+          {
+            "source_rect": [
+              1021,
+              503,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1279.5,
+              759.5
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33126293995859213,
+              0.5498281786941581
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_mantis_lunge.png",
+        "sha256": "a468e8beb95cac8536ab6b763378e766cf0dc65d282a748cdfd3da5614edca53",
+        "prompt_sha256": "9d068860d336fdf21875e72f81a4a11681be5453868da713c2e7bd2099a27c47",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              473,
+              514
+            ],
+            "source_anchor": [
+              282.0,
+              305.0
+            ],
+            "atlas_rect": [
+              0,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              473,
+              0,
+              990,
+              514
+            ],
+            "source_anchor": [
+              753.0,
+              294.0
+            ],
+            "atlas_rect": [
+              192,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              990,
+              0,
+              1536,
+              514
+            ],
+            "source_anchor": [
+              1261.5,
+              295.5
+            ],
+            "atlas_rect": [
+              384,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              514,
+              538,
+              1024
+            ],
+            "source_anchor": [
+              277.0,
+              741.5
+            ],
+            "atlas_rect": [
+              576,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              538,
+              514,
+              1048,
+              1024
+            ],
+            "source_anchor": [
+              776.0,
+              744.0
+            ],
+            "atlas_rect": [
+              768,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              1048,
+              514,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1279.5,
+              751.5
+            ],
+            "atlas_rect": [
+              960,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.5245901639344263
+            ]
+          }
+        ]
+      }
+    },
+    "boss_mantis_overhead": {
+      "boss": "saltwhite_contract_judge",
+      "type": "melee",
+      "warning": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_mantis_overhead.png",
+        "sha256": "551342503fdc7f9b881447a4c96001bf43ee70de990c75a2e5674673720e73e5",
+        "prompt_sha256": "83055526765ca688228fb1b02c591660e365858f24f135cb824be66d5f7905f1",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              506,
+              505
+            ],
+            "source_anchor": [
+              257.0,
+              254.5
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34782608695652173,
+              0.3411513859275053
+            ]
+          },
+          {
+            "source_rect": [
+              506,
+              0,
+              1008,
+              505
+            ],
+            "source_anchor": [
+              753.0,
+              258.0
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3418803418803419,
+              0.33755274261603374
+            ]
+          },
+          {
+            "source_rect": [
+              1008,
+              0,
+              1536,
+              505
+            ],
+            "source_anchor": [
+              1267.0,
+              260.5
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33472803347280333,
+              0.3411513859275053
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              505,
+              506,
+              1024
+            ],
+            "source_anchor": [
+              255.5,
+              761.0
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33402922755741127,
+              0.33613445378151263
+            ]
+          },
+          {
+            "source_rect": [
+              506,
+              505,
+              1011,
+              1024
+            ],
+            "source_anchor": [
+              756.0,
+              762.5
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33613445378151263,
+              0.33402922755741127
+            ]
+          },
+          {
+            "source_rect": [
+              1011,
+              505,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1266.5,
+              762.5
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33542976939203356,
+              0.33126293995859213
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_mantis_overhead.png",
+        "sha256": "1bfe7df495a7ba1a9f85a570ca005f345caa4a6602f9394bb158441600499907",
+        "prompt_sha256": "39d5a197397ab8925c992d2abee86c9d75dd0ccf19bf6b010a2a101404bfecfc",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              500,
+              514
+            ],
+            "source_anchor": [
+              268.0,
+              271.0
+            ],
+            "atlas_rect": [
+              0,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          },
+          {
+            "source_rect": [
+              500,
+              0,
+              1000,
+              514
+            ],
+            "source_anchor": [
+              760.0,
+              271.0
+            ],
+            "atlas_rect": [
+              192,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          },
+          {
+            "source_rect": [
+              1000,
+              0,
+              1536,
+              514
+            ],
+            "source_anchor": [
+              1266.0,
+              265.5
+            ],
+            "atlas_rect": [
+              384,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              514,
+              558,
+              1024
+            ],
+            "source_anchor": [
+              283.0,
+              762.0
+            ],
+            "atlas_rect": [
+              576,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          },
+          {
+            "source_rect": [
+              558,
+              514,
+              1055,
+              1024
+            ],
+            "source_anchor": [
+              795.0,
+              770.5
+            ],
+            "atlas_rect": [
+              768,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          },
+          {
+            "source_rect": [
+              1055,
+              514,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1292.0,
+              778.0
+            ],
+            "atlas_rect": [
+              960,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3076923076923077,
+              0.32989690721649484
+            ]
+          }
+        ]
+      }
+    },
+    "boss_mantis_flurry": {
+      "boss": "saltwhite_contract_judge",
+      "type": "combo",
+      "warning": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_mantis_flurry.png",
+        "sha256": "5f28c4da8e3fdba95503796d4f372b8eadb113b1a1d7707bd0a38e8fa0c1832c",
+        "prompt_sha256": "db8db7e6aa12adbad30849a1a3a9562f8e741e47d43e288efa19c8f1eb0cfb52",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              523,
+              516
+            ],
+            "source_anchor": [
+              274.0,
+              289.0
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39603960396039606,
+              0.40404040404040403
+            ]
+          },
+          {
+            "source_rect": [
+              523,
+              0,
+              1018,
+              516
+            ],
+            "source_anchor": [
+              764.0,
+              275.5
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.40816326530612246,
+              0.37825059101654845
+            ]
+          },
+          {
+            "source_rect": [
+              1018,
+              0,
+              1536,
+              516
+            ],
+            "source_anchor": [
+              1274.5,
+              277.0
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4071246819338422,
+              0.3755868544600939
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              516,
+              519,
+              1024
+            ],
+            "source_anchor": [
+              284.0,
+              758.5
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39800995024875624,
+              0.372960372960373
+            ]
+          },
+          {
+            "source_rect": [
+              519,
+              516,
+              1033,
+              1024
+            ],
+            "source_anchor": [
+              767.5,
+              762.0
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.372960372960373,
+              0.37735849056603776
+            ]
+          },
+          {
+            "source_rect": [
+              1033,
+              516,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1275.0,
+              763.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.35874439461883406,
+              0.37825059101654845
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "saltwhite_contract_judge",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_mantis_flurry.png",
+        "sha256": "59564464818d850bb78e7f80a5071cdfaac8a3ad54bfd3d83805ef4ead96f2f0",
+        "prompt_sha256": "5bf047aac8698bec5bb4312f15361687ffea9d12a8a773ab8cb586e21c20afc3",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              482,
+              542
+            ],
+            "source_anchor": [
+              268.0,
+              300.0
+            ],
+            "atlas_rect": [
+              0,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              482,
+              0,
+              1032,
+              542
+            ],
+            "source_anchor": [
+              761.5,
+              277.0
+            ],
+            "atlas_rect": [
+              192,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              1032,
+              0,
+              1536,
+              542
+            ],
+            "source_anchor": [
+              1291.5,
+              300.5
+            ],
+            "atlas_rect": [
+              384,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              542,
+              540,
+              1024
+            ],
+            "source_anchor": [
+              300.0,
+              774.5
+            ],
+            "atlas_rect": [
+              576,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              540,
+              542,
+              1049,
+              1024
+            ],
+            "source_anchor": [
+              794.0,
+              762.5
+            ],
+            "atlas_rect": [
+              768,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          },
+          {
+            "source_rect": [
+              1049,
+              542,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1284.0,
+              756.5
+            ],
+            "atlas_rect": [
+              960,
+              1536,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3864734299516908,
+              0.40816326530612246
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bishop_staff": {
+      "boss": "broken_string_gardener",
+      "type": "melee",
+      "warning": {
+        "boss": "broken_string_gardener",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bishop_staff.png",
+        "sha256": "15667e00f3ac538fc9c9926141142bcedc89b9c579c8943c36d788fd58c9443e",
+        "prompt_sha256": "f4eab9eff8f2db2c83ab6380cce9468e3830491a4b5bcb4e5ec615b83bc7ecf5",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              513,
+              509
+            ],
+            "source_anchor": [
+              254.0,
+              263.0
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37209302325581395,
+              0.3333333333333333
+            ]
+          },
+          {
+            "source_rect": [
+              513,
+              0,
+              1031,
+              509
+            ],
+            "source_anchor": [
+              767.0,
+              260.0
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3686635944700461,
+              0.3292181069958848
+            ]
+          },
+          {
+            "source_rect": [
+              1031,
+              0,
+              1536,
+              509
+            ],
+            "source_anchor": [
+              1290.0,
+              259.0
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3686635944700461,
+              0.3292181069958848
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              509,
+              518,
+              1024
+            ],
+            "source_anchor": [
+              272.5,
+              768.5
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3695150115473441,
+              0.33264033264033266
+            ]
+          },
+          {
+            "source_rect": [
+              518,
+              509,
+              1025,
+              1024
+            ],
+            "source_anchor": [
+              770.5,
+              763.0
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36281179138321995,
+              0.3252032520325203
+            ]
+          },
+          {
+            "source_rect": [
+              1025,
+              509,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1281.5,
+              763.5
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3595505617977528,
+              0.32454361054766734
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "broken_string_gardener",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_bishop_staff.png",
+        "sha256": "390d7f5819ca8778f844d5100e8882e81aa6d8721158ddbffc981d0956e2cc84",
+        "prompt_sha256": "0a7ed822079123624393d8351112f9540490a5f98fd18cb1799d13769d272b29",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              471,
+              511
+            ],
+            "source_anchor": [
+              224.0,
+              250.5
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          },
+          {
+            "source_rect": [
+              471,
+              0,
+              1015,
+              511
+            ],
+            "source_anchor": [
+              762.0,
+              258.0
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          },
+          {
+            "source_rect": [
+              1015,
+              0,
+              1536,
+              511
+            ],
+            "source_anchor": [
+              1277.0,
+              261.0
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              511,
+              510,
+              1024
+            ],
+            "source_anchor": [
+              262.5,
+              753.5
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          },
+          {
+            "source_rect": [
+              510,
+              511,
+              1049,
+              1024
+            ],
+            "source_anchor": [
+              784.0,
+              758.0
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          },
+          {
+            "source_rect": [
+              1049,
+              511,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1293.0,
+              781.5
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.3418803418803419
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bishop_seeds": {
+      "boss": "broken_string_gardener",
+      "type": "fan",
+      "warning": {
+        "boss": "broken_string_gardener",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bishop_seeds.png",
+        "sha256": "f16fccb82c748f1c75784acb3b74db031938f9a64eb18824586a5e5dd9ba368a",
+        "prompt_sha256": "16d28d63a84ebbf8c056a582091b939d2fe355bfb417932fe280e10c1caa72c4",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              511,
+              503
+            ],
+            "source_anchor": [
+              259.0,
+              251.0
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39408866995073893,
+              0.35398230088495575
+            ]
+          },
+          {
+            "source_rect": [
+              511,
+              0,
+              1020,
+              503
+            ],
+            "source_anchor": [
+              770.5,
+              250.5
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38369304556354916,
+              0.35476718403547675
+            ]
+          },
+          {
+            "source_rect": [
+              1020,
+              0,
+              1536,
+              503
+            ],
+            "source_anchor": [
+              1280.5,
+              250.0
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.372960372960373,
+              0.35398230088495575
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              503,
+              521,
+              1024
+            ],
+            "source_anchor": [
+              256.5,
+              764.0
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3579418344519016,
+              0.3524229074889868
+            ]
+          },
+          {
+            "source_rect": [
+              521,
+              503,
+              1032,
+              1024
+            ],
+            "source_anchor": [
+              776.5,
+              760.0
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3426124197002141,
+              0.3463203463203463
+            ]
+          },
+          {
+            "source_rect": [
+              1032,
+              503,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1286.0,
+              761.0
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34782608695652173,
+              0.34782608695652173
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bishop_roots": {
+      "boss": "broken_string_gardener",
+      "type": "rootline",
+      "warning": {
+        "boss": "broken_string_gardener",
+        "topology": "eruption",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bishop_roots.png",
+        "sha256": "0a664bb152a1e3391b891fd0421beed6e49ca663e0061ff2026dda3f6a64cea8",
+        "prompt_sha256": "986e784cd74666541e3c9317b36b84c1b231ab814f5e890099dd7d5febb45e3e",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              514,
+              523
+            ],
+            "source_anchor": [
+              261.0,
+              340.5
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32653061224489793,
+              0.6639004149377593
+            ]
+          },
+          {
+            "source_rect": [
+              514,
+              0,
+              1023,
+              523
+            ],
+            "source_anchor": [
+              768.5,
+              339.0
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32854209445585214,
+              0.6349206349206349
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              0,
+              1536,
+              523
+            ],
+            "source_anchor": [
+              1282.0,
+              339.5
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32786885245901637,
+              0.642570281124498
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              523,
+              515,
+              1024
+            ],
+            "source_anchor": [
+              257.5,
+              815.0
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32454361054766734,
+              0.625
+            ]
+          },
+          {
+            "source_rect": [
+              515,
+              523,
+              1021,
+              1024
+            ],
+            "source_anchor": [
+              770.0,
+              818.0
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32653061224489793,
+              0.6201550387596899
+            ]
+          },
+          {
+            "source_rect": [
+              1021,
+              523,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1280.0,
+              811.0
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32388663967611336,
+              0.5882352941176471
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bishop_cage": {
+      "boss": "broken_string_gardener",
+      "type": "pool",
+      "warning": {
+        "boss": "broken_string_gardener",
+        "topology": "pool",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bishop_cage.png",
+        "sha256": "3cc5e10b9ad5b2c0863e726ab24d27b91c6dc94fa26b5a335084b975907cea0e",
+        "prompt_sha256": "3d1d21aba589e7f7b1beebe05fc7a913e9e20c0db116bdb17f6b133c9c9ce44b",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              515,
+              503
+            ],
+            "source_anchor": [
+              261.0,
+              296.5
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32,
+              0.4383561643835616
+            ]
+          },
+          {
+            "source_rect": [
+              515,
+              0,
+              1024,
+              503
+            ],
+            "source_anchor": [
+              770.0,
+              296.0
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32,
+              0.4371584699453552
+            ]
+          },
+          {
+            "source_rect": [
+              1024,
+              0,
+              1536,
+              503
+            ],
+            "source_anchor": [
+              1280.0,
+              296.0
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32,
+              0.43478260869565216
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              503,
+              516,
+              1024
+            ],
+            "source_anchor": [
+              261.5,
+              773.5
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3193612774451098,
+              0.4359673024523161
+            ]
+          },
+          {
+            "source_rect": [
+              516,
+              503,
+              1025,
+              1024
+            ],
+            "source_anchor": [
+              770.0,
+              771.0
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32,
+              0.43010752688172044
+            ]
+          },
+          {
+            "source_rect": [
+              1025,
+              503,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1280.5,
+              773.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.32064128256513025,
+              0.43360433604336046
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bride_crescent": {
+      "boss": "silent_pilgrim_commander",
+      "type": "melee",
+      "warning": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bride_crescent.png",
+        "sha256": "1379f95fef17be2bb5ff741daf0b58cb3b6a47db48988578799504602b92ff12",
+        "prompt_sha256": "e61f952356e366afc6ff38776d7c4d413712c5e428de4654fef3917c2667ee33",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              509,
+              522
+            ],
+            "source_anchor": [
+              269.5,
+              269.5
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37825059101654845,
+              0.37122969837587005
+            ]
+          },
+          {
+            "source_rect": [
+              509,
+              0,
+              1030,
+              522
+            ],
+            "source_anchor": [
+              761.5,
+              271.0
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3764705882352941,
+              0.3669724770642202
+            ]
+          },
+          {
+            "source_rect": [
+              1030,
+              0,
+              1536,
+              522
+            ],
+            "source_anchor": [
+              1266.0,
+              268.5
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.365296803652968,
+              0.3695150115473441
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              522,
+              510,
+              1024
+            ],
+            "source_anchor": [
+              267.5,
+              761.0
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37825059101654845,
+              0.37383177570093457
+            ]
+          },
+          {
+            "source_rect": [
+              510,
+              522,
+              1015,
+              1024
+            ],
+            "source_anchor": [
+              763.0,
+              763.5
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37383177570093457,
+              0.367816091954023
+            ]
+          },
+          {
+            "source_rect": [
+              1015,
+              522,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1274.0,
+              762.5
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.37209302325581395,
+              0.36613272311212813
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_bride_crescent.png",
+        "sha256": "685916e2c0873aa0a23009ede741ad39a7a6fcaafd25d8b13cc3852930f24929",
+        "prompt_sha256": "6c52e23add201289551a1f3716dfbb3a1bb2935ad75c345e0fd4837980de5b62",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              548,
+              531
+            ],
+            "source_anchor": [
+              264.0,
+              281.5
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          },
+          {
+            "source_rect": [
+              548,
+              0,
+              1009,
+              531
+            ],
+            "source_anchor": [
+              762.5,
+              287.0
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          },
+          {
+            "source_rect": [
+              1009,
+              0,
+              1536,
+              531
+            ],
+            "source_anchor": [
+              1272.5,
+              280.0
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              531,
+              520,
+              1024
+            ],
+            "source_anchor": [
+              264.0,
+              753.0
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          },
+          {
+            "source_rect": [
+              520,
+              531,
+              1033,
+              1024
+            ],
+            "source_anchor": [
+              781.0,
+              770.0
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          },
+          {
+            "source_rect": [
+              1033,
+              531,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1262.0,
+              770.5
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38095238095238093,
+              0.4
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bride_mirror": {
+      "boss": "silent_pilgrim_commander",
+      "type": "blink",
+      "warning": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bride_mirror.png",
+        "sha256": "48d38f63bac80bf52c33c4963504d33952b420d9bb979e1d059b94f3e043dad2",
+        "prompt_sha256": "c3523eb69d15febf9967547fd8533f3ac0469fb430d5e3434b588af97efc07b8",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              512,
+              513
+            ],
+            "source_anchor": [
+              270.0,
+              276.0
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.38461538461538464,
+              0.3883495145631068
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              0,
+              1008,
+              513
+            ],
+            "source_anchor": [
+              770.5,
+              264.0
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39900249376558605,
+              0.3686635944700461
+            ]
+          },
+          {
+            "source_rect": [
+              1008,
+              0,
+              1536,
+              513
+            ],
+            "source_anchor": [
+              1262.5,
+              272.0
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3764705882352941,
+              0.38461538461538464
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              513,
+              502,
+              1024
+            ],
+            "source_anchor": [
+              272.0,
+              758.0
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3827751196172249,
+              0.3883495145631068
+            ]
+          },
+          {
+            "source_rect": [
+              502,
+              513,
+              1018,
+              1024
+            ],
+            "source_anchor": [
+              773.5,
+              758.5
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4071246819338422,
+              0.39119804400978
+            ]
+          },
+          {
+            "source_rect": [
+              1018,
+              513,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1273.0,
+              760.0
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3902439024390244,
+              0.3883495145631068
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "source",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_bride_mirror.png",
+        "sha256": "cbf8fd0cff78b19d58a537ed3e3eac5db858294bc4e4ff2c95af65e29d4062a1",
+        "prompt_sha256": "1321126822f2e055a0f2eeceb3d362eae617cacda124dc42c4d64b2beaef201b",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              475,
+              519
+            ],
+            "source_anchor": [
+              251.5,
+              269.5
+            ],
+            "atlas_rect": [
+              0,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          },
+          {
+            "source_rect": [
+              475,
+              0,
+              1012,
+              519
+            ],
+            "source_anchor": [
+              750.0,
+              274.5
+            ],
+            "atlas_rect": [
+              192,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          },
+          {
+            "source_rect": [
+              1012,
+              0,
+              1536,
+              519
+            ],
+            "source_anchor": [
+              1272.5,
+              266.5
+            ],
+            "atlas_rect": [
+              384,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              519,
+              530,
+              1024
+            ],
+            "source_anchor": [
+              271.0,
+              767.0
+            ],
+            "atlas_rect": [
+              576,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          },
+          {
+            "source_rect": [
+              530,
+              519,
+              1057,
+              1024
+            ],
+            "source_anchor": [
+              780.0,
+              764.5
+            ],
+            "atlas_rect": [
+              768,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          },
+          {
+            "source_rect": [
+              1057,
+              519,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1284.5,
+              753.5
+            ],
+            "atlas_rect": [
+              960,
+              1152,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3137254901960784,
+              0.32454361054766734
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bride_pools": {
+      "boss": "silent_pilgrim_commander",
+      "type": "pool",
+      "warning": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "pool",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bride_pools.png",
+        "sha256": "fbe0417dc3b87abb5683546dbcc10e6f9f68eefd6a5c801de181c34c9ea3651e",
+        "prompt_sha256": "a815a904f0ca8fa7a00d0ab7af014faeefef91440d2c864fc7e448da203b2341",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              514,
+              554
+            ],
+            "source_anchor": [
+              257.0,
+              359.5
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33195020746887965,
+              0.6324110671936759
+            ]
+          },
+          {
+            "source_rect": [
+              514,
+              0,
+              1024,
+              554
+            ],
+            "source_anchor": [
+              771.0,
+              348.5
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33613445378151263,
+              0.599250936329588
+            ]
+          },
+          {
+            "source_rect": [
+              1024,
+              0,
+              1536,
+              554
+            ],
+            "source_anchor": [
+              1279.0,
+              336.5
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3333333333333333,
+              0.5211726384364821
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              554,
+              512,
+              1024
+            ],
+            "source_anchor": [
+              257.0,
+              806.5
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33195020746887965,
+              0.48632218844984804
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              554,
+              1022,
+              1024
+            ],
+            "source_anchor": [
+              767.5,
+              797.5
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33402922755741127,
+              0.4456824512534819
+            ]
+          },
+          {
+            "source_rect": [
+              1022,
+              554,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1279.5,
+              802.0
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33264033264033266,
+              0.45454545454545453
+            ]
+          }
+        ]
+      }
+    },
+    "boss_bride_dash": {
+      "boss": "silent_pilgrim_commander",
+      "type": "vault",
+      "warning": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_bride_dash.png",
+        "sha256": "bc8826a3a4cedc43ecd185707a0b43878700457eda95337757af53975aa7f18b",
+        "prompt_sha256": "454fa7956a389cba1c9e5ea5b8a63156e9671379289c0ed287abfb8f187bcd07",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              523,
+              513
+            ],
+            "source_anchor": [
+              272.5,
+              268.5
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39900249376558605,
+              0.3950617283950617
+            ]
+          },
+          {
+            "source_rect": [
+              523,
+              0,
+              1033,
+              513
+            ],
+            "source_anchor": [
+              772.5,
+              266.5
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39900249376558605,
+              0.3855421686746988
+            ]
+          },
+          {
+            "source_rect": [
+              1033,
+              0,
+              1536,
+              513
+            ],
+            "source_anchor": [
+              1282.5,
+              271.0
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4481792717086835,
+              0.41237113402061853
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              513,
+              505,
+              1024
+            ],
+            "source_anchor": [
+              260.0,
+              762.5
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.418848167539267,
+              0.4134366925064599
+            ]
+          },
+          {
+            "source_rect": [
+              505,
+              513,
+              1027,
+              1024
+            ],
+            "source_anchor": [
+              765.0,
+              756.0
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39603960396039606,
+              0.39603960396039606
+            ]
+          },
+          {
+            "source_rect": [
+              1027,
+              513,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1276.0,
+              764.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.39800995024875624,
+              0.3764705882352941
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "silent_pilgrim_commander",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_bride_dash.png",
+        "sha256": "89f14e1eda99afa918c68ea094b578898be9a1f69125388df9d05d788838a1fa",
+        "prompt_sha256": "9ced1bcad026614d653ac81ce44b05cb61428cd25fb49bc2ea3ed38858294537",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              501,
+              519
+            ],
+            "source_anchor": [
+              255.0,
+              294.5
+            ],
+            "atlas_rect": [
+              0,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          },
+          {
+            "source_rect": [
+              501,
+              0,
+              1011,
+              519
+            ],
+            "source_anchor": [
+              761.0,
+              281.0
+            ],
+            "atlas_rect": [
+              192,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          },
+          {
+            "source_rect": [
+              1011,
+              0,
+              1536,
+              519
+            ],
+            "source_anchor": [
+              1274.5,
+              282.5
+            ],
+            "atlas_rect": [
+              384,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              519,
+              528,
+              1024
+            ],
+            "source_anchor": [
+              270.5,
+              761.0
+            ],
+            "atlas_rect": [
+              576,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          },
+          {
+            "source_rect": [
+              528,
+              519,
+              1014,
+              1024
+            ],
+            "source_anchor": [
+              774.5,
+              752.5
+            ],
+            "atlas_rect": [
+              768,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          },
+          {
+            "source_rect": [
+              1014,
+              519,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1289.0,
+              777.0
+            ],
+            "atlas_rect": [
+              960,
+              1344,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.31809145129224653,
+              0.3864734299516908
+            ]
+          }
+        ]
+      }
+    },
+    "boss_key_cleave": {
+      "boss": "silent_crown_core",
+      "type": "melee",
+      "warning": {
+        "boss": "silent_crown_core",
+        "topology": "sweep",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_key_cleave.png",
+        "sha256": "9a3c7f57a7cf2081b711ddc928382cbfda23aa886cced32635244bc26944520e",
+        "prompt_sha256": "d2a277b5ad8d2ffd7796ad7c71263113fc0091c26d42668fdf1c3e854b03d367",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              508,
+              512
+            ],
+            "source_anchor": [
+              255.0,
+              271.5
+            ],
+            "atlas_rect": [
+              0,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3669724770642202,
+              0.40302267002518893
+            ]
+          },
+          {
+            "source_rect": [
+              508,
+              0,
+              1023,
+              512
+            ],
+            "source_anchor": [
+              766.5,
+              271.0
+            ],
+            "atlas_rect": [
+              192,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3611738148984199,
+              0.38461538461538464
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              0,
+              1536,
+              512
+            ],
+            "source_anchor": [
+              1278.0,
+              272.0
+            ],
+            "atlas_rect": [
+              384,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.36363636363636365,
+              0.3755868544600939
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              512,
+              518,
+              1024
+            ],
+            "source_anchor": [
+              257.5,
+              771.5
+            ],
+            "atlas_rect": [
+              576,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.350109409190372,
+              0.3695150115473441
+            ]
+          },
+          {
+            "source_rect": [
+              518,
+              512,
+              1029,
+              1024
+            ],
+            "source_anchor": [
+              775.0,
+              762.0
+            ],
+            "atlas_rect": [
+              768,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.34782608695652173,
+              0.3686635944700461
+            ]
+          },
+          {
+            "source_rect": [
+              1029,
+              512,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1283.5,
+              771.0
+            ],
+            "atlas_rect": [
+              960,
+              0,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3470715835140998,
+              0.3755868544600939
+            ]
+          }
+        ]
+      },
+      "execution": {
+        "boss": "silent_crown_core",
+        "topology": "sweep",
+        "source": "art_requests/boss_execution_v3/incoming/FX_X_key_cleave.png",
+        "sha256": "7b793a5dae33602ed164d11eacf2072aea0ad846e438cc81a5b0083f904bda75",
+        "prompt_sha256": "b4c2384d665b538f856bc451d0b0323b84e023bcb254cf699940b0e5e2fc461c",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              507,
+              520
+            ],
+            "source_anchor": [
+              287.0,
+              247.0
+            ],
+            "atlas_rect": [
+              0,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          },
+          {
+            "source_rect": [
+              507,
+              0,
+              1004,
+              520
+            ],
+            "source_anchor": [
+              774.0,
+              274.5
+            ],
+            "atlas_rect": [
+              192,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          },
+          {
+            "source_rect": [
+              1004,
+              0,
+              1536,
+              520
+            ],
+            "source_anchor": [
+              1273.5,
+              279.5
+            ],
+            "atlas_rect": [
+              384,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              520,
+              581,
+              1024
+            ],
+            "source_anchor": [
+              309.0,
+              750.0
+            ],
+            "atlas_rect": [
+              576,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          },
+          {
+            "source_rect": [
+              581,
+              520,
+              1063,
+              1024
+            ],
+            "source_anchor": [
+              809.0,
+              753.5
+            ],
+            "atlas_rect": [
+              768,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          },
+          {
+            "source_rect": [
+              1063,
+              520,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1275.5,
+              768.0
+            ],
+            "atlas_rect": [
+              960,
+              960,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3007518796992481,
+              0.3382663847780127
+            ]
+          }
+        ]
+      }
+    },
+    "boss_key_return": {
+      "boss": "silent_crown_core",
+      "type": "fan",
+      "warning": {
+        "boss": "silent_crown_core",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_key_return.png",
+        "sha256": "4649ca840569d4c78db92f7634aa2c01b21d4dc9a0a50e6369d0bdedacc4d3ce",
+        "prompt_sha256": "90fb8ef12f43e4b12d4dd48a5728aeb179baeb95aee9522fd00d807c25fdf6f4",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              508,
+              526
+            ],
+            "source_anchor": [
+              249.0,
+              255.5
+            ],
+            "atlas_rect": [
+              0,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.45714285714285713,
+              0.463768115942029
+            ]
+          },
+          {
+            "source_rect": [
+              508,
+              0,
+              1022,
+              526
+            ],
+            "source_anchor": [
+              770.0,
+              246.5
+            ],
+            "atlas_rect": [
+              192,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4444444444444444,
+              0.431266846361186
+            ]
+          },
+          {
+            "source_rect": [
+              1022,
+              0,
+              1536,
+              526
+            ],
+            "source_anchor": [
+              1283.0,
+              241.5
+            ],
+            "atlas_rect": [
+              384,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4371584699453552,
+              0.4266666666666667
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              526,
+              512,
+              1024
+            ],
+            "source_anchor": [
+              255.5,
+              742.5
+            ],
+            "atlas_rect": [
+              576,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.43360433604336046,
+              0.4383561643835616
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              526,
+              1022,
+              1024
+            ],
+            "source_anchor": [
+              768.5,
+              736.5
+            ],
+            "atlas_rect": [
+              768,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4456824512534819,
+              0.4456824512534819
+            ]
+          },
+          {
+            "source_rect": [
+              1022,
+              526,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1282.5,
+              742.0
+            ],
+            "atlas_rect": [
+              960,
+              192,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.4289544235924933,
+              0.43478260869565216
+            ]
+          }
+        ]
+      }
+    },
+    "boss_key_gate": {
+      "boss": "silent_crown_core",
+      "type": "beam",
+      "warning": {
+        "boss": "silent_crown_core",
+        "topology": "beam",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_key_gate.png",
+        "sha256": "8af3b71e2bb4427a5ad70892688daebabf2e00d329c090a34684fee293181434",
+        "prompt_sha256": "428c290a410187608774c4b861aad6c4f50d2ed7c9f733e5465ec2dac65daeb1",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              724,
+              373
+            ],
+            "source_anchor": [
+              368.0,
+              207.5
+            ],
+            "atlas_rect": [
+              0,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2247191011235955,
+              0.8465608465608465
+            ]
+          },
+          {
+            "source_rect": [
+              724,
+              0,
+              1448,
+              373
+            ],
+            "source_anchor": [
+              1091.0,
+              207.5
+            ],
+            "atlas_rect": [
+              192,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.22408963585434175,
+              0.8465608465608465
+            ]
+          },
+          {
+            "source_rect": [
+              1448,
+              0,
+              2172,
+              373
+            ],
+            "source_anchor": [
+              1815.5,
+              207.5
+            ],
+            "atlas_rect": [
+              384,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2244039270687237,
+              0.8465608465608465
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              373,
+              724,
+              724
+            ],
+            "source_anchor": [
+              368.5,
+              565.5
+            ],
+            "atlas_rect": [
+              576,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2250351617440225,
+              0.8040201005025126
+            ]
+          },
+          {
+            "source_rect": [
+              724,
+              373,
+              1448,
+              724
+            ],
+            "source_anchor": [
+              1091.5,
+              564.0
+            ],
+            "atlas_rect": [
+              768,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2244039270687237,
+              0.7920792079207921
+            ]
+          },
+          {
+            "source_rect": [
+              1448,
+              373,
+              2172,
+              724
+            ],
+            "source_anchor": [
+              1815.5,
+              563.0
+            ],
+            "atlas_rect": [
+              960,
+              384,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.2244039270687237,
+              0.7843137254901961
+            ]
+          }
+        ]
+      }
+    },
+    "boss_key_rings": {
+      "boss": "silent_crown_core",
+      "type": "wave",
+      "warning": {
+        "boss": "silent_crown_core",
+        "topology": "source",
+        "source": "art_requests/combat_presentation_v2/incoming/FX_T_key_rings.png",
+        "sha256": "8794085f53350b675d8b52052736d14eff73740636005eea2bd15ce9b8a8fe7f",
+        "prompt_sha256": "da1ce65b5cb36c45c811e366cf5fd9602556ecf9c73341c6c6da9da4b72a032a",
+        "frames": [
+          {
+            "source_rect": [
+              0,
+              0,
+              511,
+              500
+            ],
+            "source_anchor": [
+              255.5,
+              294.5
+            ],
+            "atlas_rect": [
+              0,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.5245901639344263
+            ]
+          },
+          {
+            "source_rect": [
+              511,
+              0,
+              1023,
+              500
+            ],
+            "source_anchor": [
+              768.5,
+              289.0
+            ],
+            "atlas_rect": [
+              192,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3411513859275053,
+              0.5095541401273885
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              0,
+              1536,
+              500
+            ],
+            "source_anchor": [
+              1280.0,
+              287.0
+            ],
+            "atlas_rect": [
+              384,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3389830508474576,
+              0.5031446540880503
+            ]
+          },
+          {
+            "source_rect": [
+              0,
+              500,
+              512,
+              1024
+            ],
+            "source_anchor": [
+              256.5,
+              775.0
+            ],
+            "atlas_rect": [
+              576,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3382663847780127,
+              0.43956043956043955
+            ]
+          },
+          {
+            "source_rect": [
+              512,
+              500,
+              1023,
+              1024
+            ],
+            "source_anchor": [
+              768.0,
+              763.5
+            ],
+            "atlas_rect": [
+              768,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.3389830508474576,
+              0.4134366925064599
+            ]
+          },
+          {
+            "source_rect": [
+              1023,
+              500,
+              1536,
+              1024
+            ],
+            "source_anchor": [
+              1280.0,
+              764.5
+            ],
+            "atlas_rect": [
+              960,
+              576,
+              192,
+              192
+            ],
+            "scale_xy": [
+              0.33755274261603374,
+              0.4155844155844156
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "charges": {
+    "rust_crown_guardian": {
+      "boss": "rust_crown_guardian",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_rust_crown_guardian.png",
+      "sha256": "d5d6a70b8b1838f29f388127645b9f79f898c2aee62fbd7e51a9773fe1da6f29",
+      "prompt_sha256": "b83ab374f6c0f0c343edda13c24cbe361cb6837b2803ae77c6032103bb5a77fe",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            508,
+            512
+          ],
+          "source_anchor": [
+            261.0,
+            261.0
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        },
+        {
+          "source_rect": [
+            508,
+            0,
+            1016,
+            512
+          ],
+          "source_anchor": [
+            762.5,
+            262.0
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        },
+        {
+          "source_rect": [
+            1016,
+            0,
+            1536,
+            512
+          ],
+          "source_anchor": [
+            1269.0,
+            263.0
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            512,
+            516,
+            1024
+          ],
+          "source_anchor": [
+            268.5,
+            767.5
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        },
+        {
+          "source_rect": [
+            516,
+            512,
+            1018,
+            1024
+          ],
+          "source_anchor": [
+            766.5,
+            769.5
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        },
+        {
+          "source_rect": [
+            1018,
+            512,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1270.0,
+            769.0
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.350109409190372,
+            0.3426124197002141
+          ]
+        }
+      ]
+    },
+    "sunken_hammer_smith": {
+      "boss": "sunken_hammer_smith",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_sunken_hammer_smith.png",
+      "sha256": "3693a7fa745d17da219cd7ca31611778ad73f59a80d20822f3b9891860c8d150",
+      "prompt_sha256": "24e8c2bbb0958ce267e804d3389e8908b5aaafe260e529ff69b77b73cf8bd369",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            512,
+            509
+          ],
+          "source_anchor": [
+            267.5,
+            267.5
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        },
+        {
+          "source_rect": [
+            512,
+            0,
+            1026,
+            509
+          ],
+          "source_anchor": [
+            772.0,
+            274.5
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        },
+        {
+          "source_rect": [
+            1026,
+            0,
+            1536,
+            509
+          ],
+          "source_anchor": [
+            1282.5,
+            268.5
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            509,
+            524,
+            1024
+          ],
+          "source_anchor": [
+            269.0,
+            767.0
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        },
+        {
+          "source_rect": [
+            524,
+            509,
+            1023,
+            1024
+          ],
+          "source_anchor": [
+            777.5,
+            759.5
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        },
+        {
+          "source_rect": [
+            1023,
+            509,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1274.0,
+            756.5
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3524229074889868,
+            0.36446469248291574
+          ]
+        }
+      ]
+    },
+    "saltwhite_contract_judge": {
+      "boss": "saltwhite_contract_judge",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_saltwhite_contract_judge.png",
+      "sha256": "fc4d880dab0689efb725a34eec921bbaf7d5c6118532ac3f9a23119406af82a2",
+      "prompt_sha256": "6d4aa0c0afb23ff4462145c45df77c68432b6d6fd67416d07b479e3c44ee327d",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            512,
+            509
+          ],
+          "source_anchor": [
+            258.5,
+            265.5
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        },
+        {
+          "source_rect": [
+            512,
+            0,
+            1032,
+            509
+          ],
+          "source_anchor": [
+            772.0,
+            267.0
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        },
+        {
+          "source_rect": [
+            1032,
+            0,
+            1536,
+            509
+          ],
+          "source_anchor": [
+            1287.0,
+            268.0
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            509,
+            507,
+            1024
+          ],
+          "source_anchor": [
+            253.0,
+            756.0
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        },
+        {
+          "source_rect": [
+            507,
+            509,
+            1029,
+            1024
+          ],
+          "source_anchor": [
+            770.5,
+            755.0
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        },
+        {
+          "source_rect": [
+            1029,
+            509,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1283.0,
+            754.5
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.3382663847780127,
+            0.4071246819338422
+          ]
+        }
+      ]
+    },
+    "broken_string_gardener": {
+      "boss": "broken_string_gardener",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_broken_string_gardener.png",
+      "sha256": "46cd875ec96aa1ff30a3bd99978e95d3749984362a72a06df95982a76d47c897",
+      "prompt_sha256": "a65a2277c03235cd600579f8d5ef21e132301ca3fde5846c698e96c7c42d91c0",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            526,
+            515
+          ],
+          "source_anchor": [
+            277.0,
+            266.0
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        },
+        {
+          "source_rect": [
+            526,
+            0,
+            1020,
+            515
+          ],
+          "source_anchor": [
+            770.0,
+            268.5
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        },
+        {
+          "source_rect": [
+            1020,
+            0,
+            1536,
+            515
+          ],
+          "source_anchor": [
+            1270.0,
+            271.5
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            515,
+            524,
+            1024
+          ],
+          "source_anchor": [
+            277.0,
+            762.5
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        },
+        {
+          "source_rect": [
+            524,
+            515,
+            1025,
+            1024
+          ],
+          "source_anchor": [
+            770.5,
+            764.0
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        },
+        {
+          "source_rect": [
+            1025,
+            515,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1271.5,
+            766.5
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.35634743875278396,
+            0.3524229074889868
+          ]
+        }
+      ]
+    },
+    "silent_pilgrim_commander": {
+      "boss": "silent_pilgrim_commander",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_silent_pilgrim_commander.png",
+      "sha256": "8430ee4cd4cb4f5bae25cac916819d0105344eb06d3dee1fdeb9823683f41cde",
+      "prompt_sha256": "47e25770911bd3b79796d10f8e72379e9bfb60b60e9f0f8a53a5931bde10d7f9",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            509,
+            506
+          ],
+          "source_anchor": [
+            265.0,
+            261.0
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        },
+        {
+          "source_rect": [
+            509,
+            0,
+            1019,
+            506
+          ],
+          "source_anchor": [
+            764.5,
+            270.0
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        },
+        {
+          "source_rect": [
+            1019,
+            0,
+            1536,
+            506
+          ],
+          "source_anchor": [
+            1279.5,
+            267.5
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            506,
+            519,
+            1024
+          ],
+          "source_anchor": [
+            270.0,
+            758.0
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        },
+        {
+          "source_rect": [
+            519,
+            506,
+            1019,
+            1024
+          ],
+          "source_anchor": [
+            771.0,
+            755.0
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        },
+        {
+          "source_rect": [
+            1019,
+            506,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1276.5,
+            754.5
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.38004750593824227,
+            0.36281179138321995
+          ]
+        }
+      ]
+    },
+    "silent_crown_core": {
+      "boss": "silent_crown_core",
+      "topology": "source",
+      "source": "art_requests/combat_presentation_v2/incoming/FX_C_silent_crown_core.png",
+      "sha256": "c60dc73a63cbaabb8dc8ed93aa85c0fee4a9bcb4cc4981a71393afdf4652e88f",
+      "prompt_sha256": "4612d68098e6cb54785164b081086064e072693519cf78f2498791378f43fa93",
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            512,
+            508
+          ],
+          "source_anchor": [
+            260.5,
+            267.0
+          ],
+          "atlas_rect": [
+            0,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        },
+        {
+          "source_rect": [
+            512,
+            0,
+            1014,
+            508
+          ],
+          "source_anchor": [
+            762.0,
+            267.0
+          ],
+          "atlas_rect": [
+            192,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        },
+        {
+          "source_rect": [
+            1014,
+            0,
+            1536,
+            508
+          ],
+          "source_anchor": [
+            1271.0,
+            264.5
+          ],
+          "atlas_rect": [
+            384,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            508,
+            512,
+            1024
+          ],
+          "source_anchor": [
+            265.5,
+            750.0
+          ],
+          "atlas_rect": [
+            576,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        },
+        {
+          "source_rect": [
+            512,
+            508,
+            1029,
+            1024
+          ],
+          "source_anchor": [
+            760.0,
+            749.0
+          ],
+          "atlas_rect": [
+            768,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        },
+        {
+          "source_rect": [
+            1029,
+            508,
+            1536,
+            1024
+          ],
+          "source_anchor": [
+            1269.5,
+            749.5
+          ],
+          "atlas_rect": [
+            960,
+            768,
+            192,
+            192
+          ],
+          "scale_xy": [
+            0.33970276008492567,
+            0.35555555555555557
+          ]
+        }
+      ]
+    }
+  },
+  "bosses": {
+    "rust_crown_guardian": {
+      "texture": "res://assets/vfx/boss_skills/rust_crown_guardian.png",
+      "size": [
+        1152,
+        1152
+      ],
+      "rgba_sha256": "becb5747266d35cc0e1446abd6f10a912e8406180f2b0cf153044b57110c6346"
+    },
+    "sunken_hammer_smith": {
+      "texture": "res://assets/vfx/boss_skills/sunken_hammer_smith.png",
+      "size": [
+        1152,
+        1344
+      ],
+      "rgba_sha256": "aadec76c43863a3ed9c46fc60897123db392f5db65f933eaa2291c92db0399a1"
+    },
+    "saltwhite_contract_judge": {
+      "texture": "res://assets/vfx/boss_skills/saltwhite_contract_judge.png",
+      "size": [
+        1152,
+        1728
+      ],
+      "rgba_sha256": "ee1dea7094a0da34bb4850b3964d3491287d168525ac836282a64e1083f9ccca"
+    },
+    "broken_string_gardener": {
+      "texture": "res://assets/vfx/boss_skills/broken_string_gardener.png",
+      "size": [
+        1152,
+        1152
+      ],
+      "rgba_sha256": "cb0e6054d69811918d8e3611ed05cd24dae86f90ea2f126d16b268e41e41109c"
+    },
+    "silent_pilgrim_commander": {
+      "texture": "res://assets/vfx/boss_skills/silent_pilgrim_commander.png",
+      "size": [
+        1152,
+        1536
+      ],
+      "rgba_sha256": "07f59e2c23b5b900e65108aa8c70b2a7c6add9a3543f674d67b2589bca1f3945"
+    },
+    "silent_crown_core": {
+      "texture": "res://assets/vfx/boss_skills/silent_crown_core.png",
+      "size": [
+        1152,
+        1152
+      ],
+      "rgba_sha256": "1396a3e18f56c6f94fdc841d05571634a9443eeda222bdfe8839d8e7ca04c3bd"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "pr_head_before_sync": "ebdd395240827f40a3e4aa4cb75f2e1ea9d65474",
+  "merged_main": "418321cd0cf637b42745043087c5292d963913ed",
+  "merge_conflicts": [
+    "docs/UPGRADE_TASK_LEDGER.md",
+    "tools/godot_suite_success_markers.json",
+    "tools/test_regression_runner.py"
+  ],
+  "resolution": "Preserve both ledger entries, both suite markers and both default suite assertions. Default registered count 124. Retain main character v5 recovery bridges and map segments.",
+  "default_suite_contract_count": 124,
+  "runtime_suites_passed": 12,
+  "key_checks": {
+    "combat_visual_budget": 32,
+    "expanded_character_motion": 5052,
+    "survey_room_segments": 27
+  },
+  "npm_test": "passed",
+  "campaign": "passed",
+  "character_motion_assets": "passed",
+  "import_passes": 2,
+  "source_sha256": {
+    "godot/scripts/enemy_actor.gd": "902cb7135b8ed261285e65a75f8540738cc6a6ac44d5179f049965bce52ff090",
+    "godot/scripts/combat_visual_policy.gd": "e8ed3926a0cb8c271f7c4825b33f4eeb41f9d8953de38c89098545d56a08b48e",
+    "godot/scripts/combat_visual_budget_validation.gd": "01645675a5d09f631b3e85e159d79a6b388d709c5613a4e3da282f7f07305231",
+    "godot/scripts/expanded_character_motion_validation.gd": "a494e025d935ca97f0670b8083cf214ea80c27d4b3bd103d2961f07755a178d0",
+    "godot/scripts/survey_room_segments_validation.gd": "196b91418dc26be7560faa99e9e96a95d3206c3f1ed255b7cbefa1d4c923a430",
+    "godot/scripts/pilgrimage_cartography.gd": "d85764d13436e6c05729e4f8ed82e3ac27658e9af4479d8286cd3c015a3bde15",
+    "tools/run_godot_regressions.py": "4afd99333dffb83dd782c6a3ee3714a7a0998458cfa8d034e96ecc7a2bd2ba8d",
+    "tools/godot_suite_success_markers.json": "d72e6b1fb077d6ea8e4951d20bedb2a17f26b3156efe708dba0ca99eef5cc210",
+    "tools/test_regression_runner.py": "ae76a982dfd36fa39ff350f3d683abeaa3e8f539cfda2e2c33eaf6c6dd6f4b45"
+  },
+  "known_warnings": "Existing ObjectDB exit warnings retained in raw logs; not claimed fixed.",
+  "scope": "Focused merged-source validation; not all 124 suites or a natural full campaign."
+}

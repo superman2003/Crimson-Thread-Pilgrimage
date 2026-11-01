@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_seal.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_seal.txt",
+  "prompt_sha256": "281de94842a5950a2a0512e4952fdcb5abe536592567ee9ea87c70600fd7e5e2",
+  "image_sha256": "9dfd511bafcca53d7fd9d5372f6712a74b7a31ba885ca6a1470136645de68f7d",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1215901,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/index_scribe.png",
+      "sha256": "e4e1ad61176351beae012a1034c0b6a4e3113278a671ef885bc42ecd71036f7b"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_contract_scribe.png",
+      "sha256": "51980eb85f3729ee62f3a2d48438705eba236aca5f84dfe230f1bc904d946cea"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        433,
+        463
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        65,
+        214,
+        385,
+        389
+      ],
+      "fully_transparent_pixels": 171775
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        433,
+        0,
+        883,
+        463
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        482,
+        197,
+        848,
+        392
+      ],
+      "fully_transparent_pixels": 164375
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        883,
+        0,
+        1330,
+        463
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        916,
+        135,
+        1301,
+        399
+      ],
+      "fully_transparent_pixels": 149247
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1330,
+        0,
+        1774,
+        463
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1362,
+        136,
+        1742,
+        399
+      ],
+      "fully_transparent_pixels": 149670
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        463,
+        443,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        30,
+        548,
+        412,
+        806
+      ],
+      "fully_transparent_pixels": 134418
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        443,
+        463,
+        889,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        473,
+        541,
+        855,
+        806
+      ],
+      "fully_transparent_pixels": 135871
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        889,
+        463,
+        1344,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        925,
+        568,
+        1298,
+        799
+      ],
+      "fully_transparent_pixels": 149761
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1344,
+        463,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1393,
+        604,
+        1709,
+        781
+      ],
+      "fully_transparent_pixels": 160784
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "印陣",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

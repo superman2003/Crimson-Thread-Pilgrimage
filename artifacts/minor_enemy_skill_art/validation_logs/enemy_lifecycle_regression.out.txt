@@ -1,0 +1,35 @@
+Godot Engine v4.6.stable.official.89cea1439 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.88 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PASS: hazard consumes damage before reentrant callback and never repeats
+PASS: cancel is immediate, idempotent and terminal
+PASS: damage-triggered cancellation prevents a late snare
+PASS: queued effect cannot damage before deferred free
+PASS: freed owner cancels hazard
+PASS: detached owner cancels hazard
+PASS: nonresident owner cannot retain offscreen hazard
+PASS: UI pause freezes warning clock and damage
+PASS: warning remains safe after resume
+PASS: warning resumes and arms once
+PASS: natural expiry uses same terminal path
+PASS: respawn cancels previous encounter hazards
+PASS: respawn resets phase and attack clocks
+PASS: respawn rebuilds configured initial cooldowns
+PASS: respawn kills old pose and warning tweens
+PASS: lured enemy still honors UI pause
+PASS: UI lock rejects contact callback
+PASS: death is idempotent even when reward callback re-enters death/contact
+PASS: dead enemy leaves targeting and attack state immediately
+PASS: dummy death blocks late hit and contact callbacks
+PASS: deferred death disables both collision roles
+PASS: dead owner cannot spawn a new trail hazard
+PASS: lethal hit inside real physics contact callback defers collision changes safely
+PASS: damage-triggered queued removal also suppresses late snare
+PASS: reflected hit is consumed before reentrant enemy callback
+PASS: melee hit is consumed before reentrant damage callback
+PASS: melee accepts target without optional UI-lock property
+PASS: contact accepts target without optional UI-lock property
+PASS: dummy movement and contact accept absent optional UI-lock property
+PASS: effect accepts absent UI-lock and owner dying properties
+PASS: reflected hit accepts absent optional dying property
+ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0

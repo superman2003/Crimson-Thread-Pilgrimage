@@ -1,0 +1,23 @@
+[
+  {
+    "case": "fixed",
+    "exit": 0,
+    "errors": [],
+    "source_unchanged": true,
+    "fixture_sha256": "79b4f89a54c71ca6f6d2883d098a4b3c4ec6bb43c31f10361368d1777d9938fd",
+    "passed": true
+  },
+  {
+    "case": "negative_old",
+    "exit": 1,
+    "errors": [
+      "ERROR: field respawn does not summon unlocked Boss\r",
+      "ERROR: field respawn keeps exploration music\r",
+      "ERROR: second field death uses actual permanent last-safe floor\r",
+      "ERROR: World Boss defeat-by-death requires next manual retry\r"
+    ],
+    "source_unchanged": true,
+    "fixture_sha256": "79b4f89a54c71ca6f6d2883d098a4b3c4ec6bb43c31f10361368d1777d9938fd",
+    "passed": true
+  }
+]

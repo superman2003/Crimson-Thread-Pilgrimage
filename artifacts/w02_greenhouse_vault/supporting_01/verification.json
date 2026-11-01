@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-22T18:35:49.074639+08:00",
+  "head": "7fcb61675795f9d3ae2deba7996a486efe3ae6d5",
+  "source_files": 8752,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "chapter_route_regression",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/chapter_route_regression_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 13.03,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "CHAPTER_ROUTE_REGRESSION_PASS chapters=6 checks=270",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "cave_route_walk",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/cave_route_walk_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 15.25,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "CAVE_ROUTE_WALK_VALIDATION traversals=78 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "world_platform_streaming",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_platform_streaming_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 12.34,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD PLATFORM STREAMING PASS: 13621 checks; authored physics/visual parity, pins, blockers, arrival and teardown",
+      "objectdb_warnings": 1,
+      "passed": true
+    }
+  ]
+}

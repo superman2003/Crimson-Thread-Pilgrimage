@@ -1,0 +1,162 @@
+{
+  "date": "2026-10-23",
+  "engine": "Godot 4.6 stable",
+  "renderer": "OpenGL 3.3 NVIDIA RTX 5060",
+  "source_art": {
+    "expected_sheets": 40,
+    "saved_sheets": 40,
+    "expected_cels": 414,
+    "saved_cels": 414,
+    "pending": [],
+    "measured_issues": {},
+    "visual_review_pending": []
+  },
+  "runtime": {
+    "species": 40,
+    "commands": 90,
+    "contact_commands": 40,
+    "new_execution_animations": 42,
+    "checks": 5252,
+    "failures": 0
+  },
+  "related_suites": [
+    {
+      "suite": "enemy_visibility",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 2.211,
+      "marker": "ENEMY_VISIBILITY_VALIDATION checks=638 failures=0"
+    },
+    {
+      "suite": "enemy_tactical_roles",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 4.233,
+      "marker": "ENEMY_TACTICAL_ROLES checks=264 failures=0"
+    },
+    {
+      "suite": "enemy_ai_behavior",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 2.672,
+      "marker": "ENEMY_AI_BEHAVIOR checks=38 failures=0"
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 4.867,
+      "marker": "ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=0"
+    },
+    {
+      "suite": "enemy_lifecycle_regression",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 2.592,
+      "marker": "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0"
+    },
+    {
+      "suite": "combat_visual_budget",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 3.947,
+      "marker": "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true"
+    },
+    {
+      "suite": "boss_skill_art",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 3.595,
+      "marker": "BOSS_SKILL_ART_VALIDATION commands=24 executions=12 checks=813 failures=0"
+    },
+    {
+      "suite": "player_guard_art",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 5.075,
+      "marker": "PLAYER_GUARD_ART checks=113 failures=0"
+    },
+    {
+      "suite": "player_heal_art",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 11.201,
+      "marker": "PLAYER_HEAL_ART checks=95 failures=0"
+    },
+    {
+      "suite": "combat",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 6.855,
+      "marker": "COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true"
+    },
+    {
+      "suite": "world_enemy_residency",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 15.747,
+      "marker": "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3436.0, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+    },
+    {
+      "suite": "world_startup_budget",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 10.242,
+      "marker": "WORLD_STARTUP_BUDGET_VALIDATION_PASS"
+    },
+    {
+      "suite": "character_art_prewarm",
+      "exit_code": 0,
+      "pass": true,
+      "seconds": 5.341,
+      "marker": "CHARACTER_ART_PREWARM checks=848 failures=0 sync_loads=0"
+    }
+  ],
+  "capture": {
+    "count": 166,
+    "species": 40,
+    "commands": 90,
+    "facings": 2,
+    "backgrounds": 2,
+    "exit_code": 0,
+    "full_gameplay_recording": false,
+    "reviewed_samples": [
+      "obsidian_spearman_active_1",
+      "ash_banner_imp_active_1",
+      "gear_sentinel_active_1",
+      "moss_larva_active_1",
+      "pipe_thrower_warning_1",
+      "wax_lancer_extra_warning",
+      "ash_banner_imp_extra_active",
+      "bronze_moth_active_1"
+    ]
+  },
+  "npm_test": {
+    "exit_code": 0,
+    "environment": "PYTHONUTF8=1"
+  },
+  "imports": {
+    "initial_headless_exit": 3221225477,
+    "initial_headless_stage": "GlobalTypeface.otf font import",
+    "recovery": "Native GL import, followed by two strict headless import passes",
+    "strict_passes": 2,
+    "strict_failures": 0
+  },
+  "source_sha256": {
+    "godot/scripts/enemy_actor.gd": "506d2bd3e91da8f69e676f4646601147f5362bdd062b504457d8d74a05eee09f",
+    "godot/scripts/enemy_attack_effect.gd": "6c7bba1408331baff8f682a969d3cde63e51d0fe580390a0d05818b461e10d52",
+    "godot/scripts/minor_enemy_skill_art.gd": "4163b847ba60f91d0fd4da2a01d160dc6ef028db0ea2f3478430b7e0e0c9f53b",
+    "godot/scripts/minor_enemy_skill_art_validation.gd": "50d27ea544e6a32f8222f9345bca32e4a6412915daf098a82841e1600a3a4ad4",
+    "godot/scripts/hand_drawn_assets.gd": "6f57ede8e9925d125e8576ea1a9c9f30e279cf5ee7644fe6286631f535f198c6",
+    "godot/scripts/projectile_art.gd": "74bf54a2756053860d6cadfea5fa52378b1b20aa0ccbe4f63fed0764b405d0a0",
+    "godot/scripts/enemy_visibility_validation.gd": "2470d6a948917ebd086646a99d5e642f8bb27fd9a485865c9c3528e77c2c34e4",
+    "godot/scripts/enemy_tactical_roles_validation.gd": "0ebbf56ed67c745e44342504fb902023f09e345d0745fef7ba0624fd8c286142",
+    "tools/build_minor_enemy_skill_art.py": "67f085ab69c6288ed7dc81605a970764b5d5f8605849525c538e6ce17edef86f",
+    "tools/capture_minor_enemy_skill_art.gd": "839a6db1cf4403c37c3a9e4dd902447d9b8e178f5feec2403f1418e1e2429605",
+    "tools/run_godot_regressions.py": "73a1f7bbcedf57f4b208314700bb9d8c01596eaaf923560dbb714fa33819db65",
+    "tools/godot_suite_success_markers.json": "db6f0585c42a267206d70e6a1ed4665138df5f8d98eb8df898b371de28abe9c4",
+    "godot/data/original_creature_combat.json": "20523db2b5a01642c5824d955278896acac5d94c097198728a77d3b2c64dd981",
+    "godot/assets/vfx/minor_enemy_skills/manifest.json": "b9103f8fdbe0ad2bcadf430e7d47430d7be4b3953ab215594820ce32983fe3ed",
+    "art_requests/minor_enemy_skills_v4/requests.json": "95033d1e6a319bae1ac2181ea4aa85ec105483a8c0361ad1929495875af3ef82"
+  }
+}

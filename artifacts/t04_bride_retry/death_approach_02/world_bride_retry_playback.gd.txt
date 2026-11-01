@@ -1,0 +1,105 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Normal inputs from the actually earned mirror shrine; intentional Boss death and manual retry.
+const BRIDE_SAVE := "user://test_world_c05_bride_retry.json"
+const MIRROR_SEED := "res://../artifacts/t04_obsidian_tower/earned_mirror_seed.json"
+var bride_phase := "death"
+var bride_engaged := false
+var before_boss_wallet := 0
+var observed: Dictionary={}
+var death_attempt: Dictionary={}
+func _run() -> void:
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--bride-phase="):bride_phase=arg.trim_prefix("--bride-phase=")
+    if bride_phase=="death":
+        for suffix in ["", ".bak", ".tmp"]:
+            if FileAccess.file_exists(BRIDE_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(BRIDE_SAVE+suffix))
+        var file:=FileAccess.open(BRIDE_SAVE,FileAccess.WRITE)
+        file.store_buffer(FileAccess.get_file_as_bytes(MIRROR_SEED))
+        file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=BRIDE_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.active_save_point_id=="save_late_runback" and scene.boss_unlocked and not scene.demo_complete,"earned mirror shrine restores unlocked but undefeated Bride")
+    _check(scene.inventory_counts.get("thread_dash",0)==0,"Boss attempt never assumes unearned dash")
+    if bride_phase=="death":
+        _check(scene.currency_count==389,"normal mirror seed restores exact wallet")
+        if not await _threshold_and_rest():await _finish();return
+        if not await _enter_bride():await _finish();return
+        await _natural_bride_death()
+    await _finish()
+func _threshold_and_rest() -> bool:
+    if not await _leap(Vector2(4490,656),20,"actual mirror threshold guard"):return false
+    if not await _clear_nearby():return false
+    if not await _leap(Vector2(4150,618),35,"actual safe return before full-health Boss"):return false
+    if not await _heart_interact("save_late_runback",4150):return false
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal mirror shrine rest before actual Boss attempt")
+    return failures==0
+func _enter_bride() -> bool:
+    if not await _leap(Vector2(4490,656),20,"normal cleared threshold approach"):return false
+    if not await _walk_without_jump(Vector2(4560,656)):return false
+    if not await _leap(Vector2(4790,700),999,"ordinary jump to actual Bride bell gate"):return false
+    await _world_interact()
+    _check(scene.boss_spawned and is_instance_valid(scene.boss_actor) and scene.boss_actor.hp==22,"normal F opens full production 22HP Bride")
+    _check(is_instance_valid(scene.boss_arena_lock_body) and scene.audio_director.boss_active,"actual manual gate activates Boss arena and music")
+    before_boss_wallet=scene.currency_count
+    bride_engaged=true
+    combat_enabled=false
+    return failures==0
+func _natural_bride_death() -> void:
+    steps+=1
+    _release()
+    var boss: Node2D=scene.boss_actor
+    var initial_inventory: Dictionary=scene.inventory_counts.duplicate(true)
+    var initial_build: Dictionary=scene.build_system.serialize()
+    var start: int=frames
+    var previous: String=""
+    for frame in 2400:
+        if deaths>0:break
+        var state: String=String(boss.state)+":"+String(boss.active_attack.get("id",""))
+        if state!=previous:
+            print("BRIDE_DEATH_STATE ",JSON.stringify({"frame":frames,"state":state,"boss_hp":boss.hp,"player":str(scene.player.position),"hp":scene.player.hp}))
+            previous=state
+        _axis(0)
+        await _tick()
+    _release()
+    _check(deaths==1,"production Boss attacks cause exactly one actual death")
+    _check(is_instance_valid(boss) and boss.hp==22,"intentional death does not weaken production Boss")
+    for frame in 300:
+        await _tick()
+        if scene.player.hp>0 and scene.player.death_timer<=0 and not scene.pending_enemy_respawn:break
+    await _tick(15)
+    var cache: Dictionary=scene.world_state.data.get("death_cache",{}).duplicate(true)
+    _check(scene.currency_count==before_boss_wallet-int(before_boss_wallet/2) and cache.get("currency",-1)==int(before_boss_wallet/2),"actual Boss death records exact half-wallet loss")
+    _check(Vector2(cache.position[0],cache.position[1]).distance_to(scene.active_spawn)<2,"actual Boss death knot remains at outside checkpoint")
+    _check(not scene.boss_spawned and not is_instance_valid(scene.boss_arena_lock_body) and not scene.audio_director.boss_active,"actual Boss death returns to manual retry without arena lock or Boss music")
+    _check(_exact_state(scene.inventory_counts,initial_inventory) and _exact_state(scene.build_system.serialize(),initial_build),"actual Boss death preserves exact inventory and build")
+    death_attempt={"wallet_before":before_boss_wallet,"wallet_after":scene.currency_count,"cache":cache,"frames":frames-start,"hp":scene.player.hp,"energy":scene.player.energy,"position":str(scene.player.position)}
+    print("BRIDE_ACTUAL_DEATH ",JSON.stringify(death_attempt))
+func _near_foe() -> Node2D:
+    if bride_engaged:return null
+    return super._near_foe()
+func _finish() -> void:
+    _release()
+    Input.action_release("skill_1")
+    _check(deaths==(1 if bride_phase=="death" else 0),"attempt has exact expected real death count")
+    print("BRIDE_FINAL ",JSON.stringify({"phase":bride_phase,"wallet":scene.currency_count,"hp":scene.player.hp,"energy":scene.player.energy,"cache":scene.world_state.data.get("death_cache",{}),"position":str(scene.player.position),"damage":damage_events,"heals":heals}))
+    print("WORLD_C05_BRIDE phase=%s failures=%d deaths=%d damage_suppression=false"%[bride_phase,failures,deaths])
+    scene.queue_free()
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)
+
+func _tick(count: int=1) -> void:
+    for unused in count:
+        var hp_before: int=scene.player.hp if is_instance_valid(scene) and is_instance_valid(scene.player) else -1
+        var deaths_before: int=deaths
+        await super._tick()
+        if is_instance_valid(scene) and is_instance_valid(scene.player):
+            # Count HP's positive->zero transition, not a second wallet-save log while HP is zero.
+            deaths=deaths_before+(1 if hp_before>0 and scene.player.hp==0 else 0)
+            if bride_engaged and scene.player.hp<hp_before:
+                var actor: Node=scene.boss_actor
+                print("BRIDE_DAMAGE ",JSON.stringify({"frame":frames,"before":hp_before,"after":scene.player.hp,"boss_state":String(actor.state) if is_instance_valid(actor) else "absent","attack":String(actor.active_attack.get("id","")) if is_instance_valid(actor) else "","player":str(scene.player.position)}))

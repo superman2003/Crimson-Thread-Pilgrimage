@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-20",
+  "base": "896b127e870b239a21ee5fd833e9c8377aac0fef",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 32.64,
+      "markers": [
+        "WORLD ASYNC LOADING PASS: 492 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_prepare_budget",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 15.27,
+      "markers": [
+        "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_startup_config_background",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 16.05,
+      "markers": [
+        "WORLD STARTUP CONFIG BACKGROUND PASS checks=1054"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_neighbor_config",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 13.17,
+      "markers": [
+        "WORLD NEIGHBOR CONFIG PASS checks=93"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_enemy_residency",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 12.44,
+      "markers": [
+        "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3441.819, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_resume_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 10.02,
+      "markers": [
+        "WORLD_RESUME_REGRESSION checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "world_interaction_safety",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.98,
+      "markers": [
+        "WORLD_INTERACTION_SAFETY checks=24 failures=0"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

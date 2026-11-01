@@ -1,0 +1,63 @@
+{
+  "engine": "Godot 4.6.1 Windows native GL",
+  "results": [
+    {
+      "suite": "survey_map_knowledge",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 45.77,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ],
+      "completion": "SURVEY_MAP_KNOWLEDGE checks=190 failures=0"
+    },
+    {
+      "suite": "map_player_pins",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 10.61,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ],
+      "completion": "MAP PLAYER PINS PASS checks=150"
+    },
+    {
+      "suite": "world_map",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 6.28,
+      "objectdb_warnings": 1,
+      "exit_diagnostics": [
+        "ObjectDB instances leaked"
+      ],
+      "completion": "WORLD_MAP checks=673 failures=0"
+    },
+    {
+      "suite": "cartography",
+      "passed": true,
+      "exit": 0,
+      "engine_errors": [],
+      "seconds": 13.36,
+      "objectdb_warnings": 0,
+      "exit_diagnostics": [],
+      "completion": "CARTOGRAPHY checks=4229 failures=0 fixture_positioning=true"
+    }
+  ],
+  "reviewed_head": "eac4e0f19a0dd66db12085577d783f4cb44f0030",
+  "merged_main": "92f60b9a5d88a1b1bbea33cbec7358d4301ecfa3",
+  "scope": "PR #176 owner follow-up: merge latest main and retain both ledger additions; U04 implementation and boundary tests unchanged.",
+  "static_validation": {
+    "npm_test": "passed; 41 existing POSIX-only checks skipped on Windows",
+    "campaign": "passed"
+  },
+  "unchanged_reviewed_files": {
+    "godot/scripts/pilgrimage_interface.gd": "bdab5dab985fe4a272c1dccdbe795723b518913ad98643c485f4528649be9008",
+    "godot/scripts/map_pin_layout_checks.gd": "93d73c619ebc6af775f00f46c6c16d67c1384cc480bd7ab2f1d28af198662ed4",
+    "godot/scripts/survey_map_knowledge_validation.gd": "75c1afa78506ea7ff0eee74752ba2ed01ae1e9bc93467db647568a3cfd4f071e"
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_bolt.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_bolt.txt",
+  "prompt_sha256": "c6186fbdbe3962e175932c2cb5e88d31de75884dfe7ead306d1c696656023209",
+  "image_sha256": "b3ceb8ae4bea1f34610fa310ff10b0f0080aa24718b3271542f8c26f05634054",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1305816,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/kneeling_crossbowman.png",
+      "sha256": "3ad3eba2cc811a99fcd9735429691bd1b057f402685ff643c1493f5095258e54"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        441,
+        441
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        59,
+        186,
+        388,
+        277
+      ],
+      "fully_transparent_pixels": 165459
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        441,
+        0,
+        888,
+        441
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        501,
+        176,
+        830,
+        282
+      ],
+      "fully_transparent_pixels": 166346
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        888,
+        0,
+        1331,
+        441
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        959,
+        190,
+        1274,
+        282
+      ],
+      "fully_transparent_pixels": 166820
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1331,
+        0,
+        1774,
+        441
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1398,
+        189,
+        1721,
+        278
+      ],
+      "fully_transparent_pixels": 165701
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        441,
+        455,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        55,
+        550,
+        389,
+        786
+      ],
+      "fully_transparent_pixels": 148705
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        455,
+        441,
+        904,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        518,
+        575,
+        830,
+        769
+      ],
+      "fully_transparent_pixels": 150934
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        904,
+        441,
+        1327,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        993,
+        592,
+        1249,
+        745
+      ],
+      "fully_transparent_pixels": 158025
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1327,
+        441,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1421,
+        624,
+        1651,
+        731
+      ],
+      "fully_transparent_pixels": 183826
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "弩矢",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

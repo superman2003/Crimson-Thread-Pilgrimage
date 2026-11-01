@@ -1,0 +1,6 @@
+{
+  "file": "godot/scripts/world_coordinates.gd",
+  "replace": "_bounds[region_id].position + local_position",
+  "with": "_bounds[region_id].position + Vector2(1, 0) + local_position",
+  "kind": "isolated temporary source fault; repository source unchanged"
+}

@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_moss_larva.png",
+  "kind": "moss_larva",
+  "image_sha256": "667c825ea402d87b3aacc81064cccfd5c2610b9d6d6988bffc09868fd1799136",
+  "prompt_sha256": "e8be64b3a4d85a28e4278222e247fb7bdb25f2e0110366ecb47fbd0110331592",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/moss_larva.png",
+  "reference_sha256": "f33f6382da303a0250250b1cb294975c407e08a0daf150f913532a82f759b7ae",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "larva_snap_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        490,
+        283
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        177,
+        60,
+        382,
+        261
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "larva_snap_warning",
+      "rect_xyxy": [
+        490,
+        0,
+        1042,
+        283
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        651,
+        60,
+        858,
+        264
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "larva_snap_warning",
+      "rect_xyxy": [
+        1042,
+        0,
+        1536,
+        283
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1147,
+        60,
+        1360,
+        263
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "larva_snap_execution",
+      "rect_xyxy": [
+        0,
+        283,
+        535,
+        541
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        85,
+        319,
+        471,
+        504
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "larva_snap_execution",
+      "rect_xyxy": [
+        535,
+        283,
+        1002,
+        541
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        598,
+        299,
+        939,
+        514
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "larva_snap_execution",
+      "rect_xyxy": [
+        1002,
+        283,
+        1536,
+        541
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1064,
+        315,
+        1459,
+        512
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "larva_curl_warning",
+      "rect_xyxy": [
+        0,
+        541,
+        505,
+        768
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        82,
+        595,
+        436,
+        730
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "larva_curl_warning",
+      "rect_xyxy": [
+        505,
+        541,
+        1007,
+        768
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        576,
+        588,
+        952,
+        737
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "larva_curl_warning",
+      "rect_xyxy": [
+        1007,
+        541,
+        1536,
+        768
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1063,
+        580,
+        1482,
+        737
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "larva_curl_execution",
+      "rect_xyxy": [
+        0,
+        768,
+        517,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        37,
+        821,
+        497,
+        954
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "larva_curl_execution",
+      "rect_xyxy": [
+        517,
+        768,
+        1021,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        539,
+        801,
+        1000,
+        964
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "larva_curl_execution",
+      "rect_xyxy": [
+        1021,
+        768,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1045,
+        808,
+        1499,
+        951
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "???????/?????????????????????????????????",
+    "rows_reviewed": [
+      "larva_snap_warning",
+      "larva_snap_execution",
+      "larva_curl_warning",
+      "larva_curl_execution"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

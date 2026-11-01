@@ -1,0 +1,174 @@
+extends "res://scripts/world_obsidian_tower_playback.gd"
+## Normal earned Bride victory -> physical cable descent -> crown causeway.
+const CROWN_ENTRY_SAVE := "user://test_world_c06_earned_entry.json"
+const CROWN_ENTRY_SEED := "res://../artifacts/t04_bride_retry/earned_bride_seed.json"
+func _run() -> void:
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(CROWN_ENTRY_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(CROWN_ENTRY_SAVE+suffix))
+    var file:=FileAccess.open(CROWN_ENTRY_SAVE,FileAccess.WRITE)
+    file.store_buffer(FileAccess.get_file_as_bytes(CROWN_ENTRY_SEED))
+    file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=CROWN_ENTRY_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.currency_count==435 and scene.demo_complete and scene.inventory_counts.get("thread_dash",0)==0,"earned full Bride victory restores without unearned dash")
+    var route: Array=[
+        ["leap",4490,656,20,"physical mirror threshold after actual victory"],
+        ["fight"],
+        ["walk",4560,656],
+        ["leap",4790,700,999,"ordinary jump through defeated Bride gate"],
+        ["walk",5315,700],
+        ["leap",5550,850,999,"ordinary jump onto first cable landing"],
+        ["walk",5780,1140],
+        ["walk",5580,1440],
+        ["walk",5810,1745],
+        ["walk",5600,2050],
+        ["walk",5820,2355],
+        ["walk",5610,2650],
+        ["cable_fight"],
+        ["walk",5730,2650],
+        ["leap",6000,2724,20,"normal cable base to silent gate approach"],
+        ["walk",6110,2724],
+        ["leap",6330,2680,999,"ordinary jump to silent gate step"],
+        ["leap",6650,2722,20,"actual exit dock"],
+    ]
+    for action in route:
+        var ok:=true
+        if action[0]=="cable_fight":ok=await _clear_cable_censor()
+        elif action[0]=="leap":ok=await _leap(Vector2(action[1],action[2]),action[3],action[4])
+        elif action[0]=="walk":ok=await _walk_without_jump(Vector2(action[1],action[2]))
+        else:ok=await _clear_nearby()
+        if not ok:await _finish();return
+    await _crown_exit()
+    if failures==0:await _crown_lower_loop()
+    await _finish()
+func _crown_exit() -> void:
+    steps+=1
+    await _world_interact()
+    if scene.world_passage.active:
+        _axis(signf(scene.world_passage.destination_point.x-scene.world_passage.source_point.x))
+        for frame in 3600:
+            await _tick()
+            if not scene.world_passage.active:break
+        _release()
+    for frame in 2000:
+        if not _transition_busy():break
+        await process_frame
+    await _tick(15)
+    _check(String(scene.config.id)=="demo_ch06_silent_crown_core","actual crown causeway enters C6")
+    print("CROWN_ENTRY_STATE ",JSON.stringify({"position":str(scene.player.position),"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id}))
+func _finish() -> void:
+    _release()
+    Input.action_release("skill_1")
+    _check(deaths==0,"actual crown entry survives without death")
+    print("WORLD_C06_ENTRY steps=%d failures=%d deaths=%d damage_suppression=false"%[steps,failures,deaths])
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
+    scene.queue_free()
+    for unused in 10:await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
+    preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+    _check(await preload("res://scripts/audio_retirement.gd").drain(self),"crown entry fixture retires audio")
+    quit(0 if failures==0 else 1)
+
+func _near_foe() -> Node2D:
+    if is_instance_valid(scene) and is_instance_valid(scene.player) and String(scene.config.id)=="demo_ch05_obsidian_pilgrim_road" and scene.player.position.y>2300:
+        for foe in get_nodes_in_group("enemy"):
+            if is_instance_valid(foe) and foe.spawn_id=="E14" and foe.hp>0 and absf(foe.position.x-scene.player.position.x)<250 and absf(foe.position.y-scene.player.position.y)<240:return foe
+    return super._near_foe()
+func _clear_cable_censor() -> bool:
+    steps+=1
+    _release()
+    var jumped_at: int=-100
+    combat_enabled=true
+    for frame in 600:
+        var foe:=_near_foe()
+        if foe==null:
+            _release()
+            combat_enabled=false
+            return true
+        var p: CharacterBody2D=scene.player
+        var dx: float=foe.position.x-p.position.x
+        _axis(signf(dx) if absf(dx)>90 or p.facing!=signi(dx) else 0)
+        if frame-jumped_at>=25:Input.action_release("jump")
+        if foe.position.y<p.position.y-90 and p.is_on_floor() and p.hurt_timer<=0 and p.attack_timer<=0 and frame-jumped_at>50:
+            Input.action_press("jump");jumped_at=frame;await process_frame
+        await _tick()
+        if deaths>0:break
+    combat_enabled=false
+    _release()
+    _check(false,"actual cable censor normal air attacks finish")
+    return false
+
+func _crown_lower_loop() -> void:
+    if not await _heart_interact("npc_first_pilgrim_echo",3050):return
+    _check(scene.active_overlay=="dialogue","actual first pilgrim dialogue opens")
+    Input.action_press("close_overlay");await _tick(3);Input.action_release("close_overlay");await _tick(3)
+    var route: Array=[
+        ["walk",3135,700],
+        ["leap",3380,748,999,"normal east crown shoulder"],
+        ["leap",3660,836,999,"first bone span before clapper"],
+        ["leap",4000,940,20,"real jump over shell clapper"],
+        ["leap",4290,1052,999,"third east shoulder bone"],
+        ["leap",4740,1180,35,"real jump past false moss rain floor"],
+        ["fight"],
+        ["leap",5090,1128,20,"normal rain wheel stand"],
+        ["fight"],
+        ["drop_rain"],
+        ["walk",4760,1452],
+        ["fight"],
+        ["leap",4400,1580,20,"normal string echo shelf beyond chest"],
+        ["fight"],
+        ["leap",4130,1712,20,"string outward shelf"],
+        ["leap",3850,1810,20,"normal eastern ring"],
+        ["fight"],
+        ["walk",3730,1810],
+        ["leap",3450,1876,20,"eastern ring scribe platform"],
+        ["fight"],
+        ["leap",3130,1930,20,"real jump beyond ring bell gap"],
+        ["walk",2850,2080],
+        ["walk",3010,2360],
+        ["walk",2850,2640],
+        ["walk",2700,2900],
+    ]
+    for action in route:
+        var ok:=true
+        if action[0]=="drop_rain":ok=await _drop_rain_stand()
+        elif action[0]=="leap":ok=await _leap(Vector2(action[1],action[2]),action[3],action[4])
+        elif action[0]=="walk":ok=await _walk_without_jump(Vector2(action[1],action[2]))
+        else:ok=await _clear_nearby()
+        if not ok:return
+    if not await _heart_interact("ch06_silent_crown_core_shortcut_lever",2830):return
+    if not await _heart_interact("save_ch06_lower_loop",2570):return
+    _check(scene.active_save_point_id=="save_ch06_lower_loop" and scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal first crown lower-loop shrine rest")
+    _check(not JOURNAL.owned(scene.story_flags,String(scene.config.id)),"crown route does not invent the still-unmet deep map seller purchase")
+    print("CROWN_LOWER_REST ",JSON.stringify({"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id,"shortcuts":scene.opened_shortcuts,"boss_unlocked":scene.boss_unlocked,"boss_defeated":scene.demo_complete}))
+
+func _drop_rain_stand() -> bool:
+    steps+=1
+    _release()
+    var passed_edge:=false
+    var air_jump:=false
+    for frame in 240:
+        var p: CharacterBody2D=scene.player
+        if p.position.x>5215:passed_edge=true
+        _axis((-1 if p.position.y>1318 else 0) if passed_edge else 1)
+        if passed_edge and p.position.y>1318 and not air_jump:
+            Input.action_press("jump");air_jump=true;await process_frame
+        if air_jump and p.position.y<1300:Input.action_release("jump")
+        await _tick()
+        if frame%10==0:
+            var collisions: Array=[]
+            for index in p.get_slide_collision_count():
+                var hit:=p.get_slide_collision(index)
+                collisions.append({"normal":str(hit.get_normal()),"body":str(hit.get_collider().get_path())})
+            print("CROWN_RAIN_DROP ",JSON.stringify({"position":str(p.position),"velocity":str(p.velocity),"collisions":collisions}))
+        if passed_edge and p.is_on_floor() and absf(p.position.y-1300)<8 and p.position.x<5060:
+            _release();return true
+        if p.position.y>1390:break
+    _release()
+    _check(false,"normal east-side drop reaches authored rain out-step")
+    return false

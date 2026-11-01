@@ -1,0 +1,53 @@
+{
+  "revision": "9476eea942a96db471cae9e9e88992b8023cfe42",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "native GL",
+  "wall_seconds": 1930.7969999999987,
+  "measured_seconds": 1822.659,
+  "cycles_including_two_warmups": 43,
+  "transitions": 301,
+  "deaths": 43,
+  "ui_opens": 903,
+  "dialogue_opens": 301,
+  "attack_inputs": 301,
+  "observed_defeats": 258,
+  "source_files": 8672,
+  "source_changes": [],
+  "anchor_nodes_range": [
+    1238,
+    1240
+  ],
+  "first_measured_anchor_nodes": 1240,
+  "last_anchor_nodes": 1240,
+  "final_orphans": 0,
+  "remaining_voices": 0,
+  "audio_drained": true,
+  "exit_code": 0,
+  "engine_errors": [],
+  "warnings": [],
+  "leaked_instances": 0,
+  "frame_max_usec": 1429500,
+  "peak_static_memory_bytes": 128760459,
+  "peak_texture_memory_bytes": 1452656593,
+  "assessment": {
+    "passed": true,
+    "errors": [],
+    "long_session": true,
+    "net_static_growth_bytes": 3068341,
+    "static_growth_bytes_per_minute": 103173.91213210643,
+    "budgets": {
+      "net_static_growth_bytes": 67108864,
+      "static_growth_bytes_per_minute": 1048576
+    },
+    "scope": "lifecycle fixtures; does not prove natural routes, difficulty, target-hardware FPS or human comfort"
+  },
+  "raw_log_sha256": "002dcd85a0d4e96a2ee8a1832e48987942b03f4240dcedc9dd10251082030db7",
+  "source_manifest_raw_sha256": "f531c47d2563d1e8962d2ec7ac57b76dfdfad062dcbcd9ae563cdc756eadba98",
+  "scope": "Frozen combined lifecycle fixtures only; includes 166/168/169/170, excludes later V04 #171; exact current PR heads differ. Other development regressions ran on the same computer, so frame timing is diagnostic, not an isolated FPS benchmark. Audio driver Dummy does not prove listening.",
+  "published_files_sha256": {
+    "engine_metrics.json": "2367ee0e2b5733b5602e60b0bbcbecc8880c537ae597408b27da3d5a3367c182",
+    "runtime.log.gz": "ad463479352f9c036b4ae9ed1541b4b926cc5c096f6acda7f8842ea18947e11c",
+    "sources_before.json.gz": "ffbbdde8cc4177ccdd89bec054a160304d0bcc834de8b44a093e54e57832f04f",
+    "verification.json": "42a92258e4a41d1924e335f1f3c64fd3d30949d4a7530a4219215e02eb0e52f0"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-20",
+  "base": "0694d1b84504923b2dc06ec2549fbfa480992c14",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "audio_retirement",
+      "passed": false,
+      "engine_errors": [
+        "ERROR: FAIL: MUSIC_RESUME: MainLevel snapshots the outgoing phrase before retiring its players",
+        "ERROR: FAIL: MUSIC_RESUME: actual World can resume after its production retirement boundary",
+        "ERROR: audio retirement or user-volume regression failed"
+      ],
+      "seconds": 6.56,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=15",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=2"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

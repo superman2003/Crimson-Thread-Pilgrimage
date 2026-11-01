@@ -1,0 +1,101 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_B_erase.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_B_erase.txt",
+  "prompt_sha256": "7b566ccfb36f22fdf67032147e0745c798b1efe0837c32d7fb85261aef80b643",
+  "image_sha256": "4e92ff10a732156f2c69a63a68d10ea4a4aec5365b9755deaa9f1e00baef1393",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "requested_frames": 4,
+  "nominal_grid": [
+    1,
+    4
+  ],
+  "fully_transparent_pixels": 931882,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/erasure_bailiff.png",
+      "sha256": "9c7bce638f63ef5ac44bb8f926cc7358a0813668067b636ad6a555b2f85ab3bd"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        1536,
+        363
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        126,
+        28,
+        1536,
+        353
+      ],
+      "fully_transparent_pixels": 379711
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        0,
+        363,
+        1536,
+        578
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        399,
+        1536,
+        546
+      ],
+      "fully_transparent_pixels": 182725
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        0,
+        578,
+        1536,
+        773
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        611,
+        1536,
+        770
+      ],
+      "fully_transparent_pixels": 143099
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        773,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        776,
+        1438,
+        1010
+      ],
+      "fully_transparent_pixels": 226347
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "擦除線",
+    "observed_cels": 4,
+    "note": "已目检 4 条横带：起点、中段 A、中段 B、末端。中段到达左右边缘；逐像素接缝、统一粗细与锚点需运行时验收。"
+  }
+}

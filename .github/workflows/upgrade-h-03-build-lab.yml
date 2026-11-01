@@ -1,0 +1,49 @@
+name: Journey H03 build_lab
+on:
+  pull_request:
+    paths:
+      - 'godot/journey/**'
+      - 'godot/project.godot'
+      - 'godot/export_presets.cfg'
+      - 'tools/*journey*'
+      - 'tools/*export*'
+      - '.github/workflows/upgrade-h-03-build-lab.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: journey-h03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  workbench:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Install pinned engine and runtime assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
+      - name: Import and audit exported dependencies
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/logs/import"
+          python3 tools/test_export_audit.py
+          python3 tools/audit_export_contents.py
+      - name: Headless runtime and actual World
+        run: python3 tools/run_journey_workbench_tests.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --feature build_lab --backend headless --log-dir "$RUNNER_TEMP/logs/headless"
+      - name: Real software OpenGL runtime and actual World
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python3 tools/run_journey_workbench_tests.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --feature build_lab --backend gl --log-dir "$RUNNER_TEMP/logs/gl"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: journey-h03-logs
+          path: ${{ runner.temp }}/logs

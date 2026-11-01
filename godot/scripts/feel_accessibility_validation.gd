@@ -12,7 +12,7 @@ func _check(ok: bool, label: String) -> void:
 
 func run(tree: SceneTree, ui: Control) -> int:
     var real_gl := DisplayServer.get_name() != "headless"
-    var enabled_effects := 2 if real_gl else 0
+    var enabled_effects := 1 if real_gl else 0
     var feel := FEEL.new()
     tree.root.add_child(feel)
     feel.set_process(false)
@@ -24,10 +24,10 @@ func run(tree: SceneTree, ui: Control) -> int:
     _check(feel._trauma > 0.0 and camera.offset != Vector2.ZERO, "Enabled trauma moves the actual camera")
     feel.flash_screen(Color.WHITE, 0.5, 600)
     feel.black_frame(Vector2(100, 100), 600)
-    _check(feel._overlay_layer.get_child_count() == enabled_effects, "Enabled flash and black frame create real overlay controls")
+    _check(feel._overlay_layer.get_child_count() == enabled_effects, "Enabled flash and black frame share one real overlay control")
     feel.set_accessibility({"flash_enabled":false,"camera_shake":0.0})
     _check(feel._trauma == 0.0 and camera.offset == Vector2.ZERO and camera.rotation == 0.0, "Disabling shake clears current trauma and transform immediately")
-    _check(feel._overlay_layer.get_child_count() == 0, "Disabling flash immediately detaches both existing effects")
+    _check(feel._overlay_layer.get_child_count() == 0, "Disabling flash immediately detaches the existing effect")
     feel.add_trauma(0.9)
     feel.flash_screen(Color.WHITE, 0.5, 600)
     feel.black_frame(Vector2.ZERO, 600)
@@ -42,6 +42,7 @@ func run(tree: SceneTree, ui: Control) -> int:
     feel.black_frame(Vector2.ZERO, 1)
     _check(feel._overlay_layer.get_child_count() == enabled_effects, "Re-enabled flashes can be created again")
     await tree.create_timer(0.1).timeout
+    feel._process(0.1)
     await tree.process_frame
     _check(feel._overlay_layer.get_child_count() == 0, "Normal timed flash cleanup still works")
     feel._process(0.01)

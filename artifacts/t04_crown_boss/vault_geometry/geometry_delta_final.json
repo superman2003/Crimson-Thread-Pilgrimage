@@ -1,0 +1,63 @@
+{
+  "old_to_candidate_terrain": {
+    "removed_area": 7264.0,
+    "removed_bounds": [
+      2500.0,
+      2954.0,
+      2920.0,
+      3004.0
+    ],
+    "added_area": 0.0,
+    "added_bounds": null
+  },
+  "old_to_candidate_cave": {
+    "removed_area": 1024.0,
+    "removed_bounds": [
+      2880.0,
+      3072.0,
+      2912.0,
+      3104.0
+    ],
+    "added_area": 0.0,
+    "added_bounds": null
+  },
+  "published_terrain": {
+    "removed_area": 7264.0,
+    "removed_bounds": [
+      2500.0,
+      2954.0,
+      2920.0,
+      3004.0
+    ],
+    "added_area": 0
+  },
+  "published_cave": {
+    "removed_area": 1024.0,
+    "removed_bounds": [
+      2880.0,
+      3072.0,
+      2912.0,
+      3104.0
+    ],
+    "added_area": 0.0,
+    "added_bounds": null
+  },
+  "removed_cells": [
+    [
+      2880,
+      3072
+    ]
+  ],
+  "platforms_unchanged": true,
+  "other_fields_unchanged": true,
+  "published_sha256": "8951963bbd6e4554f6fa4c6ad45a38efd3601ecdd8267e4447aba972644d0430",
+  "unrelated_terrain_byte_structures_preserved": true,
+  "preparation_note": "candidate02 terrain-only rebuild omitted the existing cave_link; geometric delta caught it and candidate04 restores every unrelated original terrain record before final testing",
+  "published_outline_difference_bounds": [
+    2880.0,
+    3072.0,
+    2912.0,
+    3104.0
+  ],
+  "historical_cell_preserved": true
+}

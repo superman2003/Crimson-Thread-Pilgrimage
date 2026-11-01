@@ -1,0 +1,14 @@
+Running survey_map_knowledge
+PASS: survey_map_knowledge
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running cartography
+PASS: cartography
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running world_map
+PASS: world_map
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+FAIL: map_readability: missing completion marker contract
+GODOT_REGRESSIONS suites=4 failures=1

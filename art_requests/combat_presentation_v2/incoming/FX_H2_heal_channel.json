@@ -1,0 +1,181 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_heal_channel.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "0d816848a2982e33eeba0c7af432110e06f847eaa24c0d3268e06114089c86b5",
+  "image_size": [
+    1774,
+    887
+  ],
+  "prompt_file": "FX_H2_heal_channel.txt",
+  "prompt_sha256": "e045312ebea7955ca690a5cab434709edf58d33bc7989b3d00bf342818c4556c",
+  "requested_frames": 8,
+  "requested_layout": {
+    "columns": 4,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1536,
+      768
+    ]
+  },
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "requested_anchor": "body",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        439,
+        454
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        145,
+        140,
+        317,
+        375
+      ],
+      "fully_transparent_pixels": 163683
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        439,
+        0,
+        886,
+        454
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        537,
+        51,
+        804,
+        415
+      ],
+      "fully_transparent_pixels": 129786
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        886,
+        0,
+        1335,
+        454
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        971,
+        63,
+        1251,
+        413
+      ],
+      "fully_transparent_pixels": 133840
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1335,
+        0,
+        1774,
+        454
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1419,
+        66,
+        1689,
+        412
+      ],
+      "fully_transparent_pixels": 130944
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        454,
+        448,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        82,
+        500,
+        365,
+        847
+      ],
+      "fully_transparent_pixels": 123494
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        448,
+        454,
+        880,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        532,
+        507,
+        806,
+        855
+      ],
+      "fully_transparent_pixels": 115507
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        880,
+        454,
+        1350,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        958,
+        493,
+        1271,
+        827
+      ],
+      "fully_transparent_pixels": 136109
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1350,
+        454,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1493,
+        546,
+        1613,
+        810
+      ],
+      "fully_transparent_pixels": 154140
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_heal.png",
+      "sha256": "bf5893510912562b08e28ab7735bc7b35aa8f53efcd6881c02c6403a44bb3335"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "8 cels in 4x2: two gathers, four sustained silk-knot shapes and two releases. Empty centre, no character or scenery; distinct painted fibres. Loop timing, anchor registration and brightness remain runtime work.",
+    "runtime_acceptance": "pending"
+  }
+}

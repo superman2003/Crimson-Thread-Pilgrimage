@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_pipe_thrower.png",
+  "kind": "pipe_thrower",
+  "image_sha256": "ebdacee71539da4cd1b70c6910673ffe63e6520bc851717e4fe3422b7aef1f9c",
+  "prompt_sha256": "3bb5441f9ee7c075dfdc0e53f8a1876a39ed26e5c87e1cd5a65708c2107ca6f5",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/pipe_thrower.png",
+  "reference_sha256": "505d98e13afed4b0486394de716b9a2b6e94fcdfa021c16fe70cb79987d4ebd2",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "pipe_mortar_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        532,
+        392
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        101,
+        107,
+        442,
+        353
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "pipe_mortar_warning",
+      "rect_xyxy": [
+        532,
+        0,
+        1016,
+        392
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        597,
+        80,
+        942,
+        359
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "pipe_mortar_warning",
+      "rect_xyxy": [
+        1016,
+        0,
+        1536,
+        392
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1094,
+        69,
+        1448,
+        363
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "pipe_backblast_warning",
+      "rect_xyxy": [
+        0,
+        392,
+        512,
+        688
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        17,
+        492,
+        511,
+        645
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "pipe_backblast_warning",
+      "rect_xyxy": [
+        512,
+        392,
+        1024,
+        688
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        529,
+        487,
+        1008,
+        654
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "pipe_backblast_warning",
+      "rect_xyxy": [
+        1024,
+        392,
+        1536,
+        688
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1024,
+        478,
+        1525,
+        655
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "pipe_impact_warning",
+      "rect_xyxy": [
+        0,
+        688,
+        517,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        70,
+        775,
+        468,
+        961
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "pipe_impact_warning",
+      "rect_xyxy": [
+        517,
+        688,
+        1019,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        568,
+        745,
+        964,
+        963
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "pipe_impact_warning",
+      "rect_xyxy": [
+        1019,
+        688,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1075,
+        721,
+        1478,
+        964
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "?????????????????????????????????????",
+    "rows_reviewed": [
+      "pipe_mortar_warning",
+      "pipe_backblast_warning",
+      "pipe_impact_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

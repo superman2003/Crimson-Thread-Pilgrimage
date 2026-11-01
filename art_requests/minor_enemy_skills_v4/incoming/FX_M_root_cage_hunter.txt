@@ -1,0 +1,28 @@
+Use case: stylized-concept
+Asset type: production transparent sprite sheet for an ordinary enemy's missing combat effects, hand-inked side-view 2D dark fairytale game.
+Reference image is MATERIAL/PALETTE IDENTITY ONLY. Do not draw any character, face, body, full physical weapon, victim, floor, scenery or UI.
+Material: knotted brown root fibres, crimson binding threads and pale sharp bark splinters. Match its illustrated ink/gouache texture, organic irregular contours, solid readable high contrast cores and very restrained pale rims. Effects will display at 30-160 game pixels: strong simple material silhouette, no tiny clutter.
+Exactly 12 separate cels: THREE COLUMNS by 4 ROWS. Each ROW is one different effect, described below in TOP-TO-BOTTOM order. Each row's three cels progress LEFT to RIGHT. Equal cell dimensions, every cel isolated, no labels, no row names, no grid lines, no text or numbers.
+Critical: real transparent alpha. Every cell has fully empty alpha=0 gutters on ALL FOUR SIDES of at least 20% cell size. Long tips, fragments and any soft halo stay within the middle 60% of each cel. No inter-cell contamination, no shared glow, no background, no checkerboard. Use modest compact shapes, never fill the cell. Effects all face RIGHT unless described as a local cue or ground patch. Keep the registration at the centre of each cel. No generic featureless geometric circles, arcs, arrows, triangles or lines: the EFFECT BODY must be built of the specified material.
+For a warning row all three cels have the identical visible outer footprint, already readable at cel 1; only internal tension changes. For an execution row make all three contours different. Seamless tile rows may reach only the LEFT/RIGHT cel edges; top/bottom remain empty. Distinct attack rows must differ by silhouette and material gesture, not just rotation, scale or colour.
+
+ROW 1: cage_net_warning. Attack identity cage_net (根网投掷); a small LOCAL muzzle/casting tension, with one tight material bud or nocked fragment; no projectile path or giant target zone; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 2: cage_pounce_warning. Attack identity cage_pounce (根笼扑刺); a compact curled RIGHT-facing upward-turning blade/ram tension; no landing target or drawn travel arc; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 3: cage_pounce_execution. Attack identity cage_pounce (根笼扑刺); a compact curled RIGHT-facing upward-turning blade/ram active released strike; no landing target or drawn travel arc; clearly ACTIVE release and follow-through, not an anticipation hold.
+Cell 1: Readable onset of the active released strike.
+Cell 2: Peak active cut, visibly different contour from onset.
+Cell 3: Follow-through separating into fewer fading pieces; no opaque blob.
+
+ROW 4: cage_elite_snare_warning. Attack identity cage_elite_snare (根笼囚网); a material-woven danger perimeter with a transparent centre, built from folded/clumped material at a fixed outer footprint; not a plain circle; ANTICIPATION ONLY, never completed impact or released attack. Elite variant has a more complex broken contour and extra material knots, never merely a recolour.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+

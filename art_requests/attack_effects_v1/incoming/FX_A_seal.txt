@@ -1,0 +1,12 @@
+Use case: game VFX sprite sheet. Production effect sprites for the 2D side-scrolling game Crimson Thread Pilgrimage, a hand-painted dark fantasy insect world: muted earthy palette, crisp dark ink contours, textured painted shading; not neon, not pixel art, not a 3D render. The reference image(s) show the creature that uses this effect: match its palette and materials, but do NOT draw the creature. Every cel shows ONLY the effect, at the same scale in every cel. The game shrinks it to about a 60–74 px wide ground patch, so it needs one bold, simple silhouette, a high-contrast core and a thin dark ink rim around its solid parts so it reads on both dark and pale backgrounds. Genuine transparent alpha background (soft semi-transparent glow edges are fine): no black or white fill, no checkerboard, no scenery, no ground surface, no cast shadow, no text, no numbers, no grid lines, no characters. Generous fully transparent gutters; nothing touches a neighbouring cel or the canvas edge.
+The effect: a flat circular seal of black ink stamped on the ground, ringed with dark red sealing wax, glyph-like marks but no readable letters, faint ink wisps rising.
+Layout: exactly 8 cels on a 4-column x 2-row grid (1536x768 px canvas, one 384x384 px cel each), read left-to-right then top-to-bottom. The hazard sits on an invisible ground line at 70% of the cel height, centred horizontally, about 80% of the cel width wide and at most half as tall as it is wide.
+Cel 1: appear: the hazard just starting to form on the ground.
+Cel 2: appear: half formed.
+Cel 3: active loop frame 1, fully formed.
+Cel 4: active loop frame 2.
+Cel 5: active loop frame 3.
+Cel 6: active loop frame 4, leading back seamlessly into cel 3.
+Cel 7: fade: breaking up and thinning.
+Cel 8: fade: last faint traces.
+Strict sprite packing: keep each whole effect including wisps and loose fragments inside its own cel, with at least 10% cel width clear alpha on both sides, and clear alpha above and below. Use the same invisible ground baseline and horizontal centre for all eight cels. Keep cels 3-6 the same active size for a subtle seamless loop. Cel 8 is only a few faint traces, almost transparent, with no solid hazard remaining.

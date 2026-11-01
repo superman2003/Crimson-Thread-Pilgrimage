@@ -1,0 +1,21 @@
+Running controller_comfort
+FAIL: controller_comfort: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+ERROR: World did not publish initial region within 15 seconds
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] wait_for (res://scripts/world_ready_validation_helper.gd:11)
+SCRIPT ERROR: Invalid call. Nonexistent function 'set_physics_process' in base 'Nil'.
+          at: run (res://scripts/controller_comfort_validation.gd:67)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/controller_comfort_validation.gd:67)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:13)
+Running goal_desk
+PASS: goal_desk
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=2 retired=4
+GOAL_DESK checks=24 failures=0
+GODOT_REGRESSIONS suites=2 failures=1

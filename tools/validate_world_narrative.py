@@ -67,7 +67,17 @@ def validate() -> None:
         assert ending['message'] and ending['consequence_flags'] and ending['consequences']
         assert set(ending['consequences']) <= {'world'} | set(data['npcs']), 'Consequences need player-facing NPC names'
         assert not any(flag.startswith('quest_') for flag in ending['consequence_flags'])
-    print(f'WORLD_NARRATIVE_DATA_PASS npcs={len(data["npcs"])} states={count} evidence=6 rewards={len(reward_flags)}')
+    # N05: every region shows what the chosen ending changed, at a real, visible shrine.
+    scenes = data['aftermath_scenes']
+    assert {scene['region'] for scene in scenes} == set(chapters_by_region) and len(scenes) == 6, 'One aftermath scene per region'
+    for scene in scenes:
+        assert scene['region_name'], f"{scene['region']}: aftermath needs a region name"
+        shrines = [point for point in chapters_by_region[scene['region']].get('save_points', []) if point['id'] == scene['anchor']]
+        assert len(shrines) == 1 and not shrines[0].get('hidden', False), f"{scene['region']}: aftermath must stand at a visible shrine"
+        assert set(scene['endings']) == set(data['endings']), f"{scene['region']}: every ending changes this region"
+        for ending_id, variant in scene['endings'].items():
+            assert variant['look'] in {'bells', 'barrier', 'names'} and variant['line'] and variant['text'], f"{scene['region']}/{ending_id}: incomplete aftermath"
+    print(f'WORLD_NARRATIVE_DATA_PASS npcs={len(data["npcs"])} states={count} evidence=6 rewards={len(reward_flags)} aftermath={len(scenes)}')
 
 
 if __name__ == '__main__':

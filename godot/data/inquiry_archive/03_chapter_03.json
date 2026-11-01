@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_03_01",
+      "npc": "npc_fugitive_scribe",
+      "question": "改过的字为什么还留着白边？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "刮刀能把墨带走，纸受过的压痕却还在。把页斜过来，两个时刻就不再重合。",
+        "压页台原本用来救受潮的书；刀后来有了另一种差事。"
+      ],
+      "reflection": "改写留下的物理痕迹，与文字同样需要保存。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将倒下后，原页仍得有人保管。倒下一位总官不会让被改过的副本自动变回去。",
+          "核对时把刮痕也记下，免得下一位只抄新墨。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_02",
+      "npc": "npc_fugitive_scribe",
+      "question": "谁能证明原页不是后来伪造的？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我能指出笔压、刮痕和新墨的先后，不能只凭一句相信我就把它定成原本。",
+        "拿你见过的工艺来核对，比把我的逃亡当成证据可靠。"
+      ],
+      "reflection": "证词应当接受复核，不靠见证人的立场免检。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官不再守着书架了，更多人可以来验。",
+          "若新发现推翻了我的判断，也要连同这次判断一起留下。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_03",
+      "npc": "npc_fugitive_scribe",
+      "question": "为什么要保留错误的副本？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "因为有人真的照它生活过。把副本烧了，只剩原页，会让受过的事像没有发生。",
+        "压页台上的屑末也得留一份，才知道纸为什么会薄。"
+      ],
+      "reflection": "纠正记录不应抹掉错误造成的后果。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "战后我想给两种版本分别作记号，不再把它们混进同一摞。",
+          "能改正的先改正；改不回的，也要有人知道原因。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_04",
+      "npc": "npc_salt_librarian_ye",
+      "question": "保存契约是在同意契约吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我把它放进匣里，是为了让人还能找到它。匣子不能替里头的字担保。",
+        "你见过压页台，工具与保管的人都需要说明自己做过什么。"
+      ],
+      "reflection": "保存文本与认可文本应当分开说明。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官的刀停了，我仍得把哪页被刮过标出来。",
+          "否则下一个翻书的人，还会把干净的页边当成清白。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_05",
+      "npc": "npc_salt_librarian_ye",
+      "question": "索引上没有的名字还算存在吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "索引只是一条找书的路。路被划掉，不会让那个人从过去消失。",
+        "原页的白边提醒我们，空处也可能是被人做出来的。"
+      ],
+      "reflection": "查找工具不能代替被查找的生命。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将倒下以后，我先给这些空处留了查找标记。",
+          "不替它们编名字，只让后来的人知道这里曾被动过。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_06",
+      "npc": "npc_salt_librarian_ye",
+      "question": "把原字抄回去就够了吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "要看谁还在用改过的字办事。只修书页，门口的人仍会按旧抄本发令。",
+        "压页台能压平一页纸，压不平它已经带出去的命令。"
+      ],
+      "reflection": "纠错需要追踪文本实际流通的路径。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官不在了，散出去的副本却还有许多。",
+          "我会从最近的柜子开始核对，再记下哪些地方尚未查到。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_07",
+      "npc": "npc_quiet_reader",
+      "question": "你为什么盯着页边看？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "正文告诉我纸上准许读什么，页边告诉我有人怎样拿过它。",
+        "你找到的白边，比一段写得很整齐的结论更让我停下来。"
+      ],
+      "reflection": "读法本身也可以抵抗单一结论。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "刀笔的主人停了手，我终于能把书翻慢一点。",
+          "有些问题只有翻回前一页，才知道自己漏看了什么。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_08",
+      "npc": "npc_quiet_reader",
+      "question": "沉默的读者怎样反对一页书？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先把不相合的地方记住，再找另一页来对照。我没出声，不等于我点了头。",
+        "压页的机器很响，有时站在旁边的人根本没有机会回答。"
+      ],
+      "reflection": "没有留下反对的声音，不能被倒算为同意。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将不再巡看，我可以把两本书摊在一起。",
+          "若有人愿意听，就从我们看见的刮痕说起。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_09",
+      "npc": "npc_quiet_reader",
+      "question": "一本书可以同时有两种读法吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "可以，但两种读法都得说清依着哪一道痕。含糊并不会让它们一样有凭据。",
+        "原页与压页台至少让我们知道，有些空白是后来留下的。"
+      ],
+      "reflection": "允许解释并存，也要保留证据的差别。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官倒下之后，我仍会问一句：这句话能从哪里读出来？",
+          "问这一句，也包括问你和我。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_10",
+      "npc": "npc_sealed_archivist",
+      "question": "封蜡究竟保护了谁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "蜡能挡潮，也能挡手。要看钥匙在谁那里，开匣的规矩写给谁看。",
+        "你从压页台走来，应该知道保存与删去有时只隔一个动作。"
+      ],
+      "reflection": "保管制度需要把可查与不可查说明白。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将的门开了，我会把开过哪些匣记在外面。",
+          "查不到的仍写查不到，不再用完整的封口冒充完整的记录。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_11",
+      "npc": "npc_sealed_archivist",
+      "question": "证词为什么不能只存一处？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "水能淹一间库，命令也能封一扇门。留一处，就把所有人的记忆押在同一把锁上。",
+        "原页的刮痕已经说明，受保护的纸也可能被改。"
+      ],
+      "reflection": "分散保存与明确来历应当同时进行。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官不在以后，可以请不同的人各存一份核对过的抄本。",
+          "抄本旁边要写出从哪一页抄来，别让副本再冒充无来历的真话。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_12",
+      "npc": "npc_sealed_archivist",
+      "question": "页上的人能要求不被公开吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "应当能。把名字从档案里删掉，与把每个名字都摊在门口，不是仅有的两条路。",
+        "你带来的原页能说明被改过什么，不能替每个人决定谁有权翻看他。"
+      ],
+      "reflection": "反抗删名不必变成无条件公开一切。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将倒下，也没有把这种决定交给我。",
+          "我先记清谁托我保管，再谈怎样开放。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_13",
+      "npc": "npc_fugitive_scribe",
+      "question": "契约总官就是留下原页的人吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "不是同一件职分就能算成同一个人。有人守着删改后的秩序，也有人留下删改的痕迹。",
+        "你手里的页要与具体的刮痕相认，不能只与一个官衔相认。"
+      ],
+      "reflection": "同一官衔不能吞掉不同时刻的不同人物。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "你打倒的灰冠螳将是这座书库眼下的守门者。",
+          "原页仍把问题指向更早的改写；战胜它不是改写从未发生的证明。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_14",
+      "npc": "npc_salt_librarian_ye",
+      "question": "离开书库前，最该带走哪一句？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "第3区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "别只带一句。带走它在什么页、旁边被刮去什么、我们依据什么这样读。",
+        "一句话离开页边，很容易又被用成命令。"
+      ],
+      "reflection": "让线索可以重访，比留下口号更长久。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠螳将停了，书库还需要有人来查。",
+          "若以后想起新的疑问，再回来翻；离开不等于已经读完。"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "version": 1,
+  "courses": [
+    {
+      "id": "thread_dash",
+      "title": "突进收势",
+      "requires": [
+        "thread_dash"
+      ],
+      "hint": "面向空地，按{dash}；每次等收势结束再出手。",
+      "stages": [
+        {
+          "action": "thread_dash",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "thread_dash",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "silk_wall_grip",
+      "title": "贴墙与蹬离",
+      "requires": [
+        "silk_wall_grip"
+      ],
+      "hint": "下落时朝墙移动，按{jump}蹬离。",
+      "stages": [
+        {
+          "action": "silk_wall_grip",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "silk_wall_grip",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "double_thread_jump",
+      "title": "空中第二跳",
+      "requires": [
+        "double_thread_jump"
+      ],
+      "hint": "离地后再次按{jump}，落地后再重复。",
+      "stages": [
+        {
+          "action": "double_thread_jump",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "double_thread_jump",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "echo_hook",
+      "title": "锚点牵引",
+      "requires": [
+        "echo_hook"
+      ],
+      "hint": "面向真实钩环按{hook}，按{jump}松开后再练。",
+      "stages": [
+        {
+          "action": "echo_hook",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "echo_hook",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "bell_guard",
+      "title": "迎面接针",
+      "requires": [
+        "bell_guard"
+      ],
+      "hint": "面向守钟架，在来针时按{bell_guard}；只计成功接住。",
+      "stages": [
+        {
+          "action": "bell_guard",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "bell_guard",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "thorn_downstrike",
+      "title": "空中下针",
+      "requires": [
+        "thorn_downstrike"
+      ],
+      "hint": "空中按住{aim_down}并按{attack}，练习明确的下针动作。",
+      "stages": [
+        {
+          "action": "thorn_downstrike",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "thorn_downstrike",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "lantern_phase",
+      "title": "相位进退",
+      "requires": [
+        "lantern_phase"
+      ],
+      "hint": "按住{lantern_phase}进入，松开退出，留足绯线。",
+      "stages": [
+        {
+          "action": "lantern_phase",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "lantern_phase",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "crown_resonance",
+      "title": "共鸣节奏",
+      "requires": [
+        "crown_resonance"
+      ],
+      "hint": "按{crown_resonance}释放共鸣，等收势结束再重复。",
+      "stages": [
+        {
+          "action": "crown_resonance",
+          "count": 1,
+          "label": "熟悉一次动作"
+        },
+        {
+          "action": "crown_resonance",
+          "count": 2,
+          "label": "稳定完成两次"
+        }
+      ]
+    },
+    {
+      "id": "healing",
+      "title": "完整疗伤",
+      "requires": [],
+      "hint": "先确认有生命缺口和绯线，按{heal}完成引导；中断不计完成。",
+      "stages": [
+        {
+          "action": "heal",
+          "count": 1,
+          "label": "完整引导一次"
+        },
+        {
+          "action": "heal",
+          "count": 1,
+          "label": "再次确认恢复窗口"
+        }
+      ]
+    },
+    {
+      "id": "casting",
+      "title": "线术与资源",
+      "requires": [],
+      "hint": "按{skill_1}施放当前线术，确认绯线与收势；只计实际接受的施放。",
+      "stages": [
+        {
+          "action": "skill",
+          "count": 2,
+          "label": "观察两次施放"
+        },
+        {
+          "action": "skill",
+          "count": 2,
+          "label": "保持资源再施放"
+        }
+      ]
+    },
+    {
+      "id": "mobility_chain",
+      "title": "空中接续",
+      "requires": [
+        "thread_dash",
+        "double_thread_jump",
+        "echo_hook"
+      ],
+      "hint": "在练习范围内依次完成突进、二跳与钩环牵引，先看落脚点。",
+      "stages": [
+        {
+          "action": "thread_dash",
+          "count": 1,
+          "label": "突进"
+        },
+        {
+          "action": "double_thread_jump",
+          "count": 1,
+          "label": "空中第二跳"
+        },
+        {
+          "action": "echo_hook",
+          "count": 1,
+          "label": "抓住真实钩环"
+        }
+      ]
+    },
+    {
+      "id": "defense_chain",
+      "title": "守住恢复窗口",
+      "requires": [
+        "bell_guard",
+        "crown_resonance"
+      ],
+      "hint": "先成功格挡，再完整疗伤，最后释放共鸣；不会免费恢复资源。",
+      "stages": [
+        {
+          "action": "bell_guard",
+          "count": 1,
+          "label": "成功接住来针"
+        },
+        {
+          "action": "heal",
+          "count": 1,
+          "label": "完整疗伤"
+        },
+        {
+          "action": "crown_resonance",
+          "count": 1,
+          "label": "共鸣反击"
+        }
+      ]
+    }
+  ]
+}

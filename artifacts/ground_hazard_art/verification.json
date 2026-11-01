@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "81330a7a80db656e19d0457f1c7fabb0367e8005",
+  "base_branch": "codex/v04-projectile-runtime",
+  "scope": "V04 eight ground hazard families, 64 cels",
+  "engine": "Godot 4.6.1 stable",
+  "renderer": "real OpenGL, Mesa llvmpipe; controlled production attack fixtures",
+  "ground_hazard_checks": 375,
+  "ground_hazard_failures": 0,
+  "retained_projectile_checks": 300,
+  "retained_lifetime_checks": 46,
+  "mutation": {
+    "disabled": "pool authored rendering branch",
+    "checks": 375,
+    "failures": 108,
+    "restored_pass": true
+  },
+  "suites": [
+    "enemy_effect_lifetime",
+    "character_art_prewarm",
+    "combat",
+    "combat_visual_budget",
+    "enemy_lifecycle_regression",
+    "enemy_visibility",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "optional_challenges",
+    "player_melee_feedback",
+    "seal_combat",
+    "world_enemy_residency",
+    "world_startup_budget"
+  ],
+  "suite_failures": 0,
+  "strict_import_passes": 2,
+  "npm_test_passed": true,
+  "campaign_passed": true,
+  "source_and_atlas_check_passed": true,
+  "source_hashes": {
+    "caltrops": {
+      "sha256": "696b8f0037340a86d48b9481fcb8ea4f776af2ce7d0ba395568d78979c72540b",
+      "prompt_sha256": "2776d4702646e517a3346a7ac2e79278fa9322d00b31deb52970bfbce80425b4",
+      "metadata_sha256": "f80c7c22f85a7e5f653ed20731a2b266217ce0b30783d94330973c9efb38d5f6"
+    },
+    "focus": {
+      "sha256": "a2fe94aa6b9165f9f2b79c5cedcf2c92a698fa24274b780343b6bc3250ffee65",
+      "prompt_sha256": "e46a0c123b17c5199cd7b69a81f4dcced324b289886ad3a9b5bd5862981bb401",
+      "metadata_sha256": "aa95d657e4a57068e146ffd5e031d5296c7e5d08f6f2c7d066e35ff4e7d1275c"
+    },
+    "fungus": {
+      "sha256": "7442839bc6370214bbb8a8809fde4d51f07c7e8f05f8fc762731a6a3b740b04d",
+      "prompt_sha256": "1ddc94f415cdc4367ad887f7f77c111ccee7641b994c662a86b22ed056f6e183",
+      "metadata_sha256": "7477c1811579fcd572971db6f992f94a6b28c430e18bcdd7eb627097f32cc920"
+    },
+    "haze": {
+      "sha256": "10ad2c45b4ebfccd85d94ef0cc021850e700928b47dbca27683778f5bed70b15",
+      "prompt_sha256": "fb74f3971bdb990ff456fb6551cac1be09611f7fc03dce8c6d1f6b8a197b9439",
+      "metadata_sha256": "889c1ec31825c82682eae4ae47af8bba76cfa313240abb808e09715c137b16a3"
+    },
+    "seal": {
+      "sha256": "9dfd511bafcca53d7fd9d5372f6712a74b7a31ba885ca6a1470136645de68f7d",
+      "prompt_sha256": "281de94842a5950a2a0512e4952fdcb5abe536592567ee9ea87c70600fd7e5e2",
+      "metadata_sha256": "ca15f1a2e70c525e672610a23e37ab489c56cfbb37d035a3ed119acf5578aee6"
+    },
+    "shadow": {
+      "sha256": "80212fc6cde834e59e7e783ef053d060f5eb52343cd84c676797c152233d7cbf",
+      "prompt_sha256": "c90b821f63a730879faf383ae4718b6e1a67f8c02cdfcb2f66c6f15ddcaefa5a",
+      "metadata_sha256": "f4bb103d94f7b5a2dea0509813210cafe3545b56a2c1a2f1ed8d2065dad5adc3"
+    },
+    "slag": {
+      "sha256": "da7d321225e0b44352283a563eba0711e7cd9363e28171b234eaf3cd0485590f",
+      "prompt_sha256": "d6e9f721fbb770f021c2632758c620f395930cba6a02c1ac097d57d9df5fe786",
+      "metadata_sha256": "0bf776dde28f95eb3785054f2fbc4f9a5a35a97dca71232ca45273595498826f"
+    },
+    "snare": {
+      "sha256": "038060beec8a4e2d7cf205ed4ff95daffccef3fc9d10ecf251c40fefc6934ec2",
+      "prompt_sha256": "eee349ba7c1aecfa75497fbf07f7a2aa399977e360aad85e53eac0c981477786",
+      "metadata_sha256": "80d6f8da37018ca5aaa2e1f5c89fe187b4e86158c1cd7b5bcf0c01c90bf8f0fd"
+    }
+  },
+  "atlas": {
+    "dimensions": [
+      1536,
+      1536
+    ],
+    "decoded_rgba_bytes": 9437184,
+    "png_bytes": 1046897,
+    "rgba_sha256": "fe9c2dcfd561058e779fa881e046a52a3807cd3afb44949dd7245e6baa031a56"
+  },
+  "excluded": {
+    "godot/scripts/world_state.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528"
+    },
+    "godot/scripts/build_system.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3a0dc3d1ea403e9f3ebd46b41bc4a5e932ced9dddbac6c310010c3741cb1abb4"
+    },
+    "godot/scripts/main_level.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "89b94a332f49d8c683d096a9278bc686f45f64aa26bd41f56ab2bdd2fdf74d02"
+    },
+    "godot/scripts/save_recovery_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "tools/run_godot_regressions.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "4afd99333dffb83dd782c6a3ee3714a7a0998458cfa8d034e96ecc7a2bd2ba8d"
+    },
+    "tools/godot_suite_success_markers.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "d72e6b1fb077d6ea8e4951d20bedb2a17f26b3156efe708dba0ca99eef5cc210"
+    },
+    "tools/test_regression_runner.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "ae76a982dfd36fa39ff350f3d683abeaa3e8f539cfda2e2c33eaf6c6dd6f4b45"
+    },
+    "package.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3d0a78d670ec5d81444f0b0328cf2f5ba16da8950f4dfcbc36042efbda2a4f3a"
+    },
+    "docs/UPGRADE_TASK_LEDGER.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5c5cdd7304da3ebd94fe362c6d7d339dd00b3310b0710f7832ce8814b1783d29"
+    },
+    "docs/UPGRADE_PROGRESS.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "9a471c55d859f66aedf8abbff9a9b26ef621cd09a6a77adc904eea11c6433c93"
+    },
+    "docs/report/20261020_t02_save_recovery.md": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    }
+  },
+  "limitations": [
+    "Existing ObjectDB/StringName exit warnings remain in old suites.",
+    "Controlled GL fixtures; no new certification of natural six-chapter playthrough, long-run memory, or target-hardware frame time.",
+    "Full default regression set is delegated to CI, local run covers 13 related registered suites."
+  ]
+}

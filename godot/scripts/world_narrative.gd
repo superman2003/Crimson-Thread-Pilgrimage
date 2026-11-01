@@ -45,7 +45,7 @@ func resolve(npc_id: String, fallback_lines: Array, abilities: Array, flags: Dic
     return {}
 
 func _state_result(entry: Dictionary, state: Dictionary, fallback_lines: Array) -> Dictionary:
-    return {"state": String(state.get("id", "world_repeat")), "lines": state.get("lines", fallback_lines).duplicate(), "grant_flags": state.get("grant_flags", []).duplicate(), "grant_rewards": state.get("grant_rewards", {}).duplicate(true), "reward_flag": String(state.get("reward_flag", "")), "voice_profile": String(entry.get("voice_profile", "warm")), "response": String(state.get("response", ""))}
+    return {"state": String(state.get("id", "world_repeat")), "lines": state.get("lines", fallback_lines).duplicate(), "grant_flags": state.get("grant_flags", []).duplicate(), "grant_rewards": state.get("grant_rewards", {}).duplicate(true), "reward_flag": String(state.get("reward_flag", "")), "voice_profile": String(entry.get("voice_profile", "warm")), "response": String(state.get("response", "")), "response_mode":String(state.get("response_mode","gesture"))}
 
 func _has_unclaimed_completed_reward(state: Dictionary, flags: Dictionary) -> bool:
     var reward_flag := String(state.get("reward_flag", ""))
@@ -103,6 +103,13 @@ static func completion_rewards(result: Dictionary, displayed_index: int, flags: 
 
 ## Single pure transaction evaluation for interrupted, complete, and repeat visits.
 ## Runtime callers commit `flags` and `rewards` together with their save operation.
+static func completion_response(result: Dictionary, displayed_index: int, flags_before: Dictionary) -> String:
+    var text := String(result.get("response","")).strip_edges()
+    if text.is_empty() or text.length() > 48 or text.contains("\n"):return ""
+    if not String(result.get("response_mode","gesture")) in ["speech","gesture","resonance"]:return ""
+    if completion_outcome(result,displayed_index,flags_before).flags.is_empty():return ""
+    return "巡礼者 · " + text
+
 static func completion_outcome(result: Dictionary, displayed_index: int, flags: Dictionary) -> Dictionary:
     var lines: Array = result.get("lines", [])
     var complete := not lines.is_empty() and displayed_index >= lines.size() - 1
@@ -174,6 +181,7 @@ func evaluate_progress(inventory: Dictionary, flags: Dictionary = {}) -> Diction
             row["chosen"] = String(row.get("id", "")) == selected and not selected.is_empty()
             if bool(row["chosen"]):
                 row["status"] = "chosen"
+                row["aftermath_rows"] = aftermath_rows(flags)
             elif not selected.is_empty():
                 row["status"] = "closed"
             else:
@@ -192,7 +200,8 @@ func evaluate_progress(inventory: Dictionary, flags: Dictionary = {}) -> Diction
         "quests": quest_rows,
         "endings": endings,
         "ending_choices_encountered": choice_encountered,
-        "ending_chosen": selected
+        "ending_chosen": selected,
+        "main_line": main_line(inventory, flags, evidence)
     }
 
 ## Cross-reading never exposes an undiscovered proof, even if the caller has
@@ -220,6 +229,60 @@ func consequence_rows(consequences: Dictionary) -> Array:
     for key in consequences:
         var entry: Dictionary = entries.get(String(key), {})
         rows.append({"id": String(key), "title": "六城" if String(key) == "world" else String(entry.get("display_name", "旅途中相识的人")), "text": String(consequences[key])})
+    return rows
+
+## N05: the main line as the journal shows it, from the same save flags as the
+## gates: guardians beaten, the crown, testimonies and the choice itself.
+func main_line(inventory: Dictionary, flags: Dictionary, evidence: Dictionary = {}) -> Dictionary:
+    if evidence.is_empty():
+        evidence = _calculate_evidence(inventory, flags)
+    # Counts only: naming unbeaten regions would reveal places not yet reached.
+    var beaten := 0
+    for index in range(1, 6):
+        if bool(flags.get("boss_down_ch%02d" % index, false)):
+            beaten += 1
+    var crown := bool(flags.get("boss_down_ch06", false))
+    var found := int(evidence.get("acquired_count", 0))
+    var total := int(evidence.get("evidence_total", 6))
+    var selected := _resolved_ending_choice(flags)
+    var title := String(story_data.get("endings", {}).get(selected, {}).get("title", ""))
+    var steps: Array = [
+        {"label": "五区守门者：已击败 %d / 5" % beaten, "complete": beaten >= 5},
+        {"label": "无声王冠：" + ("已击败" if crown else "未击败"), "complete": crown},
+        {"label": "证词：已取得 %d / %d；集齐后，第三扇结局门可以打开" % [found, total], "complete": found >= total},
+        {"label": "结局：" + ("已选择「%s」" % title if not selected.is_empty() else "尚未选择"), "complete": not selected.is_empty()},
+    ]
+    var guidance := "选择已经做出；回到各区看看它留下了什么。" if not selected.is_empty() else ("王冠已倒，结局之门在六印前廊等你。" if crown else "继续探索，击败守门者，前往无声王冠。")
+    var journey := preload("res://scripts/narrative_journey.gd")
+    var current_goal := "你已选择「%s」。沿旧路回到相识的人身边，看看它留下的代价。" % title if not selected.is_empty() else journey.goal(inventory, flags)
+    return {"id": "main_line", "title": String(story_data.get("main_story", {}).get("title", "主线")), "goal": current_goal, "steps": steps, "guidance": guidance, "reflections": journey.reflections(inventory, flags)}
+
+## N05: what the chosen ending changed at this region's shrine; {} before a choice.
+func aftermath_scene(region_id: String, flags: Dictionary) -> Dictionary:
+    var selected := _resolved_ending_choice(flags)
+    if selected.is_empty():
+        return {}
+    for scene in story_data.get("aftermath_scenes", []):
+        if String(scene.get("region", "")) != region_id.trim_prefix("demo_"):
+            continue
+        var variant: Dictionary = scene.get("endings", {}).get(selected, {})
+        if variant.is_empty():
+            return {}
+        var result: Dictionary = variant.duplicate(true)
+        result.merge({"region": String(scene.region), "region_name": String(scene.get("region_name", "")), "anchor": String(scene.get("anchor", "")), "ending": selected,
+            "seen_flag": "aftermath_seen_" + String(scene.region)}, true)
+        return result
+    return {}
+
+## Every region's change under the chosen ending; unseen ones only say where to look.
+func aftermath_rows(flags: Dictionary) -> Array:
+    var rows: Array = []
+    for scene in story_data.get("aftermath_scenes", []):
+        var row := aftermath_scene(String(scene.get("region", "")), flags)
+        if row.is_empty():
+            continue
+        row["seen"] = bool(flags.get(String(row.seen_flag), false))
+        rows.append(row)
     return rows
 
 ## Normalize only ending-owned fields. A unique legacy marker is recoverable;

@@ -133,6 +133,10 @@ func run() -> void:
     main.inventory_counts["test_supply"] = 1
     main._talk_to_npc(npc)
     main.ui_shell._topic("wish")
+    # A delivering wish first shows the cost preview; nothing changes until confirmed.
+    var wish_modal = main.ui_shell.wish_confirmation
+    check(is_instance_valid(wish_modal) and wish_modal.visible and int(main.inventory_counts.get("test_supply", 0)) == 1 and not main.inventory_counts.has("energy_spindle"), "Hand-in preview opens without consuming supply")
+    if is_instance_valid(wish_modal):wish_modal.confirmed.emit()
     check(not main.inventory_counts.has("test_supply") and main.inventory_counts.has("energy_spindle"), "Hand-in consumes supply and gives reward")
     var restored = preload("res://scripts/world_state.gd").new()
     check(restored.read(main.world_save_path), "Hand-in transaction saves readable world")

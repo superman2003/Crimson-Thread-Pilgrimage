@@ -4,10 +4,13 @@ signal hp_changed(value: int)
 signal player_respawned
 signal energy_changed(value: int, maximum: int)
 var arrival_guard_timer := 0.0
+var combat_effect_generation := 0
 
 signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 signal heal_state_changed(state: String)
 signal skill_cast(skill_id: String)
+## Post-acceptance observations; consumers cannot change combat outcomes.
+signal combat_observed(event: Dictionary)
 
 @export var debug_invulnerable := false
 @export var bell_guard_unlocked := false
@@ -49,6 +52,10 @@ var status_resist_timer := 0.0
 ## Thread drawn from practice racks stays at the rack: leaving takes back
 ## whatever of it is still unspent, so racks cannot fill the meter for a fight.
 var practice_energy := 0
+## C04: the last cast skill lets a practice rack tell which skill hit it.
+var last_skill_cast := ""
+var last_skill_cast_msec := -100000
+var last_skill_cast_serial := 0
 var heal_reserved_practice := 0
 const PRACTICE_ENERGY_RADIUS := 520.0
 var crosscut_refund_paid := false
@@ -105,7 +112,7 @@ func _settle_practice_energy() -> void:
         practice_energy = 0
         return
     for node in get_tree().get_nodes_in_group("enemy"):
-        if node is Node2D and node.has_meta("seal_training_target") and node.global_position.distance_to(global_position) <= PRACTICE_ENERGY_RADIUS:
+        if node is Node2D and (node.has_meta("seal_training_target") or node.has_meta("tool_training_target")) and node.global_position.distance_to(global_position) <= PRACTICE_ENERGY_RADIUS:
             return
     var unspent := practice_energy
     practice_energy = 0
@@ -254,7 +261,18 @@ const ROOM_CAMERA := preload("res://scripts/room_camera.gd")
 var room_camera := ROOM_CAMERA.new()
 
 const HIT_FLASH_SHADER := preload("res://shaders/hit_flash.gdshader")
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
+const ABILITY_ART := preload("res://scripts/player_ability_art.gd")
+const HOOK_ART := preload("res://scripts/player_hook_art.gd")
+const DASH_ART := preload("res://scripts/player_dash_art.gd")
+const HURT_ART := preload("res://scripts/player_hurt_art.gd")
+const MOVEMENT_ART := preload("res://scripts/player_movement_art.gd")
+const HEAL_ART := preload("res://scripts/player_heal_art.gd")
+const GUARD_ART := preload("res://scripts/player_guard_art.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
+const BASIC_ATTACK_VFX := preload("res://scripts/player_basic_attack_vfx.gd")
+const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
 
@@ -320,6 +338,11 @@ var dash_timer: float = 0.0
 var dash_cooldown: float = 0.0
 var land_timer: float = 0.0
 var attack_timer: float = 0.0
+## C01: jump/dash may cut a nail swing's or hook throw's recovery, but the rest
+## of that recovery is still owed before the next strike (attack, hook throw, art).
+var attack_cancel_lock := 0.0
+## Diagnostic: swings whose recovery was cut by a jump or dash.
+var recovery_cancel_count := 0
 var hurt_timer: float = 0.0
 var death_timer: float = 0.0
 # Presentation only: do not add a gameplay lock or change the 0.9-second death.
@@ -343,6 +366,8 @@ const RUN_ATTACK_MIN_SPEED_RATIO := 0.5
 # the upward slash's small hop must not swap poses mid-swing.
 var attack_started_grounded := true
 var enemy_contact_guard_timer: float = 0.0
+## Seconds a spike bounce keeps hazard contact from dealing damage.
+var hazard_pogo_guard_timer: float = 0.0
 var hit_targets: Dictionary = {}
 var attack_pogo_paid := false
 var feel: Node = null
@@ -484,8 +509,10 @@ func _physics_process(delta: float) -> void:
     land_timer = maxf(0.0, land_timer - delta)
     grapple_recovery_timer = maxf(0.0, grapple_recovery_timer - delta)
     skill_cooldown = maxf(0.0, skill_cooldown - delta)
+    attack_cancel_lock = maxf(0.0, attack_cancel_lock - delta)
     heal_cooldown = maxf(0.0, heal_cooldown - delta)
     enemy_contact_guard_timer = maxf(0.0, enemy_contact_guard_timer - delta)
+    hazard_pogo_guard_timer = maxf(0.0, hazard_pogo_guard_timer - delta)
     var input_axis := _move_axis()
     _sample_action_input(delta)
 
@@ -509,14 +536,17 @@ func _physics_process(delta: float) -> void:
         _stop_grapple()
     if Input.is_action_just_pressed("jump"):
         grapple_recovery_timer = 0.0
-    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    var recovery_open := attack_timer <= 0.0 or _attack_recovery_cancelable()
+    if jump_buffer_timer > 0.0 and coyote_timer > 0.0 and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+        _cancel_attack_recovery()
         velocity.y = jump_velocity
         coyote_timer = 0.0
         jump_buffer_timer = 0.0
         _play(&"jump_start")
         _play_sfx("jump", -6.0)
-    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    elif jump_buffer_timer > 0.0 and dash_timer <= 0.0 and wall_grip_unlocked and not is_on_floor() and is_on_wall() and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
         # 蹬墙跳：离墙水平 420 / 垂直 -640，播 wall_slide 帧。
+        _cancel_attack_recovery()
         var jump_wall_dir := signi(-get_wall_normal().x)
         wall_jump_lock = 0.16
         ability_action.emit("silk_wall_grip", global_position, Vector2(-jump_wall_dir, -1))
@@ -530,8 +560,10 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"wall_slide")
         _play_sfx("jump", -6.0)
+        MOVEMENT_ART.wall_jump(self, jump_wall_dir)
 
-    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and attack_timer <= 0.0 and hurt_timer <= 0.0:
+    elif Input.is_action_just_pressed("jump") and double_jump_unlocked and air_jump_available and not is_on_floor() and dash_timer <= 0.0 and heal_timer <= 0.0 and recovery_open and hurt_timer <= 0.0:
+        _cancel_attack_recovery()
         ability_action.emit("double_thread_jump", global_position, Vector2.UP)
         air_jump_available = false
         velocity.y = double_jump_velocity
@@ -540,7 +572,7 @@ func _physics_process(delta: float) -> void:
         wall_sliding = false
         _play(&"jump_start")
         _play_sfx("jump", -6.0, 1.16)
-        _spawn_double_jump_vfx()
+        MOVEMENT_ART.double_jump(self)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
         velocity.y *= jump_cut_multiplier
@@ -556,10 +588,10 @@ func _physics_process(delta: float) -> void:
 
     if _consume_action_input(&"attack"):
         pass
-    elif Input.is_action_just_pressed("hook") and _can_start_action():
+    elif Input.is_action_just_pressed("hook") and _can_start_action() and attack_cancel_lock <= 0.0:
         if not _try_start_grapple():
             _start_attack(&"hook_throw")
-    elif Input.is_action_just_pressed("skill_1") and _can_start_action():
+    elif Input.is_action_just_pressed("skill_1") and _can_start_action() and attack_cancel_lock <= 0.0:
         _try_skill_burst()
 
     if heal_timer > 0.0 or guard_timer > 0.0:
@@ -592,8 +624,10 @@ func _physics_process(delta: float) -> void:
         pogo_chain = 0
         air_jump_available = true
         _play_land_sfx(fall_speed)
-        _spawn_land_vfx()
+        MOVEMENT_ART.land(self, fall_speed)
+        ABILITY_ART.downstrike(self)
     _update_wall_slide_audio()
+    MOVEMENT_ART.wall_state(self)
     _update_footsteps(delta)
     _update_camera(delta)
     _update_animation(input_axis)
@@ -614,10 +648,7 @@ func _try_start_grapple() -> bool:
     var best: Node2D = null
     var best_score := INF
     for candidate in get_tree().get_nodes_in_group("grapple_anchor"):
-        if not candidate is Node2D or not candidate.is_inside_tree() or not candidate.is_visible_in_tree():
-            continue
-        if not bool(candidate.get_meta("grapple_enabled", true)):
-            continue
+        if not preload("res://scripts/grapple_path.gd").available(candidate): continue
         var offset: Vector2 = candidate.global_position - origin
         var distance := offset.length()
         if distance < 36.0 or distance > grapple_range:
@@ -625,12 +656,9 @@ func _try_start_grapple() -> bool:
         var alignment := aim.dot(offset.normalized())
         if alignment < 0.35:
             continue
-        var query := PhysicsRayQueryParameters2D.create(origin, candidate.global_position, collision_mask, [get_rid()])
-        var hit := get_world_2d().direct_space_state.intersect_ray(query)
-        if not hit.is_empty() and hit.get("collider") != candidate:
-            continue
+        if not preload("res://scripts/grapple_path.gd").clear(self, candidate): continue
         var score := distance + (1.0 - alignment) * grapple_range
-        if score < best_score:
+        if preload("res://scripts/grapple_path.gd").preferred(score, candidate, best_score, best):
             best = candidate
             best_score = score
     if best == null:
@@ -652,11 +680,13 @@ func _try_start_grapple() -> bool:
     _play(&"hook_throw")
     _play_sfx("hook_latch", -6.0)
     _play_sfx("hook_reel", -8.0)
+    HOOK_ART.attached(self)
     return true
 
 
 func _update_grapple(delta: float) -> void:
-    if not is_instance_valid(grapple_anchor) or not grapple_anchor.is_inside_tree():
+    if not is_finite(delta) or delta <= 0.0: return
+    if not preload("res://scripts/grapple_path.gd").available(grapple_anchor):
         _stop_grapple()
         return
     var offset := grapple_anchor.global_position - (global_position + Vector2(0.0, -42.0))
@@ -666,10 +696,7 @@ func _update_grapple(delta: float) -> void:
         velocity *= 0.35
         return
     # Sweep each physics tick instead of teleporting through solid terrain.
-    var origin := global_position + Vector2(0.0, -42.0)
-    var query := PhysicsRayQueryParameters2D.create(origin, grapple_anchor.global_position, collision_mask, [get_rid()])
-    var hit := get_world_2d().direct_space_state.intersect_ray(query)
-    if not hit.is_empty() and hit.get("collider") != grapple_anchor:
+    if offset.length() > grapple_range * 1.15 or not preload("res://scripts/grapple_path.gd").clear(self, grapple_anchor):
         _stop_grapple()
         return
     velocity = offset.normalized() * minf(grapple_speed, maxf(0.0, offset.length() - 30.0) / delta)
@@ -678,6 +705,7 @@ func _update_grapple(delta: float) -> void:
 
 
 func _stop_grapple(recover: bool = false) -> void:
+    HOOK_ART.stopped(self, recover)
     grapple_timer = 0.0
     grapple_recovery_timer = GRAPPLE_RECOVERY_TIME if recover else 0.0
     grapple_anchor = null
@@ -687,12 +715,25 @@ func _stop_grapple(recover: bool = false) -> void:
 
 
 func _reset_traversal_state() -> void:
+    combat_effect_generation += 1
+    if is_inside_tree():
+        for effect in get_tree().get_nodes_in_group("player_combat_effect"):
+            if is_instance_valid(effect) and effect.get("owner_player") == self and effect.has_method("cancel"): effect.cancel()
+    CONTACT_ART.clear_player(self)
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
+    HURT_ART.clear(self)
+    MOVEMENT_ART.clear(self)
+    GUARD_ART.clear(self)
+    VISUAL_POLICY.clear_secondary(self)
     respawn_reveal_timer = 0.0
     _set_death_visibility(1.0)
     camera_focus.clear_look()
     _clear_action_buffer()
     _stop_grapple()
     _interrupt_heal()
+    HEAL_ART.clear(self)
     _stop_phase()
     guard_timer = 0.0
     guard_cooldown = 0.0
@@ -705,6 +746,7 @@ func _reset_traversal_state() -> void:
     dash_timer = 0.0
     dash_cooldown = 0.0
     attack_timer = 0.0
+    attack_cancel_lock = 0.0
     land_timer = 0.0
     ground_motion_x = 0.0
     ground_motion_speed = 0.0
@@ -722,8 +764,8 @@ func _spawn_double_jump_vfx() -> void:
         thread.width = 3.0
         thread.default_color = THREAD_T2_CORE if index == 0 else THREAD_T1_CORE
         thread.z_index = 58
-        add_child(thread)
-        var tween := create_tween()
+        if not VISUAL_POLICY.attach_secondary(self, thread, &"motion", self): continue
+        var tween := thread.create_tween()
         tween.tween_property(thread, "scale", Vector2(1.5, 1.0), 0.22)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.22)
         tween.finished.connect(Callable(thread, "queue_free"))
@@ -835,9 +877,17 @@ func _sample_action_input(delta: float) -> void:
 
 
 func _consume_action_input(action: StringName) -> bool:
-    if buffered_action != action or not _can_start_action(action == &"dash"):
+    if buffered_action != action:
         return false
-    if action == &"dash" and (not dash_unlocked or dash_cooldown > 0.0):
+    var dash := action == &"dash"
+    if not _can_start_action(dash, dash):
+        return false
+    if dash and (not dash_unlocked or dash_cooldown > 0.0):
+        return false
+    if not dash and attack_cancel_lock > 0.0:
+        # The buffered swing waits out the cut recovery instead of being lost,
+        # even when that recovery is longer than the input buffer.
+        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
         return false
     var direction := buffered_direction
     # Consume before any signal/callback can re-enter action handling.
@@ -848,8 +898,28 @@ func _consume_action_input(action: StringName) -> bool:
     if action == &"attack":
         _start_attack(&"attack_1", true, direction)
     else:
+        _cancel_attack_recovery()
         _start_dash()
     return true
+
+
+## A nail swing or hook throw (not a thread art) commits through its wind-up
+## and active frames; only its recovery may be cut.
+func _attack_recovery_cancelable() -> bool:
+    if attack_timer <= 0.0 or not active_skill.is_empty() or current_attack not in [&"attack_1", &"attack_2", &"hook_throw"]:
+        return false
+    return attack_duration - attack_timer > attack_windup + attack_active_time
+
+
+func _cancel_attack_recovery() -> void:
+    if attack_timer <= 0.0:
+        return
+    attack_cancel_lock = attack_timer
+    recovery_cancel_count += 1
+    attack_timer = 0.0
+    attack_shape.disabled = true
+    traversal_downstrike_active = false
+    run_attack_pose = false
 
 
 func _start_dash() -> void:
@@ -869,10 +939,25 @@ func _start_dash() -> void:
     _play_sfx("dash", -7.0)
 
 
-func _can_start_action(allow_grapple: bool = false) -> bool:
+func _can_start_action(allow_grapple: bool = false, allow_recovery_cancel: bool = false) -> bool:
     if get_parent().has_method("_walking_world_passage") and get_parent()._walking_world_passage():
         return false
-    return death_timer <= 0.0 and hurt_timer <= 0.0 and attack_timer <= 0.0 and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+    return death_timer <= 0.0 and hurt_timer <= 0.0 and (attack_timer <= 0.0 or (allow_recovery_cancel and _attack_recovery_cancelable())) and dash_timer <= 0.0 and (allow_grapple or grapple_timer <= 0.0) and heal_timer <= 0.0 and guard_timer <= 0.0 and not phase_active and not ui_input_locked
+
+## Read-only HUD query; shares the real action gate, including traversal handoff.
+func get_cast_readiness(skill_id: String = "") -> Dictionary:
+    if hp <= 0 or death_timer > 0.0:
+        return {"available":false, "text":"复生中", "detail":"等待复生后使用。"}
+    if not _can_start_action():
+        return {"available":false, "text":"动作中", "detail":"当前动作或界面结束后可用。"}
+    if not skill_id.is_empty():
+        if attack_cancel_lock > 0.0:
+            return {"available":false, "text":"收势", "detail":"取消的挥针仍在收势。"}
+        if skill_cooldown > 0.0:
+            return {"available":false, "text":"%.1fs" % skill_cooldown, "detail":"上一招仍在收势。"}
+        if skill_id == "shockwave" and not is_on_floor():
+            return {"available":false, "text":"需落地", "detail":"钟鸣震波需要接触地面。"}
+    return {"available":true}
 
 
 func configure_selected_skill(skill: Dictionary) -> void:
@@ -884,7 +969,7 @@ func _try_skill_burst() -> void:
 
 
 func cast_selected_skill(slot: int = -1) -> bool:
-    if not _can_start_action() or skill_cooldown > 0.0:
+    if not _can_start_action() or skill_cooldown > 0.0 or attack_cancel_lock > 0.0:
         return false
     var payload: Dictionary
     if build_system != null and build_system.has_method("try_cast"):
@@ -936,6 +1021,9 @@ func cast_selected_skill(slot: int = -1) -> bool:
     seal_recovery_shown = false
     skill_displacement_done = 0.0
     _seal_present(String(payload.get("id", "cleave")), "prepare")
+    last_skill_cast = String(payload.get("id", ""))
+    last_skill_cast_msec = Time.get_ticks_msec()
+    last_skill_cast_serial += 1
     skill_cast.emit(String(payload.get("skill_id", payload.get("id", "thread_burst"))))
     return true
 
@@ -952,6 +1040,7 @@ func get_heal_readiness() -> Dictionary:
     elif not is_on_floor() and not _heal_airborne(): reason = "airborne"
     elif absf(_move_axis()) > 0.1 or Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("dash"): reason = "moving"
     return {"available":reason=="ready", "reason":reason, "cost":heal_energy_cost,
+        "reserved":heal_reserved_cost if heal_timer>0.0 else 0,
         "missing_energy":maxi(0,heal_energy_cost-energy), "amount":mini(heal_amount,maxi(0,max_hp-hp)),
         "duration":heal_duration, "remaining":heal_timer, "cooldown":heal_cooldown,
         "interrupt_loss":int(ceil(heal_reserved_cost*heal_reserved_loss_ratio)) if heal_timer>0.0 else int(ceil(heal_energy_cost*clampf(float(build_profile.get("heal_interrupt_loss_ratio",1.0)),0.0,1.0)))}
@@ -972,6 +1061,7 @@ func _try_heal() -> bool:
     # A payment listener may cancel, change build, or begin a newer channel.
     if heal_reservation_generation != reservation_generation or heal_timer <= 0.0:
         return false
+    HEAL_ART.start(self)
     _seal_present("heal", "prepare")
     _play_sfx("heal", -5.0)
     _play(&"heal")
@@ -988,34 +1078,50 @@ func _update_heal(delta: float) -> void:
     heal_timer = maxf(0.0, heal_timer - delta)
     if heal_timer <= 0.0:
         heal_reservation_generation += 1
+        var completed_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
         # Settle the paid build before HP listeners can replace that build.
         _seal_heal_completed()
-        _spawn_heal_effect()
+        HEAL_ART.completed(self)
         hp_changed.emit(hp)
-        heal_state_changed.emit("completed")
+        if heal_reservation_generation==completed_generation:
+            heal_state_changed.emit("completed")
 
 
 func _interrupt_heal() -> void:
     if heal_timer > 0.0:
-        var refund := heal_reserved_cost - int(ceil(heal_reserved_cost * heal_reserved_loss_ratio))
+        var settled:=preload("res://scripts/heal_refund_account.gd").settlement(
+            heal_reserved_cost,heal_reserved_practice,heal_reserved_loss_ratio,
+            energy,max_energy,practice_energy)
         # Clear the reservation and block recasts before emitting energy_changed.
         heal_reservation_generation += 1
+        var settled_generation:=heal_reservation_generation
         heal_reserved_cost = 0
         heal_timer = 0.0
         heal_cooldown = maxf(heal_cooldown, 0.3)
-        var practice_refund := mini(refund, heal_reserved_practice)
         heal_reserved_practice = 0
-        gain_energy(refund)
-        # A refund of practice thread stays practice thread.
-        practice_energy = mini(energy, practice_energy + practice_refund)
-        heal_state_changed.emit("interrupted")
+        HEAL_ART.interrupted(self)
+        # Publish provenance before gain_energy emits. Reentrant listeners may
+        # leave practice or pay a newer heal before this call returns.
+        _apply_thread_balance(int(settled.energy_after),int(settled.practice_after))
+        if heal_reservation_generation==settled_generation:
+            heal_state_changed.emit("interrupted")
 
 
 func apply_build_stats(stats: Dictionary) -> void:
+    # Finding a capacity reward is not an equipment change. Keep the current
+    # attack/channel/guard and its original reservation; do not refill on pickup.
+    if not build_profile.is_empty():
+        var capacity_only := build_profile.duplicate(true)
+        capacity_only["max_hp"] = stats.get("max_hp", max_hp)
+        capacity_only["max_energy"] = stats.get("max_energy", max_energy)
+        if capacity_only == stats and (max_hp != int(capacity_only.max_hp) or max_energy != int(capacity_only.max_energy)):
+            build_profile = stats.duplicate(true)
+            _apply_capacity_limits(stats)
+            return
     # Settle the old channel under its original cost/loss and capacity first.
     _interrupt_heal()
     _clear_action_buffer()
@@ -1028,6 +1134,7 @@ func apply_build_stats(stats: Dictionary) -> void:
     heal_stability_timer = 0.0
     status_resist_timer = 0.0
     attack_timer = 0.0
+    attack_cancel_lock = 0.0
     active_skill.clear()
     for enemy in get_tree().get_nodes_in_group("enemy"):
         if enemy.has_method("clear_salt_mark"):
@@ -1041,9 +1148,22 @@ func apply_build_stats(stats: Dictionary) -> void:
     heal_amount = maxi(1, int(stats.get("heal_amount", build_baseline.heal_amount)))
     heal_duration = maxf(0.2, float(stats.get("heal_duration", build_baseline.heal_duration)))
     hp = mini(hp, max_hp)
-    energy = mini(energy, max_energy)
+    var bounded:=preload("res://scripts/heal_refund_account.gd").change(0,energy,max_energy,practice_energy)
+    energy=int(bounded.energy)
+    practice_energy=int(bounded.practice)
     guard_timer = 0.0
     _stop_phase()
+    hp_changed.emit(hp)
+    energy_changed.emit(energy, max_energy)
+
+
+func _apply_capacity_limits(stats: Dictionary) -> void:
+    max_hp = maxi(1, int(stats.get("max_hp", max_hp)))
+    max_energy = maxi(1, int(stats.get("max_energy", max_energy)))
+    hp = mini(hp, max_hp)
+    var bounded:=preload("res://scripts/heal_refund_account.gd").change(0,energy,max_energy,practice_energy)
+    energy=int(bounded.energy)
+    practice_energy=int(bounded.practice)
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
 
@@ -1059,7 +1179,7 @@ func _try_guard() -> bool:
     guard_refunded = false
     ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
     _play(&"guard")
-    _ability_ring(46.0, THREAD_T3_CORE)
+    GUARD_ART.start(self)
     return true
 
 
@@ -1073,6 +1193,7 @@ func _try_resonance() -> bool:
     skill_effect_started = false
     ability_action.emit("crown_resonance", global_position, Vector2(facing, 0))
     _ability_ring(160.0, THREAD_T3_CORE)
+    ABILITY_ART.resonance(self)
     return true
 
 
@@ -1101,6 +1222,7 @@ func _update_phase(delta: float) -> void:
         _sync_phase_gates()
         ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
         _ability_ring(54.0, Color(0.5, 0.7, 1.0, 0.9))
+        ABILITY_ART.phase_enter(self)
 
 
 func _sync_phase_gates() -> void:
@@ -1126,6 +1248,7 @@ func _phase_position_clear() -> bool:
 
 
 func _stop_phase() -> void:
+    ABILITY_ART.phase_stop(self)
     if phase_active and is_inside_tree() and not _phase_position_clear():
         global_position = phase_safe_position
         velocity = Vector2.ZERO
@@ -1146,8 +1269,9 @@ func _ability_ring(radius: float, color: Color) -> void:
     for step in range(32):
         var angle := TAU * float(step) / 32.0
         ring.add_point(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, -42))
-    add_child(ring)
-    var tween := create_tween()
+    ring.z_index = 60
+    if not VISUAL_POLICY.attach_secondary(self, ring, &"state", self): return
+    var tween := ring.create_tween()
     tween.tween_property(ring, "modulate:a", 0.0, 0.3)
     tween.finished.connect(ring.queue_free)
 
@@ -1163,7 +1287,9 @@ func _update_camera(delta: float) -> void:
     var look_down := Input.is_action_pressed("aim_down")
     var direction := 0 if look_up == look_down else (-1 if look_up else 1)
     var eligible := is_on_floor() and absf(velocity.x) < 12.0 and absf(_move_axis()) < 0.1 and land_timer <= 0.0 and _can_start_action()
-    var observation: float = camera_focus.update(camera, delta, direction, eligible, strength)
+    var observation_strength: float = preload("res://scripts/camera_observation_preferences.gd").strength(_accessibility(),strength)
+    var observation_delay: float = preload("res://scripts/camera_observation_preferences.gd").normalize(_accessibility()).observation_delay
+    var observation: float = camera_focus.update(camera, delta, direction, eligible, observation_strength, observation_delay)
     camera.position = camera_focus.follow_position(camera, global_position, velocity, is_on_floor(), delta, strength, observation)
 
 
@@ -1206,7 +1332,7 @@ func _apply_special_skill() -> void:
         guard_timer = minf(0.65, float(active_skill.get("duration", 0.5)))
         guard_initial_duration = guard_timer
         guard_refunded = false
-        _ability_ring(56.0, THREAD_T3_CORE)
+        GUARD_ART.start(self)
     elif id == "shockwave" or kind == "shockwave":
         cast_tool({"kind": "wave", "damage": attack_damage, "range": attack_range, "duration": 0.8, "stagger": active_skill.get("stagger", 0.0), "skill_effect": true})
     elif kind == "control":
@@ -1219,6 +1345,7 @@ func _apply_special_skill() -> void:
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
                 if enemy.has_method("take_hit"):
                     enemy.take_hit(attack_damage, facing)
+                    if enemy.has_method("report_skill_contact"):enemy.report_skill_contact(self,id,last_skill_cast_serial)
 
 
 
@@ -1242,7 +1369,11 @@ func cast_tool(payload: Dictionary) -> bool:
                 field.queue_free()
     var projectile := Node2D.new()
     projectile.set_script(load("res://scripts/player_tool_effect.gd"))
-    projectile.set("payload", payload.duplicate(true))
+    var effect_payload:=payload.duplicate(true)
+    if bool(payload.get("skill_effect",false)):
+        effect_payload["practice_skill_id"]=String(active_skill.get("id",""))
+        effect_payload["practice_cast_serial"]=last_skill_cast_serial
+    projectile.set("payload", effect_payload)
     projectile.set("direction", facing)
     projectile.set("owner_player", self)
     get_parent().add_child(projectile)
@@ -1281,24 +1412,24 @@ func _update_attack(delta: float) -> void:
         attack_shape.disabled = true
         return
 
+    if not is_finite(delta) or delta <= 0.0: return
+    var previous := attack_duration - attack_timer
     attack_timer = maxf(0.0, attack_timer - delta)
     var elapsed := attack_duration - attack_timer
-    var active := elapsed >= attack_windup and elapsed <= attack_windup + attack_active_time
+    var window := preload("res://scripts/action_time_window.gd")
+    var crossed: bool = window.intersects(previous, elapsed, attack_windup, attack_active_time)
+    var active: bool = attack_timer > 0 and window.contains(elapsed, attack_windup, attack_active_time)
     var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
-    if not active_skill.is_empty() and elapsed > attack_windup + attack_active_time and not seal_recovery_shown:
-        seal_recovery_shown = true
-        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
-    if active and not attack_vfx_started:
+    if crossed and not attack_vfx_started:
         attack_vfx_started = true
         if not active_skill.is_empty():
             _seal_present(String(active_skill.get("id", "cleave")), "active")
-        if not special:
-            _spawn_attack_vfx(current_attack)
-    if active and special and not skill_effect_started:
+        if not special: _spawn_attack_vfx(current_attack)
+    if crossed and special and not skill_effect_started:
         skill_effect_started = true
         _apply_special_skill()
     attack_shape.disabled = not active or special
-    if active and not special:
+    if crossed and not special:
         if String(active_skill.get("id", "")) == "cleave":
             var progress := clampf((elapsed - attack_windup) / maxf(0.01, attack_active_time), 0.0, 1.0)
             var displacement := 64.0 * progress
@@ -1310,6 +1441,9 @@ func _update_attack(delta: float) -> void:
             for terrain in get_tree().get_nodes_in_group("fragile_terrain"):
                 if terrain is Node2D and terrain.has_method("receive_ability_action") and terrain.global_position.distance_to(global_position) < 100.0:
                     terrain.receive_ability_action("thorn_downstrike", global_position, Vector2.DOWN)
+    if not active_skill.is_empty() and elapsed >= attack_windup + attack_active_time and not seal_recovery_shown:
+        seal_recovery_shown = true
+        _seal_present(String(active_skill.get("id", "cleave")), "recovery")
 
 
 func _apply_attack_hits() -> void:
@@ -1330,28 +1464,33 @@ func _apply_attack_hits() -> void:
         if attack_rect.intersects(hurtbox) and _attack_line_clear(hurtbox.get_center()):
             hit_targets[id] = true
             var target_hp_before := int(node.get("hp"))
+            var practice_contact: bool=node.has_meta("seal_training_target") or node.has_meta("tool_training_target")
+            var contact_call: int = int(node.contact_visual_call_serial()) + 1 if node.has_method("contact_visual_call_serial") else -1
             node.take_hit(attack_damage, _attack_hit_direction())
             var accepted := is_instance_valid(node) and int(node.get("hp")) < target_hp_before
             if not accepted:
                 continue
+            if not active_skill.is_empty() and node.has_method("report_skill_contact"):
+                node.report_skill_contact(self,String(active_skill.get("id","")),last_skill_cast_serial)
             if current_attack == &"hook_throw" and not hook_latch_played:
                 # 钩索"挂住"=钩击命中确认（与 hitstop 同拍）；每次挥钩仅播一次。
                 hook_latch_played = true
                 _play_sfx("hook_latch", -6.0)
+                HOOK_ART.latch(self, hurtbox.get_center())
                 # ch2 beat `echo_hook`（manifest ch02_beat_02）：雨铸运河钩击命中后
                 # 叠一拍水声回响（金属声后接水面回声，采样内已含节拍延迟）。
                 if footstep_material == "copper":
                     _play_sfx("ch02_beat_echo_hook", -10.0)
             var killed := not is_instance_valid(node) or int(node.get("hp")) <= 0
-            var energy_before := energy
+            var observed_boss: Variant=node.get("is_boss")
+            combat_observed.emit({"kind":"strike","damage":maxi(0,target_hp_before-maxi(0,int(node.get("hp")))),"killed":killed,
+                "boss":observed_boss is bool and observed_boss,"practice":node.has_meta("seal_training_target") or node.has_meta("tool_training_target")})
             if active_skill.is_empty():
-                gain_energy(energy_per_hit)
+                gain_energy(energy_per_hit,practice_contact)
                 _basic_seal_hit()
             elif String(active_skill.get("id", "")) == "crosscut" and bool(active_skill.get("empowered", false)) and not crosscut_refund_paid:
-                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)))
+                gain_energy(mini(10, maxi(0, int(active_skill.get("energy_cost", 30)) - 1)),practice_contact)
                 crosscut_refund_paid = true
-            if is_instance_valid(node) and node.has_meta("seal_training_target"):
-                practice_energy += energy - energy_before
             if active_skill.is_empty() and _crest() == "bell" and _seal_mechanism_ready() and bell_pressure > 0 and current_attack == &"attack_2":
                 if node.has_method("apply_stagger"):
                     node.apply_stagger(bell_pressure * 0.3)
@@ -1360,7 +1499,29 @@ func _apply_attack_hits() -> void:
                 _apply_downslash_bounce(node.global_position)
                 attack_pogo_paid = true
             _trigger_hit_feedback(killed)
-            _spawn_hit_confirm_vfx(node.global_position, current_attack)
+            _spawn_hit_confirm_vfx(node.global_position, current_attack, node, contact_call)
+    _try_hazard_pogo(attack_rect)
+
+
+## A downslash that meets static spikes bounces like an enemy hit, but awards no
+## thread and no hit feedback. Terrain between the player and spikes blocks it.
+func _try_hazard_pogo(attack_rect: Rect2) -> void:
+    if attack_pogo_paid or current_attack == &"hook_throw" or current_attack_direction.y <= 0.5:
+        return
+    for node in get_tree().get_nodes_in_group(HAZARD_POGO.GROUP):
+        if not is_instance_valid(node) or not node is Node2D or not node.is_inside_tree():
+            continue
+        var surface: Rect2 = HAZARD_POGO.surface_rect(node)
+        if surface.size == Vector2.ZERO or not attack_rect.intersects(surface):
+            continue
+        var contact := Vector2(clampf(global_position.x, surface.position.x, surface.end.x), surface.position.y + 1.0)
+        if not _attack_line_clear(contact):
+            continue
+        _apply_downslash_bounce(contact)
+        attack_pogo_paid = true
+        hazard_pogo_guard_timer = HAZARD_POGO.CONTACT_GRACE
+        _spawn_hit_confirm_vfx(contact, current_attack)
+        return
 
 
 ## 命中反馈分档（规格 §2.1/§2.2）：hitstop + trauma + 击杀闪帧。
@@ -1466,12 +1627,14 @@ func _play_pogo_squash() -> void:
     tween.tween_property(sprite, "scale", sprite_base_scale, 0.10).set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
 
 
-func gain_energy(amount: int) -> void:
+func gain_energy(amount: int, practice_gain: bool = false) -> void:
+    var change:=preload("res://scripts/heal_refund_account.gd").change(amount,energy,max_energy,practice_energy,practice_gain)
+    _apply_thread_balance(int(change.energy),int(change.practice))
+
+func _apply_thread_balance(next_energy: int, next_practice: int) -> void:
     var before := energy
-    energy = clampi(energy + amount, 0, max_energy)
-    # Spending uses rack-earned practice thread first.
-    if amount < 0:
-        practice_energy = maxi(0, practice_energy - (before - energy))
+    energy=clampi(next_energy,0,max_energy)
+    practice_energy=clampi(next_practice,0,energy)
     if energy != before:
         energy_changed.emit(energy, max_energy)
 
@@ -1618,15 +1781,17 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
         return
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
     var resolved_voice_key := voice_key if not voice_key.is_empty() else "player_" + audio_key
-    if not _request_voice(resolved_voice_key, voice_priority):
+    var voice_ticket := _request_voice(resolved_voice_key, voice_priority)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice(resolved_voice_key)
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
+    player_node.set_meta("retire_after_playback",true)
     # 总线归位（音频规格 §5.1）：玩家动作音走 SFXPlayer 子总线，缺席时回落 SFX/Master。
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
@@ -1635,7 +1800,7 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 ## 落地分档（音频规格 §4.1）：按触地前一帧的下落速度选软/硬落地采样。
@@ -1661,17 +1826,24 @@ static func _ensure_audio_director() -> bool:
 
 
 ## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
-## 返回 false 表示本次不播。
-static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+## 返回 0 拒绝，正数为唯一票据；-1 为脚本缺席的局部验证回退。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     if not _ensure_audio_director():
-        return true
-    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+        return -1
+    return int(audio_director_script.reserve_voice(key, priority, min_interval_ms, max_voices))
 
 
-## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
-static func _release_voice(key: String) -> void:
-    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
-        audio_director_script.release_voice(key)
+## 绑定唯一票据并开始播放。
+static func _start_voice(ticket: int, voice: Node, persistent: bool = false) -> void:
+    if ticket == -1:
+        voice.play()
+    elif _ensure_audio_director():
+        audio_director_script.start_reserved_voice(ticket,voice,persistent)
+
+## 拿不到流时只回滚这张票据，不影响同 key 的其他声音。
+static func _release_voice(ticket: int) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_ticket"):
+        audio_director_script.release_ticket(ticket)
 
 
 ## 冲刺残影（规格 §2.3）：每 2 物理帧留 1 影，绯红加法混合，前重后轻褪色。
@@ -1692,7 +1864,7 @@ func _spawn_dash_ghost() -> void:
     var ghost_material := CanvasItemMaterial.new()
     ghost_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
     ghost.material = ghost_material
-    parent_node.add_child(ghost)
+    if not VISUAL_POLICY.attach_secondary(parent_node, ghost, &"motion", self): return
     ghost.global_transform = sprite.global_transform
     var tween := ghost.create_tween()
     tween.tween_property(ghost, "self_modulate:a", 0.0, 0.24).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -1702,40 +1874,7 @@ func _spawn_dash_ghost() -> void:
 
 ## 冲刺线迹（规格 §2.3）：起点→终点一条 T2 主线，结束后从尾端收回（收线律）。
 func _spawn_dash_trail() -> void:
-    var parent_node := get_parent()
-    if parent_node == null:
-        return
-    var from := dash_start_position + Vector2(0.0, -34.0)
-    var to := global_position + Vector2(0.0, -34.0)
-    if from.distance_to(to) < 24.0:
-        return
-    var trail := Line2D.new()
-    trail.name = "DashTrailVfx"
-    trail.width = 3.0
-    trail.default_color = THREAD_T2_CORE
-    trail.z_index = 56
-    trail.points = PackedVector2Array([from, to])
-    parent_node.add_child(trail)
-    var glow := Line2D.new()
-    glow.name = "DashTrailGlow"
-    glow.width = 3.0 * 2.6
-    glow.default_color = THREAD_T2_GLOW
-    glow.z_index = 55
-    glow.points = PackedVector2Array([from, to])
-    var glow_material := CanvasItemMaterial.new()
-    glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-    glow.material = glow_material
-    parent_node.add_child(glow)
-    var tween := trail.create_tween()
-    tween.tween_method(func(t: float) -> void:
-        var retracted := PackedVector2Array([from.lerp(to, t), to])
-        if is_instance_valid(trail):
-            trail.points = retracted
-        if is_instance_valid(glow):
-            glow.points = retracted
-    , 0.0, 1.0, 0.20)
-    tween.finished.connect(Callable(trail, "queue_free"))
-    tween.finished.connect(Callable(glow, "queue_free"))
+    DASH_ART.finished(self)
 
 
 func _should_play_sfx() -> bool:
@@ -1802,25 +1941,28 @@ func _update_wall_slide_audio() -> void:
 
 
 func _start_wall_slide_loop() -> void:
+    if is_instance_valid(wall_slide_audio) and wall_slide_audio.playing:return
     if not _should_play_sfx():
         return
-    if not _request_voice("player_wall_slide_loop", 1, 40, 1):
+    var voice_ticket := _request_voice("player_wall_slide_loop", 1, 40, 1)
+    if voice_ticket == 0:
         return
     if wall_slide_audio == null or not is_instance_valid(wall_slide_audio):
-        # looped=true 走独立缓存键（AudioDirector 契约）：不原地改缓存流的 loop 标记。
-        var stream := _load_sfx_stream("wall_slide_loop", true)
-        if stream == null:
-            _release_voice("player_wall_slide_loop")
-            return
         wall_slide_audio = AudioStreamPlayer2D.new()
         wall_slide_audio.name = "SfxLoop_wall_slide"
         wall_slide_audio.bus = _sfx_bus_name()
-        wall_slide_audio.stream = stream
         wall_slide_audio.volume_db = -13.0
         wall_slide_audio.max_distance = 900.0
         add_child(wall_slide_audio)
+    if wall_slide_audio.stream == null:
+        # Region retirement releases streams while the persistent player survives.
+        var stream := _load_sfx_stream("wall_slide_loop", true)
+        if stream == null:
+            _release_voice(voice_ticket)
+            return
+        wall_slide_audio.stream = stream
     if not wall_slide_audio.playing:
-        wall_slide_audio.play()
+        _start_voice(voice_ticket,wall_slide_audio,true)
 
 
 func _stop_wall_slide_loop() -> void:
@@ -1844,19 +1986,22 @@ func _update_footsteps(delta: float) -> void:
 func _play_footstep() -> void:
     if not _should_play_sfx():
         return
-    if not _request_voice("player_footstep", 2, 90, 2):
+    var voice_ticket := _request_voice("player_footstep", 2, 90, 2)
+    if voice_ticket == 0:
         return
     var material_key := String(FOOTSTEP_MATERIAL_REMAP.get(footstep_material, footstep_material))
     var variants: Array = FOOTSTEP_VARIANTS.get(material_key, FOOTSTEP_VARIANTS["moss"])
     if variants.is_empty():
+        _release_voice(voice_ticket)
         return
     var path := String(variants[randi() % variants.size()])
     var stream := _load_stream_for_path(path)
     if stream == null:
-        _release_voice("player_footstep")
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "SfxStep"
+    player_node.set_meta("retire_after_playback",true)
     player_node.bus = _sfx_bus_name()
     player_node.stream = stream
     player_node.volume_db = FOOTSTEP_VOLUME_DB
@@ -1865,7 +2010,7 @@ func _play_footstep() -> void:
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _spawn_heal_effect() -> void:
@@ -1879,8 +2024,8 @@ func _spawn_heal_effect() -> void:
         thread.width = 2.0
         thread.default_color = Color(THREAD_T3_CORE.r, THREAD_T3_CORE.g, THREAD_T3_CORE.b, 0.82)
         thread.z_index = 44
-        add_child(thread)
-        var tween := create_tween()
+        if not VISUAL_POLICY.attach_secondary(self, thread, &"state", self): continue
+        var tween := thread.create_tween()
         tween.tween_property(thread, "position:y", -18.0, 0.42).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.42)
         tween.finished.connect(Callable(thread, "queue_free"))
@@ -1898,9 +2043,9 @@ func _add_heal_ring(radius: float, delay: float) -> void:
     ring.width = 3.0
     ring.default_color = THREAD_T3_CORE
     ring.z_index = 45
-    add_child(ring)
+    if not VISUAL_POLICY.attach_secondary(self, ring, &"state", self): return
     ring.scale = Vector2(0.38, 0.38)
-    var tween := create_tween()
+    var tween := ring.create_tween()
     tween.tween_interval(delay)
     tween.tween_property(ring, "scale", Vector2(1.9, 1.9), 0.46).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
     tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.46)
@@ -1917,7 +2062,7 @@ func _spawn_attack_vfx(animation: StringName) -> void:
 
 
 func _spawn_slash_vfx() -> void:
-    MELEE_FEEDBACK.spawn_swing(self, sprite, attack_active_time, _accessibility())
+    BASIC_ATTACK_VFX.spawn(self, sprite, current_attack_direction, not attack_started_grounded, attack_active_time, _accessibility())
 
 
 ## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
@@ -1935,35 +2080,17 @@ func _make_glow_twin(line: Line2D, width_ratio: float, glow_color: Color) -> Lin
 
 
 func _spawn_hook_trail_vfx() -> void:
-    var trail := Line2D.new()
-    trail.name = "HookTrailVfx"
-    trail.width = 3.0
-    trail.default_color = Color(0.50, 1.0, 0.95, 0.88)
-    trail.z_index = 58
-    trail.points = PackedVector2Array([
-        Vector2(16.0 * facing, -46.0),
-        Vector2(70.0 * facing, -54.0),
-        Vector2(145.0 * facing, -38.0)
-    ])
-    add_child(trail)
-    var hook_tip := Polygon2D.new()
-    hook_tip.name = "HookTipVfx"
-    hook_tip.polygon = PackedVector2Array([
-        Vector2(150.0 * facing, -38.0),
-        Vector2(128.0 * facing, -50.0),
-        Vector2(132.0 * facing, -27.0)
-    ])
-    hook_tip.color = Color(0.68, 1.0, 0.86, 0.86)
-    hook_tip.z_index = 59
-    add_child(hook_tip)
-    var tween := create_tween()
-    tween.tween_property(trail, "modulate:a", 0.0, 0.22)
-    tween.parallel().tween_property(hook_tip, "modulate:a", 0.0, 0.22)
-    tween.finished.connect(Callable(trail, "queue_free"))
-    tween.finished.connect(Callable(hook_tip, "queue_free"))
+    HOOK_ART.combat(self)
 
 
 func _spawn_skill_slash_vfx() -> void:
+    if CONTACT_ART.supported_slash(self):
+        CONTACT_ART.skill_slash(self)
+    else:
+        _spawn_legacy_skill_slash_vfx()
+
+
+func _spawn_legacy_skill_slash_vfx() -> void:
     var burst := Line2D.new()
     burst.name = "SkillSlashVfx"
     burst.width = 7.0
@@ -1991,7 +2118,6 @@ func _spawn_skill_slash_vfx() -> void:
             Vector2(84.0 * facing, -24.0),
             Vector2(112.0 * facing, 8.0)
         ])
-    add_child(burst)
     var ring := Line2D.new()
     ring.name = "SkillBurstRingVfx"
     var points := PackedVector2Array()
@@ -2003,8 +2129,8 @@ func _spawn_skill_slash_vfx() -> void:
     ring.width = 3.0
     ring.default_color = Color(0.46, 1.0, 0.90, 0.70)
     ring.z_index = 60
-    add_child(ring)
-    var tween := create_tween()
+    if not VISUAL_POLICY.attach_secondary_batch(self, [burst, ring], &"state", self): return
+    var tween := burst.create_tween()
     tween.tween_property(burst, "scale", Vector2(1.22, 1.22), 0.22)
     tween.parallel().tween_property(burst, "modulate:a", 0.0, 0.22)
     tween.parallel().tween_property(ring, "scale", Vector2(1.8, 1.8), 0.22)
@@ -2013,8 +2139,8 @@ func _spawn_skill_slash_vfx() -> void:
     tween.finished.connect(Callable(ring, "queue_free"))
 
 
-func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName) -> void:
-    MELEE_FEEDBACK.spawn_hit(get_parent() as Node2D, world_position + Vector2(0.0, -28.0), current_attack_direction, animation, _accessibility())
+func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName, receiver: Node2D = null, contact_call: int = -1) -> void:
+    MELEE_FEEDBACK.spawn_hit(get_parent() as Node2D, world_position + Vector2(0.0, -28.0), current_attack_direction, animation, _accessibility(), receiver, contact_call, self)
 
 
 func _spawn_land_vfx() -> void:
@@ -2029,8 +2155,8 @@ func _spawn_land_vfx() -> void:
     dust.width = 3.0
     dust.default_color = Color(0.64, 0.92, 0.56, 0.72)
     dust.z_index = 34
-    add_child(dust)
-    var tween := create_tween()
+    if not VISUAL_POLICY.attach_secondary(self, dust, &"motion", self): return
+    var tween := dust.create_tween()
     tween.tween_property(dust, "scale", Vector2(1.7, 1.0), 0.18)
     tween.parallel().tween_property(dust, "modulate:a", 0.0, 0.18)
     tween.finished.connect(Callable(dust, "queue_free"))
@@ -2046,15 +2172,15 @@ func practice_guard_contact(source_position: Vector2) -> bool:
     return guard_timer <= 0.0
 
 
-func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> void:
+func take_damage(amount: int, source_position: Vector2 = global_position, blockable: bool = true) -> bool:
     if arrival_guard_timer > 0.0:
-        return
+        return false
     if debug_invulnerable:
-        return
+        return false
     if hurt_timer > 0.0 or death_timer > 0.0:
-        return
+        return false
     if amount <= 0:
-        return
+        return false
     camera_focus.clear_look()
     _clear_action_buffer()
     var source_side := signf(source_position.x - global_position.x)
@@ -2069,8 +2195,14 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
         guard_timer = 0.0
         hurt_timer = 0.12
-        _ability_ring(64.0, THREAD_T3_CORE)
-        return
+        GUARD_ART.blocked(self, perfect)
+        combat_observed.emit({"kind":"guard","perfect":perfect})
+        return false
+    GUARD_ART.clear(self)
+    CONTACT_ART.clear_player(self)
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
     line_stacks = 0
     line_expiry = 0.0
     _interrupt_heal()
@@ -2082,11 +2214,12 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     attack_timer = 0.0
     attack_shape.set_deferred("disabled", true)
     amount = maxi(1, int(ceil(float(amount) * float(build_profile.get("damage_taken_mult", 1.0)))))
+    var hp_before_damage := hp
     hp = maxi(0, hp - amount)
     hp_changed.emit(hp)
+    combat_observed.emit({"kind":"hurt","damage":hp_before_damage-hp,"lethal":hp<=0})
     # P0 生死攸关音：声部抢占最高优先级。
     _play_sfx("hurt", -6.0, 1.0, "", 0)
-    _spawn_thread_snap_vfx(source_position)
     if hp <= 0:
         bell_pressure = 0
         heal_speed_timer = 0.0
@@ -2096,6 +2229,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             if enemy.has_method("clear_salt_mark"):
                 enemy.clear_salt_mark()
         death_timer = 0.9
+        HURT_ART.died(self)
         respawn_reveal_timer = 0.0
         _set_death_visibility(1.0)
         velocity = Vector2.ZERO
@@ -2107,7 +2241,8 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             _add_trauma(0.60)
             _black_frame(global_position, 3)
         _play(&"death")
-        return
+        return true
+    HURT_ART.hurt(self, source_position)
     if feel != null:
         feel.hitstop(110.0)
         _add_trauma(0.45)
@@ -2126,6 +2261,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
     else:
         velocity = Vector2(knockback_dir * 260.0 * float(build_profile.get("knockback_mult", 1.0)), -170.0)
     _play(&"hurt")
+    return true
 
 
 ## 受伤丝线崩断（规格 §2.10）：从受击点向外 5 条绯线绷断飞散。
@@ -2148,7 +2284,7 @@ func _spawn_thread_snap_vfx(source_position: Vector2) -> void:
         thread.default_color = THREAD_T2_CORE
         thread.z_index = 80
         thread.position = origin
-        parent_node.add_child(thread)
+        if not VISUAL_POLICY.attach_secondary(parent_node, thread, &"state", self): continue
         var tween := thread.create_tween()
         tween.tween_property(thread, "position", origin + tip * 0.8, 0.25).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
         tween.parallel().tween_property(thread, "modulate:a", 0.0, 0.25)
@@ -2235,6 +2371,7 @@ func _hard_respawn() -> void:
     snare_timer = 0.0
     hp = max_hp
     energy = 0
+    practice_energy = 0
     hp_changed.emit(hp)
     energy_changed.emit(energy, max_energy)
     respawn_at(spawn_position)
@@ -2243,6 +2380,7 @@ func _hard_respawn() -> void:
     _play(&"idle")
     respawn_reveal_timer = RESPAWN_REVEAL_SECONDS
     _set_death_visibility(0.0)
+    HURT_ART.respawned(self)
 
 
 func restore_at_save_point() -> void:
@@ -2504,3 +2642,15 @@ func _bind_joy_axis(action_name: StringName, axis: JoyAxis, axis_value: float) -
     joy.axis = axis
     joy.axis_value = axis_value
     InputMap.action_add_event(action_name, joy)
+
+
+func _exit_tree() -> void:
+    CONTACT_ART.clear_player(self)
+    ABILITY_ART.clear(self)
+    HOOK_ART.clear(self)
+    DASH_ART.clear(self)
+    HURT_ART.clear(self)
+    MOVEMENT_ART.clear(self)
+    HEAL_ART.clear(self)
+    GUARD_ART.clear(self)
+    VISUAL_POLICY.clear_secondary(self)

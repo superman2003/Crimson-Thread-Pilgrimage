@@ -2,6 +2,42 @@ extends RefCounted
 ## Pure knowledge and map-marker rules shared by regional and world maps.
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
 
+static func public_room(room: Dictionary) -> bool:
+	return String(room.get("kind","")) not in ["secret","reward","treasure","exit"] and not bool(room.get("hidden",false)) and not String(room.get("id","")).begins_with("upgrade_")
+
+## Describes map height, never the player's location or whether a door is open.
+static func room_context(config: Dictionary, flags: Dictionary, region: String, room_id: String) -> String:
+	var journals: Variant=flags.get(JOURNAL.KEY,{})
+	if not journals is Dictionary:return ""
+	var journal: Variant=journals.get(region,{})
+	if not journal is Dictionary or not journal.get("owned") is bool or not journal.owned:return ""
+	var notes: Variant=journal.get("charted",{})
+	if not notes is Dictionary:notes={}
+	var known: Dictionary={}
+	for room in config.get("map_rooms",[]):
+		var id:=String(room.get("id",""))
+		var charted:=false
+		for key in notes:
+			if key is String and (key==id or key.begins_with(id+"@")) and notes[key] is bool and notes[key]:charted=true
+		if public_room(room) or charted:known[id]=room
+	if not known.has(room_id):return ""
+	var source: Dictionary=known[room_id]
+	var source_rect:=_room_rect(source)
+	var parts: Array[String]=[String(source.get("name",room_id))]
+	var seen: Dictionary={}
+	for link in config.get("connections",[]):
+		var a:=String(link.get("from",""))
+		var b:=String(link.get("to",""))
+		var target:=b if a==room_id else a if b==room_id else ""
+		if target==room_id or not known.has(target) or seen.has(target):continue
+		seen[target]=true
+		var rect:=_room_rect(known[target])
+		if rect.size==Vector2.ZERO or source_rect.size==Vector2.ZERO:continue
+		var difference:=rect.get_center().y-source_rect.get_center().y
+		var direction:="↑ 图上较高" if difference < -64.0 else "↓ 图上较低" if difference > 64.0 else "↔ 相近高度"
+		parts.append(direction+"："+String(known[target].get("name",target)))
+	return " · ".join(parts)+"\n邻接不表示道路已开放；门与捷径状态请看各自标记。"
+
 static func owner_room(config: Dictionary, area: Rect2) -> Dictionary:
 	var center := area.get_center()
 	var best: Dictionary = {}
@@ -19,7 +55,8 @@ static func owner_room(config: Dictionary, area: Rect2) -> Dictionary:
 static func visible(flags: Dictionary, region_id: String, config: Dictionary, area: Rect2) -> bool:
 	if not JOURNAL.owned(flags, region_id): return false
 	var room := owner_room(config, area)
-	return not room.is_empty() and JOURNAL.charted(flags, region_id, String(room.get("id", "")))
+	# In a large room only the charted sections show their features.
+	return not room.is_empty() and JOURNAL.charted_at(flags, region_id, room, area.get_center())
 
 static func gate_open(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> bool:
 	var ability := String(gate.get("required_ability", ""))
@@ -52,7 +89,15 @@ static func marker_records(config: Dictionary, flags: Dictionary, region_id: Str
 static func shortcut_records(config: Dictionary, flags: Dictionary, region_id: String, opened: Dictionary) -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
 	var names := {}
-	for room in config.get("map_rooms", []): names[String(room.get("id", ""))] = String(room.get("name", room.get("id", "")))
+	# Only shortcut endpoints need labels; avoid segment construction for every
+	# large unrelated room each time either map redraws.
+	var relevant := {}
+	for connection in config.get("connections", []):
+		if connection is Dictionary and not String(connection.get("shortcut_id", "")).is_empty():
+			relevant[String(connection.get("from", ""))] = true
+			relevant[String(connection.get("to", ""))] = true
+	for room in config.get("map_rooms", []):
+		if relevant.has(String(room.get("id", ""))) and JOURNAL.charted_any(flags,region_id,room):names[String(room.get("id", ""))] = String(room.get("name", room.get("id", "")))
 	for lever in config.get("interactives", []):
 		var shortcut := String(lever.get("shortcut_id", ""))
 		if shortcut.is_empty() or String(lever.get("kind", "")) != "lever": continue
@@ -63,7 +108,7 @@ static func shortcut_records(config: Dictionary, flags: Dictionary, region_id: S
 		var joins := ""
 		for connection in config.get("connections", []):
 			if connection is Dictionary and String(connection.get("shortcut_id", "")) == shortcut:
-				joins = "%s ⇄ %s" % [names.get(String(connection.get("from", "")), connection.get("from", "")), names.get(String(connection.get("to", "")), connection.get("to", ""))]
+				joins = "%s ⇄ %s" % [names.get(String(connection.get("from", "")), "未补绘邻室"), names.get(String(connection.get("to", "")), "未补绘邻室")]
 		var is_open := opened.has(shortcut)
 		var room := owner_room(config, rect)
 		records.append({"kind":"shortcut", "id":shortcut, "rect":rect, "room_id":String(room.get("id", "")), "open":is_open,

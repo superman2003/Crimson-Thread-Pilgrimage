@@ -57,5 +57,34 @@ func _run() -> void:
     _check(presentation._streams.is_empty() and presentation._voices.is_empty(), "retirement clears local audio ownership")
     presentation.free()
     await process_frame
+    await _global_trace_budget()
     print("SEAL_PRESENTATION_VALIDATION: %d checks, %d failures" % [checks, failures])
     quit(0 if failures == 0 else 1)
+
+func _global_trace_budget() -> void:
+    var policy := preload("res://scripts/combat_visual_policy.gd")
+    var stage := Node2D.new(); root.add_child(stage)
+    stage.z_index = 200
+    var actors: Array[Node2D] = []
+    for index in range(20):
+        var actor := PRESENTATION.new(); actor.muted = true; stage.add_child(actor); actors.append(actor)
+        actor.play_action("needle", "active")
+    var traces := get_nodes_in_group(policy.ACTION_TRACE_GROUP)
+    _check(traces.size() == policy.MAX_ACTION_TRACES, "twenty owners share eight harmless action traces")
+    for trace in traces:
+        _check(not trace.z_as_relative and trace.z_index == policy.BLADE_Z, "parent decorative Z cannot raise an action trace over danger")
+    for actor in actors: actor.cue_unblockable(Vector2(50, 60))
+    for actor in actors:
+        var warning = actor._effects.back()
+        _check(warning.action_id == "unblockable" and warning.z_index == policy.WARNING_Z and not warning.z_as_relative, "saturated cosmetics cannot reject or lower a real unblockable cue")
+        for burst in range(12): actor.play_action("cleave", "active")
+        _check(not warning.is_queued_for_deletion(), "ordinary attacks never evict an existing warning")
+    _check(get_nodes_in_group(policy.ACTION_TRACE_GROUP).size() == policy.MAX_ACTION_TRACES, "warnings do not consume or expand decorative capacity")
+    actors[0].queue_free(); await process_frame
+    actors.back().play_action("needle", "active")
+    var active := 0
+    for trace in get_nodes_in_group(policy.ACTION_TRACE_GROUP):
+        if not trace.is_queued_for_deletion(): active += 1
+    _check(active == policy.MAX_ACTION_TRACES, "retiring an owner releases its cosmetic slot immediately")
+    stage.queue_free(); await process_frame; await process_frame
+    _check(get_nodes_in_group(policy.ACTION_TRACE_GROUP).is_empty(), "scene retirement releases all global trace membership")

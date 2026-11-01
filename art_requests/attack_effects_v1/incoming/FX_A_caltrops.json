@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_caltrops.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_caltrops.txt",
+  "prompt_sha256": "2776d4702646e517a3346a7ac2e79278fa9322d00b31deb52970bfbce80425b4",
+  "image_sha256": "696b8f0037340a86d48b9481fcb8ea4f776af2ce7d0ba395568d78979c72540b",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1212387,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/pilgrim_chariot.png",
+      "sha256": "d394b27f77581b02cc116624513522b102c367d0a49a1ba90644304c01e05ecf"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        439,
+        502
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        46,
+        253,
+        389,
+        447
+      ],
+      "fully_transparent_pixels": 170546
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        439,
+        0,
+        880,
+        502
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        481,
+        270,
+        853,
+        452
+      ],
+      "fully_transparent_pixels": 165962
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        880,
+        0,
+        1326,
+        502
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        910,
+        309,
+        1294,
+        456
+      ],
+      "fully_transparent_pixels": 184715
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1326,
+        0,
+        1774,
+        502
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1355,
+        321,
+        1738,
+        454
+      ],
+      "fully_transparent_pixels": 184493
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        502,
+        448,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        44,
+        676,
+        413,
+        822
+      ],
+      "fully_transparent_pixels": 128496
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        448,
+        502,
+        887,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        485,
+        687,
+        853,
+        822
+      ],
+      "fully_transparent_pixels": 129372
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        887,
+        502,
+        1326,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        926,
+        664,
+        1288,
+        824
+      ],
+      "fully_transparent_pixels": 119065
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1326,
+        502,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1372,
+        678,
+        1719,
+        807
+      ],
+      "fully_transparent_pixels": 129738
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "灰釘陣",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

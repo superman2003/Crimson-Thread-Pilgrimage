@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_pollen.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_pollen.txt",
+  "prompt_sha256": "9ff30de0efb11e7cdfc7d04e00686a730cb9f59c07567af3a0988f3444658ea3",
+  "image_sha256": "092d514a393721efaad9b0b365df682f54fc153e4f53c567846f6d127856d140",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1089856,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/bronze_moth.png",
+      "sha256": "489e98912fc2170b7f76a5a4e693ca3fca229685d33a5d002398e9647a435fa9"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/pollen_lutist.png",
+      "sha256": "e081c6b10f1c4a748accd32b27e3ecc3e69fcd089bf6526a22c23697f3b198a8"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        433,
+        430
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        61,
+        151,
+        377,
+        329
+      ],
+      "fully_transparent_pixels": 136080
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        433,
+        0,
+        881,
+        430
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        491,
+        146,
+        827,
+        326
+      ],
+      "fully_transparent_pixels": 131198
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        881,
+        0,
+        1317,
+        430
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        939,
+        162,
+        1259,
+        332
+      ],
+      "fully_transparent_pixels": 132808
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1317,
+        0,
+        1774,
+        430
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1379,
+        144,
+        1718,
+        325
+      ],
+      "fully_transparent_pixels": 138054
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        430,
+        464,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        48,
+        535,
+        414,
+        794
+      ],
+      "fully_transparent_pixels": 140744
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        464,
+        430,
+        898,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        512,
+        549,
+        845,
+        779
+      ],
+      "fully_transparent_pixels": 119432
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        898,
+        430,
+        1316,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        956,
+        562,
+        1288,
+        778
+      ],
+      "fully_transparent_pixels": 128923
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1316,
+        430,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1426,
+        587,
+        1726,
+        750
+      ],
+      "fully_transparent_pixels": 162617
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "花粉團",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

@@ -1,0 +1,471 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+PASS world route resolves demo_ch01_moss_bell_court
+苔钟庭
+地图残页
+PASS fixture is in moss bell court
+PASS ch01 authors at least one optional challenge
+PASS ch01 lock inside is left of the east wall
+挑战房 · 冠隙试炼
+PASS ch01 seal push keeps the player inside left of the wall
+挑战房 · 冠隙试炼
+WARNING: Optional challenge spawn failed, skipping CH01_N2
+     at: push_warning (core/variant/variant_utility.cpp:1034)
+     GDScript backtrace (most recent call first):
+         [0] _start_optional_challenge (res://scripts/main_level.gd:5737)
+         [1] run (res://scripts/optional_challenges_validation.gd:194)
+         [2] free_challenge_foes (res://scripts/optional_challenges_validation.gd:68)
+         [3] tick (res://scripts/optional_challenges_validation.gd:23)
+有试炼之敌没有显形。
+PASS a failed challenge spawn is not latched in the alive set
+PASS a failed challenge spawn leaves no foe
+挑战房 · 冠隙试炼
+WARNING: Optional challenge spawn failed, skipping CH01_N1
+     at: push_warning (core/variant/variant_utility.cpp:1034)
+     GDScript backtrace (most recent call first):
+         [0] _start_optional_challenge (res://scripts/main_level.gd:5737)
+         [1] run (res://scripts/optional_challenges_validation.gd:202)
+         [2] free_challenge_foes (res://scripts/optional_challenges_validation.gd:68)
+         [3] tick (res://scripts/optional_challenges_validation.gd:23)
+WARNING: Optional challenge spawn failed, skipping CH01_N2
+     at: push_warning (core/variant/variant_utility.cpp:1034)
+     GDScript backtrace (most recent call first):
+         [0] _start_optional_challenge (res://scripts/main_level.gd:5737)
+         [1] run (res://scripts/optional_challenges_validation.gd:202)
+         [2] free_challenge_foes (res://scripts/optional_challenges_validation.gd:68)
+         [3] tick (res://scripts/optional_challenges_validation.gd:23)
+试炼钟空响了一声。
+PASS a trial whose spawns all fail does not stay active
+PASS a fully failed spawn grants nothing and stays uncleared
+PASS ch01 fixture stands in the trial room
+挑战房 · 冠隙试炼
+PASS ch01 trial starts for the leave-room check
+PASS ch01 leave-room check has a live foe
+试炼之敌倒下
+PASS killing one ch01 foe removes only that spawn
+PASS one ch01 kill does not finish the trial
+PASS killing one challenge foe grants no energy
+PASS ch01 outside point is another room
+离开试炼，余响钟复位；随时可以回来再敲。
+风从冠上来。跳下去吧，线会接住你——它记得这条路。
+PASS leaving the trial room ends the attempt
+PASS leaving the trial room opens the seal
+PASS leaving the trial room removes the trial foes
+PASS an abandoned attempt pays nothing, grants no energy, and stays uncleared
+PASS ch01_crown_nook_trial is authored on the active region
+PASS ch01_crown_nook_trial records a clear flag
+PASS ch01_crown_nook_trial starts uncleared
+PASS ch01_crown_nook_trial shrine exists in the live region
+挑战房 · 冠隙试炼
+PASS ch01_crown_nook_trial becomes the active challenge
+PASS ch01_crown_nook_trial seals the entrance while active
+PASS ch01_crown_nook_trial spawns every authored challenge enemy
+PASS ch01_crown_nook_trial does not inflate the region's combat-clear total
+PASS ch01_crown_nook_trial foe CH01_N1 is live in the region
+PASS ch01_crown_nook_trial foe CH01_N1 spawns inside the trial room
+PASS ch01_crown_nook_trial foe CH01_N1 stands on floor
+试炼之敌倒下
+PASS ch01_crown_nook_trial foe CH01_N1 dies to real hits
+PASS ch01_crown_nook_trial foe CH01_N2 is live in the region
+PASS ch01_crown_nook_trial foe CH01_N2 spawns inside the trial room
+PASS ch01_crown_nook_trial foe CH01_N2 stands on floor
+试炼之敌倒下
+冠隙首清：取得冠隙余响证据，并得额外碎钱与材料。
+PASS ch01_crown_nook_trial foe CH01_N2 dies to real hits
+PASS ch01_crown_nook_trial clears the active challenge after the last foe
+PASS ch01_crown_nook_trial opens the seal after clear
+PASS ch01_crown_nook_trial writes the clear flag
+PASS ch01_crown_nook_trial pays only the one-time clear reward, no per-foe loot
+PASS ch01_crown_nook_trial pays materials once
+PASS ch01_crown_nook_trial does not re-grant a charm or tool an NPC already teaches
+PASS ch01_crown_nook_trial grants its evidence / growth item once
+PASS ch01_crown_nook_trial never advances the region's combat-clear counter
+PASS ch01_crown_nook_trial challenge kills and the clear reward grant no energy
+冠隙试炼已清·可回访，奖励不会再发。
+PASS ch01_crown_nook_trial refuses to restart after clear
+PASS ch01_crown_nook_trial cannot be farmed for a second reward
+PASS ch01_crown_nook_trial grant helper stays latched by the clear flag
+PASS challenge progress saves
+PASS ch01 clear flag is on disk
+PASS world route resolves demo_ch02_rain_foundry_canal
+铸雨渠
+地图残页·其二
+PASS fixture is in rain foundry canal
+PASS ch02 authors challenge room and tracking hunt
+PASS ch02_counterweight_trial is authored on the active region
+PASS ch02_counterweight_trial records a clear flag
+PASS ch02_counterweight_trial starts uncleared
+PASS ch02_counterweight_trial shrine exists in the live region
+挑战房 · 配重试炼
+PASS ch02_counterweight_trial becomes the active challenge
+PASS ch02_counterweight_trial seals the entrance while active
+PASS ch02_counterweight_trial spawns every authored challenge enemy
+PASS ch02_counterweight_trial does not inflate the region's combat-clear total
+PASS ch02_counterweight_trial foe CH02_N1 is live in the region
+PASS ch02_counterweight_trial foe CH02_N1 spawns inside the trial room
+PASS ch02_counterweight_trial foe CH02_N1 stands on floor
+试炼之敌倒下
+PASS ch02_counterweight_trial foe CH02_N1 dies to real hits
+PASS ch02_counterweight_trial foe CH02_N2 is live in the region
+PASS ch02_counterweight_trial foe CH02_N2 spawns inside the trial room
+PASS ch02_counterweight_trial foe CH02_N2 stands on floor
+试炼之敌倒下
+配重首清：取得配重余响证据，并得额外碎钱与材料。
+PASS ch02_counterweight_trial foe CH02_N2 dies to real hits
+PASS ch02_counterweight_trial clears the active challenge after the last foe
+PASS ch02_counterweight_trial opens the seal after clear
+PASS ch02_counterweight_trial writes the clear flag
+PASS ch02_counterweight_trial pays only the one-time clear reward, no per-foe loot
+PASS ch02_counterweight_trial pays materials once
+PASS ch02_counterweight_trial does not re-grant a charm or tool an NPC already teaches
+PASS ch02_counterweight_trial grants its evidence / growth item once
+PASS ch02_counterweight_trial never advances the region's combat-clear counter
+PASS ch02_counterweight_trial challenge kills and the clear reward grant no energy
+配重试炼已清·可回访，奖励不会再发。
+PASS ch02_counterweight_trial refuses to restart after clear
+PASS ch02_counterweight_trial cannot be farmed for a second reward
+PASS ch02_counterweight_trial grant helper stays latched by the clear flag
+PASS world route resolves demo_ch02_rain_foundry_canal
+铸雨渠
+PASS canal hunt track A spawns at the wish board
+锈湿爪印往水表回廊去。
+PASS world route resolves demo_ch02_rain_foundry_canal
+铸雨渠
+PASS canal hunt track B spawns in the gauge gallery
+渠影追踪 · 残迹齐了，去敲响猎物的余响钟。
+PASS world route resolves demo_ch02_rain_foundry_canal
+铸雨渠
+PASS canal hunt becomes ready after both tracks
+渠影追踪 · 猎物尚未显形，先循着渠影残迹。
+PASS canal hunt still refuses when a track is missing
+PASS ch02_canal_shadow_hunt is authored on the active region
+PASS ch02_canal_shadow_hunt records a clear flag
+PASS ch02_canal_shadow_hunt starts uncleared
+PASS ch02_canal_shadow_hunt shrine exists in the live region
+追踪狩猎 · 渠影追踪
+PASS ch02_canal_shadow_hunt becomes the active challenge
+PASS ch02_canal_shadow_hunt seals the entrance while active
+PASS ch02_canal_shadow_hunt spawns every authored challenge enemy
+PASS ch02_canal_shadow_hunt does not inflate the region's combat-clear total
+PASS ch02_canal_shadow_hunt foe CH02_H1 is live in the region
+PASS ch02_canal_shadow_hunt foe CH02_H1 spawns inside the trial room
+PASS ch02_canal_shadow_hunt foe CH02_H1 stands on floor
+试炼之敌倒下
+渠影首清：取得渠影爪痕证据，并得额外碎钱与湿锈甲片。
+PASS ch02_canal_shadow_hunt foe CH02_H1 dies to real hits
+PASS ch02_canal_shadow_hunt clears the active challenge after the last foe
+PASS ch02_canal_shadow_hunt opens the seal after clear
+PASS ch02_canal_shadow_hunt writes the clear flag
+PASS ch02_canal_shadow_hunt pays only the one-time clear reward, no per-foe loot
+PASS ch02_canal_shadow_hunt pays materials once
+PASS ch02_canal_shadow_hunt does not re-grant a charm or tool an NPC already teaches
+PASS ch02_canal_shadow_hunt grants its evidence / growth item once
+PASS ch02_canal_shadow_hunt never advances the region's combat-clear counter
+PASS ch02_canal_shadow_hunt challenge kills and the clear reward grant no energy
+渠影追踪已清·可回访，奖励不会再发。
+PASS ch02_canal_shadow_hunt refuses to restart after clear
+PASS ch02_canal_shadow_hunt cannot be farmed for a second reward
+PASS ch02_canal_shadow_hunt grant helper stays latched by the clear flag
+PASS ch02 challenge progress saves
+PASS ch02 challenge-room clear flag is on disk
+PASS ch02 hunt clear flag is on disk
+PASS world route resolves demo_ch03_saltwhite_archive
+盐白书库
+Bell key acquired.
+PASS fixture is in saltwhite archive
+PASS ch03 lock inside is right of the west wall
+可选首领 · 封蜡库余响
+PASS ch03 seal push keeps the player inside right of the wall
+PASS ch03_wax_optional_boss is authored on the active region
+PASS ch03_wax_optional_boss records a clear flag
+PASS ch03_wax_optional_boss starts uncleared
+PASS ch03_wax_optional_boss shrine exists in the live region
+可选首领 · 封蜡库余响
+PASS ch03_wax_optional_boss becomes the active challenge
+PASS ch03_wax_optional_boss seals the entrance while active
+PASS ch03_wax_optional_boss spawns every authored challenge enemy
+PASS ch03_wax_optional_boss does not inflate the region's combat-clear total
+PASS ch03_wax_optional_boss foe CH03_OB1 is live in the region
+PASS ch03_wax_optional_boss foe CH03_OB1 spawns inside the trial room
+PASS ch03_wax_optional_boss foe CH03_OB1 stands on floor
+试炼之敌倒下
+封蜡库首清：取得封蜡账册证据，并得额外碎钱与盐晶碎片。
+PASS ch03_wax_optional_boss foe CH03_OB1 dies to real hits
+PASS ch03_wax_optional_boss clears the active challenge after the last foe
+PASS ch03_wax_optional_boss opens the seal after clear
+PASS ch03_wax_optional_boss writes the clear flag
+PASS ch03_wax_optional_boss pays only the one-time clear reward, no per-foe loot
+PASS ch03_wax_optional_boss pays materials once
+PASS ch03_wax_optional_boss does not re-grant a charm or tool an NPC already teaches
+PASS ch03_wax_optional_boss grants its evidence / growth item once
+PASS ch03_wax_optional_boss never advances the region's combat-clear counter
+PASS ch03_wax_optional_boss challenge kills and the clear reward grant no energy
+封蜡库余响已清·可回访，奖励不会再发。
+PASS ch03_wax_optional_boss refuses to restart after clear
+PASS ch03_wax_optional_boss cannot be farmed for a second reward
+PASS ch03_wax_optional_boss grant helper stays latched by the clear flag
+PASS optional boss progress saves
+PASS ch03 clear flag is on disk
+PASS ch01 clear flag survives travel
+PASS ch02 challenge-room clear survives travel
+PASS ch02 hunt clear survives travel
+PASS world route resolves demo_ch04_broken_string_greenhouse
+断弦温室
+按 F 与人物交谈。
+PASS fixture is in broken string greenhouse
+PASS ch04 authors at least one optional challenge
+PASS ch04 lock inside is right of the west wall
+挑战房 · 蜂蜡试炼
+PASS ch04 seal push keeps the player inside right of the wall
+PASS ch04_beeswax_nook_trial is authored on the active region
+PASS ch04_beeswax_nook_trial records a clear flag
+PASS ch04_beeswax_nook_trial starts uncleared
+PASS ch04_beeswax_nook_trial shrine exists in the live region
+挑战房 · 蜂蜡试炼
+PASS ch04_beeswax_nook_trial becomes the active challenge
+PASS ch04_beeswax_nook_trial seals the entrance while active
+PASS ch04_beeswax_nook_trial spawns every authored challenge enemy
+PASS ch04_beeswax_nook_trial does not inflate the region's combat-clear total
+PASS ch04_beeswax_nook_trial foe CH04_N1 is live in the region
+PASS ch04_beeswax_nook_trial foe CH04_N1 spawns inside the trial room
+PASS ch04_beeswax_nook_trial foe CH04_N1 stands on floor
+试炼之敌倒下
+PASS ch04_beeswax_nook_trial foe CH04_N1 dies to real hits
+PASS ch04_beeswax_nook_trial foe CH04_N2 is live in the region
+PASS ch04_beeswax_nook_trial foe CH04_N2 spawns inside the trial room
+试炼之敌倒下
+蜂蜡首清：取得蜂蜡余响证据，并得额外碎钱与材料。
+PASS ch04_beeswax_nook_trial foe CH04_N2 dies to real hits
+PASS ch04_beeswax_nook_trial clears the active challenge after the last foe
+PASS ch04_beeswax_nook_trial opens the seal after clear
+PASS ch04_beeswax_nook_trial writes the clear flag
+PASS ch04_beeswax_nook_trial pays only the one-time clear reward, no per-foe loot
+PASS ch04_beeswax_nook_trial pays materials once
+PASS ch04_beeswax_nook_trial does not re-grant a charm or tool an NPC already teaches
+PASS ch04_beeswax_nook_trial grants its evidence / growth item once
+PASS ch04_beeswax_nook_trial never advances the region's combat-clear counter
+PASS ch04_beeswax_nook_trial challenge kills and the clear reward grant no energy
+蜂蜡试炼已清·可回访，奖励不会再发。
+PASS ch04_beeswax_nook_trial refuses to restart after clear
+PASS ch04_beeswax_nook_trial cannot be farmed for a second reward
+PASS ch04_beeswax_nook_trial grant helper stays latched by the clear flag
+PASS ch04 challenge progress saves
+PASS ch04 clear flag is on disk
+PASS ch01 clear flag survives ch04 travel
+PASS ch02 challenge-room clear survives ch04 travel
+PASS ch02 hunt clear survives ch04 travel
+PASS ch03 clear flag survives ch04 travel
+PASS world route resolves demo_ch04_broken_string_greenhouse
+断弦温室
+PASS fixture is in broken string greenhouse for hunt
+PASS ch04 authors challenge room and tracking hunt
+PASS root hunt track A spawns at the canopy overlook
+干裂根丝往断弦辐桥坠去。
+PASS world route resolves demo_ch04_broken_string_greenhouse
+断弦温室
+PASS root hunt track B spawns on the west spoke
+根网追踪 · 残迹齐了，去敲响猎物的余响钟。
+PASS world route resolves demo_ch04_broken_string_greenhouse
+断弦温室
+PASS root hunt becomes ready after both tracks
+根网追踪 · 猎物尚未显形，先循着渠影残迹。
+PASS root hunt still refuses when a track is missing
+PASS ch04 hunt lock inside is left of the east wall
+追踪狩猎 · 根网追踪
+按 F 操作机关。
+PASS ch04 hunt seal push keeps the player inside left of the wall
+PASS ch04_root_cage_hunt is authored on the active region
+PASS ch04_root_cage_hunt records a clear flag
+PASS ch04_root_cage_hunt starts uncleared
+PASS ch04_root_cage_hunt shrine exists in the live region
+追踪狩猎 · 根网追踪
+PASS ch04_root_cage_hunt becomes the active challenge
+PASS ch04_root_cage_hunt seals the entrance while active
+PASS ch04_root_cage_hunt spawns every authored challenge enemy
+PASS ch04_root_cage_hunt does not inflate the region's combat-clear total
+PASS ch04_root_cage_hunt foe CH04_H1 is live in the region
+PASS ch04_root_cage_hunt foe CH04_H1 spawns inside the trial room
+PASS ch04_root_cage_hunt foe CH04_H1 stands on floor
+试炼之敌倒下
+根网首清：取得根网爪痕证据，并得额外碎钱与花粉蜂蜡。
+PASS ch04_root_cage_hunt foe CH04_H1 dies to real hits
+PASS ch04_root_cage_hunt clears the active challenge after the last foe
+PASS ch04_root_cage_hunt opens the seal after clear
+PASS ch04_root_cage_hunt writes the clear flag
+PASS ch04_root_cage_hunt pays only the one-time clear reward, no per-foe loot
+PASS ch04_root_cage_hunt pays materials once
+PASS ch04_root_cage_hunt does not re-grant a charm or tool an NPC already teaches
+PASS ch04_root_cage_hunt grants its evidence / growth item once
+PASS ch04_root_cage_hunt never advances the region's combat-clear counter
+PASS ch04_root_cage_hunt challenge kills and the clear reward grant no energy
+根网追踪已清·可回访，奖励不会再发。
+PASS ch04_root_cage_hunt refuses to restart after clear
+PASS ch04_root_cage_hunt cannot be farmed for a second reward
+PASS ch04_root_cage_hunt grant helper stays latched by the clear flag
+PASS ch04 hunt progress saves
+PASS ch04 hunt clear flag is on disk
+PASS ch04 beeswax clear survives hunt
+PASS world route resolves demo_ch05_obsidian_pilgrim_road
+黑曜巡礼道
+Bell key acquired.
+PASS fixture is in obsidian pilgrim road
+PASS ch05 authors at least one optional challenge
+PASS ch05 lock inside is left of the east wall
+挑战房 · 军墓试炼
+PASS ch05 seal push keeps the player inside left of the wall
+PASS ch05_war_graves_trial is authored on the active region
+PASS ch05_war_graves_trial records a clear flag
+PASS ch05_war_graves_trial starts uncleared
+PASS ch05_war_graves_trial shrine exists in the live region
+挑战房 · 军墓试炼
+PASS ch05_war_graves_trial becomes the active challenge
+PASS ch05_war_graves_trial seals the entrance while active
+PASS ch05_war_graves_trial spawns every authored challenge enemy
+PASS ch05_war_graves_trial does not inflate the region's combat-clear total
+PASS ch05_war_graves_trial foe CH05_N1 is live in the region
+PASS ch05_war_graves_trial foe CH05_N1 spawns inside the trial room
+PASS ch05_war_graves_trial foe CH05_N1 stands on floor
+试炼之敌倒下
+PASS ch05_war_graves_trial foe CH05_N1 dies to real hits
+PASS ch05_war_graves_trial foe CH05_N2 is live in the region
+PASS ch05_war_graves_trial foe CH05_N2 spawns inside the trial room
+PASS ch05_war_graves_trial foe CH05_N2 stands on floor
+试炼之敌倒下
+军墓首清：取得军墓灯影证据，并得额外碎钱与材料。
+PASS ch05_war_graves_trial foe CH05_N2 dies to real hits
+PASS ch05_war_graves_trial clears the active challenge after the last foe
+PASS ch05_war_graves_trial opens the seal after clear
+PASS ch05_war_graves_trial writes the clear flag
+PASS ch05_war_graves_trial pays only the one-time clear reward, no per-foe loot
+PASS ch05_war_graves_trial pays materials once
+PASS ch05_war_graves_trial does not re-grant a charm or tool an NPC already teaches
+PASS ch05_war_graves_trial grants its evidence / growth item once
+PASS ch05_war_graves_trial never advances the region's combat-clear counter
+PASS ch05_war_graves_trial challenge kills and the clear reward grant no energy
+军墓试炼已清·可回访，奖励不会再发。
+PASS ch05_war_graves_trial refuses to restart after clear
+PASS ch05_war_graves_trial cannot be farmed for a second reward
+PASS ch05_war_graves_trial grant helper stays latched by the clear flag
+PASS ch05 challenge progress saves
+PASS ch05 clear flag is on disk
+PASS ch01 clear flag survives ch05 travel
+PASS ch02 challenge-room clear survives ch05 travel
+PASS ch02 hunt clear survives ch05 travel
+PASS ch03 clear flag survives ch05 travel
+PASS ch04 clear flag survives ch05 travel
+PASS ch04 hunt clear survives ch05 travel
+PASS world route resolves demo_ch05_obsidian_pilgrim_road
+黑曜巡礼道
+PASS fixture is in obsidian pilgrim road for hunt
+PASS ch05 authors challenge room and tracking hunt
+PASS ash hunt track A spawns on the base road
+焦黑旗屑往巡礼营地飘去。
+PASS world route resolves demo_ch05_obsidian_pilgrim_road
+黑曜巡礼道
+PASS ash hunt track B spawns at the pilgrim camp
+灰旗追踪 · 残迹齐了，去敲响猎物的余响钟。
+PASS world route resolves demo_ch05_obsidian_pilgrim_road
+黑曜巡礼道
+PASS ash hunt becomes ready after both tracks
+灰旗追踪 · 猎物尚未显形，先循着渠影残迹。
+PASS ash hunt still refuses when a track is missing
+PASS ch05 hunt lock inside is right of the west wall
+追踪狩猎 · 灰旗追踪
+PASS ch05 hunt seal push keeps the player inside right of the wall
+PASS ch05_ash_banner_hunt is authored on the active region
+PASS ch05_ash_banner_hunt records a clear flag
+PASS ch05_ash_banner_hunt starts uncleared
+PASS ch05_ash_banner_hunt shrine exists in the live region
+追踪狩猎 · 灰旗追踪
+PASS ch05_ash_banner_hunt becomes the active challenge
+PASS ch05_ash_banner_hunt seals the entrance while active
+PASS ch05_ash_banner_hunt spawns every authored challenge enemy
+PASS ch05_ash_banner_hunt does not inflate the region's combat-clear total
+PASS ch05_ash_banner_hunt foe CH05_H1 is live in the region
+PASS ch05_ash_banner_hunt foe CH05_H1 spawns inside the trial room
+PASS ch05_ash_banner_hunt foe CH05_H1 stands on floor
+试炼之敌倒下
+灰旗首清：取得灰旗爪痕证据，并得额外碎钱与黑曜碎片。
+PASS ch05_ash_banner_hunt foe CH05_H1 dies to real hits
+PASS ch05_ash_banner_hunt clears the active challenge after the last foe
+PASS ch05_ash_banner_hunt opens the seal after clear
+PASS ch05_ash_banner_hunt writes the clear flag
+PASS ch05_ash_banner_hunt pays only the one-time clear reward, no per-foe loot
+PASS ch05_ash_banner_hunt pays materials once
+PASS ch05_ash_banner_hunt does not re-grant a charm or tool an NPC already teaches
+PASS ch05_ash_banner_hunt grants its evidence / growth item once
+PASS ch05_ash_banner_hunt never advances the region's combat-clear counter
+PASS ch05_ash_banner_hunt challenge kills and the clear reward grant no energy
+灰旗追踪已清·可回访，奖励不会再发。
+PASS ch05_ash_banner_hunt refuses to restart after clear
+PASS ch05_ash_banner_hunt cannot be farmed for a second reward
+PASS ch05_ash_banner_hunt grant helper stays latched by the clear flag
+PASS ch05 hunt progress saves
+PASS ch05 hunt clear flag is on disk
+PASS ch05 war graves clear survives hunt
+PASS ch04 hunt clear survives ch05 hunt
+PASS world route resolves demo_ch06_silent_crown_core
+无声王冠
+按 F 休息，恢复状态并记录归途。
+PASS fixture is in silent crown core
+PASS ch06 authors at least one optional challenge
+PASS ch06 lock inside is right of the west wall
+挑战房 · 钟舌试炼
+PASS ch06 seal push keeps the player inside right of the wall
+PASS ch06_bell_tongue_trial is authored on the active region
+PASS ch06_bell_tongue_trial records a clear flag
+PASS ch06_bell_tongue_trial starts uncleared
+PASS ch06_bell_tongue_trial shrine exists in the live region
+挑战房 · 钟舌试炼
+PASS ch06_bell_tongue_trial becomes the active challenge
+PASS ch06_bell_tongue_trial seals the entrance while active
+PASS ch06_bell_tongue_trial spawns every authored challenge enemy
+PASS ch06_bell_tongue_trial does not inflate the region's combat-clear total
+PASS ch06_bell_tongue_trial foe CH06_N1 is live in the region
+PASS ch06_bell_tongue_trial foe CH06_N1 spawns inside the trial room
+试炼之敌倒下
+PASS ch06_bell_tongue_trial foe CH06_N1 dies to real hits
+PASS ch06_bell_tongue_trial foe CH06_N2 is live in the region
+PASS ch06_bell_tongue_trial foe CH06_N2 spawns inside the trial room
+PASS ch06_bell_tongue_trial foe CH06_N2 stands on floor
+试炼之敌倒下
+钟舌首清：取得钟舌余响证据，并得额外碎钱与材料。
+PASS ch06_bell_tongue_trial foe CH06_N2 dies to real hits
+PASS ch06_bell_tongue_trial clears the active challenge after the last foe
+PASS ch06_bell_tongue_trial opens the seal after clear
+PASS ch06_bell_tongue_trial writes the clear flag
+PASS ch06_bell_tongue_trial pays only the one-time clear reward, no per-foe loot
+PASS ch06_bell_tongue_trial pays materials once
+PASS ch06_bell_tongue_trial does not re-grant a charm or tool an NPC already teaches
+PASS ch06_bell_tongue_trial grants its evidence / growth item once
+PASS ch06_bell_tongue_trial never advances the region's combat-clear counter
+PASS ch06_bell_tongue_trial challenge kills and the clear reward grant no energy
+钟舌试炼已清·可回访，奖励不会再发。
+PASS ch06_bell_tongue_trial refuses to restart after clear
+PASS ch06_bell_tongue_trial cannot be farmed for a second reward
+PASS ch06_bell_tongue_trial grant helper stays latched by the clear flag
+PASS ch06 challenge progress saves
+PASS ch06 clear flag is on disk
+PASS ch01 clear flag survives ch06 travel
+PASS ch02 challenge-room clear survives ch06 travel
+PASS ch02 hunt clear survives ch06 travel
+PASS ch03 clear flag survives ch06 travel
+PASS ch04 clear flag survives ch06 travel
+PASS ch05 clear flag survives ch06 travel
+PASS ch05 hunt clear survives ch06 travel
+PASS ch04 hunt clear survives ch06 travel
+王冠与温室、黑曜两路汇合；取得共鸣后，可回旧区检修钟门寻找反证。  M 地图 / Tab 世界图 · F9 新旅途。
+PASS world route resolves demo_ch01_moss_bell_court
+苔钟庭
+PASS reloaded save keeps the ch01 clear flag
+冠隙试炼已清·可回访，奖励不会再发。
+PASS reloaded clear still blocks farming
+PASS optional challenges never change enemy_total
+OPTIONAL_CHALLENGES checks=350 failures=0 fixture_scope=production_world_challenge_clear_and_antibuse
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)

@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-20",
+  "base": "95253cbb5d1641f9095f0a0c48e364800376422e",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "scene_history",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 13.41,
+      "markers": [
+        "SCENE_HISTORY_VALIDATION checks=183 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 7.19,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "MUSIC_PHRASE_RESUME checks=10",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

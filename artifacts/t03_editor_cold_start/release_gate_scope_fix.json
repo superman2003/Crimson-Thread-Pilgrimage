@@ -1,0 +1,22 @@
+{
+  "parent": "2854943c3481d39cbafd834c756d0f4bf46bdadf",
+  "before": {
+    "run": 40108652198,
+    "linux_job": 120915538961,
+    "tests": 23,
+    "failed": 2,
+    "reason": "broad codex/** incorrectly includes unrelated codex branches"
+  },
+  "after": {
+    "tests": 23,
+    "failed": 0,
+    "exit": 0
+  },
+  "inputs_sha256": {
+    ".github/workflows/release-candidate.yml": "3195c578d86bdce469be1a5ac5c5414cd5cc8cfc7d1f8c5824e0475d962fbeb1",
+    "tools/test_release_builder.py": "0a51e1eac11cecdf6336c2329229fbd0712250ecb2718fe4a3a501a7ca7547c2",
+    "tools/build_release.py": "2b6b2e3e601bc21a98928d91363b1dfe62772c1289524f94b2837b0d88b877d7"
+  },
+  "output": "......usage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]\n                        [--output OUTPUT] [--check] [--timeout TIMEOUT]\nbuild_release.py: error: --timeout must be finite and positive\nusage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]\n                        [--output OUTPUT] [--check] [--timeout TIMEOUT]\nbuild_release.py: error: --timeout must be finite and positive\nusage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]\n                        [--output OUTPUT] [--check] [--timeout TIMEOUT]\nbuild_release.py: error: --timeout must be finite and positive\nusage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]\n                        [--output OUTPUT] [--check] [--timeout TIMEOUT]\nbuild_release.py: error: --timeout must be finite and positive\n..RELEASE_ARCHIVE_PASS files=1\n.....RELEASE_PLAYER_PASS first_start=true resume=true resume_writeback=true\n..........\n----------------------------------------------------------------------\nRan 23 tests in 0.373s\n\nOK\n",
+  "scope": "source gate unit tests only; actual platform packaging reruns in CI"
+}

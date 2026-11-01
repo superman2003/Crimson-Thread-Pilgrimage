@@ -44,7 +44,11 @@ func run_checks() -> void:
     check(flags.has("testimony_returned_names"), "Return grants unique testimony marker")
     check(Narrative.completion_flags(home, 9, flags).is_empty(), "Reward cannot be granted twice")
     var saved: Dictionary = JSON.parse_string(JSON.stringify(flags))
-    check(narrative.resolve(apprentice, [], [], saved).get("state") == "names_returned", "Saved flags restore completed state")
+    var follow_up: Dictionary = narrative.resolve(apprentice, [], [], saved)
+    check(follow_up.get("state") == "reflection_names", "Saved completion offers the new personal follow-up")
+    for flag in Narrative.completion_flags(follow_up, follow_up.lines.size() - 1, saved):
+        saved[flag] = true
+    check(narrative.resolve(apprentice, [], [], saved).get("state") == "names_returned", "After its one-time follow-up the original completed state remains")
     check(narrative.resolve("npc_unknown", ["legacy"], [], flags).is_empty(), "Unknown NPC retains legacy dialogue machine")
     check(narrative.resolve("npc_salt_librarian_ye", [], ["double_thread_jump"], {}).get("state") == "names_librarian_jump", "Ability changes route dialogue")
     check(Narrative.subtitle_duration("你好。") < Narrative.subtitle_duration("雨渠把工人的声音冲走，书库把他们的名字刮掉。"), "Reading timing follows subtitle length")

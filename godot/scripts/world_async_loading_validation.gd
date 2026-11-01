@@ -27,7 +27,7 @@ func _run() -> void:
     var camera_id: int = scene.player.get_node("Camera2D").get_instance_id()
     var state_id: int = scene.world_state.get_instance_id()
     var build_id: int = scene.build_system.get_instance_id()
-    var map_font_id: int = scene.map_panel.theme.default_font.get_instance_id()
+    var map_font_id: int = scene.map_draw_root.theme.default_font.get_instance_id()
     for ability in scene.WORLD_ABILITIES:
         scene._add_inventory_item(ability, 1, false)
     scene.player.hp = 3
@@ -49,7 +49,7 @@ func _run() -> void:
         _check(scene.player.collision_layer == 1 and scene.player.collision_mask != 0, id + " collision restored")
         _check(not scene.world_loading and not scene.chapter_transitioning and scene.world_loader.loading_canvas == null, id + " input/loading UI released")
         _check(scene.ui_shell.construction_complete and scene.ui_shell.is_processing_input(), id + " complete UI enables input only at arrival")
-        _check(scene.map_panel.theme.default_font.get_instance_id() == map_font_id and scene.map_panel.theme.default_font.multichannel_signed_distance_field, id + " zoomable map reuses the shared font cache")
+        _check(scene.map_draw_root.theme.default_font.get_instance_id() == map_font_id and scene.map_draw_root.theme.default_font.multichannel_signed_distance_field, id + " zoomable map reuses the shared font cache")
         var metric: Dictionary = scene.world_loader.last_transition.duplicate(true)
         metrics.append(metric)
         _check(metric.max_build_operations <= 8 and metric.max_unload_operations <= 8 and metric.batches > 2, id + " bounded multi-frame operations")

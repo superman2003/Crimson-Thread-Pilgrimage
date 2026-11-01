@@ -1,0 +1,10 @@
+{
+  "experiment": "Restore the whole-panel MSDF font scope; geometry, input fixtures and zoom remain unchanged.",
+  "exit_code": 1,
+  "expected_rejection": true,
+  "engine_errors": [
+    "ERROR: fixed pin controls use the ordinary HUD font cache",
+    "ERROR: fixed title and instructions avoid zoom-only glyph rasterization"
+  ],
+  "restored_source_sha256": "51720f6cc50fc616e98dbd609e3dade97b44a22c6136d12c657d67a8bdb51d29"
+}

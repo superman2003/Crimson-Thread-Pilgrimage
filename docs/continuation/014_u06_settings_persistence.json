@@ -1,0 +1,43 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382
+  ],
+  "current_upgrade": {
+    "title": "U06 设置无障碍",
+    "ordinal": 14,
+    "branch": "codex/ledger-u06-settings-persistence-635aa",
+    "validation": "663 native assertions, full npm test, campaign and strict runner checks passed",
+    "status": "locally verified; reconcile actual PR and latest CI"
+  },
+  "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
+  "next_candidates": [
+    "G02 失落与找回",
+    "E04 工匠制作",
+    "N03 主角表达"
+  ],
+  "constraints": [
+    "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
+    "Use exact canonical ledger titles and substantial real Godot changes; average at least 500 non-document changed lines, excluding inherited changes.",
+    "Check all open PR current heads, latest CI attempts and conflicts before publishing the next PR; repair real failures first.",
+    "Do not restore browser games, weaken CI, remove valid tests, merge or close PRs.",
+    "Use isolated checkouts and expected-SHA guarded updates; preserve other agents' work and shared downstream fixes.",
+    "CI being green does not finish this continuation task; proceed with the next verified ledger upgrade until 40 are actually submitted."
+  ],
+  "checkpoint_policy": "Use unique docs/continuation/NNN_task.json paths for concurrent upgrades; reconcile latest actual PRs, never overwrite earlier branches or count fix commits as new PRs.",
+  "review_assignment": "User arranges reviews. Focus only on new ledger PRs and necessary pre-submission validation; do not process review comments, merge or close PRs."
+}

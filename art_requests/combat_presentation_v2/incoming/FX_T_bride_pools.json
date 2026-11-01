@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_bride_pools.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "fbe0417dc3b87abb5683546dbcc10e6f9f68eefd6a5c801de181c34c9ea3651e",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_bride_pools.txt",
+  "prompt_sha256": "a815a904f0ca8fa7a00d0ab7af014faeefef91440d2c864fc7e448da203b2341",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "ground",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        514,
+        554
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        16,
+        233,
+        498,
+        486
+      ],
+      "fully_transparent_pixels": 200813
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        514,
+        0,
+        1024,
+        554
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        533,
+        215,
+        1009,
+        482
+      ],
+      "fully_transparent_pixels": 190673
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1024,
+        0,
+        1536,
+        554
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1039,
+        183,
+        1519,
+        490
+      ],
+      "fully_transparent_pixels": 187779
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        554,
+        512,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        16,
+        642,
+        498,
+        971
+      ],
+      "fully_transparent_pixels": 136897
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        512,
+        554,
+        1022,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        528,
+        618,
+        1007,
+        977
+      ],
+      "fully_transparent_pixels": 134376
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1022,
+        554,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1039,
+        626,
+        1520,
+        978
+      ],
+      "fully_transparent_pixels": 133561
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/silent_pilgrim_commander.png",
+      "sha256": "3539fd4480efad99f7a614472e9ac7d956fd919ca2285ef4094dd3a083dbfa8a"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2; cold silver mirror shards, dark violet veil lace and quiet inner ripples, with a readable anchored perimeter. No caster, victim or launched attack. Pool-radius alignment and small-size readability remain runtime acceptance work.",
+    "runtime_acceptance": "pending"
+  }
+}

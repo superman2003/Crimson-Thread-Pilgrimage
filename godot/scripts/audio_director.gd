@@ -17,11 +17,13 @@ static var instance: AudioDirector
 
 # ---- 静态声部管理 ----
 const MAX_GLOBAL_VOICES := 24
-## 无法追踪一次性 SFX 的真实结束点，按名义时长做并发记账。
+## Only unclaimed reservations expire; bound voices follow actual playback.
 const VOICE_NOMINAL_MS := 900
 
+static var _voice_serial := 0
 static var _voice_entries: Array = []
 static var _voice_last_ms: Dictionary = {}
+static var _voice_last_ticket: Dictionary = {}
 
 # ---- 静态流缓存（契约：键 "%s|%d" % [path, int(looped)]；缺失/解码失败缓存 null）----
 static var _stream_cache: Dictionary = {}
@@ -48,6 +50,14 @@ const BUS_DEFAULT_DB := {"Master": 0.0, "BGM": 0.0, "SFX": 0.0, "Ambience": -14.
 const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "ambience": "Ambience"}
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
+var music_retry_after: Dictionary = {}
+var landmark_spatial_refresh:=preload("res://scripts/landmark_spatial_refresh.gd").new()
+var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
+var volume_preferences_dirty := false
+var volume_preferences_error := OK
+var volume_preferences_revision := 0
+var volume_preferences_saving := false
+static var pending_volume_sessions: Dictionary = {}
 
 const DIALOGUE_MUSIC_DUCK_DB := -4.0
 const DIALOGUE_AMBIENCE_DUCK_DB := -6.0
@@ -113,6 +123,13 @@ const STINGER_TRACKS := {
 const BELLWAY_TRANSIT_LOOP := "res://assets/audio/bgm/generated/bellway_transit_loop.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
+## Session-only phrase positions. Values are seconds/instance IDs, never streams.
+static var _explore_resume: Dictionary = {}
+static var _explore_owners: Dictionary = {}
+static var _explore_epoch := 0
+const MAX_EXPLORE_BOOKMARKS := 8
+var _explore_path := ""
+var _explore_session := 0
 var _npc_voice_player: AudioStreamPlayer
 
 var autoplay_enabled := true
@@ -136,7 +153,16 @@ var low_hp_active := false
 var dialogue_open := false
 var user_volumes := {"master": 100.0, "music": 100.0, "sfx": 100.0, "ambience": 100.0}
 var base_reverb_wet: Dictionary = {}
+var room_reverb_mix := preload("res://scripts/room_reverb_mix.gd").new()
 var duck_tween: Tween
+var duck_mix := preload("res://scripts/duck_mix.gd").new()
+var duck_layers: Dictionary = {}
+var duck_serial := 0
+var music_mix_base_db := 0.0
+const LANDMARK_SCHEDULE=preload("res://scripts/npc_landmark_schedule.gd")
+var npc_landmarks_enabled := true
+var landmark_next_ms := 0
+var landmark_times: Dictionary = {}
 var combat_tween: Tween
 var lullaby_tween: Tween
 var explore_tween: Tween
@@ -156,12 +182,18 @@ var shrine_engaged := false
 
 
 func _ready() -> void:
+    landmark_next_ms = Time.get_ticks_msec() + 1200
     instance = self
     ensure_sub_buses()
     _load_user_volumes()
 
 
 func _exit_tree() -> void:
+    room_reverb_mix.release(self)
+    _clear_duck_layers(instance == self)
+    _remember_explore_position()
+    if _explore_owners.get(_explore_path, 0) == get_instance_id():
+        _explore_owners.erase(_explore_path)
     # Stop local envelopes before retirement. Global mix belongs to the latest
     # director; a queued old scene must never strip a new scene's death/HP filter.
     for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, low_hp_tween, death_tween]:
@@ -184,47 +216,114 @@ func _exit_tree() -> void:
         set_low_hp(false)
 
 
-## 声部管理（规格 §5.4）：instance 为 null 时也可用。返回 false 则调用方不播。
+## Legacy boolean admission remains available to probes; production uses a ticket
+## so deferred playback cannot bind another request's reservation.
 static func request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+    return reserve_voice(key,priority,min_interval_ms,max_voices) != 0
+
+static func reserve_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     var now := Time.get_ticks_msec()
-    var alive: Array = []
+    _prune_voices()
+    if _voice_last_ms.has(key) and now-int(_voice_last_ms[key]) < min_interval_ms:return 0
     var same_key := 0
     for entry in _voice_entries:
-        if int(entry.get("end_ms", 0)) > now:
-            alive.append(entry)
-            if String(entry.get("key", "")) == key:
-                same_key += 1
-    _voice_entries = alive
-    if _voice_last_ms.has(key) and now - int(_voice_last_ms[key]) < min_interval_ms:
-        return false
-    if same_key >= max_voices:
-        return false
+        if String(entry.key)==key:same_key += 1
+    if same_key >= max_voices:return 0
     if _voice_entries.size() >= MAX_GLOBAL_VOICES:
-        # 全局满员：抢占数值最大（优先级最低）的声部；无更低者则拒绝。
-        var worst_index := -1
+        var worst := -1
         var worst_priority := priority
         for index in _voice_entries.size():
-            var entry_priority := int(_voice_entries[index].get("priority", 1))
-            if entry_priority > worst_priority:
-                worst_priority = entry_priority
-                worst_index = index
-        if worst_index == -1:
-            return false
-        _voice_entries.remove_at(worst_index)
-    _voice_last_ms[key] = now
-    _voice_entries.append({"key": key, "priority": priority, "end_ms": now + VOICE_NOMINAL_MS})
+            if int(_voice_entries[index].priority)>worst_priority:
+                worst_priority=int(_voice_entries[index].priority)
+                worst=index
+        if worst < 0:return 0
+        _remove_voice(worst,true)
+    _voice_serial += 1
+    _voice_last_ms[key]=now
+    _voice_last_ticket[key]=_voice_serial
+    _voice_entries.append({"ticket":_voice_serial,"key":key,"priority":priority,"end_ms":now+VOICE_NOMINAL_MS,"reserved_ms":now})
+    return _voice_serial
+
+## Claim and start in one synchronous operation; live voices never expire by
+## nominal duration. Persistent players survive preemption for later reuse.
+static func start_reserved_voice(ticket: int, voice: Node, persistent: bool = false) -> bool:
+    _prune_voices()
+    var target := -1
+    for index in _voice_entries.size():
+        if int(_voice_entries[index].ticket)==ticket and not _voice_entries[index].has("voice"):target=index
+    if target < 0 or not is_instance_valid(voice) or not voice.is_inside_tree() or voice.is_queued_for_deletion() or not (voice is AudioStreamPlayer or voice is AudioStreamPlayer2D) or voice.stream == null:
+        if target >= 0:release_ticket(ticket)
+        for entry in _voice_entries:
+            if _entry_voice(entry)==voice:return false
+        if is_instance_valid(voice) and (voice is AudioStreamPlayer or voice is AudioStreamPlayer2D):
+            voice.stop()
+            if not persistent:voice.queue_free()
+        return false
+    # Reusing the dedicated NPC/wall player retires only its previous lease.
+    for index in range(_voice_entries.size()-1,-1,-1):
+        if index != target and _entry_voice(_voice_entries[index])==voice:
+            _remove_voice(index,false)
+            if index < target:target -= 1
+    var finished := _forget_voice.bind(ticket)
+    var exiting := _forget_voice.bind(ticket)
+    _voice_entries[target].merge({"voice":weakref(voice),"persistent":persistent,"finished":finished,"exiting":exiting})
+    voice.finished.connect(finished,CONNECT_ONE_SHOT)
+    voice.tree_exiting.connect(exiting,CONNECT_ONE_SHOT)
+    voice.play()
     return true
 
+static func _entry_voice(entry: Dictionary) -> Node:
+    return entry.voice.get_ref() if entry.has("voice") else null
 
-## 声部回滚（契约）：request_voice 批准后拿不到流时调用，撤销计数与时间戳，
-## 避免"占坑不发声"挤掉真实声部或卡住同 key 限频窗口。
+static func _prune_voices() -> void:
+    var now := Time.get_ticks_msec()
+    for index in range(_voice_entries.size()-1,-1,-1):
+        var entry: Dictionary=_voice_entries[index]
+        var voice := _entry_voice(entry)
+        if entry.has("voice"):
+            if not is_instance_valid(voice) or not voice.is_inside_tree() or voice.is_queued_for_deletion() or not voice.has_stream_playback():_remove_voice(index,false)
+        elif int(entry.end_ms)<=now:_remove_voice(index,false)
+
+static func _forget_voice(ticket: int) -> void:
+    for index in _voice_entries.size():
+        if int(_voice_entries[index].ticket)==ticket:
+            _remove_voice(index,false)
+            return
+
+static func _remove_voice(index: int, stop_playback: bool) -> void:
+    var entry: Dictionary=_voice_entries[index]
+    _voice_entries.remove_at(index)
+    var voice := _entry_voice(entry)
+    if not is_instance_valid(voice):return
+    if entry.has("finished") and voice.finished.is_connected(entry.finished):voice.finished.disconnect(entry.finished)
+    if entry.has("exiting") and voice.tree_exiting.is_connected(entry.exiting):voice.tree_exiting.disconnect(entry.exiting)
+    if stop_playback:
+        preload("res://scripts/audio_retirement.gd").watch_player(voice)
+        voice.stop()
+        if not bool(entry.get("persistent",false)):
+            voice.stream=null
+            voice.queue_free()
+
+static func release_ticket(ticket: int) -> void:
+    for index in _voice_entries.size():
+        var entry: Dictionary=_voice_entries[index]
+        if int(entry.ticket)==ticket:
+            if int(_voice_last_ticket.get(entry.key,-1))==ticket:
+                _voice_last_ms.erase(entry.key)
+                _voice_last_ticket.erase(entry.key)
+            _remove_voice(index,true)
+            return
+
+## Compatibility rollback affects an unclaimed reservation only.
 static func release_voice(key: String) -> void:
-    for index in range(_voice_entries.size() - 1, -1, -1):
-        if String(_voice_entries[index].get("key", "")) == key:
-            _voice_entries.remove_at(index)
-            break
-    _voice_last_ms.erase(key)
+    for index in range(_voice_entries.size()-1,-1,-1):
+        if String(_voice_entries[index].key)==key and not _voice_entries[index].has("voice"):
+            release_ticket(int(_voice_entries[index].ticket))
+            return
 
+static func active_voice_count() -> int:
+    _prune_voices()
+    return _voice_entries.size()
 
 ## 幂等补建子总线；UI 总线保证干声（无混响）。main_level._ensure_audio_buses 转调。
 ## SFXDry（send→Master 干声，濒死心跳等不吃章节混响）；Master 挂限幅器防求和削波。
@@ -350,6 +449,8 @@ func _process(delta: float) -> void:
     if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
         return
     var tick := ai_poll_accum
+    _retire_invalid_landmarks()
+    _tick_npc_landmarks()
     ai_poll_accum = 0.0
     var enemies := _runtime_enemies()
     _tick_combat_layer(tick, enemies)
@@ -379,9 +480,11 @@ func _tick_shrine_lullaby() -> void:
         start_lullaby()
 
 
-## 战斗层轮询：0.25s 一拍读取敌人 last_ai_decision（patrol/return 之外即视为
-## 交战），离战 4s 冷静期才收层（防抽泵）。
+## 战斗层轮询：0.25s 一拍读取敌人 combat_engaged()（巡逻、回位、蛰伏、守点之外
+## 即视为交战；旧接口按 last_ai_decision 的 patrol/return 判定），离战 4s 冷静期才收层（防抽泵）。
 func _tick_combat_layer(tick: float, enemies: Array) -> void:
+    if boss_active:
+        return
     var engaged := false
     for enemy_variant in enemies:
         var enemy_node := enemy_variant as Node
@@ -392,11 +495,13 @@ func _tick_combat_layer(tick: float, enemies: Array) -> void:
         if typeof(decision_value) != TYPE_STRING:
             continue
         var decision := String(decision_value)
-        if not decision.is_empty() and decision != "patrol" and decision != "return":
+        # Lurking ambushers and guards at their post are calm, not combat.
+        var in_combat := bool(enemy_node.combat_engaged()) if enemy_node.has_method("combat_engaged") else decision != "patrol" and decision != "return"
+        if not decision.is_empty() and in_combat:
             engaged = true
             # An encounter has one quiet material voice accent, never one per poll.
             if not combat_active:
-                play_enemy_alert(String(enemy_node.get("kind")))
+                play_enemy_alert(String(enemy_node.get("kind")), enemy_node as Node2D)
             break
     if engaged:
         combat_calm_time = 0.0
@@ -489,12 +594,26 @@ func _play_explore_track(path: String) -> void:
         explore_player.volume_db = EXPLORE_DB
         add_child(explore_player)
     # Reapplying a region/room music state must not restart its audible phrase.
-    if explore_player.stream == stream and explore_player.playing:
+    if explore_player.stream == stream and (explore_player.playing or explore_player.stream_paused) and _explore_path == path:
         return
+    _remember_explore_position()
+    # A queued older region may still own the same phrase. Capture it before
+    # transferring the lease; its later exit cannot overwrite this player.
+    var previous_id := int(_explore_owners.get(path, 0))
+    var previous := instance_from_id(previous_id) as AudioDirector if previous_id != 0 else null
+    if is_instance_valid(previous) and previous != self:
+        previous._remember_explore_position()
+    if _explore_owners.get(_explore_path, 0) == get_instance_id(): _explore_owners.erase(_explore_path)
+    _explore_path = path
+    _explore_session = _explore_epoch
+    _explore_owners[path] = get_instance_id()
     _kill_explore_tween()
     explore_player.stream_paused = false
     explore_player.stream = stream
-    explore_player.play()
+    var position := float(_explore_resume.get(path, 0.0))
+    var length := stream.get_length()
+    if not is_finite(position) or position < 0.0: position = 0.0
+    explore_player.play(fposmod(position, length) if length > 0.0 else 0.0)
     # 章节起播淡入：从静音 0.8s 升到基准（转场后新章不撞门）。
     if is_inside_tree():
         explore_player.volume_db = SILENT_DB
@@ -502,6 +621,23 @@ func _play_explore_track(path: String) -> void:
         explore_tween.tween_property(explore_player, "volume_db", EXPLORE_DB, CHAPTER_ENTER_EXPLORE_FADE_S)
     else:
         explore_player.volume_db = EXPLORE_DB
+
+
+func _remember_explore_position() -> void:
+    if _explore_session != _explore_epoch or _explore_owners.get(_explore_path, 0) != get_instance_id(): return
+    if not is_instance_valid(explore_player) or explore_player.stream == null: return
+    if not explore_player.playing and not explore_player.stream_paused: return
+    var position := explore_player.get_playback_position()
+    if not is_finite(position) or position < 0.0: return
+    _explore_resume.erase(_explore_path)
+    _explore_resume[_explore_path] = position
+    while _explore_resume.size() > MAX_EXPLORE_BOOKMARKS: _explore_resume.erase(_explore_resume.keys()[0])
+
+
+static func clear_exploration_resume() -> void:
+    _explore_epoch += 1
+    _explore_resume.clear()
+    _explore_owners.clear()
 
 
 func _bus_or(bus_name: String, fallback: String) -> String:
@@ -555,10 +691,13 @@ func _fade_explore_resume(seconds: float) -> void:
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
 func enter_combat() -> void:
-    if combat_active:
+    _stop_npc_landmarks()
+    if boss_active or combat_active:
         return
     combat_active = true
-    if not autoplay_enabled or boss_active:
+    if lullaby_active:
+        stop_lullaby()
+    if not autoplay_enabled:
         return
     var stream := load_cached(_combat_layer_path(), true)
     if stream == null:
@@ -577,7 +716,7 @@ func enter_combat() -> void:
         return
     combat_player.stream = stream
     combat_player.volume_db = SILENT_DB
-    combat_player.play()
+    combat_player.play(preload("res://scripts/music_layer_phase.gd").start_position(explore_player, stream))
     if is_inside_tree():
         combat_tween = create_tween()
         combat_tween.tween_property(combat_player, "volume_db", COMBAT_LAYER_DB, 0.8)
@@ -603,6 +742,8 @@ func exit_combat() -> void:
 
 ## Boss 进场收战斗层：0.3s 快速淡出后停（原为硬停）。
 func _fade_out_combat_layer() -> void:
+    combat_active = false
+    combat_calm_time = 0.0
     if combat_tween != null and combat_tween.is_valid():
         combat_tween.kill()
     if combat_player == null or not is_instance_valid(combat_player) or not combat_player.playing:
@@ -617,13 +758,35 @@ func _fade_out_combat_layer() -> void:
 
 # ---- Boss 曲（规格 §3；终 Boss 三乐章）----
 
+## Retry missing music without poisoning the general audio cache forever or
+## emitting a warning every frame while the scene keeps requesting the same state.
+func _music_candidate(path: String) -> AudioStream:
+    var key := "%s|1" % path
+    var now := Time.get_ticks_msec()
+    if _stream_cache.has(key) and _stream_cache[key]==null:
+        if now<int(music_retry_after.get(path,0)):return null
+        _stream_cache.erase(key)
+    var stream := load_cached(path,true)
+    if stream==null:
+        music_retry_after.erase(path)
+        music_retry_after[path]=now+1000
+        while music_retry_after.size()>16:music_retry_after.erase(music_retry_after.keys()[0])
+    else:music_retry_after.erase(path)
+    return stream
+
 func start_boss_music(boss_id: String) -> void:
+    _stop_npc_landmarks()
     if boss_active and active_boss_id == boss_id \
             and boss_player != null and is_instance_valid(boss_player) and boss_player.playing:
         return
+    var stream: AudioStream
+    if autoplay_enabled:
+        stream=_music_candidate(_boss_track_path(boss_id,1))
+        if stream==null:return
     boss_active = true
     active_boss_id = boss_id
     boss_phase = 1
+    _fade_out_combat_layer()
     if not autoplay_enabled:
         return
     # 摇篮曲×Boss 互斥：boss_active 已置位，stop_lullaby 不会误恢复探索曲。
@@ -633,11 +796,7 @@ func start_boss_music(boss_id: String) -> void:
         # 终 Boss 三乐章预载进流缓存：相变切换零磁盘 IO。
         for movement_path in FINAL_BOSS_MOVEMENTS:
             load_cached(String(movement_path), true)
-    _fade_out_combat_layer()
     _fade_explore_to_pause(BOSS_ENTER_EXPLORE_FADE_S)
-    var stream := load_cached(_boss_track_path(boss_id, 1), true)
-    if stream == null:
-        return
     if boss_player == null or not is_instance_valid(boss_player):
         boss_player = AudioStreamPlayer.new()
         boss_player.name = "MusicBossPlayer"
@@ -650,18 +809,17 @@ func start_boss_music(boss_id: String) -> void:
 
 
 func set_boss_phase(p: int) -> void:
-    if not boss_active or p == boss_phase:
+    var next_phase := clampi(p,1,3)
+    if not boss_active or next_phase==boss_phase:return
+    if not autoplay_enabled or active_boss_id!=FINAL_BOSS_ID:
+        boss_phase=next_phase
         return
-    boss_phase = clampi(p, 1, 3)
-    if not autoplay_enabled or active_boss_id != FINAL_BOSS_ID:
-        return
-    if boss_player == null or not is_instance_valid(boss_player):
-        return
-    var stream := load_cached(_boss_track_path(active_boss_id, boss_phase), true)
-    if stream == null:
-        return
-    boss_player.stream = stream
+    if not is_instance_valid(boss_player):return
+    var stream := _music_candidate(_boss_track_path(active_boss_id,next_phase))
+    if stream==null:return
+    boss_player.stream=stream
     boss_player.play()
+    boss_phase=next_phase
 
 
 func stop_boss_music() -> void:
@@ -700,14 +858,16 @@ func _finish_boss_stop() -> void:
 func start_lullaby() -> void:
     if lullaby_active:
         return
-    if boss_active:
-        # Boss 战中不进摇篮曲且不置位（修死锁）：Boss 收尾后由 _tick_shrine_lullaby 重触发。
+    if boss_active or combat_active:
+        # Active threats keep the shrine poll pending until the calm window ends.
         return
+    var stream: AudioStream
+    if autoplay_enabled:
+        stream=_music_candidate(_lullaby_path())
+        if stream==null:return
+    _fade_out_combat_layer()
     lullaby_active = true
     if not autoplay_enabled:
-        return
-    var stream := load_cached(_lullaby_path(), true)
-    if stream == null:
         return
     if lullaby_player == null or not is_instance_valid(lullaby_player):
         lullaby_player = AudioStreamPlayer.new()
@@ -822,11 +982,12 @@ func _on_anvil_timer() -> void:
 func _play_ambience_oneshot(path: String, volume_db: float) -> void:
     if not autoplay_enabled:
         return
-    if not request_voice("amb_oneshot", 2, 250, 2):
+    var voice_ticket := reserve_voice("amb_oneshot", 2, 250, 2)
+    if voice_ticket == 0:
         return
     var stream := load_cached(path)
     if stream == null:
-        release_voice("amb_oneshot")
+        release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "AmbienceOneShot"
@@ -835,7 +996,7 @@ func _play_ambience_oneshot(path: String, volume_db: float) -> void:
     player_node.volume_db = volume_db
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    start_reserved_voice(voice_ticket,player_node)
 
 
 # ---- 混音状态（规格 §5.3/§5.5）----
@@ -844,17 +1005,43 @@ func _play_ambience_oneshot(path: String, volume_db: float) -> void:
 ## release 段不快照基准：每步实时读 _music_rest_db()，对话开合/用户调音量
 ## 与 duck 竞态时回弹不会打到过期终点。
 func duck(db: float, hold: float, attack: float = 0.35, release: float = 0.6) -> void:
-    var bus_index := AudioServer.get_bus_index("BGM")
-    if bus_index == -1 or not is_inside_tree():
-        return
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
-    var ducked_db := _music_rest_db() + minf(db, 0.0)
+    if AudioServer.get_bus_index("BGM") == -1 or not is_inside_tree() or instance != self:return
+    if not is_finite(db) or not is_finite(hold) or not is_finite(attack) or not is_finite(release):return
+    duck_serial += 1
+    var id := duck_serial
+    var admission: Dictionary = duck_mix.admit(id,db)
+    if not admission.get("ok",false):return
+    var evicted := int(admission.evicted)
+    if duck_layers.has(evicted):
+        var old: Tween = duck_layers[evicted]
+        if old.is_valid():old.kill()
+        duck_layers.erase(evicted)
     duck_tween = create_tween()
-    duck_tween.tween_method(_set_music_bus_db, AudioServer.get_bus_volume_db(bus_index), ducked_db, maxf(attack, 0.01))
-    duck_tween.tween_interval(maxf(hold, 0.0))
-    duck_tween.tween_method(func(t: float) -> void: _set_music_bus_db(lerpf(ducked_db, _music_rest_db(), t)), 0.0, 1.0, maxf(release, 0.01))
-    duck_tween.tween_callback(func() -> void: _set_music_bus_db(_music_rest_db()))
+    duck_layers[id] = duck_tween
+    _render_music_mix()
+    duck_tween.tween_method(func(value: float):_set_duck_layer(id,value),float(admission.start),float(admission.target),clampf(attack,0.01,3.0))
+    duck_tween.tween_interval(clampf(hold,0.0,10.0))
+    duck_tween.tween_method(func(value: float):_set_duck_layer(id,value),float(admission.target),0.0,clampf(release,0.01,5.0))
+    duck_tween.tween_callback(func():
+        duck_layers.erase(id)
+        duck_mix.remove(id)
+        _render_music_mix())
+
+func _set_duck_layer(id: int, value: float) -> void:
+    duck_mix.set_level(id,value)
+    _render_music_mix()
+
+func _render_music_mix() -> void:
+    if instance != self:return
+    var index := AudioServer.get_bus_index("BGM")
+    if index >= 0:AudioServer.set_bus_volume_db(index,music_mix_base_db+duck_mix.level())
+
+func _clear_duck_layers(render: bool = true) -> void:
+    for tween in duck_layers.values():
+        if tween != null and tween.is_valid():tween.kill()
+    duck_layers.clear()
+    duck_mix.layers.clear()
+    if render:_render_music_mix()
 
 
 func on_dialogue(open: bool) -> void:
@@ -863,9 +1050,8 @@ func on_dialogue(open: bool) -> void:
     dialogue_open = open
     if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
         _npc_voice_player.stop()
-    # duck 与对话共写 BGM 总线：对话开合即中止在途 duck，由 rest 基准接管。
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
+    # Dialogue changes the baseline; independent transient ducks keep their leases.
+    if open:_stop_npc_landmarks()
     _tween_bus_db("BGM", _music_rest_db(), 0.25)
     _tween_bus_db("Ambience", _ambience_rest_db(), 0.25)
 
@@ -877,8 +1063,8 @@ func on_key_item_pickup() -> void:
 ## 章节转场（main_level._activate_chapter_exit 调用）：BGM 总线 0.5s 淡出；
 ## 新章 _ensure_audio_buses + _load_user_volumes 会复位到用户基准。
 func begin_chapter_transition() -> void:
-    if duck_tween != null and duck_tween.is_valid():
-        duck_tween.kill()
+    _clear_duck_layers()
+    _stop_npc_landmarks()
     _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
 
 
@@ -893,22 +1079,19 @@ func cancel_chapter_transition() -> void:
 ## 房型混响微调：hub/vista wet +0.10、corridor/secret wet -0.08，0.6s tween 回归基准。
 ## transit 房同时驱动钟道站厅音乐层。
 func on_room_changed(kind: String) -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return
     _update_transit_loop(kind == "transit")
     var delta := float(ROOM_REVERB_WET_DELTA.get(kind, 0.0))
     for bus_name in ["SFX", "Ambience"]:
         var reverb := _bus_reverb(String(bus_name))
         if reverb == null:
+            room_reverb_mix.release_bus(self, String(bus_name))
+            base_reverb_wet.erase(bus_name)
             continue
-        var target: float = clampf(float(base_reverb_wet.get(bus_name, reverb.wet)) + delta, 0.0, 1.0)
-        var old_tween: Tween = reverb_tweens.get(bus_name)
-        if old_tween != null and old_tween.is_valid():
-            old_tween.kill()
-        if not is_inside_tree():
-            reverb.wet = target
-            continue
-        var tween := create_tween()
-        tween.tween_property(reverb, "wet", target, 0.6)
-        reverb_tweens[bus_name] = tween
+        var baseline: float = room_reverb_mix.capture(self, String(bus_name), reverb)
+        base_reverb_wet[bus_name] = baseline
+        reverb_tweens[bus_name] = room_reverb_mix.fade(self, String(bus_name), reverb, baseline + delta, 0.6)
 
 
 ## 钟道站厅音乐层：transit 房以 -10dB 在 MusicStinger 总线起 bellway_transit_loop
@@ -1009,9 +1192,12 @@ func _clear_death_lowpass() -> void:
 # ---- 用户音量（持久化 user://audio_settings.cfg）----
 
 func set_user_volume(which: String, percent: float) -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):return
     if not USER_VOLUME_BUS.has(which) or not is_finite(percent):
         return
     user_volumes[which] = clampf(percent, 0.0, 100.0)
+    volume_preferences_revision += 1
+    volume_preferences_dirty = true
     _apply_user_volume(which)
     _save_user_volumes()
 
@@ -1025,9 +1211,7 @@ func _apply_user_volume(which: String) -> void:
     var target := _bus_base_db(which)
     if which == "music":
         target = _music_rest_db()
-        # 用户改音乐音量直写 BGM 总线：中止在途 duck，避免回弹覆盖新基准。
-        if duck_tween != null and duck_tween.is_valid():
-            duck_tween.kill()
+        # User volume updates the baseline without losing other transient leases.
     elif which == "ambience":
         target = _ambience_rest_db()
     # A user edit owns the new level, including a dialogue/transition envelope
@@ -1051,6 +1235,7 @@ func _set_user_mute(bus_name: String, muted: bool) -> void:
 
 
 func _load_user_volumes() -> void:
+    volume_preferences.recover(settings_path)
     var cfg := ConfigFile.new()
     if cfg.load(settings_path) == OK:
         for which in user_volumes.keys():
@@ -1058,15 +1243,38 @@ func _load_user_volumes() -> void:
             var raw: Variant = cfg.get_value("volumes", String(which), float(user_volumes[which]))
             if (typeof(raw) == TYPE_FLOAT or typeof(raw) == TYPE_INT) and is_finite(float(raw)):
                 user_volumes[which] = clampf(float(raw), 0.0, 100.0)
+    var session_key := ProjectSettings.globalize_path(settings_path)
+    if pending_volume_sessions.has(session_key):
+        var pending: Dictionary = pending_volume_sessions[session_key]
+        user_volumes = pending["values"].duplicate(true)
+        volume_preferences_dirty = true
+        volume_preferences_error = int(pending.error)
     for which in user_volumes.keys():
         _apply_user_volume(String(which))
 
 
 func _save_user_volumes() -> void:
-    var cfg := ConfigFile.new()
-    for which in user_volumes.keys():
-        cfg.set_value("volumes", String(which), float(user_volumes[which]))
-    cfg.save(settings_path)
+    if volume_preferences_saving:return
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):return
+    volume_preferences_saving = true
+    var revision := volume_preferences_revision
+    volume_preferences_error = volume_preferences.save(settings_path, user_volumes.duplicate(true))
+    volume_preferences_saving = false
+    volume_preferences_dirty = volume_preferences_error != OK or revision != volume_preferences_revision
+    var session_key := ProjectSettings.globalize_path(settings_path)
+    if volume_preferences_dirty:
+        pending_volume_sessions[session_key] = {"values":user_volumes.duplicate(true),"error":volume_preferences_error}
+    else:pending_volume_sessions.erase(session_key)
+
+func user_volume_save_status() -> Dictionary:
+    return {"persisted":not volume_preferences_dirty, "error":volume_preferences_error,
+        "reason":"" if not volume_preferences_dirty else "带*的音量尚未保存，当前会话仍有效；再次调节音量可重试。"}
+
+func retry_user_volume_save() -> Dictionary:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return {"persisted":false,"error":ERR_UNAVAILABLE,"reason":"当前声音设置页已失效。"}
+    if volume_preferences_dirty:_save_user_volumes()
+    return user_volume_save_status()
 
 
 # ---- 电平/混响工具 ----
@@ -1094,7 +1302,10 @@ func _ambience_rest_db() -> float:
 func _set_bus_db(bus_name: String, value: float) -> void:
     var bus_index := AudioServer.get_bus_index(bus_name)
     if bus_index != -1:
-        AudioServer.set_bus_volume_db(bus_index, value)
+        if bus_name == "BGM":
+            music_mix_base_db = value
+            _render_music_mix()
+        else:AudioServer.set_bus_volume_db(bus_index, value)
 
 
 func _set_music_bus_db(value: float) -> void:
@@ -1112,15 +1323,21 @@ func _tween_bus_db(bus_name: String, target: float, seconds: float) -> void:
         AudioServer.set_bus_volume_db(bus_index, target)
         return
     var tween := create_tween()
-    tween.tween_method(func(value: float) -> void: _set_bus_db(bus_name, value), AudioServer.get_bus_volume_db(bus_index), target, seconds)
+    var start := music_mix_base_db if bus_name == "BGM" else AudioServer.get_bus_volume_db(bus_index)
+    tween.tween_method(func(value: float) -> void: _set_bus_db(bus_name, value), start, target, seconds)
     bus_tweens[bus_name] = tween
 
 
 func _capture_base_reverb() -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return
     for bus_name in ["SFX", "Ambience"]:
         var reverb := _bus_reverb(String(bus_name))
         if reverb != null:
-            base_reverb_wet[bus_name] = reverb.wet
+            base_reverb_wet[bus_name] = room_reverb_mix.capture(self, String(bus_name), reverb)
+        else:
+            room_reverb_mix.release_bus(self, String(bus_name))
+            base_reverb_wet.erase(bus_name)
 
 
 func _bus_reverb(bus_name: String) -> AudioEffectReverb:
@@ -1138,10 +1355,12 @@ func _bus_reverb(bus_name: String) -> AudioEffectReverb:
 ## this is deliberately not synthetic Chinese speech or a borrowed game voice.
 ## One dedicated player replaces the previous greeting; no syllable-per-letter spam.
 func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> bool:
+    _stop_npc_landmarks()
     if line.strip_edges().is_empty() or not is_inside_tree():
         return false
     var key := "npc_greeting_" + npc_id
-    if not request_voice(key, 2, 450, 1):
+    var voice_ticket := reserve_voice(key, 2, 450, 1)
+    if voice_ticket == 0:
         return false
     var stream := npc_voice_stream(profile)
     if _npc_voice_player == null or not is_instance_valid(_npc_voice_player):
@@ -1152,8 +1371,7 @@ func play_npc_voice(npc_id: String, line: String, profile: String = "warm") -> b
         add_child(_npc_voice_player)
     _npc_voice_player.stream = stream
     _npc_voice_player.pitch_scale = 0.96 + float(abs(npc_id.hash()) % 9) * 0.01
-    _npc_voice_player.play()
-    return true
+    return start_reserved_voice(voice_ticket,_npc_voice_player,true)
 
 
 static func npc_voice_stream(profile: String) -> AudioStreamWAV:
@@ -1186,26 +1404,130 @@ static func npc_voice_stream(profile: String) -> AudioStreamWAV:
 
 ## Optional vocal accent for enemy alert, separate from existing impact/death SFX.
 ## Call only on an AI transition into aggro, not every AI poll or strike.
-func play_enemy_alert(kind: String) -> bool:
+func play_enemy_alert(kind: String, source: Node2D = null) -> bool:
+    var spatial := preload("res://scripts/spatial_enemy_alert.gd")
+    var listener := runtime_player as Node2D
+    if not is_instance_valid(source) or not is_instance_valid(listener): return false
+    if source.is_queued_for_deletion() or listener.is_queued_for_deletion(): return false
+    if not source.is_inside_tree() or not listener.is_inside_tree(): return false
+    if source.get_world_2d() != listener.get_world_2d(): return false
+    if not spatial.in_range(source.global_position, listener.global_position): return false
     var family := "soft"
     if kind.contains("knight") or kind.contains("lancer") or kind.contains("spearman"):
         family = "armor"
     elif kind.contains("mite") or kind.contains("crawler") or kind.contains("bee"):
         family = "shell"
     var key := "enemy_alert_" + family
-    if not is_inside_tree() or not request_voice(key, 2, 1800, 1):
+    if not is_inside_tree():return false
+    var voice_ticket := reserve_voice(key,2,1800,1)
+    if voice_ticket == 0:
         return false
     var path := "res://assets/audio/sfx/generated/enemy_hit_%s.ogg" % family
     var stream := load_cached(path)
     if stream == null:
-        release_voice(key)
+        release_ticket(voice_ticket)
         return false
-    var voice := AudioStreamPlayer.new()
+    var voice := spatial.new()
     voice.bus = _bus_or("SFXEnemy", "SFX")
-    voice.volume_db = -19.0
     voice.pitch_scale = 0.72 if family == "armor" else 1.24
     voice.stream = stream
     add_child(voice)
+    if not voice.place(source.global_position, listener):
+        voice.free()
+        release_voice(key)
+        return false
     voice.finished.connect(voice.queue_free)
-    voice.play()
+    return start_reserved_voice(voice_ticket,voice)
+
+## A quiet, spatial nonverbal cue from a real nearby NPC; no map knowledge is granted.
+func set_npc_landmarks(enabled: bool) -> void:
+    npc_landmarks_enabled = enabled
+    if not enabled:_stop_npc_landmarks()
+    else:landmark_next_ms=Time.get_ticks_msec()+1200
+
+func _landmarks_allowed() -> bool:
+    if not is_inside_tree() or instance != self or not npc_landmarks_enabled or dialogue_open or combat_active or boss_active or shrine_engaged:return false
+    if get_user_volume("master") <= 0 or get_user_volume("sfx") <= 0:return false
+    if not is_instance_valid(runtime_player) or not runtime_player is Node2D or not runtime_player.is_inside_tree():return false
+    if runtime_player.get("ui_input_locked") == true:return false
+    var hp: Variant = runtime_player.get("hp")
+    return not ((hp is int or hp is float) and hp <= 0)
+
+func _tick_npc_landmarks() -> void:
+    if not _landmarks_allowed():_stop_npc_landmarks();return
+    var now := Time.get_ticks_msec()
+    if now < landmark_next_ms:return
+    var rows: Array=[]
+    var sources: Array=[]
+    for candidate in get_tree().get_nodes_in_group("npc_sound_landmark"):
+        if not candidate is Node2D or not candidate.is_inside_tree() or not candidate.is_visible_in_tree() or candidate.is_queued_for_deletion():continue
+        if candidate.get_world_2d()!=runtime_player.get_world_2d() or String(candidate.get_meta("kind",""))!="npc":continue
+        rows.append({"id":String(candidate.get_meta("npc_id","")),"distance":candidate.global_position.distance_to(runtime_player.global_position)})
+        sources.append(weakref(candidate))
+    var selected:=LANDMARK_SCHEDULE.choose(rows,landmark_times,now)
+    if selected<0:
+        landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
+        return
+    var source: Variant=sources[selected].get_ref()
+    if not is_instance_valid(source) or not play_npc_landmark(source):landmark_next_ms=now+LANDMARK_SCHEDULE.RETRY_MS
+
+func play_npc_landmark(source: Node2D) -> bool:
+    if not _landmarks_allowed() or not is_instance_valid(source) or not source.is_inside_tree() or source.is_queued_for_deletion() or not source.is_visible_in_tree():return false
+    if source.get_world_2d() != runtime_player.get_world_2d() or not source.global_position.is_finite() or source.global_position.distance_squared_to(runtime_player.global_position) > 650.0 * 650.0:return false
+    if String(source.get_meta("kind","")) != "npc":return false
+    var id := String(source.get_meta("npc_id",""))
+    if id.is_empty():return false
+    var now := Time.get_ticks_msec()
+    if now < landmark_next_ms or now - int(landmark_times.get(id,-12001)) < 12000:return false
+    var key := "npc_landmark_" + id
+    var ticket := reserve_voice(key,3,12000,1)
+    if ticket == 0:return false
+    var voice := preload("res://scripts/spatial_enemy_alert.gd").new()
+    voice.name = "NPCSoundLandmark"
+    voice.set_meta("npc_landmark",true)
+    voice.set_meta("landmark_source",weakref(source))
+    voice.bus = _bus_or("SFXWorld","SFX")
+    voice.stream = npc_voice_stream("dry" if id.contains("carto") else "low" if id.contains("smith") else "warm")
+    add_child(voice)
+    if not voice.place(source.global_position,runtime_player,-25.0):
+        voice.free();release_ticket(ticket);return false
+    voice.max_distance = 650.0
+    voice.finished.connect(voice.queue_free)
+    if not start_reserved_voice(ticket,voice):voice.free();release_ticket(ticket);return false
+    landmark_times.erase(id);landmark_times[id] = now
+    while landmark_times.size() > 64:landmark_times.erase(landmark_times.keys()[0])
+    landmark_next_ms = now + LANDMARK_SCHEDULE.GLOBAL_GAP_MS
     return true
+
+func _retire_invalid_landmarks() -> void:
+    var active: Array[AudioStreamPlayer2D]=[]
+    for child in get_children():
+        if not child is AudioStreamPlayer2D or not bool(child.get_meta("npc_landmark",false)):continue
+        var reference: Variant=child.get_meta("landmark_source",null)
+        var source: Variant=reference.get_ref() if reference is WeakRef else null
+        var valid: bool=is_instance_valid(source) and source is Node2D and source.is_inside_tree() and not source.is_queued_for_deletion() and source.is_visible_in_tree()
+        valid=valid and is_instance_valid(runtime_player) and runtime_player.is_inside_tree()
+        if valid:valid=source.get_world_2d()==runtime_player.get_world_2d() and source.global_position.distance_to(runtime_player.global_position)<=LANDMARK_SCHEDULE.RANGE
+        if not valid:
+            preload("res://scripts/audio_retirement.gd").watch_player(child)
+            child.stop();child.stream=null;child.queue_free()
+        elif not child.is_queued_for_deletion() and child.has_method("refresh_spatial"):
+            active.append(child)
+    for index in landmark_spatial_refresh.choose(active.size(),Time.get_ticks_msec()):
+        var voice:=active[index]
+        var source: Node2D=voice.get_meta("landmark_source").get_ref()
+        if not is_instance_valid(source) or not voice.refresh_spatial(source.global_position,runtime_player):
+            preload("res://scripts/audio_retirement.gd").watch_player(voice)
+            voice.stop();voice.stream=null;voice.queue_free()
+
+func _stop_npc_landmarks() -> void:
+    for child in get_children():
+        if child is AudioStreamPlayer2D and bool(child.get_meta("npc_landmark",false)):
+            preload("res://scripts/audio_retirement.gd").watch_player(child)
+            child.stop();child.stream = null;child.queue_free()
+
+func foreground_warning(source: Node2D) -> void:
+    if instance != self or not is_inside_tree() or not is_instance_valid(source) or not source.is_inside_tree() or not runtime_player is Node2D or not is_instance_valid(runtime_player):return
+    if source.get_world_2d() != runtime_player.get_world_2d() or source.global_position.distance_squared_to(runtime_player.global_position) > 900.0 * 900.0:return
+    _stop_npc_landmarks()
+    duck(-4.0,0.35,0.04,0.3)

@@ -45,7 +45,14 @@ func _run() -> void:
             if not data.done or int(data.air_frames)>4:
                 failures+=1
                 push_error(String(id)+" "+String(data.id)+" direction="+str(data.direction)+" blocked or leaves ground: "+str(data.actor.global_position))
+        # Capture playback while the players still belong to the live tree.
+        preload("res://scripts/audio_retirement.gd").retire_tree(scene)
         scene.queue_free()
         await process_frame
+    if not await preload("res://scripts/audio_retirement.gd").drain(self):
+        failures += 1
+    if DisplayServer.get_name() != "headless" and preload("res://scripts/audio_retirement.gd").observed == 0:
+        push_error("Cave audio retirement must observe real playback before scene removal")
+        failures += 1
     print("CAVE_ROUTE_WALK_VALIDATION traversals=%d failures=%d"%[traversals,failures])
     quit(0 if failures==0 else 1)

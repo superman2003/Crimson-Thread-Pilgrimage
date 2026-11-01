@@ -1,0 +1,7324 @@
+{
+  "id": "demo_ch06_silent_crown_core",
+  "name": "无声王冠试玩章",
+  "world": {
+    "width": 5550,
+    "height": 3412,
+    "fall_y": 3432
+  },
+  "player_start": [
+    2710,
+    660
+  ],
+  "boss_checkpoint": [
+    3050,
+    3020
+  ],
+  "required_keys": 0,
+  "goal": "从王冠前厅沿东冠肩降入雨渠与弦室回声，顺东环廊走到核心竖井受控下坠；在钟舌库拉杆打开西环门，沿西环廊爬回黑曜、盐白与苔庭回声，借冠肋单向攀回前厅；最后从核心底部的王座前廊挑战百钥守门人，登上升殿选择结局。",
+  "completion_message": "DEMO COMPLETE: 百钥守门人已被击败，王冠失声印记已回收",
+  "completion_toast": "无声王冠闭环完成：NPC、清怪、Boss门和章节奖励均已验证。",
+  "enemy_drop_item": "crown_echo_shard",
+  "asset_policy": {
+    "rule": "只使用项目内已登记的免费、开源或可商用友好素材；敌人使用 OpenGameArt 暗黑素材，旧同族素材只作友方 NPC。",
+    "enemies": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "npc": "godot/assets/sprites/gothicvania/demo/*.png 仅友方 NPC 使用，并带 FriendlyTalkBadge/FriendlyHalo",
+    "ui_fx": "Kenney CC0 UI 与程序化 VFX 节点",
+    "audio": "godot/assets/audio 本地 OGG 与后续 CC0 候选",
+    "progression": "combat_clear: defeat all configured normal enemies to open the boss route; no route tokens are required.",
+    "bosses": "OpenGameArt Dark Fantasy Platformer Bestiary, CC-BY 4.0, https://opengameart.org/content/dark-fantasy-platformer-bestiary",
+    "environment": "Crimson Thread original map art",
+    "platform_tiles": "godot/assets/sprites/original_map/silent_crown/platform_*.png",
+    "background_layers": "godot/assets/sprites/original_map/silent_crown/sky.png, far.png, mid.png, near.png",
+    "map_art_root": "godot/assets/sprites/original_map/silent_crown",
+    "map_art_ownership": "project-owned"
+  },
+  "world_story": {
+    "worldview": "旧王朝建立在一口倒扣巨钟之上。巨钟压住深井黑潮，也吞掉活人的声音、誓言和未完成愿望。",
+    "protagonist": {
+      "codename": "缄",
+      "identity": "第七签署者留下的绯线回响，能看见命线、契约线和被删掉的名字残痕。"
+    },
+    "core_conflict": "继续重鸣能保住城市秩序，却延续活人声音作为封印材料；切断王冠能归还声音，却可能放出黑潮。真结局需要集齐六处证词，用绯线改写契约。",
+    "truth_ladder": [
+      "王冠是一口倒扣巨钟。",
+      "钟壁铸入过活人名字。",
+      "盐白契约删掉第七签署者。",
+      "六枚印记曾是六位活人守门者心脏。",
+      "失败巡礼者被重编为静音军队。",
+      "第七签署者把改写契约的后门藏进绯线。"
+    ],
+    "endings": [
+      "重鸣：城市安全但名字仍在钟里。",
+      "断冠：声音归还但黑潮涌出。",
+      "绯线真结局：钟声只封黑潮，不再吞人声。"
+    ]
+  },
+  "inventory": {
+    "currency_name": "王冠碎片",
+    "starting_tools": [
+      "thread_burst",
+      "menders_right",
+      "crown_resonance"
+    ],
+    "starting_relics": [
+      "moss_lens"
+    ],
+    "catalog": {
+      "crown_echo_key": {
+        "name": "王冠回声守卫",
+        "category": "Combat",
+        "description": "打开回声核心捷径的章节战斗标记。"
+      },
+      "thread_burst": {
+        "name": "绯线爆裂",
+        "category": "Tools",
+        "description": "消耗30点能量，打出一次重型线刃。"
+      },
+      "menders_right": {
+        "name": "缝补右手",
+        "category": "Tools",
+        "description": "按治疗键缝补伤口；消耗、回复量与能否空中缝补由所装契印决定，详见构筑页的契印说明。"
+      },
+      "moss_lens": {
+        "name": "苔光镜",
+        "category": "Relics",
+        "description": "记录已探索房间的破损镜片。"
+      },
+      "crown_echo_shard": {
+        "name": "王冠回声守卫碎片",
+        "category": "Materials",
+        "description": "王冠章节敌人掉落的材料。"
+      },
+      "silent_mark_crown": {
+        "name": "王冠失声印记",
+        "category": "Quest",
+        "description": "百钥守门人掉落的章节奖励。"
+      },
+      "ending_state": {
+        "name": "结局状态",
+        "category": "Tools",
+        "description": "无声王冠掉落的章节奖励。"
+      },
+      "redline_gate_token": {
+        "name": "绯线门印",
+        "category": "Tools",
+        "description": "无声王冠掉落的章节奖励。"
+      },
+      "testimony_06": {
+        "name": "证词·其六",
+        "category": "Relics",
+        "description": "六份证词之六：冠下回廊里初代巡礼者签约当夜的回声。"
+      },
+      "evidence_bell_tongue_echo": {
+        "name": "证据·钟舌余响",
+        "category": "Relics",
+        "description": "钟舌库挑战房留下的钟舌残响。不挡主线，却能证明你敲响过库底余响钟。 图样可带给雨铸匠制作「冠舌调线坠」，证据不会收走。"
+      }
+    }
+  },
+  "map_rooms": [
+    {
+      "id": "crown_antechamber",
+      "name": "王冠前厅",
+      "range": [
+        2570,
+        3520
+      ],
+      "depth": 0,
+      "kind": "entry",
+      "archetype": "entry",
+      "layout_rect": [
+        2570,
+        550,
+        950,
+        284
+      ],
+      "map_rect": [
+        840,
+        0,
+        236,
+        168
+      ],
+      "objective": "站在王冠前厅，认出六枚印记的方向。",
+      "guide": "初代巡礼者的回声守在这里，听完再动身。",
+      "danger": "落点干净，但回声会模仿你的脚步声。",
+      "next": "东冠肩",
+      "setpiece": "第七绯线前厅",
+      "traversal_focus": "安全试跳",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2570,
+          550,
+          950,
+          284
+        ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          2997,
+          509
+        ],
+        "size": [
+          400,
+          227
+        ]
+      },
+      "camera_bounds": [
+        2542,
+        526,
+        1006,
+        332
+      ]
+    },
+    {
+      "id": "shell_walk_east",
+      "name": "东冠肩",
+      "range": [
+        3550,
+        4440
+      ],
+      "depth": 1,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        3550,
+        686,
+        890,
+        454
+      ],
+      "map_rect": [
+        1120,
+        210,
+        236,
+        168
+      ],
+      "objective": "沿东冠肩下行，进入雨渠回声室。",
+      "guide": "冠肩的骨板逐级向下。",
+      "danger": "回声水轮骑士在骨板间巡行。",
+      "next": "雨渠回声室",
+      "setpiece": "东冠肩骨板",
+      "traversal_focus": "斜向下行",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          3550,
+          686,
+          890,
+          454
+        ]
+      ],
+      "camera_bounds": [
+        3522,
+        662,
+        946,
+        502
+      ]
+    },
+    {
+      "id": "echo_rain",
+      "name": "雨渠回声室",
+      "range": [
+        4440,
+        5230
+      ],
+      "depth": 2,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        4440,
+        978,
+        790,
+        408
+      ],
+      "map_rect": [
+        1400,
+        420,
+        236,
+        168
+      ],
+      "objective": "清理雨渠回声，取回第二枚印记的证词。",
+      "guide": "室内的水声是假的，脚步声是真的。",
+      "danger": "回声骑士的冲锋比生前更直。",
+      "next": "弦室回声室",
+      "setpiece": "雨渠回声池",
+      "traversal_focus": "回声战斗",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          4440,
+          978,
+          790,
+          408
+        ]
+      ],
+      "camera_bounds": [
+        4412,
+        954,
+        846,
+        456
+      ]
+    },
+    {
+      "id": "echo_string",
+      "name": "弦室回声室",
+      "range": [
+        3990,
+        4910
+      ],
+      "depth": 3,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        3990,
+        1302,
+        920,
+        496
+      ],
+      "map_rect": [
+        1400,
+        630,
+        236,
+        168
+      ],
+      "objective": "穿过弦室回声，向下接入东环廊。",
+      "guide": "断弦的震颤会暴露隐形的哨兵。",
+      "danger": "回声棘藤哨兵仍会缠脚。",
+      "next": "东环廊",
+      "setpiece": "断弦回声棚",
+      "traversal_focus": "回声战斗",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          3990,
+          1302,
+          920,
+          496
+        ]
+      ],
+      "camera_bounds": [
+        3962,
+        1278,
+        976,
+        544
+      ]
+    },
+    {
+      "id": "ring_east",
+      "name": "东环廊",
+      "range": [
+        3020,
+        4010
+      ],
+      "depth": 4,
+      "kind": "traverse",
+      "archetype": "traverse",
+      "layout_rect": [
+        3020,
+        1660,
+        990,
+        358
+      ],
+      "map_rect": [
+        1120,
+        840,
+        236,
+        168
+      ],
+      "objective": "沿东环廊走到核心井口。",
+      "guide": "环廊内侧就是核心竖井。",
+      "danger": "坠钟舌会从井口砸下。",
+      "next": "核心竖井",
+      "setpiece": "东环白骨廊",
+      "traversal_focus": "环廊横越",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          3020,
+          1660,
+          990,
+          358
+        ]
+      ],
+      "camera_bounds": [
+        2992,
+        1636,
+        1046,
+        406
+      ]
+    },
+    {
+      "id": "core_shaft",
+      "name": "核心竖井",
+      "range": [
+        2700,
+        3150
+      ],
+      "depth": 5,
+      "kind": "vertical",
+      "archetype": "vertical",
+      "layout_rect": [
+        2700,
+        1930,
+        450,
+        800
+      ],
+      "map_rect": [
+        840,
+        1050,
+        236,
+        168
+      ],
+      "objective": "顺核心竖井受控下坠，直到钟舌库。",
+      "guide": "井里的托板只接得住一次落点。",
+      "danger": "托板一块接一块，落下前先看清下一块。",
+      "next": "钟舌库",
+      "setpiece": "王冠核心井",
+      "traversal_focus": "受控坠落",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2700,
+          1930,
+          450,
+          800
+        ]
+      ],
+      "camera_bounds": [
+        2672,
+        1906,
+        506,
+        848
+      ]
+    },
+    {
+      "id": "bell_tongue_vault",
+      "name": "钟舌库",
+      "range": [
+        2460,
+        2960
+      ],
+      "depth": 6,
+      "kind": "reward",
+      "archetype": "reward",
+      "layout_rect": [
+        2460,
+        2750,
+        500,
+        256
+      ],
+      "map_rect": [
+        840,
+        1260,
+        236,
+        168
+      ],
+      "objective": "拉下钟舌拉杆：西环门长开，王座之路解锁。",
+      "guide": "旧王钟舌就吊在你头顶。 余响钟可开启挑战房。",
+      "danger": "钟舌库没有敌人，灯下可以缝补；库底黑潮的声音最近。",
+      "next": "西环廊",
+      "setpiece": "旧王钟舌",
+      "traversal_focus": "捷径解锁",
+      "pacing_role": "reward",
+      "visit_rects": [
+        [
+          2460,
+          2750,
+          500,
+          256
+        ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          2665,
+          2710
+        ],
+        "size": [
+          250,
+          220
+        ]
+      },
+      "camera_bounds": [
+        2432,
+        2726,
+        556,
+        304
+      ]
+    },
+    {
+      "id": "ring_west",
+      "name": "西环廊",
+      "range": [
+        1940,
+        2635
+      ],
+      "depth": 4,
+      "kind": "loop",
+      "archetype": "loop",
+      "layout_rect": [
+        1940,
+        2210,
+        695,
+        670
+      ],
+      "map_rect": [
+        560,
+        840,
+        236,
+        168
+      ],
+      "objective": "沿西环廊爬回上层，穿过黑曜与盐白回声。",
+      "guide": "环门打开后，这里直通前厅。",
+      "danger": "迟影守着中段之字台，顶层光核会隔空落圈。",
+      "next": "黑曜回声室",
+      "setpiece": "西环白骨廊",
+      "traversal_focus": "环廊回爬",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          1940,
+          2210,
+          695,
+          670
+        ]
+      ],
+      "camera_bounds": [
+        1912,
+        2186,
+        751,
+        718
+      ]
+    },
+    {
+      "id": "echo_obsidian",
+      "name": "黑曜回声室",
+      "range": [
+        1260,
+        1910
+      ],
+      "depth": 3,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        1260,
+        1880,
+        650,
+        466
+      ],
+      "map_rect": [
+        280,
+        630,
+        236,
+        168
+      ],
+      "objective": "清理黑曜回声，取回第五枚印记的证词。",
+      "guide": "军令圈的边缘会先亮半拍。",
+      "danger": "回声统帅的军阵比生前更密，棘哨在旗台上封路。",
+      "next": "盐白回声室",
+      "setpiece": "黑曜回声营",
+      "traversal_focus": "回声战斗",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          1260,
+          1880,
+          650,
+          466
+        ]
+      ],
+      "camera_bounds": [
+        1232,
+        1856,
+        706,
+        514
+      ]
+    },
+    {
+      "id": "echo_salt",
+      "name": "盐白回声室",
+      "range": [
+        1100,
+        1820
+      ],
+      "depth": 2,
+      "kind": "combat",
+      "archetype": "combat",
+      "layout_rect": [
+        1100,
+        1550,
+        720,
+        462
+      ],
+      "map_rect": [
+        280,
+        420,
+        236,
+        168
+      ],
+      "objective": "穿过盐白回声，向上接近苔庭回声。",
+      "guide": "迟影复写你上一段动作，走折线。",
+      "danger": "回声书记的盐刃从页缝里伸出。",
+      "next": "苔庭回声室",
+      "setpiece": "盐白回声阁",
+      "traversal_focus": "回声战斗",
+      "pacing_role": "pressure",
+      "visit_rects": [
+        [
+          1100,
+          1550,
+          720,
+          462
+        ]
+      ],
+      "camera_bounds": [
+        1072,
+        1526,
+        776,
+        510
+      ]
+    },
+    {
+      "id": "echo_moss",
+      "name": "苔庭回声室",
+      "range": [
+        1660,
+        2360
+      ],
+      "depth": 1,
+      "kind": "overlook",
+      "archetype": "overlook",
+      "layout_rect": [
+        1660,
+        1250,
+        700,
+        434
+      ],
+      "map_rect": [
+        560,
+        210,
+        236,
+        168
+      ],
+      "objective": "在苔庭回声里回望第一座庭院，找到黑潮童声的暗格。",
+      "guide": "隐藏存档点藏在回声苔灯后。",
+      "danger": "这里最安静，暗格灯下可以久留。",
+      "next": "王冠前厅（冠肋攀回）",
+      "setpiece": "苔庭回声庭",
+      "traversal_focus": "见而未达",
+      "pacing_role": "respite",
+      "visit_rects": [
+        [
+          1660,
+          1250,
+          700,
+          434
+        ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          1947,
+          1188
+        ],
+        "size": [
+          350,
+          347
+        ]
+      },
+      "camera_bounds": [
+        1632,
+        1226,
+        756,
+        482
+      ]
+    },
+    {
+      "id": "crown_ribs",
+      "name": "冠肋",
+      "range": [
+        2190,
+        2625
+      ],
+      "depth": 0,
+      "kind": "vertical",
+      "archetype": "vertical",
+      "layout_rect": [
+        2190,
+        590,
+        435,
+        880
+      ],
+      "map_rect": [
+        560,
+        0,
+        236,
+        168
+      ],
+      "objective": "沿冠肋单向攀回王冠前厅。",
+      "guide": "肋板是单向的，可以从下方穿过。",
+      "danger": "肋板窄，风从冠顶灌下。",
+      "next": "王冠前厅",
+      "setpiece": "白骨冠肋",
+      "traversal_focus": "纵向攀爬",
+      "pacing_role": "explore_and_loop",
+      "visit_rects": [
+        [
+          2190,
+          590,
+          435,
+          880
+        ]
+      ],
+      "camera_bounds": [
+        2162,
+        566,
+        491,
+        928
+      ]
+    },
+    {
+      "id": "throne_approach",
+      "name": "王座前廊",
+      "range": [
+        2120,
+        3200
+      ],
+      "depth": 6,
+      "kind": "preboss",
+      "archetype": "preboss",
+      "layout_rect": [
+        2120,
+        2890,
+        1080,
+        306
+      ],
+      "map_rect": [
+        560,
+        1470,
+        236,
+        168
+      ],
+      "objective": "穿过前廊直达王座，死亡回跑很短。",
+      "guide": "前廊有六印守望者的常明灯。",
+      "danger": "常明灯下可以喘息；回声骑士只守王座门前，盾波未散时别急着缝补。",
+      "next": "无声王座",
+      "setpiece": "六印前廊",
+      "traversal_focus": "短促冲刺",
+      "pacing_role": "tension",
+      "visit_rects": [
+        [
+          2120,
+          2890,
+          1080,
+          306
+        ]
+      ],
+      "camera_bounds": [
+        2092,
+        2866,
+        1136,
+        354
+      ]
+    },
+    {
+      "id": "silent_throne",
+      "name": "无声王座",
+      "range": [
+        3240,
+        3980
+      ],
+      "depth": 6,
+      "kind": "boss",
+      "archetype": "boss",
+      "layout_rect": [
+        3240,
+        2970,
+        740,
+        262
+      ],
+      "map_rect": [
+        1120,
+        1470,
+        236,
+        168
+      ],
+      "objective": "击败百钥守门人，补全第六枚印记，唤出三道结局门。",
+      "guide": "入口会在战斗时封闭。",
+      "danger": "守门人复刻五章首领的招式。",
+      "next": "升殿结局门",
+      "setpiece": "无声王座",
+      "traversal_focus": "首领战",
+      "pacing_role": "boss",
+      "visit_rects": [
+        [
+          3240,
+          2970,
+          740,
+          262
+        ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          3543,
+          2930
+        ],
+        "size": [
+          370,
+          220
+        ]
+      },
+      "camera_bounds": [
+        3212,
+        2946,
+        796,
+        310
+      ]
+    },
+    {
+      "id": "ascension_gate",
+      "name": "升殿结局门",
+      "range": [
+        4020,
+        4940
+      ],
+      "depth": 5,
+      "kind": "exit",
+      "archetype": "exit",
+      "layout_rect": [
+        4020,
+        2810,
+        920,
+        318
+      ],
+      "map_rect": [
+        1400,
+        1260,
+        236,
+        168
+      ],
+      "objective": "登上升殿，走进你选定的结局门。",
+      "guide": "重鸣、断冠、或绯线真结局。",
+      "danger": "没有敌人了，只剩选择。",
+      "next": "三结局",
+      "setpiece": "三色结局门",
+      "traversal_focus": "终局收束",
+      "pacing_role": "denouement",
+      "visit_rects": [
+        [
+          4020,
+          2810,
+          920,
+          318
+        ]
+      ],
+      "landmark_art": {
+        "motif": "crown",
+        "position": [
+          4427,
+          2764
+        ],
+        "size": [
+          400,
+          254
+        ]
+      },
+      "camera_bounds": [
+        3992,
+        2786,
+        976,
+        366
+      ]
+    }
+  ],
+  "ai_profiles": {
+    "echo_moss_larva": {
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点",
+      "tactical_role": "ambush",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "echo_larva_burrow",
+          "name": "回声潜扑",
+          "type": "lunge",
+          "range": 260,
+          "windup": 0.7,
+          "active": 0.42,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "回声潜扑",
+          "lunge_speed": 290,
+          "burrow": true
+        },
+        {
+          "id": "echo_larva_mark",
+          "name": "迟发苔音",
+          "type": "pool",
+          "range": 300,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "迟发苔音",
+          "radius": 39,
+          "warning": 1.15,
+          "hazard_life": 0.55
+        }
+      ]
+    },
+    "echo_waterwheel_knight": {
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波",
+      "tactical_role": "guard",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "echo_wheel_guard",
+          "name": "回声盾反",
+          "type": "guard",
+          "range": 180,
+          "windup": 0.8,
+          "active": 0.3,
+          "recover": 0.7,
+          "cooldown": 2.1,
+          "hit_width": 142,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "回声盾反"
+        },
+        {
+          "id": "echo_wheel_wave",
+          "name": "快慢双轮波",
+          "type": "wave",
+          "range": 450,
+          "windup": 0.9,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "快慢双轮波",
+          "shot_count": 4,
+          "projectile_speed": 190,
+          "speed_step": 65
+        }
+      ],
+      "front_guard": true
+    },
+    "echo_contract_scribe": {
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈",
+      "tactical_role": "aerial",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "echo_scribe_pages",
+          "name": "冠页斜射",
+          "type": "fan",
+          "range": 430,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "冠页斜射",
+          "shot_count": 3,
+          "spread": 0.3,
+          "projectile_speed": 225,
+          "skin": "page"
+        },
+        {
+          "id": "echo_scribe_seals",
+          "name": "双落印",
+          "type": "pool",
+          "range": 420,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双落印",
+          "shot_count": 2,
+          "spacing": 135,
+          "radius": 30,
+          "warning": 0.9,
+          "hazard_life": 1.05
+        }
+      ],
+      "hover_height": 75
+    },
+    "echo_thorn_sentinel": {
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "tactical_role": "guard",
+      "move_speed": 62,
+      "aggro_range": 440,
+      "preferred_range": 230,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "echo_thorn_double",
+          "name": "双环荆针",
+          "type": "nova",
+          "range": 470,
+          "windup": 1,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "双环荆针",
+          "shot_count": 10,
+          "projectile_speed": 200,
+          "skin": "thorn"
+        },
+        {
+          "id": "echo_thorn_roots",
+          "name": "间隔根刺",
+          "type": "rootline",
+          "range": 430,
+          "windup": 0.7,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "间隔根刺",
+          "shot_count": 4,
+          "spacing": 92,
+          "radius": 22,
+          "warning": 0.85,
+          "hazard_life": 0.6
+        }
+      ]
+    },
+    "echo_pilgrim_commander_minor": {
+      "locomotion": "ground",
+      "combat_identity": "长枪连段与军旗落阵，攻后停顿明显",
+      "tactical_role": "alarm",
+      "move_speed": 48,
+      "aggro_range": 300,
+      "preferred_range": 66,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "minor_lances",
+          "name": "巡礼三枪",
+          "type": "combo",
+          "range": 260,
+          "windup": 0.75,
+          "active": 0.7,
+          "recover": 0.95,
+          "cooldown": 2.1,
+          "hit_width": 165,
+          "hit_height": 70,
+          "offset": 83,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "巡礼三枪",
+          "lunge_speed": 175
+        },
+        {
+          "id": "minor_banner",
+          "name": "军旗落阵",
+          "type": "rootline",
+          "range": 440,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "军旗落阵",
+          "shot_count": 4,
+          "spacing": 88,
+          "radius": 22,
+          "warning": 0.7,
+          "hazard_life": 0.6
+        }
+      ]
+    },
+    "isotope_lumen": {
+      "locomotion": "flight",
+      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "tactical_role": "aerial",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "lumen_orbits",
+          "name": "光核环弹",
+          "type": "nova",
+          "range": 380,
+          "windup": 0.8,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "光核环弹",
+          "shot_count": 7,
+          "projectile_speed": 145,
+          "skin": "light"
+        },
+        {
+          "id": "lumen_focus",
+          "name": "延迟聚光",
+          "type": "pool",
+          "range": 400,
+          "windup": 0.6,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "延迟聚光",
+          "radius": 48,
+          "warning": 1.0,
+          "hazard_life": 0.8
+        }
+      ],
+      "hover_height": 130
+    },
+    "silent_crown_core": {
+      "locomotion": "ground",
+      "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+      "tactical_role": "boss",
+      "move_speed": 66,
+      "aggro_range": 780,
+      "preferred_range": 145,
+      "attack_desire_threshold": 0.5,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 140,
+      "leash_radius": 9999,
+      "attacks": [
+        {
+          "id": "boss_key_cleave",
+          "name": "百钥重劈",
+          "type": "melee",
+          "range": 240,
+          "windup": 0.85,
+          "active": 0.24,
+          "recover": 0.9,
+          "cooldown": 2.7,
+          "hit_width": 245,
+          "hit_height": 130,
+          "offset": 115,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "heavy",
+          "desire_cost": 0.8,
+          "mechanic": "百钥重劈"
+        },
+        {
+          "id": "boss_key_return",
+          "name": "回旋钥阵",
+          "type": "fan",
+          "range": 680,
+          "windup": 1.0,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "cast",
+          "desire_cost": 0.8,
+          "mechanic": "回旋钥阵",
+          "shot_count": 4,
+          "spread": 0.58,
+          "projectile_speed": 260,
+          "returning": true,
+          "skin": "key",
+          "radius": 13
+        },
+        {
+          "id": "boss_key_gate",
+          "name": "冠门封线",
+          "type": "beam",
+          "range": 700,
+          "windup": 1.15,
+          "active": 0.24,
+          "recover": 1,
+          "cooldown": 4.8,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "冠门封线",
+          "beam_length": 720,
+          "radius": 18,
+          "hazard_life": 0.42,
+          "phase": 2
+        },
+        {
+          "id": "boss_key_rings",
+          "name": "钥环震地",
+          "type": "wave",
+          "range": 680,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 1.1,
+          "cooldown": 2.7,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 260,
+          "animation": "phase",
+          "desire_cost": 0.8,
+          "mechanic": "钥环震地",
+          "shot_count": 4,
+          "projectile_speed": 190,
+          "speed_step": 80,
+          "radius": 23,
+          "phase": 2
+        }
+      ],
+      "tactical_ai": true,
+      "phase_threshold": 0.55,
+      "phase_name": "冠门审判"
+    },
+    "falling_clapper": {
+      "locomotion": "flight",
+      "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪",
+      "tactical_role": "aerial",
+      "move_speed": 35,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "clapper_fall",
+          "name": "标记落锤",
+          "type": "dive",
+          "range": 300,
+          "windup": 0.95,
+          "active": 0.48,
+          "recover": 1.15,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "标记落锤"
+        },
+        {
+          "id": "clapper_wave",
+          "name": "钟浪斜射",
+          "type": "fan",
+          "range": 360,
+          "windup": 0.75,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "钟浪斜射",
+          "shot_count": 3,
+          "spread": 0.52,
+          "projectile_speed": 210,
+          "skin": "metal"
+        }
+      ],
+      "hover_height": 175
+    },
+    "delayed_shadow": {
+      "locomotion": "flight",
+      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "tactical_role": "aerial",
+      "move_speed": 62,
+      "aggro_range": 300,
+      "preferred_range": 135,
+      "attack_desire_threshold": 0.58,
+      "attack_desire_gain": 1.1,
+      "aggro_vertical_tolerance": 220,
+      "leash_radius": 300,
+      "attacks": [
+        {
+          "id": "shadow_blink",
+          "name": "迟影侧刺",
+          "type": "blink",
+          "range": 370,
+          "windup": 0.95,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "迟影侧刺",
+          "blink_offset": 135,
+          "projectile_speed": 270,
+          "skin": "thorn"
+        },
+        {
+          "id": "shadow_echo",
+          "name": "影落封圈",
+          "type": "pool",
+          "range": 390,
+          "windup": 0.55,
+          "active": 0.24,
+          "recover": 0.5,
+          "cooldown": 2.1,
+          "hit_width": 90,
+          "hit_height": 70,
+          "offset": 48,
+          "damage": 1,
+          "telegraph": "c99558",
+          "vertical_tolerance": 190,
+          "animation": "attack",
+          "desire_cost": 0.7,
+          "mechanic": "影落封圈",
+          "radius": 36,
+          "warning": 1.2,
+          "hazard_life": 0.6
+        }
+      ],
+      "hover_height": 60
+    }
+  },
+  "platforms": [
+    {
+      "id": "ante_floor",
+      "rect": [
+        2610,
+        700,
+        560,
+        44
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 0,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          3,
+          6
+        ]
+      },
+      "terrain_id": "terrain_crown_antechamber_0_0",
+      "terrain_flat_span": [
+        2610,
+        3170
+      ]
+    },
+    {
+      "id": "ante_east_step",
+      "rect": [
+        3290,
+        748,
+        190,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 1,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_crown_antechamber_0_0",
+      "terrain_flat_span": [
+        3290,
+        3480
+      ]
+    },
+    {
+      "id": "sew_bone_a",
+      "rect": [
+        3590,
+        836,
+        230,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 2,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          2,
+          5
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_0",
+      "terrain_flat_span": [
+        3590,
+        3786.78
+      ]
+    },
+    {
+      "id": "sew_bone_b",
+      "rect": [
+        3920,
+        940,
+        180,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 3,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          8,
+          11
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_0",
+      "terrain_flat_span": [
+        3953.22,
+        4076.61
+      ]
+    },
+    {
+      "id": "sew_bone_c",
+      "rect": [
+        4190,
+        1052,
+        210,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 4,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_sewn_slope_0_1",
+      "terrain_flat_span": [
+        4213.39,
+        4400
+      ]
+    },
+    {
+      "id": "rain_pool_floor",
+      "rect": [
+        4480,
+        1180,
+        400,
+        38
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 5,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          6,
+          9
+        ]
+      },
+      "terrain_id": "terrain_echo_canal_0_0",
+      "terrain_flat_span": [
+        4480,
+        4880
+      ]
+    },
+    {
+      "id": "rain_wheel_stand",
+      "rect": [
+        4990,
+        1128,
+        200,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 6,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_echo_canal_1_0",
+      "terrain_flat_span": [
+        4990,
+        5190
+      ]
+    },
+    {
+      "id": "rain_out_step",
+      "rect": [
+        4890,
+        1300,
+        170,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 7,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          4,
+          8
+        ]
+      }
+    },
+    {
+      "id": "string_shelf_a",
+      "rect": [
+        4650,
+        1452,
+        220,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 8,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": true,
+        "body_variants": [
+          0,
+          2,
+          5
+        ]
+      }
+    },
+    {
+      "id": "string_floor",
+      "rect": [
+        4310,
+        1580,
+        330,
+        36
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 9,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          8,
+          11
+        ]
+      }
+    },
+    {
+      "id": "string_out_b",
+      "rect": [
+        4030,
+        1712,
+        190,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 10,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          1,
+          4
+        ]
+      }
+    },
+    {
+      "id": "ringE_walk_a",
+      "rect": [
+        3690,
+        1810,
+        280,
+        32
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 11,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          6,
+          9
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3690,
+        3970
+      ]
+    },
+    {
+      "id": "ringE_walk_b",
+      "rect": [
+        3330,
+        1876,
+        240,
+        30
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 12,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": true,
+        "body_variants": [
+          5,
+          3,
+          7
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3330,
+        3570
+      ]
+    },
+    {
+      "id": "ringE_lip",
+      "rect": [
+        3060,
+        1930,
+        180,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 13,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          5,
+          9
+        ]
+      },
+      "terrain_id": "terrain_rib_gallery_0_0",
+      "terrain_flat_span": [
+        3060,
+        3240
+      ]
+    },
+    {
+      "id": "core_fall_a",
+      "rect": [
+        2760,
+        2080,
+        190,
+        26
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 14,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": true,
+        "body_variants": [
+          10,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "core_fall_b",
+      "rect": [
+        2900,
+        2360,
+        210,
+        28
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 15,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "id": "core_fall_c",
+      "rect": [
+        2740,
+        2640,
+        230,
+        30
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 16,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "vault_floor",
+      "rect": [
+        2500,
+        2900,
+        420,
+        46
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 17,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": true,
+        "body_variants": [
+          1,
+          5,
+          8
+        ]
+      },
+      "terrain_id": "terrain_bell_vault_0_0",
+      "terrain_flat_span": [
+        2500,
+        2920
+      ]
+    },
+    {
+      "id": "ringW_zig_a",
+      "rect": [
+        2160,
+        2794,
+        180,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 18,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ringW_zag_b",
+      "rect": [
+        2400,
+        2686,
+        150,
+        24
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 19,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          7,
+          10
+        ]
+      }
+    },
+    {
+      "id": "ringW_zig_c",
+      "rect": [
+        2140,
+        2578,
+        260,
+        30
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 20,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          2,
+          5
+        ]
+      }
+    },
+    {
+      "id": "ringW_zag_d",
+      "rect": [
+        2430,
+        2470,
+        165,
+        24
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 21,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": true,
+        "body_variants": [
+          0,
+          1,
+          4
+        ]
+      }
+    },
+    {
+      "id": "ringW_walk_e",
+      "rect": [
+        1980,
+        2360,
+        240,
+        30
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 22,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": true,
+        "body_variants": [
+          4,
+          6,
+          9
+        ]
+      }
+    },
+    {
+      "id": "obs_camp_floor",
+      "rect": [
+        1560,
+        2252,
+        310,
+        34
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 23,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": true,
+        "body_variants": [
+          2,
+          3,
+          6
+        ]
+      }
+    },
+    {
+      "id": "obs_banner_step",
+      "rect": [
+        1300,
+        2140,
+        170,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 24,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          3,
+          6
+        ]
+      }
+    },
+    {
+      "id": "obs_out_rise",
+      "rect": [
+        1520,
+        2030,
+        150,
+        24
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 25,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 11,
+        "flip_h": true,
+        "body_variants": [
+          11,
+          4,
+          7
+        ]
+      }
+    },
+    {
+      "id": "salt_gallery_floor",
+      "rect": [
+        1140,
+        1916,
+        340,
+        36
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 26,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          7,
+          10
+        ]
+      }
+    },
+    {
+      "id": "salt_page_step",
+      "rect": [
+        1620,
+        1810,
+        160,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 27,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          10,
+          1
+        ]
+      }
+    },
+    {
+      "id": "salt_out_shelf",
+      "rect": [
+        1330,
+        1700,
+        200,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 28,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          11,
+          2
+        ]
+      }
+    },
+    {
+      "id": "moss_court_floor",
+      "rect": [
+        1700,
+        1590,
+        320,
+        34
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 29,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 1,
+        "flip_h": false,
+        "body_variants": [
+          1,
+          2,
+          5
+        ]
+      },
+      "terrain_id": "terrain_moss_memory_0_0",
+      "terrain_flat_span": [
+        1700,
+        2004.78
+      ]
+    },
+    {
+      "id": "moss_bell_perch",
+      "rect": [
+        2140,
+        1496,
+        180,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 30,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 3,
+        "flip_h": true,
+        "body_variants": [
+          3,
+          2,
+          6
+        ]
+      },
+      "terrain_id": "terrain_moss_memory_0_0",
+      "terrain_flat_span": [
+        2155.22,
+        2320
+      ]
+    },
+    {
+      "id": "moss_secret_shelf",
+      "rect": [
+        1890,
+        1400,
+        150,
+        24
+      ],
+      "color": "2b3040",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "branch",
+      "art": {
+        "variant": 11,
+        "flip_h": false,
+        "body_variants": [
+          11,
+          9,
+          1
+        ]
+      }
+    },
+    {
+      "id": "rib_r1",
+      "rect": [
+        2380,
+        1388,
+        130,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 31,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "rib_r2",
+      "rect": [
+        2230,
+        1278,
+        150,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 32,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "rib_r3",
+      "rect": [
+        2400,
+        1170,
+        120,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 33,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 7,
+        "flip_h": true,
+        "body_variants": [
+          7,
+          6,
+          6
+        ]
+      }
+    },
+    {
+      "id": "rib_r4",
+      "rect": [
+        2240,
+        1062,
+        165,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 34,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": true,
+        "body_variants": [
+          6,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "rib_r5",
+      "rect": [
+        2420,
+        952,
+        135,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 35,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 8,
+        "flip_h": false,
+        "body_variants": [
+          8,
+          10,
+          10
+        ]
+      }
+    },
+    {
+      "id": "rib_r6",
+      "rect": [
+        2260,
+        846,
+        145,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 36,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 10,
+        "flip_h": false,
+        "body_variants": [
+          10,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "id": "rib_r7",
+      "rect": [
+        2430,
+        740,
+        155,
+        22
+      ],
+      "color": "3c3f5c",
+      "material": "void_bridge",
+      "collision_role": "one_way",
+      "route_role": "main",
+      "route_order": 37,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 6,
+        "flip_h": false,
+        "body_variants": [
+          6,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "id": "throne_walk_a",
+      "rect": [
+        2160,
+        3040,
+        300,
+        34
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 38,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 2,
+        "flip_h": false,
+        "body_variants": [
+          2,
+          8,
+          11
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2160,
+        2457.19
+      ]
+    },
+    {
+      "id": "throne_rest_b",
+      "rect": [
+        2560,
+        3106,
+        260,
+        30
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 39,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2562.81,
+        2820
+      ]
+    },
+    {
+      "id": "boss_threshold",
+      "rect": [
+        2940,
+        3060,
+        220,
+        30
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 40,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": true,
+        "body_variants": [
+          9,
+          1,
+          4
+        ]
+      },
+      "terrain_id": "terrain_throne_approach_0_0",
+      "terrain_flat_span": [
+        2940,
+        3160
+      ]
+    },
+    {
+      "id": "throne_floor",
+      "rect": [
+        3280,
+        3120,
+        660,
+        52
+      ],
+      "color": "1c1f33",
+      "material": "core_boss",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 41,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 5,
+        "flip_h": false,
+        "body_variants": [
+          5,
+          11,
+          8
+        ]
+      },
+      "terrain_id": "terrain_last_court_0_0",
+      "terrain_flat_span": [
+        3280,
+        3940
+      ]
+    },
+    {
+      "id": "asc_step_a",
+      "rect": [
+        4060,
+        3040,
+        200,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 42,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 4,
+        "flip_h": false,
+        "body_variants": [
+          4,
+          0,
+          3
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4060,
+        4240.99
+      ]
+    },
+    {
+      "id": "asc_step_b",
+      "rect": [
+        4350,
+        2960,
+        170,
+        26
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 43,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 9,
+        "flip_h": false,
+        "body_variants": [
+          9,
+          11,
+          2
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4369.01,
+        4520
+      ]
+    },
+    {
+      "id": "exit_dais",
+      "rect": [
+        4620,
+        2990,
+        280,
+        38
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "main",
+      "route_order": 44,
+      "safe_landing": true,
+      "gameplay_clearance": 232,
+      "art": {
+        "variant": 0,
+        "flip_h": false,
+        "body_variants": [
+          0,
+          1,
+          4
+        ]
+      },
+      "terrain_id": "terrain_ascension_0_0",
+      "terrain_flat_span": [
+        4620,
+        4900
+      ]
+    },
+    {
+      "id": "cave_dock_0",
+      "rect": [
+        2194,
+        1496,
+        36.0,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "branch"
+    },
+    {
+      "id": "cave_dock_1",
+      "rect": [
+        2194,
+        700,
+        696.0,
+        28
+      ],
+      "color": "232637",
+      "material": "crown_bone",
+      "collision_role": "floor",
+      "route_role": "branch"
+    }
+  ],
+  "locked_gates": [],
+  "hazards": [
+    {
+      "id": "ch06_hazard_shell_clapper",
+      "kind": "falling_clapper",
+      "rect": [
+        3705,
+        830,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "冠肩上的坠钟舌砸落。",
+      "platform_id": "sew_bone_a"
+    },
+    {
+      "id": "ch06_hazard_rain_floor",
+      "kind": "fake_moss_floor",
+      "rect": [
+        4490,
+        1174,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "雨渠回声池的假水面。",
+      "platform_id": "rain_pool_floor"
+    },
+    {
+      "id": "ch06_hazard_string_chest",
+      "kind": "spore_chest",
+      "rect": [
+        4510,
+        1574,
+        110,
+        22
+      ],
+      "damage": 1,
+      "message": "弦室的共鸣箱被封了咒蜡。",
+      "platform_id": "string_floor"
+    },
+    {
+      "id": "ch06_hazard_ring_gap",
+      "kind": "bell_gap",
+      "rect": [
+        3160,
+        1924,
+        100,
+        22
+      ],
+      "damage": 1,
+      "message": "核心井口深不见底。",
+      "platform_id": "ringE_lip"
+    },
+    {
+      "id": "ch06_hazard_salt_floor",
+      "kind": "fake_moss_floor",
+      "rect": [
+        1350,
+        1910,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "盐白回声阁的酥盐板。",
+      "platform_id": "salt_gallery_floor"
+    },
+    {
+      "id": "ch06_hazard_throne_clapper",
+      "kind": "falling_clapper",
+      "rect": [
+        2340,
+        3034,
+        120,
+        22
+      ],
+      "damage": 1,
+      "message": "王座前廊的钥齿坠落。",
+      "platform_id": "throne_walk_a"
+    }
+  ],
+  "collectibles": [
+    {
+      "id": "col_testimony_06",
+      "kind": "item",
+      "room_id": "crown_ribs",
+      "item_id": "testimony_06",
+      "position": [
+        2508,
+        700
+      ],
+      "ability_name": "证词其六",
+      "label": "证词·其六",
+      "note": "冠下回廊肋骨顶层，真结局收集品；地图重做后迁至 crown_resonance 冠门后。"
+    },
+    {
+      "id": "col_branch_bell_tongue_vault",
+      "kind": "item",
+      "item_id": "crown_echo_shard",
+      "amount": 5,
+      "position": [
+        2710,
+        2854
+      ],
+      "room_id": "bell_tongue_vault",
+      "platform_id": "vault_floor",
+      "reward_role": "optional_exploration"
+    },
+    {
+      "id": "col_branch_echo_moss",
+      "kind": "item",
+      "item_id": "crown_echo_shard",
+      "amount": 3,
+      "position": [
+        1965,
+        1355
+      ],
+      "room_id": "echo_moss",
+      "platform_id": "moss_secret_shelf",
+      "reward_role": "optional_exploration",
+      "label": "苔庭回声碎片",
+      "note": "苔庭回声暗灯旁的冠下残响，可选探索奖励。"
+    }
+  ],
+  "interactives": [
+    {
+      "id": "ch06_silent_crown_core_shortcut_lever",
+      "kind": "lever",
+      "position": [
+        2830,
+        2860
+      ],
+      "requires_keys": 0,
+      "label": "战斗门控制器",
+      "shortcut_id": "ch06_west_ring_shortcut"
+    },
+    {
+      "id": "ch06_silent_crown_core_boss_gate",
+      "kind": "boss_gate",
+      "position": [
+        3350,
+        3080
+      ]
+    },
+    {
+      "id": "ch06_ending_exit",
+      "kind": "ending_exit",
+      "label": "进入结局门",
+      "position": [
+        4780,
+        2950
+      ],
+      "next_runtime_config_id": "ending",
+      "next_config_path": "",
+      "requires_demo_complete": true,
+      "interaction_size": [
+        240,
+        180
+      ]
+    }
+  ],
+  "npcs": [
+    {
+      "id": "npc_first_pilgrim_echo",
+      "name": "初代巡礼者回声",
+      "position": [
+        3050,
+        660
+      ],
+      "role": "true_ending_core",
+      "dialogue": [
+        "别急着认我。先看看手上的线，我们曾在同一处打结，也在同一处勒住过人。",
+        "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。"
+      ],
+      "identity": "第七签署者的回声，也是第一位发现契约被篡改的巡礼者。",
+      "motive": "等待能集齐六处证词的人改写契约。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "别急着认我。先看看手上的线，我们曾在同一处打结，也在同一处勒住过人。",
+          "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。"
+        ],
+        "repeat": [
+          "我留在这里，不是因为做得对，是因为有人得记住第一份契约怎样被写坏。"
+        ],
+        "after_ability": [
+          "共鸣与你合上了。它能替你开门，但要写什么，仍得你自己决定。"
+        ],
+        "after_boss": [
+          "百钥的壳碎了，你却没有立刻伸手。我想这就是我们之间最重要的不同。"
+        ],
+        "late_game": [
+          "六份证词齐了。现在每一笔后面，都有人能说“我也在场”。"
+        ],
+        "true_ending_branch": [
+          "第七个名字最后一笔，留给活人。我会松手；这次不是把责任递给你，是让你选择。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "crown_resonance",
+        "testimony_ref": "testimony_06",
+        "quest_flag": "",
+        "leave": {
+          "condition": "ending_c_done",
+          "effect": "消散；true_ending_branch 三句即告别戏，原位余一缕悬停的绯线（不可拾取，纯场景）"
+        }
+      },
+      "dialogue_topics": {
+        "route": "冠肋连着六城的回声，最深处才是钥座。先回看漏下的证词，再决定要开哪扇门。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+        "wish": "把六座城的证词带齐。我不催你，有人已经为赶着签字付过太长的代价。"
+      }
+    },
+    {
+      "id": "npc_crown_tongue",
+      "name": "旧王钟舌",
+      "position": [
+        2540,
+        2860
+      ],
+      "role": "world_warning",
+      "dialogue": [
+        "轻一点碰。我压住黑潮的时候，也压住过人声，两者不能因为听起来像就算作一样。",
+        "越过冠肋去钥座。核心击破后还有选择：重鸣、断冠，或带着完整证词改写。"
+      ],
+      "identity": "被旧王戴成王冠核心的钟舌意识，既是封印部件，也是受害者。",
+      "motive": "想停止压住所有声音，但也害怕黑潮失控。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "轻一点碰。我压住黑潮的时候，也压住过人声，两者不能因为听起来像就算作一样。",
+          "越过冠肋去钥座。核心击破后还有选择：重鸣、断冠，或带着完整证词改写。"
+        ],
+        "repeat": [
+          "一口钟也会疼，只是没人问过。我学了这么多年，仍不知道该怎么先说出来。"
+        ],
+        "after_ability": [
+          "你的共鸣碰到裂缝了。这一次声音不是命令，我需要一点时间习惯。"
+        ],
+        "after_boss": [
+          "外壳碎了，我还在。谢谢你先问我，再去碰那扇门。"
+        ],
+        "late_game": [
+          "证词提到我铸成以前的山。原来我也有一段不用负责关住什么的日子。"
+        ],
+        "true_ending_branch": [
+          "让我以后只报时吧。早晨、傍晚，谁晚了就晚了，不要再拿钟声决定谁能说话。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "crown_resonance",
+        "testimony_ref": "testimony_06",
+        "quest_flag": "",
+        "leave": null
+      },
+      "dialogue_topics": {
+        "route": "钟舌库地面留着一枚可选的冠下回声碎片；拿走不影响前路。库底向西可折回西环廊，向东则通往王座前廊。",
+        "wish": "决定时把井里的人也算上。他们很久没被问过想怎样，不该再漏一次。"
+      }
+    },
+    {
+      "id": "npc_six_mark_keeper",
+      "name": "六印守望者",
+      "position": [
+        2220,
+        3000
+      ],
+      "role": "ending_checker",
+      "dialogue": [
+        "先清点，不先判决。你带来的印记、证词和意愿，都应当各有一栏。",
+        "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。"
+      ],
+      "identity": "六枚失声印记的守望接口，像存档点，也像审判前清单。",
+      "motive": "确保主角知道自己收集的是心，不是普通战斗标记。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "先清点，不先判决。你带来的印记、证词和意愿，都应当各有一栏。",
+          "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。"
+        ],
+        "repeat": [
+          "我留下最后一格空白。规程里没教过，但我觉得“愿意”不能由别人代填。"
+        ],
+        "after_ability": [
+          "共鸣已记入。我确认的是你拥有它，不是你必须使用它。"
+        ],
+        "after_boss": [
+          "外壳已破，三扇门待选。请再读一次清单，别让胜利替你做最后的决定。"
+        ],
+        "late_game": [
+          "六份都在。清单热了一点，规程上没有这一条；我先写作“值得等待”。"
+        ],
+        "true_ending_branch": [
+          "最终确认完毕。我会目送，等你回来，再把这份清单归档。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "crown_resonance",
+        "testimony_ref": "testimony_06",
+        "quest_flag": "",
+        "leave": {
+          "condition": "ending_c_done 且再访",
+          "effect": "注销归档（告别戏）；原位余一页盖了「齐」字的空白清单（纯场景）"
+        }
+      },
+      "dialogue_topics": {
+        "route": "最后一枚印记在百钥守门人身上。六份证词齐全才有改写的路；缺哪份就回哪座城。",
+        "wish": "把漏下的证词补齐。印记能证明你走过，证词能证明你听过。"
+      }
+    },
+    {
+      "id": "npc_black_tide_child",
+      "name": "黑潮童声",
+      "position": [
+        2005,
+        1360
+      ],
+      "role": "hidden_temptation",
+      "dialogue": [
+        "你听见我了吗？以前只有他们往井里说话，我往上说的，总被当作水声。",
+        "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。"
+      ],
+      "identity": "黑潮拟人化童声，可能是被王冠吞掉的所有声音聚合。",
+      "motive": "诱导主角切断钟舌，同时质问王冠与黑潮谁更像怪物。",
+      "help": "F 继续交谈；也可以询问道路或心愿。",
+      "story_dialogue": {
+        "first_meet": [
+          "你听见我了吗？以前只有他们往井里说话，我往上说的，总被当作水声。",
+          "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。"
+        ],
+        "repeat": [
+          "我会数落下来的钟声了。可我更想学数脚步，数那些往回来看我的脚步。"
+        ],
+        "after_ability": [
+          "你的线会唱歌，碰到我不疼。“不疼”这个词，我今天才真的学会。"
+        ],
+        "after_boss": [
+          "壳碎了，我们离得近些了。你能不用贴着地，就听我说完一句吗？"
+        ],
+        "late_game": [
+          "证词里有我？念那一行，再慢一点。我想知道，他们怎么写一个没上过岸的人。"
+        ],
+        "true_ending_branch": [
+          "我还待在井里也可以。你们记得朝井口说话，不只扔封条；我会应到。"
+        ]
+      },
+      "dialogue_meta": {
+        "ability_ref": "crown_resonance",
+        "testimony_ref": "testimony_06",
+        "quest_flag": "",
+        "leave": {
+          "condition": "任一结局完成",
+          "effect": "归井；结局 C 后在 ch1 well_throat 井口保留「朝井口说话」交互彩蛋（复用其 true_ending_branch 台词池）"
+        }
+      },
+      "dialogue_topics": {
+        "route": "冠下面有三条路。别只听要你开门的人，也听听仍得留在井里的人。",
+        "wish": "不要替我带礼物。带一句从上面说下来、也肯等我回答的话。"
+      }
+    }
+  ],
+  "guides": [],
+  "enemy_spawns": [
+    {
+      "id": "E01",
+      "kind": "echo_waterwheel_knight",
+      "position": [
+        4780,
+        1140
+      ],
+      "platform_id": "rain_pool_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
+      "visual_offset": [
+        0,
+        1.2957746478873275
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波",
+      "elite": true
+    },
+    {
+      "id": "E02",
+      "kind": "echo_moss_larva",
+      "position": [
+        5090,
+        1088
+      ],
+      "platform_id": "rain_wheel_stand",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
+      "visual_offset": [
+        0,
+        15.372384937238493
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
+    },
+    {
+      "id": "E03",
+      "kind": "echo_thorn_sentinel",
+      "position": [
+        4395,
+        1540
+      ],
+      "platform_id": "string_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
+      "visual_scale": 0.3564356435643564,
+      "visual_offset": [
+        0,
+        -0.9900990099009874
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙"
+    },
+    {
+      "id": "E04",
+      "kind": "echo_moss_larva",
+      "encounter_profile": {
+        "tactical_role": "patrol"
+      },
+      "position": [
+        4760,
+        1412
+      ],
+      "platform_id": "string_shelf_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
+      "visual_offset": [
+        0,
+        15.372384937238493
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
+    },
+    {
+      "id": "E05",
+      "kind": "falling_clapper",
+      "position": [
+        3830,
+        1770
+      ],
+      "platform_id": "ringE_walk_a",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/falling_clapper/manifest.json",
+      "visual_scale": 0.315018315018315,
+      "visual_offset": [
+        0,
+        11.692307692307693
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 46,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪"
+    },
+    {
+      "id": "E06",
+      "kind": "echo_contract_scribe",
+      "position": [
+        3410,
+        1836
+      ],
+      "platform_id": "ringE_walk_b",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/manifest.json",
+      "visual_scale": 0.2916666666666667,
+      "visual_offset": [
+        0,
+        8.416666666666664
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈"
+    },
+    {
+      "id": "E07",
+      "kind": "delayed_shadow",
+      "position": [
+        2270,
+        2538
+      ],
+      "platform_id": "ringW_zig_c",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 40,
+      "sprite": "res://assets/sprites/original_creatures/delayed_shadow/manifest.json",
+      "visual_scale": 0.29673590504451036,
+      "visual_offset": [
+        0,
+        7.406528189910986
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/delayed_shadow/atlas.png",
+      "leash_radius": 90,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 60,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "encounter_role": "ring_zigzag_ambusher"
+    },
+    {
+      "id": "E08",
+      "kind": "echo_pilgrim_commander_minor",
+      "position": [
+        1715,
+        2212
+      ],
+      "platform_id": "obs_camp_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/manifest.json",
+      "visual_scale": 0.3390804597701149,
+      "visual_offset": [
+        0,
+        -1.8477011494252835
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_pilgrim_commander_minor/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 78,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "长枪连段与军旗落阵，攻后停顿明显",
+      "elite": true
+    },
+    {
+      "id": "E09",
+      "kind": "echo_waterwheel_knight",
+      "position": [
+        1370,
+        1876
+      ],
+      "platform_id": "salt_gallery_floor",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
+      "visual_offset": [
+        0,
+        1.2957746478873275
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波"
+    },
+    {
+      "id": "E10",
+      "kind": "echo_contract_scribe",
+      "position": [
+        1430,
+        1660
+      ],
+      "platform_id": "salt_out_shelf",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 80,
+      "sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/manifest.json",
+      "visual_scale": 0.2916666666666667,
+      "visual_offset": [
+        0,
+        8.416666666666664
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_contract_scribe/atlas.png",
+      "leash_radius": 220,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 58,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "悬浮封印师，低位纸页与脚下封圈"
+    },
+    {
+      "id": "E11",
+      "kind": "echo_moss_larva",
+      "position": [
+        1700,
+        1770
+      ],
+      "platform_id": "salt_page_step",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 30,
+      "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+      "visual_scale": 0.301255230125523,
+      "visual_offset": [
+        0,
+        15.372384937238493
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
+      "leash_radius": 70,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 32,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "潜壳长扑，迟发回声落点"
+    },
+    {
+      "id": "E12",
+      "kind": "echo_thorn_sentinel",
+      "position": [
+        1385,
+        2100
+      ],
+      "platform_id": "obs_banner_step",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 0,
+      "sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/manifest.json",
+      "visual_scale": 0.3564356435643564,
+      "visual_offset": [
+        0,
+        -0.9900990099009874
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_thorn_sentinel/atlas.png",
+      "leash_radius": 180,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 68,
+      "clearance": 40,
+      "locomotion": "stationary",
+      "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "encounter_role": "camp_turret"
+    },
+    {
+      "id": "E13",
+      "kind": "isotope_lumen",
+      "position": [
+        2100,
+        2320
+      ],
+      "platform_id": "ringW_walk_e",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 30,
+      "sprite": "res://assets/sprites/original_creatures/isotope_lumen/manifest.json",
+      "visual_scale": 0.2608695652173913,
+      "visual_offset": [
+        0,
+        17.956521739130437
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/isotope_lumen/atlas.png",
+      "leash_radius": 80,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 38,
+      "clearance": 40,
+      "locomotion": "flight",
+      "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "encounter_role": "ring_exit_sniper"
+    },
+    {
+      "id": "E14",
+      "kind": "echo_waterwheel_knight",
+      "position": [
+        3050,
+        3020
+      ],
+      "platform_id": "boss_threshold",
+      "hp": 2,
+      "damage": 1,
+      "patrol": 25,
+      "sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/manifest.json",
+      "visual_scale": 0.30985915492957744,
+      "visual_offset": [
+        0,
+        1.2957746478873275
+      ],
+      "visual_modulate": "ffffff",
+      "visual_source": "original_hand_drawn",
+      "visual_role": "dark_fantasy_enemy",
+      "source_sprite": "res://assets/sprites/original_creatures/echo_waterwheel_knight/atlas.png",
+      "leash_radius": 60,
+      "sprite_faces_left": false,
+      "spawn_half_width": 24,
+      "spawn_visual_height": 70,
+      "clearance": 40,
+      "locomotion": "ground",
+      "combat_identity": "回声盾反击，交替快慢波",
+      "encounter_role": "boss_door_guard",
+      "encounter_profile": {
+        "attacks": [
+          {
+            "id": "echo_wheel_guard",
+            "name": "回声盾反",
+            "type": "guard",
+            "range": 180,
+            "windup": 0.8,
+            "active": 0.3,
+            "recover": 1.15,
+            "cooldown": 2.1,
+            "hit_width": 142,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "回声盾反",
+            "blockable": false,
+            "start_cooldown": 0.9
+          },
+          {
+            "id": "echo_wheel_wave",
+            "name": "快慢双轮波",
+            "type": "wave",
+            "range": 450,
+            "windup": 0.9,
+            "active": 0.24,
+            "recover": 1.1,
+            "cooldown": 2.1,
+            "hit_width": 90,
+            "hit_height": 70,
+            "offset": 48,
+            "damage": 1,
+            "telegraph": "c99558",
+            "vertical_tolerance": 190,
+            "animation": "attack",
+            "desire_cost": 0.7,
+            "mechanic": "快慢双轮波",
+            "shot_count": 4,
+            "projectile_speed": 190,
+            "speed_step": 65,
+            "blockable": false,
+            "start_cooldown": 1.5
+          }
+        ]
+      }
+    }
+  ],
+  "boss": {
+    "id": "C6_B01",
+    "name": "百钥守门人",
+    "kind": "silent_crown_core",
+    "position": [
+      3720,
+      3080
+    ],
+    "hp": 28,
+    "damage": 1,
+    "patrol": 260,
+    "reward_item": "silent_mark_crown",
+    "story_drop": "根据选择进入重鸣、断冠或绯线真结局。",
+    "sprite": "res://assets/sprites/original_creatures/silent_crown_core/manifest.json",
+    "visual_scale": 0.672463768115942,
+    "visual_offset": [
+      0,
+      -53.06086956521739
+    ],
+    "visual_modulate": "ffffff",
+    "visual_source": "original_hand_drawn",
+    "visual_role": "high_fidelity_boss_06_hundred_key_gatekeeper",
+    "body_size": [
+      160,
+      150
+    ],
+    "hurtbox_size": [
+      178,
+      172
+    ],
+    "hurtbox_offset": [
+      0,
+      -52
+    ],
+    "source_sprite": "res://assets/sprites/original_creatures/silent_crown_core/atlas.png",
+    "arena_min_x": 3310,
+    "arena_max_x": 3910,
+    "sprite_faces_left": false,
+    "lock_x": 3232,
+    "lock_height": 560,
+    "lock_width": 42,
+    "platform_id": "throne_floor",
+    "locomotion": "ground",
+    "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+    "spawn_half_width": 49,
+    "spawn_visual_height": 192,
+    "combat_resistance": {
+      "trip_immune": true,
+      "lure_immune": true,
+      "snare_mult": 0.35
+    }
+  },
+  "labels": [
+    {
+      "text": "王冠前厅：认清六向",
+      "position": [
+        2890,
+        630
+      ],
+      "color": "cfd4f2"
+    },
+    {
+      "text": "东冠肩 ↘ 雨渠回声",
+      "position": [
+        3705,
+        760
+      ],
+      "color": "b6c0ea"
+    },
+    {
+      "text": "核心竖井 ↓",
+      "position": [
+        3150,
+        1874
+      ],
+      "color": "9aa8e0"
+    },
+    {
+      "text": "钟舌库：西环拉杆",
+      "position": [
+        2710,
+        2830
+      ],
+      "color": "f2c66b"
+    },
+    {
+      "text": "西环廊 ↖ 三回声室",
+      "position": [
+        2270,
+        2502
+      ],
+      "color": "b0b8e6"
+    },
+    {
+      "text": "冠肋 ↑ 回前厅",
+      "position": [
+        2305,
+        1222
+      ],
+      "color": "c4cdf0"
+    },
+    {
+      "text": "王座前廊 →",
+      "position": [
+        2690,
+        3026
+      ],
+      "color": "f2b873"
+    }
+  ],
+  "save_points": [
+    {
+      "id": "save_hidden_upper_respite",
+      "label": "苔庭回声暗灯",
+      "position": [
+        1965,
+        1360
+      ],
+      "hidden": true,
+      "note": "藏在苔庭回声苔灯后，黑潮童声就在旁边。"
+    },
+    {
+      "id": "save_ch06_lower_loop",
+      "label": "钟舌常明灯",
+      "position": [
+        2570,
+        2860
+      ],
+      "hidden": false,
+      "note": "钟舌库的常明灯，下环与王座的支点。"
+    },
+    {
+      "id": "save_late_runback",
+      "label": "六印前廊灯",
+      "position": [
+        2690,
+        3066
+      ],
+      "hidden": false,
+      "note": "王座门前的检查点，死亡回跑很短。"
+    }
+  ],
+  "fall_y": 3432,
+  "chapter_transition": {
+    "from_runtime_config_id": "demo_ch06_silent_crown_core",
+    "to_runtime_config_id": "ending",
+    "next_config_path": "",
+    "exit_interactive_id": "ch06_ending_exit",
+    "entry_hint": "百钥守门人停止吞咽名字，三道结局门在第七根绯线上同时亮起。",
+    "entry_spawn": [
+      2710,
+      660
+    ]
+  },
+  "ending_message": "ENDING ROUTE OPEN: 百钥守门人之后，绯线真结局等待选择。",
+  "entry_from_previous": {
+    "from_runtime_config_id": "demo_ch05_obsidian_pilgrim_road",
+    "position": [
+      2710,
+      660
+    ],
+    "message": "第6章：无声王冠。黑曜军令打开王冠核心的无声门。"
+  },
+  "progression_mode": "combat_clear",
+  "parkour_segments": [
+    {
+      "id": "ch06_core_drop",
+      "room_id": "core_shaft",
+      "technique": "controlled one-way drop",
+      "platforms": [
+        "ringE_lip",
+        "core_fall_a",
+        "core_fall_b",
+        "core_fall_c",
+        "vault_floor"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 0,
+        "minimum_full_jump_clearance": 232
+      }
+    },
+    {
+      "id": "ch06_crown_rib_climb",
+      "room_id": "crown_ribs",
+      "technique": "one-way rib ascent",
+      "platforms": [
+        "moss_bell_perch",
+        "rib_r1",
+        "rib_r2",
+        "rib_r3",
+        "rib_r4",
+        "rib_r5",
+        "rib_r6",
+        "rib_r7",
+        "ante_floor"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 114,
+        "minimum_full_jump_clearance": 232
+      }
+    },
+    {
+      "id": "ch06_west_ring_climb",
+      "room_id": "ring_west",
+      "technique": "zigzag ring ascent",
+      "platforms": [
+        "vault_floor",
+        "ringW_zig_a",
+        "ringW_zag_b",
+        "ringW_zig_c",
+        "ringW_zag_d",
+        "ringW_walk_e",
+        "obs_camp_floor"
+      ],
+      "safety_contract": {
+        "max_gap": 176,
+        "max_rise": 116,
+        "minimum_full_jump_clearance": 232
+      }
+    }
+  ],
+  "art_theme": "silent_crown",
+  "map_layout_tags": [
+    "handcrafted",
+    "true_2d",
+    "crown_ring",
+    "core_shaft_drop",
+    "five_echo_chambers",
+    "see_then_return",
+    "hidden_echo_bench",
+    "back_door_shortcut",
+    "short_boss_run",
+    "silent_crown"
+  ],
+  "connections": [
+    {
+      "from": "crown_antechamber",
+      "to": "shell_walk_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "shell_walk_east",
+      "to": "echo_rain",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "echo_rain",
+      "to": "echo_string",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "echo_string",
+      "to": "ring_east",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "ring_east",
+      "to": "core_shaft",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
+    },
+    {
+      "from": "core_shaft",
+      "to": "bell_tongue_vault",
+      "type": "one_way_drop",
+      "edge_kind": "one_way_drop",
+      "bidirectional": false,
+      "action": "one_way_drop",
+      "shortcut_id": ""
+    },
+    {
+      "from": "bell_tongue_vault",
+      "to": "ring_west",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "ring_west",
+      "to": "crown_antechamber",
+      "type": "shortcut",
+      "edge_kind": "unlock_shortcut",
+      "bidirectional": true,
+      "action": "unlock_shortcut",
+      "shortcut_id": "ch06_west_ring_shortcut"
+    },
+    {
+      "from": "ring_west",
+      "to": "echo_obsidian",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "echo_obsidian",
+      "to": "echo_salt",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "echo_salt",
+      "to": "echo_moss",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "echo_moss",
+      "to": "crown_ribs",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "crown_ribs",
+      "to": "crown_antechamber",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "bell_tongue_vault",
+      "to": "throne_approach",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    },
+    {
+      "from": "throne_approach",
+      "to": "silent_throne",
+      "type": "boss_gate",
+      "edge_kind": "boss_gate",
+      "bidirectional": true,
+      "action": "boss_gate",
+      "shortcut_id": ""
+    },
+    {
+      "from": "silent_throne",
+      "to": "ascension_gate",
+      "type": "passage",
+      "edge_kind": "passage",
+      "bidirectional": true,
+      "action": "walk_jump",
+      "shortcut_id": ""
+    }
+  ],
+  "runtime_geometry": {
+    "schema_version": 3,
+    "migration": "tools/handcraft_2d_lib.mjs",
+    "spatial_grammar": "silent_crown_core_ring_2d",
+    "player_body": [
+      34,
+      84
+    ],
+    "physics": {
+      "jump_velocity": -710,
+      "gravity": 1850,
+      "dash_speed": 780,
+      "dash_time": 0.16
+    },
+    "safety": {
+      "main_max_gap": 176,
+      "main_max_rise": 110,
+      "minimum_corridor_clearance": 112,
+      "minimum_full_jump_clearance": 232,
+      "recovery_drop": 300,
+      "minimum_recovery_landing": 320
+    },
+    "critical_route": [
+      "ante_floor",
+      "ante_east_step",
+      "sew_bone_a",
+      "sew_bone_b",
+      "sew_bone_c",
+      "rain_pool_floor",
+      "rain_wheel_stand",
+      "rain_out_step",
+      "string_shelf_a",
+      "string_floor",
+      "string_out_b",
+      "ringE_walk_a",
+      "ringE_walk_b",
+      "ringE_lip",
+      "core_fall_a",
+      "core_fall_b",
+      "core_fall_c",
+      "vault_floor",
+      "ringW_zig_a",
+      "ringW_zag_b",
+      "ringW_zig_c",
+      "ringW_zag_d",
+      "ringW_walk_e",
+      "obs_camp_floor",
+      "obs_banner_step",
+      "obs_out_rise",
+      "salt_gallery_floor",
+      "salt_page_step",
+      "salt_out_shelf",
+      "moss_court_floor",
+      "moss_bell_perch",
+      "rib_r1",
+      "rib_r2",
+      "rib_r3",
+      "rib_r4",
+      "rib_r5",
+      "rib_r6",
+      "rib_r7",
+      "throne_walk_a",
+      "throne_rest_b",
+      "boss_threshold",
+      "throne_floor",
+      "asc_step_a",
+      "asc_step_b",
+      "exit_dais"
+    ],
+    "upper_loop": [
+      "sew_bone_a",
+      "sew_bone_b",
+      "sew_bone_c",
+      "rain_pool_floor",
+      "rain_wheel_stand",
+      "rain_out_step",
+      "moss_court_floor",
+      "moss_bell_perch",
+      "moss_secret_shelf",
+      "rib_r1",
+      "rib_r2",
+      "rib_r3",
+      "rib_r4",
+      "rib_r5",
+      "rib_r6",
+      "rib_r7"
+    ],
+    "recovery_loop": [
+      "vault_floor",
+      "ringW_zig_a",
+      "ringW_zag_b",
+      "ringW_zig_c",
+      "ringW_zag_d",
+      "ringW_walk_e",
+      "obs_camp_floor",
+      "obs_banner_step",
+      "obs_out_rise",
+      "salt_gallery_floor",
+      "salt_page_step",
+      "salt_out_shelf"
+    ],
+    "branch_programs": [
+      "core_shaft_drop",
+      "west_ring_return",
+      "crown_rib_ascent"
+    ],
+    "route_tags": [
+      "crown_ring",
+      "core_shaft_drop",
+      "five_echo_chambers",
+      "west_ring_return",
+      "handcrafted_2d"
+    ],
+    "main_route_orders": 45,
+    "map_art": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    }
+  },
+  "open_assets": {
+    "environment": {
+      "source": "Crimson Thread original map art",
+      "root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    }
+  },
+  "map_topology": {
+    "topology_id": "silent_crown_core_ring_2d",
+    "nodes": [
+      {
+        "id": "crown_antechamber",
+        "room_type": "E",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "shell_walk_east",
+        "room_type": "T",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          1120,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "echo_rain",
+        "room_type": "C",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "echo_string",
+        "room_type": "C",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "ring_east",
+        "room_type": "T",
+        "layer": 4,
+        "span_u": 5,
+        "map_rect": [
+          1120,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "core_shaft",
+        "room_type": "V",
+        "layer": 5,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          1050,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "bell_tongue_vault",
+        "room_type": "R",
+        "layer": 6,
+        "span_u": 4,
+        "map_rect": [
+          840,
+          1260,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "ring_west",
+        "room_type": "L",
+        "layer": 4,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          840,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "echo_obsidian",
+        "room_type": "C",
+        "layer": 3,
+        "span_u": 4,
+        "map_rect": [
+          280,
+          630,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "echo_salt",
+        "room_type": "C",
+        "layer": 2,
+        "span_u": 4,
+        "map_rect": [
+          280,
+          420,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "echo_moss",
+        "room_type": "O",
+        "layer": 1,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          210,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "crown_ribs",
+        "room_type": "V",
+        "layer": 0,
+        "span_u": 4,
+        "map_rect": [
+          560,
+          0,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "throne_approach",
+        "room_type": "P",
+        "layer": 6,
+        "span_u": 5,
+        "map_rect": [
+          560,
+          1470,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "silent_throne",
+        "room_type": "B",
+        "layer": 6,
+        "span_u": 4,
+        "map_rect": [
+          1120,
+          1470,
+          236,
+          168
+        ]
+      },
+      {
+        "id": "ascension_gate",
+        "room_type": "E",
+        "layer": 5,
+        "span_u": 4,
+        "map_rect": [
+          1400,
+          1260,
+          236,
+          168
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": "crown_antechamber",
+        "to": "shell_walk_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "shell_walk_east",
+        "to": "echo_rain",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "echo_rain",
+        "to": "echo_string",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "echo_string",
+        "to": "ring_east",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "ring_east",
+        "to": "core_shaft",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      },
+      {
+        "from": "core_shaft",
+        "to": "bell_tongue_vault",
+        "type": "one_way_drop",
+        "edge_kind": "one_way_drop",
+        "bidirectional": false,
+        "action": "one_way_drop",
+        "shortcut_id": ""
+      },
+      {
+        "from": "bell_tongue_vault",
+        "to": "ring_west",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "ring_west",
+        "to": "crown_antechamber",
+        "type": "shortcut",
+        "edge_kind": "unlock_shortcut",
+        "bidirectional": true,
+        "action": "unlock_shortcut",
+        "shortcut_id": "ch06_west_ring_shortcut"
+      },
+      {
+        "from": "ring_west",
+        "to": "echo_obsidian",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "echo_obsidian",
+        "to": "echo_salt",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "echo_salt",
+        "to": "echo_moss",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "echo_moss",
+        "to": "crown_ribs",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "crown_ribs",
+        "to": "crown_antechamber",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "bell_tongue_vault",
+        "to": "throne_approach",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      },
+      {
+        "from": "throne_approach",
+        "to": "silent_throne",
+        "type": "boss_gate",
+        "edge_kind": "boss_gate",
+        "bidirectional": true,
+        "action": "boss_gate",
+        "shortcut_id": ""
+      },
+      {
+        "from": "silent_throne",
+        "to": "ascension_gate",
+        "type": "passage",
+        "edge_kind": "passage",
+        "bidirectional": true,
+        "action": "walk_jump",
+        "shortcut_id": ""
+      }
+    ],
+    "main_visit_order": [
+      "crown_antechamber",
+      "shell_walk_east",
+      "echo_rain",
+      "echo_string",
+      "ring_east",
+      "core_shaft",
+      "bell_tongue_vault",
+      "ring_west",
+      "echo_obsidian",
+      "echo_salt",
+      "echo_moss",
+      "crown_ribs",
+      "crown_antechamber",
+      "bell_tongue_vault",
+      "throne_approach",
+      "silent_throne",
+      "ascension_gate"
+    ],
+    "graph_fingerprint": {
+      "vertices": 15,
+      "edges": 16,
+      "cycle_rank": 2,
+      "maximum_degree": 3,
+      "degree_sequence": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3
+      ]
+    },
+    "forbidden_motifs": [
+      "horizontal_36_platform_chain",
+      "shared_upper_loop_recovery_loop"
+    ]
+  },
+  "map_title": "无声王冠 · 巡礼地图",
+  "environment_blocks": [
+    {
+      "id": "ch06_back_wall",
+      "rect": [
+        0,
+        280,
+        5550,
+        3412
+      ],
+      "color": "0e0f1a",
+      "z_index": -95,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch06_crown_shell",
+      "rect": [
+        2280,
+        560,
+        1600,
+        420
+      ],
+      "color": "191c2e",
+      "z_index": -93,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch06_core_shaft_mass",
+      "rect": [
+        2520,
+        1990,
+        700,
+        940
+      ],
+      "color": "141628",
+      "z_index": -91,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch06_west_ring_band",
+      "rect": [
+        420,
+        1900,
+        1700,
+        620
+      ],
+      "color": "121425",
+      "z_index": -90,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch06_east_ring_band",
+      "rect": [
+        3400,
+        1240,
+        1800,
+        700
+      ],
+      "color": "121425",
+      "z_index": -89,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    },
+    {
+      "id": "ch06_throne_floor_mass",
+      "rect": [
+        3240,
+        3172,
+        740,
+        300
+      ],
+      "color": "0b0d18",
+      "z_index": -88,
+      "visual_source": "Crimson Thread original map art",
+      "asset_root": "godot/assets/sprites/original_map/silent_crown",
+      "ownership": "project-owned"
+    }
+  ],
+  "design_note": {
+    "source": "hand-authored (tools/handcraft_ch06_2d.mjs)",
+    "intent": "True-2D crown core: a top antechamber ring, five echo chambers wrapped around a central core shaft (east side descends, west side climbs back), a bell-tongue vault lever that opens the west ring shortcut, one-way crown ribs closing the loop, and the throne arena beneath the core with the ending dais beyond.",
+    "coordinate_mapping": {
+      "note": "explicit 2D world coordinates, rooms stacked vertically and horizontally"
+    }
+  },
+  "ending_gates": [
+    {
+      "id": "ending_gate_resound",
+      "ending": "ending_a",
+      "label": "重鸣",
+      "requires": {
+        "items": [],
+        "flags": []
+      },
+      "message": "钟声回来了，名字还在钟里。"
+    },
+    {
+      "id": "ending_gate_severed",
+      "ending": "ending_b",
+      "label": "断冠",
+      "requires": {
+        "items": [],
+        "flags": []
+      },
+      "message": "他们终于能说话，第一声却像洪水。"
+    },
+    {
+      "id": "ending_gate_rewrite",
+      "ending": "ending_c",
+      "label": "绯线改写",
+      "requires": {
+        "items": [
+          "testimony_01",
+          "testimony_02",
+          "testimony_03",
+          "testimony_04",
+          "testimony_05",
+          "testimony_06"
+        ],
+        "flags": [
+          "true_ending_testimony_complete"
+        ]
+      },
+      "message": "钟仍在响，但这一次，每个名字都能回答。"
+    }
+  ],
+  "wish_board": [
+    {
+      "id": "wish_crown_tongue_pain",
+      "title": "问它疼不疼",
+      "desc": "把歌页或工牌贴上钟舌锈面，听它说出被戴成王冠那夜的证词。",
+      "kind": "testimony",
+      "target_flag": "quest_tongue_pain_done",
+      "reward_currency": 200
+    },
+    {
+      "id": "wish_echo_perfect",
+      "title": "回声复考·全甲",
+      "desc": "五个回声室全部无伤通过——王冠自己贴的愿望，板上唯一一条白金色。",
+      "kind": "hunt",
+      "target_flag": "quest_echo_perfect_done",
+      "reward_currency": 0
+    }
+  ],
+  "map_art": {
+    "style": "flat_2d_side_view",
+    "platform_variant_count": 12,
+    "variant_usage": {
+      "0": 4,
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 4,
+      "5": 4,
+      "6": 5,
+      "7": 4,
+      "8": 4,
+      "9": 4,
+      "10": 4,
+      "11": 4
+    },
+    "repeat_rule": "avoid matching nearby platforms; preserve end caps; vary long-platform middle segments",
+    "background": "res://assets/sprites/flat_maps/silent_crown/background.png"
+  },
+  "terrain": [
+    {
+      "id": "terrain_crown_antechamber_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          2610,
+          700
+        ],
+        [
+          3170,
+          700
+        ],
+        [
+          3290,
+          748
+        ],
+        [
+          3480,
+          748
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "ante_floor",
+        "ante_east_step"
+      ]
+    },
+    {
+      "id": "terrain_sewn_slope_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          3590,
+          836
+        ],
+        [
+          3786.78,
+          836
+        ],
+        [
+          3953.22,
+          940
+        ],
+        [
+          4076.61,
+          940
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "sew_bone_a",
+        "sew_bone_b"
+      ]
+    },
+    {
+      "id": "terrain_sewn_slope_0_1",
+      "kind": "soil",
+      "surface": [
+        [
+          4213.39,
+          1052
+        ],
+        [
+          4400,
+          1052
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "sew_bone_c"
+      ]
+    },
+    {
+      "id": "terrain_echo_canal_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          4480,
+          1180
+        ],
+        [
+          4880,
+          1180
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "rain_pool_floor"
+      ]
+    },
+    {
+      "id": "terrain_echo_canal_1_0",
+      "kind": "soil",
+      "surface": [
+        [
+          4990,
+          1128
+        ],
+        [
+          5190,
+          1128
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "rain_wheel_stand"
+      ]
+    },
+    {
+      "id": "terrain_rib_gallery_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          3060,
+          1930
+        ],
+        [
+          3240,
+          1930
+        ],
+        [
+          3330,
+          1876
+        ],
+        [
+          3570,
+          1876
+        ],
+        [
+          3690,
+          1810
+        ],
+        [
+          3970,
+          1810
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "ringE_lip",
+        "ringE_walk_b",
+        "ringE_walk_a"
+      ]
+    },
+    {
+      "id": "terrain_bell_vault_0_0",
+      "kind": "tunnel",
+      "surface": [
+        [
+          2500,
+          2900
+        ],
+        [
+          2920,
+          2900
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": [
+        "vault_floor"
+      ]
+    },
+    {
+      "id": "terrain_moss_memory_0_0",
+      "kind": "soil",
+      "surface": [
+        [
+          1700,
+          1590
+        ],
+        [
+          2004.78,
+          1590
+        ],
+        [
+          2155.22,
+          1496
+        ],
+        [
+          2320,
+          1496
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "moss_court_floor",
+        "moss_bell_perch"
+      ]
+    },
+    {
+      "id": "terrain_throne_approach_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          2160,
+          3040
+        ],
+        [
+          2457.19,
+          3040
+        ],
+        [
+          2562.81,
+          3106
+        ],
+        [
+          2820,
+          3106
+        ],
+        [
+          2940,
+          3060
+        ],
+        [
+          3160,
+          3060
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "throne_walk_a",
+        "throne_rest_b",
+        "boss_threshold"
+      ]
+    },
+    {
+      "id": "terrain_last_court_0_0",
+      "kind": "arena",
+      "surface": [
+        [
+          3280,
+          3120
+        ],
+        [
+          3940,
+          3120
+        ]
+      ],
+      "depth": 140,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "throne_floor"
+      ]
+    },
+    {
+      "id": "terrain_ascension_0_0",
+      "kind": "ruin",
+      "surface": [
+        [
+          4060,
+          3040
+        ],
+        [
+          4240.99,
+          3040
+        ],
+        [
+          4369.01,
+          2960
+        ],
+        [
+          4520,
+          2960
+        ],
+        [
+          4620,
+          2990
+        ],
+        [
+          4900,
+          2990
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        4,
+        2,
+        1
+      ],
+      "platform_ids": [
+        "asc_step_a",
+        "asc_step_b",
+        "exit_dais"
+      ]
+    },
+    {
+      "id": "cave_link_00",
+      "kind": "cave_road",
+      "surface": [
+        [
+          3124,
+          3060
+        ],
+        [
+          3160,
+          3060
+        ],
+        [
+          3280,
+          3120
+        ],
+        [
+          3316,
+          3120
+        ]
+      ],
+      "depth": 100,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [],
+      "cave_walk_link": true
+    }
+  ],
+  "terrain_design": {
+    "view": "orthographic_side_2d",
+    "max_ramp_degrees": 32,
+    "route_kinds": [
+      "ground",
+      "slope",
+      "tunnel",
+      "bridge",
+      "basin",
+      "vertical_climb"
+    ],
+    "notes": "Continuous horizontal ground, open branch shafts, short bridges and retained vertical traversal challenges.",
+    "cave_envelope": true
+  },
+  "chapter_name": "无声王冠",
+  "interaction_design": {
+    "key": "F",
+    "selection": "nearest_available",
+    "story_items": "manual_pickup",
+    "materials": "automatic_pickup",
+    "dialogue_choices": [
+      "continue",
+      "route",
+      "wish"
+    ]
+  },
+  "cave_lifts": [
+    {
+      "id": "ch06_cave_lift",
+      "x": 2124,
+      "bottom_y": 1496,
+      "top_y": 700,
+      "speed": 300,
+      "label": "巡礼升降笼：F 呼叫 / 乘坐"
+    }
+  ],
+  "cave_world": {
+    "version": 1,
+    "solid_rects": [
+      [
+        -256,
+        -256,
+        6048,
+        576
+      ],
+      [
+        -256,
+        320,
+        2784,
+        64
+      ],
+      [
+        2912,
+        320,
+        2880,
+        64
+      ],
+      [
+        -256,
+        384,
+        2304,
+        32
+      ],
+      [
+        3232,
+        384,
+        2560,
+        32
+      ],
+      [
+        -256,
+        416,
+        2272,
+        640
+      ],
+      [
+        3488,
+        416,
+        2304,
+        32
+      ],
+      [
+        3584,
+        448,
+        2208,
+        32
+      ],
+      [
+        3712,
+        480,
+        2080,
+        32
+      ],
+      [
+        3808,
+        512,
+        1984,
+        32
+      ],
+      [
+        3904,
+        544,
+        1888,
+        32
+      ],
+      [
+        4000,
+        576,
+        1792,
+        32
+      ],
+      [
+        4096,
+        608,
+        1696,
+        32
+      ],
+      [
+        4192,
+        640,
+        1600,
+        32
+      ],
+      [
+        4256,
+        672,
+        1536,
+        32
+      ],
+      [
+        4352,
+        704,
+        1440,
+        32
+      ],
+      [
+        4448,
+        736,
+        1344,
+        32
+      ],
+      [
+        2976,
+        768,
+        224,
+        32
+      ],
+      [
+        4544,
+        768,
+        1248,
+        32
+      ],
+      [
+        2976,
+        800,
+        416,
+        32
+      ],
+      [
+        4640,
+        800,
+        288,
+        32
+      ],
+      [
+        5184,
+        800,
+        608,
+        32
+      ],
+      [
+        2624,
+        832,
+        896,
+        32
+      ],
+      [
+        5216,
+        832,
+        576,
+        32
+      ],
+      [
+        2624,
+        864,
+        1024,
+        32
+      ],
+      [
+        5248,
+        864,
+        544,
+        32
+      ],
+      [
+        2624,
+        896,
+        1120,
+        32
+      ],
+      [
+        5280,
+        896,
+        512,
+        192
+      ],
+      [
+        2624,
+        928,
+        1216,
+        32
+      ],
+      [
+        2624,
+        960,
+        1312,
+        32
+      ],
+      [
+        2624,
+        992,
+        1376,
+        32
+      ],
+      [
+        2624,
+        1024,
+        1472,
+        32
+      ],
+      [
+        -256,
+        1056,
+        2240,
+        32
+      ],
+      [
+        2624,
+        1056,
+        1536,
+        32
+      ],
+      [
+        -256,
+        1088,
+        2144,
+        32
+      ],
+      [
+        2624,
+        1088,
+        1632,
+        32
+      ],
+      [
+        5248,
+        1088,
+        544,
+        64
+      ],
+      [
+        -256,
+        1120,
+        2080,
+        64
+      ],
+      [
+        2624,
+        1120,
+        1728,
+        32
+      ],
+      [
+        2656,
+        1152,
+        1760,
+        32
+      ],
+      [
+        5216,
+        1152,
+        576,
+        32
+      ],
+      [
+        -256,
+        1184,
+        2048,
+        96
+      ],
+      [
+        2656,
+        1184,
+        1888,
+        32
+      ],
+      [
+        5184,
+        1184,
+        608,
+        32
+      ],
+      [
+        2656,
+        1216,
+        1792,
+        32
+      ],
+      [
+        5152,
+        1216,
+        640,
+        32
+      ],
+      [
+        2656,
+        1248,
+        1728,
+        32
+      ],
+      [
+        5120,
+        1248,
+        672,
+        64
+      ],
+      [
+        -256,
+        1280,
+        1920,
+        32
+      ],
+      [
+        2656,
+        1280,
+        1632,
+        32
+      ],
+      [
+        -256,
+        1312,
+        1824,
+        32
+      ],
+      [
+        2624,
+        1312,
+        1632,
+        32
+      ],
+      [
+        4992,
+        1312,
+        800,
+        160
+      ],
+      [
+        4928,
+        1408,
+        64,
+        64
+      ],
+      [
+        -256,
+        1344,
+        1696,
+        32
+      ],
+      [
+        2624,
+        1344,
+        1504,
+        32
+      ],
+      [
+        4224,
+        1344,
+        32,
+        96
+      ],
+      [
+        -256,
+        1376,
+        1568,
+        32
+      ],
+      [
+        2624,
+        1376,
+        1440,
+        32
+      ],
+      [
+        -256,
+        1408,
+        1536,
+        32
+      ],
+      [
+        2624,
+        1408,
+        1312,
+        32
+      ],
+      [
+        -256,
+        1440,
+        1504,
+        160
+      ],
+      [
+        2624,
+        1440,
+        1216,
+        32
+      ],
+      [
+        2624,
+        1472,
+        1120,
+        32
+      ],
+      [
+        4704,
+        1472,
+        1088,
+        128
+      ],
+      [
+        2624,
+        1504,
+        928,
+        32
+      ],
+      [
+        2624,
+        1536,
+        768,
+        32
+      ],
+      [
+        2624,
+        1568,
+        576,
+        32
+      ],
+      [
+        -256,
+        1600,
+        1440,
+        32
+      ],
+      [
+        1984,
+        1600,
+        64,
+        32
+      ],
+      [
+        2176,
+        1600,
+        128,
+        32
+      ],
+      [
+        2624,
+        1600,
+        448,
+        32
+      ],
+      [
+        4480,
+        1600,
+        1312,
+        64
+      ],
+      [
+        -256,
+        1632,
+        1344,
+        288
+      ],
+      [
+        1888,
+        1632,
+        416,
+        64
+      ],
+      [
+        2624,
+        1632,
+        384,
+        32
+      ],
+      [
+        2592,
+        1664,
+        352,
+        32
+      ],
+      [
+        4384,
+        1664,
+        1408,
+        32
+      ],
+      [
+        1824,
+        1696,
+        480,
+        128
+      ],
+      [
+        2592,
+        1696,
+        288,
+        32
+      ],
+      [
+        4320,
+        1696,
+        1472,
+        32
+      ],
+      [
+        2592,
+        1728,
+        224,
+        32
+      ],
+      [
+        4224,
+        1728,
+        1568,
+        32
+      ],
+      [
+        2592,
+        1760,
+        160,
+        32
+      ],
+      [
+        4128,
+        1760,
+        1664,
+        32
+      ],
+      [
+        2592,
+        1792,
+        128,
+        32
+      ],
+      [
+        4032,
+        1792,
+        1760,
+        32
+      ],
+      [
+        1728,
+        1824,
+        576,
+        128
+      ],
+      [
+        2592,
+        1824,
+        96,
+        32
+      ],
+      [
+        3936,
+        1824,
+        1856,
+        32
+      ],
+      [
+        2592,
+        1856,
+        64,
+        160
+      ],
+      [
+        3808,
+        1856,
+        1984,
+        32
+      ],
+      [
+        3616,
+        1888,
+        2176,
+        32
+      ],
+      [
+        -256,
+        1920,
+        1440,
+        128
+      ],
+      [
+        3424,
+        1920,
+        2368,
+        32
+      ],
+      [
+        1824,
+        1952,
+        384,
+        32
+      ],
+      [
+        3264,
+        1952,
+        2528,
+        32
+      ],
+      [
+        1920,
+        1984,
+        288,
+        32
+      ],
+      [
+        3168,
+        1984,
+        2624,
+        32
+      ],
+      [
+        1920,
+        2016,
+        96,
+        32
+      ],
+      [
+        2144,
+        2016,
+        32,
+        32
+      ],
+      [
+        2592,
+        2016,
+        96,
+        32
+      ],
+      [
+        3104,
+        2016,
+        2688,
+        32
+      ],
+      [
+        -256,
+        2048,
+        1472,
+        64
+      ],
+      [
+        2560,
+        2048,
+        128,
+        32
+      ],
+      [
+        3072,
+        2048,
+        2720,
+        32
+      ],
+      [
+        2560,
+        2080,
+        160,
+        32
+      ],
+      [
+        3168,
+        2080,
+        2624,
+        288
+      ],
+      [
+        -256,
+        2112,
+        1504,
+        32
+      ],
+      [
+        2560,
+        2112,
+        64,
+        32
+      ],
+      [
+        -256,
+        2144,
+        1536,
+        32
+      ],
+      [
+        -256,
+        2176,
+        1600,
+        32
+      ],
+      [
+        -256,
+        2208,
+        1696,
+        32
+      ],
+      [
+        -256,
+        2240,
+        1760,
+        32
+      ],
+      [
+        -256,
+        2272,
+        1888,
+        32
+      ],
+      [
+        -256,
+        2304,
+        1984,
+        32
+      ],
+      [
+        -256,
+        2336,
+        2112,
+        32
+      ],
+      [
+        -256,
+        2368,
+        2208,
+        32
+      ],
+      [
+        3072,
+        2368,
+        2720,
+        32
+      ],
+      [
+        -256,
+        2400,
+        2336,
+        192
+      ],
+      [
+        3136,
+        2400,
+        2656,
+        32
+      ],
+      [
+        3104,
+        2432,
+        2688,
+        64
+      ],
+      [
+        3072,
+        2496,
+        2720,
+        32
+      ],
+      [
+        3040,
+        2528,
+        2752,
+        64
+      ],
+      [
+        -256,
+        2592,
+        2304,
+        128
+      ],
+      [
+        3008,
+        2592,
+        2784,
+        32
+      ],
+      [
+        3008,
+        2624,
+        1344,
+        32
+      ],
+      [
+        4576,
+        2624,
+        1216,
+        32
+      ],
+      [
+        2976,
+        2656,
+        1280,
+        32
+      ],
+      [
+        4832,
+        2656,
+        960,
+        32
+      ],
+      [
+        3232,
+        2688,
+        896,
+        32
+      ],
+      [
+        4896,
+        2688,
+        896,
+        32
+      ],
+      [
+        -256,
+        2720,
+        2336,
+        64
+      ],
+      [
+        3232,
+        2720,
+        704,
+        32
+      ],
+      [
+        4960,
+        2720,
+        832,
+        288
+      ],
+      [
+        3424,
+        2752,
+        96,
+        32
+      ],
+      [
+        -256,
+        2784,
+        2368,
+        288
+      ],
+      [
+        4864,
+        3008,
+        928,
+        32
+      ],
+      [
+        4352,
+        3040,
+        1440,
+        32
+      ],
+      [
+        -256,
+        3072,
+        2528,
+        32
+      ],
+      [
+        2880,
+        3072,
+        32,
+        64
+      ],
+      [
+        4224,
+        3072,
+        1568,
+        32
+      ],
+      [
+        -256,
+        3104,
+        2688,
+        32
+      ],
+      [
+        3008,
+        3104,
+        96,
+        32
+      ],
+      [
+        4032,
+        3104,
+        1760,
+        192
+      ],
+      [
+        -256,
+        3136,
+        3424,
+        64
+      ],
+      [
+        -256,
+        3200,
+        3488,
+        32
+      ],
+      [
+        -256,
+        3232,
+        3552,
+        32
+      ],
+      [
+        -256,
+        3264,
+        4192,
+        32
+      ],
+      [
+        -256,
+        3296,
+        6048,
+        352
+      ]
+    ],
+    "outlines": [
+      [
+        [
+          -256.0,
+          -256.0
+        ],
+        [
+          -256.0,
+          3648.0
+        ],
+        [
+          5792.0,
+          3648.0
+        ],
+        [
+          5792.0,
+          -256.0
+        ],
+        [
+          -256.0,
+          -256.0
+        ]
+      ],
+      [
+        [
+          3936.0,
+          3264.0
+        ],
+        [
+          3296.0,
+          3264.0
+        ],
+        [
+          3296.0,
+          3232.0
+        ],
+        [
+          3232.0,
+          3232.0
+        ],
+        [
+          3232.0,
+          3200.0
+        ],
+        [
+          3168.0,
+          3200.0
+        ],
+        [
+          3168.0,
+          3136.0
+        ],
+        [
+          3104.0,
+          3136.0
+        ],
+        [
+          3104.0,
+          3104.0
+        ],
+        [
+          3008.0,
+          3104.0
+        ],
+        [
+          3008.0,
+          3136.0
+        ],
+        [
+          2912.0,
+          3136.0
+        ],
+        [
+          2912.0,
+          3072.0
+        ],
+        [
+          2880.0,
+          3072.0
+        ],
+        [
+          2880.0,
+          3136.0
+        ],
+        [
+          2432.0,
+          3136.0
+        ],
+        [
+          2432.0,
+          3104.0
+        ],
+        [
+          2272.0,
+          3104.0
+        ],
+        [
+          2272.0,
+          3072.0
+        ],
+        [
+          2112.0,
+          3072.0
+        ],
+        [
+          2112.0,
+          2784.0
+        ],
+        [
+          2080.0,
+          2784.0
+        ],
+        [
+          2080.0,
+          2720.0
+        ],
+        [
+          2048.0,
+          2720.0
+        ],
+        [
+          2048.0,
+          2592.0
+        ],
+        [
+          2080.0,
+          2592.0
+        ],
+        [
+          2080.0,
+          2400.0
+        ],
+        [
+          1952.0,
+          2400.0
+        ],
+        [
+          1952.0,
+          2368.0
+        ],
+        [
+          1856.0,
+          2368.0
+        ],
+        [
+          1856.0,
+          2336.0
+        ],
+        [
+          1728.0,
+          2336.0
+        ],
+        [
+          1728.0,
+          2304.0
+        ],
+        [
+          1632.0,
+          2304.0
+        ],
+        [
+          1632.0,
+          2272.0
+        ],
+        [
+          1504.0,
+          2272.0
+        ],
+        [
+          1504.0,
+          2240.0
+        ],
+        [
+          1440.0,
+          2240.0
+        ],
+        [
+          1440.0,
+          2208.0
+        ],
+        [
+          1344.0,
+          2208.0
+        ],
+        [
+          1344.0,
+          2176.0
+        ],
+        [
+          1280.0,
+          2176.0
+        ],
+        [
+          1280.0,
+          2144.0
+        ],
+        [
+          1248.0,
+          2144.0
+        ],
+        [
+          1248.0,
+          2112.0
+        ],
+        [
+          1216.0,
+          2112.0
+        ],
+        [
+          1216.0,
+          2048.0
+        ],
+        [
+          1184.0,
+          2048.0
+        ],
+        [
+          1184.0,
+          1920.0
+        ],
+        [
+          1088.0,
+          1920.0
+        ],
+        [
+          1088.0,
+          1632.0
+        ],
+        [
+          1184.0,
+          1632.0
+        ],
+        [
+          1184.0,
+          1600.0
+        ],
+        [
+          1248.0,
+          1600.0
+        ],
+        [
+          1248.0,
+          1440.0
+        ],
+        [
+          1280.0,
+          1440.0
+        ],
+        [
+          1280.0,
+          1408.0
+        ],
+        [
+          1312.0,
+          1408.0
+        ],
+        [
+          1312.0,
+          1376.0
+        ],
+        [
+          1440.0,
+          1376.0
+        ],
+        [
+          1440.0,
+          1344.0
+        ],
+        [
+          1568.0,
+          1344.0
+        ],
+        [
+          1568.0,
+          1312.0
+        ],
+        [
+          1664.0,
+          1312.0
+        ],
+        [
+          1664.0,
+          1280.0
+        ],
+        [
+          1792.0,
+          1280.0
+        ],
+        [
+          1792.0,
+          1184.0
+        ],
+        [
+          1824.0,
+          1184.0
+        ],
+        [
+          1824.0,
+          1120.0
+        ],
+        [
+          1888.0,
+          1120.0
+        ],
+        [
+          1888.0,
+          1088.0
+        ],
+        [
+          1984.0,
+          1088.0
+        ],
+        [
+          1984.0,
+          1056.0
+        ],
+        [
+          2016.0,
+          1056.0
+        ],
+        [
+          2016.0,
+          416.0
+        ],
+        [
+          2048.0,
+          416.0
+        ],
+        [
+          2048.0,
+          384.0
+        ],
+        [
+          2528.0,
+          384.0
+        ],
+        [
+          2528.0,
+          320.0
+        ],
+        [
+          2912.0,
+          320.0
+        ],
+        [
+          2912.0,
+          384.0
+        ],
+        [
+          3232.0,
+          384.0
+        ],
+        [
+          3232.0,
+          416.0
+        ],
+        [
+          3488.0,
+          416.0
+        ],
+        [
+          3488.0,
+          448.0
+        ],
+        [
+          3584.0,
+          448.0
+        ],
+        [
+          3584.0,
+          480.0
+        ],
+        [
+          3712.0,
+          480.0
+        ],
+        [
+          3712.0,
+          512.0
+        ],
+        [
+          3808.0,
+          512.0
+        ],
+        [
+          3808.0,
+          544.0
+        ],
+        [
+          3904.0,
+          544.0
+        ],
+        [
+          3904.0,
+          576.0
+        ],
+        [
+          4000.0,
+          576.0
+        ],
+        [
+          4000.0,
+          608.0
+        ],
+        [
+          4096.0,
+          608.0
+        ],
+        [
+          4096.0,
+          640.0
+        ],
+        [
+          4192.0,
+          640.0
+        ],
+        [
+          4192.0,
+          672.0
+        ],
+        [
+          4256.0,
+          672.0
+        ],
+        [
+          4256.0,
+          704.0
+        ],
+        [
+          4352.0,
+          704.0
+        ],
+        [
+          4352.0,
+          736.0
+        ],
+        [
+          4448.0,
+          736.0
+        ],
+        [
+          4448.0,
+          768.0
+        ],
+        [
+          4544.0,
+          768.0
+        ],
+        [
+          4544.0,
+          800.0
+        ],
+        [
+          4640.0,
+          800.0
+        ],
+        [
+          4640.0,
+          832.0
+        ],
+        [
+          4928.0,
+          832.0
+        ],
+        [
+          4928.0,
+          800.0
+        ],
+        [
+          5184.0,
+          800.0
+        ],
+        [
+          5184.0,
+          832.0
+        ],
+        [
+          5216.0,
+          832.0
+        ],
+        [
+          5216.0,
+          864.0
+        ],
+        [
+          5248.0,
+          864.0
+        ],
+        [
+          5248.0,
+          896.0
+        ],
+        [
+          5280.0,
+          896.0
+        ],
+        [
+          5280.0,
+          1088.0
+        ],
+        [
+          5248.0,
+          1088.0
+        ],
+        [
+          5248.0,
+          1152.0
+        ],
+        [
+          5216.0,
+          1152.0
+        ],
+        [
+          5216.0,
+          1184.0
+        ],
+        [
+          5184.0,
+          1184.0
+        ],
+        [
+          5184.0,
+          1216.0
+        ],
+        [
+          5152.0,
+          1216.0
+        ],
+        [
+          5152.0,
+          1248.0
+        ],
+        [
+          5120.0,
+          1248.0
+        ],
+        [
+          5120.0,
+          1312.0
+        ],
+        [
+          4992.0,
+          1312.0
+        ],
+        [
+          4992.0,
+          1408.0
+        ],
+        [
+          4928.0,
+          1408.0
+        ],
+        [
+          4928.0,
+          1472.0
+        ],
+        [
+          4704.0,
+          1472.0
+        ],
+        [
+          4704.0,
+          1600.0
+        ],
+        [
+          4480.0,
+          1600.0
+        ],
+        [
+          4480.0,
+          1664.0
+        ],
+        [
+          4384.0,
+          1664.0
+        ],
+        [
+          4384.0,
+          1696.0
+        ],
+        [
+          4320.0,
+          1696.0
+        ],
+        [
+          4320.0,
+          1728.0
+        ],
+        [
+          4224.0,
+          1728.0
+        ],
+        [
+          4224.0,
+          1760.0
+        ],
+        [
+          4128.0,
+          1760.0
+        ],
+        [
+          4128.0,
+          1792.0
+        ],
+        [
+          4032.0,
+          1792.0
+        ],
+        [
+          4032.0,
+          1824.0
+        ],
+        [
+          3936.0,
+          1824.0
+        ],
+        [
+          3936.0,
+          1856.0
+        ],
+        [
+          3808.0,
+          1856.0
+        ],
+        [
+          3808.0,
+          1888.0
+        ],
+        [
+          3616.0,
+          1888.0
+        ],
+        [
+          3616.0,
+          1920.0
+        ],
+        [
+          3424.0,
+          1920.0
+        ],
+        [
+          3424.0,
+          1952.0
+        ],
+        [
+          3264.0,
+          1952.0
+        ],
+        [
+          3264.0,
+          1984.0
+        ],
+        [
+          3168.0,
+          1984.0
+        ],
+        [
+          3168.0,
+          2016.0
+        ],
+        [
+          3104.0,
+          2016.0
+        ],
+        [
+          3104.0,
+          2048.0
+        ],
+        [
+          3072.0,
+          2048.0
+        ],
+        [
+          3072.0,
+          2080.0
+        ],
+        [
+          3168.0,
+          2080.0
+        ],
+        [
+          3168.0,
+          2368.0
+        ],
+        [
+          3072.0,
+          2368.0
+        ],
+        [
+          3072.0,
+          2400.0
+        ],
+        [
+          3136.0,
+          2400.0
+        ],
+        [
+          3136.0,
+          2432.0
+        ],
+        [
+          3104.0,
+          2432.0
+        ],
+        [
+          3104.0,
+          2496.0
+        ],
+        [
+          3072.0,
+          2496.0
+        ],
+        [
+          3072.0,
+          2528.0
+        ],
+        [
+          3040.0,
+          2528.0
+        ],
+        [
+          3040.0,
+          2592.0
+        ],
+        [
+          3008.0,
+          2592.0
+        ],
+        [
+          3008.0,
+          2656.0
+        ],
+        [
+          2976.0,
+          2656.0
+        ],
+        [
+          2976.0,
+          2688.0
+        ],
+        [
+          3232.0,
+          2688.0
+        ],
+        [
+          3232.0,
+          2752.0
+        ],
+        [
+          3424.0,
+          2752.0
+        ],
+        [
+          3424.0,
+          2784.0
+        ],
+        [
+          3520.0,
+          2784.0
+        ],
+        [
+          3520.0,
+          2752.0
+        ],
+        [
+          3936.0,
+          2752.0
+        ],
+        [
+          3936.0,
+          2720.0
+        ],
+        [
+          4128.0,
+          2720.0
+        ],
+        [
+          4128.0,
+          2688.0
+        ],
+        [
+          4256.0,
+          2688.0
+        ],
+        [
+          4256.0,
+          2656.0
+        ],
+        [
+          4352.0,
+          2656.0
+        ],
+        [
+          4352.0,
+          2624.0
+        ],
+        [
+          4576.0,
+          2624.0
+        ],
+        [
+          4576.0,
+          2656.0
+        ],
+        [
+          4832.0,
+          2656.0
+        ],
+        [
+          4832.0,
+          2688.0
+        ],
+        [
+          4896.0,
+          2688.0
+        ],
+        [
+          4896.0,
+          2720.0
+        ],
+        [
+          4960.0,
+          2720.0
+        ],
+        [
+          4960.0,
+          3008.0
+        ],
+        [
+          4864.0,
+          3008.0
+        ],
+        [
+          4864.0,
+          3040.0
+        ],
+        [
+          4352.0,
+          3040.0
+        ],
+        [
+          4352.0,
+          3072.0
+        ],
+        [
+          4224.0,
+          3072.0
+        ],
+        [
+          4224.0,
+          3104.0
+        ],
+        [
+          4032.0,
+          3104.0
+        ],
+        [
+          4032.0,
+          3296.0
+        ],
+        [
+          3936.0,
+          3296.0
+        ],
+        [
+          3936.0,
+          3264.0
+        ]
+      ],
+      [
+        [
+          1888.0,
+          1632.0
+        ],
+        [
+          1888.0,
+          1696.0
+        ],
+        [
+          1824.0,
+          1696.0
+        ],
+        [
+          1824.0,
+          1824.0
+        ],
+        [
+          1728.0,
+          1824.0
+        ],
+        [
+          1728.0,
+          1952.0
+        ],
+        [
+          1824.0,
+          1952.0
+        ],
+        [
+          1824.0,
+          1984.0
+        ],
+        [
+          1920.0,
+          1984.0
+        ],
+        [
+          1920.0,
+          2048.0
+        ],
+        [
+          2016.0,
+          2048.0
+        ],
+        [
+          2016.0,
+          2016.0
+        ],
+        [
+          2144.0,
+          2016.0
+        ],
+        [
+          2144.0,
+          2048.0
+        ],
+        [
+          2176.0,
+          2048.0
+        ],
+        [
+          2176.0,
+          2016.0
+        ],
+        [
+          2208.0,
+          2016.0
+        ],
+        [
+          2208.0,
+          1952.0
+        ],
+        [
+          2304.0,
+          1952.0
+        ],
+        [
+          2304.0,
+          1600.0
+        ],
+        [
+          2176.0,
+          1600.0
+        ],
+        [
+          2176.0,
+          1632.0
+        ],
+        [
+          2048.0,
+          1632.0
+        ],
+        [
+          2048.0,
+          1600.0
+        ],
+        [
+          1984.0,
+          1600.0
+        ],
+        [
+          1984.0,
+          1632.0
+        ],
+        [
+          1888.0,
+          1632.0
+        ]
+      ],
+      [
+        [
+          2624.0,
+          832.0
+        ],
+        [
+          2624.0,
+          1152.0
+        ],
+        [
+          2656.0,
+          1152.0
+        ],
+        [
+          2656.0,
+          1312.0
+        ],
+        [
+          2624.0,
+          1312.0
+        ],
+        [
+          2624.0,
+          1664.0
+        ],
+        [
+          2592.0,
+          1664.0
+        ],
+        [
+          2592.0,
+          2048.0
+        ],
+        [
+          2560.0,
+          2048.0
+        ],
+        [
+          2560.0,
+          2144.0
+        ],
+        [
+          2624.0,
+          2144.0
+        ],
+        [
+          2624.0,
+          2112.0
+        ],
+        [
+          2720.0,
+          2112.0
+        ],
+        [
+          2720.0,
+          2080.0
+        ],
+        [
+          2688.0,
+          2080.0
+        ],
+        [
+          2688.0,
+          2016.0
+        ],
+        [
+          2656.0,
+          2016.0
+        ],
+        [
+          2656.0,
+          1856.0
+        ],
+        [
+          2688.0,
+          1856.0
+        ],
+        [
+          2688.0,
+          1824.0
+        ],
+        [
+          2720.0,
+          1824.0
+        ],
+        [
+          2720.0,
+          1792.0
+        ],
+        [
+          2752.0,
+          1792.0
+        ],
+        [
+          2752.0,
+          1760.0
+        ],
+        [
+          2816.0,
+          1760.0
+        ],
+        [
+          2816.0,
+          1728.0
+        ],
+        [
+          2880.0,
+          1728.0
+        ],
+        [
+          2880.0,
+          1696.0
+        ],
+        [
+          2944.0,
+          1696.0
+        ],
+        [
+          2944.0,
+          1664.0
+        ],
+        [
+          3008.0,
+          1664.0
+        ],
+        [
+          3008.0,
+          1632.0
+        ],
+        [
+          3072.0,
+          1632.0
+        ],
+        [
+          3072.0,
+          1600.0
+        ],
+        [
+          3200.0,
+          1600.0
+        ],
+        [
+          3200.0,
+          1568.0
+        ],
+        [
+          3392.0,
+          1568.0
+        ],
+        [
+          3392.0,
+          1536.0
+        ],
+        [
+          3552.0,
+          1536.0
+        ],
+        [
+          3552.0,
+          1504.0
+        ],
+        [
+          3744.0,
+          1504.0
+        ],
+        [
+          3744.0,
+          1472.0
+        ],
+        [
+          3840.0,
+          1472.0
+        ],
+        [
+          3840.0,
+          1440.0
+        ],
+        [
+          3936.0,
+          1440.0
+        ],
+        [
+          3936.0,
+          1408.0
+        ],
+        [
+          4064.0,
+          1408.0
+        ],
+        [
+          4064.0,
+          1376.0
+        ],
+        [
+          4128.0,
+          1376.0
+        ],
+        [
+          4128.0,
+          1344.0
+        ],
+        [
+          4224.0,
+          1344.0
+        ],
+        [
+          4224.0,
+          1440.0
+        ],
+        [
+          4256.0,
+          1440.0
+        ],
+        [
+          4256.0,
+          1312.0
+        ],
+        [
+          4288.0,
+          1312.0
+        ],
+        [
+          4288.0,
+          1280.0
+        ],
+        [
+          4384.0,
+          1280.0
+        ],
+        [
+          4384.0,
+          1248.0
+        ],
+        [
+          4448.0,
+          1248.0
+        ],
+        [
+          4448.0,
+          1216.0
+        ],
+        [
+          4544.0,
+          1216.0
+        ],
+        [
+          4544.0,
+          1184.0
+        ],
+        [
+          4416.0,
+          1184.0
+        ],
+        [
+          4416.0,
+          1152.0
+        ],
+        [
+          4352.0,
+          1152.0
+        ],
+        [
+          4352.0,
+          1120.0
+        ],
+        [
+          4256.0,
+          1120.0
+        ],
+        [
+          4256.0,
+          1088.0
+        ],
+        [
+          4160.0,
+          1088.0
+        ],
+        [
+          4160.0,
+          1056.0
+        ],
+        [
+          4096.0,
+          1056.0
+        ],
+        [
+          4096.0,
+          1024.0
+        ],
+        [
+          4000.0,
+          1024.0
+        ],
+        [
+          4000.0,
+          992.0
+        ],
+        [
+          3936.0,
+          992.0
+        ],
+        [
+          3936.0,
+          960.0
+        ],
+        [
+          3840.0,
+          960.0
+        ],
+        [
+          3840.0,
+          928.0
+        ],
+        [
+          3744.0,
+          928.0
+        ],
+        [
+          3744.0,
+          896.0
+        ],
+        [
+          3648.0,
+          896.0
+        ],
+        [
+          3648.0,
+          864.0
+        ],
+        [
+          3520.0,
+          864.0
+        ],
+        [
+          3520.0,
+          832.0
+        ],
+        [
+          3392.0,
+          832.0
+        ],
+        [
+          3392.0,
+          800.0
+        ],
+        [
+          3200.0,
+          800.0
+        ],
+        [
+          3200.0,
+          768.0
+        ],
+        [
+          2976.0,
+          768.0
+        ],
+        [
+          2976.0,
+          832.0
+        ],
+        [
+          2624.0,
+          832.0
+        ]
+      ]
+    ],
+    "cell_size": 32,
+    "vision_radius": 540,
+    "dark_vision_radius": 360,
+    "ray_count": 96,
+    "walk_links": 1,
+    "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
+  },
+  "boss_route_via_exploration": true,
+  "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
+  "optional_challenges": [
+    {
+      "id": "ch06_bell_tongue_trial",
+      "name": "钟舌试炼",
+      "kind": "challenge_room",
+      "room_id": "bell_tongue_vault",
+      "clear_flag": "challenge_clear_ch06_bell_tongue",
+      "bypass_note": "不敲钟可拿冠下回声碎片、与旧王钟舌对话、拉西环拉杆离开，经西环廊或王座前廊继续；主线不依赖此房。封门只封西侧西环廊入口，东侧库区与下坠前廊仍可撤离。离开此房即中止本次试炼，封门打开、余响钟复位，可随时回来再敲。",
+      "shrine": {
+        "id": "challenge_shrine_ch06_bell_tongue",
+        "position": [
+          2660,
+          2860
+        ],
+        "label": "余响钟 · 钟舌试炼"
+      },
+      "lock_rect": [
+        2488,
+        2780,
+        42,
+        220
+      ],
+      "enemies": [
+        {
+          "id": "CH06_N1",
+          "kind": "falling_clapper",
+          "position": [
+            2580,
+            2860
+          ],
+          "sprite": "res://assets/sprites/original_creatures/falling_clapper/manifest.json",
+          "visual_scale": 0.315018315018315,
+          "visual_offset": [
+            0,
+            11.692307692307693
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/falling_clapper/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 46,
+          "elite": true
+        },
+        {
+          "id": "CH06_N2",
+          "kind": "echo_moss_larva",
+          "position": [
+            2760,
+            2860
+          ],
+          "sprite": "res://assets/sprites/original_creatures/echo_moss_larva/manifest.json",
+          "visual_scale": 0.301255230125523,
+          "visual_offset": [
+            0,
+            15.372384937238493
+          ],
+          "visual_modulate": "ffffff",
+          "visual_source": "original_hand_drawn",
+          "visual_role": "dark_fantasy_enemy",
+          "source_sprite": "res://assets/sprites/original_creatures/echo_moss_larva/atlas.png",
+          "patrol": 50,
+          "leash_radius": 160,
+          "sprite_faces_left": false,
+          "spawn_half_width": 24,
+          "spawn_visual_height": 32,
+          "elite": true
+        }
+      ],
+      "reward": {
+        "currency": 30,
+        "material_amount": 2,
+        "item_id": "evidence_bell_tongue_echo",
+        "item_amount": 1,
+        "toast": "钟舌首清：取得钟舌余响证据，并得额外碎钱与材料。图样可带给雨铸匠制作「冠舌调线坠」，证据不会收走。"
+      }
+    }
+  ]
+}

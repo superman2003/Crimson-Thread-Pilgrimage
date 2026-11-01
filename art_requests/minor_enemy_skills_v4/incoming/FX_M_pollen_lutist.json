@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_pollen_lutist.png",
+  "kind": "pollen_lutist",
+  "image_sha256": "887c24072659cd732b09e6811f575580f2f3f1dd934ad676e211933dfd2f211a",
+  "prompt_sha256": "619fd155735f955876753d5455b1942c0b49181cb1feda9f7721db6bdd8e0c38",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/pollen_lutist.png",
+  "reference_sha256": "e081c6b10f1c4a748accd32b27e3ecc3e69fcd089bf6526a22c23697f3b198a8",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "pollen_arcs_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        485,
+        498
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        104,
+        87,
+        439,
+        452
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "pollen_arcs_warning",
+      "rect_xyxy": [
+        485,
+        0,
+        1018,
+        498
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        614,
+        88,
+        949,
+        452
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "pollen_arcs_warning",
+      "rect_xyxy": [
+        1018,
+        0,
+        1536,
+        498
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1124,
+        87,
+        1460,
+        452
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "pollen_spots_warning",
+      "rect_xyxy": [
+        0,
+        498,
+        526,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        66,
+        582,
+        482,
+        968
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "pollen_spots_warning",
+      "rect_xyxy": [
+        526,
+        498,
+        1042,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        573,
+        582,
+        991,
+        971
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "pollen_spots_warning",
+      "rect_xyxy": [
+        1042,
+        498,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1077,
+        582,
+        1496,
+        972
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "?????????????????????????????",
+    "rows_reviewed": [
+      "pollen_arcs_warning",
+      "pollen_spots_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

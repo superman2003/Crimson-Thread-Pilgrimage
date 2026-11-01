@@ -1,0 +1,36 @@
+name: S02 grouped current danger captions
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/danger_captions.gd'
+      - 'godot/scripts/danger_caption_groups*.gd'
+      - 'godot/scripts/controller_preferences.gd'
+      - 'tools/run_danger_caption_groups_contract.py'
+      - '.github/workflows/ledger-danger-caption-groups.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: danger_caption_groups-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native production component contract
+        run: python3 tools/run_danger_caption_groups_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/native-contract"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: danger_caption_groups-logs
+          path: ${{ runner.temp }}/native-contract
+

@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "enemy_ai_behavior",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.98,
+      "markers": [
+        "SPATIAL_ENEMY_ALERT checks=13",
+        "ENEMY_AI_BEHAVIOR checks=38 failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 3.86,
+      "markers": [
+        "AUDIO_BUS_TOPOLOGY checks=21 failures=0 driver=Dummy live_rebuilds=32",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "combat",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.98,
+      "markers": [
+        "PASS: ai enemy remains active during combat validation",
+        "PASS: enemy attack desire starts an active command",
+        "PASS: enemy command ai can damage the player",
+        "COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

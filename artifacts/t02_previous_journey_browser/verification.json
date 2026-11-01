@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-20",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "save_product",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 1.59,
+      "markers": [
+        "SAVE PRODUCT PASS: 45 checks, v1 migration, atomic backup recovery, builds, death cache and slots"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "ui_world_integration",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 6.03,
+      "markers": [
+        "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0"
+      ],
+      "objectdb_warnings": 1
+    },
+    {
+      "suite": "save_recovery",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 17.81,
+      "markers": [
+        "SAVE_RECOVERY checks=35 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "settings_remap",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 9.78,
+      "markers": [
+        "SETTINGS_REMAP checks=14 failures=0"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

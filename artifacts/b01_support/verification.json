@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-22",
+  "base_commit": "dc31736e13cd8f0a88708286ca5cdd51315dafda",
+  "scope": "B01 support behavior; positioned/invulnerable World fixture, not T04 natural playthrough",
+  "engine": "Godot 4.6.1 stable / OpenGL Compatibility llvmpipe",
+  "import_passes": 2,
+  "suites": {
+    "combat_visual_budget": {
+      "completion_lines": [
+        "SECONDARY_VISUAL_BUDGET checks=50 failures=0",
+        "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "unclaimed_stringnames": []
+    },
+    "enemy_ai_behavior": {
+      "completion_lines": [
+        "ENEMY_AI_BEHAVIOR checks=38 failures=0"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "unclaimed_stringnames": []
+    },
+    "enemy_effect_lifetime": {
+      "completion_lines": [
+        "PROJECTILE_ART_VALIDATION checks=300 failures=0 families=15",
+        "GROUND_HAZARD_ART_VALIDATION checks=375 failures=0 families=8",
+        "TERRAIN_ATTACK_ART_VALIDATION checks=609 failures=0 families=5 frames=36",
+        "BEAM_ART_VALIDATION checks=441 failures=0 families=4 parts=16",
+        "ENEMY_EFFECT_LIFETIME_VALIDATION checks=46 failures=0"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "unclaimed_stringnames": []
+    },
+    "enemy_encounter_roles": {
+      "completion_lines": [
+        "ENEMY_ENCOUNTER_ROLES checks=19 failures=0 fixture_scope=authored_profiles_and_positions_live_physics_ai_attacks_damage"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "unclaimed_stringnames": []
+    },
+    "enemy_lifecycle_regression": {
+      "completion_lines": [
+        "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "unclaimed_stringnames": []
+    },
+    "enemy_tactical_roles": {
+      "completion_lines": [
+        "ENEMY_TACTICAL_ROLES checks=263 failures=0"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "unclaimed_stringnames": []
+    },
+    "obsidian_experience": {
+      "completion_lines": [
+        "OBSIDIAN_EXPERIENCE checks=197 failures=0 fixture_scope=positioned_camera_and_live_local_combat"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "unclaimed_stringnames": []
+    },
+    "optional_challenges": {
+      "completion_lines": [
+        "OPTIONAL_CHALLENGES checks=354 failures=0 fixture_scope=production_world_challenge_clear_and_antibuse"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "unclaimed_stringnames": []
+    },
+    "world_enemy_residency": {
+      "completion_lines": [
+        "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3436.0, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 1,
+      "unclaimed_stringnames": [
+        "4"
+      ]
+    },
+    "world_interaction_residency": {
+      "completion_lines": [
+        "WORLD INTERACTION RESIDENCY PASS: 143 checks"
+      ],
+      "engine_errors": 0,
+      "objectdb_exit_warnings": 0,
+      "unclaimed_stringnames": []
+    }
+  },
+  "mutations": [
+    {
+      "mutation": "no_healing",
+      "rejected": true,
+      "exit": 1
+    },
+    {
+      "mutation": "no_cooldown",
+      "rejected": true,
+      "exit": 1
+    }
+  ],
+  "static_checks": {
+    "npm_test": true,
+    "campaign": true,
+    "generated_runtime_data": true,
+    "enemy_journal": true,
+    "export_audit": true,
+    "python_compile": true
+  },
+  "runtime_source_freeze": {
+    "scope": "tracked godot/scripts, godot/data, godot/scenes and tools files with gd/json/tscn/py extensions; excludes images and docs",
+    "files": 514,
+    "changes": []
+  },
+  "profile_scope": {
+    "unchanged_species": 45,
+    "changed_species": "ash_banner_imp",
+    "changed_fields": [
+      "combat_identity",
+      "tactical_role"
+    ],
+    "hp_damage_attacks_unchanged": true
+  },
+  "full_default_suite_run": false,
+  "final_acceptance_closed": false
+}

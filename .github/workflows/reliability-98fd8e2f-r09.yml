@@ -1,0 +1,36 @@
+name: Reliability R09
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/audio_volume_preferences.gd'
+      - 'godot/scripts/duck_mix.gd'
+      - 'godot/scripts/music_layer_phase.gd'
+      - 'godot/scripts/npc_landmark_schedule.gd'
+      - 'godot/scripts/room_reverb_mix.gd'
+      - 'godot/scripts/spatial_enemy_alert.gd'
+      - 'godot/scripts/reliability_98fd8e2f_r09_validation.gd'
+      - 'tools/run_reliability_98fd8e2f_r09.py'
+      - '.github/workflows/reliability-98fd8e2f-r09.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot
+        run: |
+          curl --fail -L -o /tmp/godot.zip https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q /tmp/godot.zip -d /tmp/godot-bin
+      - name: Native production regression
+        run: python tools/run_reliability_98fd8e2f_r09.py --engine /tmp/godot-bin/Godot_v4.6.1-stable_linux.x86_64 --log-dir artifacts/reliability_98fd8e2f_r09
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reliability_98fd8e2f_r09
+          path: artifacts/reliability_98fd8e2f_r09

@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_fungus.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_fungus.txt",
+  "prompt_sha256": "1ddc94f415cdc4367ad887f7f77c111ccee7641b994c662a86b22ed056f6e183",
+  "image_sha256": "7442839bc6370214bbb8a8809fde4d51f07c7e8f05f8fc762731a6a3b740b04d",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1028944,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/spore_bellmaker.png",
+      "sha256": "aaaffca92be6c99b4caa6543962125141afa6fa137a463206eaa145904ea4db8"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_moss_larva.png",
+      "sha256": "e1eb039f5d8ea06ce9f2682ce681b610f04718395ca0959475d8329feb3cf844"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        441,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        54,
+        245,
+        387,
+        389
+      ],
+      "fully_transparent_pixels": 163217
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        441,
+        0,
+        885,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        478,
+        214,
+        851,
+        396
+      ],
+      "fully_transparent_pixels": 147628
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        885,
+        0,
+        1330,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        919,
+        174,
+        1298,
+        400
+      ],
+      "fully_transparent_pixels": 125100
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1330,
+        0,
+        1774,
+        475
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1365,
+        195,
+        1734,
+        399
+      ],
+      "fully_transparent_pixels": 131501
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        475,
+        444,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        33,
+        603,
+        413,
+        819
+      ],
+      "fully_transparent_pixels": 101109
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        444,
+        475,
+        891,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        482,
+        618,
+        855,
+        818
+      ],
+      "fully_transparent_pixels": 103325
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        891,
+        475,
+        1342,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        920,
+        649,
+        1296,
+        819
+      ],
+      "fully_transparent_pixels": 124527
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1342,
+        475,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1388,
+        687,
+        1707,
+        796
+      ],
+      "fully_transparent_pixels": 132537
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "菌圈",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

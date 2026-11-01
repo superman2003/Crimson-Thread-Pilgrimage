@@ -1,0 +1,144 @@
+{
+  "schema": "boss-execution-source-v3",
+  "image": "FX_X_mantis_guard.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/boss_execution_v3/README.md",
+  "image_sha256": "7f555ce57cae7d1d76277eb7d176d933e46ede906a6b3d572ee12d53b78c0533",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_X_mantis_guard.txt",
+  "prompt_sha256": "5b543707119e88517cfdf45891474528014b01f030c85e9bf8422544818c4784",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      512
+    ],
+    "canvas_size": [
+      1536,
+      1024
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "See godot/assets/vfx/boss_skills/manifest.json for measured per-cel registration and scale.",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        493,
+        522
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        157,
+        174,
+        402,
+        414
+      ],
+      "fully_transparent_pixels": 214056
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        493,
+        0,
+        1012,
+        522
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        586,
+        160,
+        967,
+        465
+      ],
+      "fully_transparent_pixels": 198452
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1012,
+        0,
+        1536,
+        522
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1057,
+        105,
+        1491,
+        485
+      ],
+      "fully_transparent_pixels": 172780
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        522,
+        543,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        570,
+        516,
+        950
+      ],
+      "fully_transparent_pixels": 160570
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        543,
+        522,
+        1031,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        570,
+        624,
+        965,
+        892
+      ],
+      "fully_transparent_pixels": 177949
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1031,
+        522,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1117,
+        662,
+        1394,
+        846
+      ],
+      "fully_transparent_pixels": 220456
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "../combat_presentation_v2/refs/saltwhite_contract_judge.png",
+      "sha256": "b98e723c6e8d3ca6c1275847cb9e05ff2e4c2abde9233b5282591bf3d7169366"
+    }
+  ],
+  "usage": "Source QA only. Original PNG bytes retained. Actual runtime atlas registration and visual/regression evidence are recorded separately in art_requests/boss_execution_v3/README.md.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "date": "2026-10-23",
+    "notes": "Inspected generated six-cel sheet: material follows the referenced boss, active contours differ from anticipation, no characters or scenery, six distinct release/follow-through cels. Selected sources pass alpha and measured gutter checks.",
+    "runtime_acceptance": "pending"
+  }
+}

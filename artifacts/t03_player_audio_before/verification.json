@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-20",
+  "base": "e5255c5204a9dff91832dddebb1879383d004ee2",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "audio_retirement",
+      "passed": false,
+      "engine_errors": [
+        "ERROR: FAIL: interrupted one-shot players are freed, not accumulated on the persistent Player",
+        "ERROR: FAIL: interrupted one-shot players are freed, not accumulated on the persistent Player",
+        "ERROR: FAIL: interrupted one-shot players are freed, not accumulated on the persistent Player",
+        "ERROR: FAIL: interrupted one-shot players are freed, not accumulated on the persistent Player",
+        "ERROR: FAIL: wall loop reloads its stream and reuses its player after region retirement",
+        "ERROR: audio retirement or user-volume regression failed"
+      ],
+      "seconds": 7.3,
+      "markers": [
+        "MUSIC_PHRASE_RESUME checks=15",
+        "PLAYER_AUDIO_RETIREMENT checks=12",
+        "AUDIO_USER_VOLUME checks=37 failures=0",
+        "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=5"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

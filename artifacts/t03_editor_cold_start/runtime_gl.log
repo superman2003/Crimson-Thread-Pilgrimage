@@ -1,0 +1,17 @@
+Running metsys
+PASS: metsys
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running ui_world_integration
+PASS: ui_world_integration
+按 F 休息，恢复状态并记录归途。
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=54 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running map_player_pins
+PASS: map_player_pins
+已添加目标图钉。
+MAP PLAYER PINS PASS checks=161
+GODOT_REGRESSIONS suites=4 failures=0

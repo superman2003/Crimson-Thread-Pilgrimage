@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Use real child processes to check CI error/timeout propagation."""
+"""Check portable completion contracts and CI error/timeout propagation."""
 import os
 from pathlib import Path
 import subprocess
@@ -13,6 +13,106 @@ import re
 from run_godot_regressions import run_suites
 
 ROOT = Path(__file__).resolve().parents[1]
+
+class CompletionContractTests(unittest.TestCase):
+    """Static suite contracts apply on every host, including Windows."""
+    def test_suite_timeout_defaults_and_explicit_override_still_fail_on_timeout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scripts = root / 'godot/scripts'
+            scripts.mkdir(parents=True)
+            for suite in ('world_neighbor_gameplay', 'enemy_visibility'):
+                (scripts / f'{suite}_validation.gd').touch()
+            logs = root / 'logs'
+            logs.mkdir()
+            with patch.object(runner, 'ROOT', root), patch.object(
+                runner.subprocess, 'run', side_effect=subprocess.TimeoutExpired('godot', 1)
+            ) as launch:
+                failures = runner.run_suites('godot', ['world_neighbor_gameplay', 'enemy_visibility'],
+                                             None, logs, root / 'scratch', False, {})
+                self.assertEqual([call.kwargs['timeout'] for call in launch.call_args_list], [300, 180])
+                self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 300s',
+                                            'enemy_visibility: timeout after 180s'])
+                launch.reset_mock()
+                failures = runner.run_suites('godot', ['world_neighbor_gameplay'],
+                                             0.05, logs, root / 'scratch', False, {})
+                self.assertEqual(launch.call_args.kwargs['timeout'], 0.05)
+                self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 0.05s'])
+
+    def test_default_suites_all_have_compilable_completion_contracts(self):
+        all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
+        combat_additions = {
+            'player_projectile_contact', 'player_effect_lifecycle', 'enemy_wave_sweep',
+            'player_attack_window', 'enemy_attack_motion', 'grapple_path',
+            'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
+            'player_basic_attack_vfx',
+        }
+        # Keep the original 182-suite floor exact while counting each explicitly
+        # registered ledger addition. The duplicate and marker checks below still
+        # reject a missing base suite, an unknown addition or invalid completion.
+        self.assertEqual(len(all_suites), 182 + len(set(all_suites) & combat_additions))
+        self.assertIn("shrine_return_world", DEFAULT_SUITES)
+        self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
+        self.assertIn("application_close", DEFAULT_SUITES)
+        self.assertIn("quiet_sole_traps", DEFAULT_SUITES)
+        self.assertIn("wish_reward_atomic", DEFAULT_SUITES)
+        self.assertIn("permanent_capacity", DEFAULT_SUITES)
+        self.assertIn("boss_skill_art", DEFAULT_SUITES)
+        self.assertIn("player_contact_art", DEFAULT_SUITES)
+        self.assertIn("player_ability_art", DEFAULT_SUITES)
+        self.assertIn("player_dash_art", DEFAULT_SUITES)
+        self.assertIn("player_hook_art", DEFAULT_SUITES)
+        self.assertIn("player_hurt_art", DEFAULT_SUITES)
+        self.assertIn("player_movement_art", DEFAULT_SUITES)
+        self.assertIn("player_heal_art", DEFAULT_SUITES)
+        self.assertIn("player_guard_art", DEFAULT_SUITES)
+        self.assertIn("combat_visual_budget", DEFAULT_SUITES)
+        self.assertIn("minor_enemy_skill_art", DEFAULT_SUITES)
+        self.assertIn("skill_branches", DEFAULT_SUITES)
+        self.assertIn("artisan_crafts", DEFAULT_SUITES)
+        self.assertIn("survey_room_segments", DEFAULT_SUITES)
+        self.assertIn("save_recovery", DEFAULT_SUITES)
+        self.assertIn("death_cache_placement", DEFAULT_SUITES)
+        self.assertIn("g02_respawn", DEFAULT_SUITES)
+        self.assertIn("obsidian_road_clearance", DEFAULT_SUITES)
+        self.assertIn("obsidian_dock_clearance", DEFAULT_SUITES)
+        self.assertIn("crown_rain_slot", DEFAULT_SUITES)
+        self.assertIn("crown_vault_door", DEFAULT_SUITES)
+        self.assertIn("ending_aftermath", DEFAULT_SUITES)
+        self.assertIn("settings_remap", DEFAULT_SUITES)
+        self.assertIn("tool_practice", DEFAULT_SUITES)
+        self.assertIn("shrine_exit_probe", DEFAULT_SUITES)
+        self.assertIn("shrine_exit_routes", DEFAULT_SUITES)
+        self.assertIn("hidden_routes", DEFAULT_SUITES)
+        self.assertIn("expanded_character_motion", DEFAULT_SUITES)
+        self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
+        self.assertIn("enemy_tactical_roles", DEFAULT_SUITES)
+        self.assertIn("character_art_prewarm", DEFAULT_SUITES)
+        self.assertIn("texture_request_exit", DEFAULT_SUITES)
+        self.assertIn("background_texture_contention", DEFAULT_SUITES)
+        self.assertIn("enemy_atlas_integrity", DEFAULT_SUITES)
+        self.assertIn("world_save_candidate", DEFAULT_SUITES)
+        self.assertIn("map_player_pins", DEFAULT_SUITES)
+        self.assertIn("world_startup_config_background", DEFAULT_SUITES)
+        self.assertIn("world_catalog_background", DEFAULT_SUITES)
+        self.assertIn("room_camera_stability", DEFAULT_SUITES)
+        self.assertIn("player_layered_idle", DEFAULT_SUITES)
+        self.assertIn("input_prompt", DEFAULT_SUITES)
+        self.assertIn("ui_text_order", DEFAULT_SUITES)
+        self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
+        self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
+        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
+        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
+        self.assertIn("player_basic_attack_vfx", DEFAULT_SUITES)
+        self.assertIn("spike_pogo", DEFAULT_SUITES)
+        for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
+            self.assertIn(suite, DEFAULT_SUITES)
+        self.assertEqual(len(all_suites), len(set(all_suites)))
+        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
+        for marker in SUCCESS_MARKERS.values():
+            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
+            re.compile(marker)
+
 
 @unittest.skipIf(os.name == 'nt', 'executable shebang fixtures run on Linux/macOS CI')
 class RunnerTests(unittest.TestCase):
@@ -63,6 +163,26 @@ class RunnerTests(unittest.TestCase):
         result = self.run_engine('print("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 0)
 
+    def test_audio_retirement_uses_wall_clock_with_both_renderers(self):
+        # Real audio mixing and reservation expiry do not follow the accelerated
+        # simulation clock. Check the actual child command used by both paths.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            engine = root / 'fake-godot'
+            engine.write_text(
+                '#!' + sys.executable + '\nimport sys\n'
+                + 'assert "--fixed-fps" not in sys.argv, "audio needs wall-clock timing"\n'
+                + 'print("AUDIO RETIREMENT PASS: fixture, failures=0")\n'
+            )
+            engine.chmod(0o755)
+            logs = root / 'logs'
+            logs.mkdir()
+            for real_gl in [False, True]:
+                with self.subTest(real_gl=real_gl):
+                    failures = run_suites(str(engine), ['audio_retirement'], 2,
+                                          logs, root / 'scratch', real_gl, {})
+                    self.assertEqual(failures, [])
+
     def test_zero_exit_without_completion_is_failure(self):
         result = self.run_engine('print("PASS: first assertion only")\n')
         self.assertEqual(result.returncode, 1)
@@ -72,32 +192,6 @@ class RunnerTests(unittest.TestCase):
         result = self.run_engine('print("WORLD_MAP checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 1)
         self.assertIn('completion_marker=False', result.stdout)
-
-    def test_default_suites_all_have_compilable_completion_contracts(self):
-        all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
-        self.assertEqual(len(all_suites), 117)
-        self.assertIn("expanded_character_motion", DEFAULT_SUITES)
-        self.assertIn("enemy_ai_behavior", DEFAULT_SUITES)
-        self.assertIn("character_art_prewarm", DEFAULT_SUITES)
-        self.assertIn("enemy_atlas_integrity", DEFAULT_SUITES)
-        self.assertIn("world_save_candidate", DEFAULT_SUITES)
-        self.assertIn("map_player_pins", DEFAULT_SUITES)
-        self.assertIn("world_startup_config_background", DEFAULT_SUITES)
-        self.assertIn("world_catalog_background", DEFAULT_SUITES)
-        self.assertIn("room_camera_stability", DEFAULT_SUITES)
-        self.assertIn("player_layered_idle", DEFAULT_SUITES)
-        self.assertIn("input_prompt", DEFAULT_SUITES)
-        self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
-        self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
-        self.assertIn("player_motion_continuity", DEFAULT_SUITES)
-        self.assertIn("player_melee_feedback", DEFAULT_SUITES)
-        for suite in ["world_route_manifest_walk_lower", "world_route_manifest_walk_upper", "world_route_manifest_integration"]:
-            self.assertIn(suite, DEFAULT_SUITES)
-        self.assertEqual(len(all_suites), len(set(all_suites)))
-        self.assertEqual(set(all_suites), set(SUCCESS_MARKERS))
-        for marker in SUCCESS_MARKERS.values():
-            self.assertTrue(marker.startswith('^') and marker.endswith('$'))
-            re.compile(marker)
 
     def test_workshop_groups_require_full_room_and_restart_counts(self):
         for suffix, count in [('one', 10), ('two', 9)]:
@@ -231,6 +325,29 @@ class RunnerTests(unittest.TestCase):
             self.assertNotIn('--disable-render-loop', arguments)
             self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
             self.assertEqual(arguments[arguments.index('--rendering-method') + 1], 'gl_compatibility')
+
+    def test_crown_jump_fixtures_run_on_the_fixed_simulation_clock(self):
+        # Both fixtures replay frame-stepped jumps; a loaded CI host must not
+        # change the simulated arc (a double jump fell short of the shelf).
+        markers = {'crown_rain_slot': 'CROWN_RAIN_SLOT checks=12 failures=0',
+                   'crown_vault_door': 'CROWN_VAULT_DOOR checks=12 failures=0'}
+        for suite, marker in markers.items():
+            with self.subTest(suite=suite), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                engine = root / 'fake-godot'
+                captured = root / 'args'
+                engine.write_text(
+                    '#!' + sys.executable + '\nimport sys\n'
+                    + f'print({marker!r})\n'
+                    + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
+                )
+                engine.chmod(0o755)
+                logs = root / 'logs'
+                logs.mkdir()
+                run_suites(str(engine), [suite], 2, logs, root / 'scratch', False, {})
+                arguments = captured.read_text().splitlines()
+                self.assertIn('--fixed-fps', arguments)
+                self.assertEqual(arguments[arguments.index('--fixed-fps') + 1], '60')
 
     def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
         for marker in [

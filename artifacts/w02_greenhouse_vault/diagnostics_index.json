@@ -1,0 +1,38 @@
+{
+  "final": "fixed_03_wider_shaft",
+  "scope": "Failed diagnostics remain failures; expected old-data failure and generated-data checks are recorded in temporary_data_verification.json.",
+  "runs": [
+    {
+      "path": "fixed_01/verification.json",
+      "passed": false
+    },
+    {
+      "path": "fixed_02_takeoff/verification.json",
+      "passed": false
+    },
+    {
+      "path": "fixed_03_wider_shaft/verification.json",
+      "passed": true
+    },
+    {
+      "path": "generated_fixed/verification.json",
+      "passed": true
+    },
+    {
+      "path": "negative_old_01/verification.json",
+      "passed": false
+    },
+    {
+      "path": "negative_old_final/verification.json",
+      "passed": false
+    },
+    {
+      "path": "static/verification.json",
+      "passed": true
+    },
+    {
+      "path": "supporting_01/verification.json",
+      "passed": true
+    }
+  ]
+}

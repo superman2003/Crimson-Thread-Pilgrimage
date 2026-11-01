@@ -1,0 +1,33 @@
+{
+  "base_sha": "fdf43b5d7c112199b12fdcdbb6ee018f55ab8103",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "platform": "Windows",
+  "scope": "Real AudioServer effects and production AudioDirector; extracted actual Main reverb methods/constants; not full World or listening acceptance",
+  "checks": {
+    "room_reverb": 145,
+    "unchanged_user_volume": 37,
+    "combined": 182,
+    "failures": 0,
+    "runner_test_methods": 5
+  },
+  "negative_controls": {
+    "old_director_failures": 56,
+    "missing_chapter_hook_failures": 26,
+    "exit_code": 1
+  },
+  "inputs": {
+    "godot/scripts/audio_director.gd": "bf74fcbb845862b0d2ad99992dc80dc45021b743142753dbd4f9481f5e8b3871",
+    "godot/scripts/main_level.gd": "05819b2e26be39249fd3cb8bdba414b5691441ab539ad18619cd6eb5e585dfed",
+    "godot/scripts/room_reverb_mix.gd": "5785880207ec535f699d3e184ec03ce7dfdc4732021400b066ed0dba2edf97c3",
+    "godot/scripts/room_reverb_validation.gd": "48b88e5313edec849a58ea355652c3c27ba7ef239cbd8c8ae2592c093af22a94",
+    "tools/run_room_reverb_contract.py": "dd582d99fc26ea2ada8564e74760c0055b915b5f3b71449d0984c01571afbb3e",
+    "tools/test_room_reverb_runner.py": "aa153a495d9de3a0f75edde50ceda46962377a6d793ad36e649dbb119e00a839",
+    ".github/workflows/ledger-s03-room-reverb.yml": "54f88f180de3273643d9225c33052e25f262205d7ee08a7d38f828b435d18d8e"
+  },
+  "logs": {
+    "baseline/contracts.log": "d9e83fc042bcaa865abbae887bf9f98961b4c50b668cfa1c5a53e7e016579823",
+    "chapter-presets/contracts.log": "da31b0052da05ebf22221b6db01aec237bdb0d425438dd7882df20baee25d326",
+    "negative/old_director/contracts.log": "f819ff3035905055da22b1ebf69727db6685c1c4015f678ab9b652f06f76adac",
+    "negative/missing_chapter_hook/contracts.log": "2fd74ef9039331882ab439863849b3e44db7d7bd7afae070b53498645fb812c3"
+  }
+}

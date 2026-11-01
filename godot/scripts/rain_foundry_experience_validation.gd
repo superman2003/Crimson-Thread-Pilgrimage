@@ -165,6 +165,7 @@ func room_views() -> void:
     world.player.respawn_at(Vector2(4920, 3760))
     check(world.player.camera_focus.active_lock == "exploration_room" and world.player.room_camera.current.id == "forge_shrine", "Actual respawn signal restores the forge shrine before rendering")
     check(camera.get_screen_center_position().distance_to(world.player.global_position) < 250, "Respawn visible center is immediately near the shrine")
+    await spillway_crossing(world)
     world._travel_world("res://data/demo_ch03_saltwhite_archive.json", Vector2(300, 2580))
     pause_world(world)
     check(preload("res://scripts/world_ready_validation_helper.gd").original_camera_zones(world) == 15 and world.player.room_camera.current.id == "salt_gatehouse" and not world.player.camera_focus.locks.has("boss_arena"), "Leaving foundry replaces its room limits with archive framing")
@@ -175,3 +176,73 @@ func room_views() -> void:
     await frames(6)
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE_PATH + suffix))
+
+## Positioned production-World fixture; the full earned-checkpoint circuit is
+## recorded separately. This return must also work without the later air jump.
+func spillway_crossing(world: Node) -> void:
+    var player: CharacterBody2D = world.player
+    check(not player.double_jump_unlocked and not player.wall_grip_unlocked, "Spillway fixture has no extra climbing abilities")
+    player.global_position = Vector2(4505, 4110)
+    player.velocity = Vector2.ZERO
+    world._warm_arrival_cave()
+    world._warm_arrival_terrain()
+    world._warm_arrival_platforms()
+    world.set_physics_process(true)
+    player.set_physics_process(true)
+    await frames(12)
+    check(player.is_on_floor(), "Spillway fixture starts on its actual lower return step")
+    var hp: int = player.hp
+    for point in [Vector2(4650,4018), Vector2(4575,3926), Vector2(4735,3800)]:
+        if not await spillway_jump(world, point):
+            pause_world(world)
+            return
+        if point.y == 3926:
+            await spillway_capture(world, "below_bridge")
+    Input.action_release("jump")
+    await frames(3)
+    for frame in 80:
+        var delta: float = 4535 - player.position.x
+        Input.action_press("move_left")
+        await frames(1)
+        if absf(delta) < 12:
+            break
+    Input.action_release("move_left")
+    await frames(3)
+    check(absf(player.position.x-4535)<20 and absf(player.position.y-3800)<8, "One-way bridge supports normal walking below the hanging hammer")
+    await spillway_capture(world, "bridge_walk")
+    await spillway_jump(world, Vector2(4535,3742))
+    check(player.hp == hp, "Ordinary spillway return and bridge walk avoid the unchanged traps")
+    pause_world(world)
+
+func spillway_jump(world: Node, target: Vector2) -> bool:
+    Input.action_release("jump")
+    Input.action_release("move_left")
+    Input.action_release("move_right")
+    await frames(3)
+    Input.action_press("jump")
+    for frame in 100:
+        var player: CharacterBody2D = world.player
+        var dx: float = target.x-player.position.x
+        Input.action_release("move_left")
+        Input.action_release("move_right")
+        if absf(dx)>4:
+            Input.action_press("move_right" if dx>0 else "move_left")
+        await frames(1)
+        if frame>5 and player.is_on_floor() and absf(player.position.x-target.x)<16 and absf(player.position.y-target.y)<8:
+            Input.action_release("jump")
+            Input.action_release("move_left")
+            Input.action_release("move_right")
+            check(true, "Production single jump reaches spillway " + str(target))
+            return true
+    Input.action_release("jump")
+    Input.action_release("move_left")
+    Input.action_release("move_right")
+    check(false, "Production single jump blocked at %s toward %s" % [world.player.position,target])
+    return false
+
+func spillway_capture(world: Node, label: String) -> void:
+    if not "--spillway-capture" in OS.get_cmdline_user_args(): return
+    world.player.reset_camera_after_arrival()
+    await RenderingServer.frame_post_draw
+    DirAccess.make_dir_recursive_absolute("res://../artifacts/w02_spillway")
+    root.get_texture().get_image().save_png("res://../artifacts/w02_spillway/" + label + ".png")

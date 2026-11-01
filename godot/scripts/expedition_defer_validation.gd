@@ -1,0 +1,52 @@
+extends SceneTree
+const PLAN := preload("res://scripts/expedition_plan.gd")
+var checks := 0
+var failures := 0
+func _initialize() -> void:call_deferred("run")
+func check(ok: bool, text: String) -> void:
+    checks += 1
+    if not ok:failures += 1;push_error(text)
+func run() -> void:
+    var plan := PLAN.new();plan.configure("defer_contract")
+    var known: Array=[]
+    for i in 7:known.append({"key":"room:known:"+str(i),"title":"已知地点"+str(i)})
+    check(plan.state.has("deferred"),"production itinerary supports deferred stops")
+    if not plan.state.has("deferred"):print("EXPEDITION_DEFER checks=%d failures=%d" % [checks,failures]);quit(1);return
+    for i in 6:check(plan.command("add",known[i].key,known).ok,"known stop can be scheduled")
+    var order: Array=plan.state.stops.duplicate()
+    check(plan.command("defer",known[0].key,known).ok,"an unfinished stop can be deferred")
+    check(plan.state.stops==order and plan.state.done.is_empty(),"deferral preserves itinerary order and does not claim completion")
+    check(plan.command("start","",known).ok and plan.next_stop(known).key==known[1].key,"active guidance skips a deferred first stop")
+    check(not plan.command("add",known[6].key,known).ok,"deferred stops still count toward the six-stop limit")
+    check(not plan.command("defer","room:hidden:future",known).ok,"deferral cannot inject unknown stop identities")
+    var missing: Array=known.slice(1)
+    check(plan.command("start","",missing).ok,"a temporarily invisible deferred stop does not block the known next station")
+    var restored := PLAN.new();restored.configure("defer_contract")
+    check(restored.state==plan.state,"real auxiliary-file reload preserves deferred markers and active guidance")
+    check(restored.command("defer",known[0].key,missing).ok and restored.next_stop(missing).get("unavailable",false),"restoring a missing stop preserves the original no-disclosure guard")
+    check(restored.command("defer",known[0].key,known).ok,"missing stop can be deferred again without losing its position")
+    var before: Dictionary=restored.state.duplicate(true)
+    restored.store.writer=func(_data: Dictionary):return ERR_CANT_CREATE
+    check(not restored.command("defer",known[1].key,known).ok and restored.state==before,"failed persistence publishes no temporary deferral")
+    restored.store.writer=Callable()
+    check(restored.command("done",known[0].key,known).ok and not restored.state.deferred.has(known[0].key),"explicit completion clears the temporary deferral")
+    check(not restored.command("defer",known[0].key,known).ok,"completed stops cannot also become deferred")
+    check(restored.command("defer",known[1].key,known).ok and restored.command("up",known[1].key,known).ok and restored.state.deferred.has(known[1].key),"reordering preserves a station's deferred status")
+    check(restored.command("remove",known[1].key,known).ok and not restored.state.deferred.has(known[1].key),"removing a stop removes its deferral marker")
+    check(restored.command("reset","",known).ok and restored.state.deferred.is_empty() and restored.state.done.is_empty() and not restored.state.active,"reset clears progress and deferrals without losing the itinerary")
+    var isolated := PLAN.new();isolated.configure("different_journey")
+    check(isolated.state.stops.is_empty() and isolated.state.deferred.is_empty(),"deferrals cannot leak into another save's auxiliary plan")
+    var legacy := PLAN.new();legacy.configure("legacy_defer")
+    check(legacy.store.write({"stops":[known[0].key],"done":[],"active":true}),"write an actual old-format plan")
+    legacy.configure("legacy_defer")
+    check(legacy.state.deferred.is_empty() and legacy.state.active,"old plans gain an empty deferral list without losing progress")
+    check(legacy.store.write({"stops":[known[0].key,known[1].key],"done":[known[0].key],"deferred":[true,{},known[0].key,known[1].key,known[1].key,"room:hidden:future"],"active":true}),"write malformed deferred fields for a restore boundary check")
+    legacy.configure("legacy_defer")
+    check(legacy.state.deferred==[known[1].key],"restore accepts only unique scheduled unfinished identities")
+    check(not legacy.command("start","",known).ok,"an entirely deferred remainder cannot claim active guidance")
+    legacy.command("defer",known[1].key,known);legacy.command("start","",known)
+    check(legacy.state.active,"restoring a station lets the player explicitly resume guidance")
+    legacy.command("defer",known[1].key,known)
+    check(not legacy.state.active,"deferring the last pending station pauses guidance")
+    print("EXPEDITION_DEFER checks=%d failures=%d" % [checks,failures])
+    quit(0 if failures==0 else 1)

@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_spore.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_spore.txt",
+  "prompt_sha256": "6df7b61591bc96650995ea3a28eb2e59f97891d269dfcdf63d73845e489c502b",
+  "image_sha256": "f7c3f638900bf038b2cea5baf1c29866a51843c2e79999f322ae5e89d6c85c14",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 956006,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/spore_bellmaker.png",
+      "sha256": "aaaffca92be6c99b4caa6543962125141afa6fa137a463206eaa145904ea4db8"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/rust_crown_guardian.png",
+      "sha256": "99d9b22e80128af4ed68ccaa57e1009e2102f9afa90a0a9f5b22b3a0fade3770"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        436,
+        445
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        56,
+        140,
+        378,
+        335
+      ],
+      "fully_transparent_pixels": 131157
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        436,
+        0,
+        886,
+        445
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        500,
+        125,
+        827,
+        342
+      ],
+      "fully_transparent_pixels": 135982
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        886,
+        0,
+        1325,
+        445
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        954,
+        122,
+        1275,
+        342
+      ],
+      "fully_transparent_pixels": 128103
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1325,
+        0,
+        1774,
+        445
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1387,
+        139,
+        1708,
+        338
+      ],
+      "fully_transparent_pixels": 136966
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        445,
+        458,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        51,
+        492,
+        425,
+        807
+      ],
+      "fully_transparent_pixels": 98630
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        458,
+        445,
+        883,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        498,
+        510,
+        847,
+        815
+      ],
+      "fully_transparent_pixels": 89440
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        883,
+        445,
+        1338,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        933,
+        536,
+        1292,
+        784
+      ],
+      "fully_transparent_pixels": 114843
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1338,
+        445,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1386,
+        560,
+        1717,
+        791
+      ],
+      "fully_transparent_pixels": 120885
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "孢子",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

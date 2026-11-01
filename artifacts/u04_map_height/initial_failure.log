@@ -1,0 +1,84 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Parse Error: The variable type is being inferred from a Variant value, so it will be typed as Variant. (Warning treated as error.)
+          at: GDScript::reload (res://scripts/map_room_context.gd:22)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/cartography_runtime.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/world_atlas.gd:0)
+SCRIPT ERROR: Compile Error: Failed to compile depended scripts.
+          at: GDScript::reload (res://scripts/survey_map_knowledge_validation.gd:0)
+ERROR: Failed to load script "res://scripts/survey_map_knowledge_validation.gd" with error "Compilation failed".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+ERROR: charted secret may join known height context
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/survey_map_knowledge_validation.gd:24)
+       [1] run (res://scripts/survey_map_knowledge_validation.gd:38)
+SCRIPT ERROR: Invalid call. Nonexistent function 'setup' in base 'GDScript'.
+          at: paper (res://scripts/cartography_runtime.gd:199)
+          GDScript backtrace (most recent call first):
+              [0] paper (res://scripts/cartography_runtime.gd:199)
+              [1] render (res://scripts/cartography_runtime.gd:208)
+              [2] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [3] _finish_budgeted (res://scripts/world_region_loader.gd:1388)
+              [4] _wake_startup_frame (res://scripts/world_region_loader.gd:833)
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+SCRIPT ERROR: Invalid call. Nonexistent function 'setup' in base 'GDScript'.
+          at: paper (res://scripts/cartography_runtime.gd:199)
+          GDScript backtrace (most recent call first):
+              [0] paper (res://scripts/cartography_runtime.gd:199)
+              [1] render (res://scripts/cartography_runtime.gd:208)
+              [2] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [3] run (res://scripts/survey_map_knowledge_validation.gd:271)
+              [4] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid call. Nonexistent function 'setup' in base 'GDScript'.
+          at: paper (res://scripts/cartography_runtime.gd:199)
+          GDScript backtrace (most recent call first):
+              [0] paper (res://scripts/cartography_runtime.gd:199)
+              [1] render (res://scripts/cartography_runtime.gd:208)
+              [2] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [3] run (res://scripts/survey_map_knowledge_validation.gd:274)
+              [4] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid call. Nonexistent function 'bind_room' in base 'GDScript'.
+          at: render (res://scripts/cartography_runtime.gd:271)
+          GDScript backtrace (most recent call first):
+              [0] render (res://scripts/cartography_runtime.gd:271)
+              [1] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [2] run (res://scripts/survey_map_knowledge_validation.gd:274)
+              [3] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid call. Nonexistent function 'setup' in base 'GDScript'.
+          at: paper (res://scripts/cartography_runtime.gd:199)
+          GDScript backtrace (most recent call first):
+              [0] paper (res://scripts/cartography_runtime.gd:199)
+              [1] render (res://scripts/cartography_runtime.gd:208)
+              [2] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [3] run (res://scripts/survey_map_knowledge_validation.gd:277)
+              [4] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid call. Nonexistent function 'bind_room' in base 'GDScript'.
+          at: render (res://scripts/cartography_runtime.gd:271)
+          GDScript backtrace (most recent call first):
+              [0] render (res://scripts/cartography_runtime.gd:271)
+              [1] _refresh_map_overlay (res://scripts/main_level.gd:3202)
+              [2] run (res://scripts/survey_map_knowledge_validation.gd:277)
+              [3] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+ERROR: real local component emits charted hazard marker
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/survey_map_knowledge_validation.gd:24)
+       [1] run (res://scripts/survey_map_knowledge_validation.gd:278)
+       [2] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+ERROR: Node not found: "SurveyRoom_entry_bell" (relative to "/root/PilgrimageWorld/@CanvasLayer@210/@Control@211/CourtMapOverlay/SurveyMapViewport/MapDrawRoot").
+   at: get_node (scene/main/node.cpp:1963)
+   GDScript backtrace (most recent call first):
+       [0] run (res://scripts/survey_map_knowledge_validation.gd:280)
+       [1] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+SCRIPT ERROR: Invalid access to property or key 'focus_entered' on a base object of type 'null instance'.
+          at: run (res://scripts/survey_map_knowledge_validation.gd:281)
+          GDScript backtrace (most recent call first):
+              [0] run (res://scripts/survey_map_knowledge_validation.gd:281)
+              [1] wait_for (res://scripts/world_ready_validation_helper.gd:14)
+按 F 通过旧通路。

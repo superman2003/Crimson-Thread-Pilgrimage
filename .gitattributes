@@ -19,6 +19,9 @@
 *.ttf filter=lfs diff=lfs merge=lfs -text
 *.otf filter=lfs diff=lfs merge=lfs -text
 
+# Small procedural basic-attack sheets are stored as complete, reviewable blobs.
+godot/assets/vfx/player_basic_attack/**/*.png -filter -diff -merge -text
+
 # Original overhaul assets are stored directly with the authenticated API upload.
 godot/assets/sprites/flat_maps/**/*.png -filter -diff -merge -text
 godot/assets/sprites/original_creatures/**/*.png -filter -diff -merge -text
@@ -33,6 +36,13 @@ artifacts/seal_world/*.png -filter -diff -merge -text
 
 # UI redesign runtime evidence is stored directly.
 artifacts/ui_redesign/*.jpg -filter -diff -merge -text
+
+# Inscription typography, authored UI materials and native review captures.
+godot/assets/fonts/GlobalTypeface.otf -filter -diff -merge -text
+tools/font_assets/FengMingInscription.otf -filter -diff -merge -text
+godot/assets/ui/inscription/**/*.png -filter -diff -merge -text
+artifacts/inscription_ui_v2/*.png -filter -diff -merge -text
+artifacts/inscription_font_full/*.png -filter -diff -merge -text
 
 # Small rendered review images remain directly browsable on GitHub.
 artifacts/ch01_rooms/*.jpg -filter -diff -merge
@@ -108,9 +118,144 @@ artifacts/silent_crown/*.webp -filter -diff -merge -text
 # Creature attack runtime captures are small, directly viewable Git blobs.
 artifacts/creature_attack_motion/*.jpg -filter -diff -merge -text
 
-# Boss motion sources and native review evidence are complete Git blobs.
+# V04 real-GL review captures remain directly browsable.
+artifacts/combat_visual_budget/*.webp -filter -diff -merge -text
+
+# Generated projectile runtime pixels and real-renderer review captures.
+godot/assets/vfx/projectiles/*.png -filter -diff -merge -text
+artifacts/projectile_art/*.gif -filter -diff -merge -text
+artifacts/projectile_art/*.webp -filter -diff -merge -text
+
+godot/assets/vfx/ground_hazards/*.png -filter -diff -merge -text
+artifacts/ground_hazard_art/*.gif -filter -diff -merge -text
+artifacts/ground_hazard_art/*.webp -filter -diff -merge -text
+
+godot/assets/vfx/terrain_attacks/*.png -filter -diff -merge -text
+artifacts/terrain_attack_art/*.gif -filter -diff -merge -text
+artifacts/terrain_attack_art/*.webp -filter -diff -merge -text
+
+godot/assets/vfx/beams/*.png -filter -diff -merge -text
+artifacts/beam_art/*.gif -filter -diff -merge -text
+artifacts/beam_art/*.webp -filter -diff -merge -text
+
+# Native GL dense map pin review at the paper edges.
+artifacts/u04_pin_boundaries_visual/*/*.webp -filter -diff -merge -text
+
+# Preserve native Windows evidence bytes; recognize their CRLF endings.
+artifacts/t04_candle_route/** -text whitespace=cr-at-eol
+artifacts/t04_cartography_journey/** -text whitespace=cr-at-eol
+
+# Small real-World environment history review sheet.
+artifacts/n04_scene_history_visual/contact_sheet.png -filter -diff -merge -text
+
+artifacts/v04_secondary_visual/*.webp -filter -diff -merge -text
+
+# Native GL map text review captures at normal and fourfold zoom.
+artifacts/t03_map_font_scope_visual/*.webp -filter -diff -merge -text
+artifacts/t04_pot_fuse/** -text whitespace=cr-at-eol
+artifacts/w02_spillway/** -text whitespace=cr-at-eol
+# Plain binaries: the original LFS pointers were pushed without their objects.
+artifacts/w02_spillway/*.png -filter -diff -merge -text
+
+artifacts/t04_smith_hud/** -text whitespace=cr-at-eol
+artifacts/w02_salt_crest/** -text whitespace=cr-at-eol
+artifacts/w02_salt_crest/*.png -filter -diff -merge -text
+artifacts/w02_salt_index_clearance/** -text whitespace=cr-at-eol
+artifacts/w02_salt_index_clearance/**/*.png -filter -diff -merge -text
+artifacts/t04_salt_judge/** -text whitespace=cr-at-eol
+
+artifacts/t04_greenhouse/** -text whitespace=cr-at-eol
+artifacts/w02_greenhouse_trellis/** -text whitespace=cr-at-eol
+artifacts/t04_greenhouse_vault/** -text whitespace=cr-at-eol
+artifacts/w02_greenhouse_vault/** -text whitespace=cr-at-eol
+
+# Native GL evidence for the B01 support encounter.
+artifacts/b01_support/*.webp -filter -diff -merge -text
+
+artifacts/t04_bishop_route/** -text whitespace=cr-at-eol
+
+artifacts/w02_greenhouse_crown/** -text whitespace=cr-at-eol
+
+artifacts/t03_exit_lifetime/** -text whitespace=cr-at-eol
+artifacts/t04_greenhouse_west/** -text whitespace=cr-at-eol
+
+godot/scripts/world_greenhouse_west_playback.gd -text whitespace=cr-at-eol
+tools/run_greenhouse_west.py -text whitespace=cr-at-eol
+
+artifacts/g02_earned_death/** -text whitespace=cr-at-eol
+artifacts/t04_obsidian_route/*.png -filter -diff -merge -text
+artifacts/t04_obsidian_route/** -text
+artifacts/u01_dialog_theme/** -text whitespace=cr-at-eol
+artifacts/u01_dialog_theme/**/*.webp -filter -diff -merge -text
+artifacts/t04_obsidian_tower/** -text whitespace=cr-at-eol
+godot/assets/vfx/player_guard/*.png -filter -diff -merge -text
+
+artifacts/v04_guard_material/** -text whitespace=cr-at-eol
+artifacts/v04_guard_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_heal/*.png -filter -diff -merge -text
+artifacts/v04_heal_material/** -text whitespace=cr-at-eol
+artifacts/v04_heal_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/minor_enemy_skills/*.png -filter -diff -merge -text
+artifacts/minor_enemy_skill_art/*.webp -filter -diff -merge -text
+art_requests/minor_enemy_skills_v4/incoming/*.txt -text whitespace=cr-at-eol,-blank-at-eof
+godot/assets/vfx/player_movement/*.png -filter -diff -merge -text
+artifacts/v04_movement_material/** -text whitespace=cr-at-eol
+artifacts/v04_movement_material/**/*.png -filter -diff -merge -text
+# Boss skill runtime atlases and native GPU evidence are directly reviewable.
+godot/assets/vfx/boss_skills/*.png -filter -diff -merge -text
+artifacts/boss_skill_art/*.webp -filter -diff -merge -text
+
+artifacts/w03_earned_dash/** -text whitespace=cr-at-eol
+artifacts/w03_earned_dash/**/*.png -filter -diff -merge -text
+
+godot/scripts/world_earned_dash_return_playback.gd -text whitespace=cr-at-eol
+tools/run_earned_dash_return.py -text whitespace=cr-at-eol
+tools/verify_earned_dash_proofs.py -text whitespace=cr-at-eol
+artifacts/t04_bride_retry/** -text whitespace=cr-at-eol
+
+artifacts/t04_crown_entry/** -text whitespace=cr-at-eol
+artifacts/t04_crown_entry/**/*.png -filter -diff -merge -text
+artifacts/e03_permanent_capacity/** -text whitespace=cr-at-eol
+artifacts/e03_permanent_capacity/**/*.png -filter -diff -merge -text
+
+# Native evidence for the original damp-knot travel reward.
+artifacts/e03_legacy_travel/**/*.png -filter -diff -merge -text
+godot/assets/vfx/player_hurt/*.png -filter -diff -merge -text
+artifacts/v04_hurt_material/** -text whitespace=cr-at-eol
+artifacts/v04_hurt_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_dash/*.png -filter -diff -merge -text
+artifacts/v04_dash_material/** -text whitespace=cr-at-eol
+artifacts/v04_dash_material/**/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_hook/*.png -filter -diff -merge -text
+
+godot/assets/vfx/player_ability/*.png -filter -diff -merge -text
+artifacts/v04_ability_material/** -text whitespace=cr-at-eol
+artifacts/v04_ability_material/**/*.png -filter -diff -merge -text
+# Native evidence for the original damp-knot travel reward.
+# Native evidence for the original damp-knot travel reward.
+artifacts/t03_quiet_sole_audio/** -text whitespace=cr-at-eol
+artifacts/t03_window_close/** -text whitespace=cr-at-eol
+godot/assets/vfx/player_contact/*.png -filter -diff -merge -text
+artifacts/v04_contact_material/** -text whitespace=cr-at-eol
+artifacts/v04_contact_material/**/*.png -filter -diff -merge -text
+artifacts/t04_crown_boss/** -text whitespace=cr-at-eol,-blank-at-eof
+artifacts/t04_crown_boss/**/*.png -filter -diff -merge -text
+godot/scripts/world_crown_survey_playback.gd -text whitespace=cr-at-eol,-blank-at-eof
+artifacts/t04_second_order_greenhouse/** -text whitespace=cr-at-eol
+artifacts/t04_second_order_greenhouse/**/*.png -filter -diff -merge -text
+artifacts/b01_role_cues/*.png -filter -diff -merge -text
+artifacts/u03_thread_thresholds/*.png -filter -diff -merge -text
+artifacts/u03_hud_occlusion/*.png -filter -diff -merge -text
+artifacts/upgrade_20261025e/**/*.png -filter -diff -merge -text
+
+# Boss v6 authored assets and native validation evidence.
 art_requests/boss_motion_v6/**/*.png -filter -diff -merge -text
 artifacts/boss_motion_v6/*.mp4 -filter -diff -merge -text
+artifacts/boss_motion_v6/**/*.mp4 -filter -diff -merge -text
 artifacts/motion_v5_runtime/*.jpg -filter -diff -merge -text
 artifacts/boss_motion_v6/**/*.log -text whitespace=cr-at-eol
 artifacts/motion_v5_runtime/**/*.log -text whitespace=cr-at-eol

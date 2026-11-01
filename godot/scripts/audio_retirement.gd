@@ -17,16 +17,16 @@ static func watch_player(voice: Node) -> void:
     if voice is AudioStreamPlayer:
         var player := voice as AudioStreamPlayer
         stream = player.stream
-        if player.playing:
+        if player.has_stream_playback():
             playback = player.get_stream_playback()
     else:
         var player_2d := voice as AudioStreamPlayer2D
         stream = player_2d.stream
-        if player_2d.playing:
+        if player_2d.has_stream_playback():
             playback = player_2d.get_stream_playback()
     if stream != null:
         _track(stream, "stream")
-    if voice.playing and playback != null:
+    if playback != null:
         _track(playback, "playback")
         observed += 1
 
@@ -49,16 +49,16 @@ static func _retire_node(node: Node) -> int:
     if node is AudioStreamPlayer:
         var player := node as AudioStreamPlayer
         watch_player(player)
-        if player.playing:
-            player.stop()
+        player.stop()
         player.stream = null
+        if bool(player.get_meta("retire_after_playback",false)):player.queue_free()
         return 1
     if node is AudioStreamPlayer2D:
         var player_2d := node as AudioStreamPlayer2D
         watch_player(player_2d)
-        if player_2d.playing:
-            player_2d.stop()
+        player_2d.stop()
         player_2d.stream = null
+        if bool(player_2d.get_meta("retire_after_playback",false)):player_2d.queue_free()
         return 1
     return 0
 

@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_moss_stamp.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "d149006a3f30be38a2bf866c4729b8cd2aa0450c375a74075c09f4257a7ce03f",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_moss_stamp.txt",
+  "prompt_sha256": "d561df2d8ed35bb847cf04befe624bd8a7ac1c48625b627fb5999f08c0c4d969",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        518,
+        526
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        51,
+        120,
+        483,
+        483
+      ],
+      "fully_transparent_pixels": 134035
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        518,
+        0,
+        1023,
+        526
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        555,
+        78,
+        987,
+        485
+      ],
+      "fully_transparent_pixels": 118137
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1023,
+        0,
+        1536,
+        526
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1062,
+        76,
+        1492,
+        487
+      ],
+      "fully_transparent_pixels": 116661
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        526,
+        520,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        50,
+        580,
+        489,
+        967
+      ],
+      "fully_transparent_pixels": 113424
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        520,
+        526,
+        1023,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        551,
+        581,
+        995,
+        966
+      ],
+      "fully_transparent_pixels": 103006
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1023,
+        526,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1053,
+        563,
+        1496,
+        973
+      ],
+      "fully_transparent_pixels": 101782
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/rust_crown_guardian.png",
+      "sha256": "cc92592e7ae23b9f1f6a042a99afe6eb3b2a51c5e686f38fa98be8014514d0ab"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: stacked broken bronze bell shoulders and compact moss-root pressure, brightening internally without a moving ground wave. Caster-local positioning pending. Runtime bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

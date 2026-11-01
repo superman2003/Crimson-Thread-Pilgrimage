@@ -1,0 +1,1025 @@
+{
+  "schema": 1,
+  "families": [
+    "chime",
+    "quake",
+    "surge",
+    "roots",
+    "spears"
+  ],
+  "atlas_size": [
+    1152,
+    1024
+  ],
+  "atlas_rgba_sha256": "3fc56aedb58cac9ea847288f38a93fbd42d5b55ff5f2f3b2a7a00d2b6a794793",
+  "wave_rise_frames": [
+    0,
+    1
+  ],
+  "wave_loop_frames": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "eruption_emerge_frames": [
+    0,
+    1
+  ],
+  "eruption_hold_frames": [
+    2,
+    3
+  ],
+  "wave_fade_frames": [
+    6,
+    7
+  ],
+  "eruption_retract_frames": [
+    4,
+    5
+  ],
+  "animation_fps": 12,
+  "eruption_emerge_seconds": 0.2,
+  "registration": "alpha>24 footprint bottom; waves preserve aspect; eruptions fit fixed width/height axes with one shared transform per family",
+  "sources": {
+    "chime": {
+      "kind": "wave",
+      "cell": [
+        128,
+        128
+      ],
+      "floor_anchor": [
+        64,
+        96
+      ],
+      "body_width": 64,
+      "body_height": null,
+      "source": "art_requests/attack_effects_v1/incoming/FX_W_chime.png",
+      "sha256": "da232a95b23cd9b324e8cc78973c66bb2e280b2f7b8a1baa88ccc9caab75b5bd",
+      "prompt_sha256": "a60605b9408c02b35675ba3929c155a62f30688179a523770ee8d95211042f29",
+      "metadata_sha256": "1958a37a18ff4c384d34812be41bbbae08d944a54bc897243d1cde24ec17ae12",
+      "shared_scale_xy": [
+        0.16040100250626566,
+        0.16040100250626566
+      ],
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            435,
+            481
+          ],
+          "source_floor_anchor": [
+            225.5,
+            405
+          ],
+          "atlas_rect": [
+            0,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            36,
+            76,
+            92,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            435,
+            0,
+            876,
+            481
+          ],
+          "source_floor_anchor": [
+            656.0,
+            405
+          ],
+          "atlas_rect": [
+            128,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            35,
+            57,
+            93,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            876,
+            0,
+            1325,
+            481
+          ],
+          "source_floor_anchor": [
+            1106.0,
+            405
+          ],
+          "atlas_rect": [
+            256,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            34,
+            52,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1325,
+            0,
+            1774,
+            481
+          ],
+          "source_floor_anchor": [
+            1550.5,
+            405
+          ],
+          "atlas_rect": [
+            384,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            33,
+            56,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            481,
+            452,
+            887
+          ],
+          "source_floor_anchor": [
+            230.5,
+            817
+          ],
+          "atlas_rect": [
+            512,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            30,
+            55,
+            98,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            452,
+            481,
+            900,
+            887
+          ],
+          "source_floor_anchor": [
+            676.5,
+            817
+          ],
+          "atlas_rect": [
+            640,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            55,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            900,
+            481,
+            1345,
+            887
+          ],
+          "source_floor_anchor": [
+            1118.0,
+            818
+          ],
+          "atlas_rect": [
+            768,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            36,
+            64,
+            95,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1345,
+            481,
+            1774,
+            887
+          ],
+          "source_floor_anchor": [
+            1543.5,
+            817
+          ],
+          "atlas_rect": [
+            896,
+            0,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            41,
+            79,
+            88,
+            98
+          ]
+        }
+      ]
+    },
+    "quake": {
+      "kind": "wave",
+      "cell": [
+        128,
+        128
+      ],
+      "floor_anchor": [
+        64,
+        96
+      ],
+      "body_width": 64,
+      "body_height": null,
+      "source": "art_requests/attack_effects_v1/incoming/FX_W_quake.png",
+      "sha256": "e2de2528ac8ddef2d4c9f8a70958839bcb9e2cb8d1cf35fa415ef50e480ed328",
+      "prompt_sha256": "b1a655ae34ed0c3a21329e1608f127f59d058097c5fe92ec7c899c803fc45787",
+      "metadata_sha256": "559d41522121312dbadd1e6b0281d469a42007537400ba9b503c46022f4e0221",
+      "shared_scale_xy": [
+        0.1509433962264151,
+        0.1509433962264151
+      ],
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            438,
+            485
+          ],
+          "source_floor_anchor": [
+            218.0,
+            419
+          ],
+          "atlas_rect": [
+            0,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            33,
+            70,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            438,
+            0,
+            885,
+            485
+          ],
+          "source_floor_anchor": [
+            662.0,
+            419
+          ],
+          "atlas_rect": [
+            128,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            58,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            885,
+            0,
+            1330,
+            485
+          ],
+          "source_floor_anchor": [
+            1110.5,
+            421
+          ],
+          "atlas_rect": [
+            256,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            56,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1330,
+            0,
+            1774,
+            485
+          ],
+          "source_floor_anchor": [
+            1554.0,
+            417
+          ],
+          "atlas_rect": [
+            384,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            59,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            485,
+            443,
+            887
+          ],
+          "source_floor_anchor": [
+            220.0,
+            831
+          ],
+          "atlas_rect": [
+            512,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            57,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            443,
+            485,
+            891,
+            887
+          ],
+          "source_floor_anchor": [
+            671.0,
+            829
+          ],
+          "atlas_rect": [
+            640,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            59,
+            98,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            891,
+            485,
+            1328,
+            887
+          ],
+          "source_floor_anchor": [
+            1106.5,
+            831
+          ],
+          "atlas_rect": [
+            768,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            68,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1328,
+            485,
+            1774,
+            887
+          ],
+          "source_floor_anchor": [
+            1543.0,
+            829
+          ],
+          "atlas_rect": [
+            896,
+            128,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            34,
+            78,
+            94,
+            98
+          ]
+        }
+      ]
+    },
+    "surge": {
+      "kind": "wave",
+      "cell": [
+        128,
+        128
+      ],
+      "floor_anchor": [
+        64,
+        96
+      ],
+      "body_width": 64,
+      "body_height": null,
+      "source": "art_requests/attack_effects_v1/incoming/FX_W_surge.png",
+      "sha256": "9161ffd60b039bfe69c1618cd0754c1979995ef8fffe3ab70fa9aea0977b48e8",
+      "prompt_sha256": "95e1c0f7ef2cf70723da4f5e9f25cd202bb9cd49dc24cdb7325a5e81f0895d96",
+      "metadata_sha256": "384b033e32f6bb570d538caeba4977ec0548f00f46d0cbc331ed8faa705e3b97",
+      "shared_scale_xy": [
+        0.15201900237529692,
+        0.15201900237529692
+      ],
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            443,
+            474
+          ],
+          "source_floor_anchor": [
+            225.5,
+            391
+          ],
+          "atlas_rect": [
+            0,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            72,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            443,
+            0,
+            890,
+            474
+          ],
+          "source_floor_anchor": [
+            665.5,
+            397
+          ],
+          "atlas_rect": [
+            128,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            57,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            890,
+            0,
+            1334,
+            474
+          ],
+          "source_floor_anchor": [
+            1113.5,
+            394
+          ],
+          "atlas_rect": [
+            256,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            62,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1334,
+            0,
+            1774,
+            474
+          ],
+          "source_floor_anchor": [
+            1550.0,
+            396
+          ],
+          "atlas_rect": [
+            384,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            61,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            474,
+            456,
+            887
+          ],
+          "source_floor_anchor": [
+            233.5,
+            840
+          ],
+          "atlas_rect": [
+            512,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            30,
+            63,
+            98,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            456,
+            474,
+            893,
+            887
+          ],
+          "source_floor_anchor": [
+            671.5,
+            838
+          ],
+          "atlas_rect": [
+            640,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            62,
+            97,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            893,
+            474,
+            1333,
+            887
+          ],
+          "source_floor_anchor": [
+            1109.5,
+            840
+          ],
+          "atlas_rect": [
+            768,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            72,
+            96,
+            98
+          ]
+        },
+        {
+          "source_rect": [
+            1333,
+            474,
+            1774,
+            887
+          ],
+          "source_floor_anchor": [
+            1542.0,
+            836
+          ],
+          "atlas_rect": [
+            896,
+            256,
+            128,
+            128
+          ],
+          "packed_alpha_gt_24_bbox": [
+            34,
+            80,
+            94,
+            98
+          ]
+        }
+      ]
+    },
+    "roots": {
+      "kind": "eruption",
+      "cell": [
+        192,
+        320
+      ],
+      "floor_anchor": [
+        96,
+        272
+      ],
+      "body_width": 128,
+      "body_height": 224,
+      "source": "art_requests/attack_effects_v1/incoming/FX_R_roots.png",
+      "sha256": "bab0d40d7cb02ee38b3a7121009edcf5cb47b5551cdff136b1e02068ba0ff14a",
+      "prompt_sha256": "edf38acdb1c8b6e67e8d0cf8e622110ec87cab8403106907e74e2d042326b514",
+      "metadata_sha256": "d3fc9d7db6dff205cfe3a04fe7f1743700760767ac350a72f3f87100c3a07221",
+      "shared_scale_xy": [
+        0.31683168316831684,
+        0.4534412955465587
+      ],
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            516,
+            520
+          ],
+          "source_floor_anchor": [
+            265.0,
+            508
+          ],
+          "atlas_rect": [
+            0,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            41,
+            195,
+            151,
+            273
+          ]
+        },
+        {
+          "source_rect": [
+            516,
+            0,
+            1023,
+            520
+          ],
+          "source_floor_anchor": [
+            772.5,
+            508
+          ],
+          "atlas_rect": [
+            192,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            41,
+            124,
+            151,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            1023,
+            0,
+            1536,
+            520
+          ],
+          "source_floor_anchor": [
+            1295.5,
+            510
+          ],
+          "atlas_rect": [
+            384,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            35,
+            47,
+            157,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            520,
+            536,
+            1024
+          ],
+          "source_floor_anchor": [
+            277.0,
+            998
+          ],
+          "atlas_rect": [
+            576,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            59,
+            161,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            536,
+            520,
+            1034,
+            1024
+          ],
+          "source_floor_anchor": [
+            777.5,
+            996
+          ],
+          "atlas_rect": [
+            768,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            37,
+            127,
+            155,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            1034,
+            520,
+            1536,
+            1024
+          ],
+          "source_floor_anchor": [
+            1285.5,
+            997
+          ],
+          "atlas_rect": [
+            960,
+            384,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            39,
+            182,
+            153,
+            274
+          ]
+        }
+      ]
+    },
+    "spears": {
+      "kind": "eruption",
+      "cell": [
+        192,
+        320
+      ],
+      "floor_anchor": [
+        96,
+        272
+      ],
+      "body_width": 128,
+      "body_height": 224,
+      "source": "art_requests/attack_effects_v1/incoming/FX_R_spears.png",
+      "sha256": "3c7b41ee8217eac4edf334e349e61a01f87b710312cb483c1113b08a6f88261b",
+      "prompt_sha256": "3e1c32558d7314d43a10b5f3b2b1686c95d7325c753b192519d6b55f8551849d",
+      "metadata_sha256": "1311e16419ca8f47ef596c0d702e15485113ff6c35f5a335970cd2b2ca937671",
+      "shared_scale_xy": [
+        0.34594594594594597,
+        0.46473029045643155
+      ],
+      "frames": [
+        {
+          "source_rect": [
+            0,
+            0,
+            514,
+            511
+          ],
+          "source_floor_anchor": [
+            243.5,
+            497
+          ],
+          "atlas_rect": [
+            0,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            34,
+            203,
+            157,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            514,
+            0,
+            1029,
+            511
+          ],
+          "source_floor_anchor": [
+            770.0,
+            497
+          ],
+          "atlas_rect": [
+            192,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            37,
+            112,
+            155,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            1029,
+            0,
+            1536,
+            511
+          ],
+          "source_floor_anchor": [
+            1299.5,
+            497
+          ],
+          "atlas_rect": [
+            384,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            47,
+            160,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            0,
+            511,
+            521,
+            1024
+          ],
+          "source_floor_anchor": [
+            271.0,
+            995
+          ],
+          "atlas_rect": [
+            576,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            55,
+            161,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            521,
+            511,
+            1039,
+            1024
+          ],
+          "source_floor_anchor": [
+            774.0,
+            995
+          ],
+          "atlas_rect": [
+            768,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            31,
+            100,
+            162,
+            274
+          ]
+        },
+        {
+          "source_rect": [
+            1039,
+            511,
+            1536,
+            1024
+          ],
+          "source_floor_anchor": [
+            1294.0,
+            995
+          ],
+          "atlas_rect": [
+            960,
+            704,
+            192,
+            320
+          ],
+          "packed_alpha_gt_24_bbox": [
+            32,
+            158,
+            158,
+            274
+          ]
+        }
+      ]
+    }
+  }
+}

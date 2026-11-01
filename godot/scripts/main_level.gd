@@ -6,8 +6,10 @@ const FLAT_MAP_ART_SCRIPT := preload("res://scripts/flat_map_art.gd")
 const TERRAIN_SCRIPT := preload("res://scripts/chapter_terrain.gd")
 const CAVE_WORLD_SCRIPT := preload("res://scripts/cave_world.gd")
 const CAVE_LIFT_SCRIPT := preload("res://scripts/cave_lift.gd")
+const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const PILGRIMAGE_UI_SCRIPT := preload("res://scripts/pilgrimage_interface.gd")
 var ui_shell: Control
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 var flat_map_art: Node2D
 var chapter_terrain: Node2D
@@ -33,6 +35,12 @@ var save_point_residency_memory: Dictionary = {}
 const WORLD_PREFETCH := preload("res://scripts/world_prefetch.gd")
 const WORLD_COORDINATES := preload("res://scripts/world_coordinates.gd")
 const WORLD_ROUTES_SCRIPT := preload("res://scripts/world_routes.gd")
+const SCENE_HISTORY := preload("res://scripts/scene_history.gd")
+const HISTORY_PROP := preload("res://scripts/scene_history_prop.gd")
+const HIDDEN_ROUTE_CLUE_SCRIPT := preload("res://scripts/hidden_route_clue.gd")
+const ENDING_AFTERMATH_SCRIPT := preload("res://scripts/ending_aftermath_scene.gd")
+const AFTERMATH_NOTICE_RANGE := 260.0
+const HIDDEN_CLUE_NOTICE_RANGE := 260.0
 const WORLD_NARRATIVE_SCRIPT := preload("res://scripts/world_narrative.gd")
 const WORLD_ABILITIES := ["thread_dash", "silk_wall_grip", "echo_hook", "double_thread_jump", "bell_guard", "thorn_downstrike", "lantern_phase", "crown_resonance"]
 const DEFAULT_CONFIG_PATH := "res://data/demo_ch01_moss_bell_court.json"
@@ -518,12 +526,21 @@ var locked_gate_bodies: Dictionary = {}
 var unlocked_abilities: Dictionary = {}
 var boss_actor: Area2D
 var boss_arena_lock_body: StaticBody2D
+## E02: this region's tool practice rooms and encounter hints, built with the region.
+var tool_practice_rooms: Dictionary = {}
+var tool_encounter_hints: Dictionary = {}
+
+## C04: practice hits per skill this session; three open its 校习 directions.
+var skill_practice_hits: Dictionary = {}
+var skill_practice_serials: Dictionary = {}
 ## B04 optional challenge rooms / optional bosses: sealed on demand, one-time clear.
 var challenge_arena_lock_body: StaticBody2D
 var active_challenge_id := ""
 var challenge_alive_ids: Dictionary = {}
 ## Validation-only: these spawn ids are treated as `_enemy` returning null.
 var challenge_spawn_null_ids_for_validation: Dictionary = {}
+var hidden_route_clues: Array[Node2D] = []
+var ending_aftermath: Node2D = null
 var nearby_interactable: Area2D
 var active_spawn := Vector2(120, 500)
 var bell_count := 0
@@ -602,6 +619,7 @@ var world_prefetch: WORLD_PREFETCH
 var region_tweens: Array[Tween] = []
 var world_narrative: WORLD_NARRATIVE_SCRIPT
 var world_collected_ids: Dictionary = {}
+var world_pickup_leases: Dictionary = {}
 var world_catalog: Dictionary = {}
 var world_catalog_prepare_staging: Dictionary = {}
 var world_write_error_shown := false
@@ -626,7 +644,6 @@ var subtitle_seconds := 0.0
 var new_journey_dialog: ConfirmationDialog
 var world_new_key_held := false
 var world_map_view := false
-var world_map_key_held := false
 var applied_build_profile: Dictionary = {}
 var world_start_region_id := ""
 
@@ -640,6 +657,7 @@ const DEATH_RECALL := preload("res://scripts/death_recall.gd")
 const MAP_PLAYER_PINS := preload("res://scripts/map_player_pins_runtime.gd")
 
 func _ready() -> void:
+    preload("res://scripts/application_close.gd").install(get_tree())
     _apply_cmdline_config_override()
     _prepare_world_start()
     if world_mode:
@@ -911,6 +929,10 @@ func _setup_cartography() -> void:
     CARTOGRAPHY_UI.setup(self)
     DEATH_RECALL.setup(self)
     MAP_PLAYER_PINS.setup(self)
+    preload("res://scripts/map_directory_runtime.gd").setup(self)
+    preload("res://scripts/map_control_layout.gd").apply(self)
+    preload("res://scripts/shrine_return_dialog.gd").setup(self)
+    preload("res://scripts/death_recovery_map.gd").setup(self)
 
 
 func _publish_region() -> void:
@@ -940,7 +962,17 @@ func _restore_saved_build() -> void:
     if not world_mode or world_state == null or world_state.data.get("build_state", {}).is_empty():
         return
     var restored: Dictionary = build_system.restore(world_state.data.build_state)
-    if not restored.get("ok", false):
+    if restored.get("ok", false):
+        return
+    # T02: keep the original file, then rebuild the build from story progress so
+    # autosave can continue instead of pausing for the rest of the journey.
+    var repairable: bool = build_system.salvageable(world_state.data.build_state) and FileAccess.file_exists(world_save_path)
+    var preserved: String = WORLD_STATE_SCRIPT.preserve_copy(world_save_path, "before_build_repair") if repairable else ""
+    var salvaged: Dictionary = build_system.salvage(world_state.data.build_state, inventory_counts, story_flags) if not preserved.is_empty() else {}
+    if salvaged.get("ok", false):
+        var dropped: Array = salvaged.get("dropped", [])
+        world_initial_error = "构筑记录有本版本无法识别的内容，已按剧情进度重建构筑%s；原存档已另存。" % ("（未能保留：%s）" % "、".join(dropped.slice(0, 4)) if not dropped.is_empty() else "")
+    else:
         world_save_blocked = true
         world_initial_error = "构筑记录不兼容，原记录已保留；本次使用初始构筑，自动保存已暂停。请恢复备份或开始新旅途。"
 
@@ -991,16 +1023,21 @@ func _process(_delta: float) -> void:
         world_gameplay_residency.update(self, player.global_position, player.velocity, _delta)
     if ui_shell != null and ui_shell.has_method("is_remapping_input") and ui_shell.is_remapping_input():
         world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
-        world_map_key_held = Input.is_physical_key_pressed(KEY_TAB)
+        return
+    if ui_shell != null and ui_shell.has_method("is_browsing_journey_history") and ui_shell.is_browsing_journey_history():
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
+        return
+    # Native transaction dialogs own keyboard focus (Tab also binds inventory).
+    # Polling global overlay shortcuts would close the dialog before GUI focus
+    # can reach its purchase buttons. Escape keeps its normal close behavior.
+    if active_overlay in ["cartographer", "recall"]:
+        world_new_key_held = Input.is_physical_key_pressed(KEY_F9)
+        if Input.is_action_just_pressed("close_overlay"):
+            _close_overlays()
         return
     var new_key := Input.is_physical_key_pressed(KEY_F9)
     var new_requested := new_key and not world_new_key_held
     world_new_key_held = new_key
-    var map_key := Input.is_physical_key_pressed(KEY_TAB)
-    if world_mode and active_overlay == "map" and map_key and not world_map_key_held:
-        world_map_view = not world_map_view
-        _refresh_map_overlay()
-    world_map_key_held = map_key
     if world_mode and new_requested and new_journey_dialog != null and not new_journey_dialog.visible:
         new_journey_dialog.popup_centered()
         active_overlay = "new_journey"
@@ -1014,46 +1051,57 @@ func _process(_delta: float) -> void:
     if pending_enemy_respawn:
         pending_enemy_respawn = false
         _spawn_normal_enemies()
-        if boss_unlocked and not demo_complete and not boss_spawned:
+        # World encounters start at the manual bell gate, including after death.
+        if not world_mode and boss_unlocked and not demo_complete and not boss_spawned:
             _spawn_boss()
         _refresh_hud()
-    if Input.is_action_just_pressed("close_overlay"):
-        _close_overlays()
-    elif Input.is_action_just_pressed("inventory"):
-        _toggle_backpack()
-    elif Input.is_action_just_pressed("map"):
-        _toggle_map()
-    elif Input.is_action_just_pressed("audio_settings"):
-        _toggle_audio_settings()
-    if active_overlay == "backpack":
-        if Input.is_action_just_pressed("aim_up"):
-            _move_backpack_selection(-1)
-        elif Input.is_action_just_pressed("aim_down"):
-            _move_backpack_selection(1)
-    elif active_overlay == "settings":
-        if Input.is_action_just_pressed("aim_up"):
-            _move_settings_selection(-1)
-        elif Input.is_action_just_pressed("aim_down"):
-            _move_settings_selection(1)
-        if Input.is_action_just_pressed("move_left"):
-            _adjust_settings_volume(-5.0)
-        elif Input.is_action_just_pressed("move_right"):
-            _adjust_settings_volume(5.0)
-    if active_overlay.is_empty():
-        if Input.is_action_just_pressed("tool_cast"):
-            perform_build_action("use_tool")
-        elif Input.is_action_just_pressed("skill_cycle"):
-            perform_build_action("cycle_skill")
-        elif Input.is_action_just_pressed("tool_cycle"):
-            perform_build_action("cycle_tool")
-    if Input.is_action_just_pressed("interact"):
-        _try_interact()
+    # Text entry suppresses polled shortcuts, while fall/room lifecycle work
+    # below continues even when a search or scheme-name field owns focus.
+    var typing: bool=ui_shell!=null and ui_shell.has_method("is_text_entry_focused") and ui_shell.is_text_entry_focused()
+    var modal: bool=ui_shell!=null and ui_shell.has_method("has_modal_window") and ui_shell.has_modal_window()
+    if not modal and (not typing or Input.is_action_just_pressed("close_overlay")):
+        if Input.is_action_just_pressed("close_overlay"):
+            _close_overlays()
+        elif Input.is_action_just_pressed("inventory"):
+            if world_mode and active_overlay == "map":
+                world_map_view = not world_map_view
+                _refresh_map_overlay()
+            else:
+                _toggle_backpack()
+        elif Input.is_action_just_pressed("map"):
+            _toggle_map()
+        elif Input.is_action_just_pressed("audio_settings"):
+            _toggle_audio_settings()
+        if active_overlay == "backpack":
+            if Input.is_action_just_pressed("aim_up"):
+                _move_backpack_selection(-1)
+            elif Input.is_action_just_pressed("aim_down"):
+                _move_backpack_selection(1)
+        elif active_overlay == "settings":
+            if Input.is_action_just_pressed("aim_up"):
+                _move_settings_selection(-1)
+            elif Input.is_action_just_pressed("aim_down"):
+                _move_settings_selection(1)
+            if Input.is_action_just_pressed("move_left"):
+                _adjust_settings_volume(-5.0)
+            elif Input.is_action_just_pressed("move_right"):
+                _adjust_settings_volume(5.0)
+        if active_overlay.is_empty():
+            if Input.is_action_just_pressed("tool_cast"):
+                perform_build_action("use_tool")
+            elif Input.is_action_just_pressed("skill_cycle"):
+                perform_build_action("cycle_skill")
+            elif Input.is_action_just_pressed("tool_cycle"):
+                perform_build_action("cycle_tool")
+        if Input.is_action_just_pressed("interact"):
+            _try_interact()
     if player != null and is_instance_valid(player) and player.global_position.y > fall_y:
         _void_respawn()
     if player != null and is_instance_valid(player):
-        if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position):
-            last_safe_ground = player.global_position
+        _update_safe_ground()
         _update_room_visit()
+        _notice_hidden_route_clues()
+        _notice_ending_aftermath()
         _update_first_journey_hint()
         if active_overlay == "map":
             _refresh_map_overlay()
@@ -1077,6 +1125,9 @@ func _exit_tree() -> void:
 
 
 func _release_region_audio() -> void:
+    # Preserve phrase position while the actual player still owns playback.
+    # The Director exits after this host has already detached every stream.
+    if is_instance_valid(audio_director):audio_director._remember_explore_position()
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
@@ -1084,6 +1135,8 @@ func _release_region_audio() -> void:
     if bgm_player != null:
         bgm_player.stop()
         bgm_player.stream = null
+    # Region field reset must not orphan the voices awaiting attachment.
+    _cancel_pending_sfx()
     var active_director: AUDIO_DIRECTOR_SCRIPT = AUDIO_DIRECTOR_SCRIPT.instance
     if active_director != null and active_director != audio_director:
         if bgm_duck_tween != null and bgm_duck_tween.is_valid():
@@ -1125,14 +1178,27 @@ func _prepare_world_start() -> void:
             entry_spawn_override_enabled = true
             entry_spawn_override = world_state.resume_local_position()
         elif world_resume and world_state.last_error != "missing":
-            world_initial_error = "归途记录无法读取，本次不会覆盖原记录。"
+            world_initial_error = _damaged_save_message()
+
+## T02: the damaged file stays untouched; tell the player whether its backup can
+## bring the journey back, and where.
+func _damaged_save_message() -> String:
+    var backup = WORLD_STATE_SCRIPT.new()
+    if backup.read(world_save_path + ".bak"):
+        return "归途记录损坏，原文件已保留，本次进度不会写入。找到可用备份（%d 区 · %d 碎钱）：在设置里选“恢复当前槽备份”即可接着走。" % [backup.data.regions.size(), int(backup.data.currency)]
+    return "归途记录损坏，备份也无法读取；原文件已保留，本次进度不会写入。"
 
 func _resolve_world_start_route() -> bool:
     if world_start_region_id.is_empty():
         return true
     var saved_path := WORLD_ROUTES_SCRIPT.cached_config_path(world_start_region_id)
     if saved_path.is_empty():
-        return false
+        # T02: a save naming a region this version no longer routes keeps all
+        # of its progress and resumes at the route start instead of failing.
+        world_start_region_id = ""
+        entry_spawn_override_enabled = false
+        world_initial_error = "存档所在的区域不在当前巡礼路线中；进度全部保留，从巡礼起点继续。"
+        return true
     config_path = saved_path
     return true
 
@@ -1169,6 +1235,11 @@ func _restore_world_inventory_and_region() -> void:
         story_flags = world_narrative.restored_ending_flags(story_flags)
     CARTOGRAPHY.migrate(story_flags, snapshot.regions)
     CARTOGRAPHY.legacy_quill(story_flags)
+    var cache: Dictionary = snapshot.get("death_cache", {})
+    if not cache.is_empty() and WORLD_ROUTES_SCRIPT.cached_config_path(String(cache.get("region_id", ""))).is_empty():
+        # T02: an 归途结 left in a region this version no longer has could never be reached.
+        currency_count += int(cache.get("currency", 0))
+        world_state.capture_global({"death_cache": {}, "currency": currency_count})
     var region := world_state.get_region(String(config.get("id", "")))
     world_collected_ids = region.collected_ids.duplicate(true)
     opened_shortcuts = region.opened_shortcuts.duplicate(true)
@@ -1230,6 +1301,7 @@ func _restore_world_routes() -> void:
 
 
 func _restore_world_discovery() -> void:
+    _sync_hidden_route_clues_with_visits()
     # Reconstruct discovered cells after MetSys builds this region's map.
     if metsys_bridge != null:
         for room_id in visited_rooms:
@@ -1247,21 +1319,40 @@ func player_world_position() -> Vector2:
     return WORLD_COORDINATES.to_world(String(config.get("id", "")), player.global_position)
 
 
+func _prepare_world_checkpoint(global_snapshot: Dictionary, region_patch: Dictionary={}) -> Dictionary:
+    var region_id:=String(config.get("id",""))
+    var region_snapshot: Dictionary={"collected_ids":world_collected_ids,"opened_shortcuts":opened_shortcuts,
+        "visited_rooms":visited_rooms,"boss_defeated":demo_complete,"boss_unlocked":boss_unlocked,
+        "shortcut_open":shortcut_open,"bell_count":bell_count,"checkpoint":active_spawn,"checkpoint_id":active_save_point_id}
+    region_snapshot.merge(region_patch,true)
+    return world_state.prepare_checkpoint(region_id,region_snapshot,global_snapshot)
+
+
+## Build and persist a detached gameplay patch. Callers publish live owners only
+## after success; the returned candidate also lets death retain its explicit
+## unsaved field snapshot, matching the existing respawn contract.
+func _persist_world_change(patch: Dictionary, region_patch: Dictionary={}) -> Dictionary:
+    var failure := {"ok":false,"reason":"归途记录尚未写入，请重试。"}
+    if not world_mode or world_loading or world_state==null or player==null:return failure
+    var snapshot: Dictionary={"inventory_counts":inventory_counts,"currency":currency_count,"story_flags":story_flags,
+        "current_region":String(config.get("id","")),"entry":active_spawn,"hp":player.hp,
+        "energy":maxi(0,player.energy-player.practice_energy),"build_state":build_system.serialize() if build_system!=null else {}}
+    snapshot.merge(patch,true)
+    var prepared:=_prepare_world_checkpoint(snapshot,region_patch)
+    if not prepared.ok:return failure
+    failure["candidate"]=prepared.candidate
+    if world_save_blocked or world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate,world_save_path):return failure
+    return {"ok":true,"candidate":prepared.candidate}
+
 func _save_world() -> bool:
     world_save_capture_ok = false
     if not world_mode:
         return true
     if world_loading or world_state == null or player == null:
         return false
-    var region_id := String(config.get("id", ""))
-    var prepared: Dictionary = world_state.prepare_checkpoint(region_id, {
-        "collected_ids": world_collected_ids, "opened_shortcuts": opened_shortcuts,
-        "visited_rooms": visited_rooms, "boss_defeated": demo_complete,
-        "boss_unlocked": boss_unlocked, "shortcut_open": shortcut_open,
-        "bell_count": bell_count, "checkpoint": active_spawn,
-        "checkpoint_id": active_save_point_id}, {
+    var prepared := _prepare_world_checkpoint({
         "inventory_counts": inventory_counts, "currency": currency_count,
-        "story_flags": story_flags, "current_region": region_id,
+        "story_flags": story_flags, "current_region": String(config.get("id", "")),
         "entry": active_spawn, "hp": player.hp, "energy": maxi(0, player.energy - int(player.get("practice_energy") if player.get("practice_energy") != null else 0)),
         "build_state": build_system.serialize() if build_system != null else {}})
     if not prepared.ok:
@@ -1382,7 +1473,7 @@ func _add_wayfinding(area: Area2D) -> void:
     marker.host = self
     marker.area = area
     var kind := String(area.get_meta("kind", ""))
-    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "passage"
+    marker.symbol = "rest" if kind == "save_point" else "lever" if kind == "lever" else "talk" if kind == "npc" else "book" if kind == "history" else "passage"
     if kind == "world_portal":
         marker.configure_portal(area.get_meta("world_portal_data", {}), String(config.id))
         marker.position.y = 20
@@ -1609,6 +1700,9 @@ func _commit_world_dialogue() -> void:
         return
     if bool(area.get_meta("world_line_committed", false)):
         return
+    if String(area.get_meta("kind",""))=="history":
+        _commit_history_prop(area)
+        return
     var flags_before := story_flags.duplicate(true)
     var currency_before := currency_count
     var world_before := world_state.data.duplicate(true)
@@ -1624,12 +1718,16 @@ func _commit_world_dialogue() -> void:
     var result: Dictionary = area.get_meta("world_dialogue_result", {})
     if bool(story_flags.get("quest_bring_names_rewarded", false)):
         story_flags["reward_returned_names_claimed"] = true
+    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",result),displayed_index,String(config.get("id","")))
+    if not recollection.is_empty():story_flags[recollection]=true
+    var response_memory := preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),result,displayed_index,flags_before,String(config.get("id","")))
     var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(result, displayed_index, story_flags)
     var rewards: Dictionary = completion.get("rewards", {})
     var fresh_flags: Array = completion.get("flags", [])
     currency_count += int(rewards.get("currency", 0))
     for flag in fresh_flags:
         story_flags[String(flag)] = true
+    if not response_memory.is_empty():story_flags[String(response_memory.marker)]=true
     if bool(story_flags.get("reward_returned_names_claimed", false)):
         story_flags["quest_bring_names_rewarded"] = true
     _check_wish_board_rewards(false)
@@ -1641,8 +1739,12 @@ func _commit_world_dialogue() -> void:
         _toast("归途记录未能写入；本次交谈尚未确认，请重试。")
         return
     area.set_meta("world_line_committed", true)
+    if ui_shell != null and ui_shell.has_method("forget_dialogue_reading"):
+        ui_shell.forget_dialogue_reading()
     if not fresh_flags.is_empty():
-        var response := String(result.get("response", ""))
+        # Only a saved, fully read, fresh conversation earns a short response.
+        # A toast never takes control or starts another dialogue/voice sequence.
+        var response := WORLD_NARRATIVE_SCRIPT.completion_response(result,displayed_index,flags_before)
         if not response.is_empty():
             _toast(response)
         elif not rewards.is_empty():
@@ -1730,6 +1832,10 @@ func _preserve_previous_journey() -> bool:
     var absolute := ProjectSettings.globalize_path(world_save_path)
     if DirAccess.dir_exists_absolute(absolute + ".previous"):
         return false
+    # T02: `.previous` holds the latest abandoned journey; an earlier one moves
+    # to its own name first instead of being overwritten.
+    if FileAccess.file_exists(world_save_path + ".previous") and WORLD_STATE_SCRIPT.preserve_copy(world_save_path + ".previous", "earlier").is_empty():
+        return false
     if DirAccess.copy_absolute(absolute, absolute + ".previous") != OK:
         return false
     return DirAccess.remove_absolute(absolute) == OK
@@ -1742,6 +1848,7 @@ func _start_new_journey() -> void:
         _sync_ui_input_lock()
         return
     # Keep the old scene's shared snapshot valid until it has left the tree.
+    AUDIO_DIRECTOR_SCRIPT.clear_exploration_resume()
     world_loading = true
     _replace_with_save_slot(world_slot, world_save_path)
 
@@ -2110,9 +2217,9 @@ func _campaign_chapter_for_id(chapter_id: String) -> Dictionary:
 
 func _chapter_objective_text() -> String:
     if world_mode:
-        return _world_exploration_hint() + "  M 地图 / Tab 世界图 · F9 新旅途。"
+        return _world_exploration_hint() + "  %s 地图 / %s 世界图 · F9 新旅途。" % [ui_shell._short_binding("map"), ui_shell._short_binding("inventory")]
     if bool(config.get("boss_route_via_exploration",false)):
-        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。F 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name","")))]
+        return "第%d章 %s：探索洞道，接通捷径，挑战守门者。%s 呼叫升降笼。" % [int(current_campaign_chapter.get("index",1)),String(config.get("chapter_name",config.get("name",""))),preload("res://scripts/input_prompt_bindings.gd").action_label("interact")]
     if current_campaign_chapter.is_empty():
         return "Defeat normal enemies, open the boss route, and clear the chapter boss."
     return "第%d章 %s：%s" % [
@@ -2182,6 +2289,42 @@ func _chapter_file_ids() -> Array:
     return ids
 
 
+## Shared detached reward plan: derive unlocks/capacities without calling live
+## inventory, narrative or stat helpers. No resource refills before durability.
+func _prepare_inventory_progress(items: Dictionary, next_flags: Dictionary, next_currency: int) -> Dictionary:
+    var failure: Dictionary={"ok":false,"reason":"奖励记录未写入，请重试。"}
+    if build_system==null or not WORLD_STATE_SCRIPT._whole(next_currency):return failure
+    var counts:=inventory_counts.duplicate(true)
+    for id in counts:
+        if not id is String or not WORLD_STATE_SCRIPT._whole(counts[id]):return failure
+    for id in items:
+        if not id is String or id.is_empty() or not WORLD_STATE_SCRIPT._whole(items[id]) or int(items[id])<=0:return failure
+        counts[id]=int(counts.get(id,0))+int(items[id])
+    var flags:=next_flags.duplicate(true)
+    var all_testimonies:=true
+    for index in range(1,7):
+        if int(counts.get("testimony_%02d" % index,0))<1:all_testimonies=false
+    if all_testimonies:flags["true_ending_testimony_complete"]=true
+    if world_narrative!=null:
+        for flag in world_narrative.evaluate_progress(counts,flags).get("grant_flags",[]):flags[String(flag)]=true
+    var next_build=build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.catalog=build_system.catalog.duplicate(true)
+    next_build.sync_progress(counts,String(config.get("id","")),flags)
+    return {"ok":true,"counts":counts,"flags":flags,"currency":next_currency,"build":next_build.serialize()}
+
+func _publish_inventory_progress(plan: Dictionary, candidate: Dictionary) -> void:
+    world_state.data=candidate
+    inventory_counts=plan.counts;story_flags=plan.flags;currency_count=int(plan.currency)
+    inventory_materials.clear();inventory_tools.clear();inventory_relics.clear()
+    for item in inventory_counts:
+        match String(_item_data(String(item)).get("category","Materials")):
+            "Materials":inventory_materials[item]=int(inventory_counts[item])
+            "Tools":inventory_tools.append(item)
+            "Relics":inventory_relics.append(item)
+    build_system.restore(plan.build)
+    _sync_player_build()
+
 func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true) -> void:
     var data := _item_data(item_id)
     var category := String(data.get("category", "Materials"))
@@ -2198,6 +2341,8 @@ func _add_inventory_item(item_id: String, amount: int = 1, announce: bool = true
         var progress: Dictionary = world_narrative.evaluate_progress(inventory_counts, story_flags)
         for flag in progress.get("grant_flags", []):
             story_flags[String(flag)] = true
+    if build_system != null and build_system.catalog.get("permanent_upgrades", {}).has(item_id):
+        _sync_player_build()
     if announce:
         _toast("收入行囊 · " + _item_display_name(item_id))
     if active_overlay == "backpack":
@@ -2291,7 +2436,7 @@ func _apply_chapter_reverb(chapter_id: String) -> void:
             continue
         reverb.room_size = float(params.get("room_size", 0.6))
         reverb.damping = float(params.get("damping", 0.5))
-        reverb.wet = float(params.get("wet", 0.25))
+        preload("res://scripts/room_reverb_mix.gd").set_baseline(reverb, float(params.get("wet", 0.25)))
         reverb.predelay_msec = float(params.get("predelay_msec", 20.0))
         if params.has("predelay_feedback"):
             reverb.predelay_feedback = float(params.get("predelay_feedback", 0.0))
@@ -2367,7 +2512,8 @@ func _start_low_hp_heartbeat() -> void:
         low_hp_heartbeat_player.volume_db = -10.0
         add_child(low_hp_heartbeat_player)
     if not low_hp_heartbeat_player.playing:
-        low_hp_heartbeat_player.play()
+        var ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice("low_hp_heartbeat",0,0,1)
+        if ticket != 0:AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(ticket,low_hp_heartbeat_player,true)
 
 
 func _first_existing_bus(bus_names: Array) -> String:
@@ -2419,12 +2565,13 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio() or not is_inside_tree() or is_queued_for_deletion():
         return
     # 声部管理（规格 §5.4）：同 key 限频/并发 + 全局 24 声部，被拒即不播。
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null:
         # 声部回滚（契约 release_voice）：拿不到流就撤销刚批准的登记。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "Sfx_" + audio_key
@@ -2432,7 +2579,7 @@ func _play_sfx(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.stream = stream
     player_node.volume_db = volume_db
     var instance_id := player_node.get_instance_id()
-    pending_sfx_players[instance_id] = {"player": player_node, "audio_key": audio_key}
+    pending_sfx_players[instance_id] = {"player": player_node, "voice_ticket": voice_ticket}
     # Interactable signals can close an overlay while this level or one of its
     # children is entering/exiting the tree. Defer attachment until scene-tree
     # notifications finish, then play only after the player is actually inside.
@@ -2445,21 +2592,21 @@ func _attach_pending_sfx(instance_id: int) -> void:
     var pending: Dictionary = pending_sfx_players[instance_id]
     pending_sfx_players.erase(instance_id)
     var player_node: AudioStreamPlayer = pending.get("player")
-    var audio_key: String = String(pending.get("audio_key", ""))
+    var voice_ticket := int(pending.get("voice_ticket",0))
     if not is_instance_valid(player_node):
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     if not is_inside_tree() or is_queued_for_deletion():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     add_child(player_node)
     if not player_node.is_inside_tree():
         player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 func _cancel_pending_sfx() -> void:
@@ -2468,7 +2615,7 @@ func _cancel_pending_sfx() -> void:
         var player_node: AudioStreamPlayer = pending.get("player")
         if is_instance_valid(player_node):
             player_node.free()
-        AUDIO_DIRECTOR_SCRIPT.release_voice(String(pending.get("audio_key", "")))
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(int(pending.get("voice_ticket",0)))
     pending_sfx_players.clear()
 
 
@@ -2491,12 +2638,13 @@ func _load_audio_stream(audio_key: String) -> AudioStream:
 func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     if not _should_autoplay_audio():
         return
-    if not AUDIO_DIRECTOR_SCRIPT.request_voice(audio_key):
+    var voice_ticket := AUDIO_DIRECTOR_SCRIPT.reserve_voice(audio_key)
+    if voice_ticket == 0:
         return
     var stream := _load_audio_stream(audio_key)
     if stream == null or not is_inside_tree():
         # 声部回滚（契约 release_voice）：拿不到流/不在树上都不会真正发声。
-        AUDIO_DIRECTOR_SCRIPT.release_voice(audio_key)
+        AUDIO_DIRECTOR_SCRIPT.release_ticket(voice_ticket)
         return
     var player_node := AudioStreamPlayer.new()
     player_node.name = "PersistentSfx_" + audio_key
@@ -2505,7 +2653,7 @@ func _play_sfx_persistent(audio_key: String, volume_db: float = -7.0) -> void:
     player_node.volume_db = volume_db
     get_tree().root.add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    AUDIO_DIRECTOR_SCRIPT.start_reserved_voice(voice_ticket,player_node)
 
 
 ## 同事件多变体随机轮播（Kenney 变体组用）。
@@ -2541,10 +2689,9 @@ func _build_map_overlay() -> void:
     map_panel.name = "CourtMapOverlay"
     map_panel.position = Vector2(52, 54)
     map_panel.size = Vector2(1176, 640)
-    map_panel.color = Color("10191f")
+    map_panel.color = Color("091719")
     if world_mode:
         map_panel.theme = ui_shell.theme.duplicate()
-        map_panel.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
     map_panel.visible = false
     ui_shell.add_child(map_panel)
 
@@ -2558,13 +2705,18 @@ func _build_map_overlay() -> void:
     map_art.modulate = Color(1,1,1,.07)
     map_art.mouse_filter = Control.MOUSE_FILTER_IGNORE
     map_panel.add_child(map_art)
+    ui_shell.frame(map_panel)
+    map_panel.get_child(0).kind="map"
+    map_panel.move_child(map_panel.get_child(0),1)
+    ui_shell._icon(map_panel,preload("res://assets/ui/inscription/v2/map.png"),Vector2(23,2),Vector2(112,65))
 
     var title := Label.new()
     title.text = _theme_map_title()
     title.name = "SurveyMapTitle"
-    title.position = Vector2(28, 18)
-    title.add_theme_font_size_override("font_size", 24)
-    title.add_theme_color_override("font_color", Color("b5a17c"))
+    title.position = Vector2(155, 20)
+    title.add_theme_font_override("font",PILGRIMAGE_UI_SCRIPT.display_font())
+    title.add_theme_font_size_override("font_size", 23)
+    title.add_theme_color_override("font_color", Color("e8d7b8"))
     map_panel.add_child(title)
 
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
@@ -2574,6 +2726,11 @@ func _build_map_overlay() -> void:
     map_draw_root.position = Vector2(34, 78) if world_mode else Vector2(34, 106)
     map_draw_root.size = Vector2(1108, 504) if world_mode else Vector2(1108, 396)
     if world_mode:
+        # Only the zoomed content needs MSDF glyphs. Fixed titles, hints and
+        # pin controls reuse the ordinary HUD font instead of rasterizing a
+        # second CJK glyph atlas during every cold map setup.
+        map_draw_root.theme = ui_shell.theme.duplicate()
+        map_draw_root.theme.default_font = PILGRIMAGE_UI_SCRIPT.survey_font()
         survey_map_view = preload("res://scripts/survey_map_view.gd").new()
         survey_map_view.name = "SurveyMapViewport"
         survey_map_view.position = map_draw_root.position
@@ -2839,6 +2996,9 @@ func _close_overlays() -> void:
     var recall_dialog := get_node_or_null(DEATH_RECALL.DIALOG)
     if recall_dialog != null:
         recall_dialog.hide()
+    var ending_story := get_node_or_null("EndingStoryDesk")
+    if ending_story != null:
+        ending_story.hide()
     _notify_dialogue_closed()
     active_overlay = ""
     if backpack_panel != null:
@@ -2865,7 +3025,8 @@ func _sync_ui_input_lock() -> void:
 
 ## 对话面板关闭时归还 BGM/Ambience 压低（所有关闭路径共用：Esc、走远、切换 overlay）。
 func _notify_dialogue_closed() -> void:
-    _commit_world_dialogue()
+    var history := ui_shell!=null and is_instance_valid(ui_shell.dialogue_area) and String(ui_shell.dialogue_area.get_meta("kind",""))=="history"
+    if not history:_commit_world_dialogue()
     if ui_shell!=null:
         ui_shell.close_dialogue()
     if active_overlay == "dialogue" and audio_director != null:
@@ -2907,7 +3068,7 @@ func _refresh_backpack_overlay(render_inventory: bool = true) -> void:
             var count_suffix := " x%d" % count if count > 1 else ""
             lines.append("%s%s%s" % [_selection_marker(item_id), _item_display_name(item_id), count_suffix])
     lines.append("")
-    lines.append("Tab/I 背包   W/S 查看铭文   M 地图   Esc 关闭")
+    lines.append("%s 行囊   %s/%s 查看铭文   %s 地图   %s 关闭" % [ui_shell._short_binding("inventory"), ui_shell._short_binding("aim_up"), ui_shell._short_binding("aim_down"), ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay")])
     backpack_text.text = "\n".join(lines)
     _refresh_backpack_detail()
     if render_inventory and ui_shell!=null:
@@ -2988,11 +3149,14 @@ func _update_room_visit() -> void:
     if not current_room_id.is_empty():
         visited_rooms[current_room_id] = true
         if world_mode:
-            CARTOGRAPHY.visit(story_flags, String(config.id), current_room_id)
+            CARTOGRAPHY.visit_at(story_flags, String(config.id), room, player.global_position)
         if metsys_bridge != null:
             metsys_bridge.update_player_position(player.global_position, current_room_id)
         if current_room_id != previous_room_id:
             _abort_challenge_if_left_room()
+            _show_tool_encounter_hint()
+
+            _mark_hidden_route_found()
             _save_world()
             _trigger_whispers("enter_room", current_room_id)
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
@@ -3102,10 +3266,12 @@ func _refresh_map_overlay() -> void:
         CARTOGRAPHY_UI.paper(self, true)
         _draw_world_atlas()
         MAP_PLAYER_PINS.refresh(self)
+        preload("res://scripts/death_recovery_map.gd").render(self)
         return
     if world_mode:
         CARTOGRAPHY_UI.render(self)
         MAP_PLAYER_PINS.refresh(self)
+        preload("res://scripts/death_recovery_map.gd").render(self)
         return
     _add_map_route_line(rooms, draw_width, base_y, depth_step, layout_bounds, draw_size)
     for room in rooms:
@@ -3160,8 +3326,8 @@ func _refresh_map_overlay() -> void:
     if world_mode:
         objective = "找回被删去的名字，接通旧运书线。"
         guide = _world_exploration_hint()
-        next_step = "金色出口待解锁；蓝色出口已接通 · Tab 世界图"
-    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\nM / Esc 返回  ·  F 与附近人物或机关互动" % [
+        next_step = "金色出口待解锁；蓝色出口已接通 · %s 世界图" % ui_shell._short_binding("inventory")
+    map_text.text = "%s  ·  %s  ·  探索 %d/%d  ·  捷径 %d/%d\n目标  %s\n路线  %s  →  %s\n危险  %s\n%s / %s 返回  ·  %s 与附近人物或机关互动" % [
         String(current_campaign_chapter.get("name", "Moss Bell Court")),
         _room_name(current_room_id),
         visited_rooms.size(),
@@ -3171,7 +3337,8 @@ func _refresh_map_overlay() -> void:
         objective,
         guide,
         next_step,
-        danger
+        danger,
+        ui_shell._short_binding("map"), ui_shell._short_binding("close_overlay"), ui_shell._short_binding("interact")
     ]
 
 
@@ -3445,6 +3612,12 @@ func _region_build_jobs() -> Array:
             jobs.append({"method": "_enemy", "args": [data]})
     if world_mode:
         jobs.append({"method": "_spawn_seal_practice_targets", "args": []})
+        jobs.append({"method": "_spawn_tool_practice_targets", "args": []})
+
+        jobs.append({"method": "_spawn_hidden_route_clues", "args": []})
+        jobs.append({"method": "_spawn_ending_aftermath", "args": []})
+        for entry in SCENE_HISTORY.region_entries(String(config.get("id",""))):
+            jobs.append({"method":"_spawn_history_prop","args":[entry]})
     jobs.append({"method": "_finish_region_geometry", "args": []})
     return jobs
 
@@ -3502,6 +3675,7 @@ func _spawn_seal_practice_targets() -> void:
         var target := Area2D.new()
         target.set_script(load("res://scripts/seal_training_target.gd"))
         target.name = String(entry.training_id)
+        target.set_meta("practice_skill_id",String(entry.get("skill_id","")))
         target.position = _vec2(entry.position)
         for platform in config.get("platforms", []):
             if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
@@ -3510,16 +3684,237 @@ func _spawn_seal_practice_targets() -> void:
                     _hold_actor_support(String(platform.id))
         target.configure({"id": String(entry.training_id), "kind": "seal_training", "hp": 30,
             "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
-            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": []})
+            "speed": 0, "damage": 0}, "res://assets/ui/seals/ward.svg", false, {"attacks": [], "locomotion": "stationary"})
         add_child(target)
         var label := Label.new()
-        label.position = Vector2(-100, -132)
-        label.size = Vector2(200, 80)
+        label.name="PracticeCaption"
+        label.position = Vector2(-120, -175)
+        label.size = Vector2(240, 130)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+        label.set_meta("base_text",label.text)
+        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
         target.add_child(label)
+
+## E02: each primary tool has a practice puppet beside the skill racks. The
+## puppet runs real AI from its plan profile so the tool visibly acts on it.
+func _spawn_tool_practice_targets() -> void:
+    # cached_data() deep-copies the whole route manifest, so read it once per
+    # region and keep only this region's rooms for the per-cast / per-room checks.
+    var routes: Dictionary = WORLD_ROUTES_SCRIPT.cached_data()
+    tool_practice_rooms.clear()
+    tool_encounter_hints.clear()
+    for entry in routes.get("tool_encounter_plan", []):
+        if String(entry.get("region_id", "")) == String(config.get("id", "")):
+            tool_encounter_hints[String(entry.get("room_id", ""))] = entry
+    for entry in routes.get("tool_practice_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        tool_practice_rooms[String(entry.get("room_id", ""))] = true
+        var target := Area2D.new()
+        target.set_script(load("res://scripts/tool_training_target.gd"))
+        target.name = String(entry.training_id)
+        target.position = _vec2(entry.position)
+        var floor_id := ""
+        for platform in config.get("platforms", []):
+            if String(platform.get("id", "")) == String(entry.room_id) + "_foundation":
+                floor_id = String(platform.id)
+                target.position.y = float(platform.rect[1]) - 23.0
+                if world_platforms != null:
+                    _hold_actor_support(floor_id)
+        var data := {"id": String(entry.training_id), "kind": "tool_training", "hp": 30,
+            "visual_scale": 0.7, "body_size": [50, 46], "hurtbox_size": [58, 56], "hurtbox_offset": [0, 0],
+            "damage": 0, "patrol": 40, "combat_resistance": {"trip_immune": false, "lure_immune": false, "snare_mult": 1.0}}
+        target.configure(data, "res://assets/ui/seals/ward.svg", false, Dictionary(entry.get("puppet", {})).duplicate(true))
+        target.set_meta("tool_practice_id", String(entry.get("tool_id", "")))
+        target.set_meta("tool_practice_room", String(entry.room_id))
+        var bounds := _enemy_platform_movement_bounds(floor_id, target.position, data)
+        if bounds.size() >= 2:
+            target.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
+        add_child(target)
+        var label := Label.new()
+        label.position = Vector2(-120, -150)
+        label.size = Vector2(240, 100)
+        label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
+        label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
+        label.add_theme_font_size_override("font_size", 13)
+        target.add_child(label)
+
+
+func _in_tool_practice_room() -> bool:
+    return tool_practice_rooms.has(current_room_id)
+
+
+## E02: the first time an equipped tool's suited encounter room is entered, say
+## why the tool fits there. Shown once per room, kept in the save.
+func _show_tool_encounter_hint() -> void:
+    if build_system == null:
+        return
+    if tool_encounter_hints.has(current_room_id):
+        var entry: Dictionary = tool_encounter_hints[current_room_id]
+        var tool_id := String(entry.get("tool_id", ""))
+        var flag := "tool_hint_%s_%s" % [String(config.get("id", "")), current_room_id]
+        if bool(story_flags.get(flag, false)) or not build_system.state.unlocked_tools.has(tool_id) or not build_system.state.tools.has(tool_id):
+            return
+        story_flags[flag] = true
+        _toast("战具提示 · %s：%s" % [String(build_system.catalog.tools[tool_id].get("name", tool_id)), String(entry.get("note", ""))])
+
+## W04: each planned hidden room leaks light into its entrance room. Coming
+## near the crack says what the player notices, once; finding the room dims it.
+func _spawn_history_prop(entry: Dictionary) -> void:
+    var prop := HISTORY_PROP.new()
+    prop.entry=entry.duplicate(true)
+    prop.name="History_"+String(entry.id)
+    prop.position=_vec2(entry.position)
+    prop.seen=SCENE_HISTORY.discovered(story_flags,String(entry.id))
+    prop.set_meta("kind","history")
+    prop.set_meta("label",String(entry.title))
+    prop.set_meta("identity","环境痕迹 · 观察不会代替原始证词")
+    prop.set_meta("interaction_label","查看 · "+String(entry.title))
+    prop.set_meta("history_data",entry.duplicate(true))
+    prop.body_entered.connect(_on_interactable_entered.bind(prop))
+    prop.body_exited.connect(_on_interactable_exited.bind(prop))
+    add_child(prop)
+    _add_wayfinding(prop)
+
+func _read_history_prop(area: Area2D) -> void:
+    if active_overlay=="dialogue" and ui_shell.dialogue_area==area:
+        if bool(area.get_meta("world_line_committed",false)):_close_overlays()
+        return
+    area.set_meta("world_line_committed",false)
+    area.set_meta("dialogue_state","history")
+    area.set_meta("world_displayed_index",0)
+    area.set_meta("world_displayed_total",1)
+    _show_dialogue(area,String(area.get_meta("history_data",{}).get("text","")))
+
+func _commit_history_prop(area: Area2D) -> void:
+    if not area.is_inside_tree() or area.is_queued_for_deletion() or not area.is_visible_in_tree() or not area.accessible_from(player) or player.global_position.distance_to(area.global_position)>INTERACTION_REACH:
+        return
+    var entry: Dictionary=area.get_meta("history_data",{})
+    if SCENE_HISTORY.discovered(story_flags,String(entry.id)):
+        area.set_meta("world_line_committed",true)
+        ui_shell.forget_dialogue_reading()
+        return
+    var flags_before := story_flags.duplicate(true)
+    var world_before := world_state.data.duplicate(true)
+    story_flags[SCENE_HISTORY.FLAG_PREFIX+String(entry.id)]=true
+    if not _save_world():
+        story_flags=flags_before
+        world_state.data=world_before
+        _toast("观察尚未记下；归途记录写入失败，请重试。")
+        return
+    area.set_meta("world_line_committed",true)
+    area.mark_seen()
+    ui_shell.forget_dialogue_reading()
+
+func _spawn_hidden_route_clues() -> void:
+    hidden_route_clues.clear()
+    for entry in WORLD_ROUTES_SCRIPT.cached_data().get("hidden_route_plan", []):
+        if String(entry.get("region_id", "")) != String(config.get("id", "")):
+            continue
+        var clue := Node2D.new()
+        clue.set_script(HIDDEN_ROUTE_CLUE_SCRIPT)
+        clue.name = "HiddenClue_" + String(entry.id)
+        clue.clue_id = String(entry.id)
+        clue.found = bool(story_flags.get("hidden_found_" + String(entry.id), false))
+        clue.position = _vec2(entry.clue.position)
+        clue.set_meta("hidden_route", entry)
+        add_child(clue)
+        hidden_route_clues.append(clue)
+    _sync_hidden_route_clues_with_visits()
+
+
+## N05: once an ending is chosen, each region's main shrine shows what it changed.
+func _spawn_ending_aftermath() -> void:
+    if ending_aftermath != null and is_instance_valid(ending_aftermath):
+        ending_aftermath.queue_free()
+    ending_aftermath = null
+    if world_narrative == null:
+        return
+    var scene: Dictionary = world_narrative.aftermath_scene(String(config.get("id", "")), story_flags)
+    for data in config.get("save_points", []) if not scene.is_empty() else []:
+        if String(data.get("id", "")) != String(scene.anchor):
+            continue
+        ending_aftermath = Node2D.new()
+        ending_aftermath.set_script(ENDING_AFTERMATH_SCRIPT)
+        ending_aftermath.name = "EndingAftermath"
+        ending_aftermath.look = String(scene.get("look", "bells"))
+        # Beside the lamp, standing on the floor the pedestal stands on.
+        ending_aftermath.position = _vec2(data.position) + Vector2(70, 28)
+        ending_aftermath.set_meta("aftermath", scene)
+        add_child(ending_aftermath)
+
+func _notice_ending_aftermath() -> void:
+    if not active_overlay.is_empty() or ending_aftermath == null or not is_instance_valid(ending_aftermath):
+        return
+    var scene: Dictionary = ending_aftermath.get_meta("aftermath")
+    var flag := String(scene.get("seen_flag", ""))
+    if bool(story_flags.get(flag, false)) or player.global_position.distance_to(ending_aftermath.global_position) > AFTERMATH_NOTICE_RANGE:
+        return
+    story_flags[flag] = true
+    _save_world()
+    # The shrine's own prompt would cover a toast at once; the banner stays.
+    _show_lore_banner("%s · %s" % [String(scene.get("region_name", "")), String(scene.get("line", ""))])
+
+## Saves from before these clues already record visits to the hidden rooms;
+## a room the player has been in counts as found.
+func _sync_hidden_route_clues_with_visits() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if bool(visited_rooms.get(String(entry.get("hidden_room_id", "")), false)):
+            clue.found = true
+            story_flags["hidden_found_" + String(entry.id)] = true
+
+
+func _notice_hidden_route_clues() -> void:
+    preload("res://scripts/hidden_clue_notes.gd").notice(self)
+
+
+func _mark_hidden_route_found() -> void:
+    for clue in hidden_route_clues:
+        if not is_instance_valid(clue) or clue.found:
+            continue
+        var entry: Dictionary = clue.get_meta("hidden_route")
+        if String(entry.get("hidden_room_id", "")) != current_room_id:
+            continue
+        clue.found = true
+        story_flags["hidden_found_" + String(entry.id)] = true
+
+const SKILL_PRACTICE_HITS := 3
+const SKILL_PRACTICE_WINDOW_MSEC := 1500
+
+func get_skill_practice_progress(skill_id: String) -> Dictionary:
+    var known: bool=build_system!=null and skill_id in build_system.state.unlocked_skills
+    var completed: bool=known and story_flags.get("skill_practiced_"+skill_id,false)==true
+    var count:=clampi(int(skill_practice_hits.get(skill_id,0)),0,SKILL_PRACTICE_HITS) if known else 0
+    return {"known":known,"completed":completed,"count":SKILL_PRACTICE_HITS if completed else count,"required":SKILL_PRACTICE_HITS,"pending_save":not completed and count>=SKILL_PRACTICE_HITS}
+
+## Only a canonical rack's actual skill/guard contact can train. The cast
+## sequence is captured by emitted effects; melee cannot borrow a recent cast.
+func _on_skill_practice_hit(skill_id: String, target: Area2D=null, serial: int=0, contact_kind: String="skill") -> void:
+    if not world_mode or world_loading or player==null or build_system==null or player.hp<=0 or player.ui_input_locked:return
+    if not is_instance_valid(target) or target.get_parent()!=self or not target.is_inside_tree() or not target.get_meta("seal_training_target",false):return
+    if String(target.get_meta("practice_skill_id",""))!=skill_id or skill_id not in build_system.state.unlocked_skills:return
+    if (skill_id=="ward" and contact_kind!="guard") or (skill_id!="ward" and contact_kind!="skill"):return
+    if String(player.last_skill_cast)!=skill_id or serial<=0 or serial!=player.last_skill_cast_serial:return
+    var age:=Time.get_ticks_msec()-int(player.last_skill_cast_msec)
+    if age<0 or age>SKILL_PRACTICE_WINDOW_MSEC or target.global_position.distance_to(player.global_position)>900:return
+    if serial<=int(skill_practice_serials.get(skill_id,0)):return
+    var flag:="skill_practiced_"+skill_id
+    if bool(story_flags.get(flag,false)):return
+    skill_practice_serials[skill_id]=serial
+    skill_practice_hits[skill_id]=mini(SKILL_PRACTICE_HITS,int(skill_practice_hits.get(skill_id,0))+1)
+    if int(skill_practice_hits[skill_id])<SKILL_PRACTICE_HITS:return
+    var flags:=story_flags.duplicate(true);flags[flag]=true
+    var result:=_persist_world_change({"story_flags":flags})
+    if not result.ok:_toast("练习已达标，记录尚未写入；下次有效施放会重试。");return
+    world_state.data=result.candidate;story_flags=flags
+    _toast("已练熟「%s」：可找工匠选择校习方向。" % String(build_system.catalog.skills[skill_id].get("name",skill_id)))
+
 
 func _environment_block(data: Dictionary) -> void:
     if flat_map_art != null:
@@ -3631,6 +4026,10 @@ func _build_hud_labels() -> void:
 func _finish_hud() -> void:
     ui_shell.frame(map_panel)
     ui_shell.finish_bind()
+    if world_mode:
+        var workbench := get_node_or_null("/root/JourneyWorkbench")
+        if workbench != null:
+            workbench.bind_region_ui(self)
 
 func _build_dialogue_overlay() -> void:
     dialogue_panel=ui_shell.dialogue
@@ -4509,9 +4908,12 @@ func _hazard(data: Dictionary) -> void:
 
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
-    rectangle.size = rect.size
+    shape.name = "TriggerShape"
+    rectangle.size = rect.size * _hazard_trigger_multiplier()
     shape.shape = rectangle
+    area.set_meta("hazard_authored_size", rect.size)
     area.add_child(shape)
+    HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
 
     var sprite := Sprite2D.new()
     sprite.texture = load(SPRITES.get(String(data.get("kind", "spikes")), SPRITES["spikes"]))
@@ -4544,7 +4946,8 @@ func _collectible(data: Dictionary) -> void:
     area.set_meta("message", String(data.get("label", "Bell key acquired.")))
     area.set_meta("kind", collectible_kind)
     area.set_meta("item_id", item_id)
-    area.set_meta("amount", int(data.get("amount", 1)))
+    var amount_value: Variant=data.get("amount",1)
+    area.set_meta("amount",int(amount_value) if WORLD_STATE_SCRIPT._whole(amount_value) else 0)
     area.set_meta("ability_name", String(data.get("ability_name", data.get("label", ""))))
     area.set_meta("object_id", "collectible/" + area.name)
 
@@ -4566,6 +4969,12 @@ func _collectible(data: Dictionary) -> void:
     else:
         area.body_entered.connect(_on_collectible_body_entered.bind(area))
     add_child(area)
+    if world_mode:
+        var instance_id:=area.get_instance_id()
+        world_pickup_leases[instance_id]={"node":weakref(area),"id":String(area.name),"region":String(config.get("id","")),
+            "kind":collectible_kind,"item":item_id,"amount":data.get("amount",1),"point":area.position,
+            "ability_name":String(data.get("ability_name",data.get("label",""))),"message":String(data.get("label","Collected."))}
+        area.tree_exiting.connect(_forget_world_pickup.bind(instance_id))
     if metsys_bridge != null:
         var room := _room_for_position(area.global_position)
         metsys_bridge.register_object(area, String(area.get_meta("object_id")), String(room.get("id", "")))
@@ -4830,7 +5239,7 @@ func _play_save_point_activation(area: Area2D) -> void:
             var angle := TAU * float(step) / 32.0
             points.append(Vector2(cos(angle), sin(angle)) * (24.0 + float(index) * 8.0))
         echo.points = points
-        add_child(echo)
+        if not VISUAL_POLICY.attach_secondary(self, echo, &"environment", self): continue
         var tween := _region_tween()
         tween.bind_node(echo)
         tween.tween_interval(float(index) * 0.07)
@@ -4845,6 +5254,7 @@ func _make_npc(data: Dictionary) -> Area2D:
     area.position = _vec2(data.get("position", [0, 0]))
     var role := String(data.get("role", ""))
     area.set_meta("kind", "npc")
+    area.add_to_group("npc_sound_landmark")
     area.set_meta("label", _npc_display_name(data))
     area.set_meta("dialogue", _npc_dialogue(data))
     area.set_meta("dialogue_index", 0)
@@ -4967,9 +5377,13 @@ func _safe_enemy_spawn_on_platform(data: Dictionary, requested: Vector2, platfor
     for candidate_value in candidate_xs:
         var x := clampf(float(candidate_value), min_x, max_x)
         var position_value := Vector2(x, rect.position.y - clearance)
+        var score := absf(x - requested.x)
+        # Clearance is pure geometry. A tied/worse candidate cannot replace
+        # the first winner, so do not spend collision queries on that candidate.
+        if score >= best_score:
+            continue
         if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
             continue
-        var score := absf(x - requested.x)
         if score < best_score:
             best_score = score
             best_position = position_value
@@ -5011,10 +5425,12 @@ func _fallback_enemy_spawn_position(data: Dictionary, requested: Vector2, cleara
         for candidate_value in candidate_xs:
             var x := clampf(float(candidate_value), min_x, max_x)
             var position_value := Vector2(x, rect.position.y - clearance)
-            if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
-                continue
             var platform_bias := 0.0 if platform_id == preferred_platform_id else 220.0
             var score := absf(rect.position.y - requested_top) * 1.8 + absf(x - requested.x) * 0.35 + platform_bias
+            if score >= best_score:
+                continue
+            if not _enemy_spawn_rect_clear(position_value, half_width, visual_height, platform_id):
+                continue
             if score < best_score:
                 best_score = score
                 best_position = position_value
@@ -5368,10 +5784,12 @@ func _challenge_shrine(challenge: Dictionary) -> void:
     area.set_meta("object_id", "interactable/" + shrine_id)
     var cleared := bool(story_flags.get(String(challenge.get("clear_flag", "")), false))
     var label := String(shrine.get("label", String(challenge.get("name", "可选挑战"))))
+    var claim_pending:=bool(story_flags.get(_challenge_pending_flag(challenge),false)) and not cleared
+    if claim_pending:label="%s · 胜利待记录" % String(challenge.get("name","可选挑战"))
     if cleared:
         label = "%s · 已清" % String(challenge.get("name", "可选挑战"))
     area.set_meta("label", label)
-    area.set_meta("interaction_label", label + (" · 回访" if cleared else " · F 敲响"))
+    area.set_meta("interaction_label", label + (" · 回访" if cleared else " · 领取首清" if claim_pending else " · F 敲响"))
     var shape := CollisionShape2D.new()
     var rectangle := RectangleShape2D.new()
     rectangle.size = Vector2(54, 78)
@@ -5498,6 +5916,9 @@ func _activate_challenge_shrine(area: Area2D) -> void:
     if not clear_flag.is_empty() and bool(story_flags.get(clear_flag, false)):
         _toast("%s已清·可回访，奖励不会再发。" % String(challenge.get("name", "可选挑战")))
         return
+    if bool(story_flags.get(_challenge_pending_flag(challenge),false)):
+        _grant_optional_challenge_reward(challenge)
+        return
     if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
         _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
         return
@@ -5548,6 +5969,9 @@ func _is_optional_challenge_spawn(spawn_id: String) -> bool:
 func _start_optional_challenge(challenge: Dictionary) -> void:
     var challenge_id := String(challenge.get("id", ""))
     if challenge_id.is_empty():
+        return
+    if bool(story_flags.get(_challenge_pending_flag(challenge),false)):
+        _grant_optional_challenge_reward(challenge)
         return
     active_challenge_id = challenge_id
     challenge_alive_ids.clear()
@@ -5648,7 +6072,54 @@ func _on_challenge_enemy_died(spawn_id: String) -> void:
         active_challenge_id = ""
 
 
+func _challenge_pending_flag(challenge: Dictionary) -> String:
+    return "challenge_reward_pending_"+String(challenge.get("id",""))
+
+func _refresh_challenge_claim_label(challenge: Dictionary, pending: bool) -> void:
+    var shrine: Dictionary=challenge.get("shrine",{})
+    var area:=get_node_or_null(NodePath(String(shrine.get("id",""))))
+    if area==null:return
+    var label:="%s · %s" % [String(challenge.get("name","可选挑战")),"胜利待记录" if pending else "已清"]
+    area.set_meta("label",label);area.set_meta("interaction_label",label+(" · 领取首清" if pending else " · 回访"))
+    var sprite:=area.get_node_or_null("ChallengeShrineSprite") as Sprite2D
+    if sprite!=null:_apply_original_prop(sprite,"lever_open",52)
+
 func _grant_optional_challenge_reward(challenge: Dictionary) -> void:
+    if not world_mode:_grant_optional_challenge_reward_legacy(challenge);return
+    if challenge.is_empty() or world_loading or build_system==null:return
+    var id:=String(challenge.get("id",""))
+    if id.is_empty() or _optional_challenge(id)!=challenge:return
+    var clear_flag:=String(challenge.get("clear_flag",""))
+    var pending_flag:=_challenge_pending_flag(challenge)
+    if clear_flag.is_empty() or bool(story_flags.get(clear_flag,false)):return
+    var earned:=bool(story_flags.get(pending_flag,false)) or (active_challenge_id==id and challenge_alive_ids.is_empty())
+    if not earned:return
+    var reward: Dictionary=challenge.get("reward",{})
+    var flags:=story_flags.duplicate(true);flags.erase(pending_flag);flags[clear_flag]=true
+    var event:=String(reward.get("unlock_event",""))
+    if not event.is_empty():flags[event]=true
+    var items: Dictionary={}
+    var material:=String(config.get("enemy_drop_item","moss_chitin"))
+    if int(reward.get("material_amount",0))>0:items[material]=int(reward.material_amount)
+    var item:=String(reward.get("item_id",""))
+    if not item.is_empty():items[item]=int(items.get(item,0))+int(reward.get("item_amount",1))
+    var plan:=_prepare_inventory_progress(items,flags,currency_count+maxi(0,int(reward.get("currency",0))))
+    var result: Dictionary={"ok":false}
+    if plan.ok:result=_persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build})
+    if not result.ok:
+        # This is proof of an earned victory, not a paid reward/clear. A later
+        # ordinary save carries it across restart; the shrine retries the claim.
+        story_flags[pending_flag]=true
+        _refresh_challenge_claim_label(challenge,true)
+        _toast("已赢得这次挑战，首清奖励尚未记录；回到这座余响钟可重试领取。")
+        return
+    _publish_inventory_progress(plan,result.candidate)
+    _refresh_challenge_claim_label(challenge,false)
+    if not item.is_empty():_announce_lore_pickup(item)
+    _toast(String(reward.get("toast","%s首清。" % String(challenge.get("name","可选挑战")))))
+    _refresh_hud()
+
+func _grant_optional_challenge_reward_legacy(challenge: Dictionary) -> void:
     if challenge.is_empty():
         return
     var clear_flag := String(challenge.get("clear_flag", ""))
@@ -5751,12 +6222,78 @@ func _on_hazard_body_entered(body: Node, area: Area2D) -> void:
     if world_loading:
         return
     if body == player:
+        if area.is_in_group(HAZARD_POGO.GROUP) and float(player.get("hazard_pogo_guard_timer")) > 0.0:
+            return
         player.take_damage(int(area.get_meta("damage", 1)), area.global_position, false)
         _toast(String(area.get_meta("message", "Trap hit.")))
         _refresh_hud()
 
 
+func _forget_world_pickup(instance_id: int) -> void:
+    world_pickup_leases.erase(instance_id)
+
+func _pickup_retry(area: Area2D, item_id: String, reason: String) -> void:
+    area.set_meta("manual_pickup",true)
+    area.set_meta("interaction_label","重试收取 · "+("碎钱" if item_id=="currency" else _item_display_name(item_id)))
+    if not area.is_in_group("interactable"):area.add_to_group("interactable")
+    _toast(reason)
+
 func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
+    if not is_instance_valid(area) or area.is_queued_for_deletion() or world_loading or body!=player:return
+    if not world_mode:_on_collectible_body_entered_legacy(body,area);return
+    if String(area.get_meta("kind",""))=="death_cache":_recover_death_cache(area);return
+    if player==null or player.hp<=0 or chapter_transitioning or not area.is_inside_tree():return
+    var source: Dictionary=world_pickup_leases.get(area.get_instance_id(),{})
+    if source.is_empty() or source.node.get_ref()!=area or source.region!=String(config.get("id","")):return
+    if area.get_parent()!=self or String(area.name)!=String(source.id) or area.position.distance_to(source.point)>1.0:return
+    if area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
+    if bool(world_collected_ids.get(String(source.id),false)):area.queue_free();return
+    if not WORLD_STATE_SCRIPT._whole(source.amount) or int(source.amount)<=0:
+        _pickup_retry(area,String(source.item),"这份物品记录无效，尚未收取。")
+        return
+    var currency_pickup: bool=String(source.kind)=="currency"
+    var flags:=story_flags.duplicate(true)
+    var whisper_lines: Array[String]=[]
+    if not currency_pickup:
+        for value in config.get("whispers",[]):
+            if not value is Dictionary:continue
+            var id:=String(value.get("id",""))
+            if id.is_empty() or String(value.get("trigger","enter_room"))!="pickup_item" or String(value.get("item_id",""))!=String(source.item) or bool(flags.get("whisper_"+id,false)):continue
+            flags["whisper_"+id]=true;whisper_lines.append(String(value.get("line","")))
+    var items: Dictionary={}
+    if not currency_pickup:items[String(source.item)]=int(source.amount)
+    var plan:=_prepare_inventory_progress(items,flags,currency_count+(int(source.amount) if currency_pickup else 0))
+    if not plan.ok:_pickup_retry(area,String(source.item),"物品记录尚未写入，留在原地可重试收取。");return
+    # Story/whisper completion used to settle the wish board through nested
+    # _set_story_flag saves. Include any earned claim in this same candidate.
+    for wish in _wish_board_entries():
+        var target:=String(wish.get("target_flag",""))
+        var claim:=_wish_claim_flag(wish)
+        if not target.is_empty() and bool(plan.flags.get(target,false)) and not bool(plan.flags.get(claim,false)):
+            plan.flags[claim]=true;plan.currency=int(plan.currency)+maxi(0,int(wish.get("reward_currency",0)))
+    var testimony_completed:=not bool(story_flags.get("true_ending_testimony_complete",false)) and bool(plan.flags.get("true_ending_testimony_complete",false))
+    var collected:=world_collected_ids.duplicate(true);collected[String(source.id)]=true
+    var next_bells:=bell_count+(0 if currency_pickup else 1)
+    var result:=_persist_world_change({"inventory_counts":plan.counts,"story_flags":plan.flags,"currency":plan.currency,"build_state":plan.build},
+        {"collected_ids":collected,"bell_count":next_bells})
+    if not result.ok:_pickup_retry(area,String(source.item),"拾取记录未写入；物件、能力与资源保持原状，按交互键重试。");return
+    _publish_inventory_progress(plan,result.candidate)
+    world_collected_ids=collected;bell_count=next_bells
+    if testimony_completed:_play_sfx("ui_testimony_complete",-4.0)
+    if currency_pickup:_play_sfx_random(["pickup_coins_1","pickup_coins_2"],-10.0)
+    else:
+        if String(source.kind)=="item":
+            unlocked_abilities[String(source.item)]=String(source.ability_name) if not String(source.ability_name).is_empty() else String(source.item)
+            _play_sfx("ui_ability_unlock",-4.0);_refresh_ability_gates(true)
+        for line in whisper_lines:_toast(line)
+        _announce_lore_pickup(String(source.item));_play_sfx("pickup_cloth",-12.0)
+    _play_sfx("pickup")
+    if metsys_bridge!=null:metsys_bridge.store_object(area)
+    _toast(String(source.message));_spawn_pickup_effect(area.global_position)
+    area.queue_free();_refresh_hud();_refresh_wish_board_overlay()
+    if active_overlay=="backpack":_refresh_backpack_overlay()
+
+func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
     if world_loading:
         return
     if body != player or area.is_queued_for_deletion():
@@ -5813,26 +6350,29 @@ func _refresh_ability_gates(play_unlock_sfx: bool = false) -> void:
             if bool(story_flags.get("action_gate_" + unlock_id, false)):
                 _unlock_ability_gate(gate_id)
             continue
-        if int(inventory_counts.get(required_ability, 0)) > 0:
+        if _owns_permanent_item(required_ability):
             var unlock_sfx := String(GATE_UNLOCK_SFX.get(required_ability, "gate_dash")) if play_unlock_sfx else ""
             _unlock_ability_gate(gate_id, unlock_sfx)
     _sync_player_abilities()
     _refresh_world_portals()
 
 
+func _owns_permanent_item(item_id: String) -> bool:
+    var count: Variant=inventory_counts.get(item_id,0)
+    return WORLD_STATE_SCRIPT._whole(count) and int(count)>0
+
 func _sync_player_abilities() -> void:
     if player == null:
         return
     var gated_start := bool(config.get("ability_gated_start", false))
-    player.dash_unlocked = (not gated_start) or inventory_counts.has("thread_dash")
-    player.wall_grip_unlocked = (not gated_start and not world_mode) or inventory_counts.has("silk_wall_grip")
-    player.dash_unlocked = (not gated_start and not world_mode) or inventory_counts.has("thread_dash")
-    player.double_jump_unlocked = int(inventory_counts.get("double_thread_jump", 0)) > 0
-    player.thread_grapple_unlocked = int(inventory_counts.get("echo_hook", 0)) > 0
-    player.bell_guard_unlocked = int(inventory_counts.get("bell_guard", 0)) > 0
-    player.thorn_downstrike_unlocked = int(inventory_counts.get("thorn_downstrike", 0)) > 0
-    player.lantern_phase_unlocked = int(inventory_counts.get("lantern_phase", 0)) > 0
-    player.crown_resonance_unlocked = int(inventory_counts.get("crown_resonance", 0)) > 0
+    player.wall_grip_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("silk_wall_grip")
+    player.dash_unlocked = (not gated_start and not world_mode) or _owns_permanent_item("thread_dash")
+    player.double_jump_unlocked = _owns_permanent_item("double_thread_jump")
+    player.thread_grapple_unlocked = _owns_permanent_item("echo_hook")
+    player.bell_guard_unlocked = _owns_permanent_item("bell_guard")
+    player.thorn_downstrike_unlocked = _owns_permanent_item("thorn_downstrike")
+    player.lantern_phase_unlocked = _owns_permanent_item("lantern_phase")
+    player.crown_resonance_unlocked = _owns_permanent_item("crown_resonance")
     _sync_player_build()
     if world_mode:
         for anchor in get_tree().get_nodes_in_group("grapple_anchor"):
@@ -5873,7 +6413,7 @@ func _on_interactable_exited(body: Node, area: Area2D) -> void:
         return
     if nearby_interactable == area:
         nearby_interactable = null
-    if String(area.get_meta("kind", "")) == "npc" and dialogue_panel != null and dialogue_panel.visible:
+    if String(area.get_meta("kind", "")) in ["npc","history"] and dialogue_panel != null and dialogue_panel.visible:
         _close_overlays()
 
 
@@ -5908,7 +6448,7 @@ func _try_interact() -> void:
     if nearby_interactable == null or not is_instance_valid(nearby_interactable):
         for lift in cave_lifts:
             if lift.request(player.global_position):
-                _toast("升降笼启动。可在途中跳离，落点两侧可呼叫。")
+                _toast(lift.last_request_text)
                 return
         _toast("附近没有可交互的人物或机关。")
         return
@@ -5926,6 +6466,8 @@ func _try_interact() -> void:
             CARTOGRAPHY_UI.open_shop(self, nearby_interactable)
         else:
             _talk_to_npc(nearby_interactable)
+    elif kind == "history":
+        _read_history_prop(nearby_interactable)
     elif kind == "save_point":
         _activate_save_point(nearby_interactable)
     elif kind == "chapter_exit" or kind == "ending_exit":
@@ -5933,7 +6475,7 @@ func _try_interact() -> void:
     elif kind == "world_portal":
         _activate_world_portal(nearby_interactable)
     elif kind == "ending_gate":
-        _activate_ending_gate(nearby_interactable)
+        preload("res://scripts/ending_story_desk.gd").open(self, nearby_interactable)
     elif kind == "challenge_shrine":
         _activate_challenge_shrine(nearby_interactable)
     elif kind == "hunt_track":
@@ -5966,12 +6508,15 @@ func _nearest_interactable(radius: float) -> Area2D:
         if area == null or not is_instance_valid(area) or area.is_queued_for_deletion() or not area.is_visible_in_tree():
             continue
         var kind := String(area.get_meta("kind", ""))
-        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache"].has(kind):
+        var manual_pickup:=bool(area.get_meta("manual_pickup",false))
+        if not ["lever", "boss_gate", "npc", "save_point", "chapter_exit", "ending_exit", "ending_gate", "world_portal", "item", "death_cache", "history", "challenge_shrine", "hunt_track"].has(kind) and not manual_pickup:
             continue
-        if kind == "item" and not bool(area.get_meta("manual_pickup", false)):
+        if kind in ["item","currency","bell_key"] and not manual_pickup:
             continue
         var distance: float = player.global_position.distance_squared_to(area.global_position)
         if not is_finite(distance) or distance > radius * radius:
+            continue
+        if kind=="history" and not area.accessible_from(player):
             continue
         if kind in ["chapter_exit", "ending_exit"] and _chapter_exit_can_open(area) and _better_interaction_target(area, distance, preferred_best, preferred_distance):
             preferred_best = area
@@ -6308,6 +6853,7 @@ func _activate_ending_gate(area: Area2D) -> void:
         return
     if not evaluated.is_empty():
         area.set_meta("message", String(evaluated.get("message", area.get_meta("message", ""))))
+    _spawn_ending_aftermath()
     for child in get_children():
         if child is Area2D and String(child.get_meta("kind", "")) == "npc":
             _apply_world_npc_state(child)
@@ -6371,6 +6917,13 @@ func _talk_to_npc(area: Area2D) -> void:
 # after_boss -> after_ability -> repeat. NPCs without story_dialogue fall back
 # to the legacy dialogue array untouched.
 func _resolve_npc_lines(area: Area2D) -> Array:
+    var lines:=_resolve_npc_lines_source(area)
+    if world_mode:
+        var result:=preload("res://scripts/npc_recollections.gd").resolved_result(String(area.get_meta("npc_id",area.name)),area.get_meta("world_dialogue_result",{}),String(area.get_meta("dialogue_state","repeat")),lines,String(config.get("id","")))
+        area.set_meta("world_recollection_result",result)
+    return lines
+
+func _resolve_npc_lines_source(area: Area2D) -> Array:
     var fallback: Array = area.get_meta("dialogue", [])
     if world_mode and world_narrative != null:
         var result := world_narrative.resolve(String(area.get_meta("npc_id", area.name)), fallback, inventory_counts.keys(), story_flags, inventory_counts)
@@ -6428,6 +6981,149 @@ func _chapter_story_id() -> String:
         if token.length() >= 3 and token.begins_with("ch") and token.substr(2).is_valid_int():
             return token
     return String(config.get("id", ""))
+
+
+## A zero/negative/fractional key is not an offering. JSON whole-number floats
+## remain compatible with legacy in-memory inventories; booleans are rejected.
+func wish_offering_available(item_id: String) -> bool:
+    var count: Variant = inventory_counts.get(item_id, 0)
+    return not item_id.is_empty() and (count is int or count is float) and is_finite(float(count)) and float(count) >= 1.0 and floor(float(count)) == float(count)
+
+## Include a fully read final line in a wish's candidate, rather than saving
+## dialogue first and risking a durable completed quest without its reward.
+func _wish_dialogue_candidate(area: Area2D, flags: Dictionary, wallet: int) -> Dictionary:
+    if not is_instance_valid(area) or active_overlay != "dialogue" or dialogue_text_label == null or bool(area.get_meta("world_line_committed", false)):
+        return {"flags":flags,"currency":wallet}
+    if dialogue_text_label.visible_characters >= 0 and dialogue_text_label.visible_characters < dialogue_text_label.text.length():
+        return {"flags":flags,"currency":wallet}
+    var state := String(area.get_meta("dialogue_state", "repeat"))
+    var indices: Dictionary = area.get_meta("dialogue_state_indices", {}).duplicate(true)
+    var index := int(area.get_meta("world_displayed_index", -1))
+    indices[state] = index + 1
+    if state == "first_meet" and index + 1 >= int(area.get_meta("world_displayed_total", 0)):
+        flags["npc_met_%s" % String(area.get_meta("npc_id", area.name))] = true
+    if bool(flags.get("quest_bring_names_rewarded", false)):
+        flags["reward_returned_names_claimed"] = true
+    var recollection := preload("res://scripts/npc_recollections.gd").completion_marker(String(area.get_meta("npc_id",area.name)),area.get_meta("world_recollection_result",area.get_meta("world_dialogue_result",{})),index,String(config.get("id","")))
+    if not recollection.is_empty():flags[recollection]=true
+    var response_memory := preload("res://scripts/protagonist_response_memory.gd").quote(String(area.get_meta("npc_id",area.name)),area.get_meta("world_dialogue_result",{}),index,flags,String(config.get("id","")))
+    var completion := WORLD_NARRATIVE_SCRIPT.completion_outcome(area.get_meta("world_dialogue_result", {}), index, flags)
+    for flag in completion.flags:flags[String(flag)] = true
+    wallet += int(completion.rewards.get("currency", 0))
+    if bool(flags.get("reward_returned_names_claimed", false)):
+        flags["quest_bring_names_rewarded"] = true
+    if not response_memory.is_empty():flags[String(response_memory.marker)]=true
+    return {"flags":flags,"currency":wallet,"indices":indices,"response_text":String(response_memory.get("text",""))}
+
+## Pure candidate shared by preview and the one-write transaction.
+func _wish_topic_plan(quest: Dictionary, area: Area2D) -> Dictionary:
+    var next_counts := inventory_counts.duplicate(true)
+    var next_flags := story_flags.duplicate(true)
+    var dialogue := _wish_dialogue_candidate(area, next_flags, currency_count)
+    next_flags = dialogue.flags
+    var next_currency := int(dialogue.currency)
+    var complete_flag := String(quest.get("complete_flag", ""))
+    var delivered := not complete_flag.is_empty() and not bool(next_flags.get(complete_flag, false)) and wish_offering_available(String(quest.get("item", "")))
+    var reward := ""
+    if delivered:
+        var required := String(quest.get("item", ""))
+        if bool(quest.get("consume", false)):
+            next_counts[required] = int(next_counts[required]) - 1
+            if int(next_counts[required]) == 0:next_counts.erase(required)
+        reward = String(quest.get("reward", ""))
+        if not reward.is_empty():next_counts[reward] = int(next_counts.get(reward, 0)) + 1
+        next_flags[complete_flag] = true
+        if reward.begins_with("testimony_"):
+            var all_testimonies := true
+            for index in range(1, 7):
+                if float(next_counts.get("testimony_%02d" % index, 0)) < 1.0:all_testimonies = false
+            if all_testimonies:next_flags["true_ending_testimony_complete"] = true
+        if world_narrative != null:
+            for flag in world_narrative.evaluate_progress(next_counts, next_flags).get("grant_flags", []):
+                next_flags[String(flag)] = true
+    elif not bool(next_flags.get(complete_flag, false)):
+        var accept_flag := String(quest.get("accept_flag", ""))
+        if not accept_flag.is_empty():next_flags[accept_flag] = true
+    for wish in _wish_board_entries():
+        var target := String(wish.get("target_flag", ""))
+        var claim := _wish_claim_flag(wish)
+        if not target.is_empty() and bool(next_flags.get(target, false)) and not bool(next_flags.get(claim, false)):
+            next_flags[claim] = true
+            next_currency += maxi(0, int(wish.get("reward_currency", 0)))
+    return {"counts":next_counts,"flags":next_flags,"currency":next_currency,"dialogue":dialogue,"delivered":delivered,"reward":reward}
+
+func quote_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
+    var failure := {"ok":false,"reason":"请回到这位人物身旁，重新打开当前心愿。"}
+    if not world_mode or world_loading or world_save_blocked or player == null or player.hp <= 0 or build_system == null:return failure
+    if not is_instance_valid(area) or not area.is_inside_tree() or not area.is_visible_in_tree() or area.is_queued_for_deletion():return failure
+    if area.get_world_2d() != player.get_world_2d() or area.global_position.distance_to(player.global_position) > INTERACTION_REACH:return failure
+    if ui_shell == null or ui_shell.dialogue_area != area or active_overlay != "dialogue" or not ui_shell.dialogue.visible:return failure
+    var topics: Dictionary = area.get_meta("dialogue_topics",{})
+    if quest.is_empty() or topics.get("quest",{}) != quest:return failure
+    for key in ["item","reward","complete_flag"]:
+        if not quest.get(key,"") is String or String(quest.get(key,"")).is_empty():return failure
+    if not quest.get("consume",false) is bool:return failure
+    var plan := _wish_topic_plan(quest,area)
+    var required := String(quest.item)
+    var next_build = build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.sync_progress(plan.counts,String(config.get("id","")),plan.flags)
+    var owned: Variant = inventory_counts.get(required,0)
+    var text := "所需：%s × 1（持有 %s）\n%s\n回礼：%s × 1\n碎钱变化：%+d\n确认后写入归途记录；不会补满当前生命或能量。" % [_item_display_name(required),str(owned),"交付将消耗一份信物。" if quest.get("consume",false) else "只需出示信物，不消耗持有物。",_item_display_name(String(quest.reward)),int(plan.currency)-currency_count]
+    var profile: Dictionary=next_build.profile()
+    text += "\n永久容量：生命 %d → %d；能量 %d → %d" % [player.max_hp,int(profile.get("max_hp",player.max_hp)),player.max_energy,int(profile.get("max_energy",player.max_energy))]
+    var fingerprint := var_to_str([quest,inventory_counts,story_flags,currency_count,build_system.serialize(),plan,dialogue_text_label.text,dialogue_text_label.visible_characters]).sha256_text()
+    return {"ok":true,"delivered":plan.delivered,"summary":text,"fingerprint":fingerprint}
+
+## Prepare a privately owned checkpoint without invoking inventory/story helpers:
+## those helpers may save recursively, apply Player stats, or announce rewards.
+## Publish inventory, unlocks and capacities only after the one durable write.
+func perform_wish_topic(quest: Dictionary, area: Area2D) -> Dictionary:
+    var failure := {"ok":false,"reason":"归途记录未能写入；本次心愿尚未确认，请重试。"}
+    if not world_mode or world_loading or world_state == null or player == null or build_system == null or world_save_blocked:
+        return failure
+    var plan := _wish_topic_plan(quest,area)
+    var next_counts: Dictionary = plan.counts
+    var next_flags: Dictionary = plan.flags
+    var dialogue: Dictionary = plan.dialogue
+    var next_currency: int = plan.currency
+    var delivered: bool = plan.delivered
+    var reward: String = plan.reward
+    if next_counts == inventory_counts and next_flags == story_flags and next_currency == currency_count:
+        if dialogue.has("indices"):area.set_meta("dialogue_state_indices", dialogue.indices)
+        return {"ok":true,"delivered":false}
+    var next_build = build_system.get_script().new()
+    if not next_build.restore(build_system.serialize()).ok:return failure
+    next_build.sync_progress(next_counts, String(config.get("id", "")), next_flags)
+    var prepared := _prepare_world_checkpoint({"inventory_counts":next_counts,"story_flags":next_flags,"currency":next_currency,
+        "current_region":String(config.get("id", "")),"entry":active_spawn,"hp":player.hp,
+        "energy":maxi(0, player.energy - player.practice_energy),"build_state":next_build.serialize()})
+    if not prepared.ok:return failure
+    if world_save_failure_injected_for_validation or not world_state.write_candidate(prepared.candidate, world_save_path):return failure
+    var testimony_completed := not bool(story_flags.get("true_ending_testimony_complete", false)) and bool(next_flags.get("true_ending_testimony_complete", false))
+    # No live gameplay object has been touched before this point.
+    world_state.data = prepared.candidate
+    inventory_counts = next_counts
+    story_flags = next_flags
+    currency_count = next_currency
+    inventory_materials.clear()
+    inventory_relics.clear()
+    inventory_tools.clear()
+    for item_id in inventory_counts:
+        match String(_item_data(String(item_id)).get("category", "Materials")):
+            "Materials":inventory_materials[item_id] = int(inventory_counts[item_id])
+            "Relics":inventory_relics.append(item_id)
+            "Tools":inventory_tools.append(item_id)
+    build_system.restore(next_build.serialize())
+    if dialogue.has("indices"):area.set_meta("dialogue_state_indices", dialogue.indices)
+    _sync_player_build()
+    _apply_world_npc_state(area)
+    if testimony_completed:_play_sfx("ui_testimony_complete", -4.0)
+    if delivered and not reward.is_empty():_toast("收入行囊 · " + _item_display_name(reward))
+    if not String(dialogue.get("response_text","")).is_empty():_toast(String(dialogue.response_text))
+    _refresh_wish_board_overlay()
+    _refresh_hud()
+    return {"ok":true,"delivered":delivered}
 
 
 func _set_story_flag(flag: String) -> void:
@@ -6493,10 +7189,11 @@ func _show_dialogue(area: Area2D, line: String) -> void:
     if dialogue_text_label != null:
         dialogue_text_label.text = line
         if world_mode:
-            subtitle_elapsed = 0.0
             subtitle_seconds = WORLD_NARRATIVE_SCRIPT.subtitle_duration(line) / (float(ui_shell.get_accessibility("subtitle_speed")) if ui_shell != null and ui_shell.has_method("get_accessibility") else 1.0)
-            dialogue_text_label.visible_characters = 0
-            if audio_director != null:
+            var reading: Dictionary = ui_shell.dialogue_reading_state(area, line) if ui_shell != null and ui_shell.has_method("dialogue_reading_state") else {}
+            subtitle_elapsed = subtitle_seconds * float(reading.get("progress", 0.0))
+            dialogue_text_label.visible_characters = int(reading.get("characters", 0))
+            if audio_director != null and reading.is_empty() and String(area.get_meta("kind",""))!="history":
                 var profile := String(area.get_meta("world_dialogue_result", {}).get("voice_profile", "warm"))
                 audio_director.play_npc_voice(String(area.get_meta("npc_id", area.name)), line, profile)
         else:
@@ -6509,6 +7206,11 @@ func _show_dialogue(area: Area2D, line: String) -> void:
 
 
 func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
+    # Defeat is a production encounter, unlike offscreen residency/prewarming.
+    # The existing final save persists this flag with rewards, no extra write.
+    if world_mode:
+        var journal_flag := preload("res://scripts/enemy_journal.gd").flag_for(kind)
+        if not journal_flag.is_empty():story_flags[journal_flag]=true
     if is_boss:
         if demo_complete:
             return
@@ -6553,14 +7255,42 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
             if player != null:
                 player.gain_energy(20)
         _toast("试炼之敌倒下" if challenge_spawn else "拾得碎钱与材料 · 绯线回充")
+        var elite_message := "" if challenge_spawn else _grant_elite_first_defeat(spawn_id, drop_item)
         if challenge_spawn:
             _on_challenge_enemy_died(spawn_id)
         elif _combat_progression_enabled() and _combat_goal_met():
             _open_combat_clear_route()
             _play_sfx("door_open", -9.0)
-            _toast("本区敌群已清，钟门前的道路开启。")
+            # One toast label: keep the elite reward visible alongside the clear.
+            _toast("本区敌群已清，钟门前的道路开启。" + ("" if elite_message.is_empty() else " " + elite_message))
     _refresh_hud()
     _save_world()
+
+
+## B04: an elite is an optional, harder fight. Its first defeat pays a one-time
+## bonus (kept in story flags), so respawned elites cannot be farmed for it.
+const ELITE_FIRST_CURRENCY := 30
+const ELITE_FIRST_MATERIALS := 2
+
+func _spawn_is_elite(spawn_id: String) -> bool:
+    for spawn in config.get("enemy_spawns", []):
+        if spawn is Dictionary and String(spawn.get("id", "")) == spawn_id:
+            return bool(spawn.get("elite", false))
+    return false
+
+## Returns the reward message ("" when no bonus) so a following toast can keep it.
+func _grant_elite_first_defeat(spawn_id: String, drop_item: String) -> String:
+    if not world_mode or not _spawn_is_elite(spawn_id):
+        return ""
+    var flag := "elite_first_%s_%s" % [String(config.get("id", "")), spawn_id]
+    if bool(story_flags.get(flag, false)):
+        return ""
+    story_flags[flag] = true
+    _add_currency(ELITE_FIRST_CURRENCY)
+    _add_inventory_item(drop_item, ELITE_FIRST_MATERIALS, false)
+    var message := "精英首胜：额外 %d 枚碎钱与 %d 份材料。" % [ELITE_FIRST_CURRENCY, ELITE_FIRST_MATERIALS]
+    _toast(message)
+    return message
 
 
 func _on_player_respawned() -> void:
@@ -6589,6 +7319,9 @@ func _reset_encounters_after_player_death() -> void:
     for enemy_node in get_tree().get_nodes_in_group("enemy"):
         var enemy_area := enemy_node as Area2D
         if enemy_area == null or not is_instance_valid(enemy_area):
+            continue
+        # Practice racks and puppets are built once per region and never respawn.
+        if enemy_area.has_meta("seal_training_target") or enemy_area.has_meta("tool_training_target"):
             continue
         if enemy_area.has_method("_cancel_attack_effects"):
             enemy_area._cancel_attack_effects()
@@ -6661,7 +7394,7 @@ func _spawn_route_open_effect(position_value: Vector2) -> void:
         ])
         ring.position = position_value
         ring.z_index = 12
-        add_child(ring)
+        if not VISUAL_POLICY.attach_secondary(self, ring, &"environment", self): continue
         var tween := _region_tween()
         tween.tween_interval(float(index) * 0.08)
         tween.tween_property(ring, "scale", Vector2(1.65, 1.65), 0.42)
@@ -6760,11 +7493,16 @@ func _announce_lore_pickup(item_id: String) -> void:
     if lore_lines.is_empty():
         return
     var text := "拾获「%s」——%s" % [_item_display_name(item_id), String(lore_lines[0])]
+    _show_lore_banner(text)
+    print("LORE_PICKUP " + text)
+
+
+## The story banner stays longer than a toast and later toasts never cover it.
+func _show_lore_banner(text: String) -> void:
     lore_banner_time_left = LORE_BANNER_SECONDS
     if lore_banner_label != null:
         lore_banner_label.text = text
         lore_banner_label.visible = true
-    print("LORE_PICKUP " + text)
 
 
 # _process 驱动的横幅倒计时：不挂定时器/回调，headless 退出无残留。
@@ -6790,7 +7528,6 @@ func _spawn_pickup_effect(world_position: Vector2) -> void:
     ring.width = 3.0
     ring.default_color = Color(1.0, 0.78, 0.25, 0.95)
     ring.z_index = 90
-    add_child(ring)
 
     var ray := Line2D.new()
     ray.name = "PickupSparkVfx"
@@ -6804,7 +7541,7 @@ func _spawn_pickup_effect(world_position: Vector2) -> void:
     ray.width = 2.0
     ray.default_color = Color(0.64, 1.0, 0.76, 0.86)
     ray.z_index = 91
-    add_child(ray)
+    if not VISUAL_POLICY.attach_secondary_batch(self, [ring, ray], &"environment", self): return
 
     var tween := _region_tween()
     tween.tween_property(ring, "scale", Vector2(2.0, 2.0), 0.28)
@@ -7129,6 +7866,27 @@ func _sync_player_build() -> void:
         if profile != applied_build_profile:
             player.apply_build_stats(profile)
             applied_build_profile = profile.duplicate(true)
+            _sync_hazard_trigger_sizes()
+
+## Only trap triggers change. Player collision, enemy attacks and the authored
+## spike pogo surface retain their original geometry.
+func _hazard_trigger_multiplier() -> float:
+    if not is_instance_valid(player):return 1.0
+    var profile: Variant = player.get("build_profile")
+    if not profile is Dictionary:return 1.0
+    return clampf(float(profile.get("hazard_trigger_mult", 1.0)), 0.5, 1.0)
+
+func _sync_hazard_trigger_sizes() -> void:
+    var multiplier := _hazard_trigger_multiplier()
+    for child in get_children():
+        if not child is Area2D or not child.has_meta("hazard_authored_size"):continue
+        var shape := child.get_node_or_null("TriggerShape") as CollisionShape2D
+        if shape == null or not shape.shape is RectangleShape2D:continue
+        var authored: Vector2 = child.get_meta("hazard_authored_size")
+        var size := authored * multiplier
+        if not shape.shape.size.is_equal_approx(size):
+            # Pickups may sync progress inside a physics body-entered callback.
+            shape.shape.set_deferred("size", size)
 
 func _bind_build_inputs() -> void:
     var bindings := {"skill_cycle": [KEY_C, JOY_AXIS_TRIGGER_LEFT],
@@ -7150,6 +7908,9 @@ func _bind_build_inputs() -> void:
             trigger.axis_value = 1.0
             InputMap.action_add_event(action, trigger)
 
+## Artisans who sell 校习 and make 改制 (E04); each recipe names its own maker.
+const ARTISAN_NPCS := ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]
+
 func _near_workstation(crafting: bool = false) -> bool:
     if player == null or player.hp <= 0 or player.death_timer > 0.0 or (boss_arena_lock_body != null and is_instance_valid(boss_arena_lock_body)):
         return false
@@ -7161,13 +7922,48 @@ func _near_workstation(crafting: bool = false) -> bool:
             return true
         if crafting and kind == "npc":
             var id := String(child.get_meta("npc_id", child.name))
-            if id in ["npc_rain_smith_liu", "npc_threadsmith_apprentice", "npc_beeswax_vendor"]:
+            if id in ARTISAN_NPCS:
                 return true
     return false
 
 ## Read-only proximity query used by UI affordances and explicit quote actions.
 func is_near_shrine() -> bool:
     return _near_workstation(false)
+
+## U02: beside an artisan the build page opens on 强化, where 校习 is bought.
+func is_near_artisan() -> bool:
+    return _near_workstation(true)
+
+## E04: which artisan is in reach; each one makes only their own 改制.
+func near_artisan_id() -> String:
+    if not _near_workstation(true):
+        return ""
+    var best := ""
+    var best_distance := INF
+    for child in get_children():
+        if not child is Area2D or String(child.get_meta("kind", "")) != "npc":
+            continue
+        var id := String(child.get_meta("npc_id", child.name))
+        var distance := player.global_position.distance_to(child.global_position)
+        if id in ARTISAN_NPCS and distance <= 120.0 and distance < best_distance:
+            best = id
+            best_distance = distance
+    return best
+
+## E04: why this artisan cannot make the recipe yet; "" when only the price remains.
+func artisan_craft_block(recipe: Dictionary) -> String:
+    for prerequisite in recipe.get("requires_crafted", []):
+        if not build_system.state.crafted.has(prerequisite):return "请先完成前阶改制，再制作二阶方案"
+    var artisan := String(recipe.get("artisan", ""))
+    if not artisan.is_empty() and near_artisan_id() != artisan:
+        return "「%s」要找%s制作" % [String(recipe.get("name", "")), String(recipe.get("artisan_name", "工匠"))]
+    var flag := String(recipe.get("requires_flag", ""))
+    if not flag.is_empty() and not bool(story_flags.get(flag, false)):
+        return String(recipe.get("requires_flag_hint", "工匠还不会这门手艺"))
+    for item in recipe.get("requires_items", []):
+        if int(inventory_counts.get(item, 0)) <= 0:
+            return "需要「%s」作图样（不会被收走）" % _item_display_name(String(item))
+    return ""
 
 func _build_wallet_snapshot() -> Dictionary:
     return {"currency": currency_count, "inventory_counts": inventory_counts.duplicate(true)}
@@ -7201,15 +7997,70 @@ func _finish_build_transaction(result: Dictionary, build_before: Dictionary, wal
     _refresh_hud()
     return result
 
+## Read-only availability used by both the HUD and the actual tool transaction.
+func get_tool_readiness(id: String) -> Dictionary:
+    if not is_instance_valid(player) or player.hp <= 0 or chapter_transitioning or world_loading:
+        return {"available":false,"text":"暂不可用","detail":"等待当前旅途状态结束。"}
+    if not active_overlay.is_empty() or not player._can_start_action():
+        return {"available":false,"text":"动作中","detail":"请在动作结束后使用战具"}
+    if id == "mine":
+        var owned_traps := 0
+        for effect in get_tree().get_nodes_in_group("player_trap"):
+            if effect.get("owner_player") == player:owned_traps += 1
+        if owned_traps >= 2:
+            return {"available":false,"text":"已布满","detail":"场上已有两枚布置中的地雷"}
+    if id.is_empty():
+        return {"available":false,"text":"空槽","detail":"此战具槽位为空"}
+    if _in_tool_practice_room():
+        return {"available":true,"text":"练习","detail":"练习房免费使用，不消耗携带次数。"}
+    if build_system == null or int(build_system.state.tool_counts.get(id,0)) <= 0:
+        return {"available":false,"text":"已用尽","detail":"战具已用尽，请在钟龛补给"}
+    return {"available":true,"text":"","detail":"使用消耗一次。"}
+
+func quote_loadout_restore(name: String) -> Dictionary:
+    return preload("res://scripts/loadout_restore_review.gd").quote(self,name)
+
+func apply_reviewed_loadout(name: String, fingerprint: String) -> Dictionary:
+    return preload("res://scripts/loadout_restore_review.gd").apply(self,name,fingerprint)
+
+func quote_craft_cart(request: Variant) -> Dictionary:
+    var failure := {"ok":false,"reason":"请与制作这份清单的工匠面对面交谈。"}
+    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or build_system==null or world_save_blocked:return failure
+    if not _near_workstation(true) or near_artisan_id().is_empty():return failure
+    if not request is Array:return failure
+    for id in request:
+        if not id is String or not build_system.catalog.recipes.has(id):return failure
+        var recipe: Dictionary=build_system.catalog.recipes[id]
+        if String(recipe.get("kind",""))=="skill_branch" and not bool(story_flags.get("skill_practiced_"+String(recipe.target),false)):
+            return {"ok":false,"reason":"先在练针架练熟技能，再选校习方向。"}
+        var blocked:=artisan_craft_block(recipe)
+        if not blocked.is_empty():return {"ok":false,"reason":blocked}
+    var quote: Dictionary=build_system.quote_craft_batch(request,_build_wallet_snapshot())
+    if quote.get("ok",false):quote["fingerprint"]=var_to_str([request,build_system.serialize(),_build_wallet_snapshot(),quote.rows,quote.materials,quote.currency_spent,near_artisan_id(),story_flags]).sha256_text()
+    return quote
+
 func perform_build_action(action: String, id: String = "", extra: Variant = null) -> Dictionary:
     if build_system == null or not world_mode:
         return {"ok": false, "reason": "构筑系统在互联世界旅途中开放"}
+    if action == "use_tool":
+        var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
+        var readiness := get_tool_readiness(selected_tool_id)
+        if not bool(readiness.available):
+            # Recovery and mine-cap rejections were always silent; the other
+            # unavailable states must still explain why the input did nothing.
+            if String(readiness.text) not in ["动作中", "已布满"]:
+                _toast(String(readiness.detail))
+            return {"ok":false,"reason":String(readiness.detail)}
     if player == null or player.hp <= 0 or chapter_transitioning or world_loading:
         return {"ok": false, "reason": "当前无法更换构筑"}
+    if action == "quote_craft_batch":return quote_craft_cart(extra)
     if action == "quote_resupply":
         if not _near_workstation():
             return {"ok": false, "reason": "请在钟龛查看战具补给报价"}
-        return build_system.quote_resupply(_build_wallet_snapshot())
+        return build_system.quote_resupply(_build_wallet_snapshot(), {} if extra == null else extra)
+    if action == "quote_loadout_management":
+        if not extra is Dictionary or not extra.get("copy",false) is bool:return {"ok":false,"reason":"方案操作无效"}
+        return build_system.preview_loadout_management(id,extra.get("name"),bool(extra.get("copy",false)),_near_workstation())
     if action in ["resupply_tools", "paid_resupply"] and not _near_workstation():
         return {"ok": false, "reason": "请在钟龛补给战具"}
     if world_save_blocked:
@@ -7236,32 +8087,48 @@ func perform_build_action(action: String, id: String = "", extra: Variant = null
         "equip_passive", "passive":
             result = build_system.equip_passive(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛调整铭饰"}
         "save_loadout":
-            result = build_system.save_loadout(id)
+            result = build_system.save_loadout(id, _near_workstation())
+        "delete_loadout":
+            result = build_system.delete_loadout(id, _near_workstation())
+        "rename_loadout":
+            result = build_system.rename_loadout(id,extra,_near_workstation())
+        "copy_loadout":
+            result = build_system.copy_loadout(id,extra,_near_workstation())
         "restore_loadout", "load_loadout":
             result = build_system.restore_loadout(id) if _near_workstation() else {"ok": false, "reason": "请在钟龛恢复构筑方案"}
         "resupply_tools", "paid_resupply":
-            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation())
+            result = build_system.resupply_tools(_build_wallet_snapshot(), _near_workstation(), {} if extra == null else extra)
             if result.get("ok", false):
                 _set_build_wallet(result.wallet)
+        "craft_batch":
+            result=quote_craft_cart(extra)
+            if result.get("ok",false):
+                if not build_system.restore(result.build).ok:result={"ok":false,"reason":"制作清单构筑无法恢复"}
+                else:_set_build_wallet(result.wallet)
         "transact", "craft":
-            if not _near_workstation(true):
-                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面强化"}
+            var recipe: Dictionary = build_system.catalog.recipes.get(id, {})
+            var practice_target := String(recipe.get("target", ""))
+            if String(recipe.get("kind", "")) == "skill_branch" and not bool(story_flags.get("skill_practiced_" + practice_target, false)):
+                result = {"ok": false, "reason": "先在练针架上练熟「%s」，再选校习方向" % String(build_system.catalog.skills.get(practice_target, {}).get("name", practice_target))}
+            elif not _near_workstation(true):
+                result = {"ok": false, "reason": "请与雨铸匠、织线学徒或蜂蜡商人面对面校习"}
+            elif String(recipe.get("kind", "")) in ["tool_capacity", "slot_part", "passive"] and not artisan_craft_block(recipe).is_empty():
+                result = {"ok": false, "reason": artisan_craft_block(recipe)}
             else:
                 result = build_system.transact(id, _build_wallet_snapshot())
                 if result.get("ok", false):
                     _set_build_wallet(result.wallet)
         "use_tool":
-            if not active_overlay.is_empty() or not player._can_start_action():
-                return {"ok": false, "reason": "请在动作结束后使用战具"}
             var selected_tool_id := String(build_system.state.tools[int(build_system.state.active_tool_slot)])
-            if selected_tool_id == "mine":
-                var owned_traps := 0
-                for effect in get_tree().get_nodes_in_group("player_trap"):
-                    if effect.get("owner_player") == player:
-                        owned_traps += 1
-                if owned_traps >= 2:
-                    return {"ok": false, "reason": "场上已有两枚布置中的地雷"}
+            # E02: tools used in a practice room cost nothing and give nothing:
+            # the stock is put back to what it was, even when it was empty.
+            var practice := _in_tool_practice_room()
+            var practice_count := int(build_system.state.tool_counts.get(selected_tool_id, 0))
+            if practice and practice_count <= 0:
+                build_system.state.tool_counts[selected_tool_id] = 1
             result = build_system.use_tool()
+            if practice:
+                build_system.state.tool_counts[selected_tool_id] = practice_count
     if result.get("ok", false):
         result = _finish_build_transaction(result, build_before, wallet_before, materials_before)
         if result.get("ok", false) and action == "use_tool" and not player.cast_tool(result):
@@ -7322,7 +8189,46 @@ func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2)
         _save_world()
 
 func get_save_slots() -> Array:
-    return WORLD_STATE_SCRIPT.slot_summaries()
+    var result: Array=[]
+    for index in range(1,4):
+        var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
+        var row: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
+        row["slot"]=index
+        row["backup"]=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
+        result.append(row)
+    return result
+
+func quote_save_operation(action: String, index: int) -> Dictionary:
+    if not world_mode or world_loading or chapter_transitioning or player==null or player.hp<=0 or index<1 or index>3 or action not in ["switch","recover"]:
+        return {"ok":false,"reason":"当前无法切换或恢复归途记录。"}
+    var path:=world_save_path if index==world_slot else WORLD_STATE_SCRIPT.slot_path(index)
+    var primary: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path)
+    var backup: Dictionary=preload("res://scripts/save_inspector.gd").inspect(path+".bak")
+    var result: Dictionary={"ok":true,"slot":index,"primary":primary,"backup":backup,"action":action}
+    if action=="switch":
+        if index==world_slot:result.ok=false;result["reason"]="已经在当前存档槽。"
+        elif world_save_blocked:result.ok=false;result["reason"]="当前记录暂不可保存，请先处理当前槽的恢复提示。"
+        elif primary.exists and not primary.valid:result.ok=false;result["reason"]="目标主档无法读取，请先选择恢复该槽备份。"
+    elif not backup.valid:result.ok=false;result["reason"]="该槽没有可读取的备份。"
+    elif index!=world_slot and world_save_blocked:result.ok=false;result["reason"]="离开前必须先处理当前记录的恢复提示。"
+    result["fingerprint"]=var_to_str([action,index,path,primary,backup,world_save_path,_build_wallet_snapshot(),story_flags,build_system.serialize(),player.hp,player.energy]).sha256_text()
+    return result
+
+func perform_save_operation(action: String, index: int, fingerprint: String) -> Dictionary:
+    var fresh:=quote_save_operation(action,index)
+    if not fresh.get("ok",false):return fresh
+    if String(fresh.fingerprint)!=fingerprint:return {"ok":false,"changed":true,"reason":"记录或当前旅途已变化，请重新核对。"}
+    var ok:=select_save_slot(index) if action=="switch" else restore_save_backup(index)
+    return {"ok":ok,"reason":"正在进入所选旅途。" if ok else "当前操作未完成，仍停留在原旅途；请查看保存或恢复提示。"}
+
+func get_journey_history_page(offset: int, limit: int) -> Dictionary:
+    return preload("res://scripts/journey_history.gd").summaries(world_save_path,offset,limit)
+
+func get_journey_archive_detail(file: String, sha: String) -> Dictionary:
+    return preload("res://scripts/journey_archive_detail.gd").inspect(world_save_path,file,sha)
+
+func get_journey_history() -> Dictionary:
+    return preload("res://scripts/journey_history.gd").summaries(world_save_path)
 
 func select_save_slot(index: int) -> bool:
     if not world_mode or index < 1 or index > 3 or chapter_transitioning or player.hp <= 0:
@@ -7334,7 +8240,9 @@ func select_save_slot(index: int) -> bool:
     if FileAccess.file_exists(path) and not candidate.read(path):
         _toast("该旅途记录无法读取，已保留原文件；请先恢复该槽备份。")
         return false
-    _save_world()
+    if not _save_world():
+        _toast("当前进度未能写入，尚未切换存档槽。")
+        return false
     chapter_transitioning = true
     _defer_region_call("_replace_with_save_slot", [index])
     return true
@@ -7353,16 +8261,46 @@ func _replace_with_save_slot(index: int, path_override: String = "") -> void:
     queue_free()
 
 func restore_save_backup(index: int = 0) -> bool:
-    if not world_mode or chapter_transitioning:
+    if not world_mode or chapter_transitioning or world_loading or (index!=0 and (index<1 or index>3)):
         return false
-    var slot := world_slot if index == 0 else clampi(index, 1, 3)
+    var slot := world_slot if index == 0 else index
+    if slot!=world_slot and not _save_world():
+        _toast("当前进度未能写入，尚未恢复其他槽备份。")
+        return false
+    # The current slot restores the file this journey actually uses.
+    var path := world_save_path if slot == world_slot else WORLD_STATE_SCRIPT.slot_path(slot)
     var recovered = WORLD_STATE_SCRIPT.new()
-    if not recovered.restore_backup(WORLD_STATE_SCRIPT.slot_path(slot)):
+    if not recovered.restore_backup(path):
         _toast("备份恢复失败：" + recovered.last_error)
         return false
     chapter_transitioning = true
-    _defer_region_call("_replace_with_save_slot", [slot])
+    _defer_region_call("_replace_with_save_slot", [slot, path])
     return true
+
+## G02: the return knot is left at the last place the player stood on
+## permanent terrain. A lift basket travels away, and ability gates or fragile
+## floors can be opened later, so standing on them never moves the knot there.
+func _update_safe_ground() -> void:
+    if player == null or not is_instance_valid(player):
+        return
+    if player.is_on_floor() and player.hp > 0 and not _ground_is_hazardous(player.global_position) and _standing_on_permanent_floor():
+        last_safe_ground = player.global_position
+
+
+func _standing_on_permanent_floor() -> bool:
+    for index in range(player.get_slide_collision_count() - 1, -1, -1):
+        var collision := player.get_slide_collision(index)
+        if collision.get_normal().dot(Vector2.UP) < 0.7:
+            continue
+        # AnimatableBody2D (lift baskets) is a StaticBody2D subclass that moves.
+        var body := collision.get_collider() as StaticBody2D
+        if body == null or not is_instance_valid(body) or body is AnimatableBody2D:
+            return false
+        if body.is_in_group("fragile_terrain") or body.is_in_group("phase_gate") or locked_gate_bodies.values().has(body):
+            return false
+        return true
+    return false
+
 
 func _ground_is_hazardous(position_value: Vector2) -> bool:
     for hazard in config.get("hazards", []):
@@ -7373,17 +8311,22 @@ func _ground_is_hazardous(position_value: Vector2) -> bool:
 func _record_death_cache() -> void:
     if not world_mode or death_recorded or world_state == null:
         return
-    death_recorded = true
     var lost := int(currency_count / 2)
-    currency_count -= lost
     var recovery := last_safe_ground if last_safe_ground != Vector2.ZERO else active_spawn
-    # Boss attempts leave currency at the outside checkpoint, beyond the arena seal.
-    if boss_spawned:
-        recovery = active_spawn
-    world_state.capture_global({"death_cache": {"region_id": String(config.get("id", "")), "position": [recovery.x, recovery.y], "currency": lost}})
+    if boss_spawned:recovery=active_spawn
+    var cache: Dictionary={"region_id":String(config.get("id","")),"position":[recovery.x,recovery.y],"currency":lost}
+    var result:=_persist_world_change({"currency":currency_count-lost,"death_cache":cache})
+    if not result.has("candidate"):
+        _toast("这次失落未能记录，请检查归途记录。")
+        return
+    # Death is already occurring: retain one coherent unsaved snapshot so the
+    # ordinary respawn save can retry it. Claim/purchase paths never do this.
+    world_state.data=result.candidate
+    currency_count=int(result.candidate.currency)
+    death_recorded=true
     _spawn_death_cache()
-    _save_world()
-    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。")
+    _toast("碎钱的一半留在归途结；再次倒下会替换旧结，能力与装备保留。" if result.ok else "这次失落已暂记在旅途中，存档尚未写入；请稍后保存。")
+
 
 func _spawn_death_cache() -> void:
     if death_cache_area != null and is_instance_valid(death_cache_area):
@@ -7420,14 +8363,17 @@ func _spawn_death_cache() -> void:
     death_cache_area = area
 
 func _recover_death_cache(area: Area2D) -> void:
-    if not world_mode or player.hp <= 0 or world_state == null:
-        return
-    var cache: Dictionary = world_state.data.get("death_cache", {})
-    _add_currency(int(cache.get("currency", 0)))
-    world_state.capture_global({"death_cache": {}})
-    area.queue_free()
-    death_cache_area = null
-    _save_world()
+    if not world_mode or player==null or player.hp<=0 or world_state==null or world_loading or world_save_blocked:return
+    if not is_instance_valid(area) or area!=death_cache_area or area.is_queued_for_deletion() or not area.is_inside_tree():return
+    var cache: Dictionary=world_state.data.get("death_cache",{})
+    if not WORLD_STATE_SCRIPT._valid_death_cache(cache) or cache.is_empty() or int(cache.currency)<=0:return
+    if String(cache.region_id)!=String(config.get("id","")) or area.global_position.distance_to(player.global_position)>INTERACTION_REACH:return
+    if area.position.distance_to(_vec2(cache.position))>1.0:return
+    var result:=_persist_world_change({"currency":currency_count+int(cache.currency),"death_cache":{}})
+    if not result.ok:_toast("归途结尚未写入；碎钱与结保持原状，可再次找回。");return
+    world_state.data=result.candidate
+    currency_count=int(result.candidate.currency)
+    area.queue_free();death_cache_area=null
     _toast("归途结已收回，遗留碎钱回到行囊。")
     _refresh_hud()
 

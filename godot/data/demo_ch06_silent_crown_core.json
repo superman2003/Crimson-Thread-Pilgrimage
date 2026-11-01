@@ -113,7 +113,7 @@
       "evidence_bell_tongue_echo": {
         "name": "证据·钟舌余响",
         "category": "Relics",
-        "description": "钟舌库挑战房留下的钟舌残响。不挡主线，却能证明你敲响过库底余响钟。"
+        "description": "钟舌库挑战房留下的钟舌残响。不挡主线，却能证明你敲响过库底余响钟。 图样可带给雨铸匠制作「冠舌调线坠」，证据不会收走。"
       }
     }
   },
@@ -121,6 +121,8 @@
     {
       "id": "crown_antechamber",
       "name": "王冠前厅",
+      "floor_id": "upper",
+      "floor_name": "冠肩与前厅",
       "range": [
         2570,
         3520
@@ -176,6 +178,8 @@
     {
       "id": "shell_walk_east",
       "name": "东冠肩",
+      "floor_id": "upper",
+      "floor_name": "冠肩与前厅",
       "range": [
         3550,
         4440
@@ -220,6 +224,8 @@
     {
       "id": "echo_rain",
       "name": "雨渠回声室",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         4440,
         5230
@@ -264,6 +270,8 @@
     {
       "id": "echo_string",
       "name": "弦室回声室",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         3990,
         4910
@@ -308,6 +316,8 @@
     {
       "id": "ring_east",
       "name": "东环廊",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         3020,
         4010
@@ -352,6 +362,8 @@
     {
       "id": "core_shaft",
       "name": "核心竖井",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         2700,
         3150
@@ -396,6 +408,8 @@
     {
       "id": "bell_tongue_vault",
       "name": "钟舌库",
+      "floor_id": "lower",
+      "floor_name": "王座底环",
       "range": [
         2460,
         2960
@@ -451,6 +465,8 @@
     {
       "id": "ring_west",
       "name": "西环廊",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         1940,
         2635
@@ -495,6 +511,8 @@
     {
       "id": "echo_obsidian",
       "name": "黑曜回声室",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         1260,
         1910
@@ -539,6 +557,8 @@
     {
       "id": "echo_salt",
       "name": "盐白回声室",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         1100,
         1820
@@ -583,6 +603,8 @@
     {
       "id": "echo_moss",
       "name": "苔庭回声室",
+      "floor_id": "middle",
+      "floor_name": "回声与环廊",
       "range": [
         1660,
         2360
@@ -638,6 +660,8 @@
     {
       "id": "crown_ribs",
       "name": "冠肋",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         2190,
         2625
@@ -682,6 +706,8 @@
     {
       "id": "throne_approach",
       "name": "王座前廊",
+      "floor_id": "lower",
+      "floor_name": "王座底环",
       "range": [
         2120,
         3200
@@ -726,6 +752,8 @@
     {
       "id": "silent_throne",
       "name": "无声王座",
+      "floor_id": "lower",
+      "floor_name": "王座底环",
       "range": [
         3240,
         3980
@@ -781,6 +809,8 @@
     {
       "id": "ascension_gate",
       "name": "升殿结局门",
+      "floor_id": "lower",
+      "floor_name": "王座底环",
       "range": [
         4020,
         4940
@@ -838,6 +868,7 @@
     "echo_moss_larva": {
       "locomotion": "ground",
       "combat_identity": "潜壳长扑，迟发回声落点",
+      "tactical_role": "ambush",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -894,6 +925,7 @@
     "echo_waterwheel_knight": {
       "locomotion": "ground",
       "combat_identity": "回声盾反击，交替快慢波",
+      "tactical_role": "guard",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -949,6 +981,7 @@
     "echo_contract_scribe": {
       "locomotion": "flight",
       "combat_identity": "悬浮封印师，低位纸页与脚下封圈",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1010,6 +1043,7 @@
     "echo_thorn_sentinel": {
       "locomotion": "stationary",
       "combat_identity": "双环荆针，间隔根刺留下穿行空隙",
+      "tactical_role": "guard",
       "move_speed": 62,
       "aggro_range": 440,
       "preferred_range": 230,
@@ -1069,6 +1103,7 @@
     "echo_pilgrim_commander_minor": {
       "locomotion": "ground",
       "combat_identity": "长枪连段与军旗落阵，攻后停顿明显",
+      "tactical_role": "alarm",
       "move_speed": 48,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -1126,6 +1161,7 @@
     "isotope_lumen": {
       "locomotion": "flight",
       "combat_identity": "微光环弹与延迟聚光，弹体可以斩回",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1184,6 +1220,7 @@
     "silent_crown_core": {
       "locomotion": "ground",
       "combat_identity": "钥戟压迫、回旋钥阵；半血后冠门封线与轮波",
+      "tactical_role": "boss",
       "move_speed": 66,
       "aggro_range": 780,
       "preferred_range": 145,
@@ -1291,6 +1328,7 @@
     "falling_clapper": {
       "locomotion": "flight",
       "combat_identity": "高悬钟舌先标记俯冲，再放低位钟浪",
+      "tactical_role": "aerial",
       "move_speed": 35,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1347,6 +1385,7 @@
     "delayed_shadow": {
       "locomotion": "flight",
       "combat_identity": "闪位后的迟发影刃，位置预警保留到出手",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -1608,7 +1647,7 @@
           8
         ]
       },
-      "terrain_id": "terrain_echo_canal_0_0",
+      "terrain_id": "terrain_echo_canal_1_0",
       "terrain_flat_span": [
         4990,
         5190
@@ -2785,6 +2824,21 @@
       "room_id": "bell_tongue_vault",
       "platform_id": "vault_floor",
       "reward_role": "optional_exploration"
+    },
+    {
+      "id": "col_branch_echo_moss",
+      "kind": "item",
+      "item_id": "crown_echo_shard",
+      "amount": 3,
+      "position": [
+        1965,
+        1355
+      ],
+      "room_id": "echo_moss",
+      "platform_id": "moss_secret_shelf",
+      "reward_role": "optional_exploration",
+      "label": "苔庭回声碎片",
+      "note": "苔庭回声暗灯旁的冠下残响，可选探索奖励。"
     }
   ],
   "interactives": [
@@ -3116,6 +3170,9 @@
     {
       "id": "E04",
       "kind": "echo_moss_larva",
+      "encounter_profile": {
+        "tactical_role": "patrol"
+      },
       "position": [
         4760,
         1412
@@ -4645,9 +4702,47 @@
           1180
         ],
         [
-          4880,
+          4816,
+          1180
+        ]
+      ],
+      "depth": 104,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": [
+        "rain_pool_floor"
+      ]
+    },
+    {
+      "id": "terrain_echo_canal_0_0_outflow_lip",
+      "kind": "soil",
+      "surface": [
+        [
+          4816,
           1180
         ],
+        [
+          4880,
+          1180
+        ]
+      ],
+      "depth": 30,
+      "texture_variants": [
+        0,
+        3,
+        1,
+        2
+      ],
+      "platform_ids": []
+    },
+    {
+      "id": "terrain_echo_canal_1_0",
+      "kind": "soil",
+      "surface": [
         [
           4990,
           1128
@@ -4665,7 +4760,6 @@
         2
       ],
       "platform_ids": [
-        "rain_pool_floor",
         "rain_wheel_stand"
       ]
     },
@@ -4715,11 +4809,11 @@
       "kind": "tunnel",
       "surface": [
         [
-          2500,
+          2580,
           2900
         ],
         [
-          2920,
+          2824,
           2900
         ]
       ],
@@ -4732,6 +4826,48 @@
       "platform_ids": [
         "vault_floor"
       ]
+    },
+    {
+      "id": "terrain_bell_vault_0_0_door_west",
+      "kind": "tunnel",
+      "surface": [
+        [
+          2500,
+          2900
+        ],
+        [
+          2580,
+          2900
+        ]
+      ],
+      "depth": 54,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": []
+    },
+    {
+      "id": "terrain_bell_vault_0_0_door_east",
+      "kind": "tunnel",
+      "surface": [
+        [
+          2824,
+          2900
+        ],
+        [
+          2920,
+          2900
+        ]
+      ],
+      "depth": 70,
+      "texture_variants": [
+        3,
+        1,
+        5
+      ],
+      "platform_ids": []
     },
     {
       "id": "terrain_moss_memory_0_0",
@@ -5255,10 +5391,16 @@
         32
       ],
       [
-        4928,
+        4992,
         1312,
-        864,
+        800,
         160
+      ],
+      [
+        4928,
+        1408,
+        64,
+        64
       ],
       [
         -256,
@@ -5778,9 +5920,9 @@
       ],
       [
         2880,
-        3072,
+        3104,
         32,
-        64
+        32
       ],
       [
         4224,
@@ -5911,11 +6053,11 @@
         ],
         [
           2912.0,
-          3072.0
+          3104.0
         ],
         [
           2880.0,
-          3072.0
+          3104.0
         ],
         [
           2880.0,
@@ -6378,8 +6520,16 @@
           1312.0
         ],
         [
-          4928.0,
+          4992.0,
           1312.0
+        ],
+        [
+          4992.0,
+          1408.0
+        ],
+        [
+          4928.0,
+          1408.0
         ],
         [
           4928.0,
@@ -6700,6 +6850,38 @@
       ],
       [
         [
+          1888.0,
+          1632.0
+        ],
+        [
+          1888.0,
+          1696.0
+        ],
+        [
+          1824.0,
+          1696.0
+        ],
+        [
+          1824.0,
+          1824.0
+        ],
+        [
+          1728.0,
+          1824.0
+        ],
+        [
+          1728.0,
+          1952.0
+        ],
+        [
+          1824.0,
+          1952.0
+        ],
+        [
+          1824.0,
+          1984.0
+        ],
+        [
           1920.0,
           1984.0
         ],
@@ -6774,38 +6956,6 @@
         [
           1888.0,
           1632.0
-        ],
-        [
-          1888.0,
-          1696.0
-        ],
-        [
-          1824.0,
-          1696.0
-        ],
-        [
-          1824.0,
-          1824.0
-        ],
-        [
-          1728.0,
-          1824.0
-        ],
-        [
-          1728.0,
-          1952.0
-        ],
-        [
-          1824.0,
-          1952.0
-        ],
-        [
-          1824.0,
-          1984.0
-        ],
-        [
-          1920.0,
-          1984.0
         ]
       ],
       [
@@ -7261,7 +7411,7 @@
         "material_amount": 2,
         "item_id": "evidence_bell_tongue_echo",
         "item_amount": 1,
-        "toast": "钟舌首清：取得钟舌余响证据，并得额外碎钱与材料。"
+        "toast": "钟舌首清：取得钟舌余响证据，并得额外碎钱与材料。图样可带给雨铸匠制作「冠舌调线坠」，证据不会收走。"
       }
     }
   ]

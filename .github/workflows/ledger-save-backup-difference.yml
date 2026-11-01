@@ -1,0 +1,44 @@
+name: T02 compare primary and backup progress
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/permanent_ability_roles.gd'
+      - 'godot/scripts/save_backup_difference_validation.gd'
+      - 'godot/scripts/save_desk.gd'
+      - 'godot/scripts/save_inspector.gd'
+      - 'godot/scripts/world_coordinates.gd'
+      - 'godot/scripts/world_state.gd'
+      - 'tools/run_save_backup_difference_contract.py'
+      - '.github/workflows/ledger-save-backup-difference.yml'
+      - 'godot/data/field_contracts.json'
+      - 'godot/data/build_catalog.json'
+      - 'godot/data/material_exchange.json'
+      - 'godot/data/world_layout.json'
+      - 'godot/data/permanent_ability_roles.json'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: save_backup_difference-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native production component contract
+        run: python3 tools/run_save_backup_difference_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/native-contract"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: save_backup_difference-logs
+          path: ${{ runner.temp }}/native-contract
+

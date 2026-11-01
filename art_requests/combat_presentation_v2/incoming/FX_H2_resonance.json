@@ -1,0 +1,181 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_resonance.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "f81784d8c64074c60a59ccb0d76ec8a6f0bb5fb9e6f32c81e7e4da4dc803f3d4",
+  "image_size": [
+    1774,
+    887
+  ],
+  "prompt_file": "FX_H2_resonance.txt",
+  "prompt_sha256": "d0f2dd0fd9404a96066f9a3cf70f350dde1b2f2a7839f28797d9c6928a52c4ed",
+  "requested_frames": 8,
+  "requested_layout": {
+    "columns": 4,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1536,
+      768
+    ]
+  },
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "requested_anchor": "body",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        406,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        105,
+        133,
+        326,
+        328
+      ],
+      "fully_transparent_pixels": 135645
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        406,
+        0,
+        882,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        474,
+        30,
+        860,
+        411
+      ],
+      "fully_transparent_pixels": 100749
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        882,
+        0,
+        1336,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        911,
+        30,
+        1306,
+        415
+      ],
+      "fully_transparent_pixels": 93653
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1336,
+        0,
+        1774,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1358,
+        30,
+        1743,
+        411
+      ],
+      "fully_transparent_pixels": 97192
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        436,
+        442,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        24,
+        470,
+        418,
+        839
+      ],
+      "fully_transparent_pixels": 102425
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        442,
+        436,
+        887,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        471,
+        467,
+        867,
+        842
+      ],
+      "fully_transparent_pixels": 95911
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        887,
+        436,
+        1338,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        915,
+        470,
+        1304,
+        840
+      ],
+      "fully_transparent_pixels": 98155
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1338,
+        436,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1375,
+        492,
+        1733,
+        841
+      ],
+      "fully_transparent_pixels": 115877
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    },
+    {
+      "path": "refs/hero_resonance.png",
+      "sha256": "19862e70869368a8b1368186849142653b3eea756129d71484b76c825525f492"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "8 cels in 4x2: segmented brass crown fragments in pale bell-silk, gather, held material changes and release. Empty centre and no character. Runtime radius registration and looping still pending.",
+    "runtime_acceptance": "pending"
+  }
+}

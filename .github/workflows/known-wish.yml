@@ -1,0 +1,48 @@
+name: N02 known wish delivery manifest
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/known_wish*.gd'
+      - 'godot/scripts/goal_desk.gd'
+      - 'godot/scripts/world_routes.gd'
+      - 'godot/data/demo_ch*.json'
+      - 'tools/run_ledger_20261028_08.py'
+      - 'tools/run_known_wish_contract.py'
+      - 'tools/test_known_wish_runner.py'
+      - '.github/workflows/known-wish.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: known-wish-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-manifest:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Runner failure propagation
+        run: python3 tools/test_known_wish_runner.py
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native asked-only and shared item requirements
+        run: python3 tools/run_known_wish_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-native"
+      - name: Original isolated goal workbench
+        run: python3 tools/run_ledger_20261028_08.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/comparison-goal"
+      - name: Two strict full-resource import passes
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/comparison-import"
+      - name: Actual World ownership and zero-write comparison
+        run: python3 tools/run_known_wish_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/comparison-world"
+      - name: Original goal and atomic wish reward contracts
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite goal_desk --suite wish_reward_atomic --suite ui_world_integration --log-dir "$RUNNER_TEMP/comparison-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: known-wish-logs
+          path: ${{ runner.temp }}/comparison-*

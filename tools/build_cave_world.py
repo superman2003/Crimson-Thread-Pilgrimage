@@ -19,6 +19,9 @@ LIFTS = [
     ('ash_floor', 'shaft_bridge_fgang', 3800),
     ('moss_bell_perch', 'ante_floor', 2440),
 ]
+# The upper greenhouse gallery crosses the free vine exit. Its hanging dock
+# follows the trellis surface so climbing from below remains possible.
+HANGING_DOCKS = {(4, 1), (5, 1)}
 
 
 def rectangle(values):
@@ -35,6 +38,15 @@ def build(path, number):
     for p in plats.values():
         x, y, w, _ = p['rect']
         protected.append(box(x - 38, y - 260, x + w + 38, y + 3) if p.get('collision_role')!='ceiling' else box(x,y,x+w,y+1))
+    # The descending cart-road seam needs the same overhead clearance as its
+    # landings. Upper scree bulk otherwise leaves a 32px wall in this gap.
+    if number == 5:
+        for left_id, right_id in [('base_cart_stand', 'base_run_b'),
+                                  ('base_run_b', 'base_shrine_step')]:
+            left = plats[left_id]['rect']
+            right = plats[right_id]['rect']
+            protected.append(box(left[0]+left[2]-38, min(left[1],right[1])-260,
+                                 right[0]+38, max(left[1],right[1])+3))
     for key in ['enemy_spawns', 'npcs', 'save_points', 'collectibles', 'interactives']:
         for obj in d.get(key, []):
             if 'position' not in obj: continue
@@ -43,6 +55,11 @@ def build(path, number):
     for obj in [d['boss'], {'position': d['player_start']}, {'position': d.get('boss_checkpoint', d['player_start'])}]:
         if not isinstance(obj['position'], list): continue
         x, y = obj['position']; protected.append(box(x-180, y-320, x+180, y+45))
+    if number == 6:
+        # The existing final-door slope needs rider-height air between its two anchors.
+        rest,threshold=plats['throne_rest_b']['rect'],plats['boss_threshold']['rect']
+        ax,ay=rest[0]+rest[2],rest[1];bx,by=threshold[0],threshold[1]
+        protected.append(Polygon([(ax,ay-100),(bx,by-100),(bx,by+3),(ax,ay+3)]))
     gates = unary_union([rectangle(g['rect']).buffer(10) for g in d.get('locked_gates', [])])
     ordered = sorted([p for p in plats.values() if p.get('route_order') is not None], key=lambda p:p['route_order'])
     links = []
@@ -118,10 +135,12 @@ def build(path, number):
         # Leave the central shaft open; the basket completes the landing gap.
         left,right=sorted([x,sx-70 if x<sx else sx+70])
         if right-left > 10:
+            hanging = (number, i) in HANGING_DOCKS
+            anchor = plats[low if i == 0 else high]
             d['platforms'].append({'id':f'cave_dock_{i}','rect':[left,y,right-left,28],
                 'color':next(iter(plats.values())).get('color','253c3a'),
-                'material':next(iter(plats.values())).get('material','moss_stone'),
-                'collision_role':'floor','route_role':'branch'})
+                'material':anchor['material'] if hanging else next(iter(plats.values())).get('material','moss_stone'),
+                'collision_role':'one_way' if hanging else 'floor','route_role':'branch'})
     d['cave_lifts']=[{'id':f'ch{number:02d}_cave_lift','x':sx,'bottom_y':max(y0,y1),
                      'top_y':min(y0,y1),'speed':300,'label':'巡礼升降笼：F 呼叫 / 乘坐'}]
     # Each room is excavated from a solid mass, not hung against an open background.

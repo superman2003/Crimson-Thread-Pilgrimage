@@ -1,0 +1,12 @@
+{
+  "base": "af210f7f5a8b919fda002ff8fff95d1eb7d2e260",
+  "scope": "Independent spawn-search optimization on main. Timing is a fixed QA combination with the preceding Player prewarm prototype, not identical to current main or final #172. Nine relevant MainLevel function bodies match this branch.",
+  "correctness": "737 frozen-reference checks, actual six-region enemies/Bosses, unchanged production polygon/rock clearance, 24 seeded blocker layouts, exact positions/support/first-score ties. Frozen old functions verified against base Git source.",
+  "matrix": "Five native GL suites passed assertions; world_death_cache_flush retains one ObjectDB exit warning, not waived or claimed globally green.",
+  "performance": "Targeted same-script E04: clearance calls1371 to44, resolve223500 to5003us, total225988 to7308us. Exact live position, support platform and movement bounds match. No wall-clock test gate added.",
+  "full_profile": "Same frozen diagnostic hash, 3 cycles/21 transitions/3 deaths/63 UI operations both before and after, no ERROR/warnings and final orphan/voice zero. Max sampled frame223184 to153701us; PackedScene initial load~1.11s remains outside that process-frame sample. Existing OS/import caches were not cleared; no other Godot process ran.",
+  "mutation": "Removing both guards triggers the one expected count-regression failure; original main_level.gd bytes restored and hash verified. Expected ERROR logs retained separately.",
+  "diagnostic_failures": "Initial subclass script was skipped by exact-path ready helper, causing early access failures. Second attempt observed only last-region profiles because region reset cleared the collection. Both archived, neither used as E04 evidence. Final targeted sampler collects each visited region.",
+  "static": "Two strict imports, npm test/campaign pass. POSIX-only31/11 fixtures skipped on Windows as before. No default suite added.",
+  "remaining": "~154ms sampled frame intervals, ~1.1s initial scene load, final combined long soak, target-hardware real traversal and current-head Windows/Linux packages remain unaccepted."
+}

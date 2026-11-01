@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_01_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "衣领上的名字由谁来定？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我只认穿衣服的人亲口认下的名字。旧衣上有空白，也不能由我挑一个填进去。",
+        "井里的刻痕说守母押上自己的心，没说衣领里每个孩子都要跟着抵押。"
+      ],
+      "reflection": "记名应当能由被记下的人决定。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母不再拦路了，衣领却不会自己有字。我还得一针一针缝。",
+          "若有人不愿把名字留在这里，我也给他留一条能拆的边。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_02",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "缝名是在替钟继续收声吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "针线可以接回散掉的东西，也可以把人绑住。师父教我先看线的另一头。",
+        "试音管的另一头曾经是住家，后来才成了收声口；手艺不能替用途作保。"
+      ],
+      "reflection": "同一种手艺，仍要一次次核对它服务的人。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "你打断了那场礼拜。我想先把衣领缝松一点，让人能抬头。",
+          "往后谁想守钟，可以来学；谁想走，也不该被线头绊住。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_03",
+      "npc": "npc_backdoor_sacristan",
+      "question": "钟龛为何还保留旧试音的口子？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "封死一个口子容易。若连它原先通向哪家门都忘了，以后只会再砌一道墙。",
+        "你看过模子，也看过井壁；一处问人听不听见，一处替人答应了。"
+      ],
+      "reflection": "保存设施不等于沿用它最后的命令。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母停下以后，我先清了管口的苔。钟会不会再响，要等街里的人来。",
+          "我不打算拿她的沉默，替所有人说一句愿意。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_04",
+      "npc": "npc_backdoor_sacristan",
+      "question": "守钟的职分能传给孩子吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "铃锤可以传，换班时辰也可以教；答应献出的东西，不能夹在工具里一并交下去。",
+        "井壁后来添的线很细。细到让人误以为它原本就在那颗心旁边。"
+      ],
+      "reflection": "传承技艺要与继承债务分开。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "现在锤落下也不会替守母完成旧礼。我得重新问谁愿意接班。",
+          "若没有人来，今天就没有这一班；不能拿孩子补空。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_05",
+      "npc": "npc_runback_scout",
+      "question": "回来的路为什么也要有人记？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "上去的人总盯着高处，下来时才发现石阶另一面没有标记。",
+        "试音模朝向街巷，提醒我路的尽头应当有人住，不只是有一扇门。"
+      ],
+      "reflection": "巡礼可以前进，也该允许返程。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母倒下后，旧路会迎来回头的人。我把下行的拐角也记了一遍。",
+          "你不必为了证明往前走过，就再走一遍危险的高台。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_06",
+      "npc": "npc_runback_scout",
+      "question": "归乡是完成使命后的奖励吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我只管把能走的路说清。是否完成了谁的使命，不该由这块石头审。",
+        "井里那份同意有自己的边界，路上的人也该有停下的边界。"
+      ],
+      "reflection": "安全折返本身不需要功绩作抵押。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母身后的门开了，并不说明每个人都必须穿过去。",
+          "歇好再走，或者回头，都比为了一个称号摔下去强。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_07",
+      "npc": "npc_gate_pilgrim",
+      "question": "守母还记得自己在等谁吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我不知道。我看见她抬锤，也看见钟口没有回声。不能替她说那就是愿意。",
+        "你带回来的刻痕至少留下了一件能核对的事：她押的是自己。"
+      ],
+      "reflection": "遗留动作不能单独证明当事人的心愿。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "你让锤停了。至于她最后听见什么，我没有站到那么近。",
+          "若要记她，请把她做过的和我们猜的分开写。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_08",
+      "npc": "npc_gate_pilgrim",
+      "question": "抵押与守护差在哪里？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "守护可以是一天一天做的事。抵押却有人拿着凭据，要求你永远不能停。",
+        "那颗心旁边后来多出的人形，就是有人把一天变成了后人的一生。"
+      ],
+      "reflection": "持续的同意不能只在很久以前问过一次。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "门开以后我仍会在这里看路，但今天是我自己决定留下。",
+          "明天若换人，也该重新问一句。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_09",
+      "npc": "npc_gear_cartographer",
+      "question": "地图为何要标住处和工坊？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "只画钟楼，整张图会像一根向上的箭；可城里还有人要取水、修衣、回家。",
+        "你见过试音模。铜管最初分到街巷，我就该把那些街巷也画出来。"
+      ],
+      "reflection": "世界地图也应当容得下日常生活。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母不再守门之后，有些人会第一次走出自家那一层。",
+          "我能给他们位置，不能替他们决定该去哪里。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_10",
+      "npc": "npc_gear_cartographer",
+      "question": "旧图上的中心就一定最重要吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "画图的人站在哪里，中心常常就落在哪里。印得久了，人会忘记那是画法。",
+        "井壁的一颗心牵向许多人；若只画心，不画后来添的线，图就帮人藏了事。"
+      ],
+      "reflection": "地图上的秩序是一种选择，需要核对。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "门后的空处我会补进去，但不会把所有路都画成朝它跪下。",
+          "你走过的回路，也是这座城的一部分。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_11",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "师父的针能证明他答应了什么吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "针只能证明他做过针线。磨损告诉我常握在哪里，不能告诉我最后一句话。",
+        "井壁刻痕与试音模能互相核对，但我还是不能把师父没说的话补上。"
+      ],
+      "reflection": "遗物提供线索，不替主人作证全部人生。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母停下以后，我更怕大家急着替沉默的人写结论。",
+          "衣领里留一点空白，也比缝上一个方便的答案好。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_12",
+      "npc": "npc_backdoor_sacristan",
+      "question": "没有钟声，换班怎么开始？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "可以敲门，也可以当面交接。钟便于让远处的人同时听见，没它也还能问人。",
+        "试音模说明街里曾参与听钟；它不是只有钟楼单向发令的口。"
+      ],
+      "reflection": "公共协作不只有一种声音可以发起。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母的锤停了，今天我就挨家走了一趟，没有替大家敲下下一声。",
+          "愿意换班的人先坐下来，把能做多久说清。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_13",
+      "npc": "npc_runback_scout",
+      "question": "我带回的证词应该先交给谁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先别把它当成换门的票。看清它说了什么，再去找与你谈过这件事的人。",
+        "刻痕与试音模让同一个问题有了两面：谁承担，又是谁决定。"
+      ],
+      "reflection": "证词的意义也能在沿途交谈中发生。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母的门已开，证词却仍然值得带回去谈。",
+          "它不必只在终点才有用。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_14",
+      "npc": "npc_gate_pilgrim",
+      "question": "打败守母就能替她解除承诺吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "第1区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "你能让她停下眼前的动作。那份约如何改变，还得靠能核对的文字与人。",
+        "井壁留下的是承诺的边界，不是一张胜利凭证。"
+      ],
+      "reflection": "战后空出的时间，应当留给理解和选择。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "如今锤已落地，我们可以从容看那些后来添上的细线。",
+          "别急着把一场战斗写成所有问题的结尾。"
+        ]
+      }
+    }
+  ]
+}

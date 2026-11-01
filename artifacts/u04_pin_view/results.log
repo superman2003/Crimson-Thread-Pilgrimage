@@ -1,0 +1,47 @@
+Running map_player_pins
+FAIL: map_player_pins: exit=1 engine_errors=18 completion_marker=False
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: failed add reaches storage and retains old pin ownership and count
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: world overview rejects a point in an unknown region
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: world overview right click inverts world origin plus zoom and pan to the correct region
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: world pin uses the same fixed projection as the atlas
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: viewing a remote pin opens only the atlas and keeps the current region
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: destination regional view shows only its own pin while preserving the others
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: restart safely ignores malformed records without rewriting the old pin payload
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: real delete button persists its selected known pin removal after restart
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+ERROR: current new-region button can add again after deletion
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/map_player_pins_validation.gd:38)
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Running world_map
+PASS: world_map
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+GODOT_REGRESSIONS suites=2 failures=1

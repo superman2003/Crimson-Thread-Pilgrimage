@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_mantis_overhead.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "551342503fdc7f9b881447a4c96001bf43ee70de990c75a2e5674673720e73e5",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_mantis_overhead.txt",
+  "prompt_sha256": "83055526765ca688228fb1b02c591660e365858f24f135cb824be66d5f7905f1",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        506,
+        505
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        27,
+        20,
+        487,
+        489
+      ],
+      "fully_transparent_pixels": 184818
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        506,
+        0,
+        1008,
+        505
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        519,
+        21,
+        987,
+        495
+      ],
+      "fully_transparent_pixels": 167187
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1008,
+        0,
+        1536,
+        505
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1028,
+        26,
+        1506,
+        495
+      ],
+      "fully_transparent_pixels": 160086
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        505,
+        506,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        16,
+        523,
+        495,
+        999
+      ],
+      "fully_transparent_pixels": 144746
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        506,
+        505,
+        1011,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        518,
+        523,
+        994,
+        1002
+      ],
+      "fully_transparent_pixels": 133831
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1011,
+        505,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1028,
+        521,
+        1505,
+        1004
+      ],
+      "fully_transparent_pixels": 132028
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/saltwhite_contract_judge.png",
+      "sha256": "b98e723c6e8d3ca6c1275847cb9e05ff2e4c2abde9233b5282591bf3d7169366"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: high hooked chitin/bone ridge descends to the right with an ash tail. Distinct high-to-low cue, not a completed ground impact. Runtime bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

@@ -1,0 +1,112 @@
+extends "res://scripts/world_archive_lower_playback.gd"
+## Input-only continuation from the normally earned judge victory.
+const GREENHOUSE_SAVE := "user://test_world_greenhouse_route.json"
+const JUDGE_SEED := "res://../artifacts/t04_salt_judge/earned_judge_seed.json"
+func _run() -> void:
+    var bytes:=FileAccess.get_file_as_bytes(JUDGE_SEED)
+    _check(not bytes.is_empty(),"normally earned judge seed exists")
+    if bytes.is_empty():quit(1);return
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(GREENHOUSE_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(GREENHOUSE_SAVE+suffix))
+    var file:=FileAccess.open(GREENHOUSE_SAVE,FileAccess.WRITE)
+    _check(file!=null,"private greenhouse save can be written")
+    if file==null:quit(1);return
+    file.store_buffer(bytes)
+    file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true
+    scene.world_save_path=GREENHOUSE_SAVE
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene
+    await _tick(15)
+    _check(scene.demo_complete and scene.active_save_point_id=="save_late_runback" and scene.currency_count==186,"restores actual judge victory and earned wallet")
+    if failures>0:await _finish();return
+    if not await _walk_without_jump(Vector2(5220,2606)):await _finish();return
+    if not await _leap(Vector2(5400,2648),999,"cleared archive threshold"):await _finish();return
+    if not await _walk_without_jump(Vector2(5490,2648)):await _finish();return
+    if not await _leap(Vector2(5710,2704),999,"cleared judge court"):await _finish();return
+    if not await _walk_without_jump(Vector2(6170,2704)):await _finish();return
+    if not await _leap(Vector2(6470,2650),35,"archive eastern dock"):await _finish();return
+    for point in [Vector2(6780,2606),Vector2(7000,2648)]:
+        if not await _walk_without_jump(point):await _finish();return
+    await _greenhouse_exit()
+    if failures>0:await _finish();return
+    if not await _walk_without_jump(Vector2(540,1780)):await _finish();return
+    var wallet: int=scene.currency_count
+    _check(not JOURNAL.owned(scene.story_flags,String(scene.config.id)),"greenhouse map has not been granted")
+    await _world_interact()
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and dialog.get_ok_button().has_focus(),"normal F opens the greenhouse map shop")
+    if not dialog.visible:await _finish();return
+    await _key(KEY_ENTER,dialog)
+    await _tick(4)
+    _check(JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==wallet-45,"normal Enter pays forty-five earned fragments for the greenhouse map")
+    _check(JOURNAL.has_quill(scene.story_flags),"normally purchased quill persists into the greenhouse")
+    if not await _leap(Vector2(750,1896),999,"greenhouse western descent"):await _finish();return
+    for point in [Vector2(545,2018),Vector2(795,2140),Vector2(615,2266)]:
+        if not await _walk_without_jump(point):await _finish();return
+    if not await _leap(Vector2(1000,2420),35,"land in the lower garden"):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(1460,2474)):await _finish();return
+    if not await _leap(Vector2(1800,2412),35,"cross the false moss bed"):await _finish();return
+    if not await _walk_without_jump(Vector2(2150,2478)):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    for point in [Vector2(2670,2422),Vector2(2995,2484)]:
+        if not await _walk_without_jump(point):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(3170,2484)):await _finish();return
+    if not await _leap(Vector2(3530,2428),35,"cross the lower root spore chest"):await _finish();return
+    if not await _walk_without_jump(Vector2(3920,2486)):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _walk_without_jump(Vector2(4350,2432)):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _leap(Vector2(4400,2432),999,"ordinary jump to duel the hovering thorn mote"):await _finish();return
+    await _recover()
+    if not await _walk_without_jump(Vector2(4510,2432)):await _finish();return
+    if not await _leap(Vector2(4730,2354),20,"beeswax room approach"):await _finish();return
+    if not await _leap(Vector2(4970,2300),20,"beeswax room landing"):await _finish();return
+    if not await _walk_without_jump(Vector2(5100,2300)):await _finish();return
+    await _world_interact()
+    _check(scene.active_save_point_id=="save_hidden_upper_respite" and scene.player.hp==scene.player.max_hp,"normal F rests at the actually reached beeswax shrine")
+    await _inspect_map_without_position()
+    if failures==0:
+        var earned:=FileAccess.open("user://test_world_greenhouse_beeswax_earned_seed.json",FileAccess.WRITE)
+        _check(earned!=null,"normal beeswax checkpoint can be archived")
+        if earned!=null:
+            earned.store_buffer(FileAccess.get_file_as_bytes(GREENHOUSE_SAVE))
+            earned.close()
+            print("GREENHOUSE_BEESWAX_EARNED_SEED ",ProjectSettings.globalize_path("user://test_world_greenhouse_beeswax_earned_seed.json"))
+    await _finish()
+
+func _greenhouse_exit() -> void:
+    steps+=1
+    _axis(1)
+    for frame in 360:
+        await _tick()
+        if _transition_busy() or scene.world_passage.active or String(scene.config.id)!="demo_ch03_saltwhite_archive" or deaths>0:break
+        if absf(scene.player.position.x-7110)<30:
+            await _world_interact()
+            break
+    _release()
+    if scene.world_passage.active:
+        _axis(signf(scene.world_passage.destination_point.x-scene.world_passage.source_point.x))
+        for frame in 3600:
+            await _tick()
+            if not scene.world_passage.active:break
+        _release()
+    for frame in 2000:
+        if not _transition_busy():break
+        await process_frame
+    await _tick(15)
+    _check(String(scene.config.id)=="demo_ch04_broken_string_greenhouse" and scene.player.position.distance_to(Vector2(460,1740))<90,"actual archive exit arrives at the greenhouse porch")
+
+func _finish() -> void:
+    _release()
+    _check(deaths==0,"greenhouse lower garden route survives without death")
+    print("GREENHOUSE_FINISH_STATE ",JSON.stringify({"region":String(scene.config.id),"position":str(scene.player.position),"hp":scene.player.hp,"energy":scene.player.energy,"wallet":scene.currency_count,"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id}))
+    print("WORLD_GREENHOUSE_ROUTE steps=%d failures=%d damage_events=%d heals=%d deaths=%d damage_suppression=false earned_checkpoint=true" % [steps,failures,damage_events,heals,deaths])
+    scene.queue_free()
+    scene=null
+    for unused in 10:await process_frame
+    quit(0 if failures==0 else 1)

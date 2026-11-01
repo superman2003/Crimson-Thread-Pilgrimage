@@ -118,7 +118,7 @@
       "evidence_ash_track": {
         "name": "证据·灰旗爪痕",
         "category": "Relics",
-        "description": "灰烬坑猎物留下的灰旗爪痕。不挡主线，却能证明你循迹敲响过灰烬余响钟。"
+        "description": "灰烬坑猎物留下的灰旗爪痕。不挡主线，却能证明你循迹敲响过灰烬余响钟。 图样可带给织线学徒制作「灰旗收针环」，证据不会收走。"
       }
     }
   },
@@ -126,6 +126,8 @@
     {
       "id": "ravine_gate",
       "name": "黑曜哨站",
+      "floor_id": "lower",
+      "floor_name": "山根与灰坑",
       "range": [
         160,
         860
@@ -181,6 +183,8 @@
     {
       "id": "base_road",
       "name": "山根古道",
+      "floor_id": "lower",
+      "floor_name": "山根与灰坑",
       "range": [
         880,
         2950
@@ -225,6 +229,8 @@
     {
       "id": "ash_pit",
       "name": "灰烬坑",
+      "floor_id": "lower",
+      "floor_name": "山根与灰坑",
       "range": [
         2990,
         3730
@@ -280,6 +286,8 @@
     {
       "id": "funicular_shaft",
       "name": "缆车井",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         2660,
         3595
@@ -324,6 +332,8 @@
     {
       "id": "lower_switchback",
       "name": "下段砌道",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         520,
         2670
@@ -368,6 +378,8 @@
     {
       "id": "pilgrim_camp",
       "name": "巡礼营地",
+      "floor_id": "middle",
+      "floor_name": "砌道与营地",
       "range": [
         80,
         1060
@@ -423,6 +435,8 @@
     {
       "id": "upper_switchback",
       "name": "上段砌道",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         1040,
         2900
@@ -467,6 +481,8 @@
     {
       "id": "watch_tower",
       "name": "瞭望塔",
+      "floor_id": "upper",
+      "floor_name": "山顶与镜池",
       "range": [
         2910,
         3570
@@ -511,6 +527,8 @@
     {
       "id": "banner_bridge",
       "name": "旗桥",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         340,
         3240
@@ -566,6 +584,8 @@
     {
       "id": "war_graves",
       "name": "巡礼军墓",
+      "floor_id": "middle",
+      "floor_name": "砌道与营地",
       "range": [
         0,
         390
@@ -621,6 +641,8 @@
     {
       "id": "mirror_approach",
       "name": "镜池前庭",
+      "floor_id": "upper",
+      "floor_name": "山顶与镜池",
       "range": [
         3580,
         4640
@@ -665,6 +687,8 @@
     {
       "id": "mirror_pool",
       "name": "镜池",
+      "floor_id": "upper",
+      "floor_name": "山顶与镜池",
       "range": [
         4680,
         5400
@@ -720,6 +744,8 @@
     {
       "id": "cable_descent",
       "name": "缆降索道",
+      "floor_id": "link",
+      "floor_name": "贯层通道",
       "range": [
         5420,
         5980
@@ -764,6 +790,8 @@
     {
       "id": "silent_gate",
       "name": "无声门",
+      "floor_id": "lower",
+      "floor_name": "山根与灰坑",
       "range": [
         5840,
         6830
@@ -821,6 +849,7 @@
     "obsidian_spearman": {
       "locomotion": "ground",
       "combat_identity": "长枪平刺与上挑，攻击距离不同",
+      "tactical_role": "patrol",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -874,6 +903,7 @@
     "phase_censor": {
       "locomotion": "flight",
       "combat_identity": "前摇标记位置，闪到侧面投出弯刃",
+      "tactical_role": "aerial",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 135,
@@ -933,6 +963,7 @@
     "silent_bugbler": {
       "locomotion": "stationary",
       "combat_identity": "号音扇弹与贴身钟波，不能追击",
+      "tactical_role": "alarm",
       "move_speed": 62,
       "aggro_range": 440,
       "preferred_range": 230,
@@ -991,6 +1022,7 @@
     "kneeling_crossbowman": {
       "locomotion": "stationary",
       "combat_identity": "跪姿瞄准后窄幅三连射，瞄准阶段可脱离射线",
+      "tactical_role": "ranged",
       "move_speed": 62,
       "aggro_range": 440,
       "preferred_range": 230,
@@ -1049,6 +1081,7 @@
     "pilgrim_chariot": {
       "locomotion": "ground",
       "combat_identity": "战车重冲，抛出灰钉形成暂时路障",
+      "tactical_role": "patrol",
       "move_speed": 40,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -1106,6 +1139,7 @@
     "silent_pilgrim_commander": {
       "locomotion": "ground",
       "combat_identity": "镜刃斜射、侧移影刺；半血后延迟镜池与掠袭",
+      "tactical_role": "boss",
       "move_speed": 66,
       "aggro_range": 780,
       "preferred_range": 145,
@@ -1208,7 +1242,8 @@
     },
     "ash_banner_imp": {
       "locomotion": "ground",
-      "combat_identity": "短身旗枪连击，跃后退刺",
+      "combat_identity": "举旗引导为附近受伤同伴回一格；击中可打断，独处仍用旗枪连击与退刺",
+      "tactical_role": "support",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -1262,6 +1297,7 @@
     "obsidian_bellwheel": {
       "locomotion": "ground",
       "combat_identity": "钟轮冲身，双向低波逼迫起跳",
+      "tactical_role": "patrol",
       "move_speed": 62,
       "aggro_range": 300,
       "preferred_range": 66,
@@ -1771,8 +1807,8 @@
         30
       ],
       "color": "241f26",
-      "material": "obsidian_basalt",
-      "collision_role": "floor",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
       "route_role": "branch",
       "art": {
         "variant": 3,
@@ -1812,7 +1848,7 @@
         2430,
         2608,
         200,
-        28
+        18
       ],
       "color": "241f26",
       "material": "obsidian_basalt",
@@ -3018,8 +3054,8 @@
         28
       ],
       "color": "241f26",
-      "material": "obsidian_basalt",
-      "collision_role": "floor",
+      "material": "ember_bridge",
+      "collision_role": "one_way",
       "route_role": "branch"
     }
   ],
@@ -3241,7 +3277,7 @@
         "leave": null
       },
       "dialogue_topics": {
-        "route": "从破旗哨站沿山根向东，灰烬绞盘接通升降笼；西侧砌道绕回营火，再沿上段石路登瞭望塔。塔顶暖灯之后才是镜池门。",
+        "route": "从破旗哨站沿山根向东，灰烬绞盘接通升降笼；西侧砌道绕回营火，再沿上段石路登瞭望塔。塔顶暖灯之后才是镜池门。 洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
         "wish": "看到反插的旗，请替它扶正。旗正了，迷路的人才能知道那里有人等过。"
       }
     },
@@ -3521,7 +3557,7 @@
       "spawn_visual_height": 40,
       "clearance": 40,
       "locomotion": "ground",
-      "combat_identity": "短身旗枪连击，跃后退刺"
+      "combat_identity": "举旗引导为附近受伤同伴回一格；击中可打断，独处仍用旗枪连击与退刺"
     },
     {
       "id": "E05",
@@ -5152,7 +5188,7 @@
           2608
         ]
       ],
-      "depth": 104,
+      "depth": 18,
       "texture_variants": [
         0,
         3,
@@ -6308,12 +6344,6 @@
         32
       ],
       [
-        1728,
-        2496,
-        32,
-        224
-      ],
-      [
         3904,
         2656,
         1600,
@@ -6328,13 +6358,13 @@
       [
         1472,
         2720,
-        288,
+        160,
         32
       ],
       [
-        2240,
+        2336,
         2720,
-        288,
+        192,
         64
       ],
       [
@@ -6346,7 +6376,7 @@
       [
         1504,
         2752,
-        256,
+        128,
         32
       ],
       [
@@ -6454,10 +6484,6 @@
       [
         [
           3424.0,
-          3008.0
-        ],
-        [
-          3424.0,
           2944.0
         ],
         [
@@ -6493,11 +6519,11 @@
           2720.0
         ],
         [
-          2240.0,
+          2336.0,
           2720.0
         ],
         [
-          2240.0,
+          2336.0,
           2784.0
         ],
         [
@@ -6517,19 +6543,11 @@
           2784.0
         ],
         [
-          1760.0,
+          1632.0,
           2784.0
         ],
         [
-          1760.0,
-          2496.0
-        ],
-        [
-          1728.0,
-          2496.0
-        ],
-        [
-          1728.0,
+          1632.0,
           2720.0
         ],
         [
@@ -7479,6 +7497,10 @@
         [
           3424.0,
           3008.0
+        ],
+        [
+          3424.0,
+          2944.0
         ]
       ],
       [
@@ -7582,18 +7604,6 @@
         ]
       ],
       [
-        [
-          2624.0,
-          1472.0
-        ],
-        [
-          2592.0,
-          1472.0
-        ],
-        [
-          2592.0,
-          1504.0
-        ],
         [
           2368.0,
           1504.0
@@ -7817,13 +7827,21 @@
         [
           2624.0,
           1472.0
+        ],
+        [
+          2592.0,
+          1472.0
+        ],
+        [
+          2592.0,
+          1504.0
+        ],
+        [
+          2368.0,
+          1504.0
         ]
       ],
       [
-        [
-          3680.0,
-          2240.0
-        ],
         [
           3680.0,
           1984.0
@@ -7839,15 +7857,15 @@
         [
           3680.0,
           2240.0
+        ],
+        [
+          3680.0,
+          1984.0
         ]
       ],
       [
         [
           3680.0,
-          2432.0
-        ],
-        [
-          3680.0,
           2368.0
         ],
         [
@@ -7861,15 +7879,20 @@
         [
           3680.0,
           2432.0
+        ],
+        [
+          3680.0,
+          2368.0
         ]
       ]
     ],
     "cell_size": 32,
+    "visibility": "normal",
     "vision_radius": 540,
     "dark_vision_radius": 360,
     "ray_count": 96,
     "walk_links": 5,
-    "design": "Excavated rooms and shafts inside opaque solid rock; local line-of-sight lighting."
+    "design": "Excavated rooms and shafts inside opaque solid rock; normal room visibility; authored dark rooms use local line-of-sight lighting."
   },
   "boss_route_via_exploration": true,
   "exploration_hint": "洞内沿地面与缓坡前进；竖井升降笼按 F 呼叫和乘坐。寻找并接通捷径即可开启 Boss 通路，无需清空全图小怪。",
@@ -8031,7 +8054,7 @@
         "material_amount": 3,
         "item_id": "evidence_ash_track",
         "item_amount": 1,
-        "toast": "灰旗首清：取得灰旗爪痕证据，并得额外碎钱与黑曜碎片。"
+        "toast": "灰旗首清：取得灰旗爪痕证据，并得额外碎钱与黑曜碎片。图样可带给织线学徒制作「灰旗收针环」，证据不会收走。"
       }
     }
   ]

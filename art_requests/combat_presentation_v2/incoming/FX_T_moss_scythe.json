@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_moss_scythe.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "ec32888c6c97e3ba23ac9c44ec70be397cb0a98b0468acdc336b159acb390405",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_moss_scythe.txt",
+  "prompt_sha256": "39fdec191d3562c07994e12a38dc9993563ff5c98c58c06935c64bb78aacb9db",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        513,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        29,
+        92,
+        492,
+        443
+      ],
+      "fully_transparent_pixels": 170003
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        513,
+        0,
+        1024,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        538,
+        70,
+        998,
+        454
+      ],
+      "fully_transparent_pixels": 147765
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1024,
+        0,
+        1536,
+        503
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1048,
+        71,
+        1512,
+        453
+      ],
+      "fully_transparent_pixels": 130964
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        503,
+        512,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        24,
+        557,
+        493,
+        953
+      ],
+      "fully_transparent_pixels": 130033
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        512,
+        503,
+        1025,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        538,
+        556,
+        1005,
+        966
+      ],
+      "fully_transparent_pixels": 120013
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1025,
+        503,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1047,
+        552,
+        1520,
+        969
+      ],
+      "fully_transparent_pixels": 107147
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/rust_crown_guardian.png",
+      "sha256": "cc92592e7ae23b9f1f6a042a99afe6eb3b2a51c5e686f38fa98be8014514d0ab"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: pale curved rake with hanging moss, tiny white flowers and bronze bell details; anticipation remains visible through the final cel. No caster or completed hit burst; exact sweep alignment pending.",
+    "runtime_acceptance": "pending"
+  }
+}

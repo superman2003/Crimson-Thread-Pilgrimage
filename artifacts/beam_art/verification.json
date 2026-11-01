@@ -1,0 +1,184 @@
+{
+  "date": "2026-10-20",
+  "base_commit": "af7204274d1e79141573491150d43f21ffa0f52f",
+  "base_branch": "codex/v04-terrain-attack-runtime",
+  "scope": "V04 four segmented beam families, sixteen source parts, five current commands",
+  "engine": "Godot 4.6.1 stable",
+  "renderer": "real OpenGL Mesa llvmpipe, controlled production attack fixtures",
+  "beam_checks": 441,
+  "beam_failures": 0,
+  "retained_projectile_checks": 300,
+  "retained_ground_hazard_checks": 375,
+  "retained_terrain_attack_checks": 609,
+  "retained_lifetime_checks": 46,
+  "mutations": [
+    {
+      "disabled": "authored beam drawing branch",
+      "checks": 441,
+      "failures": 85
+    },
+    {
+      "changed": "drawn length exceeds clipped range by 64px",
+      "checks": 441,
+      "failures": 145
+    }
+  ],
+  "restored_pass": true,
+  "suites": [
+    "enemy_effect_lifetime",
+    "character_art_prewarm",
+    "combat",
+    "combat_visual_budget",
+    "enemy_ai_behavior",
+    "enemy_lifecycle_regression",
+    "enemy_visibility",
+    "greenhouse_experience",
+    "obsidian_experience",
+    "optional_challenges",
+    "player_melee_feedback",
+    "seal_combat",
+    "world_enemy_residency",
+    "world_startup_budget"
+  ],
+  "suite_failures": 0,
+  "strict_import_passes": 2,
+  "npm_test_passed": true,
+  "campaign_passed": true,
+  "source_and_atlas_check_passed": true,
+  "workflow_structure_passed": true,
+  "preview_frames": 8,
+  "source_hashes": {
+    "erase": {
+      "sha256": "4e92ff10a732156f2c69a63a68d10ea4a4aec5365b9755deaa9f1e00baef1393",
+      "prompt_sha256": "7b566ccfb36f22fdf67032147e0745c798b1efe0837c32d7fb85261aef80b643",
+      "metadata_sha256": "996ad06eb3db5972b4e4e15a128b95df932ff6d38d63a988f7117e3f51cffb89"
+    },
+    "gate": {
+      "sha256": "3411745e23cec02d4592a7467926bab6ee9f43445ba3233ff64bb003869f9803",
+      "prompt_sha256": "d54c690f189d0209ce15e4732eaa01c794a00418dac9fa766afe8a060ed51c20",
+      "metadata_sha256": "467ad1ddc097d96073fb6e6114211c87a2910c85394b356318e458d500790815"
+    },
+    "steam": {
+      "sha256": "df3da203fa060f58339e7c4dc0b1634a72ec6ea6b08190d68fb09f01609b8231",
+      "prompt_sha256": "c7237a0fdb883de42d1d7256e2d59b9e28bc93ba922529a106000172b2430560",
+      "metadata_sha256": "fbcb5678143257ce2113be0e42d565911180cbc9aec221609e821f573fbcaf03"
+    },
+    "thread": {
+      "sha256": "8960274963c2a64c945a70bb47817c5ed569b27947dc5a52e84da7cf2255c1c4",
+      "prompt_sha256": "383769608bb30140eb9c52ebe103c6fe5d2a6718ad8d8fa3ea15e7697a99a567",
+      "metadata_sha256": "a12ce81eb5a29d895056044e26bd65fc213e4f409cc8e3d1778f1d284c838951"
+    }
+  },
+  "atlas": {
+    "dimensions": [
+      1024,
+      512
+    ],
+    "decoded_rgba_bytes": 2097152,
+    "png_bytes": 220211,
+    "rgba_sha256": "becb61a92a8671099ad41bfd85c854d826e23896f6fd2e3fbcc6049b2e6a088e",
+    "fix_alpha_border": false
+  },
+  "excluded": {
+    "godot/scripts/world_state.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "79ef8213a79e8d0352533b4f619ed2f9f44a4e1f119df86cc139f1d26e893528"
+    },
+    "godot/scripts/build_system.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3a0dc3d1ea403e9f3ebd46b41bc4a5e932ced9dddbac6c310010c3741cb1abb4"
+    },
+    "godot/scripts/main_level.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "89b94a332f49d8c683d096a9278bc686f45f64aa26bd41f56ab2bdd2fdf74d02"
+    },
+    "godot/scripts/pilgrimage_interface.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "6dcfb110d952fed7cd135f031e68a0bcf2d9f8b96e839bcdc832cb60d0202e41"
+    },
+    "godot/scripts/world_narrative.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "00ec5b28210865d96a4ea113bfd72b234686397e3f8cfa69176a9a6475b51b3c"
+    },
+    "godot/data/world_narrative.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5e90b2558969bd163c92db4a0596901646ca5af733daa8ccd6383ab83092be8f"
+    },
+    "godot/scripts/ui_world_integration_validation.gd": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "33aa198b8111f5cedf1a0a49ed6a6d3f146b4d650b5b92392a51744510aa40d4"
+    },
+    "tools/run_godot_regressions.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "4afd99333dffb83dd782c6a3ee3714a7a0998458cfa8d034e96ecc7a2bd2ba8d"
+    },
+    "tools/godot_suite_success_markers.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "d72e6b1fb077d6ea8e4951d20bedb2a17f26b3156efe708dba0ca99eef5cc210"
+    },
+    "tools/test_regression_runner.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "ae76a982dfd36fa39ff350f3d683abeaa3e8f539cfda2e2c33eaf6c6dd6f4b45"
+    },
+    "tools/validate_world_narrative.py": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "932ba7823ea00e617a9d26211db450d655f13b3cf8fb06b12459772ccb745350"
+    },
+    "package.json": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "3d0a78d670ec5d81444f0b0328cf2f5ba16da8950f4dfcbc36042efbda2a4f3a"
+    },
+    "docs/UPGRADE_TASK_LEDGER.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "5c5cdd7304da3ebd94fe362c6d7d339dd00b3310b0710f7832ce8814b1783d29"
+    },
+    "docs/UPGRADE_PROGRESS.md": {
+      "changed": false,
+      "exists_in_base": true,
+      "sha256": "9a471c55d859f66aedf8abbff9a9b26ef621cd09a6a77adc904eea11c6433c93"
+    },
+    "godot/scripts/save_recovery_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/ending_aftermath_scene.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/ending_aftermath_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/settings_remap_validation.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    },
+    "godot/scripts/capture_settings_remap.gd": {
+      "changed": false,
+      "exists_in_base": false,
+      "sha256": null
+    }
+  },
+  "limitations": [
+    "Existing ObjectDB/StringName exit warnings remain in old suites.",
+    "Controlled fixtures do not certify natural six-chapter playthrough, long-run memory or target-hardware frame time.",
+    "Local run covers 14 related registered suites; full default set is delegated to CI."
+  ]
+}

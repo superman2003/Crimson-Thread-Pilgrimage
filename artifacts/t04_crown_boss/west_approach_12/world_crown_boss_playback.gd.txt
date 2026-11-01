@@ -1,0 +1,93 @@
+extends "res://scripts/world_crown_entry_playback.gd"
+## Earned lower-loop seed -> paid map -> physical west ring -> sixth testimony.
+const CROWN_BOSS_SAVE := "user://test_world_c06_crown_boss.json"
+var observed_deaths:=0
+var observed_hp:=5
+const LOWER_SEED := "res://../artifacts/t04_crown_entry/earned_lower_seed.json"
+func _run() -> void:
+    for suffix in ["", ".bak", ".tmp"]:
+        if FileAccess.file_exists(CROWN_BOSS_SAVE+suffix):DirAccess.remove_absolute(ProjectSettings.globalize_path(CROWN_BOSS_SAVE+suffix))
+    var file:=FileAccess.open(CROWN_BOSS_SAVE,FileAccess.WRITE)
+    file.store_buffer(FileAccess.get_file_as_bytes(LOWER_SEED));file.close()
+    scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=true;scene.world_save_path=CROWN_BOSS_SAVE;root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    current_scene=scene;await _tick(15)
+    _check(scene.currency_count==529 and scene.player.hp==5 and scene.player.max_hp==6,"immutable lower seed restores old HP5 under earned heart-knot max6")
+    _check(not JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.inventory_counts.get("thread_dash",0)==0,"lower seed has unbought map and no dash")
+    if not await _heart_interact("save_ch06_lower_loop",2570):await _finish();return
+    _check(scene.player.hp==6,"normal F rest fills the earned sixth heart")
+    if not await _leap(Vector2(2220,3040),999,"cross the authored throne clapper in air"):await _finish();return
+    if not await _walk_without_jump(Vector2(2220,3040)):await _finish();return
+    var seller: Area2D=scene.get_node("npc_six_mark_keeper")
+    var price: int=preload("res://scripts/cartography_runtime.gd").seller_price(seller.get_meta("map_seller_data",{}))
+    var wallet: int=scene.currency_count
+    print("CROWN_ACTUAL_MAP_QUOTE ",JSON.stringify({"wallet":wallet,"price":price,"position":str(scene.player.position)}))
+    await _world_interact()
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and not dialog.get_ok_button().disabled,"actual F opens affordable sixth-map shop")
+    if not dialog.visible:await _finish();return
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==wallet-price,"actual Enter pays exact quoted sixth-map price")
+    if not await _walk_without_jump(Vector2(2270,3040)):await _finish();return
+    if not await _leap(Vector2(2570,2900),35,"return above the clapper from actual map seller"):await _finish();return
+    if not await _heart_interact("save_ch06_lower_loop",2570):await _finish();return
+    _check(not JOURNAL.region(scene.story_flags,String(scene.config.id)).charted.is_empty(),"actual purchased map is legally charted by normal rest")
+    if not await _walk_without_jump(Vector2(2490,2900)):await _finish();return
+    if not await _leap(Vector2(2260,2794),24,"first west step after clearing the overhead slab"):await _finish();return
+    if not await _walk_without_jump(Vector2(2135,2794)):await _finish();return
+    if not await _side_step_up(Vector2(2290,2578),2115):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    if not await _leap(Vector2(2500,2470),20,"west ring to right upper step"):await _finish();return
+    if not await _walk_without_jump(Vector2(2455,2470)):await _finish();return
+    if not await _leap(Vector2(2160,2360),20,"west-ring high walk"):await _finish();return
+    if not await _clear_nearby():await _finish();return
+    await _finish()
+func _finish() -> void:
+    _release();_check(deaths==0,"crown west continuation survives this route attempt")
+    print("CROWN_BOSS_STATE ",JSON.stringify({"pid":OS.get_process_id(),"wallet":scene.currency_count,"hp":scene.player.hp,"max_hp":scene.player.max_hp,"energy":scene.player.energy,"position":str(scene.player.position),"inventory":scene.inventory_counts,"checkpoint":scene.active_save_point_id,"deaths":deaths}))
+    print("WORLD_C06_BOSS steps=%d failures=%d deaths=%d damage_events=%d heals=%d damage_suppression=false"%[steps,failures,deaths,damage_events,heals])
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene);scene.queue_free()
+    for unused in 10:await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear();preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+    _check(await preload("res://scripts/audio_retirement.gd").drain(self),"crown Boss continuation retires audio")
+    quit(0 if failures==0 else 1)
+
+func _tick(count: int=1) -> void:
+    for unused in count:
+        await super._tick()
+        if is_instance_valid(scene) and is_instance_valid(scene.player):
+            if observed_hp>0 and scene.player.hp<=0:observed_deaths+=1
+            if steps>=8 and steps<=12 and frames%8==0:
+                var hits: Array=[]
+                for i in scene.player.get_slide_collision_count():
+                    var c: KinematicCollision2D=scene.player.get_slide_collision(i)
+                    hits.append({"collider":str(c.get_collider().get_path()),"normal":str(c.get_normal()),"point":str(c.get_position())})
+                print("CROWN_WEST_JUMP_TRACE ",JSON.stringify({"frame":frames,"position":str(scene.player.position),"velocity":str(scene.player.velocity),"air_available":scene.player.air_jump_available,"jump_input":Input.is_action_pressed("jump"),"hurt":scene.player.hurt_timer,"collisions":hits}))
+            observed_hp=scene.player.hp
+            deaths=observed_deaths
+
+func _side_step_up(target: Vector2, outside: float) -> bool:
+    steps+=1;_release();_axis(-1)
+    Input.action_press("jump");await process_frame
+    for frame in 100:
+        _axis(-1)
+        await _tick()
+        if scene.player.position.x<outside:break
+    _axis(0)
+    for rise in 40:
+        if scene.player.velocity.y>-70:break
+        await _tick()
+    Input.action_release("jump");await _tick(3)
+    _check(scene.player.air_jump_available,"earned side ascent still has its real second jump")
+    Input.action_press("jump");await process_frame
+    var cleared:=false
+    for frame in 200:
+        if scene.player.position.y<target.y-5:cleared=true
+        _axis(1 if cleared and scene.player.position.x<target.x-8 else 0)
+        await _tick()
+        if frame==24:Input.action_release("jump")
+        if scene.player.is_on_floor() and absf(scene.player.position.x-target.x)<20 and absf(scene.player.position.y-target.y)<8:
+            _release();print("CROWN_SIDE_ASCENT reached ",scene.player.position);return true
+        if scene.player.position.x>target.x-10:_axis(0)
+    _release();_check(false,"normal outside second jump blocked at "+str(scene.player.position));return false

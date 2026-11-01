@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_rain_censer_mote.png",
+  "kind": "rain_censer_mote",
+  "image_sha256": "7644be176f4229f121455c3eea3a1a092029b20b9a4697d7b7eaefa81773ae6d",
+  "prompt_sha256": "e911559205641fd7b4c0093f11475aabb39acaa3f9c381265d332cacfb2d64b8",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/rain_censer_mote.png",
+  "reference_sha256": "60a83b3a71bc090f531d6aaa7fdb3985b01e4979caa7e383015d5ae5c36ec830",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "censer_rain_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        510,
+        517
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        138,
+        98,
+        438,
+        443
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "censer_rain_warning",
+      "rect_xyxy": [
+        510,
+        0,
+        1031,
+        517
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        618,
+        98,
+        922,
+        446
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "censer_rain_warning",
+      "rect_xyxy": [
+        1031,
+        0,
+        1536,
+        517
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1099,
+        99,
+        1406,
+        447
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "censer_cloud_warning",
+      "rect_xyxy": [
+        0,
+        517,
+        525,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        78,
+        608,
+        494,
+        921
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "censer_cloud_warning",
+      "rect_xyxy": [
+        525,
+        517,
+        1014,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        559,
+        607,
+        975,
+        922
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "censer_cloud_warning",
+      "rect_xyxy": [
+        1014,
+        517,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1040,
+        606,
+        1464,
+        923
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "???????????????????????????",
+    "rows_reviewed": [
+      "censer_rain_warning",
+      "censer_cloud_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

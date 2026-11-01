@@ -1,0 +1,46 @@
+name: G01 thread action budget
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/thread_*budget*.gd'
+      - 'godot/scripts/resource_purpose*.gd'
+      - 'tools/run_thread_budget_contract.py'
+      - 'tools/run_ledger_20261028_10.py'
+      - 'tools/test_thread_budget_workflow.py'
+      - '.github/workflows/thread-budget.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: thread-budget-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Validate declared regression inputs
+        run: python3 tools/test_thread_budget_workflow.py
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native cumulative thread cost contracts
+        run: python3 tools/run_thread_budget_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/find-native"
+      - name: Recursive original resource isolation
+        run: python3 tools/run_ledger_20261028_10.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/find-ledger10"
+      - name: Two strict resource imports
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/find-import"
+      - name: Actual World reader and unchanged state
+        run: python3 tools/run_thread_budget_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/find-world"
+      - name: Original native resource and UI contracts
+        run: python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --suite build_slots_ui --suite ui_world_integration --log-dir "$RUNNER_TEMP/find-existing"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: thread-budget-logs
+          path: ${{ runner.temp }}/find-*

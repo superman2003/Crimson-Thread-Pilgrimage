@@ -30,11 +30,13 @@ func _run() -> void:
         await _region(id)
     await _remote_effects()
     var service: RefCounted = scene.world_platforms
+    preload("res://scripts/audio_retirement.gd").retire_tree(scene)
     scene.free()
     current_scene = null
     await _frames(2)
     _check(service.closed and service.records.is_empty() and service.resident.is_empty(), "host exit releases platform references")
     service = null
+    _check(await preload("res://scripts/audio_retirement.gd").drain(self), "platform fixture releases audio playback before exit")
     _clean()
     print("PLATFORM RESIDENCY METRICS ", JSON.stringify(metrics))
     if failures.is_empty():

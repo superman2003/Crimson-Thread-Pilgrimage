@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "aftermath_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "钟响以后，你还在拆哪一针？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "这件小衣的领口。名字缝好了，旧线却从扣子里绕了过去，往后一拉还是紧。",
+        "我拆了又不敢全拆。外面水位退了，屋里有人劝我先别折腾。"
+      ],
+      "reflection": "我听见了恢复报时的钟，也看见学徒剪到一半停住的旧线。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "阿禾的名字就在旁边，我不肯拆错。你带回来的那张纸，我每天还要看。",
+          "下次有人说孩子本来就欠钟一班，我至少能把纸拿出来。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_02",
+      "npc": "npc_rain_smith_liu",
+      "question": "水稳了，你为什么还没开炉？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "先补住处那根细管。旧班表又送来了，我想把工牌翻过来再念一次。",
+        "名字念起来慢，有人在后头催。我以前也是催的那个。"
+      ],
+      "reflection": "柳把工牌逐枚翻面。炉火等着，旧班表也等着。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "阿禾那枚不用再猜。剩下有认不准的，我会去找人，不拿新号压住。",
+          "你把名字带回来，我得让它真在这里被叫上一声。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_03",
+      "npc": "npc_fugitive_scribe",
+      "question": "重鸣了，原页要收回柜里吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "防潮柜还用，第二道封蜡不补。旧约正在执行，原字更得有人看。",
+        "总有人劝我别在好日子翻旧事。我听见水退，也听见门外还有人叫不出声。"
+      ],
+      "reflection": "书库没有因钟响而合上柜门。我把“自愿”的抄页留在最外层。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "名单已经回到钟庭。别人再说那些名字没人认，我知道该请他去问谁。",
+          "我自己的副本也摆着。错过的那一笔，不能只算在死去的总官头上。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_04",
+      "npc": "npc_old_gardener",
+      "question": "根不晃了，你为什么还守着西门？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "接弦养根槽"
+        }
+      ],
+      "lines": [
+        "我怕一忙起来，又拿“等树养好”当借口。水稳是好事，门也得能推。",
+        "今天搬苗的人进出，我每回都抬头看一眼，怕自己又只顾着数盆。"
+      ],
+      "reflection": "园丁守着西门。根系安稳下来，他没有把门重新扣上。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "为根笼囚徒打通退路"
+          }
+        ],
+        "lines": [
+          "那人坐在门外时，我想问他明天能帮多少活，话到嘴边咽回去了。",
+          "他已经替这里熬过太久。先把茶放着，等他自己说。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_05",
+      "npc": "npc_deserter_flagbearer",
+      "question": "军号回来，你的手又去碰旗了吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_a_done",
+          "label": "已选择重鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "碰了。你还没开口，我已经把脚并齐。",
+        "军令纸就在衣里，可纸挡不住耳朵。我得一回一回提醒自己，不要立刻应声。"
+      ],
+      "reflection": "我没有说他已经自由了。旧军号响时，他的脚先一步站直。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_deserter_order_complete",
+            "label": "交还逃旗手的召回军令"
+          }
+        ],
+        "lines": [
+          "那份召回令我没扔。想站起来时就拿出来，把“离队”两个字再读一遍。",
+          "若哪天我真回去了，别当成你白跑。来问问是不是我自己要走。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_06",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "现在能说话了，第一件衣服缝给谁？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "先给井边搬板的人补袖口。他刚才一边骂我针钝，一边把破口递过来，我竟听得想笑。",
+        "笑完还得赶工。潮没因为我们能说话就停。"
+      ],
+      "reflection": "我听见有人嫌针钝。那句不怎么好听的话，陪着学徒把第一只袖口缝好。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "名单上的名字我念了一遍，不再只用嘴形。",
+          "阿禾的孩子也能念。可我不叫他来干活抵这一声，工位缺人是我们另要商量的事。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_07",
+      "npc": "npc_rain_smith_liu",
+      "question": "不用钟令调水了，今晚谁守阀？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "泵渠分流箱"
+        }
+      ],
+      "lines": [
+        "我守前半夜。后半夜还没说定，你别看我一眼就把自己填上。",
+        "先把水尺交到接班的人手里，确认他会读。自由第一晚，我也不想叫人白淹一次。"
+      ],
+      "reflection": "我看着还空着的后半夜。谁来接，得等一个清楚的答复。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "工牌这回按名字排了，阿禾那枚单独留着。不是空出来就要谁的孩子顶上。",
+          "人手不够就少开炉，得把这笔账明摆出来。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_08",
+      "npc": "npc_lantern_sister",
+      "question": "你今晚给谁回光？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "给停在断桥那边的人。他们看见我了，还没敢动，我再等一阵。",
+        "以前多亮一拍就能把队伍叫回来。现在我宁肯一遍遍照出能落脚的石头。"
+      ],
+      "reflection": "修女把光停在断桥边。有人慢慢挪过来，没有踩成同一段拍子。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_lantern_watch_complete",
+            "label": "与修女校正归途灯号"
+          }
+        ],
+        "lines": [
+          "你同我试过的那段信号用上了。三短一长，先报平安，再说下一步。",
+          "他们回了一闪。我先回给他们，不急着朝更远处照。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_09",
+      "npc": "npc_deserter_flagbearer",
+      "question": "没有人召你了，为什么还留在营地？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "营床点名轮"
+        }
+      ],
+      "lines": [
+        "因为有人问我能不能搬水。我说能，搬两桶。第三桶他先问了一声。",
+        "我答“不行，手疼”，他真自己去了。我到现在还有点不敢信。"
+      ],
+      "reflection": "他只答应搬两桶。我没有把第三桶递过去。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_deserter_order_complete",
+            "label": "交还逃旗手的召回军令"
+          }
+        ],
+        "lines": [
+          "召回令我还收着，免得以后忘了自己曾经多怕。",
+          "今天我留到吃完饭再走。饭后想去哪，饭后再定。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_10",
+      "npc": "npc_old_gardener",
+      "question": "潮要来了，温室先搬人还是搬苗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_b_done",
+          "label": "已选择断冠"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "接弦养根槽"
+        }
+      ],
+      "lines": [
+        "先把人的路腾开。我说出口时还盯着那几盆老苗，舍不得。",
+        "你要是见我又把盆摆到门口，提醒我一声。我答应过这次先修门。"
+      ],
+      "reflection": "园丁舍不得苗，仍把西门的路让出来。我替他搬开挡脚的空盆。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "为根笼囚徒打通退路"
+          }
+        ],
+        "lines": [
+          "那人也在搬东西，我怕他是不好意思拒绝。他说今天只搬这一趟。",
+          "我把下一趟的活划给自己。他不是从根笼换到我的班表里。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_11",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "新约写好了，你怎么还把领扣改来改去？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "第一次做能解开的扣子，怕走着就散，又怕系上太难松。",
+        "写一行“可以离开”容易。真让人披着衣服走出去，手上还得改几针。"
+      ],
+      "reflection": "我试着解开领扣，再把它扣好。纸上的退出，在学徒手里变成了一件要反复试的东西。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "阿禾的名字已经缝好。新来的人想照这个样子做，我先问他自己的名字。",
+          "不能因为这一件纪念旧人，就让后面的全穿同一件。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_12",
+      "npc": "npc_fugitive_scribe",
+      "question": "有人再刮掉一个字，你怎么发现？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "让持副本的人能回来说“不一样”。柜里这一份要留，带出去的那份也要认。",
+        "我还准备在自己补的字旁署名。不能只给别人留查我的办法，却把自己的手藏着。"
+      ],
+      "reflection": "我留下一份副本。新约会不会变样，还得有人回来逐字相对。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "你送回去的名单已经有人认了。往后若副本不一样，不能拿我一句“抄错了”压过去。",
+          "请那边的人也来。认字的人和认得名字的人，都该在桌旁。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_13",
+      "npc": "npc_root_prisoner",
+      "question": "明天还来修苗床吗？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "接弦养根槽"
+        }
+      ],
+      "lines": [
+        "我说明天再看，园丁就把工具放回去了。没有叹气，也没数我欠多少顿饭。",
+        "今天我想去门外再坐一会儿。能从外面看这间屋子，感觉还很陌生。"
+      ],
+      "reflection": "我陪他走到门外，工具留在原处。他还没有答应明天。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_root_rescue_complete",
+            "label": "为根笼囚徒打通退路"
+          }
+        ],
+        "lines": [
+          "你当时肯等我把左脚放稳，我才有机会走到这里。",
+          "以后若我没来，你可以找我说话，但别一开口就问为什么没上工。"
+        ]
+      }
+    },
+    {
+      "id": "aftermath_14",
+      "npc": "npc_six_mark_keeper",
+      "question": "抵押清单注销了，你还坐在这里做什么？",
+      "requires": [
+        {
+          "kind": "flag",
+          "id": "ending_c_done",
+          "label": "已选择绯线改写"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "核对第一份换班。旧册一划就能要人来，新册多了来问的人，反而慢。",
+        "有人撤签，我就把空位留下，等别人来。今天先学会不拿旧印补上。"
+      ],
+      "reflection": "守望者的桌上出现了空位。他没有立刻去找一个该填进去的人。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "quest_bring_names_complete",
+            "label": "把名字带回钟庭"
+          }
+        ],
+        "lines": [
+          "你带回的名字曾经被刮掉过。现在有人撤签，我会保留他曾经签过的那一行，再记撤签的日期。",
+          "留下来、离开过，都算这个人的事。不是哪一栏空了，就能把他从头删掉。"
+        ]
+      }
+    }
+  ]
+}

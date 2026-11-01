@@ -368,8 +368,22 @@
           1024,
           1024
         ],
-        "scale": 0.317178,
-        "anchor_x": 375.951
+        "component_seeds": [
+          [
+            520,
+            304
+          ]
+        ],
+        "scale": 0.3818,
+        "anchor_x": 429.4,
+        "grade": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        }
       }
     ],
     "recover": [
@@ -894,159 +908,58 @@
     ]
   },
   "character_motion_v5": {
-    "tool": "tools/build_character_motion_v5.py",
     "brief": "art_requests/character_motion_v5/README.md",
-    "baseline_frames": {
-      "attack": [
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            17,
-            863,
-            343,
-            155
-          ],
-          "component_seeds": [
-            [
-              102,
-              938
-            ]
-          ],
-          "anchor_x": 111.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            296,
-            851,
-            285,
-            167
-          ],
-          "component_seeds": [
-            [
-              430,
-              947
-            ]
-          ],
-          "anchor_x": 88.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            576,
-            868,
-            212,
-            150
-          ],
-          "component_seeds": [
-            [
-              615,
-              961
-            ]
-          ],
-          "anchor_x": 64.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            793,
-            898,
-            222,
-            119
-          ],
-          "component_seeds": [
-            [
-              849,
-              965
-            ]
-          ],
-          "anchor_x": 103.0
-        }
-      ],
-      "recover": [
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            27,
-            1027,
-            211,
-            189
-          ],
-          "component_seeds": [
-            [
-              91,
-              1138
-            ]
-          ],
-          "anchor_x": 101.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            281,
-            1028,
-            254,
-            188
-          ],
-          "component_seeds": [
-            [
-              302,
-              1128
-            ]
-          ],
-          "anchor_x": 103.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            554,
-            1031,
-            217,
-            184
-          ],
-          "component_seeds": [
-            [
-              686,
-              1145
-            ]
-          ],
-          "anchor_x": 86.0
-        },
-        {
-          "sheet": "motion_expanded.png",
-          "region": [
-            826,
-            1025,
-            143,
-            191
-          ],
-          "component_seeds": [
-            [
-              946,
-              1140
-            ]
-          ],
-          "anchor_x": 70.0
-        }
-      ]
-    },
-    "references": {
-      "G_echo_contract_scribe_attack3.png": {
-        "area": 11816,
-        "anchor_offset": 26.5
-      }
-    },
+    "tool": "tools/build_character_motion_v5.py",
     "sheets": [
       {
         "image": "G_echo_contract_scribe_attack3.png",
-        "sha256": "0e5f7a1e6aee23b1afb58945888c0ec1cd7501917bc4ca002a0411e80730112b",
+        "image_sha256": "0e5f7a1e6aee23b1afb58945888c0ec1cd7501917bc4ca002a0411e80730112b",
+        "op": "replace_frames",
         "animation": "attack",
-        "mode": "frame",
-        "index": 3,
-        "frames": 1,
-        "scale": 0.317178
+        "scale": 0.3818,
+        "anchors": [
+          429.4
+        ],
+        "grade": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[0]": 0.3818
+          }
+        }
       }
     ],
-    "rig_half_parity": 0
+    "changes": [
+      {
+        "image": "G_echo_contract_scribe_attack3.png",
+        "op": "replace_frames",
+        "animation": "attack",
+        "replaced": {
+          "3": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              793,
+              898,
+              222,
+              119
+            ],
+            "component_seeds": [
+              [
+                849,
+                965
+              ]
+            ],
+            "anchor_x": 103.0
+          }
+        }
+      }
+    ]
   }
 }

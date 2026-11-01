@@ -379,6 +379,31 @@ func run() -> void:
 	scene._start_optional_challenge(ch05)
 	await tick(2)
 	check(scene.player.global_position.x < ch05_lock.position.x, "ch05 seal push keeps the player inside left of the wall")
+	# Real authored actors, terrain, challenge membership and automatic AI ticks.
+	# This is a positioned, invulnerable encounter fixture, not T04 playthrough.
+	var flag_bearer := challenge_enemy("CH05_N2")
+	var spear_fighter := challenge_enemy("CH05_N1")
+	check(flag_bearer != null and spear_fighter != null and flag_bearer.tactical_role == "support", "the World challenge builds its flag bearer with the support role")
+	if flag_bearer != null and spear_fighter != null:
+		spear_fighter.take_hit(1, spear_fighter.direction)
+		var hurt_hp: int = spear_fighter.hp
+		var money_before_mend: int = scene.currency_count
+		var observed_channel := false
+		for unused in 240:
+			if flag_bearer.state == "support":
+				observed_channel = true
+				break
+			await tick()
+		check(observed_channel and hurt_hp < spear_fighter.max_hp, "the live grave encounter channels for its actually wounded companion")
+		if observed_channel:
+			var capture_path := OS.get_environment("B01_SUPPORT_CAPTURE")
+			if not capture_path.is_empty() and DisplayServer.get_name() != "headless":
+				await RenderingServer.frame_post_draw
+				check(scene.get_viewport().get_texture().get_image().save_webp(capture_path) == OK, "native GL support-channel capture saved")
+			for unused in 90:
+				if spear_fighter.hp != hurt_hp: break
+				await tick()
+		check(spear_fighter.hp == hurt_hp + 1 and scene.currency_count == money_before_mend, "automatic World support restores one HP without granting currency")
 	scene._clear_active_challenge(false)
 	await tick(2)
 	await run_challenge_clear("ch05_war_graves_trial", "evidence_lantern_graves_echo")

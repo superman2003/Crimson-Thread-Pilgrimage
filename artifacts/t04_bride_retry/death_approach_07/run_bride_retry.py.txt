@@ -1,0 +1,19 @@
+"""Actual Bride retry continuation from the normally earned mirror shrine."""
+from pathlib import Path
+import argparse,hashlib,json,gzip,os,subprocess,time,re,shutil
+from run_damage_route import freeze
+r=Path(__file__).resolve().parents[1]
+def sources():
+ d=freeze()
+ for n in ['godot/scripts/world_bride_retry_playback.gd','tools/run_bride_retry.py','artifacts/t04_obsidian_tower/earned_mirror_seed.json']:
+  d[n]=hashlib.sha256((r/n).read_bytes()).hexdigest()
+ return d
+p=argparse.ArgumentParser();p.add_argument('--log-dir',type=Path,required=True);p.add_argument('--phase',default='death');p.add_argument('--native-gl',action='store_true');a=p.parse_args();a.log_dir.mkdir(parents=True,exist_ok=True);before=sources();assert before['artifacts/t04_obsidian_tower/earned_mirror_seed.json']=='5ac89dd500d23d4aa7c8fd7cb59cd92ae9c932f19d1dcf981688e148dfe73f68'
+for n in ['godot/scripts/world_bride_retry_playback.gd','tools/run_bride_retry.py']:(a.log_dir/(Path(n).name+'.txt')).write_bytes((r/n).read_bytes())
+c=[str(Path(os.environ['TEMP'])/'ctp-godot-4.6.1/Godot_v4.6.1-stable_win64.exe'),*(['--position','-32000,-32000'] if a.native_gl else ['--headless']),'--audio-driver','Dummy','--rendering-method','gl_compatibility','--fixed-fps','60','--path',str(r/'godot'),'--script',str(r/'godot/scripts/world_bride_retry_playback.gd'),'--','--bride-phase='+a.phase];t=time.monotonic()
+with (a.log_dir/'runtime.log').open('wb') as f:
+ try:code=subprocess.run(c,stdout=f,stderr=subprocess.STDOUT,timeout=180).returncode
+ except subprocess.TimeoutExpired:code=-1
+after=sources();text=(a.log_dir/'runtime.log').read_text(encoding='utf-8',errors='replace');errors=re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$',text,re.M);m=re.search(r'^WORLD_C05_BRIDE phase='+a.phase+r' failures=0 deaths=\d+ damage_suppression=false$',text,re.M)
+for label,data in [('before',before),('after',after)]:(a.log_dir/f'source-{label}.json.gz').write_bytes(gzip.compress(json.dumps(data,indent=2).encode(),mtime=0))
+v={'exit':code,'seconds':round(time.monotonic()-t,2),'timeout':180,'errors':errors,'warnings':text.count('ObjectDB instances leaked'),'source_unchanged':before==after,'passed':code==0 and not errors and bool(m) and before==after};(a.log_dir/'verification.json').write_text(json.dumps(v,indent=2)+'\n');print(v);raise SystemExit(0 if v['passed'] else 1)

@@ -1,7 +1,15 @@
 extends Area2D
 
+const SOUND_FILTER := preload("res://scripts/enemy_sound_filter.gd")
+const CONTACT_ART := preload("res://scripts/player_contact_art.gd")
+const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
+
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
+var boss_skill_texture: Texture2D
+const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
+var minor_skill_texture: Texture2D
 var locomotion := "ground"
 var flight_clock := 0.0
 var hover_height := 0.0
@@ -121,6 +129,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
     effect.length=float(command.get("beam_length",360))
+    effect.beam_max_length=effect.length
     if effect_kind == "beam" and is_inside_tree():
         if get_parent().has_method("_ensure_collision_segment"):
             get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
@@ -142,6 +151,8 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.steering=float(command.get("steering",0))
     effect.impact_pool=bool(command.get("impact_pool",false))
     effect.owner_actor=self
+    effect.boss_command_id=String(command.get("id","")) if BOSS_SKILL_ART.matches(self,command) else ""
+    effect.minor_command_id=String(command.get("id","")) if MINOR_SKILL_ART.matches(self,command) else ""
     # Freed Object references cannot be converted to a typed lambda argument.
     # Prune in place, retaining the typed array and never dereferencing stale nodes.
     for index in range(owned_attack_effects.size() - 1, -1, -1):
@@ -190,6 +201,8 @@ func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
             var delay: float = (float(command.get("windup",.6)) if warning else 0.0)+float(command.get("warning",.65))+i*(.12 if type=="rootline" else 0.0)
             _effect("eruption" if type=="rootline" else "pool",Vector2(x,floor_y-5),Vector2.ZERO,command,delay,float(command.get("hazard_life",.7)))
     elif type=="blink":
+        BOSS_SKILL_ART.spawn_departure(self,command)
+        MINOR_SKILL_ART.spawn_departure(self,command)
         var x := attack_target.x-attack_direction*float(command.get("blink_offset",115))
         global_position.x=clampf(x,platform_min_x,platform_max_x)
         var target := _target_player()
@@ -221,6 +234,10 @@ const SFX := {
     "boss_windup_lethal": "res://assets/audio/sfx/generated/boss_windup_lethal.ogg",
     # 精英遭遇仪式起手（encounter_role 含 elite 的敌人首次进战）。
     "elite_ritual_start": "res://assets/audio/sfx/generated/elite_ritual_start.ogg",
+    # B01 职责提示：伏击现身、报警、支援引导各有专属声音（_role_cue）。
+    "role_ambush_reveal": "res://assets/audio/sfx/generated/enemy_ambush_reveal.ogg",
+    "role_alarm_call": "res://assets/audio/sfx/generated/enemy_alarm_call.ogg",
+    "role_support_mend": "res://assets/audio/sfx/generated/enemy_support_mend.ogg",
     # 章节 beat 叠层（audio_visual_manifest chapter beats）：章节条件按敌人材质
     # （death_sfx_key，main_level 按章节 art theme 写入）或 boss kind 判定。
     "ch02_beat_water_hammer": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
@@ -308,6 +325,25 @@ var last_attack_id := ""
 const MAX_SIMULTANEOUS_ATTACKERS := 2
 const ATTACKER_COORDINATION_RADIUS := 560.0
 const TARGET_MEMORY_SECONDS := 2.4
+## B01 species roles (original_creature_combat.json tactical_role). Most roles
+## keep the shared decision layer; ambush, alarm and guard change who engages,
+## who is told and where a lost target is searched for.
+const TACTICAL_ROLES := ["patrol", "ambush", "guard", "ranged", "aerial", "alarm", "support", "boss"]
+const AMBUSH_TRIGGER_RANGE := 150.0
+const ALARM_RADIUS := 420.0
+const ALARM_COOLDOWN := 8.0
+const SUPPORT_RADIUS := 260.0
+const SUPPORT_WINDUP := 0.9
+const SUPPORT_COOLDOWN := 8.0
+var support_cooldown := 0.0
+## A revealed ambusher holds this long before moving or striking.
+const AMBUSH_REVEAL_HOLD := 0.35
+var reveal_hold := 0.0
+## Waiting at a post or lurking is not combat; the music layer reads this.
+const CALM_DECISIONS := ["patrol", "return", "lurk", "hold_post", "return_post"]
+## Role cues raised by this actor (diagnostic; audio is skipped headless).
+var role_cue_counts := {}
+var support_target: WeakRef
 const ATTACK_ROLES := {
     "anti_air": ["nova", "fan", "projectile", "mortar"],
     "counter": ["guard", "retreat", "feint", "blink", "melee", "combo"],
@@ -321,6 +357,12 @@ var attack_repeat_count := 0
 var waiting_for_turn := false
 var last_seen_position := Vector2.ZERO
 var memory_timer := 0.0
+var tactical_role := "patrol"
+var alarm_cooldown := 0.0
+## Searching a point another actor called out; already clamped to this territory.
+var alarm_search := false
+## Allies told by this actor's most recent alarm (diagnostic, not gameplay).
+var alarm_alerted := 0
 var patrol_direction := 1
 var patrol_pause_timer := 0.0
 var recent_hit_times: Array[float] = []
@@ -341,10 +383,14 @@ var windup_vfx_tween: Tween
 var requested_sprite_flip := false
 var current_animation_has_explicit_direction := false
 # A held wind-up (charge) or travelling strike (travel) switches from its
-# one-shot cels to an authored loop once the one-shot has been shown.
-const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2}
+# one-shot cels to an authored loop once the one-shot has been shown; a
+# recovery bridge hands over to the shared recovery (or idle) the same way.
+const POSE_LOOP_LEAD := {"windup": 0.42, "active": 0.2, "recover": 0.18}
 var pose_loop_animation := ""
 var pose_loop_at := 0.0
+## A follow-up that is not a loop (a bridge's shared recovery) is fitted to the
+## time left in the state instead of playing at its own speed.
+var pose_loop_fit := 0.0
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
@@ -366,6 +412,8 @@ func prepare_presentation() -> void:
     if presentation_prepared: return
     _build_shape()
     _build_sprite()
+    if is_boss: boss_skill_texture = BOSS_SKILL_ART.texture_for(kind)
+    MINOR_SKILL_ART.prepare(self)
     presentation_prepared = true
 
 func _ready() -> void:
@@ -381,7 +429,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-    if dying or is_queued_for_deletion() or not world_residency_active():
+    if dying or is_queued_for_deletion():
+        return
+    if not world_residency_active():
+        if state == "support": _finish_support()
         return
     # UI pause must not depend on lure/interference target selection.
     var player_node := get_tree().get_first_node_in_group("player")
@@ -399,6 +450,7 @@ func _physics_process(delta: float) -> void:
         pose_loop_animation = ""
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
+        BOSS_SKILL_ART.spawn_phase(self)
         if get_parent().has_method("_toast"):
             get_parent()._toast(String(ai_profile.get("phase_name","第二阶段")))
     if phase_pause>0:
@@ -413,7 +465,9 @@ func _physics_process(delta: float) -> void:
     else:
         last_player_command = "none"
 
-    if state == "windup":
+    if state == "support":
+        _update_support(delta, target)
+    elif state == "windup":
         _update_windup(delta)
     elif state == "active":
         _update_active(delta)
@@ -492,6 +546,8 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     ai_commands = ai_profile.get("attacks", [])
     for command in ai_commands:
         cooldowns[String(command.get("id", "attack"))] = float(command.get("start_cooldown", 0.0))
+    tactical_role = "boss" if is_boss else String(ai_profile.get("tactical_role", "patrol"))
+    if not TACTICAL_ROLES.has(tactical_role): tactical_role = "patrol"
 
 
 func _apply_elite_profile(elite: Dictionary) -> void:
@@ -511,7 +567,12 @@ func _apply_elite_profile(elite: Dictionary) -> void:
         visual_scale *= float(elite.get("visual_scale_mult", 1.0))
 
 
+func contact_visual_call_serial() -> int:
+    return int(get_meta(CONTACT_ART.CALL_META, 0))
+
+
 func take_hit(amount: int, hit_direction: int) -> void:
+    var contact_call := CONTACT_ART.begin_receiver_call(self)
     if dying or is_queued_for_deletion() or not world_residency_active() or amount <= 0:
         return
     if bool(ai_profile.get("front_guard",false)) and String(active_attack.get("type",""))=="guard" and state in ["windup","active"] and hit_direction==-direction:
@@ -523,7 +584,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
         _play_sfx("hit_kill", -5.0, 1.0, 0)
     else:
         _play_sfx(_hit_tier_key(), -6.0)
-    _spawn_hit_spark(hit_direction)
+    _spawn_hit_spark(hit_direction, contact_call)
     var armored := not is_boss and hp - amount > 0 and _hit_is_armored()
     if not armored:
         pose_loop_animation = ""
@@ -643,6 +704,9 @@ func get_ai_debug_state() -> Dictionary:
         "attack_desire_threshold": _attack_desire_threshold(),
         "last_player_command": last_player_command,
         "last_ai_decision": last_ai_decision,
+        "tactical_role": tactical_role,
+        "alarm_alerted": alarm_alerted,
+        "support_cooldown": support_cooldown,
         "last_attack_id": last_attack_id,
         "reads_player_commands": true,
         "command_read_count": command_read_count,
@@ -666,6 +730,9 @@ func _tick_timers(delta: float) -> void:
     contact_timer = maxf(0.0, contact_timer - delta)
     ai_clock += delta
     memory_timer = maxf(0.0, memory_timer - delta)
+    alarm_cooldown = maxf(0.0, alarm_cooldown - delta)
+    support_cooldown = maxf(0.0, support_cooldown - delta)
+    reveal_hold = maxf(0.0, reveal_hold - delta)
     poise_timer = maxf(0.0, poise_timer - delta)
     poise_cooldown = maxf(0.0, poise_cooldown - delta)
     backstep_cooldown = maxf(0.0, backstep_cooldown - delta)
@@ -696,7 +763,7 @@ func _set_flash_amount(amount: float) -> void:
 
 
 func _is_attack_state() -> bool:
-    return state == "windup" or state == "active" or state == "recover"
+    return state in ["windup", "active", "recover", "support"]
 
 
 func _clamp_to_arena() -> void:
@@ -736,6 +803,7 @@ func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
 func reset_for_respawn() -> void:
     if dying or is_queued_for_deletion():
         return
+    CONTACT_ART.clear_receiver(self)
     _cancel_attack_effects()
     _clear_telegraph()
     for tween in combat_tweens:
@@ -776,6 +844,13 @@ func reset_for_respawn() -> void:
     boss_reposition_target_x = spawn_position.x
     engage_announced = false
     boss_phase_shift_played = false
+    memory_timer = 0.0
+    alarm_cooldown = 0.0
+    alarm_alerted = 0
+    alarm_search = false
+    support_cooldown = 0.0
+    reveal_hold = 0.0
+    role_cue_counts.clear()
     state_timer = 0.0
     contact_timer = 0.0
     flash_timer = 0.0
@@ -815,7 +890,7 @@ func _face_target(target: Node2D) -> void:
     _set_sprite_flip(direction < 0)
 
 
-func _has_line_of_sight(target: CharacterBody2D) -> bool:
+func _has_line_of_sight(target: CollisionObject2D) -> bool:
     if target == null or not is_instance_valid(target) or not is_inside_tree():
         return false
     if get_parent().has_method("_ensure_collision_segment"):
@@ -848,27 +923,191 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
             global_position.x += step
         return
     var aggro_range := float(ai_profile.get("aggro_range", 220.0 if not is_boss else 460.0))
-    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, aggro_range) and _has_line_of_sight(target)
+    var tracking := memory_timer > 0.0
+    var engage_range := _fresh_engage_range(aggro_range) if not tracking else aggro_range
+    var engaged := target != null and _target_inside_leash(target) and _target_in_engage_window(target, engage_range) and _has_line_of_sight(target)
     if engaged and not engage_announced:
         _announce_engagement()
     _update_attack_desire(delta, target, engaged)
-    if _should_return_to_spawn(target, aggro_range):
+    if engaged or memory_timer <= 0.0:
+        alarm_search = false
+    # While answering a call, only leaving the territory sends an ally home; the
+    # player's own position (outside this leash) must not cancel the search.
+    if _should_return_to_spawn(null if alarm_search else target, aggro_range):
         last_ai_decision = "return"
         _return_to_spawn(delta)
         return
     if engaged:
+        if not tracking and tactical_role == "ambush":
+            _role_cue("ambush_reveal")
+            reveal_hold = AMBUSH_REVEAL_HOLD
+        if not tracking and tactical_role == "alarm" and alarm_cooldown <= 0.0:
+            _raise_alarm(target)
         last_seen_position = target.global_position
         memory_timer = TARGET_MEMORY_SECONDS
+        if reveal_hold > 0.0:
+            # The reveal itself is the tell: face the player, then act.
+            last_ai_decision = "ambush:reveal"
+            _face_target(target)
+            _set_enemy_animation("idle")
+            return
+        if _try_start_support():
+            return
         if _try_start_attack(target):
             return
         _move_in_combat(delta, target)
         return
     waiting_for_turn = false
     if memory_timer > 0.0 and not is_boss:
+        if tactical_role == "guard":
+            # A guard does not leave its post to search; it resumes watch.
+            _return_to_post(delta, "hold_post")
+            return
         _investigate(delta)
+        return
+    if tactical_role == "ambush":
+        _return_to_post(delta, "lurk")
+        return
+    if tactical_role == "guard":
+        _return_to_post(delta, "hold_post")
         return
     last_ai_decision = "patrol"
     _patrol(delta)
+
+
+## An ambusher reveals itself only once the player is close; after that, and
+## for every role while tracking, the species' ordinary aggro range applies.
+func _fresh_engage_range(aggro_range: float) -> float:
+    if tactical_role != "ambush":
+        return aggro_range
+    return minf(aggro_range, float(ai_profile.get("ambush_trigger_range", AMBUSH_TRIGGER_RANGE)))
+
+
+## Ambushers and guards wait at their spawn instead of patrolling or searching.
+func _return_to_post(delta: float, waiting_decision: String) -> void:
+    var dx := spawn_position.x - global_position.x
+    if locomotion == "stationary" or absf(dx) <= 6.0:
+        last_ai_decision = waiting_decision
+        _set_enemy_animation("idle")
+        return
+    last_ai_decision = "return_post"
+    direction = -1 if dx < 0.0 else 1
+    _set_sprite_flip(direction < 0)
+    position.x += direction * minf(absf(dx), _movement_speed() * 0.6 * delta)
+    _clamp_movement_bounds()
+    _set_enemy_animation("walk")
+
+
+## Bells, horns and banners tell nearby idle allies where the player was seen.
+## Allies still need their own line of sight to engage and keep their leash.
+func _raise_alarm(target: CharacterBody2D) -> void:
+    alarm_cooldown = ALARM_COOLDOWN
+    alarm_alerted = 0
+    _role_cue("alarm_call")
+    for node in get_tree().get_nodes_in_group("enemy"):
+        if node == self or not is_instance_valid(node) or node.is_queued_for_deletion() or not node.has_method("hear_alarm"):
+            continue
+        if node.has_method("world_residency_active") and not node.world_residency_active():
+            continue
+        if (node as Node2D).global_position.distance_to(global_position) > ALARM_RADIUS:
+            continue
+        if node.hear_alarm(target.global_position):
+            alarm_alerted += 1
+
+
+func hear_alarm(seen_at: Vector2) -> bool:
+    if is_boss or dying or memory_timer > 0.0 or _is_attack_state():
+        return false
+    # Search toward the call, but only to the edge of this actor's own territory.
+    last_seen_position = seen_at
+    if leash_radius > 0.0:
+        var reach := maxf(0.0, leash_radius - 20.0)
+        last_seen_position.x = clampf(seen_at.x, spawn_position.x - reach, spawn_position.x + reach)
+    memory_timer = TARGET_MEMORY_SECONDS
+    alarm_search = true
+    return true
+
+
+## A flag bearer can mend one wounded ally while it sees the player. It keeps
+## its ordinary attacks when alone; support never heals a boss or another
+## supporter. A weak target and release-time checks prevent delayed cross-room
+## healing, resurrection and keeping retired actors alive.
+func _can_receive_support() -> bool:
+    return not is_boss and tactical_role != "support" and not dying and not is_queued_for_deletion() and world_residency_active() and hp > 0 and hp < max_hp
+
+
+func _support_ally_valid(ally: Area2D) -> bool:
+    return ally != null and ally != self and ally.get_parent() == get_parent() and ally.get_meta("optional_challenge_id", "") == get_meta("optional_challenge_id", "") and ally.has_method("_can_receive_support") and ally._can_receive_support() and global_position.distance_to(ally.global_position) <= SUPPORT_RADIUS and absf(global_position.y - ally.global_position.y) <= 90.0 and _has_line_of_sight(ally)
+
+
+func _try_start_support() -> bool:
+    if tactical_role != "support" or is_boss or support_cooldown > 0.0 or trip_timer > 0.0 or lure_timer > 0.0 or interference_timer > 0.0:
+        return false
+    var chosen: Area2D
+    var lowest_health := 1.0
+    var nearest := INF
+    for node in get_tree().get_nodes_in_group("enemy"):
+        var ally := node as Area2D
+        if not _support_ally_valid(ally): continue
+        var health := float(ally.hp) / float(ally.max_hp)
+        var distance := global_position.distance_squared_to(ally.global_position)
+        if health < lowest_health or (is_equal_approx(health, lowest_health) and distance < nearest):
+            chosen = ally
+            lowest_health = health
+            nearest = distance
+    if chosen == null: return false
+    _clear_telegraph()
+    support_target = weakref(chosen)
+    support_cooldown = SUPPORT_COOLDOWN  # interruptions still spend the attempt
+    state = "support"
+    state_timer = SUPPORT_WINDUP
+    last_ai_decision = "support:windup"
+    waiting_for_turn = false
+    # Directional clips read attack_direction while channeling; face the ally.
+    _face_target(chosen)
+    attack_direction = direction
+    _set_enemy_animation("attack", true)
+    _pose_sprite("windup")
+    _fit_animation_duration(SUPPORT_WINDUP)
+    _role_cue("support_mend")
+    if MINOR_SKILL_ART.start_support(self): return true
+    var link := Line2D.new()
+    link.name = "EnemySupportLink"
+    link.width = 2.0
+    link.default_color = Color(0.48, 0.88, 0.75, 0.9)
+    VISUAL_POLICY.place_danger(link, true)
+    add_child(link)
+    windup_vfx = link
+    _update_support_link(chosen)
+    return true
+
+
+func _update_support_link(ally: Area2D) -> void:
+    if windup_vfx == null or not is_instance_valid(windup_vfx): return
+    var end := to_local(ally.global_position + Vector2(0, -54))
+    (windup_vfx as Line2D).points = PackedVector2Array([Vector2(0, -48), end, end + Vector2(-8, 0), end + Vector2(0, -10), end + Vector2(8, 0), end + Vector2(0, 10), end])
+
+
+func _update_support(delta: float, target: CharacterBody2D) -> void:
+    var ally := support_target.get_ref() as Area2D if support_target != null else null
+    var aggro_range := float(ai_profile.get("aggro_range", 300.0))
+    if not _support_ally_valid(ally) or target == null or not _target_inside_leash(target) or not _target_in_engage_window(target, aggro_range) or not _has_line_of_sight(target) or lure_timer > 0.0 or interference_timer > 0.0 or trip_timer > 0.0:
+        _finish_support()
+        return
+    _update_support_link(ally)
+    state_timer -= delta
+    if state_timer <= 0.0:
+        ally.hp = mini(ally.max_hp, ally.hp + 1)
+        MINOR_SKILL_ART.release_support(self,ally)
+        _finish_support()
+
+
+func _finish_support() -> void:
+    _clear_telegraph()
+    state = "recover"
+    state_timer = 0.55
+    last_ai_decision = "support:recover"
+    _pose_sprite("recover")
 
 
 func _investigate(delta: float) -> void:
@@ -1374,6 +1613,10 @@ func _count_other_attackers(target: CharacterBody2D) -> int:
 func _is_aware_of(target: CharacterBody2D) -> bool:
     if is_boss or memory_timer > 0.0:
         return true
+    if tactical_role == "ambush":
+        # A lurking ambusher must not turn toward the player before it reveals.
+        var reveal := _fresh_engage_range(float(ai_profile.get("aggro_range", 220.0)))
+        return _target_in_engage_window(target, reveal) and _has_line_of_sight(target)
     var aggro_range := float(ai_profile.get("aggro_range", 220.0))
     return _target_in_engage_window(target, aggro_range * 1.1)
 
@@ -1542,6 +1785,10 @@ func _aim_attack(command: Dictionary, target: CharacterBody2D) -> void:
 
 
 func _update_active(delta: float) -> void:
+    # A zero step evaluates contact in place; only invalid or negative steps stop.
+    if not is_finite(delta) or delta < 0.0: return
+    delta = minf(delta, maxf(0.0, state_timer))
+    var previous_position := global_position
     var attack_type := String(active_attack.get("type", "melee"))
     attack_elapsed+=delta
     var progress := clampf(attack_elapsed/maxf(.01,float(active_attack.get("active",.24))),0,1)
@@ -1562,9 +1809,10 @@ func _update_active(delta: float) -> void:
         var sway := sin(state_timer * TAU * 8.0) * float(active_attack.get("feint_sway", 78.0)) * delta
         position.x += attack_direction * sway
     _clamp_movement_bounds()
+    global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, previous_position, global_position)
 
     if attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6):
-        _try_damage_player(active_attack)
+        _try_damage_player(active_attack, previous_position)
     if dying or is_queued_for_deletion():
         return
     if bool(active_attack.get("trail",false)):
@@ -1581,11 +1829,12 @@ func _update_active(delta: float) -> void:
         _pose_sprite("recover", active_attack)
         _clear_telegraph()
         if attack_type=="vault":
-            global_position.y=attack_start_position.y
+            global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, global_position, Vector2(global_position.x, attack_start_position.y))
 
 
 func _update_recover(delta: float) -> void:
     state_timer -= delta
+    _advance_pose_loop()
     if state_timer <= 0.0:
         active_attack = {}
         state = "patrol"
@@ -1599,13 +1848,9 @@ func _update_recover(delta: float) -> void:
         _pose_sprite("idle")
 
 
-func _try_damage_player(command: Dictionary) -> void:
-    if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
-        return
-    var target := _target_player()
-    if target == null or target.is_queued_for_deletion() or (target.get("ui_input_locked") == true) or not _has_line_of_sight(target):
-        return
-
+func contact_attack_rect(command: Dictionary) -> Rect2:
+    # Shared by the contact strike and its attached material. Artwork never
+    # changes reach or creates a separate travelling damage object.
     var attack_type := String(command.get("type", "melee"))
     var dir := attack_direction if _is_attack_state() else direction
     var center := global_position + Vector2(dir * float(command.get("offset", 44.0)), float(command.get("offset_y",-26.0)))
@@ -1622,17 +1867,29 @@ func _try_damage_player(command: Dictionary) -> void:
     elif attack_type == "feint":
         center = global_position + Vector2(dir * float(command.get("offset", 54.0)), -34.0)
         size = Vector2(float(command.get("hit_width", 104.0)), float(command.get("hit_height", 72.0)))
-    var attack_rect := Rect2(center - size * 0.5, size)
+    return Rect2(center - size * 0.5, size)
+
+
+func _try_damage_player(command: Dictionary, previous_position: Vector2 = Vector2.INF) -> void:
+    if attack_has_hit or dying or is_queued_for_deletion() or not world_residency_active():
+        return
+    var target := _target_player()
+    if target == null or target.is_queued_for_deletion() or (target.get("ui_input_locked") == true) or not _has_line_of_sight(target):
+        return
+    var attack_rect := contact_attack_rect(command)
     var player_rect := Rect2(target.global_position - Vector2(24.0, 84.0), Vector2(48.0, 88.0))
-    if attack_rect.intersects(player_rect):
+    var crossed := previous_position.is_finite() and preload("res://scripts/enemy_motion_sweep.gd").contact(previous_position, global_position, attack_rect, player_rect)
+    if crossed or attack_rect.intersects(player_rect):
         attack_has_hit = true
-        target.take_damage(int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
-        if not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
+        var accepted := preload("res://scripts/damage_contact.gd").apply(target, int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
+        if accepted and not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
 
 
 func _show_telegraph(command: Dictionary) -> void:
     _clear_telegraph()
+    if BOSS_SKILL_ART.matches(self, command): return
+    if MINOR_SKILL_ART.ready_for(self,command): return
     if original_visual:
         return
     var attack_type := String(command.get("type", "melee"))
@@ -1666,7 +1923,7 @@ func _show_telegraph(command: Dictionary) -> void:
         Vector2(offset - width * 0.5, -26.0 + height * 0.5)
     ])
     telegraph.color = color
-    telegraph.z_index = 8
+    VISUAL_POLICY.place_danger(telegraph, true)
     add_child(telegraph)
     _add_attack_type_signature(telegraph, command, Vector2(offset, -26.0), width, height, dir)
     telegraph_tween = _combat_tween()
@@ -1768,6 +2025,9 @@ func _add_attack_type_signature(parent: Node2D, command: Dictionary, center: Vec
 
 
 func _clear_telegraph() -> void:
+    BOSS_SKILL_ART.clear(self)
+    MINOR_SKILL_ART.clear(self)
+    support_target = null
     if telegraph_tween != null and is_instance_valid(telegraph_tween) and telegraph_tween.is_valid():
         telegraph_tween.kill()
     telegraph_tween = null
@@ -1985,6 +2245,15 @@ func _advance_pose_loop() -> void:
     _set_enemy_animation(loop_name, true)
     if animated_sprite != null:
         animated_sprite.speed_scale = 1.0
+        if pose_loop_fit > 0.0:
+            _fit_animation_duration(pose_loop_fit)
+            # Seek past time already spent beyond the bridge boundary. The
+            # shared recovery must still finish at the gameplay deadline.
+            var frames := animated_sprite.sprite_frames
+            var count := frames.get_frame_count(animated_sprite.animation)
+            var cursor := maxf(0.0, pose_loop_at - state_timer) * count / pose_loop_fit
+            var index := mini(int(cursor), count - 1)
+            animated_sprite.set_frame_and_progress(index, minf(cursor - index, 1.0))
 
 
 func _has_enemy_animation(animation_name: String) -> bool:
@@ -2048,7 +2317,16 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
             loop_name=requested+"_travel" if animation_name!="attack" else "travel"
         elif pose_name=="recover":
             animation_name=requested+"_recover" if _has_enemy_animation(requested+"_recover") else ("recover" if _has_enemy_animation("recover") else "idle")
+            # A move whose last strike cel is far from the shared recovery draws a
+            # short bridge into it; a bridge already ending upright settles into idle.
+            if animation_name=="recover" and _has_enemy_animation(requested+"_bridge"):
+                animation_name=requested+"_bridge"
+                loop_name="recover"
+            elif animation_name=="recover" and _has_enemy_animation(requested+"_settle"):
+                animation_name=requested+"_settle"
+                loop_name="idle"
         pose_loop_animation = ""
+        pose_loop_fit = 0.0
         _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
         if animated_sprite!=null:
             animated_sprite.speed_scale=1.0
@@ -2059,6 +2337,7 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
                     _fit_animation_duration(lead)
                     pose_loop_animation = loop_name
                     pose_loop_at = duration - lead
+                    pose_loop_fit = duration - lead if loop_name == "recover" else 0.0
                 else:
                     _fit_animation_duration(duration)
         return
@@ -2123,38 +2402,71 @@ func _pose_scale(command: Dictionary, key: String, fallback: Vector2) -> Vector2
     return Vector2(float(value[0]), float(value[1]))
 
 
+## S03: terrain between this actor and the player muffles its one-shots, using
+## the same sight ray as the AI. Danger and confirm cues (voice priority 0:
+## wind-ups, roars, phase shifts, kill confirms) stay clearly audible.
+const SFX_OCCLUSION_DB := 10.0
+const SFX_DANGER_OCCLUSION_DB := 4.0
+
+func _sfx_listener() -> CollisionObject2D:
+    var nearest: CollisionObject2D = null
+    var nearest_distance := INF
+    for node in get_tree().get_nodes_in_group("player"):
+        var candidate := node as CollisionObject2D
+        if candidate == null or not candidate.is_inside_tree():
+            continue
+        var distance := global_position.distance_squared_to(candidate.global_position)
+        if distance < nearest_distance:
+            nearest = candidate
+            nearest_distance = distance
+    return nearest
+
+func _sfx_occluded() -> bool:
+    var listener := _sfx_listener()
+    return listener != null and not _has_line_of_sight(listener)
+
+func _sfx_volume(volume_db: float, voice_priority: int, occluded: Variant = null) -> float:
+    var blocked: bool = occluded if occluded is bool else _sfx_occluded()
+    if not blocked:
+        return volume_db
+    return volume_db - (SFX_DANGER_OCCLUSION_DB if voice_priority <= 0 else SFX_OCCLUSION_DB)
+
+
 func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 1.0, voice_priority: int = 1) -> void:
     if not _should_play_sfx():
         return
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
-    if not _request_voice("enemy_" + audio_key, voice_priority):
+    var voice_ticket := _request_voice("enemy_" + audio_key, voice_priority)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice("enemy_" + audio_key)
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
     # 总线归位（音频规格 §5.1）：敌人/Boss 音走 SFXEnemy 子总线，缺席时回落 SFX/Master。
-    player_node.bus = _sfx_bus_name()
+    var occluded := _sfx_occluded()
+    player_node.bus = SOUND_FILTER.route(_sfx_bus_name(), occluded, voice_priority)
     player_node.stream = stream
-    player_node.volume_db = volume_db
+    player_node.volume_db = _sfx_volume(volume_db, voice_priority, occluded)
+    player_node.set_meta("authored_volume_db", volume_db)
     player_node.pitch_scale = pitch_scale
     player_node.max_distance = 900.0
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _play_attack_sfx(phase: String) -> void:
     if phase == "windup":
         if is_boss:
             # Boss 前摇分档（音频规格 §4.4）：damage>=2（各 Boss aoe/shockwave 大招）走 lethal 档。
-            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0)
+            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0, 1.0, 0)
         else:
             # 普通敌前摇=windup_light 低配版：升调 + 压量，与 Boss 档拉开距离。
-            _play_sfx("enemy_windup", -13.0, 1.22)
+            _play_sfx("enemy_windup", -13.0, 1.22, 0)
         # ch5 beat `silent_order`（manifest ch05_beat_02）：黑曜巡礼道（obsidian 材质族）
         # 敌方前摇附一段低频压迫声（军令低鸣叠层）。
         if death_sfx_key == "death_obsidian":
@@ -2193,6 +2505,46 @@ func _hit_tier_key() -> String:
 
 ## 首次进战宣告：Boss 开场吼 / 精英（encounter_role 含 elite）仪式起手；
 ## 手工章节 enemy_spawns 无 encounter_role → 空串静默，仅普通巡逻音。
+## Each B01 role transition has its own sound. Reveal and alarm also draw a
+## short ring on the warning layer (once per engagement, never budget-culled):
+## a jagged burst for a reveal, two widening rings for a call.
+func _role_cue(cue: String) -> void:
+    role_cue_counts[cue] = int(role_cue_counts.get(cue, 0)) + 1
+    _play_sfx("role_" + cue, -8.0 if cue == "alarm_call" else -10.0, 1.0, 1)
+    var director: Node=preload("res://scripts/audio_director.gd").instance
+    if is_instance_valid(director):director.foreground_warning(self)
+    if cue == "support_mend":
+        return
+    var reveal := cue == "ambush_reveal"
+    for index in (1 if reveal else 2):
+        var ring := Line2D.new()
+        ring.name = "EnemyAmbushRevealCue" if reveal else ("EnemyAlarmCue" if index == 0 else "EnemyAlarmCueEcho")
+        var points := PackedVector2Array()
+        var steps := 16 if reveal else 28
+        for step in steps + 1:
+            var angle := TAU * float(step) / float(steps)
+            var radius := (34.0 if step % 2 == 0 else 22.0) if reveal else 30.0
+            points.append(Vector2(cos(angle), sin(angle)) * radius)
+        ring.points = points
+        ring.position = Vector2(0, -48)
+        ring.width = 3.0 if reveal else 2.0
+        ring.default_color = Color(0.96, 0.32, 0.28, 0.95) if reveal else Color(1.0, 0.82, 0.42, 0.9)
+        VISUAL_POLICY.place_danger(ring, true)
+        add_child(ring)
+        var tween := _combat_tween()
+        var life := 0.4 if reveal else 0.55
+        tween.tween_interval(0.2 * index)
+        tween.tween_property(ring, "scale", Vector2.ONE * (1.5 if reveal else 3.2), life)
+        # Hold full strength first so the cue reads, then fade.
+        tween.parallel().tween_property(ring, "modulate:a", 0.0, life * 0.6).set_delay(life * 0.4)
+        tween.tween_callback(ring.queue_free)
+
+
+## Music/alert layer contract: an actor waiting at a post is not in combat.
+func combat_engaged() -> bool:
+    return not CALM_DECISIONS.has(last_ai_decision)
+
+
 func _announce_engagement() -> void:
     engage_announced = true
     if is_boss:
@@ -2216,17 +2568,24 @@ static func _ensure_audio_director() -> bool:
 
 
 ## AudioDirector.request_voice 静态转调：脚本尚未落盘（headless 局部验证）时放行，
-## 返回 false 表示本次不播。
-static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> bool:
+## 返回 0 拒绝，正数为唯一票据；-1 为脚本缺席的局部验证回退。
+static func _request_voice(key: String, priority: int = 1, min_interval_ms: int = 40, max_voices: int = 3) -> int:
     if not _ensure_audio_director():
-        return true
-    return bool(audio_director_script.request_voice(key, priority, min_interval_ms, max_voices))
+        return -1
+    return int(audio_director_script.reserve_voice(key, priority, min_interval_ms, max_voices))
 
 
-## AudioDirector.release_voice 静态转调（声部回滚契约）：拿不到流时释放已批准的声部。
-static func _release_voice(key: String) -> void:
-    if _ensure_audio_director() and audio_director_script.has_method("release_voice"):
-        audio_director_script.release_voice(key)
+## 绑定唯一票据并开始播放。
+static func _start_voice(ticket: int, voice: Node, persistent: bool = false) -> void:
+    if ticket == -1:
+        voice.play()
+    elif _ensure_audio_director():
+        audio_director_script.start_reserved_voice(ticket,voice,persistent)
+
+## 拿不到流时只回滚这张票据，不影响同 key 的其他声音。
+static func _release_voice(ticket: int) -> void:
+    if _ensure_audio_director() and audio_director_script.has_method("release_ticket"):
+        audio_director_script.release_ticket(ticket)
 
 
 ## 独立宿主播放（死亡音专用）：播放器父挂 enemy 的父节点并定位到当前位置，
@@ -2235,26 +2594,29 @@ func _play_detached_sfx(audio_key: String, volume_db: float = -6.0) -> void:
     if not _should_play_sfx():
         return
     # 死亡音属 P0：声部抢占最高优先级。
-    if not _request_voice("enemy_" + audio_key, 0):
+    var voice_ticket := _request_voice("enemy_" + audio_key, 0)
+    if voice_ticket == 0:
         return
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
-        _release_voice("enemy_" + audio_key)
+        _release_voice(voice_ticket)
         return
     var host := get_parent()
     if host == null:
+        _release_voice(voice_ticket)
         return
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
-    player_node.bus = _sfx_bus_name()
+    var occluded := _sfx_occluded()
+    player_node.bus = SOUND_FILTER.route(_sfx_bus_name(), occluded, 0)
     player_node.stream = stream
-    player_node.volume_db = volume_db
+    player_node.volume_db = _sfx_volume(volume_db, 1, occluded)
     player_node.max_distance = 900.0
     host.add_child(player_node)
     player_node.global_position = global_position
     player_node.finished.connect(Callable(player_node, "queue_free"))
-    player_node.play()
+    _start_voice(voice_ticket,player_node)
 
 
 func _original_attack_arc(command: Dictionary, warning: bool) -> void:
@@ -2264,7 +2626,7 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
     line.name = "OriginalAttackWarning" if warning else "OriginalAttackArc"
     line.width = 1.6 if warning else 3.5
     line.default_color = Color(.95,.77,.45,.68) if warning else Color(.86,.33,.25,.85)
-    line.z_index = 8
+    VISUAL_POLICY.place_danger(line, warning)
     var points := PackedVector2Array()
     var reach := float(command.get("hit_width",80))*.62
     if type in ["beam", "pool", "rootline"]:
@@ -2309,6 +2671,8 @@ func _original_attack_arc(command: Dictionary, warning: bool) -> void:
         windup_vfx_tween = tween
 
 func _spawn_windup_vfx(command: Dictionary) -> void:
+    if BOSS_SKILL_ART.spawn(self, command, "warning"): return
+    if MINOR_SKILL_ART.spawn(self,command,"warning"): return
     if original_visual:
         _original_attack_arc(command, true)
         return
@@ -2343,7 +2707,7 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
     ])
     warning.width = 3.0 if is_boss else 2.0
     warning.default_color = Color(1.0, 0.72, 0.28, 0.92)
-    warning.z_index = 22
+    VISUAL_POLICY.place_danger(warning, true)
     add_child(warning)
     windup_vfx_tween = _combat_tween()
     windup_vfx_tween.tween_property(warning, "scale", Vector2(1.16, 1.16), float(command.get("windup", 0.25)))
@@ -2352,6 +2716,8 @@ func _spawn_windup_vfx(command: Dictionary) -> void:
 
 
 func _spawn_attack_burst_vfx(command: Dictionary) -> void:
+    if BOSS_SKILL_ART.spawn(self, command, "execution"): return
+    if MINOR_SKILL_ART.spawn(self,command,"execution"): return
     if original_visual:
         _original_attack_arc(command, false)
         return
@@ -2378,7 +2744,7 @@ func _spawn_attack_burst_vfx(command: Dictionary) -> void:
         height = float(command.get("hit_height", 72.0))
     burst.width = 5.0 if is_boss else 3.0
     burst.default_color = Color(1.0, 0.34, 0.22, 0.88) if is_boss else Color(1.0, 0.78, 0.34, 0.86)
-    burst.z_index = 24
+    VISUAL_POLICY.place_danger(burst)
     if attack_type == "aoe":
         var points := PackedVector2Array()
         for step in range(26):
@@ -2470,24 +2836,11 @@ static func _load_stream_direct(path: String, looped: bool = false) -> AudioStre
     return load(path) as AudioStream
 
 
-func _spawn_hit_spark(hit_direction: int) -> void:
-    var spark := Line2D.new()
-    spark.name = "HitSpark"
-    spark.width = 4.0 if is_boss else 3.0
-    spark.default_color = Color(1.0, 0.957, 0.902, 0.95)
-    spark.z_index = 40
-    var x := 24.0 * -hit_direction
-    spark.points = PackedVector2Array([
-        Vector2(x, -30.0),
-        Vector2(x + 28.0 * hit_direction, -48.0),
-        Vector2(x + 7.0 * hit_direction, -22.0),
-        Vector2(x + 34.0 * hit_direction, -12.0)
-    ])
-    add_child(spark)
-    var tween := _combat_tween()
-    tween.tween_property(spark, "scale", Vector2(1.55, 1.55), 0.16)
-    tween.parallel().tween_property(spark, "modulate:a", 0.0, 0.16)
-    tween.finished.connect(Callable(spark, "queue_free"))
+func _spawn_hit_spark(hit_direction: int, contact_call: int = -1) -> void:
+    if contact_call < 0:
+        contact_call = CONTACT_ART.begin_receiver_call(self)
+    CONTACT_ART.receiver_hit(self, hit_direction, contact_call)
+
 
 func _cancel_attack_effects() -> void:
     for effect in owned_attack_effects:
@@ -2509,6 +2862,7 @@ func _cancel_unarmed_attack_effects() -> void:
             owned_attack_effects.remove_at(index)
 
 func _exit_tree() -> void:
+    CONTACT_ART.clear_receiver(self)
     _clear_telegraph()
     _cancel_attack_effects()
 

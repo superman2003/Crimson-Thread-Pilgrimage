@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_bell_mote.png",
+  "kind": "bell_mote",
+  "image_sha256": "f50e24793a5c44a3ce009d73e542c91616e4418f4d5926527e44e008cdf87edc",
+  "prompt_sha256": "64c31874dcae348f047301dcae6ac5b0b78a1ad465d108fbf43560fda3747840",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/bell_mote.png",
+  "reference_sha256": "d79c0e992811c0bb15efbdaa10cee77d3944f3e46867972a7b20319416461f73",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "mote_seek_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        509,
+        349
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        137,
+        90,
+        385,
+        316
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "mote_seek_warning",
+      "rect_xyxy": [
+        509,
+        0,
+        1016,
+        349
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        626,
+        84,
+        884,
+        319
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "mote_seek_warning",
+      "rect_xyxy": [
+        1016,
+        0,
+        1536,
+        349
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1131,
+        78,
+        1391,
+        322
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "mote_peck_warning",
+      "rect_xyxy": [
+        0,
+        349,
+        528,
+        663
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        140,
+        388,
+        432,
+        634
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "mote_peck_warning",
+      "rect_xyxy": [
+        528,
+        349,
+        1019,
+        663
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        627,
+        379,
+        918,
+        634
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "mote_peck_warning",
+      "rect_xyxy": [
+        1019,
+        349,
+        1536,
+        663
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1116,
+        380,
+        1429,
+        636
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "mote_peck_execution",
+      "rect_xyxy": [
+        0,
+        663,
+        497,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        135,
+        692,
+        453,
+        962
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "mote_peck_execution",
+      "rect_xyxy": [
+        497,
+        663,
+        1059,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        539,
+        688,
+        1027,
+        969
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "mote_peck_execution",
+      "rect_xyxy": [
+        1059,
+        663,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1093,
+        757,
+        1478,
+        960
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????????/?????????????????",
+    "rows_reviewed": [
+      "mote_seek_warning",
+      "mote_peck_warning",
+      "mote_peck_execution"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

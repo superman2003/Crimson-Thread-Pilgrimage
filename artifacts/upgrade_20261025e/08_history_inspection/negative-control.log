@@ -1,0 +1,13 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+ERROR: low floor lip does not block chest-level reading
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] finish (res://tests/upgrade_e08_history_inspection.gd:9)
+       [1] run (res://tests/upgrade_e08_history_inspection.gd:43)
+ERROR: wall across reading sightline blocks interaction
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] finish (res://tests/upgrade_e08_history_inspection.gd:9)
+       [1] run (res://tests/upgrade_e08_history_inspection.gd:43)
+UPGRADE_upgrade_e08_history_inspection checks=8 failures=2

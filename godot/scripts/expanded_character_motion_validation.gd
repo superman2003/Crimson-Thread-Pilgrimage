@@ -54,109 +54,53 @@ func run() -> void:
     await _check_live_playback(stage)
     _check_attack_specific_poses(stage)
     _check_production_attack_cels(stage)
-    _check_elite_profiles(stage)
-    await _check_v5_playback(stage)
+    await _check_boss_recovery_bridges(stage)
+    await _check_v5_runtime_sources(stage)
+    _check_recovery_hitch(stage)
     _check_v6_registration()
+    _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
-
-func _check_v5_playback(stage: Node2D) -> void:
-    var bosses := ["broken_string_gardener", "rust_crown_guardian", "saltwhite_contract_judge", "sunken_hammer_smith", "silent_crown_core", "silent_pilgrim_commander"]
-    var sheets := 0
-    var new_cels := 0
-    var kinds: Array = bosses + ["ash_banner_imp", "echo_contract_scribe", "wax_lancer", "delayed_shadow", "pipe_thrower", "npc_blind_bell_knight", "npc_deserter_flagbearer"]
-    for kind: String in kinds:
-        var family := "original_npcs" if kind.begins_with("npc_") else "original_creatures"
-        var path := "res://assets/sprites/" + family + "/" + kind + "/"
-        var record: Dictionary = ART.manifest(path + "motion_generation.json")
-        check(record.has("character_motion_v5"), kind + " v5 registration exists")
-        if not record.has("character_motion_v5"): continue
-        var batch: Dictionary = record.character_motion_v5
-        var registered: Dictionary = record.get("boss_motion_v6", {}).get("baseline_frames", record.runtime_frames)
-        for sheet: Dictionary in batch.sheets:
-            sheets += 1
-            new_cels += int(sheet.frames)
-            var entries: Array = registered[sheet.animation]
-            var start := int(sheet.index) if sheet.mode == "frame" else 0
-            for cel in int(sheet.frames):
-                check(String(entries[start + cel].source).ends_with("/" + String(sheet.image)), kind + " consumes delivered cel " + str(cel))
-            if sheet.mode == "prepend":
-                check(entries.size() == int(sheet.frames) + batch.baseline_frames.recover.size(), kind + "/" + String(sheet.animation) + " preserves generic recovery after transition")
-                for index in batch.baseline_frames.recover.size():
-                    check(entries[index + int(sheet.frames)] == batch.baseline_frames.recover[index], kind + " original recovery registration preserved")
-        if family == "original_npcs": continue
-        var enemy = ENEMY.new()
-        enemy.configure({"id":"v5_" + kind, "kind":kind, "hp":40}, "", kind in bosses)
-        stage.add_child(enemy)
-        enemy.set_physics_process(false)
-        var sprite: AnimatedSprite2D = enemy.animated_sprite
-        var recovered := {}
-        for command: Dictionary in enemy.ai_commands:
-            var animation := String(command.get("animation", "attack"))
-            if kind not in bosses or animation not in ["heavy", "cast", "phase"]: continue
-            recovered[animation] = true
-            for facing in [-1, 1]:
-                enemy._set_sprite_flip(facing < 0)
-                enemy._pose_sprite("active", command)
-                check(sprite.animation == StringName(animation), kind + "/" + animation + " actual command selects strike")
-                var duration := float(command.get("recover", 0.42))
-                var original_command := command.duplicate(true)
-                enemy.active_attack = command.duplicate(true)
-                enemy.state = "recover"
-                enemy.state_timer = duration
-                enemy._pose_sprite("recover", command)
-                var expected := animation + "_recover"
-                check(sprite.animation == StringName(expected) and sprite.frame == 0, kind + "/" + expected + " starts from transition")
-                var count := sprite.sprite_frames.get_frame_count(expected)
-                check(is_equal_approx(count / (sprite.sprite_frames.get_animation_speed(expected) * sprite.speed_scale), duration), kind + " recovery fits original combat window")
-                check(sprite.flip_h == (facing < 0), kind + " recovery retains facing")
-                # Let real AnimatedSprite2D playback present each authored cel,
-                # then advance the real state timer at its original boundary.
-                var seen := {}
-                var elapsed := 0.0
-                while elapsed < duration + 0.025:
-                    seen[sprite.frame] = true
-                    await process_frame
-                    elapsed += root.get_process_delta_time()
-                check(seen.size() == count, kind + "/" + expected + " presents transition and generic cels")
-                enemy._pose_sprite("recover", command)
-                check(sprite.frame == 0 and sprite.is_playing(), kind + " repeated recovery restarts")
-                enemy._update_recover(duration - 0.001)
-                check(enemy.state == "recover", kind + " keeps original punish window")
-                enemy._update_recover(0.002)
-                check(enemy.state == "patrol" and sprite.animation == &"idle", kind + " returns to idle at original boundary")
-                check(command == original_command, kind + " playback never changes attack costs/timing")
-        if kind in bosses:
-            check(recovered.size() == 3, kind + " all three real special commands exercised")
-        enemy.queue_free()
-        await process_frame
-    check(sheets == 32 and new_cels == 67, "all 32 delivered v5 sheets / 67 cels registered exactly once")
-
 func _check_v6_registration() -> void:
     var bosses := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
     var total := 0
+    var playable := 0
+    var source_only := 0
     for kind: String in bosses:
         var record: Dictionary = ART.manifest("res://assets/sprites/original_creatures/" + kind + "/motion_generation.json")
         check(record.has("boss_motion_v6"), kind + " new in-between batch exists")
         if not record.has("boss_motion_v6"): continue
         var batch: Dictionary = record.boss_motion_v6
+        check(batch.runtime_model == "main-bridge-settle", kind + " preserves upstream bridge/settle model")
         check(batch.sources.size() == 8 and int(batch.new_drawings) == 48, kind + " eight sheets / 48 authored drawings")
         total += int(batch.new_drawings)
+        playable += int(batch.runtime_drawings)
+        source_only += batch.source_only.size()
         var runtime: Dictionary = record.runtime_frames
         check(runtime.idle.size() == 8 and runtime.walk.size() == 16, kind + " idle and gait include loop seam drawings")
         for animation in ["windup","attack","heavy_windup","heavy","cast_windup","cast","phase_windup","phase"]:
             check(runtime[animation].size() == 7, kind + "/" + animation + " three new anatomical in-betweens")
         check(runtime.recover.size() == batch.baseline_frames.recover.size()+6, kind + " generic return to guard gains six drawings")
-        for animation in ["heavy_recover","cast_recover","phase_recover"]:
-            check(runtime[animation].size() == batch.baseline_frames[animation].size()+8, kind + "/" + animation + " bridges and shared generic in-betweens")
+        for move in ["heavy","cast","phase"]:
+            var settles: bool = kind == "broken_string_gardener" and move in ["heavy","phase"]
+            var name: String = move + ("_settle" if settles else "_bridge")
+            check(runtime[name].size() == (3 if settles else 4), kind + "/" + name + " preserves standing settle or shared recovery")
+            check(not runtime.has(move+"_recover"), kind + " does not override main bridge routing")
+        var new_entries := 0
         for animation: String in batch.baseline_frames:
             var cursor := 0
             for original: Dictionary in batch.baseline_frames[animation]:
                 while cursor < runtime[animation].size() and runtime[animation][cursor] != original: cursor += 1
-                check(cursor < runtime[animation].size(), kind + "/" + animation + " keeps original pose order")
+                check(cursor < runtime[animation].size(), kind + "/" + animation + " keeps upstream pose order and grade")
                 cursor += 1
-    check(total == 288, "six production Bosses gain 288 authored poses")
+            for entry: Dictionary in runtime[animation]:
+                if String(entry.get("source", "")).begins_with("art_requests/boss_motion_v6/"):
+                    new_entries += 1
+                    check(entry.has("grade"), kind + " new cel matches main palette")
+        check(new_entries == int(batch.runtime_drawings), kind + " all registered new drawings are accounted for")
+    check(total == 288 and playable == 286 and source_only == 2, "288 authored poses: 286 compatible runtime cels, two source-only upright-to-crouch cels")
+
 func _check_frames(frames: SpriteFrames, manifest: Dictionary, id: String) -> void:
     characters += 1
     check(frames != null, id + " frames loaded")
@@ -276,6 +220,110 @@ func _check_production_attack_cels(stage: Node2D) -> void:
         kinds += 1
         enemy.queue_free()
     check(kinds == 40 and own_total == 50, "40 regular creatures with 40 new and 10 elite attacks")
+## Every boss heavy/cast/phase recovery first plays its drawn bridge, then hands
+## over to the shared recovery fitted to the remaining time (the root bishop's
+## heavy and phase bridges end upright and settle straight into idle).
+func _check_boss_recovery_bridges(stage: Node2D) -> void:
+    var settle := {"broken_string_gardener": ["heavy", "phase"]}
+    var bridged := 0
+    for kind in ["broken_string_gardener","rust_crown_guardian","saltwhite_contract_judge","sunken_hammer_smith","silent_crown_core","silent_pilgrim_commander"]:
+        var enemy = ENEMY.new()
+        enemy.configure({"id":"bridge_"+kind,"kind":kind,"hp":20}, "", true)
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        var sprite: AnimatedSprite2D = enemy.animated_sprite
+        for command: Dictionary in enemy.ai_commands:
+            var move := String(command.get("animation", "attack"))
+            if not move in ["heavy", "cast", "phase"]: continue
+            var settles: bool = move in settle.get(kind, [])
+            var bridge := move + ("_settle" if settles else "_bridge")
+            var after := "idle" if settles else "recover"
+            var label: String = kind+"/"+String(command.id)
+            check(sprite.sprite_frames.get_frame_count(bridge) == (3 if settles else 4), label+" includes compatible bridge in-betweens")
+            enemy.state = "recover"
+            enemy.state_timer = float(command.get("recover", 0.5))
+            enemy._pose_sprite("recover", command)
+            check(sprite.animation == StringName(bridge) and sprite.frame == 0, label+" recovery opens on its bridge")
+            check(enemy.pose_loop_animation == after, label+" bridge hands over to "+after)
+            enemy._update_recover(0.12)
+            check(sprite.animation == StringName(bridge), label+" bridge is shown before the hand-over")
+            enemy._update_recover(0.08)
+            check(sprite.animation == StringName(after) and enemy.pose_loop_animation.is_empty(), label+" continues as "+after)
+            if after == "recover":
+                var remaining := float(command.get("recover", 0.5)) - 0.18
+                var expected := sprite.sprite_frames.get_frame_count("recover") / (sprite.sprite_frames.get_animation_speed("recover") * remaining)
+                check(absf(sprite.speed_scale - expected) < 0.001, label+" shared recovery fills the remaining time")
+            enemy._pose_sprite("idle")
+            bridged += 1
+        enemy.queue_free()
+        await process_frame
+    check(bridged == 22, "22 boss heavy/cast/phase attacks recover through a drawn bridge")
+func _check_v5_runtime_sources(stage: Node2D) -> void:
+    var delivered := {}
+    var source_frames := 0
+    var level := LEVEL.new()
+    var bosses := ["broken_string_gardener", "rust_crown_guardian", "saltwhite_contract_judge", "sunken_hammer_smith", "silent_crown_core", "silent_pilgrim_commander"]
+    var ids := bosses + ["ash_banner_imp", "echo_contract_scribe", "wax_lancer", "delayed_shadow", "pipe_thrower", "npc_blind_bell_knight", "npc_deserter_flagbearer"]
+    for id: String in ids:
+        var npc := id.begins_with("npc_")
+        var path := ART.character_manifest("original_npcs" if npc else "original_creatures", id)
+        var record: Dictionary = ART.manifest(path.get_base_dir() + "/motion_generation.json")
+        var actor: Node2D
+        var sprite: AnimatedSprite2D
+        if npc:
+            actor = level._make_npc({"id": id, "name": id})
+            stage.add_child(actor)
+            sprite = actor.get_node("FriendlyFamilySprite") as AnimatedSprite2D
+        else:
+            actor = ENEMY.new()
+            actor.configure({"id": "v5_" + id, "kind": id, "hp": 20}, "", id in bosses)
+            stage.add_child(actor)
+            actor.set_physics_process(false)
+            sprite = actor.animated_sprite
+            check(actor.asset_path == path, id + " v5 production manifest selected")
+        check(sprite.sprite_frames == ART.frames(path), id + " v5 factory uses reviewed motion frames")
+        for animation: String in record.get("runtime_frames", {}):
+            var entries: Array = record.runtime_frames[animation]
+            for index in entries.size():
+                var source := String(entries[index].get("source", ""))
+                if not source.begins_with("art_requests/character_motion_v5/incoming/"): continue
+                delivered[source] = int(delivered.get(source, 0)) + 1
+                source_frames += 1
+                sprite.play(animation)
+                sprite.pause()
+                sprite.frame = index
+                var texture := sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame) as AtlasTexture
+                check(texture != null and texture.atlas != null and texture.atlas.resource_path.ends_with("/motion_runtime.png"), id + "/" + animation + "[%d] uses packed v5 pixels" % index)
+        actor.queue_free()
+        await process_frame
+    level.free()
+    check(delivered.size() == 32 and source_frames == 67, "all 32 PR138 sheets / 67 cels reach production actors")
+    print("CHARACTER_MOTION_V5 sources=%d frames=%d" % [delivered.size(), source_frames])
+
+func _check_recovery_hitch(stage: Node2D) -> void:
+    var enemy = ENEMY.new()
+    enemy.configure({"id": "v5_hitch", "kind": "sunken_hammer_smith", "hp": 20}, "", true)
+    stage.add_child(enemy)
+    enemy.set_physics_process(false)
+    var sprite: AnimatedSprite2D = enemy.animated_sprite
+    var command := {"id": "boss_shears_close", "animation": "heavy", "recover": 0.8}
+    for overshoot: float in [0.0, 0.10, 0.35, 0.60]:
+        enemy.state = "recover"
+        enemy.state_timer = 0.8
+        enemy._pose_sprite("recover", command)
+        enemy._update_recover(0.18 + overshoot)
+        var count := sprite.sprite_frames.get_frame_count("recover")
+        var expected := overshoot * count / 0.62
+        check(sprite.animation == &"recover", "hitch still selects shared recovery")
+        check(absf(sprite.frame + sprite.frame_progress - expected) < 0.001, "hitch preserves elapsed recovery animation at %.2fs" % overshoot)
+        check(absf(enemy.state_timer - (0.62 - overshoot)) < 0.001, "hitch keeps the original punishment window")
+        enemy._update_recover(enemy.state_timer + 0.001)
+        check(enemy.state == "patrol" and sprite.animation == &"idle", "hitch recovery ends on schedule")
+    enemy._pose_sprite("recover", command)
+    enemy._pose_sprite("hurt")
+    check(enemy.pose_loop_animation.is_empty(), "recoil cancels pending v5 bridge follow-up")
+    enemy.queue_free()
+
 func _check_elite_profiles(stage: Node2D) -> void:
     var combat: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/original_creature_combat.json"))
     var normal = ENEMY.new()

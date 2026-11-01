@@ -1,0 +1,18 @@
+Running craft_cart
+Traceback (most recent call last):
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/run_godot_regressions.py", line 138, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/run_godot_regressions.py", line 88, in main
+    failures = run_suites(engine, suites, args.timeout, logs, Path(scratch), args.software_gl, renderer_env)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/d78813a84f12/Crimson-Thread-Pilgrimage/tools/run_godot_regressions.py", line 126, in run_suites
+    completed = re.search(marker, plain, re.MULTILINE) is not None
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/re/__init__.py", line 177, in search
+    return _compile(pattern, flags).search(string)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/re/__init__.py", line 285, in _compile
+    return _cache2[type(pattern), pattern, flags]
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: unhashable type: 'list'

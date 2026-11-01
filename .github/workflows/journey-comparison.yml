@@ -1,0 +1,50 @@
+name: T02 saved journey comparison
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/journey_history_browser.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/journey_archive_comparison.gd'
+      - 'godot/data/item_lore.json'
+      - 'godot/scripts/journey_comparison*.gd'
+      - 'tools/*journey_comparison*.py'
+      - '.github/workflows/journey-comparison.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: journey-comparison-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-reader:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Native saved-source and browser comparison contracts
+        run: python3 tools/run_journey_comparison_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journey-comparison-isolated"
+      - name: Existing archive browser and backup contracts
+        run: |
+          python3 tools/run_reliability_98fd8e2f_r07.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journey-comparison-r07"
+          python3 tools/run_save_backup_difference_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/journey-comparison-backup"
+      - name: Import full resources with existing strict gates
+        run: python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/journey-comparison-import"
+      - name: Actual settings history entry and unchanged gameplay bytes
+        run: python3 tools/run_journey_comparison_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --world --log-dir "$RUNNER_TEMP/journey-comparison-world"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: journey-comparison-logs
+          path: |
+            ${{ runner.temp }}/journey-comparison-isolated
+            ${{ runner.temp }}/journey-comparison-import
+            ${{ runner.temp }}/journey-comparison-world
+            ${{ runner.temp }}/journey-comparison-r07
+            ${{ runner.temp }}/journey-comparison-backup

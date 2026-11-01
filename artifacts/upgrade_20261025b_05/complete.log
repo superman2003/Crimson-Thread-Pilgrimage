@@ -1,0 +1,17 @@
+Running pickup_ledger
+PASS: pickup_ledger
+CHECK PASS pickup fixture releases actual audio ownership
+PICKUP_LEDGER checks=46 failures=0
+Running challenge_claim
+PASS: challenge_claim
+PASS all replaced challenge Worlds release real audio
+CHALLENGE_CLAIM checks=24 failures=0
+Running world_interaction_safety
+PASS: world_interaction_safety
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+WORLD_INTERACTION_SAFETY checks=24 failures=0
+Running world_integration
+PASS: world_integration
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+GODOT_REGRESSIONS suites=4 failures=0

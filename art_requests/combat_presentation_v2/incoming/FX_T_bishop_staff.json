@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_bishop_staff.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "15667e00f3ac538fc9c9926141142bcedc89b9c579c8943c36d788fd58c9443e",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_T_bishop_staff.txt",
+  "prompt_sha256": "f4eab9eff8f2db2c83ab6380cce9468e3830491a4b5bcb4e5ec615b83bc7ecf5",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        513,
+        509
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        39,
+        23,
+        469,
+        503
+      ],
+      "fully_transparent_pixels": 141689
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        513,
+        0,
+        1031,
+        509
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        550,
+        17,
+        984,
+        503
+      ],
+      "fully_transparent_pixels": 125299
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1031,
+        0,
+        1536,
+        509
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1073,
+        16,
+        1507,
+        502
+      ],
+      "fully_transparent_pixels": 109604
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        509,
+        518,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        56,
+        528,
+        489,
+        1009
+      ],
+      "fully_transparent_pixels": 110271
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        518,
+        509,
+        1025,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        550,
+        517,
+        991,
+        1009
+      ],
+      "fully_transparent_pixels": 93891
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1025,
+        509,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1059,
+        517,
+        1504,
+        1010
+      ],
+      "fully_transparent_pixels": 84522
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/broken_string_gardener.png",
+      "sha256": "2212526912785e31ffb39ecbdf4960bf14bd67fe85225d525c15381daf62c9b5"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 warning cels: crozier-shaped copper-root preparation curls toward the right, pale bark and orange husk flecks. No staff prop, caster or finished shockwave. Runtime anchor, bounds and timing remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

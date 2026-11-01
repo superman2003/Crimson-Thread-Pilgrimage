@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_05_01",
+      "npc": "npc_obsidian_guide",
+      "question": "点名轮上的木条为什么能拆？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "人走了，床位就该空出来；木条能拿下，才分得清是在等人还是只在清点床。",
+        "后来添的钉孔把离开的人也钉回去，你带来的名册正能对上这件事。"
+      ],
+      "reflection": "引路应当包含离开队伍的方向。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池新娘倒下，路口仍要有人说明哪里能回头。",
+          "我愿意继续带路，但不再把每个走来的人都交给同一声号。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_02",
+      "npc": "npc_obsidian_guide",
+      "question": "失败的巡礼者为什么还会归队？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "路上留下的号和名册里的号一样，可有些人早已不在。",
+        "有人把没有走到终点算成欠下一班军役，归途就这样被改成了队列。"
+      ],
+      "reflection": "失败不应自动转成服役的债。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "新娘不再点名，旧路也还刻着行军的习惯。",
+          "我会把营地和能休息的地方重新说给来人听。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_03",
+      "npc": "npc_obsidian_guide",
+      "question": "护送与押送怎样分辨？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "问一句他能不能改道，再看我会不会放他走，差别就出来了。",
+        "点名轮的旧槽本来留得下空位；钉死木条以后，路就不再容人缺席。"
+      ],
+      "reflection": "同行的边界应由被护送的人参与决定。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池的门开了，我也得学着少替人选一条路。",
+          "若你今天只想到营地，我就把到营地的路说完。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_04",
+      "npc": "npc_blind_bell_knight",
+      "question": "悼念与再次征召差在哪一声？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "若念完名字能让人安息，那是悼念；若念完还等他站起来，就是命令。",
+        "名册把两种动作写在一起，点名轮的钉孔却把用意露出来。"
+      ],
+      "reflection": "记住亡者不需要向亡者索取回应。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池新娘停下了，我可以只念完，不再等一句到。",
+          "没有回声，也该算这一声已经结束。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_05",
+      "npc": "npc_blind_bell_knight",
+      "question": "白纱上的名字是军令吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "名字可以被军令占用，也可以用来记住军令伤了谁。得看它被怎样读。",
+        "点名轮证明，同一个名字被重新钉上，就会又成一个兵额。"
+      ],
+      "reflection": "解除一份命令，不等于删除它所占用的名字。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "你让镜池的点名停了。现在有人能把纱摊开，慢慢认字。",
+          "别因为它曾被用作命令，就再把上面的人一并抹去。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_06",
+      "npc": "npc_blind_bell_knight",
+      "question": "统帅也会被自己的军令困住吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "会。一直发令的人，也可能忘记怎样让一句令结束。",
+        "可被困住不能替他做过的事开脱；名册仍记着被带回队伍的人。"
+      ],
+      "reflection": "理解人物的困局，同时保留其责任。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池新娘倒下以后，我们终于不必靠下一声命令结束上一声。",
+          "先把还在等点名的人安顿下来，再谈该怎样称呼他。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_07",
+      "npc": "npc_lantern_sister",
+      "question": "灯照亮归途，为什么也会召兵？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "灯的位置和明灭能被读成号。有人需要方向，有人却拿相同的光催人归队。",
+        "点名轮和名册让我知道，不能只说灯亮着就是好事。"
+      ],
+      "reflection": "信号的意义需要在使用者之间重新确认。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池的军令停了，我还会逐盏核对灯号。",
+          "得让住在这里的人明白，这次光是在指路，不是在点名。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_08",
+      "npc": "npc_lantern_sister",
+      "question": "修好灯以后还需要做什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "告诉别人哪一种光可以放心跟，哪一种只是检修时的试亮。",
+        "不说明白，旧军册里那套读法还会替我们发令。"
+      ],
+      "reflection": "维护还包括解释与核对，不只是点亮设备。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "新娘倒下后，灯不会自己忘记旧用途。",
+          "我会让来营地的人先听一遍，再请他们说有没有看懂。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_09",
+      "npc": "npc_lantern_sister",
+      "question": "没跟上灯号的人会怎样？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先去找他是不是看不见，或是不是想停一停。不能直接把没回应写成逃亡。",
+        "木条被重新钉回点名轮时，大概也有人这样替沉默作了结论。"
+      ],
+      "reflection": "没有回应应先被理解，而非立即被惩罚。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池安静之后，这条规矩更得说清。",
+          "灯是让人看见路；有人不走这条路，灯也不该追着他。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_10",
+      "npc": "npc_deserter_flagbearer",
+      "question": "逃离队伍以后，旗还算你的吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "旗在我手里，但我不想再让它代表别人一定跟着我。",
+        "点名轮上钉回的木条提醒我，替人站在同一面旗后面有多容易。"
+      ],
+      "reflection": "物件可以保留，代表权却需要重新取得。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "新娘停了点名，我可以把旗放在营地当一块遮雨布。",
+          "它若还能护住一个人，也许就有了新的用处。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_11",
+      "npc": "npc_deserter_flagbearer",
+      "question": "不回答军号就算背叛吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "军号里没有问我是否愿意，所以我的沉默也不能被写成答应。",
+        "名册上的名字被划去又写回，像是人从来没有离开的资格。"
+      ],
+      "reflection": "自由的获得，也可能需要身体逐渐适应。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池的命令断了，我仍得练习不在每一声响里立刻起身。",
+          "能坐着把一句话听完，是今天才慢慢学回来的。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_12",
+      "npc": "npc_deserter_flagbearer",
+      "question": "你想把自己的名字从军册里抹掉吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我想让它停止召我，不想让人以为我从没在这里站过。",
+        "木条可以取下来收好，谁说离队就一定要烧掉？"
+      ],
+      "reflection": "退出制度可以与保存经历并存。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池新娘倒下，终于能把记录与命令分开。",
+          "我会留下我愿意留下的那一页，别的先合起来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_13",
+      "npc": "npc_obsidian_guide",
+      "question": "回头的人还算巡礼者吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我见过有人回头救同伴，也见过有人只想活着回家。称号不该拦在他们前面。",
+        "点名轮把离开的人算成缺额，路才变得只许向前。"
+      ],
+      "reflection": "返程不需要借终点的名义获得正当性。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "新娘不再守着结尾，回程也该重新有名字。",
+          "你若愿意，我仍叫它归途；不必给归途另设一场考验。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_05_14",
+      "npc": "npc_lantern_sister",
+      "question": "战后要先点亮哪一盏？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_05",
+          "label": "第5区证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "当地生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先照有人要走的地方，营床旁、转弯口，还有能看清台阶的那一盏。",
+        "点名轮教我，若先照着一张表，可能就又忘了表外的人。"
+      ],
+      "reflection": "终局变化应当落到具体人的日常需要。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch05",
+            "label": "第5区守门者战后"
+          }
+        ],
+        "lines": [
+          "镜池安静了，今晚还会有人怕黑。",
+          "先让今晚过去，再问明天需要几盏灯。"
+        ]
+      }
+    }
+  ]
+}

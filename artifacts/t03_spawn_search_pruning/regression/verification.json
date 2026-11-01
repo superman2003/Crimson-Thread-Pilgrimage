@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-20",
+  "base": "af210f7f5a8b919fda002ff8fff95d1eb7d2e260",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "pilgrimage_merge_regression",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.86,
+      "markers": [
+        "PASS: snare keeps 58 percent target speed at 120 Hz",
+        "PASS: snare expiry restores normal movement speed",
+        "PASS: dash escapes the snare",
+        "PILGRIMAGE_MERGE_REGRESSION checks=12 failures=0"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "rain_foundry_experience",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 16.97,
+      "markers": [
+        "RAIN_FOUNDRY_EXPERIENCE checks=286 failures=0 fixture_scope=positioned_camera_and_live_local_combat"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "enemy_encounter_roles",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 13.44,
+      "markers": [
+        "ENEMY_ENCOUNTER_ROLES checks=19 failures=0 fixture_scope=authored_profiles_and_positions_live_physics_ai_attacks_damage"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_enemy_residency",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 12.11,
+      "markers": [
+        "WORLD_ENEMY_RESIDENCY checks=56 failures=0 snapshot={\"arrival_ready\":true,\"authored\":7,\"builds\":0,\"checkpoint_id\":\"start\",\"checkpoint_resident\":true,\"critical_builds\":0,\"eligible\":7,\"enemy_activations\":6,\"enemy_active\":5,\"enemy_arrival_suspensions\":2,\"enemy_authored\":14,\"enemy_deactivations\":15,\"enemy_frame_activation_limit\":4,\"enemy_frame_deactivation_limit\":4,\"enemy_last_frame_activations\":0,\"enemy_last_frame_deactivations\":0,\"enemy_suspended\":9,\"enemy_tracked\":14,\"excluded_map_sellers\":1,\"excluded_workshops\":0,\"generation\":8,\"last_frame_builds\":0,\"last_frame_releases\":0,\"max_owned\":3,\"normal_max_operations\":4,\"pending_build\":0,\"pending_release\":0,\"releases\":3,\"resident\":0,\"warm_bypass_builds\":0,\"window\":\"[P: (3441.819, 280.0), S: (2560.0, 1800.0)]\",\"window_eligible\":0,\"window_ready\":true,\"window_resident\":0}"
+      ],
+      "objectdb_warnings": 0
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "passed": true,
+      "engine_errors": [],
+      "seconds": 5.77,
+      "markers": [
+        "WORLD_DEATH_CACHE_FLUSH checks=27 failures=0"
+      ],
+      "objectdb_warnings": 1
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

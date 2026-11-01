@@ -1,0 +1,552 @@
+{
+  "schema": "player-heal-runtime-v1",
+  "cell": 192,
+  "families": [
+    "channel",
+    "complete",
+    "interrupt"
+  ],
+  "sources": {
+    "channel": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_heal_channel.png",
+      "sha256": "0d816848a2982e33eeba0c7af432110e06f847eaa24c0d3268e06114089c86b5",
+      "sidecar_sha256": "b4bd4f8e04f91d73e2ebe8c86fb78bb068660406597f434b9e5615c94ba57e6b",
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            439,
+            454
+          ],
+          "source_crop": [
+            127,
+            122,
+            335,
+            393
+          ],
+          "atlas_rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            51,
+            37,
+            89,
+            117
+          ]
+        },
+        {
+          "source_cell": [
+            439,
+            0,
+            886,
+            454
+          ],
+          "source_crop": [
+            519,
+            33,
+            822,
+            433
+          ],
+          "atlas_rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            223,
+            10,
+            130,
+            172
+          ]
+        },
+        {
+          "source_cell": [
+            886,
+            0,
+            1335,
+            454
+          ],
+          "source_crop": [
+            953,
+            45,
+            1269,
+            431
+          ],
+          "atlas_rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            412,
+            13,
+            136,
+            166
+          ]
+        },
+        {
+          "source_cell": [
+            1335,
+            0,
+            1774,
+            454
+          ],
+          "source_crop": [
+            1401,
+            48,
+            1707,
+            430
+          ],
+          "atlas_rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            606,
+            14,
+            132,
+            164
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            454,
+            448,
+            887
+          ],
+          "source_crop": [
+            64,
+            482,
+            383,
+            865
+          ],
+          "atlas_rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            795,
+            13,
+            137,
+            165
+          ]
+        },
+        {
+          "source_cell": [
+            448,
+            454,
+            880,
+            887
+          ],
+          "source_crop": [
+            514,
+            489,
+            824,
+            873
+          ],
+          "atlas_rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            989,
+            13,
+            133,
+            165
+          ]
+        },
+        {
+          "source_cell": [
+            880,
+            454,
+            1350,
+            887
+          ],
+          "source_crop": [
+            940,
+            475,
+            1289,
+            845
+          ],
+          "atlas_rect": [
+            1152,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1173,
+            16,
+            150,
+            159
+          ]
+        },
+        {
+          "source_cell": [
+            1350,
+            454,
+            1774,
+            887
+          ],
+          "source_crop": [
+            1475,
+            528,
+            1631,
+            828
+          ],
+          "atlas_rect": [
+            1344,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1406,
+            31,
+            67,
+            129
+          ]
+        }
+      ]
+    },
+    "complete": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_heal_complete.png",
+      "sha256": "a56a26be9d65a469678a887f2b5a0ce8e8667b319545514de211868d1cbd6658",
+      "sidecar_sha256": "d263e97ad8f5335c7f051aa998729397aa6ca4ef8d6f2a9ebe103c6edaebf326",
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            511,
+            503
+          ],
+          "source_crop": [
+            151,
+            210,
+            374,
+            445
+          ],
+          "atlas_rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            55,
+            244,
+            82,
+            87
+          ]
+        },
+        {
+          "source_cell": [
+            511,
+            0,
+            995,
+            503
+          ],
+          "source_crop": [
+            619,
+            132,
+            928,
+            468
+          ],
+          "atlas_rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            231,
+            226,
+            114,
+            124
+          ]
+        },
+        {
+          "source_cell": [
+            995,
+            0,
+            1536,
+            503
+          ],
+          "source_crop": [
+            1052,
+            33,
+            1517,
+            472
+          ],
+          "atlas_rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            394,
+            207,
+            172,
+            162
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            503,
+            548,
+            1024
+          ],
+          "source_crop": [
+            71,
+            533,
+            485,
+            981
+          ],
+          "atlas_rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            595,
+            205,
+            153,
+            166
+          ]
+        },
+        {
+          "source_cell": [
+            548,
+            503,
+            1054,
+            1024
+          ],
+          "source_crop": [
+            611,
+            565,
+            966,
+            973
+          ],
+          "atlas_rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            798,
+            212,
+            131,
+            151
+          ]
+        },
+        {
+          "source_cell": [
+            1054,
+            503,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1167,
+            616,
+            1417,
+            985
+          ],
+          "atlas_rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1010,
+            220,
+            92,
+            136
+          ]
+        }
+      ]
+    },
+    "interrupt": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_heal_interrupt.png",
+      "sha256": "ddb37a5fb79c37762ece94a83b30521dd3eedb4aafbc7794ed196ae56e5cd4aa",
+      "sidecar_sha256": "224a53fd46740be13b08eed213f7a07b71c4e046bbf2e74537abd730157a42ad",
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            509,
+            521
+          ],
+          "source_crop": [
+            137,
+            152,
+            381,
+            381
+          ],
+          "atlas_rect": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            48,
+            435,
+            96,
+            90
+          ]
+        },
+        {
+          "source_cell": [
+            509,
+            0,
+            998,
+            521
+          ],
+          "source_crop": [
+            608,
+            89,
+            931,
+            459
+          ],
+          "atlas_rect": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            224,
+            407,
+            127,
+            145
+          ]
+        },
+        {
+          "source_cell": [
+            998,
+            0,
+            1536,
+            521
+          ],
+          "source_crop": [
+            1066,
+            67,
+            1504,
+            484
+          ],
+          "atlas_rect": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            394,
+            398,
+            172,
+            164
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            521,
+            527,
+            1024
+          ],
+          "source_crop": [
+            46,
+            559,
+            475,
+            989
+          ],
+          "atlas_rect": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            588,
+            395,
+            168,
+            169
+          ]
+        },
+        {
+          "source_cell": [
+            527,
+            521,
+            1042,
+            1024
+          ],
+          "source_crop": [
+            579,
+            577,
+            964,
+            969
+          ],
+          "atlas_rect": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            788,
+            403,
+            151,
+            154
+          ]
+        },
+        {
+          "source_cell": [
+            1042,
+            521,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1134,
+            614,
+            1444,
+            934
+          ],
+          "atlas_rect": [
+            960,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            995,
+            417,
+            122,
+            126
+          ]
+        }
+      ]
+    }
+  }
+}

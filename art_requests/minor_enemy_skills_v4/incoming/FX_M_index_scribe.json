@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_index_scribe.png",
+  "kind": "index_scribe",
+  "image_sha256": "2e7b0933528ff908711c2405ad22b267213407de36400c57c8a1c9924335f803",
+  "prompt_sha256": "33b4114f5a165a8913dc2547e48720a6c38a41aa644b5ee2ea5ea42e2b60ef46",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/index_scribe.png",
+  "reference_sha256": "e4e1ad61176351beae012a1034c0b6a4e3113278a671ef885bc42ecd71036f7b",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "index_pages_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        518,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        112,
+        131,
+        426,
+        475
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "index_pages_warning",
+      "rect_xyxy": [
+        518,
+        0,
+        1029,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        607,
+        131,
+        955,
+        478
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "index_pages_warning",
+      "rect_xyxy": [
+        1029,
+        0,
+        1536,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1103,
+        130,
+        1458,
+        475
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "index_seal_warning",
+      "rect_xyxy": [
+        0,
+        511,
+        522,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        84,
+        553,
+        467,
+        934
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "index_seal_warning",
+      "rect_xyxy": [
+        522,
+        511,
+        1028,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        582,
+        550,
+        975,
+        934
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "index_seal_warning",
+      "rect_xyxy": [
+        1028,
+        511,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1085,
+        552,
+        1473,
+        942
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????????????????????????",
+    "rows_reviewed": [
+      "index_pages_warning",
+      "index_seal_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

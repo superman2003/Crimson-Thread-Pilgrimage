@@ -12,20 +12,22 @@ class Target extends CharacterBody2D:
     var hits := 0
     var snares := 0
     var callback := Callable()
-    func take_damage(_amount: int, _point: Vector2, _blockable: bool = true) -> void:
+    func take_damage(_amount: int, _point: Vector2, _blockable: bool = true) -> bool:
         hits += 1
         if callback.is_valid():
             var action := callback
             callback = Callable()
             action.call()
+        return true
     func apply_snare(_seconds: float) -> void:
         snares += 1
 
 class OptionalTarget extends CharacterBody2D:
     # Minimal valid combat target: UI-lock state is intentionally absent.
     var hits := 0
-    func take_damage(_amount: int, _point: Vector2, _blockable: bool = true) -> void:
+    func take_damage(_amount: int, _point: Vector2, _blockable: bool = true) -> bool:
         hits += 1
+        return true
 
 class OptionalVictim extends Node2D:
     # Minimal enemy target: dying state is intentionally absent.

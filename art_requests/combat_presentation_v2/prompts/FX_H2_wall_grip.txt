@@ -1,0 +1,11 @@
+Use case: production transparent game VFX sprite sheet for Crimson Thread Pilgrimage, a 2D side-scrolling dark fantasy game. Match the supplied reference's hand-painted materials, muted earthy colours, crisp dark ink contours and textured shading. Not pixel art, not neon, not a 3D render, not a flat UI icon. The reference supplies STYLE AND MATERIAL only: draw ONLY the effect, never the character, body silhouette, weapon prop or scenery. Genuine transparent alpha background with fully clear gutters: no white/black fill, checkerboard, floor, cast shadow, text, labels, numbers or grid lines. Each cel is separate and fully inside its cell; consistent scale, anchor and fixed side-view camera. Use bold readable material clumps with a thin dark contour; the game displays small images on both dark and pale scenes, so fine filigree alone is insufficient. Soft fringe is allowed but must be sparse and faint. No effect touches a neighbouring cel. The one exception is a requested seamless tile: only its horizontal join edges may touch the cell border.
+Reference file(s): refs/hero_idle.png.
+The effect: A small right-facing contact tuft of crimson silk clinging to an invisible vertical surface, with several pale fibres scraping downward and tiny dark grit fragments. The wall side is RIGHT; do not draw the wall. Modest scale, no large smoke plume.
+Exactly 6 cels in a 3-column x 2-row grid, read left-to-right then top-to-bottom. Canvas 1152x768 px; every cell 384x384 px.
+Effect origin is x=50%, y=50%. Main material stays inside x=15..85%, y=15..85%; at least 10% fully transparent gutter on every side.
+Cel 1: Compact readable onset at the contact anchor.
+Cel 2: Effect opens with clearly changed hand-drawn contours.
+Cel 3: Peak material shape with the strongest readable silhouette.
+Cel 4: Material separates into a few larger fibres or fragments.
+Cel 5: Fragments thin and move outward or retract according to the effect brief.
+Cel 6: Sparse faint last fibres; nearly clear, no hard cut-off chunk.

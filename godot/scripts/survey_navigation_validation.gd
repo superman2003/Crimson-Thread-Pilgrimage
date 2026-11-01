@@ -91,6 +91,10 @@ func run(tree: SceneTree, world: Node, check: Callable) -> void:
     check.call(camera.zoom==1.0 and camera.stick_pan==Vector2.ZERO,"Changing map view clears pan and resets frame")
     for factor in [NAN,INF,0.0,-1.0]: camera.magnify(factor)
     check.call(camera.zoom==1.0 and camera.content.position.is_finite(),"Invalid magnification cannot corrupt map transform")
+    check.call(not camera.center_on(Vector2(NAN,0)) and not camera.center_on(Vector2(-1,0)) and not camera.center_on(camera.size*0.5,NAN) and camera.zoom==1.0,"invalid or off-paper locate target leaves the map frame intact")
+    camera.keyboard_pan=Vector2.RIGHT
+    camera.dragging=true
+    check.call(camera.center_on(camera.size*0.5) and camera.zoom==2.0 and camera.keyboard_pan==Vector2.ZERO and not camera.dragging,"centering a target stops held pan and drag before framing it")
     for rate in [30,60,120]:
         camera.reset()
         camera.magnify(4.0)

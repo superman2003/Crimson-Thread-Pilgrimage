@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_key_gate.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "8af3b71e2bb4427a5ad70892688daebabf2e00d329c090a34684fee293181434",
+  "image_size": [
+    2172,
+    724
+  ],
+  "prompt_file": "FX_T_key_gate.txt",
+  "prompt_sha256": "428c290a410187608774c4b861aad6c4f50d2ed7c9f733e5465ec2dac65daeb1",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      256
+    ],
+    "canvas_size": [
+      1536,
+      512
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "tile",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        724,
+        373
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        12,
+        113,
+        724,
+        302
+      ],
+      "fully_transparent_pixels": 180394
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        724,
+        0,
+        1448,
+        373
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        734,
+        113,
+        1448,
+        302
+      ],
+      "fully_transparent_pixels": 175179
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1448,
+        0,
+        2172,
+        373
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1459,
+        113,
+        2172,
+        302
+      ],
+      "fully_transparent_pixels": 165506
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        373,
+        724,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        13,
+        466,
+        724,
+        665
+      ],
+      "fully_transparent_pixels": 148195
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        724,
+        373,
+        1448,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        735,
+        463,
+        1448,
+        665
+      ],
+      "fully_transparent_pixels": 140157
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1448,
+        373,
+        2172,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1459,
+        461,
+        2172,
+        665
+      ],
+      "fully_transparent_pixels": 135512
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/silent_crown_core.png",
+      "sha256": "f0e361da4a07021f1de34700f2bf75bcd5ff9989e2e24be24478b74a58266819"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 horizontal tiles in 3x2; repeated old-brass gate teeth and keyhole slits, dim crimson binding fibres, no caster or active beam explosion. Distinct from the scissor silk corridor. Actual band registration, horizontal seams and obstruction-truncated channel acceptance remain pending.",
+    "runtime_acceptance": "pending"
+  }
+}

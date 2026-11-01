@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_vine_crawler.png",
+  "kind": "vine_crawler",
+  "image_sha256": "d3c17fdf9da2776887e273c20ac0076826ec0ab69490a77656d66139ba8f4318",
+  "prompt_sha256": "eec6fdb0b43323d0f92f1cc0e92b825f0fab586e51511c26c5b7b0a462bb9a14",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/vine_crawler.png",
+  "reference_sha256": "b75b1b70cfe4ea168a763fe637c8d864bc6800e63ee11590ef08dd7286e034f5",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "vine_bite_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        516,
+        384
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        120,
+        85,
+        428,
+        356
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "vine_bite_warning",
+      "rect_xyxy": [
+        516,
+        0,
+        1017,
+        384
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        604,
+        84,
+        915,
+        356
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "vine_bite_warning",
+      "rect_xyxy": [
+        1017,
+        0,
+        1536,
+        384
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1119,
+        84,
+        1431,
+        356
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "vine_bite_execution",
+      "rect_xyxy": [
+        0,
+        384,
+        488,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        87,
+        441,
+        445,
+        671
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "vine_bite_execution",
+      "rect_xyxy": [
+        488,
+        384,
+        1053,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        532,
+        414,
+        999,
+        719
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "vine_bite_execution",
+      "rect_xyxy": [
+        1053,
+        384,
+        1536,
+        739
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1103,
+        451,
+        1476,
+        683
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "vine_roots_warning",
+      "rect_xyxy": [
+        0,
+        739,
+        514,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        53,
+        866,
+        485,
+        962
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "vine_roots_warning",
+      "rect_xyxy": [
+        514,
+        739,
+        1014,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        544,
+        863,
+        982,
+        961
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "vine_roots_warning",
+      "rect_xyxy": [
+        1014,
+        739,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1045,
+        863,
+        1491,
+        962
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????/?????????????????????????",
+    "rows_reviewed": [
+      "vine_bite_warning",
+      "vine_bite_execution",
+      "vine_roots_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

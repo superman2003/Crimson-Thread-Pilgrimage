@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_silent_bugbler.png",
+  "kind": "silent_bugbler",
+  "image_sha256": "d637af11cce04be9651dae5fde330b96b103813bbdd845c43f83857999e77519",
+  "prompt_sha256": "fa34628c5d2605dcc411b2af7a3d7bf0294a1d2fb68b9b6672753dcd374373a7",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/silent_bugbler.png",
+  "reference_sha256": "102f3d8d9b024896e61b881e8cfa05477aa78ae50fbd9b6861e2bc575743ffb3",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "bugle_volley_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        504,
+        514
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        74,
+        132,
+        440,
+        437
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "bugle_volley_warning",
+      "rect_xyxy": [
+        504,
+        0,
+        1018,
+        514
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        568,
+        111,
+        953,
+        445
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "bugle_volley_warning",
+      "rect_xyxy": [
+        1018,
+        0,
+        1536,
+        514
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1081,
+        96,
+        1465,
+        455
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "bugle_pulse_warning",
+      "rect_xyxy": [
+        0,
+        514,
+        513,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        58,
+        647,
+        467,
+        920
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "bugle_pulse_warning",
+      "rect_xyxy": [
+        513,
+        514,
+        1019,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        558,
+        597,
+        974,
+        935
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "bugle_pulse_warning",
+      "rect_xyxy": [
+        1019,
+        514,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1065,
+        572,
+        1496,
+        940
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "??????????????????????????????",
+    "rows_reviewed": [
+      "bugle_volley_warning",
+      "bugle_pulse_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

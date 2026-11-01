@@ -4,6 +4,38 @@ const WORLD := preload("res://scripts/world_state.gd")
 var failures: Array[String] = []
 var checks := 0
 
+func _loadout_quotes() -> void:
+    var model := BUILD.new()
+    model.save_loadout("saved")
+    var saved_profile := model.profile()
+    model.unlock_event("seal_bell_repaired")
+    model.switch_crest("bell")
+    model.state.tool_counts.shard = 1
+    model.cooldowns.cleave = .42
+    var before := model.serialize()
+    var quote := model.preview_loadout("saved")
+    _check(quote.ok and quote.can_restore and quote.profile == saved_profile, "read-only plan quote predicts actual target profile")
+    _check(model.serialize() == before and quote.currency_cost == 0 and not quote.refills_resources, "preview spends nothing and cannot refill or change cooldowns")
+    quote.equipped_families.tool[0] = ""
+    _check(model.serialize() == before, "preview owns its nested arrays")
+    var road := model.preview_loadout("saved", false)
+    _check(road.ok and not road.can_restore and road.reason.contains("钟龛") and model.serialize() == before, "road preview explains location rule without applying equipment")
+    _check(not model.preview_loadout("missing").ok and model.serialize() == before, "missing plan is rejected without mutation")
+    model.state.loadouts.bad = model.state.loadouts.saved.duplicate(true)
+    model.state.loadouts.bad.crest = "unknown"
+    before = model.serialize()
+    _check(not model.preview_loadout("bad").ok and model.preview_loadout("bad").reason.contains("契印") and model.serialize() == before, "incompatible plan reports the actual restore validator reason")
+    model.state.loadouts.erase("bad")
+    _check(model.restore_loadout("saved").ok and model.profile() == saved_profile and model.state.tool_counts.shard == 1 and is_equal_approx(model.cooldowns.cleave,.42), "accepted restore matches quote and preserves stock/cooldown")
+    before=model.serialize()
+    _check(not model.delete_loadout("saved",false).ok and model.serialize()==before,"Road cannot delete a plan")
+    _check(not model.delete_loadout("missing").ok and model.serialize()==before,"Unknown plan deletion is read-only")
+    _check(model.delete_loadout("saved").ok and not model.state.loadouts.has("saved"),"Shrine deletion releases exactly the named saved slot")
+    before.loadouts.erase("saved")
+    _check(model.serialize()==before,"Deleting a plan preserves equipment stock and cooldown")
+    var roundtrip:=BUILD.new()
+    _check(roundtrip.restore(JSON.parse_string(JSON.stringify(model.serialize()))).ok and not roundtrip.state.loadouts.has("saved"),"Deleted plan stays deleted after serialization")
+
 func _initialize() -> void:
     var build := BUILD.new()
     _check(build.catalog.crests.size() == 3 and build.catalog.skills.size() == 6 and build.catalog.tools.size() == 4, "three seals, six skills and four tools")
@@ -27,7 +59,18 @@ func _initialize() -> void:
     for id in build.catalog.tools:
         _check(build.unlock_event("tool_" + id + "_found").ok, "tool event " + id)
     for id in build.catalog.passives:
-        _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        var recipe_id := String(build.catalog.passives[id].get("craft_recipe",""))
+        var relic := String(build.catalog.passives[id].get("unlock_item", ""))
+        if not relic.is_empty():
+            build.sync_progress({relic: 1})
+            _check(build.state.unlocked_passives.has(id), "relic source " + id)
+        elif recipe_id.is_empty():
+            _check(build.unlock_event("charm_" + id + "_found").ok, "charm event " + id)
+        else:
+            var recipe: Dictionary=build.catalog.recipes[recipe_id]
+            var counts: Dictionary=recipe.materials.duplicate(true)
+            for pattern in recipe.requires_items:counts[pattern]=1
+            _check(build.transact(recipe_id,{"currency":1000,"inventory_counts":counts}).ok,"artisan source " + id)
     _check(build.select_skill("needle", 1).ok and build.state.skills == ["cleave", "needle"], "equip second skill")
     _check(not build.select_skill("cleave", 1).ok, "duplicate skill rejected")
     _check(build.cycle_skill().ok and build.state.skill == "cleave", "cycle preserves active alias")
@@ -53,15 +96,25 @@ func _initialize() -> void:
     var cds := build.cooldowns.duplicate(true)
     _check(build.switch_crest("bell").ok and build.equip_passives([]).ok and build.restore_loadout("记名").ok, "restore exact build")
     _check(build.state.skills == ["cleave", "needle"] and build.state.passives == ["shell", "stride"] and stock == build.state.tool_counts and cds == build.cooldowns, "loadout preserves stock/CD")
-    var wallet := {"currency": 200, "inventory_counts": {"echo_hook": 1}}
+    var wallet := {"currency": 400, "inventory_counts": {"echo_hook": 1, "salt_crystal_shard": 4}}
     var wallet_before := wallet.duplicate(true)
     _check(build.switch_crest("crimson").ok, "return to a crest whose open skill slot accepts needle")
-    _check(build.select_skill("needle", 1).ok, "upgrade target")
+    _check(build.select_skill("needle", 1).ok, "校习 target")
     var zero := build.selected_skill()
-    var purchase := build.transact("upgrade_needle", wallet)
-    _check(purchase.ok and purchase.wallet.currency == 200 - int(build.catalog.recipes.upgrade_needle.currency) and wallet == wallet_before, "upgrade atomic wallet charges the catalog price")
-    _check(build.selected_skill().pierce == 1 and build.selected_skill().range > zero.range, "upgrade remains single target")
-    _check(build.transact("upgrade_needle", wallet).ok and not build.transact("upgrade_needle", wallet).ok, "upgrade cap")
+    var far_recipe: Dictionary = build.catalog.recipes.branch_needle_a
+    var purchase := build.transact("branch_needle_a", wallet)
+    _check(purchase.ok and purchase.wallet.currency == 400 - int(far_recipe.currency) and purchase.wallet.inventory_counts.salt_crystal_shard == 4 - int(far_recipe.materials.salt_crystal_shard) and wallet == wallet_before, "校习 charges catalog currency and materials on a copied wallet")
+    var far := build.selected_skill()
+    _check(far.branch == "a" and far.range > zero.range and far.damage == zero.damage and far.pierce == 1, "远针 reaches further at the same damage and stays single target")
+    _check(not build.transact("branch_needle_a", purchase.wallet).ok, "the chosen direction cannot be bought twice")
+    var heavy_purchase := build.transact("branch_needle_b", purchase.wallet)
+    var heavy := build.selected_skill()
+    _check(heavy_purchase.ok and heavy.branch == "b" and heavy.damage > zero.damage and heavy.range < zero.range and heavy.energy_cost > zero.energy_cost, "switching to 重针 replaces 远针: more damage, less range, more thread")
+    _check(int(build.state.skill_levels.needle) == 2, "the save keeps one direction per skill")
+    _check(not build.transact("branch_needle_a", {"currency": 400, "inventory_counts": {}}).ok and build.selected_skill().branch == "b", "missing materials refuse a switch without changing the direction")
+    for skill_id in build.catalog.skills:
+        var directions: Dictionary = build.catalog.skills[skill_id].get("branches", {})
+        _check(directions.size() == 2 and build.catalog.recipes.has("branch_%s_a" % skill_id) and build.catalog.recipes.has("branch_%s_b" % skill_id), skill_id + " has two exclusive 校习 directions")
     _check(build.select_tool("shard", 0).ok, "select tool")
     for unused in range(3):
         _check(build.use_tool().ok, "finite tool consumption")
@@ -98,8 +151,9 @@ func _initialize() -> void:
         before = restart.serialize()
         _check(not restart.restore(corrupt).ok and restart.serialize() == before, "transactional corruption rejection " + corrupt_kind)
     var snapshot := build.get_snapshot()
-    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == 6, "full UI catalog")
+    _check(snapshot.skills.size() == 6 and snapshot.tools.size() == 4 and snapshot.passive_options.size() == build.catalog.passives.size() and snapshot.recipes.size() == build.catalog.recipes.size(), "full UI catalog")
     _check(snapshot.skills_equipped == ["cleave", "needle"] and snapshot.skills[1].equipped_slots == [1], "UI equipped positions")
+    _loadout_quotes()
     if failures.is_empty():
         print("BUILD SYSTEM PASS: %d checks" % checks)
         quit(0)

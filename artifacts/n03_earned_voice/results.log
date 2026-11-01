@@ -1,0 +1,13 @@
+Running ui_world_integration
+PASS: ui_world_integration
+按 F 休息，恢复状态并记录归途。
+UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0
+Running build_slots_ui
+PASS: build_slots_ui
+
+BUILD_SLOTS_UI_VALIDATION fixture=MockRuntime production=pilgrimage_interface checks=54 failures=0 capture=user://build_slots_ui_validation_fixture.png
+Running narrative_outcomes
+PASS: narrative_outcomes
+NARRATIVE_GROUP ending_world_phase checks=234 failures=0
+NARRATIVE_OUTCOMES checks=9798 failures=0
+GODOT_REGRESSIONS suites=3 failures=0

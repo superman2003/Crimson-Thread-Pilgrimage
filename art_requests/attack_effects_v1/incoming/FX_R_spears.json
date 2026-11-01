@@ -1,0 +1,133 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_R_spears.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_R_spears.txt",
+  "prompt_sha256": "3e1c32558d7314d43a10b5f3b2b1686c95d7325c753b192519d6b55f8551849d",
+  "image_sha256": "3c7b41ee8217eac4edf334e349e61a01f87b710312cb483c1113b08a6f88261b",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "requested_frames": 6,
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "fully_transparent_pixels": 1156338,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_pilgrim_commander_minor.png",
+      "sha256": "316e6d650beb1ef6704fc1cb241632590ab0dd52bb8238cba0f211a0200ddc20"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        514,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        63,
+        351,
+        424,
+        497
+      ],
+      "fully_transparent_pixels": 236112
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        514,
+        0,
+        1029,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        603,
+        150,
+        937,
+        497
+      ],
+      "fully_transparent_pixels": 196041
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1029,
+        0,
+        1536,
+        511
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1119,
+        15,
+        1480,
+        497
+      ],
+      "fully_transparent_pixels": 158639
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        511,
+        521,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        86,
+        526,
+        456,
+        995
+      ],
+      "fully_transparent_pixels": 167053
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        521,
+        511,
+        1039,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        587,
+        627,
+        961,
+        995
+      ],
+      "fully_transparent_pixels": 186281
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1039,
+        511,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1115,
+        752,
+        1473,
+        995
+      ],
+      "fully_transparent_pixels": 212212
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "槍陣",
+    "observed_cels": 6,
+    "note": "已目检冒出、满高与回收共 6 格，根部在下、尖端朝上。实际高度、地面线与判定矩形需运行时验收。"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-21T18:15:52.576735+08:00",
+  "head": "2fe6c53edd171b03b92c9b84597863f4227ef141",
+  "source_files": 8731,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL; headless for background_texture_contention",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "rain_foundry_experience",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/rain_foundry_experience_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000",
+        "--",
+        "--spillway-capture"
+      ],
+      "seconds": 12.7,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "RAIN_FOUNDRY_EXPERIENCE checks=294 failures=0 fixture_scope=positioned_camera_and_live_local_combat",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "seal_combat",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/seal_combat_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 16.67,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SEAL_COMBAT_VALIDATION PASS checks=194 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "background_texture_contention",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--headless",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/background_texture_contention_validation.gd"
+      ],
+      "seconds": 2.78,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "BACKGROUND_TEXTURE_CONTENTION checks=626 failures=0 threaded=false",
+      "objectdb_warnings": 0,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_seed.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_seed.txt",
+  "prompt_sha256": "44cc2665f8bffceca3ff51ac61edf75442607d271baa3b29dc72cc3dfcf475b1",
+  "image_sha256": "ae60941550987060ef3944200a4d8c2fa134e20dece4d4f124819cb666da9aa2",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1227534,
+  "references": [
+    {
+      "path": "art_requests/attack_effects_v1/refs/broken_string_gardener.png",
+      "sha256": "b2a55df17302fefafa59296ea26a021536b9663d0b20f8fa80d424e762b13f3d"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        446,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        69,
+        142,
+        390,
+        303
+      ],
+      "fully_transparent_pixels": 153838
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        446,
+        0,
+        892,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        506,
+        142,
+        829,
+        314
+      ],
+      "fully_transparent_pixels": 151479
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        892,
+        0,
+        1331,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        956,
+        144,
+        1274,
+        327
+      ],
+      "fully_transparent_pixels": 146466
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1331,
+        0,
+        1774,
+        427
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1390,
+        137,
+        1713,
+        302
+      ],
+      "fully_transparent_pixels": 150605
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        427,
+        465,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        59,
+        517,
+        412,
+        772
+      ],
+      "fully_transparent_pixels": 153842
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        465,
+        427,
+        907,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        516,
+        529,
+        838,
+        772
+      ],
+      "fully_transparent_pixels": 141877
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        907,
+        427,
+        1354,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        978,
+        556,
+        1273,
+        754
+      ],
+      "fully_transparent_pixels": 158103
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1354,
+        427,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1441,
+        583,
+        1689,
+        731
+      ],
+      "fully_transparent_pixels": 171324
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "藤種",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

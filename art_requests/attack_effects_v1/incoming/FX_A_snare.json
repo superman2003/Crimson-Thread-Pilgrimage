@@ -1,0 +1,173 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_A_snare.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_A_snare.txt",
+  "prompt_sha256": "eee349ba7c1aecfa75497fbf07f7a2aa399977e360aad85e53eac0c981477786",
+  "image_sha256": "038060beec8a4e2d7cf205ed4ff95daffccef3fc9d10ecf251c40fefc6934ec2",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1181313,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/root_cage_hunter.png",
+      "sha256": "0353480f88080215f2b66a44e87e0cb8279c4cbbbf9b70c24d31f822cc6dba2f"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/broken_string_gardener.png",
+      "sha256": "b2a55df17302fefafa59296ea26a021536b9663d0b20f8fa80d424e762b13f3d"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/sunken_hammer_smith.png",
+      "sha256": "24eb5ab542e49d4179dc3f4f056db8a8494c41cdd0c3564f85af8e69a8ff03d2"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        449,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        49,
+        220,
+        406,
+        380
+      ],
+      "fully_transparent_pixels": 175860
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        449,
+        0,
+        883,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        489,
+        187,
+        846,
+        382
+      ],
+      "fully_transparent_pixels": 153833
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        883,
+        0,
+        1327,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        917,
+        181,
+        1288,
+        385
+      ],
+      "fully_transparent_pixels": 149710
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1327,
+        0,
+        1774,
+        467
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1369,
+        187,
+        1728,
+        383
+      ],
+      "fully_transparent_pixels": 153373
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        467,
+        440,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        40,
+        595,
+        398,
+        822
+      ],
+      "fully_transparent_pixels": 126921
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        440,
+        467,
+        886,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        483,
+        599,
+        849,
+        825
+      ],
+      "fully_transparent_pixels": 128495
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        886,
+        467,
+        1340,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        927,
+        623,
+        1292,
+        825
+      ],
+      "fully_transparent_pixels": 136646
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1340,
+        467,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1390,
+        644,
+        1719,
+        811
+      ],
+      "fully_transparent_pixels": 156475
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "根籠",
+    "observed_cels": 8,
+    "note": "已目检出现、持续与消散共 8 格；仅有地面效果。地面锚点、判定圆贴合和淡出速度需运行时验收。"
+  }
+}

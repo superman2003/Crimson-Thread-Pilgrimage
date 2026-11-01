@@ -78,7 +78,17 @@ func run(world: Node, callback: Callable) -> void:
     _check(world.interaction_target() == z, "automatic pickup does not steal an interaction prompt")
     auto_pickup.set_meta("manual_pickup", true)
     _check(world.interaction_target() == auto_pickup, "manual pickup remains a valid nearest target")
+    auto_pickup.set_meta("kind","currency");auto_pickup.set_meta("manual_pickup",false)
+    _check(world.interaction_target()==z,"automatic currency does not steal an interaction prompt")
+    auto_pickup.set_meta("manual_pickup",true)
+    _check(world.interaction_target()==auto_pickup,"failed automatic currency exposes deliberate interaction retry")
     auto_pickup.queue_free()
+    var challenge_bell:=_area(world,"Selection_ChallengeBell",origin+Vector2(-20,0))
+    challenge_bell.set_meta("kind","challenge_shrine")
+    _check(world.interaction_target()==challenge_bell,"challenge shrine is selectable through the actual interaction router")
+    challenge_bell.set_meta("kind","hunt_track")
+    _check(world.interaction_target()==challenge_bell,"authored hunt track is selectable through the same router")
+    challenge_bell.queue_free()
     for overlay in ["map", "settings", "dialogue", "build", "backpack"]:
         world.active_overlay = overlay
         z_marker._process(0.0)

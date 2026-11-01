@@ -43,6 +43,12 @@ static func cache_is_current() -> bool:
 static func cached_generation() -> int:
     return _cache_generation if cache_is_current() else -1
 
+static func cached_hidden_clues() -> Array:
+    # UI readers take only the small public source catalogue, not a duplicate
+    # of the full world manifest, and never parse while a refresh is pending.
+    if not cache_is_current():return []
+    return _cached_data.get("hidden_route_plan",[]).duplicate(true)
+
 static func cached_config_path(region_id: String) -> String:
     if not cache_is_current():
         return ""

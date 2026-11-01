@@ -1,0 +1,7 @@
+{
+  "path": "godot/scripts/protagonist_voice.gd",
+  "before": "if not ability is String or not held(inventory.get(ability,0)):acquired=false;break",
+  "after": "if false:acquired=false;break",
+  "exit_code": 1,
+  "caught": true
+}

@@ -1,0 +1,165 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_W_surge.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_W_surge.txt",
+  "prompt_sha256": "95e1c0f7ef2cf70723da4f5e9f25cd202bb9cd49dc24cdb7325a5e81f0895d96",
+  "image_sha256": "9161ffd60b039bfe69c1618cd0754c1979995ef8fffe3ab70fa9aea0977b48e8",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1170308,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/rust_diver.png",
+      "sha256": "6871de195efc48fe65bfbad1bc0e6dba4b854e9bc9588ff3dc3a5c5661ab49ce"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        443,
+        474
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        25,
+        243,
+        426,
+        391
+      ],
+      "fully_transparent_pixels": 173192
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        443,
+        0,
+        890,
+        474
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        460,
+        152,
+        871,
+        397
+      ],
+      "fully_transparent_pixels": 151254
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        890,
+        0,
+        1334,
+        474
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        912,
+        184,
+        1315,
+        394
+      ],
+      "fully_transparent_pixels": 149976
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1334,
+        0,
+        1774,
+        474
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1350,
+        180,
+        1750,
+        396
+      ],
+      "fully_transparent_pixels": 151953
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        474,
+        456,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        23,
+        637,
+        444,
+        840
+      ],
+      "fully_transparent_pixels": 133169
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        456,
+        474,
+        893,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        464,
+        625,
+        879,
+        838
+      ],
+      "fully_transparent_pixels": 123826
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        893,
+        474,
+        1333,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        910,
+        693,
+        1309,
+        840
+      ],
+      "fully_transparent_pixels": 135467
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1333,
+        474,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1358,
+        743,
+        1726,
+        836
+      ],
+      "fully_transparent_pixels": 151471
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "渠水湧浪",
+    "observed_cels": 8,
+    "note": "已目检升起、行进与消退共 8 格，朝右地波。脚底线和持续循环需运行时验收。"
+  }
+}

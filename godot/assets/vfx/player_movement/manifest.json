@@ -1,0 +1,587 @@
+{
+  "schema": "player-movement-runtime-v1",
+  "cell": 192,
+  "families": [
+    "double_jump",
+    "wall_grip",
+    "land"
+  ],
+  "sources": {
+    "double_jump": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_double_jump.png",
+      "sha256": "e7f531496298848740395d633cadf2557db385cd76cebf7f4c436e0e9cd652b3",
+      "sidecar_sha256": "835c931526cdbfabc0ceaf7babb4987cee329be282bb2acaf9c0d0640270a91e",
+      "anchor_slot": [
+        96,
+        154
+      ],
+      "scale": 0.3271375464684015,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            470,
+            553
+          ],
+          "source_crop": [
+            108,
+            254,
+            397,
+            468
+          ],
+          "source_anchor": [
+            235.0,
+            442.40000000000003
+          ],
+          "atlas_rect": [
+            0,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            54,
+            92,
+            95,
+            70
+          ]
+        },
+        {
+          "source_cell": [
+            470,
+            0,
+            1010,
+            553
+          ],
+          "source_crop": [
+            530,
+            147,
+            1009,
+            512
+          ],
+          "source_anchor": [
+            740.0,
+            442.40000000000003
+          ],
+          "atlas_rect": [
+            192,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            219,
+            57,
+            157,
+            119
+          ]
+        },
+        {
+          "source_cell": [
+            1010,
+            0,
+            1536,
+            553
+          ],
+          "source_crop": [
+            1017,
+            85,
+            1536,
+            503
+          ],
+          "source_anchor": [
+            1273.0,
+            442.40000000000003
+          ],
+          "atlas_rect": [
+            384,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            396,
+            37,
+            170,
+            137
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            553,
+            521,
+            1024
+          ],
+          "source_crop": [
+            1,
+            600,
+            515,
+            999
+          ],
+          "source_anchor": [
+            260.5,
+            929.8
+          ],
+          "atlas_rect": [
+            576,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            587,
+            46,
+            168,
+            131
+          ]
+        },
+        {
+          "source_cell": [
+            521,
+            553,
+            1016,
+            1024
+          ],
+          "source_crop": [
+            527,
+            648,
+            1016,
+            1003
+          ],
+          "source_anchor": [
+            768.5,
+            929.8
+          ],
+          "atlas_rect": [
+            768,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            785,
+            62,
+            160,
+            116
+          ]
+        },
+        {
+          "source_cell": [
+            1016,
+            553,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1016,
+            683,
+            1533,
+            980
+          ],
+          "source_anchor": [
+            1276.0,
+            929.8
+          ],
+          "atlas_rect": [
+            960,
+            0,
+            192,
+            192
+          ],
+          "paint_rect": [
+            971,
+            73,
+            169,
+            97
+          ]
+        }
+      ]
+    },
+    "wall_grip": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_wall_grip.png",
+      "sha256": "05e4337b5d6e974e148d5d553018332bcf7f37abd4519db95186db5e314fed9c",
+      "sidecar_sha256": "e90709ede8a0a41050fa1d7b4ca5a06867e8a9b80f57a839711e88fbe3e2ddd3",
+      "anchor_slot": [
+        96,
+        96
+      ],
+      "scale": 0.352,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            506,
+            500
+          ],
+          "source_crop": [
+            195,
+            176,
+            365,
+            378
+          ],
+          "source_anchor": [
+            253.0,
+            250.0
+          ],
+          "atlas_rect": [
+            0,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            76,
+            262,
+            60,
+            71
+          ]
+        },
+        {
+          "source_cell": [
+            506,
+            0,
+            982,
+            500
+          ],
+          "source_crop": [
+            614,
+            102,
+            872,
+            473
+          ],
+          "source_anchor": [
+            744.0,
+            250.0
+          ],
+          "atlas_rect": [
+            192,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            242,
+            236,
+            91,
+            131
+          ]
+        },
+        {
+          "source_cell": [
+            982,
+            0,
+            1536,
+            500
+          ],
+          "source_crop": [
+            1054,
+            56,
+            1477,
+            500
+          ],
+          "source_anchor": [
+            1259.0,
+            250.0
+          ],
+          "atlas_rect": [
+            384,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            408,
+            220,
+            149,
+            156
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            500,
+            535,
+            1024
+          ],
+          "source_crop": [
+            95,
+            562,
+            447,
+            964
+          ],
+          "source_anchor": [
+            267.5,
+            762.0
+          ],
+          "atlas_rect": [
+            576,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            611,
+            218,
+            124,
+            142
+          ]
+        },
+        {
+          "source_cell": [
+            535,
+            500,
+            1024,
+            1024
+          ],
+          "source_crop": [
+            659,
+            585,
+            915,
+            956
+          ],
+          "source_anchor": [
+            779.5,
+            762.0
+          ],
+          "atlas_rect": [
+            768,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            822,
+            226,
+            90,
+            131
+          ]
+        },
+        {
+          "source_cell": [
+            1024,
+            500,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1185,
+            639,
+            1440,
+            927
+          ],
+          "source_anchor": [
+            1280.0,
+            762.0
+          ],
+          "atlas_rect": [
+            960,
+            192,
+            192,
+            192
+          ],
+          "paint_rect": [
+            1023,
+            245,
+            90,
+            101
+          ]
+        }
+      ]
+    },
+    "land": {
+      "path": "art_requests/combat_presentation_v2/incoming/FX_H2_land.png",
+      "sha256": "15d93defdd8fc38d1ed25ac11dcf087fab3e78c85e9de42be7aa44db3497eb9b",
+      "sidecar_sha256": "3529e7a07707211cc2ef21d83588750e7f4dd8eaad2c6df72d7e991d02bdacc7",
+      "anchor_slot": [
+        96,
+        154
+      ],
+      "scale": 0.36065573770491804,
+      "frames": [
+        {
+          "source_cell": [
+            0,
+            0,
+            484,
+            543
+          ],
+          "source_crop": [
+            130,
+            304,
+            381,
+            467
+          ],
+          "source_anchor": [
+            242.0,
+            434.40000000000003
+          ],
+          "atlas_rect": [
+            0,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            56,
+            491,
+            91,
+            59
+          ]
+        },
+        {
+          "source_cell": [
+            484,
+            0,
+            1003,
+            543
+          ],
+          "source_crop": [
+            559,
+            272,
+            969,
+            468
+          ],
+          "source_anchor": [
+            743.5,
+            434.40000000000003
+          ],
+          "atlas_rect": [
+            192,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            221,
+            479,
+            148,
+            71
+          ]
+        },
+        {
+          "source_cell": [
+            1003,
+            0,
+            1536,
+            543
+          ],
+          "source_crop": [
+            1034,
+            210,
+            1507,
+            468
+          ],
+          "source_anchor": [
+            1269.5,
+            434.40000000000003
+          ],
+          "atlas_rect": [
+            384,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            395,
+            457,
+            171,
+            93
+          ]
+        },
+        {
+          "source_cell": [
+            0,
+            543,
+            520,
+            1024
+          ],
+          "source_crop": [
+            29,
+            636,
+            504,
+            925
+          ],
+          "source_anchor": [
+            260.0,
+            927.8
+          ],
+          "atlas_rect": [
+            576,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            589,
+            433,
+            171,
+            104
+          ]
+        },
+        {
+          "source_cell": [
+            520,
+            543,
+            1023,
+            1024
+          ],
+          "source_crop": [
+            538,
+            683,
+            1001,
+            924
+          ],
+          "source_anchor": [
+            771.5,
+            927.8
+          ],
+          "atlas_rect": [
+            768,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            780,
+            450,
+            167,
+            87
+          ]
+        },
+        {
+          "source_cell": [
+            1023,
+            543,
+            1536,
+            1024
+          ],
+          "source_crop": [
+            1050,
+            736,
+            1501,
+            924
+          ],
+          "source_anchor": [
+            1279.5,
+            927.8
+          ],
+          "atlas_rect": [
+            960,
+            384,
+            192,
+            192
+          ],
+          "paint_rect": [
+            973,
+            469,
+            163,
+            68
+          ]
+        }
+      ]
+    }
+  }
+}

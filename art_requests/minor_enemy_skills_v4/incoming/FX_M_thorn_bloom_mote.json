@@ -1,0 +1,135 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_thorn_bloom_mote.png",
+  "kind": "thorn_bloom_mote",
+  "image_sha256": "68a43092298b4024edf9c5ad998a9e634bcfb0f9dd899fdcdc13d7283cdfa51b",
+  "prompt_sha256": "4d5f23d0985f5f14a641a24499228b76b0271da72df414577d3cd9500b92fe18",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 6,
+  "layout": [
+    3,
+    2
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/thorn_bloom_mote.png",
+  "reference_sha256": "23fb697088643690ed8e77ce12e82b4e63c8d771fd216bb5215f9a7fc5a723ba",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "bloom_seeds_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        520,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        44,
+        308,
+        513,
+        414
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "bloom_seeds_warning",
+      "rect_xyxy": [
+        520,
+        0,
+        1011,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        528,
+        307,
+        997,
+        414
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "bloom_seeds_warning",
+      "rect_xyxy": [
+        1011,
+        0,
+        1536,
+        504
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1025,
+        298,
+        1496,
+        415
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "bloom_needle_warning",
+      "rect_xyxy": [
+        0,
+        504,
+        522,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        158,
+        617,
+        418,
+        808
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "bloom_needle_warning",
+      "rect_xyxy": [
+        522,
+        504,
+        1017,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        645,
+        601,
+        916,
+        810
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "bloom_needle_warning",
+      "rect_xyxy": [
+        1017,
+        504,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1121,
+        596,
+        1434,
+        811
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "?????????????????????????????",
+    "rows_reviewed": [
+      "bloom_seeds_warning",
+      "bloom_needle_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

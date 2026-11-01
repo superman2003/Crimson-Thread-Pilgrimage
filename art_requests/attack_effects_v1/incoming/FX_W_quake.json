@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_W_quake.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_W_quake.txt",
+  "prompt_sha256": "b1a655ae34ed0c3a21329e1608f127f59d058097c5fe92ec7c899c803fc45787",
+  "image_sha256": "e2de2528ac8ddef2d4c9f8a70958839bcb9e2cb8d1cf35fa415ef50e480ed328",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 1054767,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/corridor_heavy.png",
+      "sha256": "3c2a74041600de4004f4ed45ff2f9a2df6f8db8f4b5ca9d720a70f004113e840"
+    },
+    {
+      "path": "art_requests/attack_effects_v1/refs/rust_crown_guardian.png",
+      "sha256": "99d9b22e80128af4ed68ccaa57e1009e2102f9afa90a0a9f5b22b3a0fade3770"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        438,
+        485
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        16,
+        261,
+        420,
+        419
+      ],
+      "fully_transparent_pixels": 161783
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        438,
+        0,
+        885,
+        485
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        458,
+        168,
+        866,
+        419
+      ],
+      "fully_transparent_pixels": 141201
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        885,
+        0,
+        1330,
+        485
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        906,
+        167,
+        1315,
+        421
+      ],
+      "fully_transparent_pixels": 130468
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1330,
+        0,
+        1774,
+        485
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1345,
+        181,
+        1763,
+        417
+      ],
+      "fully_transparent_pixels": 140217
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        485,
+        443,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        14,
+        583,
+        426,
+        831
+      ],
+      "fully_transparent_pixels": 103897
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        443,
+        485,
+        891,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        459,
+        598,
+        883,
+        829
+      ],
+      "fully_transparent_pixels": 109816
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        891,
+        485,
+        1328,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        900,
+        657,
+        1313,
+        831
+      ],
+      "fully_transparent_pixels": 120653
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1328,
+        485,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1345,
+        723,
+        1741,
+        829
+      ],
+      "fully_transparent_pixels": 146732
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "震地裂波",
+    "observed_cels": 8,
+    "note": "已目检升起、行进与消退共 8 格，朝右地波。脚底线和持续循环需运行时验收。"
+  }
+}

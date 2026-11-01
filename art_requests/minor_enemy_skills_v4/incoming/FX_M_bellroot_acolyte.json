@@ -1,0 +1,187 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_bellroot_acolyte.png",
+  "kind": "bellroot_acolyte",
+  "image_sha256": "9305ae2dc2c69faf20396defcdfbe31a3fc12c14d6bf6bd221d9206aa0fcdf45",
+  "prompt_sha256": "5c065dd8cad40fd9f0f47b71a29052e07b205494f7632bc2faed5bca6c62f2d7",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 9,
+  "layout": [
+    3,
+    3
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/bellroot_acolyte.png",
+  "reference_sha256": "aa96f1204218103cec71ef1ee906f50695c224006b817ae1a050c26ad32c4c1a",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "root_staff_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        517,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        113,
+        46,
+        440,
+        335
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "root_staff_warning",
+      "rect_xyxy": [
+        517,
+        0,
+        1002,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        593,
+        46,
+        920,
+        335
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "root_staff_warning",
+      "rect_xyxy": [
+        1002,
+        0,
+        1536,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1104,
+        46,
+        1432,
+        335
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "root_staff_execution",
+      "rect_xyxy": [
+        0,
+        368,
+        524,
+        691
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        35,
+        432,
+        501,
+        640
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "root_staff_execution",
+      "rect_xyxy": [
+        524,
+        368,
+        1014,
+        691
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        542,
+        401,
+        997,
+        644
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "root_staff_execution",
+      "rect_xyxy": [
+        1014,
+        368,
+        1536,
+        691
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1025,
+        402,
+        1501,
+        644
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "root_bell_wave_warning",
+      "rect_xyxy": [
+        0,
+        691,
+        522,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        60,
+        732,
+        479,
+        960
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "root_bell_wave_warning",
+      "rect_xyxy": [
+        522,
+        691,
+        1034,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        571,
+        732,
+        990,
+        961
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "root_bell_wave_warning",
+      "rect_xyxy": [
+        1034,
+        691,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1082,
+        732,
+        1503,
+        961
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????????????????????????",
+    "rows_reviewed": [
+      "root_staff_warning",
+      "root_staff_execution",
+      "root_bell_wave_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

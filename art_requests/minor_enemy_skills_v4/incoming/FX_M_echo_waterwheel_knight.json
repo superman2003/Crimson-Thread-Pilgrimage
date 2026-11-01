@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_echo_waterwheel_knight.png",
+  "kind": "echo_waterwheel_knight",
+  "image_sha256": "617f22b677dd37ac61aa67ba30234ab4082370d3b0e6eb0579d25ac266898439",
+  "prompt_sha256": "f181b711eaa975311f636b4887aa71c864ed9e611d38e6d91f6bebedf65fa846",
+  "image_size": [
+    1254,
+    1254
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+  "reference_sha256": "389aa8089bd4f19d0cf55170e0a75436046feec8b984c5f9983fa71c8ef5a0d2",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "echo_wheel_guard_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        418,
+        366
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        174,
+        145,
+        320,
+        339
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "echo_wheel_guard_warning",
+      "rect_xyxy": [
+        418,
+        0,
+        835,
+        366
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        552,
+        146,
+        711,
+        343
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "echo_wheel_guard_warning",
+      "rect_xyxy": [
+        835,
+        0,
+        1254,
+        366
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        931,
+        144,
+        1095,
+        346
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "echo_wheel_guard_execution",
+      "rect_xyxy": [
+        0,
+        366,
+        429,
+        669
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        146,
+        453,
+        358,
+        614
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "echo_wheel_guard_execution",
+      "rect_xyxy": [
+        429,
+        366,
+        828,
+        669
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        501,
+        425,
+        767,
+        640
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "echo_wheel_guard_execution",
+      "rect_xyxy": [
+        828,
+        366,
+        1254,
+        669
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        887,
+        450,
+        1114,
+        615
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "echo_wheel_wave_warning",
+      "rect_xyxy": [
+        0,
+        669,
+        424,
+        964
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        162,
+        746,
+        334,
+        897
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "echo_wheel_wave_warning",
+      "rect_xyxy": [
+        424,
+        669,
+        827,
+        964
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        527,
+        738,
+        723,
+        908
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "echo_wheel_wave_warning",
+      "rect_xyxy": [
+        827,
+        669,
+        1254,
+        964
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        914,
+        735,
+        1115,
+        917
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "echo_wheel_elite_warning",
+      "rect_xyxy": [
+        0,
+        964,
+        418,
+        1254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        183,
+        1028,
+        318,
+        1168
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "echo_wheel_elite_warning",
+      "rect_xyxy": [
+        418,
+        964,
+        822,
+        1254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        555,
+        1022,
+        706,
+        1173
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "echo_wheel_elite_warning",
+      "rect_xyxy": [
+        822,
+        964,
+        1254,
+        1254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        937,
+        1017,
+        1104,
+        1176
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "???????????/?????????????????????????????????????",
+    "rows_reviewed": [
+      "echo_wheel_guard_warning",
+      "echo_wheel_guard_execution",
+      "echo_wheel_wave_warning",
+      "echo_wheel_elite_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

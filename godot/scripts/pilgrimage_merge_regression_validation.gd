@@ -12,6 +12,7 @@ func _initialize() -> void:
 
 
 func _run() -> void:
+    failures += preload("res://scripts/enemy_spawn_search_validation.gd").new().run()
     await _validate_one_way_physics()
     _validate_terrain_clearance()
     await _validate_snare()

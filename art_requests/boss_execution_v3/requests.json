@@ -1,0 +1,455 @@
+{
+  "version": 3,
+  "total_sheets": 12,
+  "total_frames": 72,
+  "requests": [
+    {
+      "file": "FX_X_moss_scythe.png",
+      "name": "苔钟守母·苔镰横扫生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/rust_crown_guardian.png"
+      ],
+      "boss_kind": "rust_crown_guardian",
+      "command": {
+        "id": "boss_moss_scythe",
+        "name": "苔镰横扫",
+        "type": "melee",
+        "windup": 0.68,
+        "active": 0.24,
+        "recover": 0.7,
+        "hit_width": 210,
+        "hit_height": 105,
+        "offset": 100
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A broad RIGHT-facing hooked crescent of torn wet moss, old brass flecks and pale root fibres. Strong sweeping slash with a ragged mossy leading edge, then large curling fibres separate. No smooth neon arc.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_shears_close.png",
+      "name": "绯线执剪者·合剪夹击生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/sunken_hammer_smith.png"
+      ],
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_close",
+        "name": "合剪夹击",
+        "type": "melee",
+        "windup": 0.7,
+        "active": 0.24,
+        "recover": 0.8,
+        "hit_width": 230,
+        "hit_height": 115,
+        "offset": 105
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: Two opposing crimson silk cutting crescents CLOSE together on the RIGHT into a sharp crossed scissor bite, worn ivory edges and a tiny dull brass hinge glint, then loose clipped red strands scatter. No actual scissors or character.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_shears_turn.png",
+      "name": "绯线执剪者·跃转双剪生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/sunken_hammer_smith.png"
+      ],
+      "boss_kind": "sunken_hammer_smith",
+      "command": {
+        "id": "boss_shears_turn",
+        "name": "跃转双剪",
+        "type": "vault",
+        "windup": 0.75,
+        "active": 0.85,
+        "recover": 1.05,
+        "phase": 2,
+        "hit_width": 190,
+        "hit_height": 140,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A rotating pair of asymmetrical crimson silk cutting ribbons, spiralling clockwise toward the RIGHT, with ivory shear-edge glints and frayed cloth tails. A complete active airborne turning cut, then broken red threads peel away. No trajectory arrow or predicted landing mark.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_mantis_guard.png",
+      "name": "灰冠螳将·交刃反击生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/saltwhite_contract_judge.png"
+      ],
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_guard",
+        "name": "交刃反击",
+        "type": "guard",
+        "windup": 0.9,
+        "active": 0.32,
+        "recover": 0.72,
+        "hit_width": 200,
+        "hit_height": 70,
+        "offset": 95
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: Two crossed ash-grey chitin cutting ridges snap open into a RIGHT-facing counterstrike, bone-white serrated tips and an ember-dark joint, followed by short drifting ash. Clearly a sharp active counter-cut, distinct from a passive shield or circular ward.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_mantis_lunge.png",
+      "name": "灰冠螳将·灰冠长突生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/saltwhite_contract_judge.png"
+      ],
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_lunge",
+        "name": "灰冠长突",
+        "type": "lunge",
+        "windup": 0.72,
+        "active": 0.52,
+        "recover": 0.85,
+        "hit_width": 185,
+        "hit_height": 58,
+        "offset": 90
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: An elongated low RIGHT-facing ash-grey chitin lance-cut, a single sharp ivory tip tears forward with layered dark blade streaks and sparse cinder fragments behind it. Flat piercing momentum, no overhead hook and no generic arrow.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_mantis_overhead.png",
+      "name": "灰冠螳将·冠刃下劈生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/saltwhite_contract_judge.png"
+      ],
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_overhead",
+        "name": "冠刃下劈",
+        "type": "melee",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 1,
+        "hit_width": 155,
+        "hit_height": 160,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A tall hooked ash-grey chitin blade streak tears from upper LEFT down to lower RIGHT, pale bone serrations and a short ash burst at the bottom. Strong overhead cleave silhouette, not a flat thrust.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_mantis_flurry.png",
+      "name": "灰冠螳将·左右三连斩生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/saltwhite_contract_judge.png"
+      ],
+      "boss_kind": "saltwhite_contract_judge",
+      "command": {
+        "id": "boss_mantis_flurry",
+        "name": "左右三连斩",
+        "type": "combo",
+        "windup": 0.7,
+        "active": 0.82,
+        "recover": 1.1,
+        "phase": 2,
+        "hit_width": 190,
+        "hit_height": 110,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A three-beat RIGHT-facing series of distinct hooked mantis cuts: first a rising diagonal, second a descending diagonal, third a short horizontal finishing slash. Charred chitin, pale ivory blade ridges, very sparse ash. Each beat must have a different contour. No opaque full-screen fan.\nCel 1: First rising diagonal cut starts.\nCel 2: First cut follows through with small ash.\nCel 3: Second descending diagonal cut starts, different contour.\nCel 4: Second cut follows through.\nCel 5: Third horizontal finishing cut starts, different contour.\nCel 6: Third cut releases into sparse fading ash.\n"
+    },
+    {
+      "file": "FX_X_bishop_staff.png",
+      "name": "铜根主教·根杖敲击生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/broken_string_gardener.png"
+      ],
+      "boss_kind": "broken_string_gardener",
+      "command": {
+        "id": "boss_bishop_staff",
+        "name": "根杖敲击",
+        "type": "melee",
+        "windup": 0.8,
+        "active": 0.24,
+        "recover": 0.8,
+        "hit_width": 180,
+        "hit_height": 125,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A hooked crozier-shaped copper-root striking arc sweeps down and RIGHT; bark fibres, oxidised copper-green edges and a few broken orange seed husks burst at the low point, then woody splinters disperse. No staff prop or character.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_bride_crescent.png",
+      "name": "镜池新娘·镜杖弧扫生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/silent_pilgrim_commander.png"
+      ],
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_crescent",
+        "name": "镜杖弧扫",
+        "type": "melee",
+        "windup": 0.6,
+        "active": 0.24,
+        "recover": 0.65,
+        "hit_width": 215,
+        "hit_height": 100,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A RIGHT-facing cold silver broken-mirror crescent slash, layered reflective shards wrapped in a flowing black-violet veil tail; pale ivory glints and delicate dark ripples, followed by larger fading mirror flakes. No golden generic slash.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_bride_mirror.png",
+      "name": "镜池新娘·镜像侧刺生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "source",
+      "refs": [
+        "../combat_presentation_v2/refs/silent_pilgrim_commander.png"
+      ],
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_mirror",
+        "name": "镜像侧刺",
+        "type": "blink",
+        "windup": 0.9,
+        "active": 0.24,
+        "recover": 0.7,
+        "hit_width": 90,
+        "hit_height": 70,
+        "offset": 48,
+        "projectile_speed": 290
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A local displacement rupture formed by split silver mirror flakes and twisting black-violet veil ribbons. The centre opens into a narrow transparent tear and folds away, with two offset cold-white glints. Compact local blink burst, no person, clone, projectile path or landing marker.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_bride_dash.png",
+      "name": "镜池新娘·月镜掠袭生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/silent_pilgrim_commander.png"
+      ],
+      "boss_kind": "silent_pilgrim_commander",
+      "command": {
+        "id": "boss_bride_dash",
+        "name": "月镜掠袭",
+        "type": "vault",
+        "windup": 0.65,
+        "active": 0.75,
+        "recover": 0.9,
+        "phase": 2,
+        "hit_width": 175,
+        "hit_height": 90,
+        "offset": 48
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A low RIGHT-facing silver crescent with a trailing ribbon of torn black-violet bridal veil and thin mirror splinters; a fast active airborne moon-sweep, flowing backward to the LEFT before peeling into fading shards. No character or long predicted route.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    },
+    {
+      "file": "FX_X_key_cleave.png",
+      "name": "百钥看门人·百钥重劈生效",
+      "group": "boss_execution",
+      "frame_count": 6,
+      "requested_layout": {
+        "columns": 3,
+        "rows": 2,
+        "cel_size": [
+          512,
+          512
+        ],
+        "canvas_size": [
+          1536,
+          1024
+        ]
+      },
+      "anchor": "center",
+      "playback": "active_progress",
+      "topology": "sweep",
+      "refs": [
+        "../combat_presentation_v2/refs/silent_crown_core.png"
+      ],
+      "boss_kind": "silent_crown_core",
+      "command": {
+        "id": "boss_key_cleave",
+        "name": "百钥重劈",
+        "type": "melee",
+        "windup": 0.85,
+        "active": 0.24,
+        "recover": 0.9,
+        "hit_width": 245,
+        "hit_height": 130,
+        "offset": 115
+      },
+      "prompt": "Use case: stylized-concept\nAsset type: production transparent sprite sheet of an ACTIVE boss combat effect for a hand-inked side-view 2D game.\nInput image 1 is a REFERENCE ONLY for material, palette and identity. Do not copy the boss body, portrait, weapon prop or backdrop.\nOnly draw the independent effect. Inked irregular edges, matte gouache texture, restrained pale rim detail. Genuine alpha transparency, not black/white/checkerboard background. No text, labels, numbers, UI, borders or grid lines.\nExactly 6 distinct cels in a 3-column by 2-row grid, left-to-right then top-to-bottom. Requested canvas 1536x1024. Every cel has generous fully transparent gutters. Main effect remains within the middle 76% of its cell. All effect origins stay at the cell centre; RIGHT is the attack direction. Never let material cross into the next cel.\nThis is damaging RELEASE / EXECUTION, not anticipation. Do not reproduce the v2 warning shape as a hold. No generic clean line, arc, circle or glow disc; build the silhouette out of the boss's material.\nEffect: A heavy RIGHT-facing descending fan of worn brass key-tooth cutting fragments, dark iron notch shadows, ivory edge glints and loose key-ring curls. Thick weighty cleave at its peak then separate brass slivers fall away. No full physical weapon or character.\nCel 1: Visible onset with a compact cutting edge.\nCel 2: The material opens into the first strong strike.\nCel 3: Peak silhouette with the clearest strongest cutting contour.\nCel 4: A changed follow-through contour; large material strands separate.\nCel 5: Sparse fragments retract or disperse, no solid opaque blob.\nCel 6: Last faint small fragments almost disappear; clear readable end.\n"
+    }
+  ]
+}

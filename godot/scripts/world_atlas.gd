@@ -69,6 +69,8 @@ static func terrain(id: String) -> Array[PackedVector2Array]:
     return polygons
 
 static func render(level: Node) -> void:
+    # Survey helpers normalize their input; rendering must not write discovery.
+    var flags: Dictionary=level.story_flags.duplicate(true)
     if not _synchronize_route_cache():
         level.world_loader.request_manifest_refresh(level)
         return
@@ -88,16 +90,16 @@ static func render(level: Node) -> void:
         title.add_theme_font_size_override("font_size", 14)
         title.add_theme_color_override("font_color", SURFACE.ACCENT if id == current else SURFACE.INK)
         title.mouse_filter = Control.MOUSE_FILTER_PASS
-        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(level.story_flags, id) else "已补绘 %d 室" % JOURNAL.region(level.story_flags, id).charted.size()
+        title.tooltip_text = "未购本区地图" if not JOURNAL.owned(flags, id) else "已补绘 %d 室" % JOURNAL.charted_room_count(flags, id)
         host.add_child(title)
-        if not JOURNAL.owned(level.story_flags, id): continue
+        if not JOURNAL.owned(flags, id): continue
         var surface := SURFACE.new()
         surface.name = "WorldSilhouette_" + id
         surface.size = host.size
         host.add_child(surface)
         for room in data.get("map_rooms", []):
             var room_id := String(room.id)
-            var detailed := JOURNAL.charted(level.story_flags, id, room_id)
+            var detailed := JOURNAL.charted(flags, id, room_id)
             if not detailed and not SURVEY.public_room(room): continue
             var physical := SURVEY.room_rect(room)
             if physical.size.x <= 0 or physical.size.y <= 0: continue
@@ -109,8 +111,13 @@ static func render(level: Node) -> void:
             outline.draw_ink = false
             outline.detailed = detailed
             var footprint := Rect2(outline.position, outline.size)
-            if detailed: surface.charted_rooms.append(footprint)
-            else: surface.base_rooms.append(footprint)
+            if not detailed: surface.base_rooms.append(footprint)
+            elif JOURNAL.charted_whole(flags, id, room): surface.charted_rooms.append(footprint)
+            else:
+                # A partly explored large room: only its charted sections.
+                if SURVEY.public_room(room): surface.base_rooms.append(footprint)
+                for part in JOURNAL.charted_parts(flags, id, room):
+                    surface.charted_rooms.append(Rect2(project(COORD.to_world(id, part.position), layout), part.size * layout.scale))
             outline.seed_value = room_id.hash()
             outline.stroke_scale = 0.6
             if detailed:
@@ -121,12 +128,12 @@ static func render(level: Node) -> void:
             outline.set_meta("region_id", id)
             outline.set_meta("room_id", room_id)
             outline.set_meta("charted", detailed)
-            outline.tooltip_text = String(room.get("name", room_id)) if detailed or SURVEY.public_room(room) else ""
+            preload("res://scripts/map_room_context.gd").bind_room(level,outline,data,id,room_id)
             host.add_child(outline)
         surface.prepare()
         # Every region is evaluated against its own config. Ability inventory
         # is shared, while permanent action gates read their authored unlock id.
-        for record in KNOWLEDGE.marker_records(data, level.story_flags, id, level.inventory_counts):
+        for record in KNOWLEDGE.marker_records(data, flags, id, level.inventory_counts):
             var world_point: Vector2 = COORD.to_world(id, record.rect.get_center())
             var marker := Label.new()
             marker.name = ("WorldHazard_" if record.kind == "hazard" else "WorldGate_") + id + "_" + String(record.id)
@@ -139,7 +146,7 @@ static func render(level: Node) -> void:
             host.add_child(marker)
         # Shortcut state lives with each region; the current region's is live.
         var opened: Dictionary = level.opened_shortcuts if id == String(level.config.get("id", "")) else level.world_state.get_region(id).get("opened_shortcuts", {})
-        for record in KNOWLEDGE.shortcut_records(data, level.story_flags, id, opened):
+        for record in KNOWLEDGE.shortcut_records(data, flags, id, opened):
             var marker := Label.new()
             marker.name = "WorldShortcut_" + id + "_" + String(record.id)
             marker.position = project(COORD.to_world(id, record.rect.get_center()), layout) - Vector2(6, 9)
@@ -162,10 +169,10 @@ static func render(level: Node) -> void:
             var b_key := target + ":" + String(peer.id)
             var key := a_key + ":" + b_key if a_key < b_key else b_key + ":" + a_key
             if drawn.has(key): continue
-            if not JOURNAL.charted(level.story_flags, id, String(portal.get("room_id", ""))) and not JOURNAL.charted(level.story_flags, target, String(peer.get("room_id", ""))): continue
+            if not JOURNAL.charted(flags, id, String(portal.get("room_id", ""))) and not JOURNAL.charted(flags, target, String(peer.get("room_id", ""))): continue
             drawn[key] = true
-            var forward := ROUTES.access(portal, level.inventory_counts, level.story_flags)
-            var reverse := ROUTES.access(peer, level.inventory_counts, level.story_flags)
+            var forward := ROUTES.access(portal, level.inventory_counts, flags)
+            var reverse := ROUTES.access(peer, level.inventory_counts, flags)
             var a := COORD.to_world(id, Vector2(portal.position[0], portal.position[1]))
             var b := COORD.to_world(target, Vector2(peer.position[0], peer.position[1]))
             var physical := not PASSAGE.endpoint(id, String(portal.id)).is_empty()
@@ -188,6 +195,10 @@ static func render(level: Node) -> void:
             line.set_meta("reverse_status", reverse)
             host.add_child(line)
             host.move_child(line, 0)
+            var cue:=preload("res://scripts/atlas_route_cue.gd").new()
+            cue.name="DirectionCue"
+            cue.configure(project(a,layout),project(b,layout),forward,reverse)
+            line.add_child(cue)
             var badge := Label.new()
             badge.name = "WorldRouteState_" + String(portal.id)
             badge.position = project(a if not forward.open else b, layout) - Vector2(6, 9)
@@ -195,7 +206,7 @@ static func render(level: Node) -> void:
             badge.text = "◇" if not forward.open or not reverse.open else ""
             badge.add_theme_font_size_override("font_size", 12)
             badge.add_theme_color_override("font_color", SURFACE.GOLD)
-            badge.tooltip_text = "正向：%s\n反向：%s" % [forward.label, reverse.label]
+            badge.tooltip_text = preload("res://scripts/atlas_route_cue.gd").state(forward,reverse)+"\n正向：%s\n反向：%s" % [forward.label, reverse.label]
             host.add_child(badge)
     # Old portal links are a hover detail, rather than a web of diagonals
     # across every region. The solid physical passage remains always visible.
@@ -207,12 +218,20 @@ static func render(level: Node) -> void:
             var source: bool = route.get_meta("source_region") == child.get_meta("region_id") and route.get_meta("source_room") == child.get_meta("room_id")
             var target: bool = route.get_meta("target_region") == child.get_meta("region_id") and route.get_meta("target_room") == child.get_meta("room_id")
             if source or target: links.append(route)
+        var room_ref: WeakRef=weakref(child)
+        var update_links:=func():
+            for route in links:
+                if is_instance_valid(route):_update_route_visibility(route)
         child.mouse_entered.connect(func():
-            for route in links:
-                if is_instance_valid(route): route.visible = true)
+            var room:=room_ref.get_ref() as Control
+            if is_instance_valid(room):room.set_meta("route_hover",true)
+            update_links.call())
         child.mouse_exited.connect(func():
-            for route in links:
-                if is_instance_valid(route): route.visible = false)
+            var room:=room_ref.get_ref() as Control
+            if is_instance_valid(room):room.set_meta("route_hover",false)
+            update_links.call())
+        child.focus_entered.connect(update_links)
+        child.focus_exited.connect(update_links)
     var positioned: bool = SURVEY.shows_position(level)
     if positioned:
         var dot := Label.new()
@@ -222,5 +241,15 @@ static func render(level: Node) -> void:
         dot.position = project(level.player_world_position(), layout) - Vector2(6, 9)
         dot.add_theme_color_override("font_color", SURFACE.ACCENT)
         host.add_child(dot)
-    level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
-    level.map_text.tooltip_text = "实线是实体钟管；悬停房间可查看名称和旧路端点关系，悬停门槛可查看通行条件。"
+    level.map_text.text = ("◆ 位置" if positioned else "无罗盘·看地标") + "    ◇ 门槛    ⇆/⊣ 捷径    WASD / 摇杆平移 · PgUp/PgDn / 肩键缩放    Tab 区域地图    M / Esc 返回"
+    level.map_text.tooltip_text = "实线是实体钟管；悬停或方向键聚焦房间可查看旧路端点关系。箭头分别表示正反向规则允许，横杠表示两侧均受限；不代替现场物理可达性。"
+
+static func _update_route_visibility(route: Line2D) -> void:
+    if bool(route.get_meta("physical_passage",false)):route.visible=true;return
+    var shown:=false
+    for room in route.get_parent().get_children():
+        if not room is Control or not String(room.name).begins_with("WorldSurvey_"):continue
+        var source: bool=room.get_meta("region_id","")==route.get_meta("source_region","") and room.get_meta("room_id","")==route.get_meta("source_room","")
+        var target: bool=room.get_meta("region_id","")==route.get_meta("target_region","") and room.get_meta("room_id","")==route.get_meta("target_room","")
+        if (source or target) and (room.has_focus() or bool(room.get_meta("route_hover",false))):shown=true;break
+    route.visible=shown

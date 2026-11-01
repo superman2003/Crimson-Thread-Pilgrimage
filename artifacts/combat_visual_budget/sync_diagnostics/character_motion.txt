@@ -1,0 +1,2655 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> crimson-thread-odyssey@1.0.0 test:character-motion
+> node tools/run_python_tool.mjs tools/build_creature_attack_motion.py --check && node tools/run_python_tool.mjs tools/build_character_motion_v5.py --check && node tools/run_python_tool.mjs tools/build_expanded_character_motion.py --all --check && node tools/run_python_tool.mjs tools/build_expanded_hero_run.py --check && node tools/run_python_tool.mjs tools/build_hero_supplement_motion.py --check
+
+{
+  "kinds": 40,
+  "sheets": 82,
+  "frames": 760,
+  "coverage": [
+    {
+      "kind": "ash_banner_imp",
+      "animations": [
+        "imp_retreat_windup",
+        "imp_retreat",
+        "imp_retreat_recover"
+      ],
+      "frames": 12,
+      "scales": {
+        "imp_retreat.png": 0.7057
+      }
+    },
+    {
+      "kind": "bell_mote",
+      "animations": [
+        "mote_seek_windup",
+        "mote_seek",
+        "mote_seek_recover",
+        "mote_seek_charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "mote_seek.png": 0.8261
+      }
+    },
+    {
+      "kind": "bellroot_acolyte",
+      "animations": [
+        "root_bell_wave_windup",
+        "root_bell_wave",
+        "root_bell_wave_recover",
+        "root_bell_wave_charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "root_bell_wave.png": 0.7799
+      }
+    },
+    {
+      "kind": "bronze_moth",
+      "animations": [
+        "travel",
+        "moth_dust_windup",
+        "moth_dust",
+        "moth_dust_recover"
+      ],
+      "frames": 14,
+      "scales": {
+        "moth_dive_loops.png": 0.3816,
+        "moth_dust.png": 0.7855
+      }
+    },
+    {
+      "kind": "corridor_heavy",
+      "animations": [
+        "heavy_elite_quake_windup",
+        "heavy_elite_quake",
+        "heavy_elite_quake_recover",
+        "heavy_elite_quake_charge",
+        "charge",
+        "travel",
+        "heavy_stamp_windup",
+        "heavy_stamp",
+        "heavy_stamp_recover",
+        "heavy_stamp_charge"
+      ],
+      "frames": 32,
+      "scales": {
+        "heavy_elite_quake.png": 0.7876,
+        "heavy_roll_loops.png": 0.4537,
+        "heavy_stamp.png": 1.0785
+      }
+    },
+    {
+      "kind": "delayed_shadow",
+      "animations": [
+        "charge",
+        "shadow_echo_windup",
+        "shadow_echo",
+        "shadow_echo_recover"
+      ],
+      "frames": 14,
+      "scales": {
+        "shadow_blink_loops.png": 0.3574,
+        "shadow_echo.png": 0.7048
+      }
+    },
+    {
+      "kind": "drain_leech",
+      "animations": [
+        "leech_leap_windup",
+        "leech_leap",
+        "leech_leap_recover",
+        "leech_leap_travel"
+      ],
+      "frames": 14,
+      "scales": {
+        "leech_leap.png": 0.9985
+      }
+    },
+    {
+      "kind": "echo_contract_scribe",
+      "animations": [
+        "charge",
+        "echo_scribe_seals_windup",
+        "echo_scribe_seals",
+        "echo_scribe_seals_recover"
+      ],
+      "frames": 14,
+      "scales": {
+        "echo_scribe_pages_loops.png": 0.3352,
+        "echo_scribe_seals.png": 0.6199
+      }
+    },
+    {
+      "kind": "echo_moss_larva",
+      "animations": [
+        "charge",
+        "travel",
+        "echo_larva_mark_windup",
+        "echo_larva_mark",
+        "echo_larva_mark_recover"
+      ],
+      "frames": 16,
+      "scales": {
+        "echo_larva_burrow_loops.png": 0.614,
+        "echo_larva_mark.png": 0.7485
+      }
+    },
+    {
+      "kind": "echo_pilgrim_commander_minor",
+      "animations": [
+        "minor_banner_windup",
+        "minor_banner",
+        "minor_banner_recover",
+        "minor_banner_charge",
+        "minor_elite_rally_windup",
+        "minor_elite_rally",
+        "minor_elite_rally_recover",
+        "minor_elite_rally_charge",
+        "charge"
+      ],
+      "frames": 30,
+      "scales": {
+        "minor_banner.png": 0.977,
+        "minor_elite_rally.png": 0.9088,
+        "minor_lances_loops.png": 0.355
+      }
+    },
+    {
+      "kind": "echo_thorn_sentinel",
+      "animations": [
+        "echo_thorn_double_windup",
+        "echo_thorn_double",
+        "echo_thorn_double_recover",
+        "echo_thorn_double_charge",
+        "charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "echo_thorn_double.png": 0.8267,
+        "echo_thorn_roots_loops.png": 0.3917
+      }
+    },
+    {
+      "kind": "echo_waterwheel_knight",
+      "animations": [
+        "echo_wheel_elite_windup",
+        "echo_wheel_elite",
+        "echo_wheel_elite_recover",
+        "echo_wheel_elite_charge",
+        "charge",
+        "echo_wheel_wave_windup",
+        "echo_wheel_wave",
+        "echo_wheel_wave_recover",
+        "echo_wheel_wave_charge"
+      ],
+      "frames": 30,
+      "scales": {
+        "echo_wheel_elite.png": 0.7262,
+        "echo_wheel_guard_loops.png": 0.336,
+        "echo_wheel_wave.png": 0.7639
+      }
+    },
+    {
+      "kind": "erasure_bailiff",
+      "animations": [
+        "charge",
+        "bailiff_elite_sweep_windup",
+        "bailiff_elite_sweep",
+        "bailiff_elite_sweep_recover",
+        "bailiff_elite_sweep_charge",
+        "bailiff_erase_windup",
+        "bailiff_erase",
+        "bailiff_erase_recover",
+        "bailiff_erase_charge"
+      ],
+      "frames": 30,
+      "scales": {
+        "bailiff_cleave_loops.png": 0.3626,
+        "bailiff_elite_sweep.png": 1.0071,
+        "bailiff_erase.png": 0.917
+      }
+    },
+    {
+      "kind": "falling_clapper",
+      "animations": [
+        "charge",
+        "travel",
+        "clapper_wave_windup",
+        "clapper_wave",
+        "clapper_wave_recover",
+        "clapper_wave_charge"
+      ],
+      "frames": 18,
+      "scales": {
+        "clapper_fall_loops.png": 0.4444,
+        "clapper_wave.png": 0.6853
+      }
+    },
+    {
+      "kind": "gear_sentinel",
+      "animations": [
+        "gear_elite_spin_windup",
+        "gear_elite_spin",
+        "gear_elite_spin_recover",
+        "gear_elite_spin_charge",
+        "gear_guard_windup",
+        "gear_guard",
+        "gear_guard_recover",
+        "gear_guard_charge"
+      ],
+      "frames": 30,
+      "scales": {
+        "gear_elite_spin.png": 0.8533,
+        "gear_guard.png": 0.7574
+      }
+    },
+    {
+      "kind": "index_scribe",
+      "animations": [
+        "charge",
+        "index_seal_windup",
+        "index_seal",
+        "index_seal_recover"
+      ],
+      "frames": 14,
+      "scales": {
+        "index_pages_loops.png": 0.2833,
+        "index_seal.png": 0.7558
+      }
+    },
+    {
+      "kind": "isotope_lumen",
+      "animations": [
+        "lumen_focus_windup",
+        "lumen_focus",
+        "lumen_focus_recover",
+        "charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "lumen_focus.png": 0.7786,
+        "lumen_orbits_loops.png": 0.3212
+      }
+    },
+    {
+      "kind": "kneeling_crossbowman",
+      "animations": [
+        "charge",
+        "crossbow_low_windup",
+        "crossbow_low",
+        "crossbow_low_recover",
+        "crossbow_low_charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "crossbow_burst_loops.png": 0.3194,
+        "crossbow_low.png": 0.7245
+      }
+    },
+    {
+      "kind": "moss_larva",
+      "animations": [
+        "charge",
+        "larva_snap_windup",
+        "larva_snap",
+        "larva_snap_recover"
+      ],
+      "frames": 14,
+      "scales": {
+        "larva_curl_loops.png": 0.3063,
+        "larva_snap.png": 0.7533
+      }
+    },
+    {
+      "kind": "obsidian_bellwheel",
+      "animations": [
+        "charge",
+        "travel",
+        "bellwheel_waves_windup",
+        "bellwheel_waves",
+        "bellwheel_waves_recover",
+        "bellwheel_waves_charge"
+      ],
+      "frames": 18,
+      "scales": {
+        "bellwheel_roll_loops.png": 0.4376,
+        "bellwheel_waves.png": 0.8166
+      }
+    },
+    {
+      "kind": "obsidian_spearman",
+      "animations": [
+        "obsidian_elite_impale_windup",
+        "obsidian_elite_impale",
+        "obsidian_elite_impale_recover",
+        "obsidian_elite_impale_charge",
+        "obsidian_elite_impale_travel",
+        "obsidian_raise_windup",
+        "obsidian_raise",
+        "obsidian_raise_recover",
+        "charge"
+      ],
+      "frames": 30,
+      "scales": {
+        "obsidian_elite_impale.png": 0.8367,
+        "obsidian_raise.png": 0.8214,
+        "obsidian_thrust_loops.png": 0.3635
+      }
+    },
+    {
+      "kind": "page_duelist",
+      "animations": [
+        "charge",
+        "page_elite_flurry_windup",
+        "page_elite_flurry",
+        "page_elite_flurry_recover",
+        "page_elite_flurry_charge",
+        "page_feint_windup",
+        "page_feint",
+        "page_feint_recover"
+      ],
+      "frames": 30,
+      "scales": {
+        "page_combo_loops.png": 0.3906,
+        "page_elite_flurry.png": 0.9136,
+        "page_feint.png": 0.7212
+      }
+    },
+    {
+      "kind": "phase_censor",
+      "animations": [
+        "censor_blink_windup",
+        "censor_blink",
+        "censor_blink_recover",
+        "censor_blink_charge",
+        "charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "censor_blink.png": 0.7713,
+        "censor_fan_loops.png": 0.3344
+      }
+    },
+    {
+      "kind": "pilgrim_chariot",
+      "animations": [
+        "chariot_caltrops_windup",
+        "chariot_caltrops",
+        "chariot_caltrops_recover",
+        "chariot_caltrops_charge",
+        "charge",
+        "travel",
+        "chariot_elite_drift_windup",
+        "chariot_elite_drift",
+        "chariot_elite_drift_recover",
+        "chariot_elite_drift_charge",
+        "chariot_elite_drift_travel"
+      ],
+      "frames": 34,
+      "scales": {
+        "chariot_caltrops.png": 0.8809,
+        "chariot_charge_loops.png": 0.4326,
+        "chariot_elite_drift.png": 0.8685
+      }
+    },
+    {
+      "kind": "pipe_thrower",
+      "animations": [
+        "charge",
+        "pipe_mortar_windup",
+        "pipe_mortar",
+        "pipe_mortar_recover",
+        "pipe_mortar_charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "pipe_backblast_loops.png": 0.2967,
+        "pipe_mortar.png": 0.7219
+      }
+    },
+    {
+      "kind": "pollen_lutist",
+      "animations": [
+        "charge",
+        "pollen_spots_windup",
+        "pollen_spots",
+        "pollen_spots_recover",
+        "pollen_spots_charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "pollen_arcs_loops.png": 0.2966,
+        "pollen_spots.png": 0.672
+      }
+    },
+    {
+      "kind": "rain_censer_mote",
+      "animations": [
+        "censer_cloud_windup",
+        "censer_cloud",
+        "censer_cloud_recover",
+        "charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "censer_cloud.png": 0.6911,
+        "censer_rain_loops.png": 0.3889
+      }
+    },
+    {
+      "kind": "root_cage_hunter",
+      "animations": [
+        "cage_elite_snare_windup",
+        "cage_elite_snare",
+        "cage_elite_snare_recover",
+        "cage_elite_snare_charge",
+        "charge",
+        "cage_pounce_windup",
+        "cage_pounce",
+        "cage_pounce_recover",
+        "cage_pounce_travel"
+      ],
+      "frames": 30,
+      "scales": {
+        "cage_elite_snare.png": 0.7117,
+        "cage_net_loops.png": 0.3007,
+        "cage_pounce.png": 0.7658
+      }
+    },
+    {
+      "kind": "rust_diver",
+      "animations": [
+        "diver_splash_windup",
+        "diver_splash",
+        "diver_splash_recover",
+        "diver_splash_charge",
+        "travel"
+      ],
+      "frames": 16,
+      "scales": {
+        "diver_splash.png": 0.8088,
+        "diver_vault_loops.png": 0.4118
+      }
+    },
+    {
+      "kind": "salt_bookmite",
+      "animations": [
+        "book_bite_windup",
+        "book_bite",
+        "book_bite_recover",
+        "charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "book_bite.png": 0.8057,
+        "book_burrow_loops.png": 0.3381
+      }
+    },
+    {
+      "kind": "silent_bugbler",
+      "animations": [
+        "bugle_pulse_windup",
+        "bugle_pulse",
+        "bugle_pulse_recover",
+        "bugle_pulse_charge",
+        "charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "bugle_pulse.png": 0.6136,
+        "bugle_volley_loops.png": 0.252
+      }
+    },
+    {
+      "kind": "spore_bellmaker",
+      "animations": [
+        "bell_fungus_windup",
+        "bell_fungus",
+        "bell_fungus_recover",
+        "charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "bell_fungus.png": 0.6973,
+        "bell_spores_loops.png": 0.282
+      }
+    },
+    {
+      "kind": "summoned_page",
+      "animations": [
+        "page_orbit_windup",
+        "page_orbit",
+        "page_orbit_recover",
+        "page_orbit_charge",
+        "travel"
+      ],
+      "frames": 16,
+      "scales": {
+        "page_orbit.png": 0.6824,
+        "page_skim_loops.png": 0.3051
+      }
+    },
+    {
+      "kind": "thorn_bloom_mote",
+      "animations": [
+        "bloom_seeds_windup",
+        "bloom_seeds",
+        "bloom_seeds_recover",
+        "bloom_seeds_charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "bloom_seeds.png": 0.686
+      }
+    },
+    {
+      "kind": "thorn_sentinel",
+      "animations": [
+        "thorn_ring_windup",
+        "thorn_ring",
+        "thorn_ring_recover",
+        "thorn_ring_charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "thorn_ring.png": 1.0133
+      }
+    },
+    {
+      "kind": "valve_crawler",
+      "animations": [
+        "charge",
+        "valve_vent_windup",
+        "valve_vent",
+        "valve_vent_recover",
+        "valve_vent_charge"
+      ],
+      "frames": 16,
+      "scales": {
+        "valve_roll_loops.png": 0.367,
+        "valve_vent.png": 0.8942
+      }
+    },
+    {
+      "kind": "vine_crawler",
+      "animations": [
+        "vine_roots_windup",
+        "vine_roots",
+        "vine_roots_recover",
+        "vine_roots_charge"
+      ],
+      "frames": 14,
+      "scales": {
+        "vine_roots.png": 0.8202
+      }
+    },
+    {
+      "kind": "waterwheel_knight",
+      "animations": [
+        "charge",
+        "wheel_elite_ride_windup",
+        "wheel_elite_ride",
+        "wheel_elite_ride_recover",
+        "wheel_elite_ride_charge",
+        "wheel_elite_ride_travel",
+        "wheel_return_windup",
+        "wheel_return",
+        "wheel_return_recover",
+        "wheel_return_charge"
+      ],
+      "frames": 32,
+      "scales": {
+        "wheel_charge_loops.png": 0.3523,
+        "wheel_elite_ride.png": 0.7626,
+        "wheel_return.png": 0.8092
+      }
+    },
+    {
+      "kind": "wax_bee",
+      "animations": [
+        "charge",
+        "travel",
+        "bee_stingers_windup",
+        "bee_stingers",
+        "bee_stingers_recover",
+        "bee_stingers_charge"
+      ],
+      "frames": 18,
+      "scales": {
+        "bee_dive_loops.png": 0.5017,
+        "bee_stingers.png": 0.8024
+      }
+    },
+    {
+      "kind": "wax_lancer",
+      "animations": [
+        "charge",
+        "travel",
+        "wax_high_windup",
+        "wax_high",
+        "wax_high_recover"
+      ],
+      "frames": 16,
+      "scales": {
+        "wax_charge_loops.png": 0.5758,
+        "wax_high.png": 0.6906
+      }
+    }
+  ]
+}
+{
+  "characters": 13,
+  "sheets": 32,
+  "distinct_phase_strikes": [
+    "broken_string_gardener",
+    "rust_crown_guardian",
+    "saltwhite_contract_judge",
+    "sunken_hammer_smith"
+  ],
+  "coverage": [
+    {
+      "character": "ash_banner_imp",
+      "sheets": [
+        "G_ash_banner_imp_attack0.png",
+        "G_ash_banner_imp_windup.png",
+        "G_ash_banner_imp_recover.png"
+      ],
+      "scales": {
+        "G_ash_banner_imp_attack0.png": 0.3454,
+        "G_ash_banner_imp_windup.png": 0.5528,
+        "G_ash_banner_imp_recover.png": 0.4572
+      },
+      "grades": {
+        "G_ash_banner_imp_attack0.png": {
+          "saturation": 0.853,
+          "rgb": [
+            0.928,
+            0.978,
+            0.959
+          ]
+        },
+        "G_ash_banner_imp_windup.png": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        },
+        "G_ash_banner_imp_recover.png": {
+          "saturation": 0.849,
+          "rgb": [
+            0.8,
+            0.818,
+            0.807
+          ]
+        }
+      }
+    },
+    {
+      "character": "broken_string_gardener",
+      "sheets": [
+        "E_phase_broken_string_gardener.png",
+        "F_recover_broken_string_gardener_heavy.png",
+        "F_recover_broken_string_gardener_cast.png",
+        "F_recover_broken_string_gardener_phase.png",
+        "H_broken_string_gardener_death3.png"
+      ],
+      "scales": {
+        "E_phase_broken_string_gardener.png": 0.4507,
+        "F_recover_broken_string_gardener_heavy.png": 0.3582,
+        "F_recover_broken_string_gardener_cast.png": 0.3494,
+        "F_recover_broken_string_gardener_phase.png": 0.3722,
+        "H_broken_string_gardener_death3.png": 0.2797
+      },
+      "grades": {
+        "E_phase_broken_string_gardener.png": {
+          "saturation": 0.805,
+          "rgb": [
+            1.002,
+            0.913,
+            0.887
+          ]
+        },
+        "F_recover_broken_string_gardener_heavy.png": {
+          "saturation": 0.889,
+          "rgb": [
+            1.032,
+            1.005,
+            0.993
+          ]
+        },
+        "F_recover_broken_string_gardener_cast.png": {
+          "saturation": 0.852,
+          "rgb": [
+            0.96,
+            0.94,
+            0.914
+          ]
+        },
+        "F_recover_broken_string_gardener_phase.png": {
+          "saturation": 0.718,
+          "rgb": [
+            0.938,
+            0.904,
+            0.893
+          ]
+        },
+        "H_broken_string_gardener_death3.png": {
+          "saturation": 0.936,
+          "rgb": [
+            1.049,
+            1.045,
+            1.049
+          ]
+        }
+      }
+    },
+    {
+      "character": "delayed_shadow",
+      "sheets": [
+        "H_delayed_shadow_recover0.png"
+      ],
+      "scales": {
+        "H_delayed_shadow_recover0.png": 0.3326
+      },
+      "grades": {
+        "H_delayed_shadow_recover0.png": {
+          "saturation": 0.869,
+          "rgb": [
+            1.002,
+            0.997,
+            1.001
+          ]
+        }
+      }
+    },
+    {
+      "character": "echo_contract_scribe",
+      "sheets": [
+        "G_echo_contract_scribe_attack3.png"
+      ],
+      "scales": {
+        "G_echo_contract_scribe_attack3.png": 0.3818
+      },
+      "grades": {
+        "G_echo_contract_scribe_attack3.png": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        }
+      }
+    },
+    {
+      "character": "pipe_thrower",
+      "sheets": [
+        "H_pipe_thrower_hurt2.png"
+      ],
+      "scales": {
+        "H_pipe_thrower_hurt2.png": 0.2245
+      },
+      "grades": {
+        "H_pipe_thrower_hurt2.png": {
+          "saturation": 0.869,
+          "rgb": [
+            1.091,
+            1.074,
+            1.078
+          ]
+        }
+      }
+    },
+    {
+      "character": "rust_crown_guardian",
+      "sheets": [
+        "E_phase_rust_crown_guardian.png",
+        "F_recover_rust_crown_guardian_heavy.png",
+        "F_recover_rust_crown_guardian_cast.png",
+        "F_recover_rust_crown_guardian_phase.png"
+      ],
+      "scales": {
+        "E_phase_rust_crown_guardian.png": 0.545,
+        "F_recover_rust_crown_guardian_heavy.png": 0.3405,
+        "F_recover_rust_crown_guardian_cast.png": 0.355,
+        "F_recover_rust_crown_guardian_phase.png": 0.4029
+      },
+      "grades": {
+        "E_phase_rust_crown_guardian.png": {
+          "saturation": 0.856,
+          "rgb": [
+            1.094,
+            1.072,
+            1.087
+          ]
+        },
+        "F_recover_rust_crown_guardian_heavy.png": {
+          "saturation": 0.85,
+          "rgb": [
+            1.073,
+            1.062,
+            1.026
+          ]
+        },
+        "F_recover_rust_crown_guardian_cast.png": {
+          "saturation": 0.96,
+          "rgb": [
+            1.042,
+            1.062,
+            1.051
+          ]
+        },
+        "F_recover_rust_crown_guardian_phase.png": {
+          "saturation": 0.845,
+          "rgb": [
+            1.048,
+            1.002,
+            1.022
+          ]
+        }
+      }
+    },
+    {
+      "character": "saltwhite_contract_judge",
+      "sheets": [
+        "E_phase_saltwhite_contract_judge.png",
+        "F_recover_saltwhite_contract_judge_heavy.png",
+        "F_recover_saltwhite_contract_judge_cast.png",
+        "F_recover_saltwhite_contract_judge_phase.png"
+      ],
+      "scales": {
+        "E_phase_saltwhite_contract_judge.png": 0.5101,
+        "F_recover_saltwhite_contract_judge_heavy.png": 0.4031,
+        "F_recover_saltwhite_contract_judge_cast.png": 0.3957,
+        "F_recover_saltwhite_contract_judge_phase.png": 0.4387
+      },
+      "grades": {
+        "E_phase_saltwhite_contract_judge.png": {
+          "saturation": 0.739,
+          "rgb": [
+            0.992,
+            1.001,
+            0.978
+          ]
+        },
+        "F_recover_saltwhite_contract_judge_heavy.png": {
+          "saturation": 0.834,
+          "rgb": [
+            0.987,
+            1.003,
+            0.981
+          ]
+        },
+        "F_recover_saltwhite_contract_judge_cast.png": {
+          "saturation": 0.897,
+          "rgb": [
+            0.973,
+            1.001,
+            0.991
+          ]
+        },
+        "F_recover_saltwhite_contract_judge_phase.png": {
+          "saturation": 0.792,
+          "rgb": [
+            0.972,
+            0.994,
+            0.966
+          ]
+        }
+      }
+    },
+    {
+      "character": "silent_crown_core",
+      "sheets": [
+        "F_recover_silent_crown_core_heavy.png",
+        "F_recover_silent_crown_core_cast.png",
+        "F_recover_silent_crown_core_phase.png"
+      ],
+      "scales": {
+        "F_recover_silent_crown_core_heavy.png": 0.3532,
+        "F_recover_silent_crown_core_cast.png": 0.3333,
+        "F_recover_silent_crown_core_phase.png": 0.3907
+      },
+      "grades": {
+        "F_recover_silent_crown_core_heavy.png": {
+          "saturation": 0.845,
+          "rgb": [
+            0.959,
+            0.961,
+            0.947
+          ]
+        },
+        "F_recover_silent_crown_core_cast.png": {
+          "saturation": 0.882,
+          "rgb": [
+            0.96,
+            0.965,
+            0.938
+          ]
+        },
+        "F_recover_silent_crown_core_phase.png": {
+          "saturation": 0.906,
+          "rgb": [
+            0.949,
+            0.938,
+            0.916
+          ]
+        }
+      }
+    },
+    {
+      "character": "silent_pilgrim_commander",
+      "sheets": [
+        "F_recover_silent_pilgrim_commander_heavy.png",
+        "F_recover_silent_pilgrim_commander_cast.png",
+        "F_recover_silent_pilgrim_commander_phase.png"
+      ],
+      "scales": {
+        "F_recover_silent_pilgrim_commander_heavy.png": 0.4545,
+        "F_recover_silent_pilgrim_commander_cast.png": 0.484,
+        "F_recover_silent_pilgrim_commander_phase.png": 0.4311
+      },
+      "grades": {
+        "F_recover_silent_pilgrim_commander_heavy.png": {
+          "saturation": 0.832,
+          "rgb": [
+            0.958,
+            0.949,
+            0.982
+          ]
+        },
+        "F_recover_silent_pilgrim_commander_cast.png": {
+          "saturation": 0.898,
+          "rgb": [
+            0.988,
+            0.99,
+            1.007
+          ]
+        },
+        "F_recover_silent_pilgrim_commander_phase.png": {
+          "saturation": 0.902,
+          "rgb": [
+            0.966,
+            0.963,
+            0.97
+          ]
+        }
+      }
+    },
+    {
+      "character": "sunken_hammer_smith",
+      "sheets": [
+        "E_phase_sunken_hammer_smith.png",
+        "F_recover_sunken_hammer_smith_heavy.png",
+        "F_recover_sunken_hammer_smith_cast.png",
+        "F_recover_sunken_hammer_smith_phase.png"
+      ],
+      "scales": {
+        "E_phase_sunken_hammer_smith.png": 0.563,
+        "F_recover_sunken_hammer_smith_heavy.png": 0.3201,
+        "F_recover_sunken_hammer_smith_cast.png": 0.3388,
+        "F_recover_sunken_hammer_smith_phase.png": 0.3877
+      },
+      "grades": {
+        "E_phase_sunken_hammer_smith.png": {
+          "saturation": 0.83,
+          "rgb": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "F_recover_sunken_hammer_smith_heavy.png": {
+          "saturation": 0.882,
+          "rgb": [
+            1.007,
+            1.02,
+            0.997
+          ]
+        },
+        "F_recover_sunken_hammer_smith_cast.png": {
+          "saturation": 0.906,
+          "rgb": [
+            0.976,
+            0.949,
+            0.953
+          ]
+        },
+        "F_recover_sunken_hammer_smith_phase.png": {
+          "saturation": 0.77,
+          "rgb": [
+            0.836,
+            0.869,
+            0.815
+          ]
+        }
+      }
+    },
+    {
+      "character": "wax_lancer",
+      "sheets": [
+        "G_wax_lancer_recover.png"
+      ],
+      "scales": {
+        "G_wax_lancer_recover.png": 0.3661
+      },
+      "grades": {
+        "G_wax_lancer_recover.png": {
+          "saturation": 1.086,
+          "rgb": [
+            0.968,
+            0.971,
+            1.115
+          ]
+        }
+      }
+    },
+    {
+      "character": "npc_blind_bell_knight",
+      "sheets": [
+        "H_npc_blind_bell_knight_talk3.png"
+      ],
+      "scales": {
+        "H_npc_blind_bell_knight_talk3.png": 0.3238
+      },
+      "grades": {
+        "H_npc_blind_bell_knight_talk3.png": {
+          "saturation": 0.88,
+          "rgb": [
+            0.965,
+            0.997,
+            0.981
+          ]
+        }
+      }
+    },
+    {
+      "character": "npc_deserter_flagbearer",
+      "sheets": [
+        "H_npc_deserter_flagbearer_talk6.png"
+      ],
+      "scales": {
+        "H_npc_deserter_flagbearer_talk6.png": 0.3148
+      },
+      "grades": {
+        "H_npc_deserter_flagbearer_talk6.png": {
+          "saturation": 0.896,
+          "rgb": [
+            1.012,
+            1.054,
+            1.014
+          ]
+        }
+      }
+    }
+  ]
+}
+{
+  "characters": 71,
+  "frames": 2828,
+  "coverage": [
+    {
+      "id": "ash_banner_imp",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 3,
+        "death": 3,
+        "imp_retreat_windup": 4,
+        "imp_retreat": 4,
+        "imp_retreat_recover": 4
+      },
+      "frames": 44,
+      "canvas": [
+        386,
+        251
+      ],
+      "source_hash": "694852c8568aca67b1b4d43329961ef3d84b65199b7295f1e40b99bd8607e7bb"
+    },
+    {
+      "id": "bell_mote",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 6,
+        "recover": 6,
+        "hurt": 4,
+        "death": 4,
+        "mote_seek_windup": 4,
+        "mote_seek": 4,
+        "mote_seek_recover": 4,
+        "mote_seek_charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        378,
+        177
+      ],
+      "source_hash": "1be88d5ee37240b27bf9d4d7b715528116b97eac2cc1f750faf94b27b32d3b98"
+    },
+    {
+      "id": "bellroot_acolyte",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "attack": 6,
+        "root_bell_wave_windup": 4,
+        "root_bell_wave": 4,
+        "root_bell_wave_recover": 4,
+        "root_bell_wave_charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        514,
+        281
+      ],
+      "source_hash": "fa0ab89a1605d15136b9c384576ec2c4457f571af40daef1b479fa7e78ac09b6"
+    },
+    {
+      "id": "broken_string_gardener",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 5,
+        "hurt": 4,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_settle": 2,
+        "cast_bridge": 2,
+        "phase_settle": 2
+      },
+      "frames": 63,
+      "canvas": [
+        332,
+        242
+      ],
+      "source_hash": "62061d8c326a22711ee91aa5d97ef101a3b570f9f347149f3a37eae3d7e0b99d"
+    },
+    {
+      "id": "bronze_moth",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "travel": 2,
+        "moth_dust_windup": 4,
+        "moth_dust": 4,
+        "moth_dust_recover": 4
+      },
+      "frames": 46,
+      "canvas": [
+        366,
+        271
+      ],
+      "source_hash": "652955cd2c161465990e1ffaefbf0336ba559ea6828549518b9cd6671b4f3c88"
+    },
+    {
+      "id": "corridor_heavy",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "heavy_elite_quake_windup": 4,
+        "heavy_elite_quake": 4,
+        "heavy_elite_quake_recover": 4,
+        "heavy_elite_quake_charge": 2,
+        "charge": 2,
+        "travel": 2,
+        "heavy_stamp_windup": 4,
+        "heavy_stamp": 4,
+        "heavy_stamp_recover": 4,
+        "heavy_stamp_charge": 2
+      },
+      "frames": 64,
+      "canvas": [
+        320,
+        294
+      ],
+      "source_hash": "0be6938bbcb64366af70452db2d80871448ac263706133b9d698c91348f713d8"
+    },
+    {
+      "id": "delayed_shadow",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "shadow_echo_windup": 4,
+        "shadow_echo": 4,
+        "shadow_echo_recover": 4
+      },
+      "frames": 46,
+      "canvas": [
+        384,
+        270
+      ],
+      "source_hash": "96c2ac13fcb10e530b42530d2d3e18d75d883160c34d72dddbd1b903b986279a"
+    },
+    {
+      "id": "drain_leech",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 2,
+        "death": 3,
+        "leech_leap_windup": 4,
+        "leech_leap": 4,
+        "leech_leap_recover": 4,
+        "leech_leap_travel": 2
+      },
+      "frames": 43,
+      "canvas": [
+        406,
+        227
+      ],
+      "source_hash": "fe2e2bf71103a0f5b2d749fe037987f59124b9ed0a439ad2fcf2915a0d8df7f2"
+    },
+    {
+      "id": "echo_contract_scribe",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "echo_scribe_seals_windup": 4,
+        "echo_scribe_seals": 4,
+        "echo_scribe_seals_recover": 4
+      },
+      "frames": 46,
+      "canvas": [
+        480,
+        229
+      ],
+      "source_hash": "ce2b276ab9127b83dcac44ffaef1e23945f6c2f5ed0a470f62d523d4dbf5458b"
+    },
+    {
+      "id": "echo_moss_larva",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "attack": 4,
+        "charge": 2,
+        "travel": 2,
+        "echo_larva_mark_windup": 4,
+        "echo_larva_mark": 4,
+        "echo_larva_mark_recover": 4
+      },
+      "frames": 48,
+      "canvas": [
+        376,
+        256
+      ],
+      "source_hash": "cdf446ce9271038caed4c9b51a273b250e885211e974c1cb6667dfcdffda3f08"
+    },
+    {
+      "id": "echo_pilgrim_commander_minor",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "minor_banner_windup": 4,
+        "minor_banner": 4,
+        "minor_banner_recover": 4,
+        "minor_banner_charge": 2,
+        "minor_elite_rally_windup": 4,
+        "minor_elite_rally": 4,
+        "minor_elite_rally_recover": 4,
+        "minor_elite_rally_charge": 2,
+        "charge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        364,
+        320
+      ],
+      "source_hash": "558249a565841bb33ddd12551c84729b52423ef3b1c32772e2c0b74de28d785c"
+    },
+    {
+      "id": "echo_thorn_sentinel",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 2,
+        "death": 3,
+        "echo_thorn_double_windup": 4,
+        "echo_thorn_double": 4,
+        "echo_thorn_double_recover": 4,
+        "echo_thorn_double_charge": 2,
+        "charge": 2
+      },
+      "frames": 45,
+      "canvas": [
+        362,
+        223
+      ],
+      "source_hash": "c6bccbf0a1de1811e726828383dcf2e8f5fe69558a0fcbc801a848b55ad26272"
+    },
+    {
+      "id": "echo_waterwheel_knight",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "echo_wheel_elite_windup": 4,
+        "echo_wheel_elite": 4,
+        "echo_wheel_elite_recover": 4,
+        "echo_wheel_elite_charge": 2,
+        "charge": 2,
+        "echo_wheel_wave_windup": 4,
+        "echo_wheel_wave": 4,
+        "echo_wheel_wave_recover": 4,
+        "echo_wheel_wave_charge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        306,
+        227
+      ],
+      "source_hash": "c40ee157f0ef12796e03cd48d4b141fae418aa837da0929f21c2c3408869e6ee"
+    },
+    {
+      "id": "erasure_bailiff",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 3,
+        "charge": 2,
+        "bailiff_elite_sweep_windup": 4,
+        "bailiff_elite_sweep": 4,
+        "bailiff_elite_sweep_recover": 4,
+        "bailiff_elite_sweep_charge": 2,
+        "bailiff_erase_windup": 4,
+        "bailiff_erase": 4,
+        "bailiff_erase_recover": 4,
+        "bailiff_erase_charge": 2
+      },
+      "frames": 61,
+      "canvas": [
+        350,
+        243
+      ],
+      "source_hash": "43c72f6433084a8fe2e45c18f16ebfc915d3c9bc459de04c7e3f17c55aaeeedc"
+    },
+    {
+      "id": "falling_clapper",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "travel": 2,
+        "clapper_wave_windup": 4,
+        "clapper_wave": 4,
+        "clapper_wave_recover": 4,
+        "clapper_wave_charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        400,
+        226
+      ],
+      "source_hash": "970e73b9970d7aca6ccde3e20985173952fb111120b468d90a58e31a50165810"
+    },
+    {
+      "id": "gear_sentinel",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 6,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 5,
+        "death": 3,
+        "gear_elite_spin_windup": 4,
+        "gear_elite_spin": 6,
+        "gear_elite_spin_recover": 4,
+        "gear_elite_spin_charge": 2,
+        "gear_guard_windup": 4,
+        "gear_guard": 4,
+        "gear_guard_recover": 4,
+        "gear_guard_charge": 2
+      },
+      "frames": 66,
+      "canvas": [
+        486,
+        220
+      ],
+      "source_hash": "9839aafc39f3cdfe1ce0d07b5cb9f13c329eae6520429b22ab6e17a368318d54"
+    },
+    {
+      "id": "index_scribe",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "index_seal_windup": 4,
+        "index_seal": 4,
+        "index_seal_recover": 4
+      },
+      "frames": 46,
+      "canvas": [
+        332,
+        271
+      ],
+      "source_hash": "4a06936f94286d63adc5c5c346ca3f18b0a7dd3fac0b331607a671fcfbeba658"
+    },
+    {
+      "id": "isotope_lumen",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "lumen_focus_windup": 4,
+        "lumen_focus": 4,
+        "lumen_focus_recover": 4,
+        "charge": 2
+      },
+      "frames": 46,
+      "canvas": [
+        330,
+        260
+      ],
+      "source_hash": "484ef6cdb5d8e7b75e620bc7bc66c9917343bbe95e5c14b689746c48425424e9"
+    },
+    {
+      "id": "kneeling_crossbowman",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "crossbow_low_windup": 4,
+        "crossbow_low": 4,
+        "crossbow_low_recover": 4,
+        "crossbow_low_charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        332,
+        224
+      ],
+      "source_hash": "b7d9ad36716014f8cb1ce8a45a33c1082b90254b53c4ec805d39101caad1ec9c"
+    },
+    {
+      "id": "moss_larva",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "larva_snap_windup": 4,
+        "larva_snap": 4,
+        "larva_snap_recover": 4
+      },
+      "frames": 46,
+      "canvas": [
+        312,
+        241
+      ],
+      "source_hash": "81f1506ecab884ade21c9598c361a5522eed38017f02d7ee2b14a4ef65e9e3d7"
+    },
+    {
+      "id": "obsidian_bellwheel",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "travel": 2,
+        "bellwheel_waves_windup": 4,
+        "bellwheel_waves": 4,
+        "bellwheel_waves_recover": 4,
+        "bellwheel_waves_charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        312,
+        244
+      ],
+      "source_hash": "6345626b6e2d61442bc1c2a41630af1a27cb80a0e0a39afa7432c2afebee6dab"
+    },
+    {
+      "id": "obsidian_spearman",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "obsidian_elite_impale_windup": 4,
+        "obsidian_elite_impale": 4,
+        "obsidian_elite_impale_recover": 4,
+        "obsidian_elite_impale_charge": 2,
+        "obsidian_elite_impale_travel": 2,
+        "obsidian_raise_windup": 4,
+        "obsidian_raise": 4,
+        "obsidian_raise_recover": 4,
+        "charge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        426,
+        306
+      ],
+      "source_hash": "4983b70ebe489211491f7c2726f94f443c48933d86e578b3a71f113e6ac1b9d1"
+    },
+    {
+      "id": "page_duelist",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 3,
+        "death": 4,
+        "charge": 2,
+        "page_elite_flurry_windup": 4,
+        "page_elite_flurry": 6,
+        "page_elite_flurry_recover": 4,
+        "page_elite_flurry_charge": 2,
+        "page_feint_windup": 4,
+        "page_feint": 4,
+        "page_feint_recover": 4
+      },
+      "frames": 61,
+      "canvas": [
+        418,
+        243
+      ],
+      "source_hash": "ad5284af80768277dfc4b3a895c2597092e93a04ea6973403eb7c138c2fbd1d3"
+    },
+    {
+      "id": "phase_censor",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "censor_blink_windup": 4,
+        "censor_blink": 4,
+        "censor_blink_recover": 4,
+        "censor_blink_charge": 2,
+        "charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        320,
+        241
+      ],
+      "source_hash": "f1aa8a6ec13e3da38b550cb6588836f954d525cf71516aa794c3a209a71feb32"
+    },
+    {
+      "id": "pilgrim_chariot",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "chariot_caltrops_windup": 4,
+        "chariot_caltrops": 4,
+        "chariot_caltrops_recover": 4,
+        "chariot_caltrops_charge": 2,
+        "charge": 2,
+        "travel": 2,
+        "chariot_elite_drift_windup": 4,
+        "chariot_elite_drift": 4,
+        "chariot_elite_drift_recover": 4,
+        "chariot_elite_drift_charge": 2,
+        "chariot_elite_drift_travel": 2
+      },
+      "frames": 66,
+      "canvas": [
+        348,
+        207
+      ],
+      "source_hash": "67e96743a2800c55b2b549e52938cfd7cdd932078ecb5267fed6385cc207c2f6"
+    },
+    {
+      "id": "pipe_thrower",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 3,
+        "death": 4,
+        "charge": 2,
+        "pipe_mortar_windup": 4,
+        "pipe_mortar": 4,
+        "pipe_mortar_recover": 4,
+        "pipe_mortar_charge": 2
+      },
+      "frames": 47,
+      "canvas": [
+        388,
+        226
+      ],
+      "source_hash": "82652dc50a8725e3110619d7d2a6d0d2f169e095a3169d13927dd93a4849fb53"
+    },
+    {
+      "id": "pollen_lutist",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "pollen_spots_windup": 4,
+        "pollen_spots": 4,
+        "pollen_spots_recover": 4,
+        "pollen_spots_charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        292,
+        231
+      ],
+      "source_hash": "1d88742ed694e1f5c87f2468d7f835f2d919dd1b15f5fe18578154967e0481c9"
+    },
+    {
+      "id": "rain_censer_mote",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "censer_cloud_windup": 4,
+        "censer_cloud": 4,
+        "censer_cloud_recover": 4,
+        "charge": 2
+      },
+      "frames": 46,
+      "canvas": [
+        410,
+        215
+      ],
+      "source_hash": "7c7b574873543cb21dc04c156420a6ad1e0f198893bf3bab48252f7b156f1ad3"
+    },
+    {
+      "id": "root_cage_hunter",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "cage_elite_snare_windup": 4,
+        "cage_elite_snare": 4,
+        "cage_elite_snare_recover": 4,
+        "cage_elite_snare_charge": 2,
+        "charge": 2,
+        "cage_pounce_windup": 4,
+        "cage_pounce": 4,
+        "cage_pounce_recover": 4,
+        "cage_pounce_travel": 2
+      },
+      "frames": 62,
+      "canvas": [
+        392,
+        244
+      ],
+      "source_hash": "ad47f8e4bfeda79110384e98cc13866e001769fdef691c62d8a2b45ff5fab7a2"
+    },
+    {
+      "id": "rust_crown_guardian",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 2,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_bridge": 2,
+        "cast_bridge": 2,
+        "phase_bridge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        468,
+        279
+      ],
+      "source_hash": "7f3c2325750ba674eb737c7911491dc976aec444eb88f399b72c3953e0b85726"
+    },
+    {
+      "id": "rust_diver",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 2,
+        "death": 3,
+        "diver_splash_windup": 4,
+        "diver_splash": 4,
+        "diver_splash_recover": 4,
+        "diver_splash_charge": 2,
+        "travel": 2
+      },
+      "frames": 45,
+      "canvas": [
+        476,
+        236
+      ],
+      "source_hash": "a3c004e708fe7e53c03620355b80a619eb303dd58b3b7ebb5c301f293406c9f0"
+    },
+    {
+      "id": "salt_bookmite",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 6,
+        "walk": 8,
+        "windup": 4,
+        "attack": 6,
+        "recover": 6,
+        "hurt": 3,
+        "death": 3,
+        "book_bite_windup": 4,
+        "book_bite": 4,
+        "book_bite_recover": 4,
+        "charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        312,
+        185
+      ],
+      "source_hash": "efa73d80711f6c845d4e03da0056a22128fdb509c05bd69e12702214a349cb98"
+    },
+    {
+      "id": "saltwhite_contract_judge",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 4,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_bridge": 2,
+        "cast_bridge": 2,
+        "phase_bridge": 2
+      },
+      "frames": 64,
+      "canvas": [
+        514,
+        223
+      ],
+      "source_hash": "2aed71833a8d375225716b8bcc96dfa70286b550168512da2b2044a30628082b"
+    },
+    {
+      "id": "silent_bugbler",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 3,
+        "death": 3,
+        "bugle_pulse_windup": 4,
+        "bugle_pulse": 4,
+        "bugle_pulse_recover": 4,
+        "bugle_pulse_charge": 2,
+        "charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        362,
+        188
+      ],
+      "source_hash": "de5643c4e015bbe8a7bebf8b26fc2909d770e3325190d6a110b7e56a4ca2c1ff"
+    },
+    {
+      "id": "silent_crown_core",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 5,
+        "hurt": 3,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_bridge": 2,
+        "cast_bridge": 2,
+        "phase_bridge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        522,
+        233
+      ],
+      "source_hash": "3208ead49c2b5ce8ed7a6f342d8e4a186123dc5a9c5be11d19541c90a0bf4fa5"
+    },
+    {
+      "id": "silent_pilgrim_commander",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 7,
+        "hurt": 2,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_bridge": 2,
+        "cast_bridge": 2,
+        "phase_bridge": 2
+      },
+      "frames": 63,
+      "canvas": [
+        464,
+        261
+      ],
+      "source_hash": "34a9ddbe27cd03fa3bf2b832b186da6ab665a4a6581b588983590f326e95ffed"
+    },
+    {
+      "id": "spore_bellmaker",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 6,
+        "recover": 6,
+        "hurt": 2,
+        "death": 4,
+        "bell_fungus_windup": 4,
+        "bell_fungus": 4,
+        "bell_fungus_recover": 4,
+        "charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        334,
+        243
+      ],
+      "source_hash": "c0442417b5f3ced48095b71ce52c33ddbc34e1984d7389c71891a1113dd093a1"
+    },
+    {
+      "id": "summoned_page",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 6,
+        "recover": 6,
+        "hurt": 3,
+        "death": 4,
+        "page_orbit_windup": 4,
+        "page_orbit": 4,
+        "page_orbit_recover": 4,
+        "page_orbit_charge": 2,
+        "travel": 2
+      },
+      "frames": 51,
+      "canvas": [
+        350,
+        168
+      ],
+      "source_hash": "42aff3cf08bca3a9a3c2b52c0305c97a8dea73adde4d1052de13af864e0555b7"
+    },
+    {
+      "id": "sunken_hammer_smith",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 2,
+        "death": 4,
+        "heavy_windup": 4,
+        "heavy": 4,
+        "cast_windup": 4,
+        "cast": 4,
+        "phase_windup": 4,
+        "phase": 4,
+        "heavy_bridge": 2,
+        "cast_bridge": 2,
+        "phase_bridge": 2
+      },
+      "frames": 62,
+      "canvas": [
+        338,
+        309
+      ],
+      "source_hash": "9fdbd3348f5e4460f6b3b50bef20016431ee7569cf0edd4f340ec4272f8e0250"
+    },
+    {
+      "id": "thorn_bloom_mote",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 6,
+        "recover": 6,
+        "hurt": 4,
+        "death": 4,
+        "bloom_seeds_windup": 4,
+        "bloom_seeds": 4,
+        "bloom_seeds_recover": 4,
+        "bloom_seeds_charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        394,
+        190
+      ],
+      "source_hash": "6cf009fcc37aeea451616a0ff01d208d210ca9caacfb9c3cf6463b9ed8fc7260"
+    },
+    {
+      "id": "thorn_sentinel",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "thorn_ring_windup": 4,
+        "thorn_ring": 4,
+        "thorn_ring_recover": 4,
+        "thorn_ring_charge": 2
+      },
+      "frames": 46,
+      "canvas": [
+        394,
+        230
+      ],
+      "source_hash": "b0bba428c653ae0bb23723255f4e4433b3fdb34c12e55e3d572896d275e5dcef"
+    },
+    {
+      "id": "valve_crawler",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "valve_vent_windup": 4,
+        "valve_vent": 4,
+        "valve_vent_recover": 4,
+        "valve_vent_charge": 2
+      },
+      "frames": 48,
+      "canvas": [
+        360,
+        166
+      ],
+      "source_hash": "467faf5e4602bdd0722e9c6e78395b2d2402d375e88f505b5fdf684f77a688ad"
+    },
+    {
+      "id": "vine_crawler",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "vine_roots_windup": 4,
+        "vine_roots": 4,
+        "vine_roots_recover": 4,
+        "vine_roots_charge": 2
+      },
+      "frames": 46,
+      "canvas": [
+        326,
+        214
+      ],
+      "source_hash": "9aa78dd25ebecc29f9a2fe400eae89725059d53c4f8f38a7e63d503f2e27b71b"
+    },
+    {
+      "id": "waterwheel_knight",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "wheel_elite_ride_windup": 4,
+        "wheel_elite_ride": 4,
+        "wheel_elite_ride_recover": 4,
+        "wheel_elite_ride_charge": 2,
+        "wheel_elite_ride_travel": 2,
+        "wheel_return_windup": 4,
+        "wheel_return": 4,
+        "wheel_return_recover": 4,
+        "wheel_return_charge": 2
+      },
+      "frames": 64,
+      "canvas": [
+        356,
+        214
+      ],
+      "source_hash": "632d572f5f153f923e6f6f81cc430784a4bcb1cff8c5dc0a0ca13f24dd9e63ca"
+    },
+    {
+      "id": "wax_bee",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 4,
+        "hurt": 4,
+        "death": 4,
+        "charge": 2,
+        "travel": 2,
+        "bee_stingers_windup": 4,
+        "bee_stingers": 4,
+        "bee_stingers_recover": 4,
+        "bee_stingers_charge": 2
+      },
+      "frames": 50,
+      "canvas": [
+        320,
+        236
+      ],
+      "source_hash": "c400dd5ddc0ef59890bc493811c6a0df84a52be3cf10b0cb5c02a42d576617de"
+    },
+    {
+      "id": "wax_lancer",
+      "family": "original_creatures",
+      "animations": {
+        "idle": 4,
+        "walk": 8,
+        "windup": 4,
+        "attack": 4,
+        "recover": 6,
+        "hurt": 3,
+        "death": 4,
+        "charge": 2,
+        "travel": 2,
+        "wax_high_windup": 4,
+        "wax_high": 4,
+        "wax_high_recover": 4
+      },
+      "frames": 49,
+      "canvas": [
+        450,
+        243
+      ],
+      "source_hash": "acd53e2ca61aa40aedc19ec35a176c80e6d9d3dd9c9730c23b580b4853d55011"
+    },
+    {
+      "id": "npc_backdoor_sacristan",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        334,
+        320
+      ],
+      "source_hash": "83bfcaad537c38338a0e764e401225590b018d6393bd1d8a6a9c24d4fe276f59"
+    },
+    {
+      "id": "npc_beeswax_vendor",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        294,
+        274
+      ],
+      "source_hash": "7b4a6991487f9e8919fcb4c6951db319ede8eb096543cf2bc8df12f89a359976"
+    },
+    {
+      "id": "npc_black_tide_child",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        364,
+        328
+      ],
+      "source_hash": "30d5fd7e099987e77508f3eaae3db0081ed96d25f5d9a797fd82f98c6043c42e"
+    },
+    {
+      "id": "npc_blind_bell_knight",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        260,
+        293
+      ],
+      "source_hash": "5146fac3286f637e18d286069d49fcc71f928e66fa04c188a977b282bbd14805"
+    },
+    {
+      "id": "npc_broken_singer",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        320,
+        265
+      ],
+      "source_hash": "f74d9ec4eb417e22e5546981948606acfb7c0637cd5ba73d8d7611bb1bf8f6ea"
+    },
+    {
+      "id": "npc_canal_child",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        286,
+        258
+      ],
+      "source_hash": "f48ba8cdb1d4a8f519dab614a8d42b782ea5b649e0ee260d94a37eb6f5baeece"
+    },
+    {
+      "id": "npc_crown_tongue",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        368,
+        286
+      ],
+      "source_hash": "f80400fea027244380a194aa892bc3cedead655c9ebb003e9888fd228fb5638b"
+    },
+    {
+      "id": "npc_deserter_flagbearer",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        316,
+        261
+      ],
+      "source_hash": "10aba77815dc492c73e720363088afd4d531db38c110084878a2bc9244f639a3"
+    },
+    {
+      "id": "npc_drowned_foreman",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        262,
+        202
+      ],
+      "source_hash": "21844c61d87c02cb68f6a766235b6e1482a1ce2e183f1adf2df7ddd1c0ffa0e7"
+    },
+    {
+      "id": "npc_first_pilgrim_echo",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        352,
+        272
+      ],
+      "source_hash": "6a74d20c323afdc16204fd50b4d10567cc8a254fc7cd40397da345798a6a9016"
+    },
+    {
+      "id": "npc_fugitive_scribe",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        422,
+        272
+      ],
+      "source_hash": "4caf51a53e95e3b835351e448938986359b554d3d9b01305b126f1f4cad88d56"
+    },
+    {
+      "id": "npc_gate_pilgrim",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        396,
+        275
+      ],
+      "source_hash": "7461619c67a84e0052a22c810f12c03f9c3fc862a2e022efef1081bdb2782741"
+    },
+    {
+      "id": "npc_gear_cartographer",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        372,
+        254
+      ],
+      "source_hash": "21596a03bf19ef6e1fed06cba84d8203318f15aae52dae854462fbfe1258c1fd"
+    },
+    {
+      "id": "npc_lantern_sister",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 6,
+        "talk": 6,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        412,
+        330
+      ],
+      "source_hash": "08d858e4c475aa7176ab198336c8b70089079f08df62b74585a58dc433515b83"
+    },
+    {
+      "id": "npc_obsidian_guide",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        416,
+        330
+      ],
+      "source_hash": "30f5d21e9d02023653f9ef496054a88d85b86e012b623c2bfb3ab8660e12d9c0"
+    },
+    {
+      "id": "npc_old_gardener",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        332,
+        334
+      ],
+      "source_hash": "a746fdce7b5821c5c23c75cccc78f96279a85df8491381ec435659e27a626535"
+    },
+    {
+      "id": "npc_quiet_reader",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        558,
+        284
+      ],
+      "source_hash": "9be9ea65420fd7894be35e4a9bfd9b7bdb4db5294c822ada1a22b9baa9662c11"
+    },
+    {
+      "id": "npc_rain_smith_liu",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        380,
+        289
+      ],
+      "source_hash": "97f3b52aef71ad07f6d38ec1fee7950faba53b967a54bdcd3079f6b1cba6d95d"
+    },
+    {
+      "id": "npc_root_prisoner",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        366,
+        333
+      ],
+      "source_hash": "af0d6fb69ab50de4a2db8f52eb9784c30c91c4c399e95173a36ae5c4125696e6"
+    },
+    {
+      "id": "npc_runback_scout",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        388,
+        338
+      ],
+      "source_hash": "7f5985cea6367924eeb3880e9cea3ccded4bbaef5b1ec9813290f450ee9d8171"
+    },
+    {
+      "id": "npc_salt_librarian_ye",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        402,
+        330
+      ],
+      "source_hash": "abcf0932ab02100cd5698e0d1c568b825ae48ab6cee6c99abe5d82862c57b709"
+    },
+    {
+      "id": "npc_sealed_archivist",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        388,
+        327
+      ],
+      "source_hash": "7af55c6d8bdd44ae46d9dd4290e05218311e66b341a1af211194ac642a704b1c"
+    },
+    {
+      "id": "npc_six_mark_keeper",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        396,
+        325
+      ],
+      "source_hash": "d05c19ec0cead8613e7e889d218e87161b7b778549d56905dcaf693d101dc369"
+    },
+    {
+      "id": "npc_sluice_nun",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        420,
+        330
+      ],
+      "source_hash": "48ea6e8a9047a7a557d0172fd682f6131efacfc02102133da351af6ae5aa59f9"
+    },
+    {
+      "id": "npc_threadsmith_apprentice",
+      "family": "original_npcs",
+      "animations": {
+        "idle": 4,
+        "talk": 8,
+        "greet": 2,
+        "rest": 2
+      },
+      "frames": 16,
+      "canvas": [
+        450,
+        331
+      ],
+      "source_hash": "d5d3f44bb95b70483a17aaf7e9fed385248706b1372768881f49f746226b76cd"
+    }
+  ]
+}
+HERO_EXPANDED_RUN poses=8 canvas=384x384 shared_scale=0.405660377
+HERO_SUPPLEMENT_MOTION animations=12 frames=58 run_scale=0.405660377

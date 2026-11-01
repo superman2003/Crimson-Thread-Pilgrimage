@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_corridor_heavy.png",
+  "kind": "corridor_heavy",
+  "image_sha256": "f653fa928577a26fed8255263e3f2f0e44f60ff4793189b4405c211964c3a75f",
+  "prompt_sha256": "308606dac022b43d297eff7878b725a7488093206fe46798aec30498afa3ac6c",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/corridor_heavy.png",
+  "reference_sha256": "3c2a74041600de4004f4ed45ff2f9a2df6f8db8f4b5ca9d720a70f004113e840",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "heavy_roll_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        527,
+        265
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        75,
+        76,
+        470,
+        225
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "heavy_roll_warning",
+      "rect_xyxy": [
+        527,
+        0,
+        1027,
+        265
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        583,
+        75,
+        981,
+        229
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "heavy_roll_warning",
+      "rect_xyxy": [
+        1027,
+        0,
+        1536,
+        265
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1075,
+        67,
+        1489,
+        234
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "heavy_roll_execution",
+      "rect_xyxy": [
+        0,
+        265,
+        524,
+        500
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        84,
+        292,
+        498,
+        481
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "heavy_roll_execution",
+      "rect_xyxy": [
+        524,
+        265,
+        1043,
+        500
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        552,
+        304,
+        1015,
+        481
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "heavy_roll_execution",
+      "rect_xyxy": [
+        1043,
+        265,
+        1536,
+        500
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1069,
+        317,
+        1477,
+        480
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "heavy_stamp_warning",
+      "rect_xyxy": [
+        0,
+        500,
+        518,
+        757
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        131,
+        581,
+        411,
+        734
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "heavy_stamp_warning",
+      "rect_xyxy": [
+        518,
+        500,
+        1018,
+        757
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        626,
+        550,
+        915,
+        738
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "heavy_stamp_warning",
+      "rect_xyxy": [
+        1018,
+        500,
+        1536,
+        757
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1122,
+        521,
+        1418,
+        743
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "heavy_elite_quake_warning",
+      "rect_xyxy": [
+        0,
+        757,
+        513,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        126,
+        808,
+        431,
+        978
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "heavy_elite_quake_warning",
+      "rect_xyxy": [
+        513,
+        757,
+        1007,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        599,
+        783,
+        945,
+        978
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "heavy_elite_quake_warning",
+      "rect_xyxy": [
+        1007,
+        757,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1071,
+        770,
+        1447,
+        984
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "????????????????????/?????????????",
+    "rows_reviewed": [
+      "heavy_roll_warning",
+      "heavy_roll_execution",
+      "heavy_stamp_warning",
+      "heavy_elite_quake_warning"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

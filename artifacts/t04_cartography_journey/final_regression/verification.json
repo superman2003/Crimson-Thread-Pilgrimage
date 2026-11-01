@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-21T15:42:29.861514+08:00",
+  "head": "e0323ca2b1a34ce5d5fdc6241de1e024c2d32459",
+  "source_files": 8682,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "world_passage",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_passage_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 29.53,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD PASSAGE PASS: 61 checks; physical input roundtrip, reversal, save isolation and terminal continuity",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "world_passage_network",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_passage_network_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000",
+        "--disable-render-loop"
+      ],
+      "seconds": 16.88,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD_PASSAGE_NETWORK checks=140 failures=0 physical_roundtrips=5",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "cartography",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/cartography_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 11.8,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "CARTOGRAPHY checks=4233 failures=0 fixture_positioning=true",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "world_death_cache_flush",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/world_death_cache_flush_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.58,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD_DEATH_CACHE_FLUSH checks=27 failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "ui_world_integration",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_world_integration_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.28,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "settings_remap",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/settings_remap_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 6.41,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SETTINGS_REMAP checks=23 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    }
+  ]
+}

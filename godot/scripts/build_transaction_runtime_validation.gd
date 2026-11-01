@@ -80,14 +80,16 @@ func _run() -> void:
 		player.energy = 47
 		player.skill_cooldown = 1.25
 		build.cooldowns["cleave"] = 2.75
-		scene.currency_count = 100
+		scene.currency_count = 200
+		scene.inventory_counts["moss_chitin"] = 2
+		scene.story_flags["skill_practiced_cleave"] = true
 		scene.world_save_failure_injected_for_validation = true
 		var build_before: Dictionary = build.serialize()
 		var wallet_before: Dictionary = scene._build_wallet_snapshot()
-		var result: Dictionary = scene.perform_build_action("transact", "upgrade_cleave")
+		var result: Dictionary = scene.perform_build_action("transact", "branch_cleave_a")
 		_check(not result.get("ok", false) and String(result.get("reason", "")).begins_with("归途记录未能写入"),
 			"valid craft reaches and reports failed persistence")
-		_check(int(build_before.skill_levels.get("cleave", 0)) == 0 and int(wallet_before.currency) == 100,
+		_check(int(build_before.skill_levels.get("cleave", 0)) == 0 and int(wallet_before.currency) == 200,
 			"craft failure fixture starts with an affordable, unapplied upgrade")
 		_check(build.serialize() == build_before, "failed craft rolls back build progress and cooldowns")
 		_check(scene.currency_count == wallet_before.currency and scene.inventory_counts == wallet_before.inventory_counts,
@@ -139,6 +141,54 @@ func _run() -> void:
 		and _tool_effect_count() == effect_count_before + 1,
 		"successful tool use spends exactly one charge for one effect")
 
+	# E05: plan management is durable and uses the same rollback path as crafts.
+	var plan_id:="事务删除方案"
+	_check(scene.perform_build_action("save_loadout",plan_id).get("ok",false),"real shrine saves a named plan")
+	var plans_before: Dictionary=build.serialize()
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("delete_loadout",plan_id).get("ok",false) and build.serialize()==plans_before,"failed plan deletion restores the exact saved plan")
+	scene.world_save_failure_injected_for_validation=false
+	_check(scene.perform_build_action("delete_loadout",plan_id).get("ok",false) and not build.state.loadouts.has(plan_id),"successful deletion is persisted through the production transaction")
+	player.global_position=Vector2(70000,70000)
+	plans_before=build.serialize()
+	_check(not scene.perform_build_action("save_loadout","道路方案").get("ok",false) and build.serialize()==plans_before,"production action rejects saving plans away from a shrine")
+	# Selected quantities must survive both the real adapter and durable rollback.
+	var selection := {"order":["shard"], "limits":{"shard":1}}
+	var road_wallet: Dictionary=scene._build_wallet_snapshot()
+	_check(not scene.perform_build_action("resupply_tools","",selection).get("ok",false) and scene._build_wallet_snapshot()==road_wallet,"selected purchase cannot bypass shrine distance")
+	player.global_position=shrine.global_position
+	scene.currency_count=100
+	scene.inventory_counts["moss_chitin"]=10
+	build.state.tool_counts.shard=0
+	var selected_before: Dictionary=build.serialize()
+	var selected_wallet: Dictionary=scene._build_wallet_snapshot()
+	var selected_quote: Dictionary=scene.perform_build_action("quote_resupply","",selection)
+	_check(selected_quote.get("charges",{})=={"shard":1} and build.serialize()==selected_before,"World forwards selected quantity into a read-only quote")
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("resupply_tools","",selection).get("ok",false) and build.serialize()==selected_before and scene._build_wallet_snapshot()==selected_wallet,"selected failed-save purchase restores exact stock and wallet")
+	scene.world_save_failure_injected_for_validation=false
+	var selected_purchase: Dictionary=scene.perform_build_action("resupply_tools","",selection)
+	_check(selected_purchase.get("ok",false) and build.state.tool_counts.shard==1 and scene.currency_count==96 and scene.inventory_counts.moss_chitin==9,"World durable purchase buys exactly one selected unit")
+	selected_before=build.serialize()
+	selected_wallet=scene._build_wallet_snapshot()
+	_check(not scene.perform_build_action("resupply_tools","",{"limits":{"shard":true}}).get("ok",false) and build.serialize()==selected_before and scene._build_wallet_snapshot()==selected_wallet,"World rejects malformed selection without a payment or save mutation")
+	_check(scene.perform_build_action("save_loadout","工房原案").get("ok",false),"World saves the management source at a real shrine")
+	var managed_before: Dictionary=build.serialize()
+	var managed_wallet: Dictionary=scene._build_wallet_snapshot()
+	var managed_hp:=int(player.hp)
+	var managed_energy:=int(player.energy)
+	scene.world_save_failure_injected_for_validation=true
+	_check(not scene.perform_build_action("rename_loadout","工房原案","命名失败").get("ok",false) and build.serialize()==managed_before,"failed rename persistence restores exact source identity and ordering")
+	_check(not scene.perform_build_action("copy_loadout","工房原案","复制失败").get("ok",false) and build.serialize()==managed_before,"failed copy persistence creates no duplicate")
+	scene.world_save_failure_injected_for_validation=false
+	_check(scene.perform_build_action("rename_loadout","工房原案","守灯配置").get("ok",false) and not build.state.loadouts.has("工房原案"),"World commits a rename without overwriting another plan")
+	_check(scene.perform_build_action("copy_loadout","守灯配置","远行副本").get("ok",false) and build.state.loadouts.has("远行副本"),"World commits a detached named copy")
+	_check(scene._build_wallet_snapshot()==managed_wallet and player.hp==managed_hp and player.energy==managed_energy and build.cooldowns==managed_before.cooldowns and build.state.tool_counts==managed_before.tool_counts,"naming and copying preserve wallet HP thread stock and cooldowns")
+	var disk:=preload("res://scripts/world_state.gd").new()
+	_check(disk.read(SAVE_PATH) and disk.data.build_state.loadouts.has("守灯配置") and disk.data.build_state.loadouts.has("远行副本") and not disk.data.build_state.loadouts.has("工房原案"),"fresh production save read contains both final plan identities")
+	player.global_position=Vector2(70000,70000)
+	managed_before=build.serialize()
+	_check(not scene.perform_build_action("rename_loadout","守灯配置","道路改名").get("ok",false) and not scene.perform_build_action("copy_loadout","守灯配置","道路复制").get("ok",false) and build.serialize()==managed_before,"World rejects both management writes away from shrine")
 	_finish()
 
 func _find_area(kind: String, id: String) -> Area2D:

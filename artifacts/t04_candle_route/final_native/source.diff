@@ -1,0 +1,44 @@
+diff --git a/godot/data/demo_ch03_saltwhite_archive.json b/godot/data/demo_ch03_saltwhite_archive.json
+index cdb468d9..da622e93 100644
+--- a/godot/data/demo_ch03_saltwhite_archive.json
++++ b/godot/data/demo_ch03_saltwhite_archive.json
+@@ -2813,7 +2813,7 @@
+       "id": "ch03_hazard_candle_chest",
+       "kind": "spore_chest",
+       "rect": [
+-        1580,
++        1480,
+         2234,
+         110,
+         22
+diff --git a/godot/data/world_routes.json b/godot/data/world_routes.json
+index fdf9cfda..6acd4402 100644
+--- a/godot/data/world_routes.json
++++ b/godot/data/world_routes.json
+@@ -3725,7 +3725,7 @@
+           "kind": "item",
+           "item_id": "double_thread_jump",
+           "position": [
+-            1510,
++            1440,
+             2200
+           ],
+           "room_id": "candle_mezzanine",
+diff --git a/godot/scripts/world_route_walk_validation.gd b/godot/scripts/world_route_walk_validation.gd
+index d93f81ae..ad9eb808 100644
+--- a/godot/scripts/world_route_walk_validation.gd
++++ b/godot/scripts/world_route_walk_validation.gd
+@@ -39,10 +39,10 @@ func _run() -> void:
+     _check(scene.inventory_counts.has("silk_wall_grip"), "wall grip obtained by walking into pickup")
+     await _walk(Vector2(1350,836), "rain riser return")
+     await _interact("rain_archive_riser", "demo_ch03_saltwhite_archive", Vector2(430,2580))
+-    for p in [Vector2(700,2570),Vector2(1050,2620),Vector2(1430,2556),Vector2(1760,2612),Vector2(2090,2548),Vector2(1930,2442),Vector2(1740,2350),Vector2(1510,2240)]:
+-        await _walk(p,"archive candle route",false,p.x == 1510)
++    for p in [Vector2(700,2570),Vector2(1050,2620),Vector2(1430,2556),Vector2(1760,2612),Vector2(2090,2548),Vector2(1930,2442),Vector2(1740,2350),Vector2(1640,2240),Vector2(1440,2240)]:
++        await _walk(p,"archive candle route",false,p.x in [1640.0,1440.0])
+     _check(scene.inventory_counts.has("double_thread_jump"), "double jump obtained in archive")
+-    await _walk(Vector2(1610,2240),"archive return line")
++    await _walk(Vector2(1640,2240),"archive return line",false,true)
+     await _interact("archive_moss_return", "demo_ch01_moss_bell_court", Vector2(280,3360))
+     await _walk(Vector2(410,3400), "old lift revisited")
+     await _interact("moss_salt_lift_lower", "demo_ch01_moss_bell_court", Vector2(4850,610))

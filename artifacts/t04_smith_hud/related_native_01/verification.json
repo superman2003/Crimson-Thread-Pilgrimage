@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-21T18:46:33.926142+08:00",
+  "head": "521aeaae08c3d63330ca0c367e0e11bb489c15b3",
+  "source_files": 8732,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "ui_world_integration",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_world_integration_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 5.62,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "UI_WORLD_INTEGRATION_VALIDATION_PASS failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "ui_redesign",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_redesign_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 4.73,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "UI_REDESIGN_VALIDATION_PASS checks=42 failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "ui_build_accessibility",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/ui_build_accessibility_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 2.19,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "boss_trial",
+      "command": [
+        "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\v04-player-tool-runtime\\Crimson-Thread-Pilgrimage\\godot",
+        "--script",
+        "res://scripts/boss_trial_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-32000,-32000"
+      ],
+      "seconds": 3.56,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1017.6240234375, 720.0] boss_spawned=true",
+      "objectdb_warnings": 1,
+      "passed": true
+    }
+  ]
+}

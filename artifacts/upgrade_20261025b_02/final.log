@@ -1,0 +1,20 @@
+Running practice_coach
+FAIL: practice_coach: exit=1 engine_errors=2 completion_marker=False
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Parse Error: Identifier "CH03" not declared in the current scope.
+          at: GDScript::reload (res://scripts/practice_coach_validation.gd:55)
+ERROR: Failed to load script "res://scripts/practice_coach_validation.gd" with error "Parse error".
+   at: load (modules/gdscript/gdscript.cpp:2907)
+Running skill_branches
+PASS: skill_branches
+PASS the fixture releases playback
+SKILL_BRANCHES checks=38 failures=0
+Running tool_practice
+PASS: tool_practice
+PASS the encounter hint is shown only once
+TOOL_PRACTICE checks=98 failures=0
+GODOT_REGRESSIONS suites=3 failures=1

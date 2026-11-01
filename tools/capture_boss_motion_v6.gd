@@ -1,5 +1,5 @@
 extends SceneTree
-## Real 60 Hz sprite playback against the archived v5 rig, no interpolation.
+## Real 60 Hz sprite playback against the archived main rig, no interpolation.
 const ENEMY := preload("res://scripts/enemy_actor.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const BOSSES := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
@@ -52,8 +52,9 @@ func _capture(kind: String) -> void:
     var stage := Stage.new()
     view.add_child(stage)
     _label(stage, kind + " / authored in-betweens / equal before-after timing", Vector2(20,14), 18)
-    _label(stage, "BEFORE", Vector2(190,54), 21)
-    _label(stage, "AFTER  +48 drawings", Vector2(650,54), 21)
+    _label(stage, "BEFORE  main", Vector2(150,54), 21)
+    var record: Dictionary = ART.manifest("res://assets/sprites/original_creatures/"+kind+"/motion_generation.json")
+    _label(stage, "AFTER  +%d runtime drawings" % int(record.boss_motion_v6.runtime_drawings), Vector2(575,54), 21)
     var phase_label := _label(stage, "", Vector2(20,390), 18)
     var before = _enemy(stage, kind, true, Vector2(240,355))
     var after = _enemy(stage, kind, false, Vector2(720,355))

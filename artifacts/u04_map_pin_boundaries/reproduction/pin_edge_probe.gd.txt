@@ -1,0 +1,67 @@
+extends SceneTree
+const UI=preload("res://scripts/map_player_pins_runtime.gd")
+const PINS=preload("res://scripts/map_player_pins.gd")
+const JOURNAL=preload("res://scripts/pilgrimage_cartography.gd")
+const ATLAS=preload("res://scripts/world_atlas.gd")
+const ROUTES=preload("res://scripts/world_routes.gd")
+const SURVEY=preload("res://scripts/cartography_runtime.gd")
+func _initialize():call_deferred("run")
+func run():
+    root.size=Vector2i(1280,720)
+    var scene=load("res://scenes/World.tscn").instantiate()
+    scene.world_resume=false
+    scene.world_save_path="user://pin_edge_probe.json"
+    root.add_child(scene)
+    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
+    scene.set_process(false)
+    scene.player.set_physics_process(false)
+    for enemy in get_nodes_in_group("enemy"):enemy.process_mode=Node.PROCESS_MODE_DISABLED
+    var original_flags=scene.story_flags
+    var original=scene.config
+    var rows=[]
+    var total=0
+    var bad=0
+    var worst=[]
+    for region in ROUTES.cached_chapters():
+        var config=ATLAS.configuration(region)
+        scene.config=config
+        var flags={}
+        JOURNAL.region(flags,region).owned=true
+        for room in config.map_rooms:JOURNAL.region(flags,region).charted[String(room.id)]=true
+        for room in config.map_rooms:
+            var rect=SURVEY.room_rect(room)
+            if rect.size.x<100 or rect.size.y<75:continue
+            for corner in [Vector2.ZERO,Vector2.RIGHT,Vector2.DOWN,Vector2.ONE]:
+                var local_flags=flags.duplicate(true)
+                for index in 12:
+                    var delta=Vector2(1+(index%4)*25,1+int(index/4)*25)
+                    var point=rect.position+Vector2(delta.x if corner.x==0 else rect.size.x-delta.x,delta.y if corner.y==0 else rect.size.y-delta.y)
+                    var added=PINS.add(local_flags,{region:config},region,point,PINS.KINDS[index%3])
+                    if added.ok:local_flags[PINS.KEY]=added.records
+                var records=PINS.records(local_flags,{region:config})
+                if records.size()!=12:continue
+                scene.story_flags=local_flags
+                UI.refresh(scene)
+                var labels:Array[Label]=[]
+                for child in scene.map_draw_root.get_children():
+                    if child is Label and child.name.begins_with("PlayerMapPin_"):labels.append(child)
+                var outside=[]
+                var paper=Rect2(Vector2.ZERO,scene.map_draw_root.size)
+                for label in labels:
+                    if label.visible and not paper.encloses(Rect2(label.position,label.get_combined_minimum_size())):
+                        outside.append({"text":label.text,"position":[label.position.x,label.position.y],"size":[label.get_combined_minimum_size().x,label.get_combined_minimum_size().y],"anchor":[label.get_meta("map_anchor").x,label.get_meta("map_anchor").y]})
+                total+=1
+                if not outside.is_empty():
+                    bad+=1
+                    var row={"region":region,"room":String(room.id),"corner":[corner.x,corner.y],"outside":outside,"records":records}
+                    if worst.size()<8:worst.append(row)
+                for label in labels:label.free()
+        rows.append({"region":region,"layouts_seen":total,"bad_seen":bad})
+    scene.config=original
+    scene.story_flags=original_flags
+    var result={"source_scope":"Real production UI.refresh with six-region configurations and real Label minimum sizes; synthetic charting/actors paused, not natural gameplay","total":total,"bad":bad,"rows":rows,"examples":worst}
+    print("PIN_EDGE_PROBE "+JSON.stringify(result))
+    scene.free()
+    await process_frame
+    for suffix in ["",".bak",".tmp"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://pin_edge_probe.json"+suffix))
+    quit(0)

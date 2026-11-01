@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_06_01",
+      "npc": "npc_crown_tongue",
+      "question": "开门、停钟、放水，为什么全接进同一把锁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "原来要分头去问。急潮来时，有人嫌这样太慢，就接了总轨。",
+        "第一次救下了人，往后再没人拆。如今连开一扇小门，都得等这把锁准许。"
+      ],
+      "reflection": "分钥架上还留着分列的槽。我把“快”字记在旁边，也把后来打不开的小门记下。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "冠门松了，总轨还在。别因为握得动它，就以为非握在自己手里不可。",
+          "我见过太多拿钥匙的人，最后只记得自己能锁什么。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_03",
+      "npc": "npc_crown_tongue",
+      "question": "吞下最后一把钥匙，是为了挡住谁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "告解没写来人的名字。只写钥匙还在他身上，门没开。",
+        "你可以骂他，也可以替他难过。可缺的那一个名字，别替告解补上。"
+      ],
+      "reflection": "第一百零一把钥匙没有坏。谁站在门外，我仍不知道。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "他终于不再拦着，门外等过的人却未必还在。",
+          "我想先听外面一阵。你若要往回走，不必等我替你把话说完。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_05",
+      "npc": "npc_six_mark_keeper",
+      "question": "已经有五份，为什么还不能当六份用？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "因为漏的是一座城，不是一枚凑数的印。五个人的话不能把第六人的经历顶上。",
+        "少哪份，我把来路说给你；你可以回去，也可以先作别的选择。我不替空位签字。"
+      ],
+      "reflection": "守望者逐份摆开证词。缺页所在的位置，也要留给我看见。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门已开，重鸣和断冠都能由你明确选。若要改约，空着那一处仍得找回来。",
+          "别把我当成最后一个要讨好的人。我要核对的是原件。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_07",
+      "npc": "npc_six_mark_keeper",
+      "question": "六份都齐了，你还会让我重鸣吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "会把那条路留着，也会把仍被压住的名字念给你听。",
+        "我若只给你看自己赞同的一页，这张桌子就同总官的柜子没什么分别。"
+      ],
+      "reflection": "六份证词没有替我选好结局。我得自己说出愿意让谁继续承担什么。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "你能进门了。我最后再说一次：潮会不会退，和谁失去声音，是两栏。",
+          "看完两栏再落针。落了，也别把另一栏撕掉。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_08",
+      "npc": "npc_six_mark_keeper",
+      "question": "有人记得的，与纸上不同，先信谁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "先别叫他们改口。把各自站在哪里、听见哪一段写清楚。",
+        "有人记得获救，有人记得被留下。两句都可能是真的；分钥架就是把这些不同关进了一把锁。"
+      ],
+      "reflection": "我把相异的说法分开收好。还没弄清的地方，不能为了凑成完整故事而擦掉。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "冠停了，桌上这些话还在争。",
+          "这很好。我守原件，不替它们投票，也不把声音小的压到最底下。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_09",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "你留下回声，是想让我替你做完吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "我确实这样盼过。等得太久，人很容易把后来者当成自己的下一只手。",
+        "可你带来的每一张纸上，都有人受过这样的苦。我不能装作没听懂。"
+      ],
+      "reflection": "回声第一次承认自己也在等一个接手的人。我把线端握回自己掌心。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "如今你能走到那三道门前。我很想告诉你该选哪一道。",
+          "让我把这句话忍住。这是我还能替你腾出的最后一点地方。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_12",
+      "npc": "npc_black_tide_child",
+      "question": "井里的声像孩子，我该答应它吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "先问它在叫谁。我在井边听过自己的名字，也听过别人哭。不是每一声都能牵住手。",
+        "你可以把我看见的这一把小钥匙带着想；别说你已经听懂了整口井。"
+      ],
+      "reflection": "我没有对井里许诺。我先记下孩子亲眼看见的那把钥匙。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "门开以后，潮声更近了。你答应谁，就得记得回哪一个身边。",
+          "我会在井边。不用保证很快回来，走得通了再来。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_06_14",
+      "npc": "npc_six_mark_keeper",
+      "question": "走到最后，还能先回去一趟吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_06",
+          "label": "冠肋吞钥告解"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "钟舌分钥架"
+        }
+      ],
+      "lines": [
+        "路还接着。先回去看看名字交到谁手里，灯是不是真的照到脚下。",
+        "你带来的是六城的事，不能只在这间屋子里听见自己的回声。"
+      ],
+      "reflection": "我把证词收回行囊。王冠就在前面，身后的路也仍然算数。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch06",
+            "label": "第6区守门者战后"
+          }
+        ],
+        "lines": [
+          "可以回去，门不会因为你犹豫就替你作答。",
+          "回来时若改了主意，重新把收益和代价看一遍。以前说过的话，不必拿来逼今天的你。"
+        ]
+      }
+    }
+  ]
+}

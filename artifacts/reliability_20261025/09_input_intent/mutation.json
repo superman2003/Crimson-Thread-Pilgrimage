@@ -1,0 +1,6 @@
+{
+  "file": "godot/scripts/input_prompt_bindings.gd",
+  "replace": "if not specific:controller = label",
+  "with": "if controller.is_empty():controller = label",
+  "kind": "isolated temporary source fault; repository source unchanged"
+}

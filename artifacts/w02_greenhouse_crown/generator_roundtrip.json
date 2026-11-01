@@ -1,0 +1,58 @@
+{
+  "production_sha256": {
+    "demo_ch01_moss_bell_court.json": "6e2cb3242b8453ed76eb40afc4ac037fe63eaa7551bc87ba349e16acf46d2144",
+    "demo_ch02_rain_foundry_canal.json": "aab2e5b344eb8eb7c260b4fd515974730affa2616673b715793adce9655b7a0a",
+    "demo_ch03_saltwhite_archive.json": "0905c2c76e3da0a2826d6c82ee093a1e4ed0bc7ce8e45d187825a511df1ee824",
+    "demo_ch04_broken_string_greenhouse.json": "30343f985838a98c9252154d830e6ea78172dcdbf30599633e84d7eb01348835",
+    "demo_ch05_obsidian_pilgrim_road.json": "83b328e7f7c6272780cf453d69d1042fa38eb387c23054d0b04165f62615a55a",
+    "demo_ch06_silent_crown_core.json": "c7c3dcfb4d0803468066205031f4276927ced8eecae50e25485a047d875833af"
+  },
+  "production_unchanged": true,
+  "previous_builder_sha256": "adab3ff962cc943b8eec93209997c11b1de140fe1a890fdcbd11aea538e8332f",
+  "builder_sha256": "bc3fed3099e7e195f8fedf61bba8e535143a47ee491a41026926d3824f2ec744",
+  "results": [
+    {
+      "chapter": "demo_ch01_moss_bell_court.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch02_rain_foundry_canal.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch03_saltwhite_archive.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch04_broken_string_greenhouse.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": [],
+      "initial_platform_terrain_only_expectation": false,
+      "derived_cave_fields": [
+        "solid_rects",
+        "outlines"
+      ],
+      "derived_rock_difference_area": 46080.0,
+      "derived_rock_difference_bounds": [
+        3872.0,
+        992.0,
+        4032.0,
+        1344.0
+      ],
+      "note": "The authored canopy split also changes derived cave mass. Full generated-data runtime checks are separate."
+    },
+    {
+      "chapter": "demo_ch05_obsidian_pilgrim_road.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": []
+    },
+    {
+      "chapter": "demo_ch06_silent_crown_core.json",
+      "only_expected_canopy_split": true,
+      "unexpected_top_level_fields": []
+    }
+  ]
+}

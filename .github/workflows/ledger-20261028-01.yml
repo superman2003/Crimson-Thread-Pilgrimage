@@ -1,0 +1,36 @@
+name: Ledger 20261028 01 combat_review
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/combat_desk.gd'
+      - 'godot/scripts/combat_review_analysis.gd'
+      - 'godot/scripts/ledger_20261028_01_validation.gd'
+      - 'tools/run_ledger_20261028_01.py'
+      - 'godot/data/**'
+      - '.github/workflows/ledger-20261028-01.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: ledger-20261028-01-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Compile production and run native behavior
+        run: python3 tools/run_ledger_20261028_01.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/ledger-01"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ledger-20261028-01-logs
+          path: ${{ runner.temp }}/ledger-01

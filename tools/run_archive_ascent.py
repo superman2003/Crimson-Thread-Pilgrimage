@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""Replay the archive ascent from an earned hook save, then verify a new-process restart.
+
+This is a continuation test, not a new-save campaign, human playtest or FPS test.
+The seed was normally earned by the #183 smith and hook continuation and is copied verbatim
+to a dedicated test save by the playback. It never replaces a player's save.
+"""
+from __future__ import annotations
+
+import argparse
+from contextlib import nullcontext
+import datetime
+import gzip
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import tempfile
+import time
+
+from run_damage_route import freeze
+from software_gl import software_gl
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPT = 'godot/scripts/world_archive_ascent_playback.gd'
+SEED = 'artifacts/t04_smith_hud/earned_hook_seed.json'
+SEED_SHA256 = '7633a25c731c38774d7be3212b233e2d5537d93cfec37774d07327ca0e1048e3'
+MARKER = r'^WORLD_ARCHIVE_ASCENT steps=\d+ failures=0 damage_events=\d+ heals=\d+ deaths=0 damage_suppression=false earned_checkpoint=true$'
+
+
+def sources():
+    result = freeze()
+    for name in [SCRIPT, SEED, 'tools/run_archive_ascent.py', 'tools/build_chapter_terrain.py', 'tools/build_cave_world.py']:
+        result[name] = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
+    parser.add_argument('--log-dir', type=Path, required=True)
+    parser.add_argument('--native-gl', action='store_true')
+    args = parser.parse_args()
+    engine = shutil.which(args.engine)
+    if not engine:
+        parser.error('Godot executable not found')
+    before = sources()
+    if before[SEED] != SEED_SHA256:
+        parser.error('earned checkpoint differs from its recorded provenance')
+    logs = args.log_dir.resolve()
+    logs.mkdir(parents=True, exist_ok=True)
+    (logs / 'playback.gd.txt').write_bytes((ROOT / SCRIPT).read_bytes())
+    (logs / 'runner.py.txt').write_bytes(Path(__file__).read_bytes())
+    (logs / 'runtime.gd.txt').write_bytes((ROOT / 'godot/scripts/chapter_terrain.gd').read_bytes())
+    (logs / 'source.diff').write_bytes(subprocess.check_output(
+        ['git', '-c', 'core.safecrlf=false', 'diff', 'HEAD', '--', 'godot', 'tools/run_archive_ascent.py', 'tools/build_chapter_terrain.py', 'tools/build_cave_world.py'], cwd=ROOT))
+    started = time.monotonic()
+    restart = None
+    code, timed_out = None, False
+    display = nullcontext({}) if args.native_gl else software_gl(logs / 'display')
+    with tempfile.TemporaryDirectory(prefix='pilgrimage-archive-ascent-') as scratch, display as renderer_env:
+        env = dict(os.environ, **renderer_env, XDG_DATA_HOME=scratch)
+        renderer = ['--position', '-32000,-32000'] if args.native_gl else ['--display-driver', 'x11']
+        command = [engine, *renderer, '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility',
+                   '--fixed-fps', '60', '--path', str(ROOT / 'godot'), '--script', str(ROOT / SCRIPT)]
+        with (logs / 'runtime.log').open('w', encoding='utf-8') as output:
+            try:
+                code = subprocess.run(command, env=env, stdout=output, stderr=subprocess.STDOUT,
+                                      timeout=180, check=False).returncode
+            except subprocess.TimeoutExpired:
+                timed_out = True
+        primary = (logs / 'runtime.log').read_text(encoding='utf-8', errors='replace')
+        proofs = re.findall(r'^ARCHIVE_ASCENT_RESTART_PROOF (.+)$', primary, re.MULTILINE)
+        if code == 0 and not timed_out and re.search(MARKER, primary, re.MULTILINE) and not re.search(r'^\s*(?:SCRIPT ERROR:|ERROR:)', primary, re.MULTILINE) and proofs:
+            expected = json.loads(proofs[-1])
+            (logs / 'restart-proof.json').write_text(json.dumps(expected, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+            restart_command = command + ['--', '--archive-restart-proof='+json.dumps(expected, ensure_ascii=False, separators=(',', ':'))]
+            restart_code, restart_timeout = None, False
+            restart_started = time.monotonic()
+            with (logs / 'restart.log').open('w', encoding='utf-8') as output:
+                try:
+                    restart_code = subprocess.run(restart_command, env=env, stdout=output, stderr=subprocess.STDOUT, timeout=180, check=False).returncode
+                except subprocess.TimeoutExpired:
+                    restart_timeout = True
+            restarted = (logs / 'restart.log').read_text(encoding='utf-8', errors='replace')
+            restart_errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', restarted, re.MULTILINE)
+            restart_marker = re.search(r'^WORLD_ARCHIVE_ASCENT_RESTART failures=0 pid_changed=true$', restarted, re.MULTILINE)
+            restart = dict(command=restart_command, seconds=round(time.monotonic()-restart_started, 2), timeout_seconds=180,
+                           exit=restart_code, timed_out=restart_timeout, engine_errors=restart_errors,
+                           objectdb_warnings=restarted.count('ObjectDB instances leaked'),
+                           completion=restart_marker.group(0) if restart_marker else None,
+                           passed=restart_code == 0 and not restart_timeout and not restart_errors and bool(restart_marker))
+    after = sources()
+    for name, values in [('before', before), ('after', after)]:
+        (logs / f'source-{name}.json.gz').write_bytes(gzip.compress(
+            (json.dumps(values, indent=2)+'\n').encode(), mtime=0))
+    plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', (logs / 'runtime.log').read_text(encoding='utf-8', errors='replace'))
+    errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)
+    marker = re.search(MARKER, plain, re.MULTILINE)
+    result = dict(date=datetime.datetime.now().astimezone().isoformat(),
+                  scope='48 real-input steps from the earned hook checkpoint through the archive map purchase, reading galleries and crest shrine, plus new-process restart',
+                  head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+                  command=command, seed_sha256=before[SEED], seconds=round(time.monotonic()-started, 2),
+                  timeout_seconds=180, exit=code, timed_out=timed_out, engine_errors=errors,
+                  objectdb_warnings=plain.count('ObjectDB instances leaked'), source_files=len(before),
+                  source_unchanged=before == after, completion=marker.group(0) if marker else None,
+                  restart=restart, passed=code == 0 and not timed_out and not errors and bool(marker) and before == after and bool(restart and restart["passed"]))
+    (logs / 'verification.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    compact = dict(result, engine_errors=errors[:3], engine_error_count=len(errors))
+    print(json.dumps(compact, ensure_ascii=False, indent=2))
+    return 0 if result['passed'] else 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

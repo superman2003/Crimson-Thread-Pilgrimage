@@ -1,0 +1,232 @@
+{
+  "date": "2026-10-20",
+  "branch": "codex/v04-player-tool-runtime",
+  "base": "2571f891b23229060dcff13fc75bbd78aa42fed4",
+  "scope": {
+    "families": [
+      "shard",
+      "mine",
+      "fog",
+      "lure"
+    ],
+    "source_frames": 28,
+    "source_files_unchanged": true,
+    "atlas_png_bytes": 479673,
+    "atlas_decoded_rgba_bytes": 8388608,
+    "fog_opacity": 0.45,
+    "actual_lure_range": 180
+  },
+  "engine": "4.6.1.stable.official.14d19694e",
+  "renderer": "Windows native OpenGL 3.3 / NVIDIA GeForce RTX 5060",
+  "new_specialist": {
+    "checks": 312,
+    "failures": 0,
+    "original_practice_checks": 98,
+    "log": "artifacts/player_tool_art/logs/tool_practice.log",
+    "standalone_log": "artifacts/player_tool_art/logs/final-tool-art.log"
+  },
+  "registered_suites": [
+    {
+      "suite": "tool_practice",
+      "status": "passed",
+      "completion_pattern": "^TOOL_PRACTICE checks=[1-9][0-9]* failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/tool_practice.log"
+    },
+    {
+      "suite": "seal_combat",
+      "status": "passed",
+      "completion_pattern": "^SEAL_COMBAT_VALIDATION PASS checks=\\d+ failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/seal_combat.log"
+    },
+    {
+      "suite": "combat_visual_budget",
+      "status": "passed",
+      "completion_pattern": "^COMBAT_VISUAL_BUDGET checks=[1-9][0-9]* failures=0 real_gl=true$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/combat_visual_budget.log"
+    },
+    {
+      "suite": "seal_system",
+      "status": "passed",
+      "completion_pattern": "^SEAL SYSTEM PASS: \\d+ checks$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/seal_system.log"
+    },
+    {
+      "suite": "enemy_effect_lifetime",
+      "status": "passed",
+      "completion_pattern": "^ENEMY_EFFECT_LIFETIME_VALIDATION checks=\\d+ failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/enemy_effect_lifetime.log"
+    },
+    {
+      "suite": "combat",
+      "status": "passed",
+      "completion_pattern": "^COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/combat.log"
+    },
+    {
+      "suite": "skill_branches",
+      "status": "passed",
+      "completion_pattern": "^SKILL_BRANCHES checks=[1-9][0-9]* failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 1,
+      "log": "artifacts/player_tool_art/logs/skill_branches.log"
+    },
+    {
+      "suite": "player_melee_feedback",
+      "status": "passed",
+      "completion_pattern": "^PLAYER_MELEE_FEEDBACK_PASS checks=\\d+ hardware=simulated physical_feel=unverified$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/player_melee_feedback.log"
+    },
+    {
+      "suite": "world_enemy_residency",
+      "status": "passed",
+      "completion_pattern": "^WORLD_ENEMY_RESIDENCY checks=\\d+ failures=0 snapshot=\\{.*\\}$",
+      "engine_errors": 0,
+      "objectdb_warnings": 1,
+      "log": "artifacts/player_tool_art/logs/world_enemy_residency.log"
+    },
+    {
+      "suite": "world_startup_budget",
+      "status": "passed",
+      "completion_pattern": "^WORLD_STARTUP_BUDGET_VALIDATION_PASS$",
+      "engine_errors": 0,
+      "objectdb_warnings": 1,
+      "log": "artifacts/player_tool_art/logs/world_startup_budget.log"
+    },
+    {
+      "suite": "character_art_prewarm",
+      "status": "passed",
+      "completion_pattern": "^CHARACTER_ART_PREWARM checks=[1-9][0-9]* failures=0 sync_loads=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 1,
+      "log": "artifacts/player_tool_art/logs/character_art_prewarm.log"
+    },
+    {
+      "suite": "seal_identity",
+      "status": "passed",
+      "completion_pattern": "^SEAL_IDENTITY checks=[1-9][0-9]* failures=0 crests=3$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/seal_identity.log"
+    },
+    {
+      "suite": "player_state_cleanup",
+      "status": "passed",
+      "completion_pattern": "^PLAYER_STATE_CLEANUP_PASS checks=\\d+ failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/player_state_cleanup.log"
+    },
+    {
+      "suite": "artisan_crafts",
+      "status": "passed",
+      "completion_pattern": "^ARTISAN_CRAFTS checks=[1-9][0-9]* failures=0$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/artisan_crafts.log"
+    },
+    {
+      "suite": "seal_acceptance",
+      "status": "passed",
+      "completion_pattern": "^SEAL_ACCEPTANCE_PASS checks=\\d+ failures=0 real_world_ui_damage_crossregion_restart$",
+      "engine_errors": 0,
+      "objectdb_warnings": 0,
+      "log": "artifacts/player_tool_art/logs/seal_acceptance.log"
+    }
+  ],
+  "negative_controls": [
+    {
+      "mutation": "disabled-art",
+      "checks": 312,
+      "expected_failures": 144,
+      "restored": true,
+      "log": "artifacts/player_tool_art/logs/negative-disabled-art.log"
+    },
+    {
+      "mutation": "disabled-mirror",
+      "checks": 312,
+      "expected_failures": 16,
+      "restored": true,
+      "log": "artifacts/player_tool_art/logs/negative-disabled-mirror.log"
+    }
+  ],
+  "import": [
+    {
+      "pass": 1,
+      "status": "passed",
+      "log": "artifacts/player_tool_art/logs/import-1.log.gz",
+      "uncompressed_sha256": "b09f1985e55e6b1d298929ae8f7e69a41abd58502708e73e01faf78f06445110"
+    },
+    {
+      "pass": 2,
+      "status": "passed",
+      "log": "artifacts/player_tool_art/logs/import-2.log.gz",
+      "uncompressed_sha256": "63a0855ff262371e6b4bf2139542b2aa0311e6ca0123fb1cee56ab5dae3256e7"
+    }
+  ],
+  "static_checks": [
+    "npm test",
+    "npm run test:campaign",
+    "build_player_tool_art.py --check",
+    "Python compilation",
+    "workflow YAML structure",
+    "git diff --check"
+  ],
+  "source_coverage_after_batch": [
+    {
+      "category": "beams",
+      "families": 4,
+      "frames": 16
+    },
+    {
+      "category": "ground_hazards",
+      "families": 8,
+      "frames": 64
+    },
+    {
+      "category": "player_skills",
+      "families": 3,
+      "frames": 24
+    },
+    {
+      "category": "player_tools",
+      "families": 4,
+      "frames": 28
+    },
+    {
+      "category": "projectiles",
+      "families": 15,
+      "frames": 120
+    },
+    {
+      "category": "terrain_attacks",
+      "families": 5,
+      "frames": 36
+    }
+  ],
+  "initial_findings": [
+    "First standalone parse needed an explicit bool for a Variant family expression; fixed.",
+    "Initial wall fixture asserted occlusion when the native ray began exactly on the impact boundary; separated the occluding wall from the emission surface and retained this engine boundary behavior as an open limitation.",
+    "Rapid standalone exit exposed pending WAV playback; fixture now retires and drains actual audio before shutdown. Final standalone has no engine errors."
+  ],
+  "limitations": [
+    "Stage captures with frozen physics and independently sampled phase clocks; not natural-speed gameplay or FPS evidence.",
+    "Native ray starting exactly on collision boundary remains existing behavior; not changed by this presentation batch.",
+    "Existing ObjectDB warnings in some registered suites remain outside scope.",
+    "Natural six-region run, live melee readability/comfort, long-run memory and target hardware performance remain open.",
+    "PR CI status is reported separately; local results do not certify it."
+  ]
+}

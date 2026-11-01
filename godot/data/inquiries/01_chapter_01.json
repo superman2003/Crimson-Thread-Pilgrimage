@@ -1,0 +1,285 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_01_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "井壁上那些小轮廓，学徒也算一个吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我数过。数到自己的年纪就不敢往下数了。",
+        "师父留下针的时候，没说我还欠钟一副嗓子。可每次经过殿门，我还是会把针藏起来。"
+      ],
+      "reflection": "学徒怕的不是针丢了，是有人凭这枚针认定他该留下。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母停下了，我今天第一次把针别在外面。走到门边，又摸了摸。",
+          "你别笑。我还不太习惯门真的会放我过去。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_03",
+      "npc": "npc_backdoor_sacristan",
+      "question": "后门的线为什么补了又断？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我补的是门绳。井下那根收声线，我碰都没敢碰。",
+        "从前有人敲后门求宿，我嫌钟龛太挤，让他去前殿登记。后来再没听见他敲门。"
+      ],
+      "reflection": "司事记得一次被他拒绝的敲门。我还不知道那人后来去了哪里。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "这回我先开后门，再问来处。床还是那么几张，挤一挤吧。",
+          "若有人拿旧印来问，我会说是我开的。你不用替我挡着。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_05",
+      "npc": "npc_runback_scout",
+      "question": "你量回程的步数，是怕忘路吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "怕跑得快的人只记得自己能跳过去。你看这一阶，空手能跨，背着伤员就不行。",
+        "井喉那份刻痕我搬不动，只好等你带出来。等人的时候，我把这段路又走了三遍。"
+      ],
+      "reflection": "我记下斥候量过的台阶。证词要带出来，人也得能回来。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "守母不再拦路，台阶也没变矮。明天我还得量。",
+          "你若去雨渠，先看落脚处，再看对岸。别只看对岸。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_07",
+      "npc": "npc_gate_pilgrim",
+      "question": "守母押上心的时候，知道后面会多出那些线吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我在门外等过很多年，没资格说自己听见了她当时的话。",
+        "你找到的刻痕比我可靠：一颗心是旧的，小人形是后添的。先把这两样分开带走。"
+      ],
+      "reflection": "门边的朝圣者没有替守母作答。我也只记下井壁上能看见的两次刻痕。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "她倒下时，我险些说“终于还清了”。可门外还有孩子。",
+          "这句话先别刻在碑上。去书库查查，到底是谁把后面的线添上去。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_09",
+      "npc": "npc_gear_cartographer",
+      "question": "你的图为什么把钟殿画得这么小？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "大殿谁都找得到。我收钱，是替人画出藏在大殿后面的路。",
+        "住处、工坊、井边的落脚处，少画一个，走错路的人可不会摔在纸上。"
+      ],
+      "reflection": "绘图者把纸留给不好找的地方。钟殿很大，人的落脚处却更容易漏掉。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "现在能从守母那边绕回来了，我得重新量，不能在旧图上随便添一笔。",
+          "带回来的刻痕也留着。有人若说这条路一直都开着，你就拿给他看。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_11",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "你师父的针，为什么一直没缝名字？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我怕缝错。错在别人衣领上，还能拆；错在师父身上，好像就再也问不到他了。",
+        "所以我先修针，修到它什么都能缝，偏偏不敢落第一针。"
+      ],
+      "reflection": "我以为学徒在等一份完整名单。他其实先要学会缝下一个无法再确认的名字。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "门开以后，我想出去问问还记得他的人。也许只问得到一件小事。",
+          "你若先碰到他们，别替我把师父说得太好了。我连他发脾气的样子都快忘了。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_12",
+      "npc": "npc_backdoor_sacristan",
+      "question": "今晚没有钟声，你怎样叫人换班？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "敲三下门框。以前我怕吵醒殿里的人，敲得太轻，接班的就多站半夜。",
+        "现在想起来，他没来骂我，我竟以为他不累。"
+      ],
+      "reflection": "司事说起那半夜时低下了头。我听见了门框上的三次敲击。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "今晚我去替他站前半夜。他若没听见，我再敲一次。",
+          "不会再把没回答算作答应了。可这事得我亲自去做。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_01_14",
+      "npc": "npc_gate_pilgrim",
+      "question": "打倒守母以后，还要往井下查吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "井喉抵押刻痕"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "要。你打倒的是拦路的身体，添在刻痕上的细线还在那里。",
+        "我守着这扇门，最容易以为门一开，所有事就都过去了。"
+      ],
+      "reflection": "门已经能过。我仍把井壁的新刻痕带在身上，准备去问书库里的人。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "第1区守门者战后"
+          }
+        ],
+        "lines": [
+          "路通了，终于有人能把那根线看清。",
+          "把她当年押下的东西，与后来压到孩子身上的东西，分别问明白再回来。"
+        ]
+      }
+    }
+  ]
+}

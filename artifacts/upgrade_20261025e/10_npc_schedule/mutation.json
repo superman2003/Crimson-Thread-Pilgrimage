@@ -1,0 +1,7 @@
+{
+  "path": "godot/scripts/npc_landmark_schedule.gd",
+  "before": "if last<oldest or (last==oldest and (float(distance)<closest or (float(distance)==closest and String(row.id)<selected_id))):",
+  "after": "if float(distance)<closest:",
+  "exit_code": 1,
+  "caught": true
+}

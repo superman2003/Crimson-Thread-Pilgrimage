@@ -17,18 +17,20 @@ GROUPS={
  ('drainage_descent','ruin','rd_run rd_step sl_lock_a sl_lock_b shrine_floor_a'),
  ('pipe_tunnel','tunnel','cf'),('gear_aqueduct','bridge','gg_w gg_c1 gg_c2 hub_balcony_e'),
  ('pump_west_bank','soil','hub_floor_w'),('pump_east_bank','soil','hub_floor_e'),
- ('smith_approach','ruin','ra_a ra_b fs_floor'),('scissor_forge','arena','boss_floor')],
+ # Keep the spillway shaft open under its one-way metal crossing.
+ ('smith_west','ruin','ra_a'),('forge_landing','ruin','fs_floor'),('scissor_forge','arena','boss_floor')],
 'salt_archive':[
  ('archive_street','ruin','gate_porch gate_lantern_step spine_run_a spine_book_step spine_run_b spine_tall_shelf'),
  ('candle_arcade','tunnel','candle_floor candle_east_walk candle_gap_stand'),
  ('inverted_gallery','bridge','inv_gallery_a inv_page_step inv_gallery_b inv_east_shelf'),
- ('crest_walk','ruin','crest_deck crest_east_walk'),('salt_basin','soil','sg_run_a sg_run_b sg_run_c'),
+ # The stair shaft rises through the hanging crest deck from below.
+ ('crest_east','ruin','crest_east_walk'),('salt_basin','soil','sg_run_a sg_run_b sg_run_c'),
  ('judgement_approach','ruin','index_run_a boss_threshold'),('mantis_court','arena','mantis_floor'),
  ('archive_exit','ruin','exit_dock dock_step dock_walk')],
 'string_greenhouse':[
  ('entry_root','soil','gate_floor'),
  ('garden_floor','soil','south_run_a south_bed_b south_run_c south_bed_d south_run_e south_bed_f south_run_g south_bed_h south_run_i'),
- ('wax_bank','ruin','bw_step bw_floor'),('canopy_east','bridge','canopy_e_c canopy_e_b canopy_e_a'),
+ ('wax_bank','ruin','bw_step bw_floor'),('canopy_east','bridge','canopy_e_b canopy_e_a'),
  ('canopy_west','bridge','canopy_w_c canopy_w_b canopy_w_a'),('garden_heart','soil','heart_floor'),
  ('root_vault','tunnel','vault_floor'),('broken_spoke','ruin','spoke_run_b spoke_run_a'),
  ('bishop_approach','ruin','overlook_walk boss_threshold'),('root_dome','arena','dome_floor')],
@@ -69,6 +71,9 @@ def build(path):
         selected.sort(key=lambda p:p['rect'][0]); chunks=[];chunk=[]
         for p in selected:
             x,y,w,h=p['rect'];left,right=x,x+w
+            # Preserve the authored 110px drop slot between the crown rain banks.
+            if chunk and theme=='silent_crown' and group_id=='echo_canal' and p['id']=='rain_wheel_stand':
+                chunks.append(chunk);chunk=[]
             if chunk:
                 previous=chunk[-1]; px,py,pw,_=previous['rect']
                 gap=x-(px+pw);rise=abs(y-py)
@@ -99,9 +104,26 @@ def build(path):
             for pi,(surface,owners) in enumerate(parts):
                 tid=f'terrain_{group_id}_{ci}_{pi}'
                 depth=140 if kind=='arena' else (72 if kind=='bridge' else 104)
+                if theme=='obsidian_pilgrim' and group_id=='lower_scree' and any(p['id']=='lsw_rise_a' for p,f in owners):
+                    depth=18  # 90px headroom above the lower road (2716-2608-18).
                 results.append({'id':tid,'kind':kind,'surface':surface,'depth':depth,
                     'texture_variants':[0,3,1,2] if kind=='soil' else ([4,2,1] if kind in ['ruin','bridge','arena'] else [3,1,5]),
                     'platform_ids':[p['id'] for p,f in owners]})
+                if theme=='silent_crown' and group_id=='echo_canal' and any(p['id']=='rain_pool_floor' for p,f in owners):
+                    # A short thin outflow lip keeps 90px clearance above the lower step.
+                    edge=surface[-1][0]; level=surface[-1][1]
+                    surface[-1][0]=edge-64
+                    results.append({'id':tid+'_outflow_lip','kind':kind,
+                        'surface':[[edge-64,level],[edge,level]],'depth':30,
+                        'texture_variants':[0,3,1,2],'platform_ids':[]})
+                if theme=='silent_crown' and group_id=='bell_vault' and any(p['id']=='vault_floor' for p,f in owners):
+                    # Preserve the upper vault while opening the two lower shrine approaches.
+                    left,right=surface[0][0],surface[-1][0];level=surface[0][1]
+                    surface[0][0]=left+80;surface[-1][0]=right-96
+                    for suffix,a,b,thickness in [('west',left,left+80,54),('east',right-96,right,70)]:
+                        results.append({'id':tid+'_door_'+suffix,'kind':kind,
+                            'surface':[[a,level],[b,level]],'depth':thickness,
+                            'texture_variants':[3,1,5],'platform_ids':[]})
                 for p,f in owners:p['terrain_id']=tid;p['terrain_flat_span']=[round(f[0],2),round(f[2],2)]
     d['terrain']=results
     d['terrain_design']={'view':'orthographic_side_2d','max_ramp_degrees':32,'route_kinds':['ground','slope','tunnel','bridge','basin','vertical_climb'],

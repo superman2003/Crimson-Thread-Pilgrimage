@@ -1,0 +1,32 @@
+Use case: stylized-concept
+Asset type: production transparent sprite sheet for an ordinary enemy's missing combat effects, hand-inked side-view 2D dark fairytale game.
+Reference image is MATERIAL/PALETTE IDENTITY ONLY. Do not draw any character, face, body, full physical weapon, victim, floor, scenery or UI.
+Material: black iron wheel-tooth strips, worn brass pilgrim fittings and sparse grey ash nails. Match its illustrated ink/gouache texture, organic irregular contours, solid readable high contrast cores and very restrained pale rims. Effects will display at 30-160 game pixels: strong simple material silhouette, no tiny clutter.
+Exactly 15 separate cels: THREE COLUMNS by 5 ROWS. Each ROW is one different effect, described below in TOP-TO-BOTTOM order. Each row's three cels progress LEFT to RIGHT. Equal cell dimensions, every cel isolated, no labels, no row names, no grid lines, no text or numbers.
+Critical: real transparent alpha. Every cell has fully empty alpha=0 gutters on ALL FOUR SIDES of at least 20% cell size. Long tips, fragments and any soft halo stay within the middle 60% of each cel. No inter-cell contamination, no shared glow, no background, no checkerboard. Use modest compact shapes, never fill the cell. Effects all face RIGHT unless described as a local cue or ground patch. Keep the registration at the centre of each cel. No generic featureless geometric circles, arcs, arrows, triangles or lines: the EFFECT BODY must be built of the specified material.
+For a warning row all three cels have the identical visible outer footprint, already readable at cel 1; only internal tension changes. For an execution row make all three contours different. Seamless tile rows may reach only the LEFT/RIGHT cel edges; top/bottom remain empty. Distinct attack rows must differ by silhouette and material gesture, not just rotation, scale or colour.
+
+ROW 1: chariot_charge_warning. Attack identity chariot_charge (巡礼战车); a low elongated RIGHT-facing thrust/ram edge with material streaming backward LEFT; one pointed front, no complete predicted travel lane; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 2: chariot_charge_execution. Attack identity chariot_charge (巡礼战车); a low elongated RIGHT-facing thrust/ram edge with material streaming backward LEFT; one pointed front, no complete predicted travel lane; clearly ACTIVE release and follow-through, not an anticipation hold.
+Cell 1: Readable onset of the active released strike.
+Cell 2: Peak active cut, visibly different contour from onset.
+Cell 3: Follow-through separating into fewer fading pieces; no opaque blob.
+
+ROW 3: chariot_caltrops_warning. Attack identity chariot_caltrops (灰钉阵); a material-woven danger perimeter with a transparent centre, built from folded/clumped material at a fixed outer footprint; not a plain circle; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 4: chariot_elite_drift_warning. Attack identity chariot_elite_drift (回转战车); a low elongated RIGHT-facing thrust/ram edge with material streaming backward LEFT; one pointed front, no complete predicted travel lane; ANTICIPATION ONLY, never completed impact or released attack. Elite variant has a more complex broken contour and extra material knots, never merely a recolour.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 5: chariot_elite_drift_execution. Attack identity chariot_elite_drift (回转战车); a low elongated RIGHT-facing thrust/ram edge with material streaming backward LEFT; one pointed front, no complete predicted travel lane; clearly ACTIVE release and follow-through, not an anticipation hold. Elite variant has a more complex broken contour and extra material knots, never merely a recolour.
+Cell 1: Readable onset of the active released strike.
+Cell 2: Peak active cut, visibly different contour from onset.
+Cell 3: Follow-through separating into fewer fading pieces; no opaque blob.

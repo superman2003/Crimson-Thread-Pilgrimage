@@ -1,0 +1,239 @@
+{
+  "schema": "minor-enemy-skill-source-v4",
+  "file": "FX_M_salt_bookmite.png",
+  "kind": "salt_bookmite",
+  "image_sha256": "0ad79ccec4d1546fce424aa536699a9b9b670f1c39dd39d1d908b22c042ebbd8",
+  "prompt_sha256": "1ad4949e4e8ce0648fc475b9b40fd70346d2871f47576e0bd52af50bafe11596",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "frame_count": 12,
+  "layout": [
+    3,
+    4
+  ],
+  "reference": "art_requests/creature_attacks_v1/refs/salt_bookmite.png",
+  "reference_sha256": "f118ec20d06ff9a114575d3f4b99b7bf5a531ec9275eb579bff87f01bd0eb438",
+  "generator": "built-in image_gen.imagegen",
+  "frames": [
+    {
+      "row": 0,
+      "column": 0,
+      "animation": "book_burrow_warning",
+      "rect_xyxy": [
+        0,
+        0,
+        508,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        59,
+        58,
+        450,
+        202
+      ]
+    },
+    {
+      "row": 0,
+      "column": 1,
+      "animation": "book_burrow_warning",
+      "rect_xyxy": [
+        508,
+        0,
+        1026,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        538,
+        47,
+        979,
+        202
+      ]
+    },
+    {
+      "row": 0,
+      "column": 2,
+      "animation": "book_burrow_warning",
+      "rect_xyxy": [
+        1026,
+        0,
+        1536,
+        254
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1052,
+        53,
+        1493,
+        215
+      ]
+    },
+    {
+      "row": 1,
+      "column": 0,
+      "animation": "book_burrow_execution",
+      "rect_xyxy": [
+        0,
+        254,
+        488,
+        508
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        31,
+        323,
+        470,
+        447
+      ]
+    },
+    {
+      "row": 1,
+      "column": 1,
+      "animation": "book_burrow_execution",
+      "rect_xyxy": [
+        488,
+        254,
+        1035,
+        508
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        510,
+        279,
+        1013,
+        461
+      ]
+    },
+    {
+      "row": 1,
+      "column": 2,
+      "animation": "book_burrow_execution",
+      "rect_xyxy": [
+        1035,
+        254,
+        1536,
+        508
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1060,
+        313,
+        1502,
+        448
+      ]
+    },
+    {
+      "row": 2,
+      "column": 0,
+      "animation": "book_bite_warning",
+      "rect_xyxy": [
+        0,
+        508,
+        512,
+        754
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        119,
+        529,
+        371,
+        748
+      ]
+    },
+    {
+      "row": 2,
+      "column": 1,
+      "animation": "book_bite_warning",
+      "rect_xyxy": [
+        512,
+        508,
+        1019,
+        754
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        629,
+        523,
+        888,
+        750
+      ]
+    },
+    {
+      "row": 2,
+      "column": 2,
+      "animation": "book_bite_warning",
+      "rect_xyxy": [
+        1019,
+        508,
+        1536,
+        754
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1131,
+        517,
+        1401,
+        751
+      ]
+    },
+    {
+      "row": 3,
+      "column": 0,
+      "animation": "book_bite_execution",
+      "rect_xyxy": [
+        0,
+        754,
+        483,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        68,
+        794,
+        404,
+        991
+      ]
+    },
+    {
+      "row": 3,
+      "column": 1,
+      "animation": "book_bite_execution",
+      "rect_xyxy": [
+        483,
+        754,
+        1041,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        564,
+        762,
+        979,
+        1004
+      ]
+    },
+    {
+      "row": 3,
+      "column": 2,
+      "animation": "book_bite_execution",
+      "rect_xyxy": [
+        1041,
+        754,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1104,
+        784,
+        1473,
+        989
+      ]
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original PNG bytes retained. Source QA is separate from runtime geometry, timing and visual acceptance.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "method": "Observed the original source on composited contact sheets; three revised originals also viewed individually. Mechanical alpha/gutter checks are independent of this visual observation.",
+    "notes": "???????????????????????????????",
+    "rows_reviewed": [
+      "book_burrow_warning",
+      "book_burrow_execution",
+      "book_bite_warning",
+      "book_bite_execution"
+    ],
+    "scope": "Source appearance only; runtime size, damage, anchoring, timing and play acceptance must be checked separately."
+  }
+}

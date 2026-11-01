@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_H2_skill_slash.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "d242603ca161fa355c7579c5528b2a1d28b1c7b8479b2c8a1dbc58dd3459b519",
+  "image_size": [
+    1536,
+    1024
+  ],
+  "prompt_file": "FX_H2_skill_slash.txt",
+  "prompt_sha256": "c73bd90e60a60d169365299d75bab5de799fcb72740b46674c4f0d10781534a0",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      384,
+      384
+    ],
+    "canvas_size": [
+      1152,
+      768
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "center",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        493,
+        527
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        146,
+        180,
+        346,
+        342
+      ],
+      "fully_transparent_pixels": 237261
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        493,
+        0,
+        982,
+        527
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        592,
+        142,
+        949,
+        398
+      ],
+      "fully_transparent_pixels": 202898
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        982,
+        0,
+        1536,
+        527
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1016,
+        66,
+        1494,
+        475
+      ],
+      "fully_transparent_pixels": 200531
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        527,
+        552,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        46,
+        577,
+        508,
+        927
+      ],
+      "fully_transparent_pixels": 186791
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        552,
+        527,
+        1048,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        600,
+        619,
+        1011,
+        924
+      ],
+      "fully_transparent_pixels": 181336
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1048,
+        527,
+        1536,
+        1024
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1087,
+        638,
+        1476,
+        891
+      ],
+      "fully_transparent_pixels": 204472
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/hero_idle.png",
+      "sha256": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 cels in 3x2: layered crimson heavy slash with pale cutting edge and short brass fragments. No sword prop or character. Runtime weapon alignment and crosscut composition pending.",
+    "runtime_acceptance": "pending"
+  }
+}

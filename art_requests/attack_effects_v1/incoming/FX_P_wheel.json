@@ -1,0 +1,169 @@
+{
+  "schema": "attack-effect-source-v1",
+  "image": "FX_P_wheel.png",
+  "source_brief": "art_requests/attack_effects_v1/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/140",
+  "source_brief_commit": "0248ef7432e6cdde3adfe24ffa10dd46034ab234",
+  "generator": "built-in image_gen.imagegen",
+  "prompt_file": "FX_P_wheel.txt",
+  "prompt_sha256": "2eb41e3b3025c9a506231e1604afe4958d4699f088b0a69beafcd9643003e186",
+  "image_sha256": "af4f911f0dedf9017c94da1e75655d080e0f5fa385b363b31c63e9ec9e08b35d",
+  "image_size": [
+    1774,
+    887
+  ],
+  "requested_frames": 8,
+  "nominal_grid": [
+    4,
+    2
+  ],
+  "fully_transparent_pixels": 908315,
+  "references": [
+    {
+      "path": "art_requests/creature_attacks_v1/refs/waterwheel_knight.png",
+      "sha256": "0990b9ce9f1b567d75addcffd786f1a62f36f080d68224f9bada64fd4b58d593"
+    },
+    {
+      "path": "art_requests/creature_attacks_v1/refs/echo_waterwheel_knight.png",
+      "sha256": "389aa8089bd4f19d0cf55170e0a75436046feec8b984c5f9983fa71c8ef5a0d2"
+    }
+  ],
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        449,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        59,
+        102,
+        391,
+        388
+      ],
+      "fully_transparent_pixels": 106570
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        449,
+        0,
+        893,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        512,
+        122,
+        829,
+        392
+      ],
+      "fully_transparent_pixels": 102322
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        893,
+        0,
+        1327,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        954,
+        101,
+        1276,
+        392
+      ],
+      "fully_transparent_pixels": 94862
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        1327,
+        0,
+        1774,
+        436
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1381,
+        101,
+        1698,
+        384
+      ],
+      "fully_transparent_pixels": 112170
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        0,
+        436,
+        474,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        74,
+        505,
+        422,
+        816
+      ],
+      "fully_transparent_pixels": 115433
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        474,
+        436,
+        863,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        528,
+        513,
+        853,
+        810
+      ],
+      "fully_transparent_pixels": 88840
+    },
+    {
+      "cel": 7,
+      "rect_xyxy": [
+        863,
+        436,
+        1346,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1011,
+        548,
+        1258,
+        790
+      ],
+      "fully_transparent_pixels": 143193
+    },
+    {
+      "cel": 8,
+      "rect_xyxy": [
+        1346,
+        436,
+        1774,
+        887
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1477,
+        572,
+        1665,
+        761
+      ],
+      "fully_transparent_pixels": 144925
+    }
+  ],
+  "measured_issues": [],
+  "usage": "Original imagegen PNG bytes. Rectangles follow nearby transparent gutters in actual source dimensions; do not blindly equal-grid slice. Check animation anchors before runtime import. Source delivery only; collision alignment, beam seams, timing and in-game readability require runtime acceptance.",
+  "visual_review": {
+    "date": "2026-10-19",
+    "subject": "水輪刃",
+    "observed_cels": 8,
+    "note": "已目检飞行循环与命中破碎共 8 格；方向和主体符合该家族，未画角色。循环衔接、缩小后的可读性与消散透明度需运行时验收。"
+  }
+}

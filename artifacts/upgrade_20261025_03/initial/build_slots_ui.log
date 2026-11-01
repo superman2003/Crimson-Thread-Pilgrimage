@@ -1,0 +1,25 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:364)
+OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)
+
+SCRIPT ERROR: Invalid call 'String' constructor: 未设置
+          at: _refresh_journal (res://scripts/pilgrimage_interface.gd:2316)
+          GDScript backtrace (most recent call first):
+              [0] _refresh_journal (res://scripts/pilgrimage_interface.gd:2316)
+              [1] refresh_inventory (res://scripts/pilgrimage_interface.gd:661)
+              [2] _run (res://scripts/build_slots_ui_validation.gd:206)
+SCRIPT ERROR: Invalid call 'String' constructor: 未设置
+          at: _refresh_journal (res://scripts/pilgrimage_interface.gd:2316)
+          GDScript backtrace (most recent call first):
+              [0] _refresh_journal (res://scripts/pilgrimage_interface.gd:2316)
+              [1] refresh_inventory (res://scripts/pilgrimage_interface.gd:661)
+              [2] _run (res://scripts/build_slots_ui_validation.gd:212)
+ERROR: Index p_index = -1 is out of bounds ((int)data.children_cache.size() - data.internal_children_front_count_cache - data.internal_children_back_count_cache = 0).
+   at: get_child (scene/main/node.cpp:1849)
+   GDScript backtrace (most recent call first):
+       [0] _run (res://scripts/build_slots_ui_validation.gd:213)
+SCRIPT ERROR: Invalid access to property or key 'pressed' on a base object of type 'null instance'.
+          at: _run (res://scripts/build_slots_ui_validation.gd:214)
+          GDScript backtrace (most recent call first):
+              [0] _run (res://scripts/build_slots_ui_validation.gd:214)

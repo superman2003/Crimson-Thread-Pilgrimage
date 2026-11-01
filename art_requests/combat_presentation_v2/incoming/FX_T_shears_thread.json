@@ -1,0 +1,145 @@
+{
+  "schema": "combat-presentation-source-v2",
+  "image": "FX_T_shears_thread.png",
+  "generator": "built-in image_gen.imagegen",
+  "source_brief": "art_requests/combat_presentation_v2/README.md",
+  "source_brief_pr": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/202",
+  "image_sha256": "63576122b5141143501ac08a545fae6e0b463bf996cdabdeeb7dc9c53ab64c25",
+  "image_size": [
+    2172,
+    724
+  ],
+  "prompt_file": "FX_T_shears_thread.txt",
+  "prompt_sha256": "3ffd471cde25ecebbd077b36bef4e5b3884b6e40ecdaae2b15b93aed6c71c9a8",
+  "requested_frames": 6,
+  "requested_layout": {
+    "columns": 3,
+    "rows": 2,
+    "cel_size": [
+      512,
+      256
+    ],
+    "canvas_size": [
+      1536,
+      512
+    ]
+  },
+  "nominal_grid": [
+    3,
+    2
+  ],
+  "requested_anchor": "tile",
+  "actual_runtime_anchor": "not_registered_yet",
+  "frames": [
+    {
+      "cel": 1,
+      "rect_xyxy": [
+        0,
+        0,
+        724,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        105,
+        721,
+        310
+      ],
+      "fully_transparent_pixels": 149528
+    },
+    {
+      "cel": 2,
+      "rect_xyxy": [
+        724,
+        0,
+        1448,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        727,
+        113,
+        1446,
+        309
+      ],
+      "fully_transparent_pixels": 140894
+    },
+    {
+      "cel": 3,
+      "rect_xyxy": [
+        1448,
+        0,
+        2172,
+        368
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1452,
+        96,
+        2171,
+        314
+      ],
+      "fully_transparent_pixels": 128297
+    },
+    {
+      "cel": 4,
+      "rect_xyxy": [
+        0,
+        368,
+        724,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        0,
+        437,
+        721,
+        646
+      ],
+      "fully_transparent_pixels": 120132
+    },
+    {
+      "cel": 5,
+      "rect_xyxy": [
+        724,
+        368,
+        1448,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        726,
+        434,
+        1446,
+        657
+      ],
+      "fully_transparent_pixels": 111515
+    },
+    {
+      "cel": 6,
+      "rect_xyxy": [
+        1448,
+        368,
+        2172,
+        724
+      ],
+      "bbox_alpha_gt_24_xyxy": [
+        1452,
+        433,
+        2170,
+        657
+      ],
+      "fully_transparent_pixels": 109333
+    }
+  ],
+  "measured_issues": [],
+  "references": [
+    {
+      "path": "refs/sunken_hammer_smith.png",
+      "sha256": "e1b4201b9ac2c452eee20abf3f88be452b42c945fe285ec0627114a78acd096c"
+    }
+  ],
+  "usage": "Original PNG bytes retained. Actual slicing rectangles follow measured gutters; requested dimensions may differ. No runtime import, anchor registration, beam seam acceptance, timing or hitbox verification is implied.",
+  "visual_review": {
+    "status": "source_reviewed",
+    "reviewed_on": "2026-10-23",
+    "notes": "6 animated corridor tiles in 3x2; woven crimson and ivory bands with tarnished-brass stitches, no caster or scenery. The join edges intentionally touch. Visible band thickness varies; runtime must register and clip each frame to the real channel. Horizontal seam acceptance remains pending.",
+    "runtime_acceptance": "pending"
+  }
+}

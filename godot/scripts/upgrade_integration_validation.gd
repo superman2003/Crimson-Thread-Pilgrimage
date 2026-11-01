@@ -80,6 +80,7 @@ func _run() -> void:
     var knot: Area2D = scene.death_cache_area
     _check(knot != null and knot.global_position == scene.active_spawn, "recovery knot is on supported checkpoint")
     if knot != null:
+        scene.player.global_position=knot.global_position # Explicit collection-reach fixture.
         scene._recover_death_cache(knot)
         _check(scene.currency_count == 100 and scene.world_state.data.death_cache.is_empty(), "recovery returns exact loss and clears record")
     scene.player.hp = 3

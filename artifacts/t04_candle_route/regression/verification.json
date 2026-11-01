@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-21T12:05:08.202438+08:00",
+  "head": "97da0545b10e8b9ad76b7bdd0c2a89428015b3fd",
+  "source_files": 8679,
+  "source_unchanged": true,
+  "engine": "Godot 4.6.1 native NVIDIA GL",
+  "timeout_seconds": 180,
+  "results": [
+    {
+      "suite": "salt_archive_experience",
+      "seconds": 12.08,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "SALT_ARCHIVE_EXPERIENCE checks=154 failures=0 fixture_scope=positioned_camera_and_live_local_combat",
+      "objectdb_warnings": 0,
+      "passed": true
+    },
+    {
+      "suite": "world_integration",
+      "seconds": 12.02,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD_INTEGRATION checks=67 failures=0",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "world_route_access",
+      "seconds": 4.17,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD_ROUTE_ACCESS checks=553 failures=0 fixture_positioning=true",
+      "objectdb_warnings": 1,
+      "passed": true
+    },
+    {
+      "suite": "world_route_walk",
+      "seconds": 111.58,
+      "exit": 0,
+      "timed_out": false,
+      "engine_errors": [],
+      "completion": "WORLD_ROUTE_WALK_VALIDATION steps=26 physics_frames=5848 failures=0 damage_suppression=true",
+      "objectdb_warnings": 1,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "identity_01",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "手会用钩，就说明我记得过去吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "echo_hook",
+          "label": "已取得回声丝钩"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "手知道怎样拉住一处东西，不等于它能替你讲出从前发生了什么。",
+        "试音模也保留旧槽，旧槽能说明做过什么，却不会自己把全部故事说完。"
+      ],
+      "reflection": "能力提供行动的可能，不替代对身世的证据。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_01",
+            "label": "第1区原始证词"
+          }
+        ],
+        "lines": [
+          "你带来的证词又给我们一条能核对的线。",
+          "就沿着能核对的走，记不起的地方不用急着缝满。"
+        ]
+      }
+    },
+    {
+      "id": "identity_02",
+      "npc": "npc_threadsmith_apprentice",
+      "question": "我会攀墙，是谁替我选了这条路？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "silk_wall_grip",
+          "label": "已取得绯线攀附"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "墙在这里，你也确实能上去；选择往上还是回头，要等你现在回答。",
+        "试音的管口曾朝着许多家门，熟悉一条路不意味着只剩那条路。"
+      ],
+      "reflection": "已获得的能力不构成必须使用的命令。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_01",
+            "label": "第1区原始证词"
+          }
+        ],
+        "lines": [
+          "井里的证词说清了当事人的边界，你也可以给自己留一道边。",
+          "想不出答案时先歇着，手艺不会因为歇一天就收回去。"
+        ]
+      }
+    },
+    {
+      "id": "identity_03",
+      "npc": "npc_gate_pilgrim",
+      "question": "若没人能叫出我的名字，我是谁？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_01",
+          "label": "苔钟庭证词"
+        },
+        {
+          "kind": "history",
+          "id": "ch01_moss_bell_court_daily",
+          "label": "开合试音模"
+        }
+      ],
+      "lines": [
+        "我能叫你眼下愿意答应的称呼。它未必说明你的来处，却能让这次相见有个位置。",
+        "你带来的井壁刻痕也只说清一段承诺，没要求它替人讲完一生。"
+      ],
+      "reflection": "身份可以从当下相识开始，不必等候完整身世。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch01",
+            "label": "守母战后"
+          }
+        ],
+        "lines": [
+          "守母停下以后，这条路上会有更多不同的称呼。",
+          "你愿意改的时候告诉我，我再学着叫。"
+        ]
+      }
+    },
+    {
+      "id": "identity_04",
+      "npc": "npc_gear_cartographer",
+      "question": "跳得更高以后，过去就更清楚了吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "double_thread_jump",
+          "label": "已取得双线跃"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "看得更远与看得更准，是两件要分别练的事。",
+        "压页台能让一页纸平些，却不能让被改过的字自动回来。"
+      ],
+      "reflection": "行动成长与自我理解可以保持不同步。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_03",
+            "label": "第3区原始证词"
+          }
+        ],
+        "lines": [
+          "你手里有书库证词，就把能核对的那一页添到图旁。",
+          "高处看不到的细痕，还得落下来慢慢看。"
+        ]
+      }
+    },
+    {
+      "id": "identity_05",
+      "npc": "npc_rain_smith_liu",
+      "question": "身体会格挡，是谁教过我吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "bell_guard",
+          "label": "已取得钟壳格挡"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "也许学过，也许还缺一段你没找到的来历。我只看见你现在确实能把这一击接住。",
+        "分流箱的旧榫能告诉我怎样承力，却不能单凭它认出每一位做榫的人。"
+      ],
+      "reflection": "熟练动作可以被承认，未知来历不必被虚构。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_02",
+            "label": "第2区原始证词"
+          }
+        ],
+        "lines": [
+          "工牌的凹痕让名字有了别的凭据；你的事也得慢慢找这样的凭据。",
+          "先把手护好，不必为了证明过去一直站在刀口前。"
+        ]
+      }
+    },
+    {
+      "id": "identity_06",
+      "npc": "npc_canal_child",
+      "question": "你听见的我，和我听见的一样吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "echo_hook",
+          "label": "已取得回声丝钩"
+        },
+        {
+          "kind": "history",
+          "id": "ch02_rain_foundry_canal_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我听见你停下来等我讲完。你听见自己什么，我得问你才知道。",
+        "分流箱把水送到不同的地方，可每个屋里听到的水声也不全一样。"
+      ],
+      "reflection": "主角与他人的理解来自往返确认。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_02",
+            "label": "第2区原始证词"
+          }
+        ],
+        "lines": [
+          "你带回工牌以后，我们又多了一件能一起看的东西。",
+          "若声音说不清，就先指给我看你找到什么。"
+        ]
+      }
+    },
+    {
+      "id": "identity_07",
+      "npc": "npc_fugitive_scribe",
+      "question": "档案能替我决定该成为什么人吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "double_thread_jump",
+          "label": "已取得双线跃"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "档案能提出一个说法，最好还附着能查的来历；它不能提前把你往后的事写成已经发生。",
+        "压页台上被刮去的字，让我更不敢只拿一页纸安排一个人。"
+      ],
+      "reflection": "身世记录需要查证，也不支配未来的行动。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_03",
+            "label": "第3区原始证词"
+          }
+        ],
+        "lines": [
+          "书库证词告诉我们改字真的伤过人，不只是解释不同。",
+          "你若找到关于自己的记录，也可以先问它是谁写、为何写。"
+        ]
+      }
+    },
+    {
+      "id": "identity_08",
+      "npc": "npc_quiet_reader",
+      "question": "不说话会让别人替我把话写完吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "bell_guard",
+          "label": "已取得钟壳格挡"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "会有人这样做，所以我会在页边留下疑问，而不把没听到的部分编成回答。",
+        "压页台能压平纸，不能让一段没有说出口的话突然有了原文。"
+      ],
+      "reflection": "主角的沉默也应具有可以被尊重的边界。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_03",
+            "label": "第3区原始证词"
+          }
+        ],
+        "lines": [
+          "你手里的改字页提醒我们，方便的补写也可能变成伤害。",
+          "这一次你若想停下，我就把这一段留白。"
+        ]
+      }
+    },
+    {
+      "id": "identity_09",
+      "npc": "npc_broken_singer",
+      "question": "我的绯线是不是也只配用来封住什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "thorn_downstrike",
+          "label": "已取得棘丝下劈"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "你能用它越过一处裂口，也能停下来听一段歌。用途不是在醒来那天就写尽了。",
+        "养根槽的弦能接续生命，外箍却把它牵去别处；你已经看见选择怎样发生。"
+      ],
+      "reflection": "主角的行动用途可以由旅途重新定义。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_04",
+            "label": "第4区原始证词"
+          }
+        ],
+        "lines": [
+          "温室的证词让这一区别更清楚了。",
+          "别因为有人把你当作一件工具，就先替他答应。"
+        ]
+      }
+    },
+    {
+      "id": "identity_10",
+      "npc": "npc_old_gardener",
+      "question": "我能下劈，是不是就该斩开每一道根？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "thorn_downstrike",
+          "label": "已取得棘丝下劈"
+        },
+        {
+          "kind": "history",
+          "id": "ch04_broken_string_greenhouse_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "先看那道根在承什么。能切开，不表示每次切开都能让人好过。",
+        "养根槽上的旧切口与新外箍，要用不同的办法看。"
+      ],
+      "reflection": "能力成长应当增加判断，而非自动扩大破坏。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_04",
+            "label": "第4区原始证词"
+          }
+        ],
+        "lines": [
+          "你带来的证词说明哪里把养护改成了索取。",
+          "认清以后再动手，比为了证明有力气而动手更难。"
+        ]
+      }
+    },
+    {
+      "id": "identity_11",
+      "npc": "npc_deserter_flagbearer",
+      "question": "穿过影门以后，我还是原来的我吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "lantern_phase",
+          "label": "已取得灯影穿行"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "我只能认出你回来时愿意停下来说话。哪一部分变了，要让你自己慢慢说。",
+        "点名轮会把离开又回来的人当成同一个兵额，人却未必还愿意站在原槽里。"
+      ],
+      "reflection": "连续的身份不要求永远承担同一种角色。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_05",
+            "label": "第5区原始证词"
+          }
+        ],
+        "lines": [
+          "军册证词把这种强行归位写得很清楚。",
+          "你不必为了让别人认得，就一直留在他们第一次看见的位置。"
+        ]
+      }
+    },
+    {
+      "id": "identity_12",
+      "npc": "npc_obsidian_guide",
+      "question": "能冲得更远，会更难停下来吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "thread_dash",
+          "label": "已取得绯线突进"
+        },
+        {
+          "kind": "history",
+          "id": "ch05_obsidian_pilgrim_road_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "有时身体会先往前走，心里才想起今天不用赶一声号。",
+        "点名轮把许多人留在那种赶路里，我不想也这样带你。"
+      ],
+      "reflection": "主角也可以练习休息，而非只练习推进。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_05",
+            "label": "第5区原始证词"
+          }
+        ],
+        "lines": [
+          "你带来的军册让我们能说清，是哪一声把归途改成队列。",
+          "你现在就可以试着在营地停一会儿。"
+        ]
+      }
+    },
+    {
+      "id": "identity_13",
+      "npc": "npc_crown_tongue",
+      "question": "我能让王冠共鸣，就该继承它吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "crown_resonance",
+          "label": "已取得王冠共鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "能回应一套机关，是你眼下持有的能力；谁有权决定六城，还得另问。",
+        "分钥架的铜轨把许多决定并成一个，别让共鸣替你把它们一并接下。"
+      ],
+      "reflection": "与王冠发生共鸣不构成继承其统治的义务。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_06",
+            "label": "第6区原始证词"
+          }
+        ],
+        "lines": [
+          "吞钥告解让你看见总锁也曾拒绝一次转动。",
+          "你可以用能力打开问题，不必让能力替你回答问题。"
+        ]
+      }
+    },
+    {
+      "id": "identity_14",
+      "npc": "npc_first_pilgrim_echo",
+      "question": "我需要先想起自己，才能作决定吗？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "crown_resonance",
+          "label": "已取得王冠共鸣"
+        },
+        {
+          "kind": "history",
+          "id": "ch06_silent_crown_core_daily",
+          "label": "旅途中的生产设施见闻"
+        }
+      ],
+      "lines": [
+        "没有完整来历会让人犹豫，可现在站在这里、看见这些人，也是真实的一段你。",
+        "分钥架的旧用途与后来接线都留着，决定前可以把它们再看一遍。"
+      ],
+      "reflection": "身份疑问可以保持开放，当下责任仍能逐步形成。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "item",
+            "id": "testimony_06",
+            "label": "第6区原始证词"
+          }
+        ],
+        "lines": [
+          "你手里的告解又添了一处能核对的痕。",
+          "对不知道的保持诚实，对已经看见的负责；这也能成为开始。"
+        ]
+      }
+    }
+  ]
+}

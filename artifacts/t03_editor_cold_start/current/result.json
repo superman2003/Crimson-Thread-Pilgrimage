@@ -1,0 +1,21 @@
+{
+  "plugin_sha256": "1972e2144f09efae3ff1910e279f93f9ba076d25ca8a5eee35fe518a0fed1216",
+  "cache_seeded": false,
+  "recovery_mode": false,
+  "runtime_script": false,
+  "cases": [
+    {
+      "phase": "cold",
+      "returncode": 0,
+      "engine_errors": [
+        "ERROR: 3 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.",
+        "ERROR: 131 RID allocations of type 'PN18TextServerAdvanced22ShapedTextDataAdvancedE' were leaked at exit.",
+        "ERROR: 18 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.",
+        "ERROR: 1 RID allocations of type 'PN18TextServerAdvanced27FontAdvancedLinkedVariationE' were leaked at exit."
+      ],
+      "ready_count": 1,
+      "passed": false
+    }
+  ],
+  "passed": false
+}

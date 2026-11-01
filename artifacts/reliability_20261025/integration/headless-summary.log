@@ -1,0 +1,21 @@
+Running ui_build_accessibility
+PASS: ui_build_accessibility
+FEEL_ACCESSIBILITY checks=17 failures=0 real_gl=false
+UI_BUILD_ACCESSIBILITY_VALIDATION_PASS failures=0
+Running room_camera_stability
+PASS: room_camera_stability
+
+ROOM_CAMERA_STABILITY checks=78 failures=0 player_integration=true metrics={"air_stop_actual_frames":9,"air_stop_entry_peak_speed":3699.99682617188,"air_stop_min_feet_margin":186.1728515625,"air_stop_min_head_margin":246.9580078125,"double_jump_camera_rise":47.3284912109375,"double_jump_min_head_margin":40.1507568359375,"full_jump_body_height":142.241455078125,"full_jump_screen_y_drift":0.0,"jump_target_y_drift_120Hz_speed340":0.0,"jump_target_y_drift_120Hz_speed710":0.0,"jump_target_y_drift_30Hz_speed340":0.0,"jump_target_y_drift_30Hz_speed710":0.0,"jump_target_y_drift_60Hz_speed340":0.0,"jump_target_y_drift_60Hz_speed710":0.0,"shaft_fall_min_feet_margin":182.86083984375,"shaft_fall_min_head_margin":259.0,"shaft_fall_peak_speed":3669.16357421875,"wall_slide_actual_frames":53,"wall_slide_entry_peak_speed":3915.82958984375,"wall_slide_min_feet_margin":182.861328125,"wall_slide_min_head_margin":244.86083984375}
+Running journal_desk
+PASS: journal_desk
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+JOURNAL_DESK checks=36 failures=0
+Running input_prompt
+PASS: input_prompt
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+INPUT_PROMPT_VALIDATION checks=36 failures=0
+Running world_coordinates
+PASS: world_coordinates
+
+WORLD COORDINATES PASS: 865 checks; six fixed origins, all room/portal transforms, v1/v2 migration and transactional v3 saves
+GODOT_REGRESSIONS suites=5 failures=0

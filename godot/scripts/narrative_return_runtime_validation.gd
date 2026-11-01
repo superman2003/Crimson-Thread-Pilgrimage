@@ -27,6 +27,7 @@ func run_checks() -> void:
     check(scene.story_flags == flags_before and scene.currency_count == currency_before, "failed dialogue save rolls back quest and currency")
     check(scene.world_state.data == world_before and scene.build_system.serialize() == build_before, "failed dialogue save rolls back shared snapshot and unlocks")
     check(prisoner.position == position_before, "failed rescue never moves the NPC")
+    check(not String(scene.toast_label.text).begins_with("巡礼者 · "), "failed save never presents the protagonist's confirmed response")
     check(prisoner.get_meta("dialogue_state_indices", {}).get("root_rescued", 0) == 0, "failed dialogue does not advance the read cursor")
     scene.world_save_failure_injected_for_validation = false
     scene.world_save_blocked = true
@@ -37,6 +38,7 @@ func run_checks() -> void:
     hear_round(prisoner)
     check(bool(scene.story_flags.get("quest_root_rescue_complete", false)), "retry completes the same rescue")
     check(scene.currency_count == currency_before + 45 and prisoner.position == Vector2(320, 1740), "successful save confirms one reward and migration")
+    check(String(scene.toast_label.text).begins_with("巡礼者 · ") and String(scene.toast_label.text).contains("线端"), "successful real conversation presents the short gesture response")
     hear_round(prisoner)
     check(scene.currency_count == currency_before + 45, "repeat visit cannot pay again")
     scene.free()

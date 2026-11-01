@@ -1,0 +1,22 @@
+Use case: stylized-concept
+Asset type: production transparent sprite sheet for an ordinary enemy's missing combat effects, hand-inked side-view 2D dark fairytale game.
+Reference image is MATERIAL/PALETTE IDENTITY ONLY. Do not draw any character, face, body, full physical weapon, victim, floor, scenery or UI.
+Material: heavy tarnished brass clapper ridges, dark iron bell chips and ivory ringing dust. Match its illustrated ink/gouache texture, organic irregular contours, solid readable high contrast cores and very restrained pale rims. Effects will display at 30-160 game pixels: strong simple material silhouette, no tiny clutter.
+Exactly 9 separate cels: THREE COLUMNS by 3 ROWS. Each ROW is one different effect, described below in TOP-TO-BOTTOM order. Each row's three cels progress LEFT to RIGHT. Equal cell dimensions, every cel isolated, no labels, no row names, no grid lines, no text or numbers.
+Critical: real transparent alpha. Every cell has fully empty alpha=0 gutters on ALL FOUR SIDES of at least 20% cell size. Long tips, fragments and any soft halo stay within the middle 60% of each cel. No inter-cell contamination, no shared glow, no background, no checkerboard. Use modest compact shapes, never fill the cell. Effects all face RIGHT unless described as a local cue or ground patch. Keep the registration at the centre of each cel. No generic featureless geometric circles, arcs, arrows, triangles or lines: the EFFECT BODY must be built of the specified material.
+For a warning row all three cels have the identical visible outer footprint, already readable at cel 1; only internal tension changes. For an execution row make all three contours different. Seamless tile rows may reach only the LEFT/RIGHT cel edges; top/bottom remain empty. Distinct attack rows must differ by silhouette and material gesture, not just rotation, scale or colour.
+
+ROW 1: clapper_fall_warning. Attack identity clapper_fall (标记落锤); a compact diagonal upper-LEFT to lower-RIGHT diving cutting streak; no target marker or projected flight path; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.
+
+ROW 2: clapper_fall_execution. Attack identity clapper_fall (标记落锤); a compact diagonal upper-LEFT to lower-RIGHT diving cutting streak; no target marker or projected flight path; clearly ACTIVE release and follow-through, not an anticipation hold.
+Cell 1: Readable onset of the active released strike.
+Cell 2: Peak active cut, visibly different contour from onset.
+Cell 3: Follow-through separating into fewer fading pieces; no opaque blob.
+
+ROW 3: clapper_wave_warning. Attack identity clapper_wave (钟浪斜射); a small LOCAL clustered muzzle/casting tension with a few closed pods or folded fragments; no launched shots and no fan of predicted trajectories; ANTICIPATION ONLY, never completed impact or released attack.
+Cell 1: Full footprint present immediately, inner material lightly gathered.
+Cell 2: Inner tension becomes stronger, identical fixed outer bounds.
+Cell 3: Full readable tension; outer footprint stays fixed, no release and no fade.

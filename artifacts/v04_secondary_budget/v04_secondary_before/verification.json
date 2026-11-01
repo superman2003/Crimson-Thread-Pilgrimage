@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-20",
+  "base": "17f192b44bbb0647b45ffe42be823d9473d65775",
+  "engine": "Godot 4.6.1 Windows / NVIDIA native GL",
+  "results": [
+    {
+      "suite": "combat_visual_budget",
+      "passed": false,
+      "engine_errors": [
+        "\nERROR: SECONDARY_VISUAL_BUDGET: eighty real dash ghosts share twelve motion units",
+        "ERROR: SECONDARY_VISUAL_BUDGET: real player ghosts register the shared motion budget",
+        "ERROR: SECONDARY_VISUAL_BUDGET: two-piece dash trail does not partially claim one remaining slot",
+        "ERROR: SECONDARY_VISUAL_BUDGET: another player shares the same scene budget and reuses a queued slot",
+        "ERROR: SECONDARY_VISUAL_BUDGET: heal, ability and skill accents share twelve state units",
+        "ERROR: SECONDARY_VISUAL_BUDGET: mixed motion and state accents remain within twenty-four canvas units",
+        "ERROR: SECONDARY_VISUAL_BUDGET: repeated production factories cannot retain hundreds of player children",
+        "ERROR: SECONDARY_VISUAL_BUDGET: traversal reset retires player-owned sibling ghosts",
+        "ERROR: SECONDARY_VISUAL_BUDGET: reset leaves the other player's live accent intact",
+        "ERROR: SECONDARY_VISUAL_BUDGET: real pickup and route effects share eight environment units"
+      ],
+      "seconds": 3.78,
+      "markers": [
+        "SECONDARY_VISUAL_BUDGET checks=23 failures=10",
+        "COMBAT_VISUAL_BUDGET checks=32 failures=10 real_gl=true"
+      ],
+      "objectdb_warnings": 0
+    }
+  ],
+  "local_only": true,
+  "ci_status": "reported on PR"
+}

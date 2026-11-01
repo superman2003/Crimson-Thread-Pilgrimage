@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "kinds": {
+    "exploration": "移动探索",
+    "combat": "战斗技巧",
+    "ritual": "共鸣仪式"
+  },
+  "abilities": {
+    "thread_dash": {
+      "kind": "exploration",
+      "title": "绯线突进",
+      "scope": "短距横向位移",
+      "role": "以面朝方向跨越间隙、调整落点。",
+      "interactions": [
+        "横向间隙",
+        "冲刺障碍"
+      ],
+      "limits": "落脚后再连续突进；突进不是传送。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "silk_wall_grip": {
+      "kind": "exploration",
+      "title": "贴墙与蹬墙",
+      "scope": "依附真实墙面",
+      "role": "在真实墙面缓降并蹬墙，改变纵向路线。",
+      "interactions": [
+        "真实墙面",
+        "竖井"
+      ],
+      "limits": "背景边缘不能攀附；蹬离后观察下一块落脚处。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "echo_hook": {
+      "kind": "exploration",
+      "title": "回声钩索",
+      "scope": "连接可见钩环",
+      "role": "以未被地形遮住的钩环为支点横渡或登高。",
+      "interactions": [
+        "钩环",
+        "跨井连接"
+      ],
+      "limits": "需要范围内的有效钩环；不能隔着岩壁牵引。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "double_thread_jump": {
+      "kind": "exploration",
+      "title": "空中第二跳",
+      "scope": "离地后的追加跳跃",
+      "role": "空中追加一次跳跃，用于调整高度与落点。",
+      "interactions": [
+        "高台",
+        "空中修正"
+      ],
+      "limits": "再次按键才触发；落地后恢复次数。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "bell_guard": {
+      "kind": "combat",
+      "title": "钟壳格挡",
+      "scope": "迎向正面攻击",
+      "role": "把握来袭时机格挡，保留绯线给反击与疗伤。",
+      "interactions": [
+        "可格挡攻击"
+      ],
+      "limits": "需要面向攻击并留足绯线；不能一直维持。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "thorn_downstrike": {
+      "kind": "combat",
+      "title": "荆棘下劈",
+      "scope": "向脚下出针",
+      "role": "空中向下针击；对应脆弱地形也能被下劈作用。",
+      "interactions": [
+        "下方敌人",
+        "对应脆弱地形"
+      ],
+      "limits": "战斗与地形用途可以并存，仍需确认真实落点。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "lantern_phase": {
+      "kind": "exploration",
+      "title": "灯影相位",
+      "scope": "穿过对应相位门",
+      "role": "用绯线维持相位，穿行灯影设施。",
+      "interactions": [
+        "对应相位门"
+      ],
+      "limits": "启动与维持均耗绯线；普通岩壁仍有实体碰撞。",
+      "ownership": "permanent",
+      "equipment_required": false
+    },
+    "crown_resonance": {
+      "kind": "ritual",
+      "title": "王冠共鸣",
+      "scope": "回应共鸣设施",
+      "role": "释放共鸣回应对应设施，也能作用于周围战斗。",
+      "interactions": [
+        "共鸣设施",
+        "周围战斗"
+      ],
+      "limits": "需要绯线和收势间隔；现场设施仍各有条件。",
+      "ownership": "permanent",
+      "equipment_required": false
+    }
+  }
+}

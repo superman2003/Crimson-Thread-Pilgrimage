@@ -1,0 +1,63 @@
+{
+  "repository": "superman2003/Crimson-Thread-Pilgrimage",
+  "target_pr_count": 40,
+  "ledger": "docs/SILKSONG_ALIGNMENT_REVISED_PLAN.md",
+  "baseline_submitted_prs": [
+    369,
+    370,
+    371,
+    373,
+    374,
+    375,
+    376,
+    377,
+    378,
+    379,
+    380,
+    381,
+    382,
+    383,
+    385,
+    388,
+    390,
+    391,
+    395
+  ],
+  "current_upgrade": {
+    "title": "T05 发布检查",
+    "ordinal": 20,
+    "branch": "codex/ledger-t05-release-save-contract-635aa",
+    "status": "locally verified; reconcile actual PR and latest CI",
+    "validation": "actual Linux release export, ZIP integrity, original 2 boots plus 10 save-contract boots; 43 tool regression tests, full npm/campaign pass"
+  },
+  "continuation": "Re-read GitHub open and merged PRs. Count real new ledger upgrades only; fixes to existing PRs are not new upgrades. Read this state from the newest submitted upgrade branch and update it in every subsequent PR.",
+  "next_candidates": [
+    "N04 用途与历史",
+    "G01 三类资源经济",
+    "T01 首段教学"
+  ],
+  "constraints": [
+    "Inspect actual implementation before selecting a remaining ledger gap; do not repeat completed behavior.",
+    "Use exact canonical ledger titles and substantial real Godot changes; average at least 500 non-document changed lines, excluding inherited changes.",
+    "Check all open PR current heads, latest CI attempts and conflicts before publishing the next PR; repair real failures first.",
+    "Do not restore browser games, weaken CI, remove valid tests, merge or close PRs.",
+    "Use isolated checkouts and expected-SHA guarded updates; preserve other agents' work and shared downstream fixes.",
+    "CI being green does not finish this continuation task; proceed with the next verified ledger upgrade until 40 are actually submitted."
+  ],
+  "checkpoint_policy": "Use unique docs/continuation/NNN_task.json paths for concurrent upgrades; reconcile latest actual PRs, never overwrite earlier branches or count fix commits as new PRs.",
+  "review_assignment": "User arranges reviews. Focus only on new ledger PRs and necessary pre-submission validation; do not process review comments, merge or close PRs.",
+  "known_ci": {
+    "395": {
+      "head": "d32f5aea521e77f51d2336912fcecc8056559d72",
+      "status": "current latest checks pending; no failure when last inspected"
+    },
+    "391": {
+      "head": "2466a1f936eef697b30d74b1d5c29d968dee9f0e",
+      "status": "current latest checks pending; no failure when last inspected"
+    },
+    "389": {
+      "head": "20f390b6f7bb8b462dcc46645724f47f0b64d868",
+      "status": "current latest checks pending; no failure when last inspected"
+    }
+  }
+}

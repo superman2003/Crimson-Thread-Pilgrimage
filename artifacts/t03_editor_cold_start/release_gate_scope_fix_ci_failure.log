@@ -1,0 +1,1720 @@
+﻿2026-10-24T15:48:32.2266592Z Current runner version: '2.338.0'
+2026-10-24T15:48:32.2290650Z ##[group]Runner Image Provisioner
+2026-10-24T15:48:32.2291417Z Hosted Compute Agent
+2026-10-24T15:48:32.2292054Z Version: 20261021.618
+2026-10-24T15:48:32.2292629Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-10-24T15:48:32.2293322Z Build Date: 2026-10-21T00:45:21Z
+2026-10-24T15:48:32.2293953Z Worker ID: {881c69d9-515a-43d2-aa05-d044a7fb3393}
+2026-10-24T15:48:32.2294581Z Region: westus3
+2026-10-24T15:48:32.2295113Z Cloud: Azure
+2026-10-24T15:48:32.2295590Z ##[endgroup]
+2026-10-24T15:48:32.2297269Z ##[group]Operating System
+2026-10-24T15:48:32.2297898Z Ubuntu
+2026-10-24T15:48:32.2298369Z 24.04.5
+2026-10-24T15:48:32.2298874Z LTS
+2026-10-24T15:48:32.2299336Z ##[endgroup]
+2026-10-24T15:48:32.2299818Z ##[group]Runner Image
+2026-10-24T15:48:32.2300371Z Image: ubuntu-24.04
+2026-10-24T15:48:32.2300879Z Version: 20261012.334.1
+2026-10-24T15:48:32.2302076Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-24T15:48:32.2303474Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-24T15:48:32.2304408Z ##[endgroup]
+2026-10-24T15:48:32.2305433Z ##[group]GITHUB_TOKEN Permissions
+2026-10-24T15:48:32.2307458Z Contents: read
+2026-10-24T15:48:32.2308015Z Metadata: read
+2026-10-24T15:48:32.2308636Z ##[endgroup]
+2026-10-24T15:48:32.2310589Z Secret source: Actions
+2026-10-24T15:48:32.2311479Z Cache mode: write
+2026-10-24T15:48:32.2312116Z Prepare workflow directory
+2026-10-24T15:48:32.2678855Z Prepare all required actions
+2026-10-24T15:48:32.2727174Z Getting action download info
+2026-10-24T15:48:32.5799351Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-24T15:48:32.6722522Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-24T15:48:32.7347612Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-24T15:48:32.9122775Z Complete job name: desktop (ubuntu-24.04, linux, Godot_v4.6.1-stable_linux.x86_64, linux_release.x86_64)
+2026-10-24T15:48:32.9978622Z ##[group]Run actions/checkout@v4
+2026-10-24T15:48:32.9979386Z with:
+2026-10-24T15:48:32.9979808Z   persist-credentials: false
+2026-10-24T15:48:32.9980354Z   repository: superman2003/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:32.9984154Z   token: ***
+2026-10-24T15:48:32.9984555Z   ssh-strict: true
+2026-10-24T15:48:32.9984971Z   ssh-user: git
+2026-10-24T15:48:32.9985373Z   clean: true
+2026-10-24T15:48:32.9985797Z   sparse-checkout-cone-mode: true
+2026-10-24T15:48:32.9986305Z   fetch-depth: 1
+2026-10-24T15:48:32.9986713Z   fetch-tags: false
+2026-10-24T15:48:32.9987264Z   show-progress: true
+2026-10-24T15:48:32.9987675Z   lfs: false
+2026-10-24T15:48:32.9988047Z   submodules: false
+2026-10-24T15:48:32.9988455Z   set-safe-directory: true
+2026-10-24T15:48:32.9988922Z   allow-unsafe-pr-checkout: false
+2026-10-24T15:48:32.9989610Z ##[endgroup]
+2026-10-24T15:48:33.0971460Z Syncing repository: superman2003/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:33.0974616Z ##[group]Getting Git version info
+2026-10-24T15:48:33.0976311Z Working directory is '/home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage'
+2026-10-24T15:48:33.0978699Z [command]/usr/bin/git version
+2026-10-24T15:48:33.0994499Z git version 2.55.0
+2026-10-24T15:48:33.1014422Z ##[endgroup]
+2026-10-24T15:48:33.1029390Z Temporarily overriding HOME='/home/runner/work/_temp/3d851d29-baed-4c3f-af5b-b72ec6042868' before making global git config changes
+2026-10-24T15:48:33.1031742Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-24T15:48:33.1036594Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:33.1081618Z Deleting the contents of '/home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage'
+2026-10-24T15:48:33.1086396Z ##[group]Initializing the repository
+2026-10-24T15:48:33.1091634Z [command]/usr/bin/git init /home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:33.1184369Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-24T15:48:33.1185875Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-24T15:48:33.1186920Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-24T15:48:33.1188062Z hint: call:
+2026-10-24T15:48:33.1188523Z hint:
+2026-10-24T15:48:33.1189375Z hint: 	git config --global init.defaultBranch <name>
+2026-10-24T15:48:33.1190451Z hint:
+2026-10-24T15:48:33.1192153Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-24T15:48:33.1193875Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-24T15:48:33.1195212Z hint:
+2026-10-24T15:48:33.1195961Z hint: 	git branch -m <name>
+2026-10-24T15:48:33.1196803Z hint:
+2026-10-24T15:48:33.1198084Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-24T15:48:33.1200317Z Initialized empty Git repository in /home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage/.git/
+2026-10-24T15:48:33.1203767Z [command]/usr/bin/git remote add origin https://github.com/superman2003/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:33.1240288Z ##[endgroup]
+2026-10-24T15:48:33.1241624Z ##[group]Disabling automatic garbage collection
+2026-10-24T15:48:33.1243277Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-24T15:48:33.1269711Z ##[endgroup]
+2026-10-24T15:48:33.1270967Z ##[group]Setting up auth
+2026-10-24T15:48:33.1277587Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-24T15:48:33.1306656Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-24T15:48:33.1633986Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-24T15:48:33.1673061Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-24T15:48:33.1876039Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-24T15:48:33.1908917Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-24T15:48:33.2098409Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-24T15:48:33.2130275Z ##[endgroup]
+2026-10-24T15:48:33.2131080Z ##[group]Fetching the repository
+2026-10-24T15:48:33.2139457Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d381d74e17c00a695b0c04b013f220818636918a:refs/remotes/pull/241/merge
+2026-10-24T15:48:49.2337209Z From https://github.com/superman2003/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:49.2340798Z  * [new ref]           d381d74e17c00a695b0c04b013f220818636918a -> pull/241/merge
+2026-10-24T15:48:49.2346507Z ##[endgroup]
+2026-10-24T15:48:49.2348571Z ##[group]Determining the checkout info
+2026-10-24T15:48:49.2350293Z ##[endgroup]
+2026-10-24T15:48:49.2351963Z [command]/usr/bin/git sparse-checkout disable
+2026-10-24T15:48:49.2392624Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-24T15:48:49.2419346Z ##[group]Checking out the ref
+2026-10-24T15:48:49.2423253Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/241/merge
+2026-10-24T15:48:50.3195005Z Updating files:   3% (749/19680)
+2026-10-24T15:48:50.4179768Z Updating files:   4% (788/19680)
+2026-10-24T15:48:50.4390902Z Updating files:   5% (984/19680)
+2026-10-24T15:48:50.4639870Z Updating files:   6% (1181/19680)
+2026-10-24T15:48:50.4893910Z Updating files:   7% (1378/19680)
+2026-10-24T15:48:50.5141923Z Updating files:   8% (1575/19680)
+2026-10-24T15:48:50.5506314Z Updating files:   9% (1772/19680)
+2026-10-24T15:48:50.5790578Z Updating files:  10% (1968/19680)
+2026-10-24T15:48:50.6342652Z Updating files:  11% (2165/19680)
+2026-10-24T15:48:50.6603146Z Updating files:  12% (2362/19680)
+2026-10-24T15:48:50.7102378Z Updating files:  13% (2559/19680)
+2026-10-24T15:48:50.7314275Z Updating files:  14% (2756/19680)
+2026-10-24T15:48:50.7455677Z Updating files:  15% (2952/19680)
+2026-10-24T15:48:50.7679456Z Updating files:  16% (3149/19680)
+2026-10-24T15:48:50.7916022Z Updating files:  17% (3346/19680)
+2026-10-24T15:48:50.8281817Z Updating files:  18% (3543/19680)
+2026-10-24T15:48:50.8398303Z Updating files:  19% (3740/19680)
+2026-10-24T15:48:50.8539470Z Updating files:  20% (3936/19680)
+2026-10-24T15:48:50.8705034Z Updating files:  21% (4133/19680)
+2026-10-24T15:48:50.8799003Z Updating files:  22% (4330/19680)
+2026-10-24T15:48:50.8913680Z Updating files:  23% (4527/19680)
+2026-10-24T15:48:50.9147516Z Updating files:  24% (4724/19680)
+2026-10-24T15:48:50.9298774Z Updating files:  25% (4920/19680)
+2026-10-24T15:48:50.9446535Z Updating files:  26% (5117/19680)
+2026-10-24T15:48:50.9599029Z Updating files:  27% (5314/19680)
+2026-10-24T15:48:50.9742182Z Updating files:  28% (5511/19680)
+2026-10-24T15:48:50.9883093Z Updating files:  29% (5708/19680)
+2026-10-24T15:48:51.0010944Z Updating files:  30% (5904/19680)
+2026-10-24T15:48:51.0145634Z Updating files:  31% (6101/19680)
+2026-10-24T15:48:51.0271984Z Updating files:  32% (6298/19680)
+2026-10-24T15:48:51.0369681Z Updating files:  33% (6495/19680)
+2026-10-24T15:48:51.0457872Z Updating files:  34% (6692/19680)
+2026-10-24T15:48:51.0557785Z Updating files:  35% (6888/19680)
+2026-10-24T15:48:51.0735343Z Updating files:  36% (7085/19680)
+2026-10-24T15:48:51.1108047Z Updating files:  37% (7282/19680)
+2026-10-24T15:48:51.1388254Z Updating files:  38% (7479/19680)
+2026-10-24T15:48:51.1645848Z Updating files:  39% (7676/19680)
+2026-10-24T15:48:51.1833170Z Updating files:  40% (7872/19680)
+2026-10-24T15:48:51.2044565Z Updating files:  41% (8069/19680)
+2026-10-24T15:48:51.2167646Z Updating files:  42% (8266/19680)
+2026-10-24T15:48:51.2275036Z Updating files:  43% (8463/19680)
+2026-10-24T15:48:51.2389625Z Updating files:  44% (8660/19680)
+2026-10-24T15:48:51.2548203Z Updating files:  45% (8856/19680)
+2026-10-24T15:48:51.2613735Z Updating files:  46% (9053/19680)
+2026-10-24T15:48:51.2737828Z Updating files:  46% (9106/19680)
+2026-10-24T15:48:51.2871651Z Updating files:  47% (9250/19680)
+2026-10-24T15:48:51.2982055Z Updating files:  48% (9447/19680)
+2026-10-24T15:48:51.3231978Z Updating files:  49% (9644/19680)
+2026-10-24T15:48:51.3735463Z Updating files:  50% (9840/19680)
+2026-10-24T15:48:51.3931100Z Updating files:  51% (10037/19680)
+2026-10-24T15:48:51.4029618Z Updating files:  52% (10234/19680)
+2026-10-24T15:48:51.4213714Z Updating files:  53% (10431/19680)
+2026-10-24T15:48:51.4411453Z Updating files:  54% (10628/19680)
+2026-10-24T15:48:51.4603137Z Updating files:  55% (10824/19680)
+2026-10-24T15:48:51.6308726Z Updating files:  56% (11021/19680)
+2026-10-24T15:48:51.6568583Z Updating files:  57% (11218/19680)
+2026-10-24T15:48:51.6801602Z Updating files:  58% (11415/19680)
+2026-10-24T15:48:51.7039086Z Updating files:  59% (11612/19680)
+2026-10-24T15:48:51.7280143Z Updating files:  60% (11808/19680)
+2026-10-24T15:48:51.7517626Z Updating files:  61% (12005/19680)
+2026-10-24T15:48:51.7806455Z Updating files:  62% (12202/19680)
+2026-10-24T15:48:51.8037343Z Updating files:  63% (12399/19680)
+2026-10-24T15:48:51.8275497Z Updating files:  64% (12596/19680)
+2026-10-24T15:48:51.8525747Z Updating files:  65% (12792/19680)
+2026-10-24T15:48:51.8773982Z Updating files:  66% (12989/19680)
+2026-10-24T15:48:51.9014615Z Updating files:  67% (13186/19680)
+2026-10-24T15:48:51.9252651Z Updating files:  68% (13383/19680)
+2026-10-24T15:48:52.0649080Z Updating files:  69% (13580/19680)
+2026-10-24T15:48:52.2636588Z Updating files:  70% (13776/19680)
+2026-10-24T15:48:52.2910814Z Updating files:  70% (13863/19680)
+2026-10-24T15:48:52.3161040Z Updating files:  71% (13973/19680)
+2026-10-24T15:48:52.3782245Z Updating files:  72% (14170/19680)
+2026-10-24T15:48:52.7964244Z Updating files:  73% (14367/19680)
+2026-10-24T15:48:53.2594031Z Updating files:  74% (14564/19680)
+2026-10-24T15:48:53.2687780Z Updating files:  75% (14760/19680)
+2026-10-24T15:48:53.6104735Z Updating files:  75% (14761/19680)
+2026-10-24T15:48:53.6762374Z Updating files:  76% (14957/19680)
+2026-10-24T15:48:53.7430328Z Updating files:  77% (15154/19680)
+2026-10-24T15:48:53.7662556Z Updating files:  78% (15351/19680)
+2026-10-24T15:48:53.7920169Z Updating files:  79% (15548/19680)
+2026-10-24T15:48:53.8166504Z Updating files:  80% (15744/19680)
+2026-10-24T15:48:53.8412312Z Updating files:  81% (15941/19680)
+2026-10-24T15:48:53.8663148Z Updating files:  82% (16138/19680)
+2026-10-24T15:48:53.8900504Z Updating files:  83% (16335/19680)
+2026-10-24T15:48:53.9138141Z Updating files:  84% (16532/19680)
+2026-10-24T15:48:53.9387366Z Updating files:  85% (16728/19680)
+2026-10-24T15:48:53.9626565Z Updating files:  86% (16925/19680)
+2026-10-24T15:48:53.9873427Z Updating files:  87% (17122/19680)
+2026-10-24T15:48:54.0134886Z Updating files:  88% (17319/19680)
+2026-10-24T15:48:54.0383012Z Updating files:  89% (17516/19680)
+2026-10-24T15:48:54.0628649Z Updating files:  90% (17712/19680)
+2026-10-24T15:48:54.0936476Z Updating files:  91% (17909/19680)
+2026-10-24T15:48:54.1340232Z Updating files:  92% (18106/19680)
+2026-10-24T15:48:54.1780980Z Updating files:  93% (18303/19680)
+2026-10-24T15:48:54.2228106Z Updating files:  94% (18500/19680)
+2026-10-24T15:48:54.2664368Z Updating files:  95% (18696/19680)
+2026-10-24T15:48:54.3270282Z Updating files:  95% (18729/19680)
+2026-10-24T15:48:54.3468801Z Updating files:  96% (18893/19680)
+2026-10-24T15:48:54.3576260Z Updating files:  97% (19090/19680)
+2026-10-24T15:48:54.3696069Z Updating files:  98% (19287/19680)
+2026-10-24T15:48:54.4737800Z Updating files:  99% (19484/19680)
+2026-10-24T15:48:54.4738671Z Updating files: 100% (19680/19680)
+2026-10-24T15:48:54.4739121Z Updating files: 100% (19680/19680), done.
+2026-10-24T15:48:54.4949585Z Note: switching to 'refs/remotes/pull/241/merge'.
+2026-10-24T15:48:54.4950268Z 
+2026-10-24T15:48:54.4950726Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-24T15:48:54.4951620Z changes and commit them, and you can discard any commits you make in this
+2026-10-24T15:48:54.4952553Z state without impacting any branches by switching back to a branch.
+2026-10-24T15:48:54.4953138Z 
+2026-10-24T15:48:54.4953936Z If you want to create a new branch to retain commits you create, you may
+2026-10-24T15:48:54.4954496Z do so (now or later) by using -c with the switch command. Example:
+2026-10-24T15:48:54.4954788Z 
+2026-10-24T15:48:54.4954954Z   git switch -c <new-branch-name>
+2026-10-24T15:48:54.4955157Z 
+2026-10-24T15:48:54.4955301Z Or undo this operation with:
+2026-10-24T15:48:54.4955488Z 
+2026-10-24T15:48:54.4955599Z   git switch -
+2026-10-24T15:48:54.4955747Z 
+2026-10-24T15:48:54.4956011Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-24T15:48:54.4956358Z 
+2026-10-24T15:48:54.4956755Z HEAD is now at d381d74e Merge 2854943c3481d39cbafd834c756d0f4bf46bdadf into 2d849bfafb51897f5f6f83007cee24499e50440a
+2026-10-24T15:48:54.5839679Z Encountered 1388 files that should have been pointers, but weren't:
+2026-10-24T15:48:54.5840380Z 	artifacts/andromalius_crop_preview.png
+2026-10-24T15:48:54.5840828Z 	artifacts/bonio_crop_preview.png
+2026-10-24T15:48:54.5841334Z 	artifacts/cave_exploration/ch01_cave.jpg
+2026-10-24T15:48:54.5841770Z 	artifacts/cave_exploration/ch01_lift.jpg
+2026-10-24T15:48:54.5842258Z 	artifacts/cave_exploration/ch02_cave.jpg
+2026-10-24T15:48:54.5842722Z 	artifacts/cave_exploration/ch02_lift.jpg
+2026-10-24T15:48:54.5843173Z 	artifacts/cave_exploration/ch03_cave.jpg
+2026-10-24T15:48:54.5843638Z 	artifacts/cave_exploration/ch03_lift.jpg
+2026-10-24T15:48:54.5844067Z 	artifacts/cave_exploration/ch04_cave.jpg
+2026-10-24T15:48:54.5844855Z 	artifacts/cave_exploration/ch04_lift.jpg
+2026-10-24T15:48:54.5845236Z 	artifacts/cave_exploration/ch05_cave.jpg
+2026-10-24T15:48:54.5845649Z 	artifacts/cave_exploration/ch05_lift.jpg
+2026-10-24T15:48:54.5846047Z 	artifacts/cave_exploration/ch06_cave.jpg
+2026-10-24T15:48:54.5846442Z 	artifacts/cave_exploration/ch06_lift.jpg
+2026-10-24T15:48:54.5846962Z 	artifacts/cave_exploration/six_chapter_caves.jpg
+2026-10-24T15:48:54.5847654Z 	artifacts/current_gallery/bosses_all.jpg
+2026-10-24T15:48:54.5848258Z 	artifacts/current_gallery/ch01_enemies.jpg
+2026-10-24T15:48:54.5848744Z 	artifacts/current_gallery/ch02_enemies.jpg
+2026-10-24T15:48:54.5850042Z 	artifacts/current_gallery/ch03_enemies.jpg
+2026-10-24T15:48:54.5850647Z 	artifacts/current_gallery/ch04_enemies.jpg
+2026-10-24T15:48:54.5851207Z 	artifacts/current_gallery/ch05_enemies.jpg
+2026-10-24T15:48:54.5851741Z 	artifacts/current_gallery/ch06_enemies.jpg
+2026-10-24T15:48:54.5852450Z 	artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg
+2026-10-24T15:48:54.5853368Z 	artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg
+2026-10-24T15:48:54.5854376Z 	artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg
+2026-10-24T15:48:54.5855262Z 	artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg
+2026-10-24T15:48:54.5856122Z 	artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg
+2026-10-24T15:48:54.5857290Z 	artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg
+2026-10-24T15:48:54.5858040Z 	artifacts/current_gallery/map_overview.jpg
+2026-10-24T15:48:54.5858501Z 	artifacts/current_gallery/monsters_all.jpg
+2026-10-24T15:48:54.5859863Z 	artifacts/dark_fantasy_runtime_preview.png
+2026-10-24T15:48:54.5860540Z 	artifacts/maniamap/maniamap_chapter_draft.png
+2026-10-24T15:48:54.5861139Z 	godot/addons/MetroidvaniaSystem/Icon.png
+2026-10-24T15:48:54.5861722Z 	godot/addons/MetroidvaniaSystem/Themes/AoS/BorderPassage.png
+2026-10-24T15:48:54.5863661Z 	godot/addons/MetroidvaniaSystem/Themes/AoS/BorderWall.png
+2026-10-24T15:48:54.5864341Z 	godot/addons/MetroidvaniaSystem/Themes/AoS/Corner.png
+2026-10-24T15:48:54.5865218Z 	godot/addons/MetroidvaniaSystem/Themes/AoS/PlayerLocation.png
+2026-10-24T15:48:54.5865910Z 	godot/addons/MetroidvaniaSystem/Themes/AoS/RoomFill.png
+2026-10-24T15:48:54.5866577Z 	godot/addons/MetroidvaniaSystem/Themes/BS/BorderPassage.png
+2026-10-24T15:48:54.5867359Z 	godot/addons/MetroidvaniaSystem/Themes/BS/BorderPassageHorizontal.png
+2026-10-24T15:48:54.5867893Z 	godot/addons/MetroidvaniaSystem/Themes/BS/BorderWall.png
+2026-10-24T15:48:54.5868305Z 	godot/addons/MetroidvaniaSystem/Themes/BS/BorderWallHorizontal.png
+2026-10-24T15:48:54.5868702Z 	godot/addons/MetroidvaniaSystem/Themes/BS/Corner.png
+2026-10-24T15:48:54.5869074Z 	godot/addons/MetroidvaniaSystem/Themes/BS/PlayerLocation.png
+2026-10-24T15:48:54.5869475Z 	godot/addons/MetroidvaniaSystem/Themes/BS/RoomFill.png
+2026-10-24T15:48:54.5869829Z 	godot/addons/MetroidvaniaSystem/Themes/EM/BorderH.png
+2026-10-24T15:48:54.5870173Z 	godot/addons/MetroidvaniaSystem/Themes/EM/BorderV.png
+2026-10-24T15:48:54.5870521Z 	godot/addons/MetroidvaniaSystem/Themes/EM/Center.png
+2026-10-24T15:48:54.5871084Z 	godot/addons/MetroidvaniaSystem/Themes/EM/Corner.png
+2026-10-24T15:48:54.5871596Z 	godot/addons/MetroidvaniaSystem/Themes/EM/PlayerLocation.png
+2026-10-24T15:48:54.5872153Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/BorderPassage.png
+2026-10-24T15:48:54.5872630Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/BorderPassageHorizontal.png
+2026-10-24T15:48:54.5873095Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/BorderWall.png
+2026-10-24T15:48:54.5873540Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/BorderWallHorizontal.png
+2026-10-24T15:48:54.5874026Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/CornerInner.png
+2026-10-24T15:48:54.5874442Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/CornerOuter.png
+2026-10-24T15:48:54.5874843Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/Empty.png
+2026-10-24T15:48:54.5875265Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/PlayerLocation.png
+2026-10-24T15:48:54.5875832Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/RoomFill.png
+2026-10-24T15:48:54.5876248Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/RoomSeparator.png
+2026-10-24T15:48:54.5876702Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/Symbols/Collected.png
+2026-10-24T15:48:54.5877396Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/Symbols/Collectible.png
+2026-10-24T15:48:54.5877892Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/Symbols/Portal.png
+2026-10-24T15:48:54.5878333Z 	godot/addons/MetroidvaniaSystem/Themes/Exquisite/Symbols/Ring.png
+2026-10-24T15:48:54.5878787Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/BorderPassage.png
+2026-10-24T15:48:54.5879269Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/BorderWall.png
+2026-10-24T15:48:54.5879687Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Borders/Blockade.png
+2026-10-24T15:48:54.5880118Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Borders/HalfWall.png
+2026-10-24T15:48:54.5880553Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Borders/HalfWall2.png
+2026-10-24T15:48:54.5881009Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Empty.png
+2026-10-24T15:48:54.5881401Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/PlayerLocation.png
+2026-10-24T15:48:54.5881806Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/RoomFill.png
+2026-10-24T15:48:54.5882191Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Symbols/+.png
+2026-10-24T15:48:54.5882610Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Symbols/Collected.png
+2026-10-24T15:48:54.5883053Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Symbols/Collectible.png
+2026-10-24T15:48:54.5883483Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Symbols/Eyes.png
+2026-10-24T15:48:54.5883876Z 	godot/addons/MetroidvaniaSystem/Themes/Fuzzy/Symbols/X.png
+2026-10-24T15:48:54.5884277Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/BorderPassage.png
+2026-10-24T15:48:54.5884690Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/BorderWall.png
+2026-10-24T15:48:54.5885119Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Borders/Barrier.png
+2026-10-24T15:48:54.5885647Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Center.png
+2026-10-24T15:48:54.5886056Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/PlayerLocation.png
+2026-10-24T15:48:54.5886503Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/Collectible.png
+2026-10-24T15:48:54.5886941Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/Dot.png
+2026-10-24T15:48:54.5887616Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/Dot2.png
+2026-10-24T15:48:54.5888036Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/House.png
+2026-10-24T15:48:54.5888449Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/Save.png
+2026-10-24T15:48:54.5888893Z 	godot/addons/MetroidvaniaSystem/Themes/Kenney/Symbols/Skull.png
+2026-10-24T15:48:54.5889305Z 	godot/addons/MetroidvaniaSystem/Themes/MF/BorderPassage.png
+2026-10-24T15:48:54.5889690Z 	godot/addons/MetroidvaniaSystem/Themes/MF/BorderWall.png
+2026-10-24T15:48:54.5890068Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Borders/Door1.png
+2026-10-24T15:48:54.5890453Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Borders/Door2.png
+2026-10-24T15:48:54.5890835Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Borders/Door3.png
+2026-10-24T15:48:54.5891271Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Borders/Door4.png
+2026-10-24T15:48:54.5891635Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Corner.png
+2026-10-24T15:48:54.5891970Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Empty.png
+2026-10-24T15:48:54.5892316Z 	godot/addons/MetroidvaniaSystem/Themes/MF/RoomFill.png
+2026-10-24T15:48:54.5892690Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/Boss.png
+2026-10-24T15:48:54.5893097Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/CollectedItem.png
+2026-10-24T15:48:54.5893504Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/Item.png
+2026-10-24T15:48:54.5893917Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/NavigationRoom.png
+2026-10-24T15:48:54.5894356Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/RechargeRoom.png
+2026-10-24T15:48:54.5894865Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/SaveRoom.png
+2026-10-24T15:48:54.5895260Z 	godot/addons/MetroidvaniaSystem/Themes/MF/Symbols/Ship.png
+2026-10-24T15:48:54.5895652Z 	godot/addons/MetroidvaniaSystem/Themes/RR/BorderPassage.png
+2026-10-24T15:48:54.5896038Z 	godot/addons/MetroidvaniaSystem/Themes/RR/BorderWall.png
+2026-10-24T15:48:54.5896409Z 	godot/addons/MetroidvaniaSystem/Themes/RR/CornerInner.png
+2026-10-24T15:48:54.5896784Z 	godot/addons/MetroidvaniaSystem/Themes/RR/CornerOuter.png
+2026-10-24T15:48:54.5897433Z 	godot/addons/MetroidvaniaSystem/Themes/RR/PlayerLocation.png
+2026-10-24T15:48:54.5897817Z 	godot/addons/MetroidvaniaSystem/Themes/RR/RoomFill.png
+2026-10-24T15:48:54.5898212Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/AreaExitLeft.png
+2026-10-24T15:48:54.5898660Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/AreaExitRight.png
+2026-10-24T15:48:54.5899114Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Egg.png
+2026-10-24T15:48:54.5899508Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/HealZone.png
+2026-10-24T15:48:54.5899920Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Item1.png
+2026-10-24T15:48:54.5900306Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Item2.png
+2026-10-24T15:48:54.5900695Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Item3.png
+2026-10-24T15:48:54.5901078Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Item4.png
+2026-10-24T15:48:54.5901463Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Item5.png
+2026-10-24T15:48:54.5901862Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/SavePoint.png
+2026-10-24T15:48:54.5902271Z 	godot/addons/MetroidvaniaSystem/Themes/RR/Symbols/Teleport.png
+2026-10-24T15:48:54.5902668Z 	godot/addons/MetroidvaniaSystem/Themes/SH/BorderPassage.png
+2026-10-24T15:48:54.5903052Z 	godot/addons/MetroidvaniaSystem/Themes/SH/BorderWall.png
+2026-10-24T15:48:54.5903418Z 	godot/addons/MetroidvaniaSystem/Themes/SH/CornerInner.png
+2026-10-24T15:48:54.5903791Z 	godot/addons/MetroidvaniaSystem/Themes/SH/CornerOuter.png
+2026-10-24T15:48:54.5904241Z 	godot/addons/MetroidvaniaSystem/Themes/SH/RoomFill.png
+2026-10-24T15:48:54.5904613Z 	godot/addons/MetroidvaniaSystem/Themes/SH/RoomSeparator.png
+2026-10-24T15:48:54.5904997Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Boss.png
+2026-10-24T15:48:54.5905377Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Door.png
+2026-10-24T15:48:54.5905752Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Item.png
+2026-10-24T15:48:54.5906128Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Key.png
+2026-10-24T15:48:54.5906522Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Portal.png
+2026-10-24T15:48:54.5906925Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/SavePoint.png
+2026-10-24T15:48:54.5907471Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/SuperBoss.png
+2026-10-24T15:48:54.5907899Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/SuperTeleport.png
+2026-10-24T15:48:54.5908325Z 	godot/addons/MetroidvaniaSystem/Themes/SH/Symbols/Teleport.png
+2026-10-24T15:48:54.5908731Z 	godot/addons/MetroidvaniaSystem/Themes/SotN/BorderPassage.png
+2026-10-24T15:48:54.5909123Z 	godot/addons/MetroidvaniaSystem/Themes/SotN/BorderWall.png
+2026-10-24T15:48:54.5909529Z 	godot/addons/MetroidvaniaSystem/Themes/SotN/Corner.png
+2026-10-24T15:48:54.5909908Z 	godot/addons/MetroidvaniaSystem/Themes/SotN/PlayerLocation.png
+2026-10-24T15:48:54.5910296Z 	godot/addons/MetroidvaniaSystem/Themes/SotN/RoomFill.png
+2026-10-24T15:48:54.5910708Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/BorderPassage.png
+2026-10-24T15:48:54.5911092Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/BorderWall.png
+2026-10-24T15:48:54.5911470Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Borders/Abyss.png
+2026-10-24T15:48:54.5911853Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/CornerInner.png
+2026-10-24T15:48:54.5912228Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/CornerOuter.png
+2026-10-24T15:48:54.5912596Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Empty.png
+2026-10-24T15:48:54.5913054Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/PlayerLocation.png
+2026-10-24T15:48:54.5913439Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/RoomFill.png
+2026-10-24T15:48:54.5913826Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/RoomSeparator.png
+2026-10-24T15:48:54.5914229Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/Crystal.png
+2026-10-24T15:48:54.5914680Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/CrystalDestroyed.png
+2026-10-24T15:48:54.5915146Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/InteriorEnter.png
+2026-10-24T15:48:54.5915575Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/Quest.png
+2026-10-24T15:48:54.5915977Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/RoomSave.png
+2026-10-24T15:48:54.5916411Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/RoomTeleport.png
+2026-10-24T15:48:54.5916837Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/WarpDown.png
+2026-10-24T15:48:54.5917443Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/WarpLeft.png
+2026-10-24T15:48:54.5917892Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/WarpRight.png
+2026-10-24T15:48:54.5918320Z 	godot/addons/MetroidvaniaSystem/Themes/VoF/Symbols/WarpUp.png
+2026-10-24T15:48:54.5918728Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/BorderPassage.png
+2026-10-24T15:48:54.5919135Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/BorderWall.png
+2026-10-24T15:48:54.5919556Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Borders/BlueBarrier.png
+2026-10-24T15:48:54.5920025Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Borders/GreenBarrier.png
+2026-10-24T15:48:54.5920475Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Borders/PinkBarrier.png
+2026-10-24T15:48:54.5920920Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Borders/RedBarrier.png
+2026-10-24T15:48:54.5921344Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/CornerCross.png
+2026-10-24T15:48:54.5921727Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/CornerL.png
+2026-10-24T15:48:54.5922091Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/CornerT.png
+2026-10-24T15:48:54.5922460Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/CornerU.png
+2026-10-24T15:48:54.5922932Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/PlayerLocation.png
+2026-10-24T15:48:54.5923344Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/RoomFill.png
+2026-10-24T15:48:54.5923724Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/A.png
+2026-10-24T15:48:54.5924132Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/B.png
+2026-10-24T15:48:54.5924519Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/C.png
+2026-10-24T15:48:54.5924896Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/D.png
+2026-10-24T15:48:54.5925309Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/SavePoint.png
+2026-10-24T15:48:54.5925750Z 	godot/addons/MetroidvaniaSystem/Themes/Zeric/Symbols/Teleport.png
+2026-10-24T15:48:54.5926151Z 	godot/assets/sprites/demo/bg_ch01_composite_preview.png
+2026-10-24T15:48:54.5926505Z 	godot/assets/sprites/demo/bg_ch01_far_silhouettes.png
+2026-10-24T15:48:54.5926952Z 	godot/assets/sprites/demo/bg_ch01_fog.png
+2026-10-24T15:48:54.5927725Z 	godot/assets/sprites/demo/bg_ch01_mid_arches.png
+2026-10-24T15:48:54.5928057Z 	godot/assets/sprites/demo/bg_ch01_near_vines.png
+2026-10-24T15:48:54.5928365Z 	godot/assets/sprites/demo/bg_ch01_sky.png
+2026-10-24T15:48:54.5928663Z 	godot/assets/sprites/demo/boss_gate.png
+2026-10-24T15:48:54.5928979Z 	godot/assets/sprites/demo/boss_rust_crown_guardian.png
+2026-10-24T15:48:54.5929355Z 	godot/assets/sprites/demo/demo_asset_replacement_preview.png
+2026-10-24T15:48:54.5929712Z 	godot/assets/sprites/demo/enemy_bronze_moth.png
+2026-10-24T15:48:54.5930033Z 	godot/assets/sprites/demo/enemy_gear_sentinel.png
+2026-10-24T15:48:54.5930362Z 	godot/assets/sprites/demo/enemy_moss_larva.png
+2026-10-24T15:48:54.5930703Z 	godot/assets/sprites/demo/enemy_spore_bellmaker.png
+2026-10-24T15:48:54.5931015Z 	godot/assets/sprites/demo/hazard_bell.png
+2026-10-24T15:48:54.5931312Z 	godot/assets/sprites/demo/hazard_spikes.png
+2026-10-24T15:48:54.5931718Z 	godot/assets/sprites/demo/map_background_ch01.png
+2026-10-24T15:48:54.5932036Z 	godot/assets/sprites/demo/pickup_bell_key.png
+2026-10-24T15:48:54.5932355Z 	godot/assets/sprites/demo/platform_boss_stone.png
+2026-10-24T15:48:54.5932693Z 	godot/assets/sprites/demo/platform_bronze_bridge.png
+2026-10-24T15:48:54.5933021Z 	godot/assets/sprites/demo/platform_moss_stone.png
+2026-10-24T15:48:54.5933335Z 	godot/assets/sprites/demo/shortcut_lever.png
+2026-10-24T15:48:54.5933633Z 	godot/assets/sprites/demo/trap_bell_gap.png
+2026-10-24T15:48:54.5933944Z 	godot/assets/sprites/demo/trap_fake_moss_floor.png
+2026-10-24T15:48:54.5934274Z 	godot/assets/sprites/demo/trap_falling_clapper.png
+2026-10-24T15:48:54.5934597Z 	godot/assets/sprites/demo/trap_false_lamp.png
+2026-10-24T15:48:54.5934924Z 	godot/assets/sprites/demo/trap_shortcut_revenge.png
+2026-10-24T15:48:54.5935245Z 	godot/assets/sprites/demo/trap_spore_chest.png
+2026-10-24T15:48:54.5935702Z 	godot/assets/sprites/generated_supplements_20261017/B_broken_string_gardener_root_cage.png
+2026-10-24T15:48:54.5936300Z 	godot/assets/sprites/generated_supplements_20261017/B_rust_crown_guardian_root_awakening.png
+2026-10-24T15:48:54.5936892Z 	godot/assets/sprites/generated_supplements_20261017/B_silent_crown_core_gate_judgement.png
+2026-10-24T15:48:54.5937703Z 	godot/assets/sprites/generated_supplements_20261017/B_sunken_hammer_smith_vault_scissors.png
+2026-10-24T15:48:54.5938308Z 	godot/assets/sprites/generated_supplements_20261017/B_sunken_hammer_smith_vault_scissors_v2.png
+2026-10-24T15:48:54.5938903Z 	godot/assets/sprites/generated_supplements_20261017/E_broken_string_gardener_recover.png
+2026-10-24T15:48:54.5939460Z 	godot/assets/sprites/generated_supplements_20261017/E_rust_crown_guardian_recover.png
+2026-10-24T15:48:54.5940027Z 	godot/assets/sprites/generated_supplements_20261017/E_saltwhite_contract_judge_recover.png
+2026-10-24T15:48:54.5940579Z 	godot/assets/sprites/generated_supplements_20261017/E_silent_crown_core_recover.png
+2026-10-24T15:48:54.5941132Z 	godot/assets/sprites/generated_supplements_20261017/E_silent_pilgrim_commander_recover.png
+2026-10-24T15:48:54.5941787Z 	godot/assets/sprites/generated_supplements_20261017/E_silent_pilgrim_commander_recover_v2.png
+2026-10-24T15:48:54.5942355Z 	godot/assets/sprites/generated_supplements_20261017/E_sunken_hammer_smith_recover.png
+2026-10-24T15:48:54.5942853Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_composite_preview.png
+2026-10-24T15:48:54.5943297Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_far_silhouettes.png
+2026-10-24T15:48:54.5943721Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_fog.png
+2026-10-24T15:48:54.5944100Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_mid_arches.png
+2026-10-24T15:48:54.5944499Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_near_vines.png
+2026-10-24T15:48:54.5944862Z 	godot/assets/sprites/gothicvania/demo/bg_ch01_sky.png
+2026-10-24T15:48:54.5945198Z 	godot/assets/sprites/gothicvania/demo/boss_gate.png
+2026-10-24T15:48:54.5945576Z 	godot/assets/sprites/gothicvania/demo/boss_rust_crown_guardian.png
+2026-10-24T15:48:54.5945991Z 	godot/assets/sprites/gothicvania/demo/enemy_bronze_moth.png
+2026-10-24T15:48:54.5946405Z 	godot/assets/sprites/gothicvania/demo/enemy_gear_sentinel.png
+2026-10-24T15:48:54.5946792Z 	godot/assets/sprites/gothicvania/demo/enemy_moss_larva.png
+2026-10-24T15:48:54.5947317Z 	godot/assets/sprites/gothicvania/demo/enemy_spore_bellmaker.png
+2026-10-24T15:48:54.5947692Z 	godot/assets/sprites/gothicvania/demo/hazard_bell.png
+2026-10-24T15:48:54.5948049Z 	godot/assets/sprites/gothicvania/demo/hazard_spikes.png
+2026-10-24T15:48:54.5948425Z 	godot/assets/sprites/gothicvania/demo/map_background_ch01.png
+2026-10-24T15:48:54.5948815Z 	godot/assets/sprites/gothicvania/demo/pickup_bell_key.png
+2026-10-24T15:48:54.5949204Z 	godot/assets/sprites/gothicvania/demo/platform_boss_stone.png
+2026-10-24T15:48:54.5949610Z 	godot/assets/sprites/gothicvania/demo/platform_bronze_bridge.png
+2026-10-24T15:48:54.5950051Z 	godot/assets/sprites/gothicvania/demo/platform_moss_stone.png
+2026-10-24T15:48:54.5950501Z 	godot/assets/sprites/gothicvania/demo/shortcut_lever.png
+2026-10-24T15:48:54.5950862Z 	godot/assets/sprites/gothicvania/demo/trap_bell_gap.png
+2026-10-24T15:48:54.5951238Z 	godot/assets/sprites/gothicvania/demo/trap_fake_moss_floor.png
+2026-10-24T15:48:54.5951640Z 	godot/assets/sprites/gothicvania/demo/trap_falling_clapper.png
+2026-10-24T15:48:54.5952024Z 	godot/assets/sprites/gothicvania/demo/trap_false_lamp.png
+2026-10-24T15:48:54.5952409Z 	godot/assets/sprites/gothicvania/demo/trap_shortcut_revenge.png
+2026-10-24T15:48:54.5952810Z 	godot/assets/sprites/gothicvania/demo/trap_spore_chest.png
+2026-10-24T15:48:54.5953246Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_00.png
+2026-10-24T15:48:54.5953735Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_01.png
+2026-10-24T15:48:54.5954223Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_02.png
+2026-10-24T15:48:54.5954703Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_03.png
+2026-10-24T15:48:54.5955186Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_04.png
+2026-10-24T15:48:54.5955666Z 	godot/assets/sprites/gothicvania/player/frames/air_attack/air_attack_05.png
+2026-10-24T15:48:54.5956144Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_00.png
+2026-10-24T15:48:54.5956633Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_01.png
+2026-10-24T15:48:54.5957295Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_02.png
+2026-10-24T15:48:54.5957754Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_03.png
+2026-10-24T15:48:54.5958210Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_04.png
+2026-10-24T15:48:54.5958662Z 	godot/assets/sprites/gothicvania/player/frames/attack_1/attack_1_05.png
+2026-10-24T15:48:54.5959113Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_00.png
+2026-10-24T15:48:54.5959561Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_01.png
+2026-10-24T15:48:54.5960018Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_02.png
+2026-10-24T15:48:54.5960554Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_03.png
+2026-10-24T15:48:54.5961011Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_04.png
+2026-10-24T15:48:54.5961464Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_05.png
+2026-10-24T15:48:54.5961918Z 	godot/assets/sprites/gothicvania/player/frames/attack_2/attack_2_06.png
+2026-10-24T15:48:54.5962345Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_00.png
+2026-10-24T15:48:54.5962753Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_01.png
+2026-10-24T15:48:54.5963192Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_02.png
+2026-10-24T15:48:54.5963603Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_03.png
+2026-10-24T15:48:54.5964014Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_04.png
+2026-10-24T15:48:54.5964428Z 	godot/assets/sprites/gothicvania/player/frames/dash/dash_05.png
+2026-10-24T15:48:54.5964840Z 	godot/assets/sprites/gothicvania/player/frames/death/death_00.png
+2026-10-24T15:48:54.5965259Z 	godot/assets/sprites/gothicvania/player/frames/death/death_01.png
+2026-10-24T15:48:54.5965687Z 	godot/assets/sprites/gothicvania/player/frames/death/death_02.png
+2026-10-24T15:48:54.5966105Z 	godot/assets/sprites/gothicvania/player/frames/death/death_03.png
+2026-10-24T15:48:54.5966524Z 	godot/assets/sprites/gothicvania/player/frames/death/death_04.png
+2026-10-24T15:48:54.5966940Z 	godot/assets/sprites/gothicvania/player/frames/death/death_05.png
+2026-10-24T15:48:54.5967522Z 	godot/assets/sprites/gothicvania/player/frames/death/death_06.png
+2026-10-24T15:48:54.5967934Z 	godot/assets/sprites/gothicvania/player/frames/death/death_07.png
+2026-10-24T15:48:54.5968355Z 	godot/assets/sprites/gothicvania/player/frames/fall/fall_00.png
+2026-10-24T15:48:54.5968759Z 	godot/assets/sprites/gothicvania/player/frames/fall/fall_01.png
+2026-10-24T15:48:54.5969250Z 	godot/assets/sprites/gothicvania/player/frames/fall/fall_02.png
+2026-10-24T15:48:54.5969660Z 	godot/assets/sprites/gothicvania/player/frames/fall/fall_03.png
+2026-10-24T15:48:54.5970102Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_00.png
+2026-10-24T15:48:54.5970592Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_01.png
+2026-10-24T15:48:54.5971072Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_02.png
+2026-10-24T15:48:54.5971553Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_03.png
+2026-10-24T15:48:54.5972038Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_04.png
+2026-10-24T15:48:54.5972520Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_05.png
+2026-10-24T15:48:54.5972999Z 	godot/assets/sprites/gothicvania/player/frames/hook_throw/hook_throw_06.png
+2026-10-24T15:48:54.5973445Z 	godot/assets/sprites/gothicvania/player/frames/hurt/hurt_00.png
+2026-10-24T15:48:54.5973878Z 	godot/assets/sprites/gothicvania/player/frames/hurt/hurt_01.png
+2026-10-24T15:48:54.5974285Z 	godot/assets/sprites/gothicvania/player/frames/hurt/hurt_02.png
+2026-10-24T15:48:54.5974684Z 	godot/assets/sprites/gothicvania/player/frames/hurt/hurt_03.png
+2026-10-24T15:48:54.5975083Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_00.png
+2026-10-24T15:48:54.5975524Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_01.png
+2026-10-24T15:48:54.5975927Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_02.png
+2026-10-24T15:48:54.5976327Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_03.png
+2026-10-24T15:48:54.5976724Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_04.png
+2026-10-24T15:48:54.5977329Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_05.png
+2026-10-24T15:48:54.5977730Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_06.png
+2026-10-24T15:48:54.5978131Z 	godot/assets/sprites/gothicvania/player/frames/idle/idle_07.png
+2026-10-24T15:48:54.5978577Z 	godot/assets/sprites/gothicvania/player/frames/jump_loop/jump_loop_00.png
+2026-10-24T15:48:54.5979134Z 	godot/assets/sprites/gothicvania/player/frames/jump_loop/jump_loop_01.png
+2026-10-24T15:48:54.5979624Z 	godot/assets/sprites/gothicvania/player/frames/jump_loop/jump_loop_02.png
+2026-10-24T15:48:54.5980103Z 	godot/assets/sprites/gothicvania/player/frames/jump_start/jump_start_00.png
+2026-10-24T15:48:54.5980587Z 	godot/assets/sprites/gothicvania/player/frames/jump_start/jump_start_01.png
+2026-10-24T15:48:54.5981072Z 	godot/assets/sprites/gothicvania/player/frames/jump_start/jump_start_02.png
+2026-10-24T15:48:54.5981553Z 	godot/assets/sprites/gothicvania/player/frames/jump_start/jump_start_03.png
+2026-10-24T15:48:54.5982022Z 	godot/assets/sprites/gothicvania/player/frames/land/land_00.png
+2026-10-24T15:48:54.5982429Z 	godot/assets/sprites/gothicvania/player/frames/land/land_01.png
+2026-10-24T15:48:54.5982837Z 	godot/assets/sprites/gothicvania/player/frames/land/land_02.png
+2026-10-24T15:48:54.5983237Z 	godot/assets/sprites/gothicvania/player/frames/land/land_03.png
+2026-10-24T15:48:54.5983635Z 	godot/assets/sprites/gothicvania/player/frames/run/run_00.png
+2026-10-24T15:48:54.5984029Z 	godot/assets/sprites/gothicvania/player/frames/run/run_01.png
+2026-10-24T15:48:54.5984417Z 	godot/assets/sprites/gothicvania/player/frames/run/run_02.png
+2026-10-24T15:48:54.5984804Z 	godot/assets/sprites/gothicvania/player/frames/run/run_03.png
+2026-10-24T15:48:54.5985188Z 	godot/assets/sprites/gothicvania/player/frames/run/run_04.png
+2026-10-24T15:48:54.5985573Z 	godot/assets/sprites/gothicvania/player/frames/run/run_05.png
+2026-10-24T15:48:54.5985966Z 	godot/assets/sprites/gothicvania/player/frames/run/run_06.png
+2026-10-24T15:48:54.5986351Z 	godot/assets/sprites/gothicvania/player/frames/run/run_07.png
+2026-10-24T15:48:54.5986784Z 	godot/assets/sprites/gothicvania/player/frames/wall_slide/wall_slide_00.png
+2026-10-24T15:48:54.5987390Z 	godot/assets/sprites/gothicvania/player/frames/wall_slide/wall_slide_01.png
+2026-10-24T15:48:54.5987939Z 	godot/assets/sprites/gothicvania/player/frames/wall_slide/wall_slide_02.png
+2026-10-24T15:48:54.5988453Z 	godot/assets/sprites/gothicvania/player/frames/wall_slide/wall_slide_03.png
+2026-10-24T15:48:54.5988871Z 	godot/assets/sprites/gothicvania/player/preview.png
+2026-10-24T15:48:54.5989259Z 	godot/assets/sprites/gothicvania/player/sheets/air_attack_sheet.png
+2026-10-24T15:48:54.5989688Z 	godot/assets/sprites/gothicvania/player/sheets/attack_1_sheet.png
+2026-10-24T15:48:54.5990116Z 	godot/assets/sprites/gothicvania/player/sheets/attack_2_sheet.png
+2026-10-24T15:48:54.5990524Z 	godot/assets/sprites/gothicvania/player/sheets/dash_sheet.png
+2026-10-24T15:48:54.5990929Z 	godot/assets/sprites/gothicvania/player/sheets/death_sheet.png
+2026-10-24T15:48:54.5991336Z 	godot/assets/sprites/gothicvania/player/sheets/fall_sheet.png
+2026-10-24T15:48:54.5991747Z 	godot/assets/sprites/gothicvania/player/sheets/hook_throw_sheet.png
+2026-10-24T15:48:54.5992161Z 	godot/assets/sprites/gothicvania/player/sheets/hurt_sheet.png
+2026-10-24T15:48:54.5992555Z 	godot/assets/sprites/gothicvania/player/sheets/idle_sheet.png
+2026-10-24T15:48:54.5992971Z 	godot/assets/sprites/gothicvania/player/sheets/jump_loop_sheet.png
+2026-10-24T15:48:54.5993414Z 	godot/assets/sprites/gothicvania/player/sheets/jump_start_sheet.png
+2026-10-24T15:48:54.5993832Z 	godot/assets/sprites/gothicvania/player/sheets/land_sheet.png
+2026-10-24T15:48:54.5994225Z 	godot/assets/sprites/gothicvania/player/sheets/run_sheet.png
+2026-10-24T15:48:54.5994667Z 	godot/assets/sprites/gothicvania/player/sheets/wall_slide_sheet.png
+2026-10-24T15:48:54.5995084Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_00.png
+2026-10-24T15:48:54.5995489Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_01.png
+2026-10-24T15:48:54.5995882Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_02.png
+2026-10-24T15:48:54.5996315Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_03.png
+2026-10-24T15:48:54.5996782Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_04.png
+2026-10-24T15:48:54.5997421Z 	godot/assets/sprites/lumen/frames/air_attack/air_attack_05.png
+2026-10-24T15:48:54.5998124Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_00.png
+2026-10-24T15:48:54.5998691Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_01.png
+2026-10-24T15:48:54.5999295Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_02.png
+2026-10-24T15:48:54.5999865Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_03.png
+2026-10-24T15:48:54.6000413Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_04.png
+2026-10-24T15:48:54.6000971Z 	godot/assets/sprites/lumen/frames/attack_1/attack_1_05.png
+2026-10-24T15:48:54.6001497Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_00.png
+2026-10-24T15:48:54.6002004Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_01.png
+2026-10-24T15:48:54.6002555Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_02.png
+2026-10-24T15:48:54.6003077Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_03.png
+2026-10-24T15:48:54.6003662Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_04.png
+2026-10-24T15:48:54.6004353Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_05.png
+2026-10-24T15:48:54.6004930Z 	godot/assets/sprites/lumen/frames/attack_2/attack_2_06.png
+2026-10-24T15:48:54.6005521Z 	godot/assets/sprites/lumen/frames/dash/dash_00.png
+2026-10-24T15:48:54.6006076Z 	godot/assets/sprites/lumen/frames/dash/dash_01.png
+2026-10-24T15:48:54.6006623Z 	godot/assets/sprites/lumen/frames/dash/dash_02.png
+2026-10-24T15:48:54.6007360Z 	godot/assets/sprites/lumen/frames/dash/dash_03.png
+2026-10-24T15:48:54.6007843Z 	godot/assets/sprites/lumen/frames/dash/dash_04.png
+2026-10-24T15:48:54.6008324Z 	godot/assets/sprites/lumen/frames/dash/dash_05.png
+2026-10-24T15:48:54.6008848Z 	godot/assets/sprites/lumen/frames/death/death_00.png
+2026-10-24T15:48:54.6009374Z 	godot/assets/sprites/lumen/frames/death/death_01.png
+2026-10-24T15:48:54.6009991Z 	godot/assets/sprites/lumen/frames/death/death_02.png
+2026-10-24T15:48:54.6010739Z 	godot/assets/sprites/lumen/frames/death/death_03.png
+2026-10-24T15:48:54.6011272Z 	godot/assets/sprites/lumen/frames/death/death_04.png
+2026-10-24T15:48:54.6011770Z 	godot/assets/sprites/lumen/frames/death/death_05.png
+2026-10-24T15:48:54.6012299Z 	godot/assets/sprites/lumen/frames/death/death_06.png
+2026-10-24T15:48:54.6012837Z 	godot/assets/sprites/lumen/frames/death/death_07.png
+2026-10-24T15:48:54.6013406Z 	godot/assets/sprites/lumen/frames/fall/fall_00.png
+2026-10-24T15:48:54.6013946Z 	godot/assets/sprites/lumen/frames/fall/fall_01.png
+2026-10-24T15:48:54.6014524Z 	godot/assets/sprites/lumen/frames/fall/fall_02.png
+2026-10-24T15:48:54.6015143Z 	godot/assets/sprites/lumen/frames/fall/fall_03.png
+2026-10-24T15:48:54.6015835Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_00.png
+2026-10-24T15:48:54.6016501Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_01.png
+2026-10-24T15:48:54.6017378Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_02.png
+2026-10-24T15:48:54.6018117Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_03.png
+2026-10-24T15:48:54.6018589Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_04.png
+2026-10-24T15:48:54.6018985Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_05.png
+2026-10-24T15:48:54.6019381Z 	godot/assets/sprites/lumen/frames/hook_throw/hook_throw_06.png
+2026-10-24T15:48:54.6019744Z 	godot/assets/sprites/lumen/frames/hurt/hurt_00.png
+2026-10-24T15:48:54.6020080Z 	godot/assets/sprites/lumen/frames/hurt/hurt_01.png
+2026-10-24T15:48:54.6020409Z 	godot/assets/sprites/lumen/frames/hurt/hurt_02.png
+2026-10-24T15:48:54.6020727Z 	godot/assets/sprites/lumen/frames/hurt/hurt_03.png
+2026-10-24T15:48:54.6021050Z 	godot/assets/sprites/lumen/frames/idle/idle_00.png
+2026-10-24T15:48:54.6021366Z 	godot/assets/sprites/lumen/frames/idle/idle_01.png
+2026-10-24T15:48:54.6021686Z 	godot/assets/sprites/lumen/frames/idle/idle_02.png
+2026-10-24T15:48:54.6022001Z 	godot/assets/sprites/lumen/frames/idle/idle_03.png
+2026-10-24T15:48:54.6022321Z 	godot/assets/sprites/lumen/frames/idle/idle_04.png
+2026-10-24T15:48:54.6022636Z 	godot/assets/sprites/lumen/frames/idle/idle_05.png
+2026-10-24T15:48:54.6023122Z 	godot/assets/sprites/lumen/frames/jump_loop/jump_loop_00.png
+2026-10-24T15:48:54.6023523Z 	godot/assets/sprites/lumen/frames/jump_loop/jump_loop_01.png
+2026-10-24T15:48:54.6024142Z 	godot/assets/sprites/lumen/frames/jump_loop/jump_loop_02.png
+2026-10-24T15:48:54.6024764Z 	godot/assets/sprites/lumen/frames/jump_start/jump_start_00.png
+2026-10-24T15:48:54.6025405Z 	godot/assets/sprites/lumen/frames/jump_start/jump_start_01.png
+2026-10-24T15:48:54.6026056Z 	godot/assets/sprites/lumen/frames/jump_start/jump_start_02.png
+2026-10-24T15:48:54.6026652Z 	godot/assets/sprites/lumen/frames/jump_start/jump_start_03.png
+2026-10-24T15:48:54.6027388Z 	godot/assets/sprites/lumen/frames/land/land_00.png
+2026-10-24T15:48:54.6027902Z 	godot/assets/sprites/lumen/frames/land/land_01.png
+2026-10-24T15:48:54.6028419Z 	godot/assets/sprites/lumen/frames/land/land_02.png
+2026-10-24T15:48:54.6028937Z 	godot/assets/sprites/lumen/frames/land/land_03.png
+2026-10-24T15:48:54.6029475Z 	godot/assets/sprites/lumen/frames/run/run_00.png
+2026-10-24T15:48:54.6029997Z 	godot/assets/sprites/lumen/frames/run/run_01.png
+2026-10-24T15:48:54.6030464Z 	godot/assets/sprites/lumen/frames/run/run_02.png
+2026-10-24T15:48:54.6031015Z 	godot/assets/sprites/lumen/frames/run/run_03.png
+2026-10-24T15:48:54.6031523Z 	godot/assets/sprites/lumen/frames/run/run_04.png
+2026-10-24T15:48:54.6031913Z 	godot/assets/sprites/lumen/frames/run/run_05.png
+2026-10-24T15:48:54.6032220Z 	godot/assets/sprites/lumen/frames/run/run_06.png
+2026-10-24T15:48:54.6032529Z 	godot/assets/sprites/lumen/frames/run/run_07.png
+2026-10-24T15:48:54.6032878Z 	godot/assets/sprites/lumen/frames/wall_slide/wall_slide_00.png
+2026-10-24T15:48:54.6033274Z 	godot/assets/sprites/lumen/frames/wall_slide/wall_slide_01.png
+2026-10-24T15:48:54.6033675Z 	godot/assets/sprites/lumen/frames/wall_slide/wall_slide_02.png
+2026-10-24T15:48:54.6034238Z 	godot/assets/sprites/lumen/frames/wall_slide/wall_slide_03.png
+2026-10-24T15:48:54.6034625Z 	godot/assets/sprites/lumen/lumen_animation_preview.png
+2026-10-24T15:48:54.6035098Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_air_attack_sheet_v001.png
+2026-10-24T15:48:54.6035683Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_air_attack_sheet_v002.png
+2026-10-24T15:48:54.6036395Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_attack_1_sheet_v001.png
+2026-10-24T15:48:54.6037389Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_attack_1_sheet_v002.png
+2026-10-24T15:48:54.6038195Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_attack_2_sheet_v001.png
+2026-10-24T15:48:54.6039004Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_attack_2_sheet_v002.png
+2026-10-24T15:48:54.6039861Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_dash_sheet_v001.png
+2026-10-24T15:48:54.6040733Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_dash_sheet_v002.png
+2026-10-24T15:48:54.6041692Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_death_sheet_v001.png
+2026-10-24T15:48:54.6042635Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_death_sheet_v002.png
+2026-10-24T15:48:54.6043217Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_fall_sheet_v001.png
+2026-10-24T15:48:54.6043913Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_fall_sheet_v002.png
+2026-10-24T15:48:54.6044559Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_hook_throw_sheet_v001.png
+2026-10-24T15:48:54.6045196Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_hook_throw_sheet_v002.png
+2026-10-24T15:48:54.6045851Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_hurt_sheet_v001.png
+2026-10-24T15:48:54.6046503Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_hurt_sheet_v002.png
+2026-10-24T15:48:54.6047356Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_idle_sheet_v001.png
+2026-10-24T15:48:54.6048123Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_idle_sheet_v002.png
+2026-10-24T15:48:54.6048704Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_jump_loop_sheet_v001.png
+2026-10-24T15:48:54.6049343Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_jump_loop_sheet_v002.png
+2026-10-24T15:48:54.6050249Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_jump_start_sheet_v001.png
+2026-10-24T15:48:54.6050907Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_jump_start_sheet_v002.png
+2026-10-24T15:48:54.6051530Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_land_sheet_v001.png
+2026-10-24T15:48:54.6052142Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_land_sheet_v002.png
+2026-10-24T15:48:54.6052662Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_run_sheet_v001.png
+2026-10-24T15:48:54.6053272Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_run_sheet_v002.png
+2026-10-24T15:48:54.6053903Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_wall_slide_sheet_v001.png
+2026-10-24T15:48:54.6054653Z 	godot/assets/sprites/lumen/sheets/chr_player_lumen-spoolwright_wall_slide_sheet_v002.png
+2026-10-24T15:48:54.6055320Z 	godot/assets/sprites/lumen/sheets/kenney_p3_air_attack_sheet.png
+2026-10-24T15:48:54.6055769Z 	godot/assets/sprites/lumen/sheets/kenney_p3_attack_1_sheet.png
+2026-10-24T15:48:54.6056244Z 	godot/assets/sprites/lumen/sheets/kenney_p3_attack_2_sheet.png
+2026-10-24T15:48:54.6056633Z 	godot/assets/sprites/lumen/sheets/kenney_p3_dash_sheet.png
+2026-10-24T15:48:54.6057475Z 	godot/assets/sprites/lumen/sheets/kenney_p3_death_sheet.png
+2026-10-24T15:48:54.6057972Z 	godot/assets/sprites/lumen/sheets/kenney_p3_fall_sheet.png
+2026-10-24T15:48:54.6058371Z 	godot/assets/sprites/lumen/sheets/kenney_p3_hook_throw_sheet.png
+2026-10-24T15:48:54.6058900Z 	godot/assets/sprites/lumen/sheets/kenney_p3_hurt_sheet.png
+2026-10-24T15:48:54.6059507Z 	godot/assets/sprites/lumen/sheets/kenney_p3_idle_sheet.png
+2026-10-24T15:48:54.6059903Z 	godot/assets/sprites/lumen/sheets/kenney_p3_jump_loop_sheet.png
+2026-10-24T15:48:54.6060406Z 	godot/assets/sprites/lumen/sheets/kenney_p3_jump_start_sheet.png
+2026-10-24T15:48:54.6060804Z 	godot/assets/sprites/lumen/sheets/kenney_p3_land_sheet.png
+2026-10-24T15:48:54.6061260Z 	godot/assets/sprites/lumen/sheets/kenney_p3_run_sheet.png
+2026-10-24T15:48:54.6061684Z 	godot/assets/sprites/lumen/sheets/kenney_p3_wall_slide_sheet.png
+2026-10-24T15:48:54.6062114Z 	godot/assets/sprites/ui/kenney/guide_flag_yellow.png
+2026-10-24T15:48:54.6062476Z 	godot/assets/sprites/ui/kenney/hud_coins.png
+2026-10-24T15:48:54.6062847Z 	godot/assets/sprites/ui/kenney/hud_heart_full.png
+2026-10-24T15:48:54.6063180Z 	godot/assets/sprites/ui/kenney/hud_key_yellow.png
+2026-10-24T15:48:54.6063581Z 	godot/assets/sprites/ui/kenney/sign_exit.png
+2026-10-24T15:48:54.6063928Z 	godot/assets/sprites/ui/kenney/sign_right.png
+2026-10-24T15:48:54.6147468Z 	godot/assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-pal2-alpha_0.png
+2026-10-24T15:48:54.6148675Z 	godot/assets/third_party/dark_fantasy_bestiary/ansimuz-shambler-short-pal2-alpha_0.png
+2026-10-24T15:48:54.6149697Z 	godot/assets/third_party/dark_fantasy_bestiary/balmer-andromalius-57x88-alpha.png
+2026-10-24T15:48:54.6150292Z 	godot/assets/third_party/dark_fantasy_bestiary/balmer-minion-45x66-alpha.png
+2026-10-24T15:48:54.6151271Z 	godot/assets/third_party/dark_fantasy_bestiary/calciumtrice-emceeflesher-worm-alpha.png
+2026-10-24T15:48:54.6152231Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha-pal2.png
+2026-10-24T15:48:54.6152854Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-blatty-alpha.png
+2026-10-24T15:48:54.6153322Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-bonio-alpha.png
+2026-10-24T15:48:54.6153845Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-eyewasp-alpha.png
+2026-10-24T15:48:54.6154441Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-skullwasp-alpha.png
+2026-10-24T15:48:54.6155155Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-emceeflesher-wasp.png
+2026-10-24T15:48:54.6155755Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-alpha.png
+2026-10-24T15:48:54.6156449Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-evert-pufalotti-frogman-pal2-smaller-alpha.png
+2026-10-24T15:48:54.6157374Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-thompson-golem-pal2-alpha.png
+2026-10-24T15:48:54.6157908Z 	godot/assets/third_party/dark_fantasy_bestiary/redshrike-wartaur-alpha.png
+2026-10-24T15:48:54.6158422Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_00.png
+2026-10-24T15:48:54.6158975Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_01.png
+2026-10-24T15:48:54.6159513Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_02.png
+2026-10-24T15:48:54.6160065Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_03.png
+2026-10-24T15:48:54.6160618Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_04.png
+2026-10-24T15:48:54.6161159Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_05.png
+2026-10-24T15:48:54.6161695Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_06.png
+2026-10-24T15:48:54.6162228Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bell_mote/frame_07.png
+2026-10-24T15:48:54.6162835Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_00.png
+2026-10-24T15:48:54.6163633Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_01.png
+2026-10-24T15:48:54.6164262Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_02.png
+2026-10-24T15:48:54.6165367Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_03.png
+2026-10-24T15:48:54.6166523Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_04.png
+2026-10-24T15:48:54.6167575Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_05.png
+2026-10-24T15:48:54.6168313Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_06.png
+2026-10-24T15:48:54.6169274Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/broken_string_gardener/frame_07.png
+2026-10-24T15:48:54.6170038Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_00.png
+2026-10-24T15:48:54.6170688Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_01.png
+2026-10-24T15:48:54.6171737Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_02.png
+2026-10-24T15:48:54.6172743Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_03.png
+2026-10-24T15:48:54.6173485Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_04.png
+2026-10-24T15:48:54.6174037Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_05.png
+2026-10-24T15:48:54.6174591Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_06.png
+2026-10-24T15:48:54.6175277Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/bronze_moth/frame_07.png
+2026-10-24T15:48:54.6176169Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_00.png
+2026-10-24T15:48:54.6177181Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_01.png
+2026-10-24T15:48:54.6178146Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_02.png
+2026-10-24T15:48:54.6179129Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_03.png
+2026-10-24T15:48:54.6180361Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_04.png
+2026-10-24T15:48:54.6181343Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_05.png
+2026-10-24T15:48:54.6182355Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_06.png
+2026-10-24T15:48:54.6183272Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/drain_leech/frame_07.png
+2026-10-24T15:48:54.6184289Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_00.png
+2026-10-24T15:48:54.6185445Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_01.png
+2026-10-24T15:48:54.6186493Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_02.png
+2026-10-24T15:48:54.6187739Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_03.png
+2026-10-24T15:48:54.6188463Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_04.png
+2026-10-24T15:48:54.6189074Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_05.png
+2026-10-24T15:48:54.6189688Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_06.png
+2026-10-24T15:48:54.6190304Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_contract_scribe/frame_07.png
+2026-10-24T15:48:54.6190903Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_00.png
+2026-10-24T15:48:54.6191759Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_01.png
+2026-10-24T15:48:54.6192740Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_02.png
+2026-10-24T15:48:54.6193433Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_03.png
+2026-10-24T15:48:54.6194152Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_04.png
+2026-10-24T15:48:54.6194739Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_05.png
+2026-10-24T15:48:54.6195330Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_06.png
+2026-10-24T15:48:54.6195911Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_moss_larva/frame_07.png
+2026-10-24T15:48:54.6196545Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_00.png
+2026-10-24T15:48:54.6197409Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_01.png
+2026-10-24T15:48:54.6198077Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_02.png
+2026-10-24T15:48:54.6198897Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_03.png
+2026-10-24T15:48:54.6199572Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_04.png
+2026-10-24T15:48:54.6200431Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_05.png
+2026-10-24T15:48:54.6201544Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_06.png
+2026-10-24T15:48:54.6202282Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_pilgrim_commander_minor/frame_07.png
+2026-10-24T15:48:54.6202909Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_00.png
+2026-10-24T15:48:54.6203516Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_01.png
+2026-10-24T15:48:54.6204112Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_02.png
+2026-10-24T15:48:54.6204713Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_03.png
+2026-10-24T15:48:54.6205423Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_04.png
+2026-10-24T15:48:54.6206021Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_05.png
+2026-10-24T15:48:54.6206622Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_06.png
+2026-10-24T15:48:54.6207623Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_thorn_sentinel/frame_07.png
+2026-10-24T15:48:54.6208520Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_00.png
+2026-10-24T15:48:54.6209150Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_01.png
+2026-10-24T15:48:54.6209786Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_02.png
+2026-10-24T15:48:54.6210408Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_03.png
+2026-10-24T15:48:54.6211038Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_04.png
+2026-10-24T15:48:54.6211652Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_05.png
+2026-10-24T15:48:54.6212273Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_06.png
+2026-10-24T15:48:54.6212889Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/echo_waterwheel_knight/frame_07.png
+2026-10-24T15:48:54.6213489Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_00.png
+2026-10-24T15:48:54.6214074Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_01.png
+2026-10-24T15:48:54.6214652Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_02.png
+2026-10-24T15:48:54.6215227Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_03.png
+2026-10-24T15:48:54.6215908Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_04.png
+2026-10-24T15:48:54.6216495Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_05.png
+2026-10-24T15:48:54.6217248Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_06.png
+2026-10-24T15:48:54.6217850Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/erasure_bailiff/frame_07.png
+2026-10-24T15:48:54.6218435Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_00.png
+2026-10-24T15:48:54.6219000Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_01.png
+2026-10-24T15:48:54.6219568Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_02.png
+2026-10-24T15:48:54.6220134Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_03.png
+2026-10-24T15:48:54.6220705Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_04.png
+2026-10-24T15:48:54.6221278Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_05.png
+2026-10-24T15:48:54.6221851Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_06.png
+2026-10-24T15:48:54.6222418Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/gear_sentinel/frame_07.png
+2026-10-24T15:48:54.6222985Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_00.png
+2026-10-24T15:48:54.6223546Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_01.png
+2026-10-24T15:48:54.6224108Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_02.png
+2026-10-24T15:48:54.6224660Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_03.png
+2026-10-24T15:48:54.6225210Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_04.png
+2026-10-24T15:48:54.6225829Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_05.png
+2026-10-24T15:48:54.6226376Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_06.png
+2026-10-24T15:48:54.6226930Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/index_scribe/frame_07.png
+2026-10-24T15:48:54.6227912Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_00.png
+2026-10-24T15:48:54.6228819Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_01.png
+2026-10-24T15:48:54.6229778Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_02.png
+2026-10-24T15:48:54.6230341Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_03.png
+2026-10-24T15:48:54.6230901Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_04.png
+2026-10-24T15:48:54.6231479Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_05.png
+2026-10-24T15:48:54.6232035Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_06.png
+2026-10-24T15:48:54.6232593Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/isotope_lumen/frame_07.png
+2026-10-24T15:48:54.6233182Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_00.png
+2026-10-24T15:48:54.6233787Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_01.png
+2026-10-24T15:48:54.6234394Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_02.png
+2026-10-24T15:48:54.6235001Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_03.png
+2026-10-24T15:48:54.6235611Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_04.png
+2026-10-24T15:48:54.6236352Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_05.png
+2026-10-24T15:48:54.6236959Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_06.png
+2026-10-24T15:48:54.6237803Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/kneeling_crossbowman/frame_07.png
+2026-10-24T15:48:54.6238384Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_00.png
+2026-10-24T15:48:54.6238936Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_01.png
+2026-10-24T15:48:54.6239483Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_02.png
+2026-10-24T15:48:54.6240035Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_03.png
+2026-10-24T15:48:54.6240579Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_04.png
+2026-10-24T15:48:54.6241129Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_05.png
+2026-10-24T15:48:54.6241675Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_06.png
+2026-10-24T15:48:54.6242222Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/moss_larva/frame_07.png
+2026-10-24T15:48:54.6242795Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_00.png
+2026-10-24T15:48:54.6243389Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_01.png
+2026-10-24T15:48:54.6243984Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_02.png
+2026-10-24T15:48:54.6244574Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_03.png
+2026-10-24T15:48:54.6245162Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_04.png
+2026-10-24T15:48:54.6245746Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_05.png
+2026-10-24T15:48:54.6246407Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_06.png
+2026-10-24T15:48:54.6247102Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/obsidian_spearman/frame_07.png
+2026-10-24T15:48:54.6247744Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_00.png
+2026-10-24T15:48:54.6248334Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_01.png
+2026-10-24T15:48:54.6248901Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_02.png
+2026-10-24T15:48:54.6249468Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_03.png
+2026-10-24T15:48:54.6250030Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_04.png
+2026-10-24T15:48:54.6250586Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_05.png
+2026-10-24T15:48:54.6251146Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_06.png
+2026-10-24T15:48:54.6251699Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/page_duelist/frame_07.png
+2026-10-24T15:48:54.6252250Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_00.png
+2026-10-24T15:48:54.6252808Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_01.png
+2026-10-24T15:48:54.6253355Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_02.png
+2026-10-24T15:48:54.6253902Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_03.png
+2026-10-24T15:48:54.6254455Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_04.png
+2026-10-24T15:48:54.6255004Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_05.png
+2026-10-24T15:48:54.6255616Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_06.png
+2026-10-24T15:48:54.6256169Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/phase_censor/frame_07.png
+2026-10-24T15:48:54.6256740Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_00.png
+2026-10-24T15:48:54.6257530Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_01.png
+2026-10-24T15:48:54.6258111Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_02.png
+2026-10-24T15:48:54.6258685Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_03.png
+2026-10-24T15:48:54.6259263Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_04.png
+2026-10-24T15:48:54.6259844Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_05.png
+2026-10-24T15:48:54.6260423Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_06.png
+2026-10-24T15:48:54.6261012Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pilgrim_chariot/frame_07.png
+2026-10-24T15:48:54.6261580Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_00.png
+2026-10-24T15:48:54.6262140Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_01.png
+2026-10-24T15:48:54.6262697Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_02.png
+2026-10-24T15:48:54.6263251Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_03.png
+2026-10-24T15:48:54.6263805Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_04.png
+2026-10-24T15:48:54.6264364Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_05.png
+2026-10-24T15:48:54.6264925Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_06.png
+2026-10-24T15:48:54.6265481Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pipe_thrower/frame_07.png
+2026-10-24T15:48:54.6266106Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_00.png
+2026-10-24T15:48:54.6266680Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_01.png
+2026-10-24T15:48:54.6267412Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_02.png
+2026-10-24T15:48:54.6267975Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_03.png
+2026-10-24T15:48:54.6268541Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_04.png
+2026-10-24T15:48:54.6269111Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_05.png
+2026-10-24T15:48:54.6269675Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_06.png
+2026-10-24T15:48:54.6270237Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/pollen_lutist/frame_07.png
+2026-10-24T15:48:54.6270819Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_00.png
+2026-10-24T15:48:54.6271411Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_01.png
+2026-10-24T15:48:54.6272004Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_02.png
+2026-10-24T15:48:54.6272590Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_03.png
+2026-10-24T15:48:54.6273202Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_04.png
+2026-10-24T15:48:54.6273779Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_05.png
+2026-10-24T15:48:54.6274357Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_06.png
+2026-10-24T15:48:54.6275175Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/root_cage_hunter/frame_07.png
+2026-10-24T15:48:54.6276275Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_00.png
+2026-10-24T15:48:54.6276947Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_01.png
+2026-10-24T15:48:54.6277826Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_02.png
+2026-10-24T15:48:54.6278433Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_03.png
+2026-10-24T15:48:54.6279031Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_04.png
+2026-10-24T15:48:54.6279624Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_05.png
+2026-10-24T15:48:54.6280219Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_06.png
+2026-10-24T15:48:54.6280813Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_crown_guardian/frame_07.png
+2026-10-24T15:48:54.6281389Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_00.png
+2026-10-24T15:48:54.6281937Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_01.png
+2026-10-24T15:48:54.6282487Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_02.png
+2026-10-24T15:48:54.6283027Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_03.png
+2026-10-24T15:48:54.6283568Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_04.png
+2026-10-24T15:48:54.6284103Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_05.png
+2026-10-24T15:48:54.6284965Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_06.png
+2026-10-24T15:48:54.6285622Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/rust_diver/frame_07.png
+2026-10-24T15:48:54.6286266Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_00.png
+2026-10-24T15:48:54.6286955Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_01.png
+2026-10-24T15:48:54.6287686Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_02.png
+2026-10-24T15:48:54.6288255Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_03.png
+2026-10-24T15:48:54.6288818Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_04.png
+2026-10-24T15:48:54.6289385Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_05.png
+2026-10-24T15:48:54.6289946Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_06.png
+2026-10-24T15:48:54.6290509Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/salt_bookmite/frame_07.png
+2026-10-24T15:48:54.6291130Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_00.png
+2026-10-24T15:48:54.6291784Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_01.png
+2026-10-24T15:48:54.6292425Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_02.png
+2026-10-24T15:48:54.6293053Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_03.png
+2026-10-24T15:48:54.6293692Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_04.png
+2026-10-24T15:48:54.6294329Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_05.png
+2026-10-24T15:48:54.6294957Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_06.png
+2026-10-24T15:48:54.6295595Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/saltwhite_contract_judge/frame_07.png
+2026-10-24T15:48:54.6296265Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_00.png
+2026-10-24T15:48:54.6296840Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_01.png
+2026-10-24T15:48:54.6297550Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_02.png
+2026-10-24T15:48:54.6298122Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_03.png
+2026-10-24T15:48:54.6298687Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_04.png
+2026-10-24T15:48:54.6299250Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_05.png
+2026-10-24T15:48:54.6299828Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_06.png
+2026-10-24T15:48:54.6300390Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_bugbler/frame_07.png
+2026-10-24T15:48:54.6300965Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_00.png
+2026-10-24T15:48:54.6301558Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_01.png
+2026-10-24T15:48:54.6302151Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_02.png
+2026-10-24T15:48:54.6302739Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_03.png
+2026-10-24T15:48:54.6303324Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_04.png
+2026-10-24T15:48:54.6303918Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_05.png
+2026-10-24T15:48:54.6304501Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_06.png
+2026-10-24T15:48:54.6305086Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_crown_core/frame_07.png
+2026-10-24T15:48:54.6305690Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_00.png
+2026-10-24T15:48:54.6306391Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_01.png
+2026-10-24T15:48:54.6307144Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_02.png
+2026-10-24T15:48:54.6307794Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_03.png
+2026-10-24T15:48:54.6308422Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_04.png
+2026-10-24T15:48:54.6309060Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_05.png
+2026-10-24T15:48:54.6309696Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_06.png
+2026-10-24T15:48:54.6310321Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/silent_pilgrim_commander/frame_07.png
+2026-10-24T15:48:54.6310927Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_00.png
+2026-10-24T15:48:54.6311516Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_01.png
+2026-10-24T15:48:54.6312104Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_02.png
+2026-10-24T15:48:54.6312691Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_03.png
+2026-10-24T15:48:54.6313259Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_04.png
+2026-10-24T15:48:54.6313833Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_05.png
+2026-10-24T15:48:54.6314407Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_06.png
+2026-10-24T15:48:54.6315035Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/spore_bellmaker/frame_07.png
+2026-10-24T15:48:54.6316075Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_00.png
+2026-10-24T15:48:54.6316827Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_01.png
+2026-10-24T15:48:54.6317594Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_02.png
+2026-10-24T15:48:54.6318199Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_03.png
+2026-10-24T15:48:54.6318796Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_04.png
+2026-10-24T15:48:54.6319392Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_05.png
+2026-10-24T15:48:54.6319990Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_06.png
+2026-10-24T15:48:54.6320611Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/sunken_hammer_smith/frame_07.png
+2026-10-24T15:48:54.6321596Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_00.png
+2026-10-24T15:48:54.6322172Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_01.png
+2026-10-24T15:48:54.6322738Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_02.png
+2026-10-24T15:48:54.6323302Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_03.png
+2026-10-24T15:48:54.6323866Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_04.png
+2026-10-24T15:48:54.6324428Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_05.png
+2026-10-24T15:48:54.6325327Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_06.png
+2026-10-24T15:48:54.6326347Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/thorn_sentinel/frame_07.png
+2026-10-24T15:48:54.6327119Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_00.png
+2026-10-24T15:48:54.6327742Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_01.png
+2026-10-24T15:48:54.6328415Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_02.png
+2026-10-24T15:48:54.6328976Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_03.png
+2026-10-24T15:48:54.6329538Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_04.png
+2026-10-24T15:48:54.6330120Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_05.png
+2026-10-24T15:48:54.6330827Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_06.png
+2026-10-24T15:48:54.6331392Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/vine_crawler/frame_07.png
+2026-10-24T15:48:54.6331971Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_00.png
+2026-10-24T15:48:54.6332566Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_01.png
+2026-10-24T15:48:54.6333159Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_02.png
+2026-10-24T15:48:54.6333749Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_03.png
+2026-10-24T15:48:54.6334335Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_04.png
+2026-10-24T15:48:54.6334920Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_05.png
+2026-10-24T15:48:54.6335519Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_06.png
+2026-10-24T15:48:54.6336101Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/waterwheel_knight/frame_07.png
+2026-10-24T15:48:54.6336660Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_00.png
+2026-10-24T15:48:54.6337412Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_01.png
+2026-10-24T15:48:54.6338038Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_02.png
+2026-10-24T15:48:54.6338570Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_03.png
+2026-10-24T15:48:54.6339092Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_04.png
+2026-10-24T15:48:54.6339632Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_05.png
+2026-10-24T15:48:54.6340162Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_06.png
+2026-10-24T15:48:54.6340692Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_bee/frame_07.png
+2026-10-24T15:48:54.6341238Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_00.png
+2026-10-24T15:48:54.6341793Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_01.png
+2026-10-24T15:48:54.6342334Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_02.png
+2026-10-24T15:48:54.6342880Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_03.png
+2026-10-24T15:48:54.6343426Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_04.png
+2026-10-24T15:48:54.6343965Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_05.png
+2026-10-24T15:48:54.6344884Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_06.png
+2026-10-24T15:48:54.6345454Z 	godot/assets/third_party/dark_fantasy_bestiary/runtime_keyframes/wax_lancer/frame_07.png
+2026-10-24T15:48:54.6346136Z 	godot/assets/third_party/dark_fantasy_bestiary/sparky-surt-emceeflesher-alpha.png
+2026-10-24T15:48:54.6346954Z 	godot/assets/third_party/dark_fantasy_bestiary/surt-emceeflesher-spitsnail-alpha_0.png
+2026-10-24T15:48:54.6347790Z 	godot/assets/third_party/godot_platformer_2d/mountains.png
+2026-10-24T15:48:54.6348389Z 	godot/assets/third_party/godot_platformer_2d/sky.png
+2026-10-24T15:48:54.6348871Z 	godot/assets/third_party/gothicvania_cemetery/background.png
+2026-10-24T15:48:54.6349378Z 	godot/assets/third_party/gothicvania_cemetery/graveyard.png
+2026-10-24T15:48:54.6349762Z 	godot/assets/third_party/gothicvania_cemetery/mountains.png
+2026-10-24T15:48:54.6350131Z 	godot/assets/third_party/gothicvania_cemetery/tileset.png
+2026-10-24T15:48:54.6350578Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_blueA.png
+2026-10-24T15:48:54.6351204Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_blueB.png
+2026-10-24T15:48:54.6352001Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_blueC.png
+2026-10-24T15:48:54.6352485Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_blueD.png
+2026-10-24T15:48:54.6352972Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_blueE.png
+2026-10-24T15:48:54.6353450Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_darkA.png
+2026-10-24T15:48:54.6353937Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_darkB.png
+2026-10-24T15:48:54.6354422Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_darkC.png
+2026-10-24T15:48:54.6354909Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_darkD.png
+2026-10-24T15:48:54.6355425Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_darkE.png
+2026-10-24T15:48:54.6356066Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_greenA.png
+2026-10-24T15:48:54.6356562Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_greenB.png
+2026-10-24T15:48:54.6357198Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_greenC.png
+2026-10-24T15:48:54.6357726Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_greenD.png
+2026-10-24T15:48:54.6358219Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_greenE.png
+2026-10-24T15:48:54.6358810Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_redA.png
+2026-10-24T15:48:54.6359299Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_redB.png
+2026-10-24T15:48:54.6359783Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_redC.png
+2026-10-24T15:48:54.6360264Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_redD.png
+2026-10-24T15:48:54.6360748Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_redE.png
+2026-10-24T15:48:54.6361242Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_whiteA.png
+2026-10-24T15:48:54.6361739Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_whiteB.png
+2026-10-24T15:48:54.6362229Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_whiteC.png
+2026-10-24T15:48:54.6362715Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_whiteD.png
+2026-10-24T15:48:54.6363196Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_whiteE.png
+2026-10-24T15:48:54.6363698Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_yellowA.png
+2026-10-24T15:48:54.6364196Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_yellowB.png
+2026-10-24T15:48:54.6364696Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_yellowC.png
+2026-10-24T15:48:54.6365190Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_yellowD.png
+2026-10-24T15:48:54.6365678Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/arm_yellowE.png
+2026-10-24T15:48:54.6366165Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueA.png
+2026-10-24T15:48:54.6366651Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueB.png
+2026-10-24T15:48:54.6367327Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueC.png
+2026-10-24T15:48:54.6367817Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueD.png
+2026-10-24T15:48:54.6368389Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueE.png
+2026-10-24T15:48:54.6368893Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_blueF.png
+2026-10-24T15:48:54.6369381Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkA.png
+2026-10-24T15:48:54.6369867Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkB.png
+2026-10-24T15:48:54.6370507Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkC.png
+2026-10-24T15:48:54.6371121Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkD.png
+2026-10-24T15:48:54.6371612Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkE.png
+2026-10-24T15:48:54.6372096Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_darkF.png
+2026-10-24T15:48:54.6372586Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenA.png
+2026-10-24T15:48:54.6373117Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenB.png
+2026-10-24T15:48:54.6373925Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenC.png
+2026-10-24T15:48:54.6374525Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenD.png
+2026-10-24T15:48:54.6375026Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenE.png
+2026-10-24T15:48:54.6375528Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_greenF.png
+2026-10-24T15:48:54.6376023Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redA.png
+2026-10-24T15:48:54.6376508Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redB.png
+2026-10-24T15:48:54.6377459Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redC.png
+2026-10-24T15:48:54.6377947Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redD.png
+2026-10-24T15:48:54.6378520Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redE.png
+2026-10-24T15:48:54.6379005Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_redF.png
+2026-10-24T15:48:54.6379494Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteA.png
+2026-10-24T15:48:54.6379987Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteB.png
+2026-10-24T15:48:54.6380486Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteC.png
+2026-10-24T15:48:54.6381013Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteD.png
+2026-10-24T15:48:54.6381651Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteE.png
+2026-10-24T15:48:54.6382162Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_whiteF.png
+2026-10-24T15:48:54.6382667Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowA.png
+2026-10-24T15:48:54.6383173Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowB.png
+2026-10-24T15:48:54.6383685Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowC.png
+2026-10-24T15:48:54.6384186Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowD.png
+2026-10-24T15:48:54.6384697Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowE.png
+2026-10-24T15:48:54.6385206Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/body_yellowF.png
+2026-10-24T15:48:54.6385752Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_antenna_large.png
+2026-10-24T15:48:54.6386343Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_antenna_small.png
+2026-10-24T15:48:54.6386902Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_ear.png
+2026-10-24T15:48:54.6387797Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_ear_round.png
+2026-10-24T15:48:54.6388699Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_eye.png
+2026-10-24T15:48:54.6389395Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_horn_large.png
+2026-10-24T15:48:54.6389974Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_blue_horn_small.png
+2026-10-24T15:48:54.6390545Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_antenna_large.png
+2026-10-24T15:48:54.6391130Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_antenna_small.png
+2026-10-24T15:48:54.6391679Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_ear.png
+2026-10-24T15:48:54.6392222Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_ear_round.png
+2026-10-24T15:48:54.6392762Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_eye.png
+2026-10-24T15:48:54.6393299Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_horn_large.png
+2026-10-24T15:48:54.6393864Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_dark_horn_small.png
+2026-10-24T15:48:54.6394447Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_antenna_large.png
+2026-10-24T15:48:54.6395037Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_antenna_small.png
+2026-10-24T15:48:54.6395596Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_ear.png
+2026-10-24T15:48:54.6396143Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_ear_round.png
+2026-10-24T15:48:54.6396687Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_eye.png
+2026-10-24T15:48:54.6397443Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_horn_large.png
+2026-10-24T15:48:54.6398022Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_green_horn_small.png
+2026-10-24T15:48:54.6398680Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_antenna_large.png
+2026-10-24T15:48:54.6399265Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_antenna_small.png
+2026-10-24T15:48:54.6399811Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_ear.png
+2026-10-24T15:48:54.6400351Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_ear_round.png
+2026-10-24T15:48:54.6401010Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_eye.png
+2026-10-24T15:48:54.6401877Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_horn_large.png
+2026-10-24T15:48:54.6402801Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_red_horn_small.png
+2026-10-24T15:48:54.6403819Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_antenna_large.png
+2026-10-24T15:48:54.6404874Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_antenna_small.png
+2026-10-24T15:48:54.6405894Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_ear.png
+2026-10-24T15:48:54.6406873Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_ear_round.png
+2026-10-24T15:48:54.6408026Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_eye.png
+2026-10-24T15:48:54.6408949Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_horn_large.png
+2026-10-24T15:48:54.6409983Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_white_horn_small.png
+2026-10-24T15:48:54.6411096Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_antenna_large.png
+2026-10-24T15:48:54.6412112Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_antenna_small.png
+2026-10-24T15:48:54.6413132Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_ear.png
+2026-10-24T15:48:54.6413732Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_ear_round.png
+2026-10-24T15:48:54.6414420Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_eye.png
+2026-10-24T15:48:54.6414985Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_horn_large.png
+2026-10-24T15:48:54.6415564Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/detail_yellow_horn_small.png
+2026-10-24T15:48:54.6416133Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_angry_blue.png
+2026-10-24T15:48:54.6416654Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_angry_green.png
+2026-10-24T15:48:54.6417356Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_angry_red.png
+2026-10-24T15:48:54.6417869Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_blue.png
+2026-10-24T15:48:54.6418390Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_closed_feminine.png
+2026-10-24T15:48:54.6418940Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_closed_happy.png
+2026-10-24T15:48:54.6419465Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_cute_dark.png
+2026-10-24T15:48:54.6420172Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_cute_light.png
+2026-10-24T15:48:54.6420680Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_dead.png
+2026-10-24T15:48:54.6421172Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_human.png
+2026-10-24T15:48:54.6421669Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_human_blue.png
+2026-10-24T15:48:54.6422185Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_human_green.png
+2026-10-24T15:48:54.6422701Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_human_red.png
+2026-10-24T15:48:54.6423215Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_psycho_dark.png
+2026-10-24T15:48:54.6423820Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_psycho_light.png
+2026-10-24T15:48:54.6424334Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_red.png
+2026-10-24T15:48:54.6424823Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eye_yellow.png
+2026-10-24T15:48:54.6425320Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eyebrowA.png
+2026-10-24T15:48:54.6425804Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eyebrowB.png
+2026-10-24T15:48:54.6426284Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/eyebrowC.png
+2026-10-24T15:48:54.6426770Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_blueA.png
+2026-10-24T15:48:54.6427392Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_blueB.png
+2026-10-24T15:48:54.6427877Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_blueC.png
+2026-10-24T15:48:54.6428372Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_blueD.png
+2026-10-24T15:48:54.6428856Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_blueE.png
+2026-10-24T15:48:54.6429336Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_darkA.png
+2026-10-24T15:48:54.6429836Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_darkB.png
+2026-10-24T15:48:54.6430329Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_darkC.png
+2026-10-24T15:48:54.6430823Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_darkD.png
+2026-10-24T15:48:54.6431496Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_darkE.png
+2026-10-24T15:48:54.6432318Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_greenA.png
+2026-10-24T15:48:54.6433133Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_greenB.png
+2026-10-24T15:48:54.6434014Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_greenC.png
+2026-10-24T15:48:54.6435040Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_greenD.png
+2026-10-24T15:48:54.6435917Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_greenE.png
+2026-10-24T15:48:54.6436787Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_redA.png
+2026-10-24T15:48:54.6437768Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_redB.png
+2026-10-24T15:48:54.6438645Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_redC.png
+2026-10-24T15:48:54.6439453Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_redD.png
+2026-10-24T15:48:54.6440315Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_redE.png
+2026-10-24T15:48:54.6441229Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_whiteA.png
+2026-10-24T15:48:54.6442087Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_whiteB.png
+2026-10-24T15:48:54.6443009Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_whiteC.png
+2026-10-24T15:48:54.6443769Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_whiteD.png
+2026-10-24T15:48:54.6444256Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_whiteE.png
+2026-10-24T15:48:54.6444752Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_yellowA.png
+2026-10-24T15:48:54.6445259Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_yellowB.png
+2026-10-24T15:48:54.6445757Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_yellowC.png
+2026-10-24T15:48:54.6446249Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_yellowD.png
+2026-10-24T15:48:54.6446894Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/leg_yellowE.png
+2026-10-24T15:48:54.6447806Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthA.png
+2026-10-24T15:48:54.6448683Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthB.png
+2026-10-24T15:48:54.6449157Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthC.png
+2026-10-24T15:48:54.6449636Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthD.png
+2026-10-24T15:48:54.6450099Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthE.png
+2026-10-24T15:48:54.6450562Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthF.png
+2026-10-24T15:48:54.6451025Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthG.png
+2026-10-24T15:48:54.6451484Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthH.png
+2026-10-24T15:48:54.6451946Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthI.png
+2026-10-24T15:48:54.6452409Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouthJ.png
+2026-10-24T15:48:54.6452919Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouth_closed_fangs.png
+2026-10-24T15:48:54.6453497Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouth_closed_happy.png
+2026-10-24T15:48:54.6454121Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouth_closed_sad.png
+2026-10-24T15:48:54.6454782Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/mouth_closed_teeth.png
+2026-10-24T15:48:54.6455406Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/nose_brown.png
+2026-10-24T15:48:54.6456045Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/nose_green.png
+2026-10-24T15:48:54.6456880Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/nose_red.png
+2026-10-24T15:48:54.6457642Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/nose_yellow.png
+2026-10-24T15:48:54.6458151Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/snot_large.png
+2026-10-24T15:48:54.6458660Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Default/snot_small.png
+2026-10-24T15:48:54.6459157Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_blueA.png
+2026-10-24T15:48:54.6459767Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_blueB.png
+2026-10-24T15:48:54.6460260Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_blueC.png
+2026-10-24T15:48:54.6460745Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_blueD.png
+2026-10-24T15:48:54.6461220Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_blueE.png
+2026-10-24T15:48:54.6461696Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_darkA.png
+2026-10-24T15:48:54.6462185Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_darkB.png
+2026-10-24T15:48:54.6462725Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_darkC.png
+2026-10-24T15:48:54.6463620Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_darkD.png
+2026-10-24T15:48:54.6464164Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_darkE.png
+2026-10-24T15:48:54.6464652Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_greenA.png
+2026-10-24T15:48:54.6465138Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_greenB.png
+2026-10-24T15:48:54.6465617Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_greenC.png
+2026-10-24T15:48:54.6466096Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_greenD.png
+2026-10-24T15:48:54.6466580Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_greenE.png
+2026-10-24T15:48:54.6467248Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_redA.png
+2026-10-24T15:48:54.6467818Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_redB.png
+2026-10-24T15:48:54.6468293Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_redC.png
+2026-10-24T15:48:54.6468765Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_redD.png
+2026-10-24T15:48:54.6469345Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_redE.png
+2026-10-24T15:48:54.6469830Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_whiteA.png
+2026-10-24T15:48:54.6470321Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_whiteB.png
+2026-10-24T15:48:54.6470803Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_whiteC.png
+2026-10-24T15:48:54.6471286Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_whiteD.png
+2026-10-24T15:48:54.6471768Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_whiteE.png
+2026-10-24T15:48:54.6472259Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_yellowA.png
+2026-10-24T15:48:54.6472778Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_yellowB.png
+2026-10-24T15:48:54.6473267Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_yellowC.png
+2026-10-24T15:48:54.6473760Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_yellowD.png
+2026-10-24T15:48:54.6474259Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/arm_yellowE.png
+2026-10-24T15:48:54.6474746Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueA.png
+2026-10-24T15:48:54.6475229Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueB.png
+2026-10-24T15:48:54.6475709Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueC.png
+2026-10-24T15:48:54.6476190Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueD.png
+2026-10-24T15:48:54.6476667Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueE.png
+2026-10-24T15:48:54.6477287Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_blueF.png
+2026-10-24T15:48:54.6477780Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkA.png
+2026-10-24T15:48:54.6478279Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkB.png
+2026-10-24T15:48:54.6478775Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkC.png
+2026-10-24T15:48:54.6479336Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkD.png
+2026-10-24T15:48:54.6479819Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkE.png
+2026-10-24T15:48:54.6480299Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_darkF.png
+2026-10-24T15:48:54.6480785Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenA.png
+2026-10-24T15:48:54.6481280Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenB.png
+2026-10-24T15:48:54.6481787Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenC.png
+2026-10-24T15:48:54.6482282Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenD.png
+2026-10-24T15:48:54.6482766Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenE.png
+2026-10-24T15:48:54.6483256Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_greenF.png
+2026-10-24T15:48:54.6483752Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redA.png
+2026-10-24T15:48:54.6484230Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redB.png
+2026-10-24T15:48:54.6484707Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redC.png
+2026-10-24T15:48:54.6485184Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redD.png
+2026-10-24T15:48:54.6485661Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redE.png
+2026-10-24T15:48:54.6486134Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_redF.png
+2026-10-24T15:48:54.6486616Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteA.png
+2026-10-24T15:48:54.6487335Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteB.png
+2026-10-24T15:48:54.6487830Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteC.png
+2026-10-24T15:48:54.6488398Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteD.png
+2026-10-24T15:48:54.6488884Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteE.png
+2026-10-24T15:48:54.6489378Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_whiteF.png
+2026-10-24T15:48:54.6489876Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowA.png
+2026-10-24T15:48:54.6490379Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowB.png
+2026-10-24T15:48:54.6490882Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowC.png
+2026-10-24T15:48:54.6491378Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowD.png
+2026-10-24T15:48:54.6491879Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowE.png
+2026-10-24T15:48:54.6492374Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/body_yellowF.png
+2026-10-24T15:48:54.6492924Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_antenna_large.png
+2026-10-24T15:48:54.6493521Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_antenna_small.png
+2026-10-24T15:48:54.6494072Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_ear.png
+2026-10-24T15:48:54.6494612Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_ear_round.png
+2026-10-24T15:48:54.6495147Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_eye.png
+2026-10-24T15:48:54.6495691Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_horn_large.png
+2026-10-24T15:48:54.6495934Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_blue_horn_small.png
+2026-10-24T15:48:54.6496180Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_antenna_large.png
+2026-10-24T15:48:54.6496433Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_antenna_small.png
+2026-10-24T15:48:54.6496700Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_ear.png
+2026-10-24T15:48:54.6496950Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_ear_round.png
+2026-10-24T15:48:54.6497387Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_eye.png
+2026-10-24T15:48:54.6497686Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_horn_large.png
+2026-10-24T15:48:54.6497927Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_dark_horn_small.png
+2026-10-24T15:48:54.6498181Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_antenna_large.png
+2026-10-24T15:48:54.6498437Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_antenna_small.png
+2026-10-24T15:48:54.6498665Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_ear.png
+2026-10-24T15:48:54.6498904Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_ear_round.png
+2026-10-24T15:48:54.6499133Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_eye.png
+2026-10-24T15:48:54.6499373Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_horn_large.png
+2026-10-24T15:48:54.6499621Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_green_horn_small.png
+2026-10-24T15:48:54.6499873Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_antenna_large.png
+2026-10-24T15:48:54.6500112Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_antenna_small.png
+2026-10-24T15:48:54.6500332Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_ear.png
+2026-10-24T15:48:54.6500562Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_ear_round.png
+2026-10-24T15:48:54.6500782Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_eye.png
+2026-10-24T15:48:54.6501100Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_horn_large.png
+2026-10-24T15:48:54.6501333Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_red_horn_small.png
+2026-10-24T15:48:54.6501587Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_antenna_large.png
+2026-10-24T15:48:54.6501832Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_antenna_small.png
+2026-10-24T15:48:54.6502054Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_ear.png
+2026-10-24T15:48:54.6502296Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_ear_round.png
+2026-10-24T15:48:54.6502510Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_eye.png
+2026-10-24T15:48:54.6502755Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_horn_large.png
+2026-10-24T15:48:54.6502992Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_white_horn_small.png
+2026-10-24T15:48:54.6503257Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_antenna_large.png
+2026-10-24T15:48:54.6503510Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_antenna_small.png
+2026-10-24T15:48:54.6503736Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_ear.png
+2026-10-24T15:48:54.6503977Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_ear_round.png
+2026-10-24T15:48:54.6504195Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_eye.png
+2026-10-24T15:48:54.6504445Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_horn_large.png
+2026-10-24T15:48:54.6504682Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/detail_yellow_horn_small.png
+2026-10-24T15:48:54.6504902Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_angry_blue.png
+2026-10-24T15:48:54.6505177Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_angry_green.png
+2026-10-24T15:48:54.6505389Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_angry_red.png
+2026-10-24T15:48:54.6505590Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_blue.png
+2026-10-24T15:48:54.6505817Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_closed_feminine.png
+2026-10-24T15:48:54.6506042Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_closed_happy.png
+2026-10-24T15:48:54.6506257Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_cute_dark.png
+2026-10-24T15:48:54.6506466Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_cute_light.png
+2026-10-24T15:48:54.6506667Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_dead.png
+2026-10-24T15:48:54.6506868Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_human.png
+2026-10-24T15:48:54.6507300Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_human_blue.png
+2026-10-24T15:48:54.6507600Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_human_green.png
+2026-10-24T15:48:54.6507806Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_human_red.png
+2026-10-24T15:48:54.6508026Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_psycho_dark.png
+2026-10-24T15:48:54.6508240Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_psycho_light.png
+2026-10-24T15:48:54.6508441Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_red.png
+2026-10-24T15:48:54.6508644Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eye_yellow.png
+2026-10-24T15:48:54.6508846Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eyebrowA.png
+2026-10-24T15:48:54.6509047Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eyebrowB.png
+2026-10-24T15:48:54.6509302Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/eyebrowC.png
+2026-10-24T15:48:54.6509513Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_blueA.png
+2026-10-24T15:48:54.6509715Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_blueB.png
+2026-10-24T15:48:54.6509922Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_blueC.png
+2026-10-24T15:48:54.6510126Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_blueD.png
+2026-10-24T15:48:54.6510317Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_blueE.png
+2026-10-24T15:48:54.6510517Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_darkA.png
+2026-10-24T15:48:54.6510709Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_darkB.png
+2026-10-24T15:48:54.6510915Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_darkC.png
+2026-10-24T15:48:54.6511117Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_darkD.png
+2026-10-24T15:48:54.6511312Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_darkE.png
+2026-10-24T15:48:54.6511518Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_greenA.png
+2026-10-24T15:48:54.6511718Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_greenB.png
+2026-10-24T15:48:54.6511924Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_greenC.png
+2026-10-24T15:48:54.6512119Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_greenD.png
+2026-10-24T15:48:54.6512328Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_greenE.png
+2026-10-24T15:48:54.6512528Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_redA.png
+2026-10-24T15:48:54.6512725Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_redB.png
+2026-10-24T15:48:54.6512922Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_redC.png
+2026-10-24T15:48:54.6513116Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_redD.png
+2026-10-24T15:48:54.6513364Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_redE.png
+2026-10-24T15:48:54.6513570Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_whiteA.png
+2026-10-24T15:48:54.6513767Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_whiteB.png
+2026-10-24T15:48:54.6513970Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_whiteC.png
+2026-10-24T15:48:54.6514164Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_whiteD.png
+2026-10-24T15:48:54.6514365Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_whiteE.png
+2026-10-24T15:48:54.6514578Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_yellowA.png
+2026-10-24T15:48:54.6514782Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_yellowB.png
+2026-10-24T15:48:54.6514993Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_yellowC.png
+2026-10-24T15:48:54.6515196Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_yellowD.png
+2026-10-24T15:48:54.6515402Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/leg_yellowE.png
+2026-10-24T15:48:54.6515593Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthA.png
+2026-10-24T15:48:54.6515790Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthB.png
+2026-10-24T15:48:54.6515984Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthC.png
+2026-10-24T15:48:54.6516169Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthD.png
+2026-10-24T15:48:54.6516360Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthE.png
+2026-10-24T15:48:54.6516543Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthF.png
+2026-10-24T15:48:54.6516732Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthG.png
+2026-10-24T15:48:54.6516965Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthH.png
+2026-10-24T15:48:54.6517372Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthI.png
+2026-10-24T15:48:54.6517572Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouthJ.png
+2026-10-24T15:48:54.6517801Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouth_closed_fangs.png
+2026-10-24T15:48:54.6518037Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouth_closed_happy.png
+2026-10-24T15:48:54.6518256Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouth_closed_sad.png
+2026-10-24T15:48:54.6518494Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/mouth_closed_teeth.png
+2026-10-24T15:48:54.6518705Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/nose_brown.png
+2026-10-24T15:48:54.6518906Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/nose_green.png
+2026-10-24T15:48:54.6519112Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/nose_red.png
+2026-10-24T15:48:54.6519318Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/nose_yellow.png
+2026-10-24T15:48:54.6519526Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/snot_large.png
+2026-10-24T15:48:54.6519738Z 	godot/assets/third_party/kenney_monster_builder_pack/PNG/Double/snot_small.png
+2026-10-24T15:48:54.6519913Z 	godot/assets/third_party/kenney_monster_builder_pack/Preview.png
+2026-10-24T15:48:54.6520085Z 	godot/assets/third_party/kenney_monster_builder_pack/Sample.png
+2026-10-24T15:48:54.6520322Z 	godot/assets/third_party/kenney_monster_builder_pack/Spritesheet/spritesheet_default.png
+2026-10-24T15:48:54.6520674Z 	godot/assets/third_party/kenney_monster_builder_pack/Spritesheet/spritesheet_double.png
+2026-10-24T15:48:54.6520840Z 	godot/assets/third_party/kenney_platformer_deluxe/bg.png
+2026-10-24T15:48:54.6521001Z 	godot/assets/third_party/kenney_platformer_deluxe/bg_castle.png
+2026-10-24T15:48:54.6521179Z 	godot/assets/third_party/kenney_platformer_deluxe/castleLeft.png
+2026-10-24T15:48:54.6521433Z 	godot/assets/third_party/kenney_platformer_deluxe/castleMid.png
+2026-10-24T15:48:54.6521612Z 	godot/assets/third_party/kenney_platformer_deluxe/castleRight.png
+2026-10-24T15:48:54.6521770Z 	godot/assets/third_party/kenney_platformer_deluxe/dirtLeft.png
+2026-10-24T15:48:54.6521932Z 	godot/assets/third_party/kenney_platformer_deluxe/dirtMid.png
+2026-10-24T15:48:54.6522095Z 	godot/assets/third_party/kenney_platformer_deluxe/dirtRight.png
+2026-10-24T15:48:54.6522270Z 	godot/assets/third_party/kenney_platformer_deluxe/grassHalfLeft.png
+2026-10-24T15:48:54.6522445Z 	godot/assets/third_party/kenney_platformer_deluxe/grassHalfMid.png
+2026-10-24T15:48:54.6522621Z 	godot/assets/third_party/kenney_platformer_deluxe/grassHalfRight.png
+2026-10-24T15:48:54.6522785Z 	godot/assets/third_party/kenney_platformer_deluxe/grassLeft.png
+2026-10-24T15:48:54.6522943Z 	godot/assets/third_party/kenney_platformer_deluxe/grassMid.png
+2026-10-24T15:48:54.6523117Z 	godot/assets/third_party/kenney_platformer_deluxe/grassRight.png
+2026-10-24T15:48:54.6523296Z 	godot/assets/third_party/kenney_platformer_deluxe/snowHalfLeft.png
+2026-10-24T15:48:54.6523462Z 	godot/assets/third_party/kenney_platformer_deluxe/snowHalfMid.png
+2026-10-24T15:48:54.6523644Z 	godot/assets/third_party/kenney_platformer_deluxe/snowHalfRight.png
+2026-10-24T15:48:54.6523799Z 	godot/assets/third_party/kenney_platformer_deluxe/snowLeft.png
+2026-10-24T15:48:54.6523962Z 	godot/assets/third_party/kenney_platformer_deluxe/snowMid.png
+2026-10-24T15:48:54.6524126Z 	godot/assets/third_party/kenney_platformer_deluxe/snowRight.png
+2026-10-24T15:48:54.6524281Z 	godot/assets/third_party/kenney_platformer_deluxe/stoneLeft.png
+2026-10-24T15:48:54.6524441Z 	godot/assets/third_party/kenney_platformer_deluxe/stoneMid.png
+2026-10-24T15:48:54.6524602Z 	godot/assets/third_party/kenney_platformer_deluxe/stoneRight.png
+2026-10-24T15:48:54.6524946Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_001.png
+2026-10-24T15:48:54.6525215Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_002.png
+2026-10-24T15:48:54.6525487Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_003.png
+2026-10-24T15:48:54.6525755Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_004.png
+2026-10-24T15:48:54.6526012Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_005.png
+2026-10-24T15:48:54.6526280Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_006.png
+2026-10-24T15:48:54.6526536Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_007.png
+2026-10-24T15:48:54.6526801Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_008.png
+2026-10-24T15:48:54.6527221Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_009.png
+2026-10-24T15:48:54.6527540Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_010.png
+2026-10-24T15:48:54.6527808Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_011.png
+2026-10-24T15:48:54.6528064Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_012.png
+2026-10-24T15:48:54.6528397Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_013.png
+2026-10-24T15:48:54.6528822Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_014.png
+2026-10-24T15:48:54.6529251Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_015.png
+2026-10-24T15:48:54.6529703Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_016.png
+2026-10-24T15:48:54.6530109Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_017.png
+2026-10-24T15:48:54.6530467Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_018.png
+2026-10-24T15:48:54.6530736Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_019.png
+2026-10-24T15:48:54.6530993Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_020.png
+2026-10-24T15:48:54.6531260Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_021.png
+2026-10-24T15:48:54.6531517Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_022.png
+2026-10-24T15:48:54.6531782Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_023.png
+2026-10-24T15:48:54.6532053Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_024.png
+2026-10-24T15:48:54.6532312Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_025.png
+2026-10-24T15:48:54.6532581Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_026.png
+2026-10-24T15:48:54.6532838Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_027.png
+2026-10-24T15:48:54.6533110Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_028.png
+2026-10-24T15:48:54.6533383Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_029.png
+2026-10-24T15:48:54.6533640Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_030.png
+2026-10-24T15:48:54.6533903Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_031.png
+2026-10-24T15:48:54.6534161Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_032.png
+2026-10-24T15:48:54.6534484Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_033.png
+2026-10-24T15:48:54.6534750Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_034.png
+2026-10-24T15:48:54.6535007Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_035.png
+2026-10-24T15:48:54.6535268Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_036.png
+2026-10-24T15:48:54.6535527Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_037.png
+2026-10-24T15:48:54.6535791Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_038.png
+2026-10-24T15:48:54.6536054Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_039.png
+2026-10-24T15:48:54.6536309Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_040.png
+2026-10-24T15:48:54.6536583Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_041.png
+2026-10-24T15:48:54.6536843Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_042.png
+2026-10-24T15:48:54.6537338Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_043.png
+2026-10-24T15:48:54.6537614Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_044.png
+2026-10-24T15:48:54.6537875Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_045.png
+2026-10-24T15:48:54.6538151Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_046.png
+2026-10-24T15:48:54.6538413Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_047.png
+2026-10-24T15:48:54.6538685Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_048.png
+2026-10-24T15:48:54.6538955Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_049.png
+2026-10-24T15:48:54.6539280Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_050.png
+2026-10-24T15:48:54.6539554Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_051.png
+2026-10-24T15:48:54.6539819Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_052.png
+2026-10-24T15:48:54.6540084Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_053.png
+2026-10-24T15:48:54.6540352Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_054.png
+2026-10-24T15:48:54.6540607Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_055.png
+2026-10-24T15:48:54.6540871Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_056.png
+2026-10-24T15:48:54.6541126Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_057.png
+2026-10-24T15:48:54.6541393Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_058.png
+2026-10-24T15:48:54.6541656Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_059.png
+2026-10-24T15:48:54.6541913Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_060.png
+2026-10-24T15:48:54.6542177Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_061.png
+2026-10-24T15:48:54.6542432Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_062.png
+2026-10-24T15:48:54.6542698Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_063.png
+2026-10-24T15:48:54.6542960Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_064.png
+2026-10-24T15:48:54.6543270Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_065.png
+2026-10-24T15:48:54.6543533Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_066.png
+2026-10-24T15:48:54.6543790Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_067.png
+2026-10-24T15:48:54.6544052Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_068.png
+2026-10-24T15:48:54.6544309Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_069.png
+2026-10-24T15:48:54.6544571Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_070.png
+2026-10-24T15:48:54.6544836Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_071.png
+2026-10-24T15:48:54.6545092Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_072.png
+2026-10-24T15:48:54.6545356Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_073.png
+2026-10-24T15:48:54.6545615Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_074.png
+2026-10-24T15:48:54.6545877Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_075.png
+2026-10-24T15:48:54.6546139Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_076.png
+2026-10-24T15:48:54.6546395Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_077.png
+2026-10-24T15:48:54.6546657Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_078.png
+2026-10-24T15:48:54.6546912Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_079.png
+2026-10-24T15:48:54.6547386Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_080.png
+2026-10-24T15:48:54.6547656Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_081.png
+2026-10-24T15:48:54.6547973Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_082.png
+2026-10-24T15:48:54.6548243Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_083.png
+2026-10-24T15:48:54.6548497Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_084.png
+2026-10-24T15:48:54.6548761Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_085.png
+2026-10-24T15:48:54.6549025Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_086.png
+2026-10-24T15:48:54.6549282Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_087.png
+2026-10-24T15:48:54.6549550Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_088.png
+2026-10-24T15:48:54.6549809Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_089.png
+2026-10-24T15:48:54.6550084Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_090.png
+2026-10-24T15:48:54.6550350Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_091.png
+2026-10-24T15:48:54.6550606Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_092.png
+2026-10-24T15:48:54.6550874Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_093.png
+2026-10-24T15:48:54.6551131Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_094.png
+2026-10-24T15:48:54.6551393Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_095.png
+2026-10-24T15:48:54.6551655Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_096.png
+2026-10-24T15:48:54.6551965Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_097.png
+2026-10-24T15:48:54.6552231Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_098.png
+2026-10-24T15:48:54.6552489Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_099.png
+2026-10-24T15:48:54.6552755Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_100.png
+2026-10-24T15:48:54.6553021Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_101.png
+2026-10-24T15:48:54.6553278Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_102.png
+2026-10-24T15:48:54.6553543Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_103.png
+2026-10-24T15:48:54.6553798Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_104.png
+2026-10-24T15:48:54.6554065Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_105.png
+2026-10-24T15:48:54.6554336Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_106.png
+2026-10-24T15:48:54.6554594Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_107.png
+2026-10-24T15:48:54.6554860Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_108.png
+2026-10-24T15:48:54.6555116Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_109.png
+2026-10-24T15:48:54.6555382Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_110.png
+2026-10-24T15:48:54.6555646Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_111.png
+2026-10-24T15:48:54.6555900Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Default size/platformIndustrial_112.png
+2026-10-24T15:48:54.6556163Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_001.png
+2026-10-24T15:48:54.6556459Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_002.png
+2026-10-24T15:48:54.6556714Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_003.png
+2026-10-24T15:48:54.6556967Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_004.png
+2026-10-24T15:48:54.6557346Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_005.png
+2026-10-24T15:48:54.6557600Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_006.png
+2026-10-24T15:48:54.6557847Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_007.png
+2026-10-24T15:48:54.6558101Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_008.png
+2026-10-24T15:48:54.6558354Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_009.png
+2026-10-24T15:48:54.6558604Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_010.png
+2026-10-24T15:48:54.6558862Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_011.png
+2026-10-24T15:48:54.6559108Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_012.png
+2026-10-24T15:48:54.6559362Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_013.png
+2026-10-24T15:48:54.6559608Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_014.png
+2026-10-24T15:48:54.6559864Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_015.png
+2026-10-24T15:48:54.6560118Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_016.png
+2026-10-24T15:48:54.6560362Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_017.png
+2026-10-24T15:48:54.6560684Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_018.png
+2026-10-24T15:48:54.6560931Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_019.png
+2026-10-24T15:48:54.6561177Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_020.png
+2026-10-24T15:48:54.6561424Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_021.png
+2026-10-24T15:48:54.6561664Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_022.png
+2026-10-24T15:48:54.6561918Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_023.png
+2026-10-24T15:48:54.6562157Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_024.png
+2026-10-24T15:48:54.6562404Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_025.png
+2026-10-24T15:48:54.6562652Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_026.png
+2026-10-24T15:48:54.6562899Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_027.png
+2026-10-24T15:48:54.6563145Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_028.png
+2026-10-24T15:48:54.6563384Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_029.png
+2026-10-24T15:48:54.6563632Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_030.png
+2026-10-24T15:48:54.6563878Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_031.png
+2026-10-24T15:48:54.6564120Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_032.png
+2026-10-24T15:48:54.6564368Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_033.png
+2026-10-24T15:48:54.6564608Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_034.png
+2026-10-24T15:48:54.6564856Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_035.png
+2026-10-24T15:48:54.6565155Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_036.png
+2026-10-24T15:48:54.6565398Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_037.png
+2026-10-24T15:48:54.6565644Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_038.png
+2026-10-24T15:48:54.6565885Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_039.png
+2026-10-24T15:48:54.6566131Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_040.png
+2026-10-24T15:48:54.6566371Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_041.png
+2026-10-24T15:48:54.6566619Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_042.png
+2026-10-24T15:48:54.6566869Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_043.png
+2026-10-24T15:48:54.6567245Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_044.png
+2026-10-24T15:48:54.6567639Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_045.png
+2026-10-24T15:48:54.6567881Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_046.png
+2026-10-24T15:48:54.6568131Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_047.png
+2026-10-24T15:48:54.6568380Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_048.png
+2026-10-24T15:48:54.6568732Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_049.png
+2026-10-24T15:48:54.6569089Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_050.png
+2026-10-24T15:48:54.6569480Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_051.png
+2026-10-24T15:48:54.6570007Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_052.png
+2026-10-24T15:48:54.6570455Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_053.png
+2026-10-24T15:48:54.6570850Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_054.png
+2026-10-24T15:48:54.6571247Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_055.png
+2026-10-24T15:48:54.6571629Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_056.png
+2026-10-24T15:48:54.6572025Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_057.png
+2026-10-24T15:48:54.6572504Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_058.png
+2026-10-24T15:48:54.6572951Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_059.png
+2026-10-24T15:48:54.6573449Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_060.png
+2026-10-24T15:48:54.6573884Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_061.png
+2026-10-24T15:48:54.6574332Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_062.png
+2026-10-24T15:48:54.6574791Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_063.png
+2026-10-24T15:48:54.6575240Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_064.png
+2026-10-24T15:48:54.6575662Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_065.png
+2026-10-24T15:48:54.6576040Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_066.png
+2026-10-24T15:48:54.6576441Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_067.png
+2026-10-24T15:48:54.6576832Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_068.png
+2026-10-24T15:48:54.6577542Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_069.png
+2026-10-24T15:48:54.6578044Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_070.png
+2026-10-24T15:48:54.6578467Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_071.png
+2026-10-24T15:48:54.6578923Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_072.png
+2026-10-24T15:48:54.6579323Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_073.png
+2026-10-24T15:48:54.6579726Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_074.png
+2026-10-24T15:48:54.6580150Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_075.png
+2026-10-24T15:48:54.6580584Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_076.png
+2026-10-24T15:48:54.6581050Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_077.png
+2026-10-24T15:48:54.6581502Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_078.png
+2026-10-24T15:48:54.6581974Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_079.png
+2026-10-24T15:48:54.6582489Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_080.png
+2026-10-24T15:48:54.6582991Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_081.png
+2026-10-24T15:48:54.6583484Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_082.png
+2026-10-24T15:48:54.6583922Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_083.png
+2026-10-24T15:48:54.6584396Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_084.png
+2026-10-24T15:48:54.6585098Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_085.png
+2026-10-24T15:48:54.6585452Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_086.png
+2026-10-24T15:48:54.6585705Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_087.png
+2026-10-24T15:48:54.6585950Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_088.png
+2026-10-24T15:48:54.6586207Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_089.png
+2026-10-24T15:48:54.6586464Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_090.png
+2026-10-24T15:48:54.6586710Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_091.png
+2026-10-24T15:48:54.6586964Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_092.png
+2026-10-24T15:48:54.6587452Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_093.png
+2026-10-24T15:48:54.6587719Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_094.png
+2026-10-24T15:48:54.6587976Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_095.png
+2026-10-24T15:48:54.6588221Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_096.png
+2026-10-24T15:48:54.6588477Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_097.png
+2026-10-24T15:48:54.6588724Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_098.png
+2026-10-24T15:48:54.6588980Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_099.png
+2026-10-24T15:48:54.6589222Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_100.png
+2026-10-24T15:48:54.6589477Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_101.png
+2026-10-24T15:48:54.6589829Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_102.png
+2026-10-24T15:48:54.6590337Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_103.png
+2026-10-24T15:48:54.6590738Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_104.png
+2026-10-24T15:48:54.6591167Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_105.png
+2026-10-24T15:48:54.6591585Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_106.png
+2026-10-24T15:48:54.6591929Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_107.png
+2026-10-24T15:48:54.6592172Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_108.png
+2026-10-24T15:48:54.6592420Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_109.png
+2026-10-24T15:48:54.6592660Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_110.png
+2026-10-24T15:48:54.6592917Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_111.png
+2026-10-24T15:48:54.6593164Z 	godot/assets/third_party/kenney_platformer_industrial/PNG/Retina/platformIndustrial_112.png
+2026-10-24T15:48:54.6593339Z 	godot/assets/third_party/kenney_platformer_industrial/Preview.png
+2026-10-24T15:48:54.6593544Z 	godot/assets/third_party/kenney_platformer_industrial/Preview_KenneyNL.png
+2026-10-24T15:48:54.6593713Z 	godot/assets/third_party/kenney_platformer_industrial/Sample.png
+2026-10-24T15:48:54.6593981Z 	godot/assets/third_party/kenney_platformer_industrial/Spritesheet/platformIndustrial_sheet.png
+2026-10-24T15:48:54.6594249Z 	godot/assets/third_party/kenney_platformer_industrial/Spritesheet/platformIndustrial_sheet@2.png
+2026-10-24T15:48:54.6594542Z 	godot/assets/third_party/kenney_platformer_industrial/Tilesheet/platformerPack_industrial_tilesheet.png
+2026-10-24T15:48:54.6594969Z 	godot/assets/third_party/kenney_platformer_industrial/Tilesheet/platformerPack_industrial_tilesheet@2.png
+2026-10-24T15:48:54.6596004Z ##[endgroup]
+2026-10-24T15:48:54.6596443Z [command]/usr/bin/git log -1 --format=%H
+2026-10-24T15:48:54.6596597Z d381d74e17c00a695b0c04b013f220818636918a
+2026-10-24T15:48:54.6597540Z ##[group]Removing auth
+2026-10-24T15:48:54.6597886Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-24T15:48:54.6599236Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-24T15:48:54.6600207Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-24T15:48:54.6600621Z http.https://github.com/.extraheader
+2026-10-24T15:48:54.6601516Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-24T15:48:54.6603163Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-24T15:48:54.6603960Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-24T15:48:54.6605358Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-24T15:48:54.6788411Z ##[endgroup]
+2026-10-24T15:48:54.7009148Z ##[group]Run actions/setup-python@v5
+2026-10-24T15:48:54.7009272Z with:
+2026-10-24T15:48:54.7009386Z   python-version: 3.11
+2026-10-24T15:48:54.7009481Z   check-latest: false
+2026-10-24T15:48:54.7012074Z   token: ***
+2026-10-24T15:48:54.7012181Z   update-environment: true
+2026-10-24T15:48:54.7012273Z   allow-prereleases: false
+2026-10-24T15:48:54.7012373Z   freethreaded: false
+2026-10-24T15:48:54.7012457Z ##[endgroup]
+2026-10-24T15:48:54.8249662Z ##[group]Installed versions
+2026-10-24T15:48:54.8351134Z (node:2412) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-24T15:48:54.8351800Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-24T15:48:54.8352400Z Successfully set up CPython (3.11.17)
+2026-10-24T15:48:54.8353183Z ##[endgroup]
+2026-10-24T15:48:54.8452080Z ##[group]Run python tools/test_release_builder.py
+2026-10-24T15:48:54.8452594Z [36;1mpython tools/test_release_builder.py[0m
+2026-10-24T15:48:54.8659820Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-24T15:48:54.8660447Z env:
+2026-10-24T15:48:54.8660910Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:54.8661610Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-24T15:48:54.8662248Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:54.8662885Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:54.8663570Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:54.8664197Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-24T15:48:54.8664745Z ##[endgroup]
+2026-10-24T15:48:55.3629455Z ......usage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]
+2026-10-24T15:48:55.3630391Z                         [--output OUTPUT] [--check] [--timeout TIMEOUT]
+2026-10-24T15:48:55.3631115Z build_release.py: error: --timeout must be finite and positive
+2026-10-24T15:48:55.3634981Z usage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]
+2026-10-24T15:48:55.3635740Z                         [--output OUTPUT] [--check] [--timeout TIMEOUT]
+2026-10-24T15:48:55.3636447Z build_release.py: error: --timeout must be finite and positive
+2026-10-24T15:48:55.3640678Z usage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]
+2026-10-24T15:48:55.3641451Z                         [--output OUTPUT] [--check] [--timeout TIMEOUT]
+2026-10-24T15:48:55.3642407Z build_release.py: error: --timeout must be finite and positive
+2026-10-24T15:48:55.3646377Z usage: build_release.py [-h] [--target {linux,windows}] [--engine ENGINE]
+2026-10-24T15:48:55.3647298Z                         [--output OUTPUT] [--check] [--timeout TIMEOUT]
+2026-10-24T15:48:55.3648004Z build_release.py: error: --timeout must be finite and positive
+2026-10-24T15:48:55.3672764Z RELEASE_ARCHIVE_PASS files=1
+2026-10-24T15:48:55.3900700Z RELEASE_PLAYER_PASS first_start=true resume=true resume_writeback=true
+2026-10-24T15:48:55.6955335Z ...............FF.
+2026-10-24T15:48:55.6955909Z ======================================================================
+2026-10-24T15:48:55.6958301Z FAIL: test_pull_requests_cover_main_and_stacked_upgrade_bases (__main__.ReleaseWorkflowTests.test_pull_requests_cover_main_and_stacked_upgrade_bases) (branch='codex/w00-catalog-experiment')
+2026-10-24T15:48:55.6961076Z ----------------------------------------------------------------------
+2026-10-24T15:48:55.6962203Z Traceback (most recent call last):
+2026-10-24T15:48:55.6972388Z   File "/home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage/tools/test_release_builder.py", line 298, in test_pull_requests_cover_main_and_stacked_upgrade_bases
+2026-10-24T15:48:55.6973841Z     self.assertFalse(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+2026-10-24T15:48:55.6974513Z AssertionError: True is not false
+2026-10-24T15:48:55.6974775Z 
+2026-10-24T15:48:55.6974949Z ======================================================================
+2026-10-24T15:48:55.6976150Z FAIL: test_pull_requests_cover_main_and_stacked_upgrade_bases (__main__.ReleaseWorkflowTests.test_pull_requests_cover_main_and_stacked_upgrade_bases) (branch='codex/death-unrelated')
+2026-10-24T15:48:55.6977615Z ----------------------------------------------------------------------
+2026-10-24T15:48:55.6978130Z Traceback (most recent call last):
+2026-10-24T15:48:55.6979340Z   File "/home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage/tools/test_release_builder.py", line 298, in test_pull_requests_cover_main_and_stacked_upgrade_bases
+2026-10-24T15:48:55.6980759Z     self.assertFalse(any(fnmatch.fnmatchcase(branch, pattern) for pattern in patterns))
+2026-10-24T15:48:55.6981503Z AssertionError: True is not false
+2026-10-24T15:48:55.6981780Z 
+2026-10-24T15:48:55.6982318Z ----------------------------------------------------------------------
+2026-10-24T15:48:55.6982859Z Ran 23 tests in 0.374s
+2026-10-24T15:48:55.6983071Z 
+2026-10-24T15:48:55.6983207Z FAILED (failures=2)
+2026-10-24T15:48:55.7110949Z ##[error]Process completed with exit code 1.
+2026-10-24T15:48:55.7245070Z ##[group]Run actions/upload-artifact@v4
+2026-10-24T15:48:55.7245354Z with:
+2026-10-24T15:48:55.7245700Z   name: desktop-candidate-logs-linux-d381d74e17c00a695b0c04b013f220818636918a
+2026-10-24T15:48:55.7246118Z   path: dist/releases/*-logs/
+2026-10-24T15:48:55.7246373Z   if-no-files-found: ignore
+2026-10-24T15:48:55.7246609Z   retention-days: 14
+2026-10-24T15:48:55.7246845Z   compression-level: 6
+2026-10-24T15:48:55.7247260Z   overwrite: false
+2026-10-24T15:48:55.7247482Z   include-hidden-files: false
+2026-10-24T15:48:55.7247723Z env:
+2026-10-24T15:48:55.7247988Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:55.7248402Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-24T15:48:55.7248815Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:55.7249190Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:55.7249602Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-24T15:48:55.7249969Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-24T15:48:55.7250276Z ##[endgroup]
+2026-10-24T15:48:55.8871381Z (node:2432) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-24T15:48:55.8872036Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-24T15:48:55.8886210Z No files were found with the provided path: dist/releases/*-logs/. No artifacts will be uploaded.
+2026-10-24T15:48:55.9129856Z Post job cleanup.
+2026-10-24T15:48:55.9981969Z [command]/usr/bin/git version
+2026-10-24T15:48:56.0024538Z git version 2.55.0
+2026-10-24T15:48:56.0078196Z Temporarily overriding HOME='/home/runner/work/_temp/615c0c92-afca-406f-8e9b-d7b15028b5e6' before making global git config changes
+2026-10-24T15:48:56.0079521Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-24T15:48:56.0080817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Crimson-Thread-Pilgrimage/Crimson-Thread-Pilgrimage
+2026-10-24T15:48:56.0111136Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-24T15:48:56.0140907Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-24T15:48:56.0372393Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-24T15:48:56.0403227Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-24T15:48:56.0646743Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-24T15:48:56.0693548Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-24T15:48:56.1043494Z Cleaning up orphan processes
+2026-10-24T15:48:56.1359043Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

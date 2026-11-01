@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "chapter_03_01",
+      "npc": "npc_fugitive_scribe",
+      "question": "白边在纸上，为什么你先看我的手？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "我想知道这页是不是你自己取出来的。转过几道手，来历就得多问几遍。",
+        "你看，“自愿”旁的纤维翘着，“后嗣”的墨却沉进去了。不是同一次落笔。",
+        "先别擦盐粉，边上的东西也要留下。"
+      ],
+      "reflection": "书记没有先信我。他让我保住页边，再把取页的位置说了一遍。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "总官倒了，我可以少躲一阵。可要有人问这页从哪来，还是得从你走过的路讲起。",
+          "打赢他，证明不了我没写假字。这两件事别混着说。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_02",
+      "npc": "npc_fugitive_scribe",
+      "question": "我怎么知道你抄下的名字没有错？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "你应该这样问。拿工牌来，同雨渠孩子念的音、柳认出的铆痕一起对。",
+        "有一字我不敢认，先留个空框。你带回钟庭时，别把空框描成一个看起来像的字。"
+      ],
+      "reflection": "书记留下一个空框。我把它原样带走，等能认出那一字的人来。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "原页能拿出来了，我也得把自己的抄本摆在旁边。",
+          "哪一笔是我添的，哪一笔有原文，都标清。不能因为总官错了，我就永远不会错。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_04",
+      "npc": "npc_salt_librarian_ye",
+      "question": "你一直保管契约，为什么没把它交出去？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "我怕一交出去就再也找不回。我把柜门守得很好，来求原页的人倒都被我挡在外面。",
+        "守到最后，他们不知道这里还藏着什么，我也不知道外面还剩谁。"
+      ],
+      "reflection": "叶把钥匙握得很紧。我没有催她松手，只把工牌放在柜前。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "柜门可以开了。我先拿两份相同的抄本，一份留柜里，一份让人带出去。",
+          "这一次我会记下交给谁，不会只写“已归档”。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_06",
+      "npc": "npc_salt_librarian_ye",
+      "question": "把“自愿”抄回去，事情就能照原样办？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "抄回去，只能让人看见被改走的字。已经过了这么多年，愿意的人也换了。",
+        "我能保原文，不能拿原文替今天的人按手印。这比守柜子难得多。"
+      ],
+      "reflection": "我把原字描在空白处，没有替任何一个名字画押。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "以后有人来问怎么签，我先给他看退出的那一行。",
+          "总官从不许我把那行念完。现在我想一字一字念。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_07",
+      "npc": "npc_quiet_reader",
+      "question": "你为什么只读页边，不读大字？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "大字说我祖母欠一班，页边却有她自己的小注：那天她替病人守夜。",
+        "我读大字会生气，读到小注又会想她。今天先读到这里。"
+      ],
+      "reflection": "我看见了页边的小注。她替谁守过夜，我还没来得及问。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "你别替我把这本烧了。我还想把祖母写的小字找完。",
+          "总官的印可以留在旁边；我要别人看清，那不是她的字。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_10",
+      "npc": "npc_sealed_archivist",
+      "question": "封蜡是怕书坏，还是怕人看？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "最早怕水，后来怕人。两道封口用的是同一种蜡，我每天补，补得比谁都齐。",
+        "第一道是谁教的，我记得。第二道什么时候开始，我总说记不清。"
+      ],
+      "reflection": "封档人承认两道封口都是自己补过的。我把那句“记不清”也记下来。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "我现在拆第二道，第一道仍留着。你若来核对，我会给你看拆下的蜡。",
+          "谁补过、谁拆过，都该留个名字。先从我开始。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_13",
+      "npc": "npc_fugitive_scribe",
+      "question": "留下原页的素，和契约总官是什么关系？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "素保过原字。总官保的是后来那套规矩。把这两个位置写成同一个人，原页就又白留了。",
+        "我逃出来时只带了能藏进衣里的抄页。你拿来的原件，让我能把这句话说得更响。"
+      ],
+      "reflection": "素与总官分列两行。我沿着原页的刮痕，继续往改约的人那里追。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "灰冠停下了，原页没有跟着变成他的遗物。",
+          "带到王冠前时，记得把保原文的人也念出来。别让拿刀的占满整段故事。"
+        ]
+      }
+    },
+    {
+      "id": "chapter_03_14",
+      "npc": "npc_salt_librarian_ye",
+      "question": "离开书库前，你还要我带什么？",
+      "requires": [
+        {
+          "kind": "item",
+          "id": "testimony_03",
+          "label": "封存书堆的改字页"
+        },
+        {
+          "kind": "history",
+          "id": "ch03_saltwhite_archive_daily",
+          "label": "运书压页台"
+        }
+      ],
+      "lines": [
+        "这张名单。阿禾旁边还有时岚和舟九，别因为先找到了一个，就把后面折进纸缝。",
+        "至于原字，你带着去看温室吧。书里叫“供弦”，我想知道树根上究竟接着谁。"
+      ],
+      "reflection": "我把名单展开收好。下一站要看的，是“供弦”这两个字在树根上变成了什么。",
+      "continuation": {
+        "requires": [
+          {
+            "kind": "flag",
+            "id": "boss_down_ch03",
+            "label": "第3区守门者战后"
+          }
+        ],
+        "lines": [
+          "如今能走的门多了，你也可以先回钟庭。",
+          "把名字送到等它的人手里，不会耽误纸上的字成立。"
+        ]
+      }
+    }
+  ]
+}

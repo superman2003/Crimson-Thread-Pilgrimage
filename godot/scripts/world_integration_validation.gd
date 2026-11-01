@@ -78,6 +78,7 @@ func _run() -> void:
     var item_id := String(pickup.get_meta("item_id"))
     var item_before := int(scene.inventory_counts.get(item_id, 0))
     var currency_before: int = scene.currency_count
+    scene.player.global_position=pickup.global_position # Explicit collection-reach fixture.
     scene._on_collectible_body_entered(scene.player, pickup)
     scene._on_collectible_body_entered(scene.player, pickup)
     var amount_after := int(scene.inventory_counts.get(item_id, 0))
@@ -143,6 +144,7 @@ func _run() -> void:
     if grip == null:
         _finish()
         return
+    scene.player.global_position=grip.global_position # Explicit collection-reach fixture.
     scene._on_collectible_body_entered(scene.player, grip)
     _check(scene.player.wall_grip_unlocked, "pickup unlocks player wall grip")
     scene.player.global_position = riser.global_position
@@ -162,6 +164,7 @@ func _run() -> void:
     if evidence == null:
         _finish()
         return
+    scene.player.global_position=evidence.global_position # Explicit collection-reach fixture.
     scene._on_collectible_body_entered(scene.player, evidence)
     _hear_round(scene, scribe)
     _check(scene.story_flags.get("quest_bring_names_archive_heard", false), "evidence plus entire scribe round certifies names")
@@ -169,6 +172,7 @@ func _run() -> void:
     var jump: Area2D = scene.get_node_or_null("world_col_double_thread_jump")
     _check(jump != null, "archive new jump ability exists")
     if jump != null:
+        scene.player.global_position=jump.global_position # Explicit collection-reach fixture.
         scene._on_collectible_body_entered(scene.player, jump)
         _check(scene.player.double_jump_unlocked, "archive jump pickup updates actual player")
     var archive_return: Area2D = scene.get_node_or_null("archive_rain_riser")

@@ -1,0 +1,838 @@
+{
+  "target": 5,
+  "uploaded": [
+    {
+      "branch": "codex/upgrade-20261025b-01-return-knot",
+      "base": "codex/upgrade-20261025-10-lift-service",
+      "sha": "d76c5b5da163797d73398c562e9fae80c7a5ebd3",
+      "tree": "184a40f7ddeb992836f711682431329ee8b39c5f",
+      "number": 252,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/252",
+      "title": "feat(G02): 归途结单次持久领取、召回复核与失败重试",
+      "implementation_sha": "58906fae85b03d45539273f3090fb64c6ff2e8bf",
+      "implementation_tree": "768cf1453695b97775aa1b73c96fe82d794a87bf",
+      "pre_merge_review_sha": "48d6bcd1551a9eed8d389612b45e8095c814e048",
+      "pre_merge_review_tree": "2460bf48d1e8707f9014c94f5d513e596d8e8417"
+    },
+    {
+      "branch": "codex/upgrade-20261025b-02-practice-coach",
+      "base": "codex/upgrade-20261025b-01-return-knot",
+      "sha": "55c6584f8548f0adea2422185f5beb7b57573615",
+      "tree": "a63d07e902b005b68de6c07d6d8694401a89d246",
+      "number": 253,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/253",
+      "title": "feat(C04/T01): 真实施放训练、架上进度与达标保存重试",
+      "pre_review_sha": "585017cd0b30bb4b6e7401fbeed8eca9232e9a3a",
+      "pre_review_tree": "be6fb03ef948384f704e4e45ceaca3d24ff73bad"
+    },
+    {
+      "branch": "codex/upgrade-20261025b-03-challenge-claims",
+      "base": "codex/upgrade-20261025b-02-practice-coach",
+      "sha": "b7375b1db05f4193f26a8b7f8ae8ce18ce8cf532",
+      "tree": "90fc32d56b3ae870084554f267a9267b0360f0a6",
+      "number": 254,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/254",
+      "title": "feat(B04): 首清奖励持久提交、胜利待领取与跨重启重试"
+    },
+    {
+      "branch": "codex/upgrade-20261025b-04-cartographer-trade",
+      "base": "codex/upgrade-20261025b-03-challenge-claims",
+      "sha": "78ea1b3c4c032405bd6b40387c31d98f262047fd",
+      "tree": "9751d2b3c0c6d27601d45cfa53b367d53d13df4f",
+      "number": 255,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/255",
+      "title": "feat(U04/G01): 制图师三商品核价、确认与持久交易回滚"
+    },
+    {
+      "branch": "codex/upgrade-20261025b-05-pickup-ledger",
+      "base": "codex/upgrade-20261025b-04-cartographer-trade",
+      "sha": "9a17a7eab7e786963e436aa423ed9b37558a587a",
+      "tree": "2684a7975835adb4aaa766242188778ce602bf6e",
+      "number": 256,
+      "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/256",
+      "title": "feat(A01/N02): 永久拾取同档台账、来源校验与交互重试"
+    }
+  ],
+  "preceding_pr": 251,
+  "final_acceptance_open": 46,
+  "pr_snapshot": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 252,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "d76c5b5da163797d73398c562e9fae80c7a5ebd3",
+        "base": "codex/upgrade-20261025-10-lift-service",
+        "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/252"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 253,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "55c6584f8548f0adea2422185f5beb7b57573615",
+        "base": "codex/upgrade-20261025b-01-return-knot",
+        "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/253"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 254,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "b7375b1db05f4193f26a8b7f8ae8ce18ce8cf532",
+        "base": "codex/upgrade-20261025b-02-practice-coach",
+        "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/254"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 255,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "78ea1b3c4c032405bd6b40387c31d98f262047fd",
+        "base": "codex/upgrade-20261025b-03-challenge-claims",
+        "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/255"
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "number": 256,
+        "state": "open",
+        "merged": false,
+        "mergeable": true,
+        "head": "9a17a7eab7e786963e436aa423ed9b37558a587a",
+        "base": "codex/upgrade-20261025b-04-cartographer-trade",
+        "url": "https://github.com/superman2003/Crimson-Thread-Pilgrimage/pull/256"
+      }
+    }
+  ],
+  "earlier_ci_snapshot": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 252,
+        "head": "d76c5b5da163797d73398c562e9fae80c7a5ebd3",
+        "runs": [
+          {
+            "id": 40163210723,
+            "name": "Stable room camera follow",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210677,
+            "name": "Background resource ownership",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210661,
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210702,
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210633,
+            "name": "Authored player-skill art",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163210555,
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210644,
+            "name": "Modern combat resource integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210719,
+            "name": "Six-region passage network",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210630,
+            "name": "Grounded motion and melee feedback",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210609,
+            "name": "Desktop release candidates",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210620,
+            "name": "Modern ability workshop integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210731,
+            "name": "Interaction targeting",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163210732,
+            "name": "Ordinary enemy skill material art",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210755,
+            "name": "Narrative return journey",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210690,
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210709,
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210586,
+            "name": "Route manifest integration",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210624,
+            "name": "Input prompt readability",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163210737,
+            "name": "Inscription typography and UI",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40163210647,
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 253,
+        "head": "55c6584f8548f0adea2422185f5beb7b57573615",
+        "runs": [
+          {
+            "id": 40163231816,
+            "name": "Modern ability workshop integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231853,
+            "name": "Layered idle presentation",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231891,
+            "name": "Inscription typography and UI",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231929,
+            "name": "Modern combat resource integration",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231843,
+            "name": "Authored player-skill art",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231837,
+            "name": "Input prompt readability",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231846,
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231841,
+            "name": "Stable room camera follow",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231860,
+            "name": "Background resource ownership",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231849,
+            "name": "Narrative return journey",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231856,
+            "name": "Ordinary enemy skill material art",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231839,
+            "name": "Six-region passage network",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231878,
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231824,
+            "name": "Route manifest integration",
+            "status": "pending",
+            "conclusion": null
+          },
+          {
+            "id": 40163231854,
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163231833,
+            "name": "Authored player-tool art",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163231874,
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163231857,
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163231844,
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163231828,
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163231831,
+            "name": "Interaction targeting",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 254,
+        "head": "b7375b1db05f4193f26a8b7f8ae8ce18ce8cf532",
+        "runs": [
+          {
+            "id": 40163565311,
+            "name": "Background resource ownership",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163565297,
+            "name": "Expanded character motion",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163565352,
+            "name": "Desktop release candidates",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565339,
+            "name": "Route manifest integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565315,
+            "name": "Stable room camera follow",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565265,
+            "name": "Inscription typography and UI",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565278,
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565285,
+            "name": "Six-region passage network",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565330,
+            "name": "Interaction targeting",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565368,
+            "name": "Narrative return journey",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565326,
+            "name": "Input prompt readability",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565322,
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565334,
+            "name": "Ordinary enemy skill material art",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565283,
+            "name": "Modern combat resource integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40163565351,
+            "name": "Grounded motion and melee feedback",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163565354,
+            "name": "Layered idle presentation",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163565430,
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40163565331,
+            "name": "Modern ability workshop integration",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40163565337,
+            "name": "Authored player-skill art",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40163565256,
+            "name": "World catalog and startup preparation",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "pr": 255,
+        "head": "78ea1b3c4c032405bd6b40387c31d98f262047fd",
+        "runs": [
+          {
+            "id": 40164112697,
+            "name": "Route manifest integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112792,
+            "name": "Six-region passage network",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112701,
+            "name": "World private checkpoints and map pins",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112725,
+            "name": "Modern ability workshop integration",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112771,
+            "name": "Survey map navigation",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112733,
+            "name": "Stable room camera follow",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112809,
+            "name": "Budgeted neighbor gameplay plans",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112721,
+            "name": "Expanded character motion",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112727,
+            "name": "Background resource ownership",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112684,
+            "name": "World catalog and startup preparation",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112743,
+            "name": "Godot integration regressions",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112669,
+            "name": "Ordinary enemy skill material art",
+            "status": "queued",
+            "conclusion": null
+          },
+          {
+            "id": 40164112831,
+            "name": "Layered idle presentation",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40164112706,
+            "name": "Modern combat resource integration",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40164112691,
+            "name": "Desktop release candidates",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 40164112803,
+            "name": "Inscription typography and UI",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40164112745,
+            "name": "Input prompt readability",
+            "status": "in_progress",
+            "conclusion": null
+          },
+          {
+            "id": 40164112722,
+            "name": "Grounded motion and melee feedback",
+            "status": "in_progress",
+            "conclusion": null
+          }
+        ]
+      }
+    }
+  ],
+  "last_implementation_ci": {
+    "workflow_runs": [
+      {
+        "id": 40166026513,
+        "name": "Input prompt readability",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 252,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026513/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026513/logs",
+        "workflow_id": 385603704
+      },
+      {
+        "id": 40166026533,
+        "name": "World private checkpoints and map pins",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 246,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026533/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026533/logs",
+        "workflow_id": 386655512
+      },
+      {
+        "id": 40166026568,
+        "name": "Expanded character motion",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 361,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026568/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026568/logs",
+        "workflow_id": 387326979
+      },
+      {
+        "id": 40166026548,
+        "name": "Modern combat resource integration",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 269,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026548/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026548/logs",
+        "workflow_id": 386425339
+      },
+      {
+        "id": 40166026613,
+        "name": "Ordinary enemy skill material art",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 60,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026613/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026613/logs",
+        "workflow_id": 394217352
+      },
+      {
+        "id": 40166026538,
+        "name": "Narrative return journey",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 207,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026538/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026538/logs",
+        "workflow_id": 386233107
+      },
+      {
+        "id": 40166026508,
+        "name": "World catalog and startup preparation",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 252,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026508/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026508/logs",
+        "workflow_id": 386577702
+      },
+      {
+        "id": 40166026556,
+        "name": "Budgeted neighbor gameplay plans",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 202,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026556/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026556/logs",
+        "workflow_id": 386347988
+      },
+      {
+        "id": 40166026570,
+        "name": "Background resource ownership",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 90,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026570/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026570/logs",
+        "workflow_id": 390587273
+      },
+      {
+        "id": 40166026511,
+        "name": "Authored player-skill art",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 84,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026511/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026511/logs",
+        "workflow_id": 390248166
+      },
+      {
+        "id": 40166026554,
+        "name": "Six-region passage network",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 211,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026554/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026554/logs",
+        "workflow_id": 386232026
+      },
+      {
+        "id": 40166026507,
+        "name": "Layered idle presentation",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 189,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026507/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026507/logs",
+        "workflow_id": 386564746
+      },
+      {
+        "id": 40166026645,
+        "name": "Interaction targeting",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 174,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026645/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026645/logs",
+        "workflow_id": 385654890
+      },
+      {
+        "id": 40166026541,
+        "name": "Modern ability workshop integration",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 203,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026541/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026541/logs",
+        "workflow_id": 386495597
+      },
+      {
+        "id": 40166026563,
+        "name": "Desktop release candidates",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 666,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026563/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026563/logs",
+        "workflow_id": 384104215
+      },
+      {
+        "id": 40166026534,
+        "name": "Route manifest integration",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 285,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026534/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026534/logs",
+        "workflow_id": 386411151
+      },
+      {
+        "id": 40166026522,
+        "name": "Stable room camera follow",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 192,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026522/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026522/logs",
+        "workflow_id": 386511408
+      },
+      {
+        "id": 40166026510,
+        "name": "Inscription typography and UI",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 135,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026510/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026510/logs",
+        "workflow_id": 391319524
+      },
+      {
+        "id": 40166026567,
+        "name": "Grounded motion and melee feedback",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 236,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026567/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026567/logs",
+        "workflow_id": 386475678
+      },
+      {
+        "id": 40166026530,
+        "name": "Godot integration regressions",
+        "status": "queued",
+        "conclusion": null,
+        "run_number": 965,
+        "jobs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026530/jobs",
+        "logs_url": "https://api.github.com/repos/superman2003/Crimson-Thread-Pilgrimage/actions/runs/40166026530/logs",
+        "workflow_id": 381035875
+      }
+    ]
+  },
+  "source_tree_matches_local": true,
+  "auto_merged": false
+}

@@ -1,0 +1,62 @@
+name: Runtime lifecycle soak
+
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/runtime_soak_validation.gd'
+      - 'tools/run_runtime_soak.py'
+      - 'tools/runtime_soak_metrics.py'
+      - 'tools/test_runtime_soak_metrics.py'
+      - '.github/workflows/runtime-lifecycle-soak.yml'
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: 'Measured seconds after two six-region warmup cycles (1800 = 30 minutes)'
+        default: '1800'
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: runtime-soak-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lifecycle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Check out exact source and hydrate runtime assets
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate only runtime LFS assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install target Godot and software GL
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+            https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate evidence rejection rules
+        run: python3 tools/test_runtime_soak_metrics.py
+      - name: Strict resource imports
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/soak-import"
+      - name: PR smoke or requested wall-clock soak
+        env:
+          SOAK_SECONDS: ${{ github.event_name == 'workflow_dispatch' && inputs.seconds || '1' }}
+        run: |
+          python3 tools/run_runtime_soak.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --seconds "$SOAK_SECONDS" --log-dir "$RUNNER_TEMP/runtime-soak"
+      - name: Preserve all evidence including failures
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-lifecycle-soak
+          path: |
+            ${{ runner.temp }}/runtime-soak/
+            ${{ runner.temp }}/soak-import/

@@ -1,0 +1,45 @@
+name: S01 music layer transitions
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/music_layer*.gd'
+      - 'godot/scripts/audio_*validation.gd'
+      - 'godot/assets/audio/bgm/**'
+      - 'godot/assets/audio/seals/**'
+      - 'godot/default_bus_layout.tres'
+      - 'tools/run_music_layer_contract.py'
+      - 'tools/test_music_layer_runner.py'
+      - '.github/workflows/ledger-s01-music-layers.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: s01-music-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-music-transitions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual music and script dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/audio/bgm/**,godot/assets/audio/seals/**,godot/assets/fonts/**,godot/assets/vfx/**,godot/assets/ui/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Verify strict runner rejects failure and misleading output
+        run: python3 -m unittest discover -s tools -p test_music_layer_runner.py -v
+      - name: Validate actual music transitions and existing audio contracts
+        run: python3 tools/run_music_layer_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/music-layer-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s01-music-layer-contracts
+          path: ${{ runner.temp }}/music-layer-logs

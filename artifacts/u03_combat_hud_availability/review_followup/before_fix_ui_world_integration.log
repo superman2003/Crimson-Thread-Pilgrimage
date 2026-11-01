@@ -1,0 +1,45 @@
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 610.62 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+ERROR: using an exhausted tool shows the resupply toast without spending stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:43)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+ERROR: empty tool slot reports its own reason instead of exhausted stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:47)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+ERROR: death tool rejection shows feedback without consuming stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:57)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+ERROR: transition tool rejection shows feedback without consuming stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:57)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+ERROR: loading tool rejection shows feedback without consuming stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:57)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+此战具槽位为空
+ERROR: practice does not make an empty slot usable or invent stock
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://scripts/ui_world_integration_validation.gd:7)
+       [1] run (res://scripts/combat_hud_readiness_validation.gd:92)
+       [2] run (res://scripts/ui_world_integration_validation.gd:67)
+UI_WORLD_INTEGRATION_VALIDATION_FAIL failures=6
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2641)

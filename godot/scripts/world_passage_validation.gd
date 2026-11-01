@@ -26,11 +26,16 @@ func _run() -> void:
     var player_id: int = scene.player.get_instance_id()
     var build_id: int = scene.build_system.get_instance_id()
     var origin_id: String = scene.config.id
+    var portal: Node = scene.get_node("moss_rain_pipe")
+    if not await _jump_past_mouth(portal, passage):
+        scene.free()
+        await _frames(3)
+        quit(1)
+        return
     scene.player.hp = 3
     scene.player.energy = 41
     scene.currency_count = 97
     scene.player.dash_cooldown = 1.1
-    var portal: Node = scene.get_node("moss_rain_pipe")
     scene.player.global_position = portal.global_position
     _check(passage.begin("moss_rain_pipe"), "physical pipe enters at authored endpoint")
     _check(scene.player_world_position() == COORD.to_world(origin_id, portal.global_position), "entry does not teleport")
@@ -155,6 +160,30 @@ func _run() -> void:
         for label in failures:
             push_error(label)
         call_deferred("quit", 1)
+
+func _jump_past_mouth(portal: Node2D, passage: Node) -> bool:
+    # Endpoint fixture only. The admission/jump itself uses ordinary parent and
+    # Player physics in their production order, with no manual entry dispatch.
+    scene.player.global_position = portal.global_position
+    scene.player.velocity = Vector2.ZERO
+    scene.world_platforms.warm(scene, portal.global_position)
+    scene.cave_world.warm_collision_focus(portal.global_position)
+    scene.chapter_terrain.warm_focus(portal.global_position)
+    scene.player.process_mode = Node.PROCESS_MODE_ALWAYS
+    await _frames(15)
+    _check(scene.player.is_on_floor(), "jump mouth fixture settles on real support")
+    var grounded_y: float = scene.player.global_position.y
+    Input.action_press("jump")
+    Input.action_press("move_right")
+    scene.process_mode = Node.PROCESS_MODE_INHERIT
+    scene.player.process_mode = Node.PROCESS_MODE_INHERIT
+    await _frames(3)
+    _check(not passage.active and not scene.world_loading, "jump plus forward input does not auto-enter the passage")
+    _check(not scene.player.is_on_floor() and scene.player.global_position.y < grounded_y and scene.player.velocity.y < 0, "normal Player jump remains in the source region")
+    Input.action_release("jump")
+    Input.action_release("move_right")
+    scene.process_mode = Node.PROCESS_MODE_DISABLED
+    return failures.is_empty()
 
 func _walk(direction: int, arrival: bool) -> void:
     Input.action_release("move_left")

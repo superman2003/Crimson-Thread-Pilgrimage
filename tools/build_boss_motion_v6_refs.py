@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Prepare exact production pose pairs for new, individually authored inbetweens."""
+"""Historical reference/prompt construction for the frozen da54 local v5 rig.
+
+Do not regenerate against main: its bridge/settle model is mapped explicitly by
+build_boss_motion_v6.py, while the actual generation inputs remain immutable.
+"""
 import ast
 import json
 from pathlib import Path

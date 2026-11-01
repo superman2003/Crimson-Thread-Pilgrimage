@@ -1,0 +1,37 @@
+extends SceneTree
+const PATH := "res://payload.tres"
+const ITERATIONS := 100
+var mode := "builtin"
+func _initialize() -> void:
+    for arg in OS.get_cmdline_user_args():
+        if arg.begins_with("--mode="): mode=arg.trim_prefix("--mode=")
+    call_deferred("_run")
+static func _load() -> Resource:
+    return ResourceLoader.load(PATH, "", ResourceLoader.CACHE_MODE_IGNORE)
+func _run() -> void:
+    var data := Resource.new()
+    var payload := PackedInt32Array()
+    payload.resize(20000)
+    for i in payload.size(): payload[i]=i
+    data.set_meta("payload",payload)
+    assert(ResourceSaver.save(data, PATH)==OK)
+    data=null
+    var loaded := 0
+    for i in ITERATIONS:
+        var result: Resource
+        if mode=="builtin":
+            assert(ResourceLoader.load_threaded_request(PATH, "", false, ResourceLoader.CACHE_MODE_IGNORE)==OK)
+            while ResourceLoader.load_threaded_get_status(PATH)==ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+                pass
+            result=ResourceLoader.load_threaded_get(PATH)
+        else:
+            var thread := Thread.new()
+            assert(thread.start(_load)==OK)
+            while thread.is_alive():
+                await process_frame
+            result=thread.wait_to_finish()
+        if result!=null and result.get_meta("payload").size()==20000:loaded+=1
+        result=null
+    print("RESOURCE_LOADER_MRP mode=",mode," loaded=",loaded)
+    for frame in 5: await process_frame
+    quit(0 if loaded==ITERATIONS else 1)

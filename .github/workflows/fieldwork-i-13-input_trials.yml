@@ -1,0 +1,51 @@
+name: Fieldwork 13 input_trials
+on:
+  pull_request:
+    paths:
+      - 'godot/journey/fieldwork/input_trials/**'
+      - 'godot/journey/fieldwork/*.gd'
+      - 'godot/journey/features/i_input_trials.gd'
+      - 'godot/journey/tests/i_13_input_trials.gd'
+      - 'godot/journey/tests/i_support.gd'
+      - 'godot/journey/tests/i_live_world.gd'
+      - 'tools/run_fieldwork_tests.py'
+      - '.github/workflows/fieldwork-i-13-input_trials.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: fieldwork-13-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  module:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Install pinned Godot and assets
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/engine"
+      - name: Two resource import passes and export closure audit
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/logs/import"
+          python3 tools/test_export_audit.py
+          python3 tools/audit_export_contents.py
+      - name: Headless module and actual World
+        run: python3 tools/run_fieldwork_tests.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --module i_13_input_trials --world --backend headless --log-dir "$RUNNER_TEMP/logs/headless"
+      - name: Software OpenGL module and actual World
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python3 tools/run_fieldwork_tests.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --module i_13_input_trials --world --backend gl --log-dir "$RUNNER_TEMP/logs/gl"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fieldwork-13-logs
+          path: ${{ runner.temp }}/logs

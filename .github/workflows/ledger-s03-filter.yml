@@ -1,0 +1,40 @@
+name: S03 enemy lowpass occlusion
+on:
+  pull_request:
+    paths:
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/enemy_sound_filter*.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/assets/vfx/**'
+      - 'tools/run_enemy_sound_filter_contract.py'
+      - '.github/workflows/ledger-s03-filter.yml'
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: s03-filter-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  native-enemy-filter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - name: Hydrate actual enemy presentation dependencies
+        run: |
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/vfx/**'
+      - name: Install pinned Godot 4.6.1
+        run: |
+          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+      - name: Validate audio ownership, priority and real enemy playback
+        run: python3 tools/run_enemy_sound_filter_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/enemy-filter-logs"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s03-enemy-filter-contracts
+          path: ${{ runner.temp }}/enemy-filter-logs

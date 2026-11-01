@@ -1,4 +1,7 @@
 extends RefCounted
+const PLAYER_ART_WARM_JOB := preload("res://scripts/player_art_warm_job.gd")
+var player_art_job: RefCounted
+var player_art_resources: Dictionary = {}
 const CHARACTER_ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
 ## The World node is the persistent host. Only its region-owned children are
 ## evicted; the Player, WorldState and BuildSystem remain the same instances.
@@ -113,6 +116,9 @@ func initialize_startup_region(host: Node, restore_process_mode: int = Node.PROC
     var tree: SceneTree = host.get_tree()
     phase = "startup"
     _show_loading_canvas(host)
+    if not _begin_player_art(host):
+        _show_startup_error(host)
+        return false
     # Share the bounded JSON worker with foreground config reads. The ticket
     # ties the result to this startup generation and the manifest mtime.
     if not await _prepare_routes_manifest(host, tree):
@@ -851,7 +857,9 @@ func _startup_exit_snapshot() -> Dictionary:
         "startup_cancelled": startup_token != null and startup_token.cancelled,
         "shutting_down": shutting_down, "cancel_requested": cancel_requested,
         "reader_busy": config_read_job.busy(),
-        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed}
+        "reader_pending": config_read_job.has_pending_ticket(), "reader_closed": config_read_job.closed,
+        "player_art_pending": player_art_job != null, "player_art_retained": player_art_resources.size(),
+        "player_art_worker_is_main": bool(last_transition.get("player_art_worker_is_main", true))}
     for key in ["route_manifest_copy_batches", "route_manifest_worker_usec", "route_manifest_copy_wall_usec",
             "startup_config_wait_frames", "startup_config_worker_usec", "startup_config_manifest_overlap_frames",
             "startup_config_open_usec", "startup_config_read_usec", "startup_config_parse_usec", "startup_config_context_copy_batches",
@@ -859,7 +867,8 @@ func _startup_exit_snapshot() -> Dictionary:
             "startup_config_validation_wait_frames", "startup_config_validation_worker_usec", "startup_config_wall_usec",
             "prepare_cursor", "prepare_jobs", "prepare_batches", "prepare_work_usec", "prepare_wall_usec",
             "jobs", "build_cursor", "build_batches", "commit_cursor", "commit_jobs", "commit_batches",
-            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec"]:
+            "commit_work_usec", "commit_wall_usec", "max_build_operations", "max_commit_operations", "max_batch_usec",
+            "player_art_wait_frames", "player_art_worker_usec", "player_art_textures", "player_art_optional_skipped"]:
         var value: Variant = last_transition.get(key, 0)
         snapshot[key] = value if value is int or value is float else -1
     snapshot["catalog_read_count"] = 0
@@ -891,6 +900,11 @@ func shutdown() -> void:
         startup_token.cancel()
     _discard_startup_config_read_ahead()
     config_read_job.shutdown()
+    if player_art_job != null:
+        player_art_job.shutdown()
+        player_art_job = null
+    player_art_resources.clear()
+    CHARACTER_ART_WARM_JOB.ART.shutdown_texture_requests()
     phase = "idle"
     _clear_loading_canvas()
     _disconnect_startup_frames()
@@ -919,7 +933,7 @@ func _show_loading_canvas(host: Node) -> void:
     loading_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
     loading_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
     loading_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-    loading_label.add_theme_font_override("font", load("res://assets/fonts/NotoSansSC.ttf"))
+    loading_label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
     loading_label.add_theme_font_size_override("font_size", 22)
     loading_canvas.add_child(loading_label)
     loading_label.text = "正在接通旧路…\nEsc 返回来路"
@@ -1303,8 +1317,38 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             _discard_catalog_staging(host, catalog_read_ahead)
             return false
         _cancel_input()
+    if not await _await_player_art(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+        return false
     return not (cancellable and cancel_requested)
 
+
+func _begin_player_art(host: Node) -> bool:
+    if not host.has_method("_spawn_player") or is_instance_valid(host.get("player")) or player_art_job != null or not player_art_resources.is_empty(): return true
+    player_art_job = PLAYER_ART_WARM_JOB.new()
+    if player_art_job.begin() != OK:
+        player_art_job = null
+        last_error = "无法启动主角素材预读。"
+        return false
+    return true
+
+func _await_player_art(host: Node, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
+    if player_art_job == null: return true
+    var wait_frames := 0
+    while not player_art_job.ready():
+        await _next_process_frame(tree)
+        wait_frames += 1
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable): return false
+    var result: Dictionary = player_art_job.take()
+    player_art_job = null
+    last_transition["player_art_wait_frames"] = wait_frames
+    last_transition["player_art_worker_usec"] = result.get("worker_usec", 0)
+    last_transition["player_art_worker_is_main"] = result.get("worker_is_main", true)
+    last_error = String(result.get("error", "主角素材预读结果无效。"))
+    if not last_error.is_empty(): return false
+    player_art_resources = result.get("textures", {})
+    last_transition["player_art_textures"] = player_art_resources.size()
+    last_transition["player_art_optional_skipped"] = result.get("optional_skipped", []).size()
+    return true
 
 func _finalize_prepare_metrics(role: String, wall_started: int) -> void:
     last_transition["prepare_wall_usec"] = Time.get_ticks_usec() - wall_started
@@ -1342,6 +1386,8 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
             var job: Dictionary = jobs[cursor]
             var job_started := Time.get_ticks_usec()
             host.callv(job.method, job.args)
+            if String(job.method) == "_finish_region_spawn" and is_instance_valid(host.get("player")):
+                player_art_resources.clear()
             var job_usec := Time.get_ticks_usec() - job_started
             var key: String = job.method if job.args.is_empty() else String(job.args[0])
             var timings: Dictionary = last_transition.get("commit_operation_usec", {})
@@ -1381,12 +1427,15 @@ func _set_destination(host: Node, path: String, entry: Vector2, previous_id: Str
     host.transition_entry_message = "旧路重新接通 · " + String(target.get("name", ""))
 
 
+var shrine_return_request: Dictionary={}
+
 func replace_region_async(host: Node, path: String, entry: Vector2, rollback_entry: Vector2 = Vector2.INF, publish_flags: Dictionary = {}) -> bool:
     if phase != "idle":
         return false
     if not _alive(host) or not is_instance_valid(host.player):
         last_error = "区域正在装载。"
         return false
+    var shrine_request:=shrine_return_request.duplicate(true)
     phase = "preflight"
     cancel_requested = false
     last_error = ""
@@ -1423,12 +1472,21 @@ func replace_region_async(host: Node, path: String, entry: Vector2, rollback_ent
     var source_config: Dictionary = host.config.duplicate(true)
     var source_path: String = host.config_path
     var source_position: Vector2 = host.player.global_position
+    if not shrine_request.is_empty():
+        var quote:=preload("res://scripts/shrine_return_network.gd").quote(host,String(shrine_request.key),true)
+        if not quote.ok or quote.fingerprint!=shrine_request.fingerprint or ROUTES.cached_config_path(quote.target.region)!=path or quote.target.position!=entry or not host._save_world():
+            last_error="钟路记录已变化或出发记录未能保存；你仍留在原钟龛。"
+            host.process_mode=previous_mode
+            _clear_loading_canvas()
+            phase="idle"
+            cancel_requested=false
+            return false
     var player_layer: int = host.player.collision_layer
     var player_mask: int = host.player.collision_mask
     host.player.collision_layer = 0
     host.player.collision_mask = 0
     host.player.prepare_region_handoff()
-    host._save_world()
+    if shrine_request.is_empty():host._save_world()
     var source_state: Dictionary = host.world_state.data.duplicate(true)
     var source_build: Dictionary = host.build_system.serialize()
     var source_id := String(source_config.id)
@@ -1573,6 +1631,15 @@ func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, 
 
 func start_region_transition(host: Node, path: String, entry: Vector2) -> void:
     request_region_transition(host, path, entry)
+
+## Capture the strict authorization before replace_region_async first yields.
+## Ordinary walking portals retain their existing save-blocked in-memory policy.
+func request_shrine_return_transition(host: Node, key: String, path: String, entry: Vector2, fingerprint: String) -> RefCounted:
+    if phase!="idle" or shutting_down or not shrine_return_request.is_empty():return null
+    shrine_return_request={"key":key,"fingerprint":fingerprint}
+    var result:=request_region_transition(host,path,entry)
+    shrine_return_request={}
+    return result
 
 func request_region_transition(host: Node, path: String, entry: Vector2, publish_flags: Dictionary = {}) -> RefCounted:
     if phase != "idle" or shutting_down or not _alive(host):
