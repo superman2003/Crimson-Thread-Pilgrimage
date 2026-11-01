@@ -45,7 +45,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_projectile_contact', 'player_effect_lifecycle', 'enemy_wave_sweep',
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
-            'player_basic_attack_vfx',
+            'player_basic_attack_vfx', 'dialog_dpad_focus',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
