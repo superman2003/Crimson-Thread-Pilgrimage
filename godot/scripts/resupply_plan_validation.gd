@@ -91,7 +91,63 @@ func run() -> void:
     check(purchases == 1, "cancellation creates no transaction")
     modal.free()
     await process_frame
+    await saved_plan_checks()
     if failures.is_empty():print("RESUPPLY_PLAN checks=%d failures=0" % checks)
     else:
         for failure in failures:push_error(failure)
     quit(0 if failures.is_empty() else 1)
+
+func saved_plan_checks() -> void:
+    var model:=preload("res://scripts/resupply_plan_memory.gd")
+    for invalid in [{},{"order":[],"limits":{},"prices":{}},{"order":["mine","mine"],"limits":{"mine":1}},
+        {"order":["mine"],"limits":{"mine":true}},{"order":["mine"],"limits":{"mine":0.5}},
+        {"order":["mine"],"limits":{"mine":NAN}},{"order":["mine"],"limits":{"mine":-1}},
+        {"order":["mine"],"limits":{"mine":101}},{"order":["mine"],"limits":{"other":1}}]:
+        check(not model.valid(invalid),"malformed saved plan cannot become a shopping request")
+    var desired:={"order":["mine","shard"],"limits":{"mine":2,"shard":1}}
+    var original:=desired.duplicate(true)
+    var projected: Dictionary=model.project(desired,[{"id":"mine","unlocked":true,"capacity":2,"count":1},{"id":"new_tool","unlocked":true,"capacity":3,"count":0},{"id":"locked","unlocked":false,"capacity":9}])
+    check(projected.ok and projected.plan.order==["mine","new_tool"] and projected.plan.limits=={"mine":1,"new_tool":0},"restore retains priority, clamps current deficit, skips unavailable tools and never orders a new unlock")
+    check(projected.skipped==1 and projected.clamped==1 and desired==original,"projection explains adjustments and leaves the saved request unchanged")
+    var build:=fresh();var funds:=wallet(10)
+    var first:=PLANNER.new();root.add_child(first);first.configure_memory("saved_resupply_fixture")
+    var query:=func(plan: Dictionary):return build.quote_resupply(funds,plan)
+    var calls: Array=[]
+    var buy:=func(plan: Dictionary):calls.append(plan.duplicate(true));return {"ok":false,"reason":"测试不发放库存"}
+    first.open(build.get_snapshot().tools,query,buy,func(id: String):return id)
+    first.apply_preset("none")
+    first.quantities.mine=2;first.quantities.shard=1;first.move_priority("mine",-1)
+    var selected:=first.plan();var state: Dictionary=build.serialize();var money:=funds.duplicate(true)
+    first.save_plan_button.pressed.emit()
+    var path: String=first.memory.store.path
+    var bytes:=FileAccess.get_file_as_bytes(path)
+    check(not bytes.is_empty() and first.status.text.contains("已保存"),"real dialog save button persists its explicit current order")
+    check(build.serialize()==state and funds==money and calls.is_empty(),"saving a shopping preference changes no stock, money or purchase count")
+    first.memory.store.writer=func(_data: Dictionary):return ERR_CANT_CREATE
+    first.quantities.mine=0;first.save_plan_button.pressed.emit()
+    check(FileAccess.get_file_as_bytes(path)==bytes and first.status.text.contains("保存失败"),"failed preference write retains the previous on-disk order")
+    first.free();await process_frame
+    build.state.tool_counts.mine=1
+    var second:=PLANNER.new();root.add_child(second);second.configure_memory("saved_resupply_fixture")
+    second.open(build.get_snapshot().tools,query,buy,func(id: String):return id)
+    second.apply_preset("none");second.load_plan_button.pressed.emit()
+    check(second.plan().order==selected.order and second.quantities.mine==1 and second.quantities.shard==1,"new dialog instance reads disk and applies current actual missing stock")
+    check(second.quote.charges=={"mine":1,"shard":1} and calls.is_empty() and funds==money,"loading only recomputes a fresh affordable quote without purchasing")
+    check(FileAccess.get_file_as_bytes(path)==bytes,"current-stock projection never rewrites the remembered shopping preference")
+    check(second.get_cancel_button().has_focus(),"loading a remembered order leaves confirmation to an explicit purchase")
+    var capture:=OS.get_environment("RESUPPLY_PLAN_CAPTURE")
+    if not capture.is_empty():
+        await RenderingServer.frame_post_draw
+        check(root.get_texture().get_image().save_png(capture)==OK,"capture actual remembered order and current quote for layout review")
+    funds.currency=0;second._confirm_purchase()
+    check(calls.is_empty() and not second.quote.ok,"current empty wallet prevents purchase of a previously affordable saved order")
+    var other:=model.new();other.configure("other_journey")
+    check(not other.load_for(second.rows).ok and other.store.path!=path,"another journey cannot load this shopping preference")
+    var bad:=FileAccess.open(path,FileAccess.WRITE);bad.store_string("{broken");bad.close()
+    var before:=second.plan()
+    second.load_plan_button.pressed.emit()
+    check(second.plan()==before and second.status.text.contains("损坏"),"corrupt preference retains the current live request")
+    second.save_plan_button.pressed.emit()
+    check(FileAccess.get_file_as_string(path)=="{broken","corrupt preference is not overwritten by a later save button")
+    DirAccess.remove_absolute(ProjectSettings.globalize_path(path))
+    second.free();await process_frame
