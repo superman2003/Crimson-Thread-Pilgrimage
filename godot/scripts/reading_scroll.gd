@@ -5,6 +5,10 @@ extends RefCounted
 ## the reading pane of the topmost context: the focused control's scrollable
 ## ancestor if any, otherwise that context's largest scrollable pane.
 const SPEED := 900.0
+## Sub-pixel stick motion carried between frames; scroll bars step whole pixels,
+## so gentle tilts would otherwise round to nothing every frame.
+static var _carry := 0.0
+static var _carry_pane_id := 0
 
 ## Strongest right-stick Y over connected pads, rescaled outside the deadzone.
 static func stick_axis(deadzone: float) -> float:
@@ -32,19 +36,34 @@ static func scrollable(control: Control) -> bool:
         bar = control.get_v_scroll_bar()
     elif control is ScrollContainer and control.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
         bar = control.get_v_scroll_bar()
+    elif control is ItemList or control is Tree:
+        bar = control.get_v_scroll_bar()
     return bar != null and bar.max_value - bar.page > 0.5
 
-static func _visible_dialogs(node: Node, out: Array) -> Array:
-    for child in node.get_children():
-        if child is AcceptDialog and child.visible:
-            out.append(child)
-        if not (child is Window and not child.visible):
-            _visible_dialogs(child, out)
+static func _shown(dialog: Window) -> bool:
+    if not dialog.visible:
+        return false
+    var node := dialog.get_parent()
+    while node != null:
+        if node is Window and not node.visible:
+            return false
+        node = node.get_parent()
+    return true
+
+## Visible dialogs anywhere under the level (map, recall and ending desks are
+## owned by the level rather than the shell), else under the shell alone.
+static func _visible_dialogs(shell: Control) -> Array:
+    var level = shell.get("level")
+    var scope: Node = level if level is Node and is_instance_valid(level) and level.is_ancestor_of(shell) else shell
+    var out: Array = []
+    for dialog in scope.find_children("*", "AcceptDialog", true, false):
+        if _shown(dialog):
+            out.append(dialog)
     return out
 
-## The innermost visible dialog under the shell, else the shell itself.
+## The innermost visible dialog, else the shell itself.
 static func context(shell: Control) -> Node:
-    var dialogs := _visible_dialogs(shell, [])
+    var dialogs := _visible_dialogs(shell)
     var best: Node = shell
     for dialog in dialogs:
         if best == shell or best.is_ancestor_of(dialog) or (not dialog.is_ancestor_of(best) and dialog.has_focus()):
@@ -87,9 +106,17 @@ static func scroll(shell: Control, amount: float) -> Control:
     var pane := target(shell)
     if pane == null:
         return null
+    if pane.get_instance_id() != _carry_pane_id or signf(amount) != signf(_carry):
+        _carry = 0.0
+        _carry_pane_id = pane.get_instance_id()
+    var total := _carry + amount
+    var whole := float(int(total))
+    _carry = total - whole
+    if whole == 0.0:
+        return pane
     if pane is ScrollContainer:
-        pane.scroll_vertical += int(round(amount))
+        pane.scroll_vertical += int(whole)
     else:
         var bar: VScrollBar = pane.get_v_scroll_bar()
-        bar.value = clampf(bar.value + amount, bar.min_value, bar.max_value - bar.page)
+        bar.value = clampf(bar.value + whole, bar.min_value, bar.max_value - bar.page)
     return pane

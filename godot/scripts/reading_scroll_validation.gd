@@ -44,7 +44,8 @@ func run() -> void:
 	root.gui_embed_subwindows = true
 	check(is_equal_approx(SCROLL.rescale(0.1, 0.2), 0.0) and is_equal_approx(SCROLL.rescale(0.6, 0.2), 0.5) and is_equal_approx(SCROLL.rescale(-1.0, 0.2), -1.0), "stick rescales outside the deadzone")
 	check(SCROLL.rescale(NAN, 0.2) == 0.0 and SCROLL.rescale(0.9, NAN) > 0.0, "non-finite stick or deadzone values are inert")
-	check(SCROLL.stick_axis(0.2) == 0.0, "no connected pad reads as no scroll")
+	if Input.get_connected_joypads().is_empty():
+		check(SCROLL.stick_axis(0.2) == 0.0, "no connected pad reads as no scroll")
 	world = load("res://scenes/World.tscn").instantiate()
 	world.world_resume = false
 	world.world_save_path = "user://reading_scroll.json"
@@ -131,9 +132,39 @@ func run() -> void:
 			var top := list.scroll_vertical
 			await stick(1.0, 10)
 			check(list.scroll_vertical > top, "stick scrolls the focused list")
+			# A gentle tilt below one pixel per frame still adds up.
+			top = list.scroll_vertical
+			for index in 10:
+				SCROLL.scroll(ui, 0.4)
+			check(list.scroll_vertical - top >= 3, "sub-pixel stick motion accumulates (%d px)" % (list.scroll_vertical - top))
 			cart.hide()
 	else:
 		check(false, "bulk craft launcher is available in a new journey")
+	world._close_overlays()
+	await frames(2)
+	# A dialog the level owns (ending desk pattern) with a focused native list.
+	world._toggle_backpack()
+	await frames(4)
+	var owned := AcceptDialog.new()
+	owned.name = "FixtureLevelList"
+	world.add_child(owned)
+	var items := ItemList.new()
+	items.custom_minimum_size = Vector2(320, 200)
+	for index in 60:
+		items.add_item("条目 %d" % index)
+	owned.add_child(items)
+	owned.popup_centered(Vector2i(360, 300))
+	await frames(4)
+	items.grab_focus()
+	await frames(2)
+	check(not ui.is_ancestor_of(owned) and SCROLL.context(ui) == owned, "a visible dialog under the level is the reading context")
+	check(SCROLL.scrollable(items) and SCROLL.target(ui) == items, "an overflowing focused ItemList is the reading target")
+	var item_bar: VScrollBar = items.get_v_scroll_bar()
+	var item_top := item_bar.value
+	await stick(1.0, 10)
+	check(item_bar.value > item_top, "stick scrolls the level-owned list")
+	owned.hide()
+	owned.queue_free()
 	world._close_overlays()
 	await frames(2)
 	world.queue_free()
