@@ -4,6 +4,10 @@ extends Node2D
 const ROCK := preload("res://scripts/world_rock_material.gd")
 const ROOT := "res://assets/sprites/flat_maps/"
 const INKS := {"moss_cavern": "173c3f", "rain_foundry": "183744", "salt_archive": "564c62", "string_greenhouse": "224939", "obsidian_pilgrim": "382f46", "silent_crown": "303953"}
+## V03: per theme, the atlas slices that read as the same ordinary ground ledge
+## (chosen by eye per atlas; slot numbers do not mean the same thing across themes).
+## Bridges, bronze sluices and boss floors keep their single slice.
+const LEDGE_FAMILIES := {"moss_cavern": [0, 2, 3, 9], "rain_foundry": [0, 2, 3, 4, 10], "salt_archive": [0, 2, 4, 9], "string_greenhouse": [0, 2, 5, 9], "obsidian_pilgrim": [0, 2, 3, 9], "silent_crown": [0, 2, 9, 10]}
 const ACCENTS := {"moss_cavern": "8eab79", "rain_foundry": "9c9980", "salt_archive": "baa794", "string_greenhouse": "94b57e", "obsidian_pilgrim": "a2747a", "silent_crown": "a6aec3"}
 var theme := "moss_cavern"
 var manifest: Dictionary = {}
@@ -146,8 +150,9 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     var style: Dictionary = platform_styles.get(String(parent.name), {})
     # Legacy per-tile variants mixed soil, masonry and roots inside one step.
     # Select the complete platform by material, with an explicit whole-object override.
-    var family_variant := material_variant_for(material_name)
-    var index := posmod(int(style.get("material_variant", family_variant)), variants.size())
+    var choice := platform_choice(theme, String(parent.name), material_name, style)
+    var family_variant := int(choice.family)
+    var index := posmod(int(choice.variant), variants.size())
     var variant: Dictionary = variants[index]
     var texture := _texture(ROOT + theme + "/platform_atlas.png")
     var region: Array = variant.get("region", [])
@@ -157,8 +162,9 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     var top_offset := float(variant.get("walk_y", 0))
     var y_scale := clampf((dimensions.y + 30) / maxf(source.size.y - top_offset, 1), 0.40, 0.90)
     var top := -dimensions.y * 0.5
-    var flip := bool(style.get("material_flip_h", false))
+    var flip := bool(choice.flip)
     parent.set_meta("platform_art_variant", index)
+    parent.set_meta("platform_art_flip", flip)
     parent.set_meta("platform_art_asset", ROOT + theme + "/platform_atlas.png")
     parent.set_meta("platform_art_body_variants", [index])
     if dimensions.x <= source.size.x:
@@ -205,6 +211,29 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
     edge.z_index = -2
     parent.add_child(edge)
     return true
+
+
+## One whole slice and one orientation per platform, stable across rebuilds
+## (streaming residency recreates platforms by id). An explicit material_* style
+## wins; otherwise ordinary ledges pick from the theme family by id and keep the
+## authored whole-platform flip_h when the level data has one. Other families
+## stay unflipped unless material_flip_h says otherwise.
+static func platform_choice(theme_id: String, platform_id: String, material_name: String, style: Dictionary = {}) -> Dictionary:
+    var family := material_variant_for(material_name)
+    var variant := family
+    if style.has("material_variant"):
+        variant = int(style.material_variant)
+    elif family == 2:
+        var options: Array = LEDGE_FAMILIES.get(theme_id, [2])
+        variant = int(options[posmod((platform_id + "|slice").hash(), options.size())])
+    var flip := false
+    if style.get("material_flip_h") is bool:
+        flip = style.material_flip_h
+    elif family == 2:
+        # Bridges, sluices and boss floors keep their single unflipped art;
+        # only ordinary ledges take the authored flip_h or an id-derived one.
+        flip = style.flip_h if style.get("flip_h") is bool else posmod((platform_id + "|flip").hash(), 2) == 1
+    return {"family": family, "variant": variant, "flip": flip}
 
 
 static func material_variant_for(material_name: String) -> int:
