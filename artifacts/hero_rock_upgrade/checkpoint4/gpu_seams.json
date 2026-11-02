@@ -7,7 +7,8 @@
         32.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -17,7 +18,19 @@
         32.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "center": [
+        64.0,
+        32.0
+      ],
+      "edge_delta": 0.101960808038712,
+      "interior_max_delta": 0.686274513602257,
+      "mode": "blend",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -27,7 +40,8 @@
         32.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -37,7 +51,19 @@
         32.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "center": [
+        -64.0,
+        32.0
+      ],
+      "edge_delta": 0.184313744306564,
+      "interior_max_delta": 0.823529407382011,
+      "mode": "blend",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -47,7 +73,8 @@
         32.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -57,7 +84,19 @@
         32.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "center": [
+        128.0,
+        32.0
+      ],
+      "edge_delta": 0.360784322023392,
+      "interior_max_delta": 0.650980398058891,
+      "mode": "blend",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -67,7 +106,8 @@
         64.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -77,7 +117,19 @@
         64.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "center": [
+        32.0,
+        64.0
+      ],
+      "edge_delta": 0.172549039125443,
+      "interior_max_delta": 0.482352942228317,
+      "mode": "blend",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -87,7 +139,8 @@
         -64.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -97,7 +150,19 @@
         -64.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "center": [
+        32.0,
+        -64.0
+      ],
+      "edge_delta": 0.572549015283585,
+      "interior_max_delta": 0.725490182638168,
+      "mode": "blend",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -107,7 +172,8 @@
         -64.0
       ],
       "edge_delta": 1.0,
-      "mirror_repeat": false,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "repeat",
       "partition_delta": 0.0,
       "pass": true
     },
@@ -117,10 +183,32 @@
         -64.0
       ],
       "edge_delta": 0.0,
-      "mirror_repeat": true,
+      "interior_max_delta": 0.0196078419685364,
+      "mode": "mirror",
       "partition_delta": 0.0,
       "pass": true
+    },
+    {
+      "center": [
+        64.0,
+        -64.0
+      ],
+      "edge_delta": 0.572549015283585,
+      "interior_max_delta": 0.725490182638168,
+      "mode": "blend",
+      "partition_delta": 0.0,
+      "pass": true
+    },
+    {
+      "mirror_difference": 0.0,
+      "pass": true,
+      "symmetry_probe": "mirror"
+    },
+    {
+      "mirror_difference": 0.0571499700195091,
+      "pass": true,
+      "symmetry_probe": "blend"
     }
   ],
-  "renderer": "llvmpipe (LLVM 20.1.2, 256 bits)"
+  "renderer": "llvmpipe (LLVM 21.1.8, 256 bits)"
 }

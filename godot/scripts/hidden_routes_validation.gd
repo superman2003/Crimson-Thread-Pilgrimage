@@ -66,6 +66,9 @@ func run() -> void:
 		var entrance := String(entry.entrance_room_id)
 		var hidden := String(entry.hidden_room_id)
 		var clue_at: Vector2 = scene._vec2(entry.clue.position)
+		# This crack is under a low roof: its art anchor is not a valid place
+		# for the player's feet (that would put the eyes inside the ceiling).
+		var stand_at: Vector2 = clue_at + (Vector2(0,60) if id=="ch01_fake_moss_grotto" else Vector2(0,20) if id=="ch06_bell_tongue_vault" else Vector2.ZERO)
 		if String(scene.config.get("id", "")) != region:
 			scene._travel_world(ROUTES.config_path(region), room_rect_in(region, entrance).get_center())
 			await tick(12)
@@ -91,25 +94,26 @@ func run() -> void:
 		var away: Vector2 = clue_at + (clue_at - hidden_rect.get_center()).normalized() * 380.0
 		await park(away)
 		scene.story_flags.erase("hidden_clue_seen_" + id)
+		clue.set_meta(preload("res://scripts/hidden_clue_notes.gd").SIGHT_RETRY,0)
 		if entry == plan[0]:
 			# With the backpack open the notice waits instead of playing behind it.
 			scene._toggle_backpack()
 			scene.toast_label.text = ""
-			scene.player.global_position = clue_at
+			scene.player.global_position = stand_at
 			await tick(2)
 			check(scene.active_overlay != "" and not bool(scene.story_flags.get("hidden_clue_seen_" + id, false)) and scene.toast_label.text != String(entry.clue.line), id + " no notice is spent while an overlay is open")
 			scene._close_overlays()
 			await park(away)
 		scene.toast_label.text = ""
-		scene.player.global_position = clue_at
+		scene.player.global_position = stand_at
 		await tick(1)
-		check(scene.toast_label.text == String(entry.clue.line), id + " coming near the clue says what the player notices (got: " + scene.toast_label.text + ")")
+		check(scene.lore_banner_label.visible and scene.lore_banner_label.text==String(entry.clue.line), id + " visible observation remains readable beside interaction hints")
 		check(bool(scene.story_flags.get("hidden_clue_seen_" + id, false)), id + " noticing the clue is remembered")
 		var noticed_save = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
 		check(noticed_save is Dictionary and bool(noticed_save.get("story_flags", {}).get("hidden_clue_seen_" + id, false)), id + " the noticed clue is saved at once")
 		await park(away)
 		scene.toast_label.text = ""
-		scene.player.global_position = clue_at
+		scene.player.global_position = stand_at
 		await tick(1)
 		check(scene.toast_label.text != String(entry.clue.line), id + " the clue line is said only once")
 		# Finding the hidden room dims the clue and is saved.
