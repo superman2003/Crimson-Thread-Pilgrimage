@@ -216,7 +216,8 @@ func add_platform_visual(parent: Node2D, dimensions: Vector2, material_name: Str
 ## One whole slice and one orientation per platform, stable across rebuilds
 ## (streaming residency recreates platforms by id). An explicit material_* style
 ## wins; otherwise ordinary ledges pick from the theme family by id and keep the
-## authored whole-platform flip_h when the level data has one.
+## authored whole-platform flip_h when the level data has one. Other families
+## stay unflipped unless material_flip_h says otherwise.
 static func platform_choice(theme_id: String, platform_id: String, material_name: String, style: Dictionary = {}) -> Dictionary:
     var family := material_variant_for(material_name)
     var variant := family
@@ -225,11 +226,13 @@ static func platform_choice(theme_id: String, platform_id: String, material_name
     elif family == 2:
         var options: Array = LEDGE_FAMILIES.get(theme_id, [2])
         variant = int(options[posmod((platform_id + "|slice").hash(), options.size())])
-    var flip := posmod((platform_id + "|flip").hash(), 2) == 1
+    var flip := false
     if style.get("material_flip_h") is bool:
         flip = style.material_flip_h
-    elif style.get("flip_h") is bool:
-        flip = style.flip_h
+    elif family == 2:
+        # Bridges, sluices and boss floors keep their single unflipped art;
+        # only ordinary ledges take the authored flip_h or an id-derived one.
+        flip = style.flip_h if style.get("flip_h") is bool else posmod((platform_id + "|flip").hash(), 2) == 1
     return {"family": family, "variant": variant, "flip": flip}
 
 

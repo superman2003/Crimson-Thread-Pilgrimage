@@ -11,8 +11,9 @@ varying vec2 world_position;
 void vertex() {
     world_position = (MODEL_MATRIX * vec4(VERTEX,0.0,1.0)).xy;
 }
-// ROCK_SAMPLE_BEGIN — keep byte-identical in world_rock.gdshader and
-// ink_cave_edge.gdshader (world_material checks this) so rims join the body.
+// ROCK_SAMPLE_BEGIN — keep byte-identical in world_rock.gdshader,
+// ink_cave_edge.gdshader and passage_support.gdshader (world_material checks
+// this) so rims and passage pilasters join the body they sit on.
 // V03: the plain two-tile mirror fold hides atlas seams but shows four-way
 // kaleidoscope axes on large masses. Blend two differently shifted mirror
 // layers under low-frequency world noise and bend the axes with a gentle warp.

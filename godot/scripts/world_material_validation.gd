@@ -14,13 +14,14 @@ func run() -> void:
     # Rims blend into the rock body with the body's own sampling; the shared
     # block must stay byte-identical or a seam appears where they join.
     var blocks: Array = []
-    for path in ["res://shaders/world_rock.gdshader","res://shaders/ink_cave_edge.gdshader"]:
+    for path in ["res://shaders/world_rock.gdshader","res://shaders/ink_cave_edge.gdshader","res://shaders/passage_support.gdshader"]:
         var code: String = (load(path) as Shader).code
         var begin := code.find("// ROCK_SAMPLE_BEGIN")
         var end := code.find("// ROCK_SAMPLE_END")
         check(begin>=0 and end>begin,path+" carries the shared rock sampling block")
         blocks.append(code.substr(begin,end-begin))
-    check(blocks.size()==2 and blocks[0]==blocks[1],"rock body and rim join use identical sampling")
+    check(blocks.size()==3 and blocks[0]==blocks[1],"rock body and rim join use identical sampling")
+    check(blocks.size()==3 and blocks[0]==blocks[2],"passage pilasters use the rear wall's rock sampling")
     for bridge in ["bronze_bridge", "sluice_bridge", "vellum_bridge", "glassvine_bridge", "ember_bridge", "void_bridge"]:
         check(MAP_ART.material_variant_for(bridge) in [6,7],bridge+" selects bridge rather than fractured rock")
     for id in ["demo_ch01_moss_bell_court","demo_ch02_rain_foundry_canal","demo_ch03_saltwhite_archive","demo_ch04_broken_string_greenhouse","demo_ch05_obsidian_pilgrim_road","demo_ch06_silent_crown_core"]:
@@ -71,8 +72,10 @@ func run() -> void:
             var art: Dictionary = data.get("art",{})
             var again: Dictionary = MAP_ART.platform_choice(theme,String(data.id),String(data.get("material","moss_stone")),art)
             check(int(again.variant)==chosen and bool(again.flip)==bool(platform.get_meta("platform_art_flip",false)),id+" platform slice and orientation are stable across rebuilds: "+String(data.id))
-            if art.get("flip_h") is bool and not art.has("material_flip_h"):
+            if int(again.family)==2 and art.get("flip_h") is bool and not art.has("material_flip_h"):
                 check(bool(platform.get_meta("platform_art_flip",false))==bool(art.flip_h),id+" authored whole-platform flip_h is honoured: "+String(data.id))
+            if int(again.family)!=2 and not art.has("material_flip_h"):
+                check(not bool(platform.get_meta("platform_art_flip",false)),id+" bridges and boss floors keep their unflipped art: "+String(data.id))
             if int(again.family)==2 and not art.has("material_variant"):
                 check(chosen in MAP_ART.LEDGE_FAMILIES[theme],id+" ordinary ledge stays inside the theme ledge family: "+String(data.id))
                 ledge_counts[chosen]=int(ledge_counts.get(chosen,0))+1
