@@ -2,6 +2,7 @@ extends SceneTree
 const GEOMETRY := preload("res://scripts/cave_rim_geometry.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
+const VISIBLE_ROCK := preload("res://scripts/visible_rock_mass.gd")
 var checks := 0
 var failures := 0
 var metrics: Array = []
@@ -11,7 +12,80 @@ func check(ok: bool, label: String) -> void:
     if not ok:
         failures += 1
         push_error(label)
+## The original full-scan rim and body-trim algorithms, kept as the reference
+## the indexed versions must reproduce exactly (same pieces, same order).
+func reference_exposed(rects: Array[Rect2]) -> Array[Dictionary]:
+    var edges: Array[Dictionary] = []
+    for index in range(rects.size()):
+        var rect := rects[index]
+        for ceiling in [false,true]:
+            var y := rect.end.y if ceiling else rect.position.y
+            var probe := y + (0.05 if ceiling else -0.05)
+            var spans: Array = [Vector2(rect.position.x,rect.end.x)]
+            for other_index in range(rects.size()):
+                if other_index == index: continue
+                var other := rects[other_index]
+                var other_y := other.end.y if ceiling else other.position.y
+                if (probe > other.position.y and probe < other.end.y) or (other_index < index and is_equal_approx(other_y,y)):
+                    spans = GEOMETRY.subtract_span(spans,Vector2(other.position.x,other.end.x))
+                if spans.is_empty(): break
+            for span in spans:
+                if span.y-span.x > 0.1:
+                    edges.append({"left":Vector2(span.x,y),"right":Vector2(span.y,y),"ceiling":ceiling,"depth":minf(96,rect.size.y*0.5)})
+    edges.sort_custom(func(a,b):
+        if a.ceiling != b.ceiling: return not a.ceiling
+        if a.left.y != b.left.y: return a.left.y < b.left.y
+        return a.left.x < b.left.x)
+    var merged: Array[Dictionary] = []
+    for edge in edges:
+        if not merged.is_empty():
+            var previous: Dictionary = merged[-1]
+            if previous.ceiling == edge.ceiling and is_equal_approx(previous.left.y,edge.left.y) and is_equal_approx(previous.right.x,edge.left.x):
+                previous.right = edge.right
+                previous.depth = minf(previous.depth,edge.depth)
+                continue
+        merged.append(edge.duplicate())
+    return merged
+
+func reference_body(rects: Array[Rect2], edges: Array[Dictionary]) -> Array[Rect2]:
+    var body: Array[Rect2] = rects.duplicate()
+    for edge in edges:
+        var inset := minf(12,float(edge.depth)*0.25)
+        var cut := Rect2(edge.left-Vector2(0,inset if edge.ceiling else 0),Vector2(edge.right.x-edge.left.x,inset))
+        var remaining: Array[Rect2] = []
+        for rect in body: remaining.append_array(GEOMETRY.subtract_rect(rect,cut))
+        body = remaining
+    return body
+
+func same_geometry(rects: Array[Rect2], label: String) -> void:
+    var expected_edges := reference_exposed(rects)
+    var mass := VISIBLE_ROCK.new()
+    root.add_child(mass)
+    mass.configure(rects, null)
+    check(str(mass.rim_descriptors) == str(expected_edges), label + " indexed rims equal the full scan (%d edges)" % expected_edges.size())
+    check(str(mass.body_rects) == str(reference_body(rects, expected_edges)), label + " indexed body trim equals the full scan (%d pieces)" % mass.body_rects.size())
+    mass.free()
+
 func run() -> void:
+    # T03: rim/body geometry is indexed; it must match the original algorithm on
+    # every authored region and on overlapping/touching/duplicate/oversized rects.
+    for id in COORD.manifest().regions:
+        var raw: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(ROUTES.config_path(id)))
+        var authored: Array[Rect2] = []
+        for value in raw.get("cave_world", {}).get("solid_rects", []):
+            authored.append(Rect2(float(value[0]), float(value[1]), float(value[2]), float(value[3])))
+        same_geometry(authored, id)
+    var random := RandomNumberGenerator.new()
+    random.seed = 20261102
+    for trial in 6:
+        var fuzz: Array[Rect2] = []
+        for index in 90:
+            var position := Vector2(random.randi_range(-12, 12) * 128.0, random.randi_range(-8, 8) * 96.0) + Vector2(random.randi_range(0, 3) * 16.0, 0)
+            var size := Vector2(random.randi_range(1, 14) * 64.0, random.randi_range(1, 6) * 48.0)
+            if index % 17 == 0 and not fuzz.is_empty(): fuzz.append(fuzz[random.randi_range(0, fuzz.size() - 1)])
+            elif index % 23 == 0: fuzz.append(Rect2(position, Vector2(4096, 40)))
+            else: fuzz.append(Rect2(position, size))
+        same_geometry(fuzz, "fuzz %d" % trial)
     var stack: Array[Rect2] = [Rect2(0,0,100,40),Rect2(0,40,100,40)]
     var edges := GEOMETRY.exposed(stack)
     check(edges.size()==2,"stacked rocks have only two exterior horizontal rims")

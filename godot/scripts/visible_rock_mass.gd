@@ -20,14 +20,29 @@ func configure(rects: Array[Rect2], rock_material: ShaderMaterial, theme: String
     material = rock_material
     rim_theme = theme
     rim_descriptors = RIMS.exposed(rects)
-    body_rects = rects.duplicate()
+    # Each rect is trimmed by the rim cuts in edge order, independently of the
+    # others, so trimming per rect against only the cuts near it gives the same
+    # pieces in the same order as trimming the whole list once per edge (that
+    # full scan cost up to ~0.4 s of one region-build frame).
+    var cuts: Array[Rect2] = []
     for edge in rim_descriptors:
         var inset := minf(12,float(edge.depth)*0.25)
-        var cut := Rect2(edge.left-Vector2(0,inset if edge.ceiling else 0),Vector2(edge.right.x-edge.left.x,inset))
-        var remaining: Array[Rect2] = []
-        for rect in body_rects:
-            remaining.append_array(RIMS.subtract_rect(rect,cut))
-        body_rects = remaining
+        cuts.append(Rect2(edge.left-Vector2(0,inset if edge.ceiling else 0),Vector2(edge.right.x-edge.left.x,inset)))
+    var cut_cells := RIMS.grid_index(cuts)
+    body_rects = []
+    for rect in rects:
+        var pieces: Array[Rect2] = [rect]
+        for cut_index in RIMS.grid_query(cut_cells,rect.grow(1.0)):
+            var cut := cuts[cut_index]
+            var remaining: Array[Rect2] = []
+            for piece in pieces:
+                if piece.intersects(cut):
+                    remaining.append_array(RIMS.subtract_rect(piece,cut))
+                else:
+                    remaining.append(piece)
+            pieces = remaining
+        body_rects.append_array(pieces)
+    for edge in rim_descriptors:
         var cursor: float = edge.left.x
         while cursor < edge.right.x-0.01:
             var finish := minf(edge.right.x,(floorf(cursor/RIM_CHUNK)+1)*RIM_CHUNK)

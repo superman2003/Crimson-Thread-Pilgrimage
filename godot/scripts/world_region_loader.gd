@@ -3,6 +3,14 @@ const PLAYER_ART_WARM_JOB := preload("res://scripts/player_art_warm_job.gd")
 var player_art_job: RefCounted
 var player_art_resources: Dictionary = {}
 const CHARACTER_ART_WARM_JOB := preload("res://scripts/character_art_warm_job.gd")
+const RESOURCE_JOB := preload("res://scripts/background_resource_job.gd")
+const PREFETCH := preload("res://scripts/world_prefetch.gd")
+## T03: the destination theme's large textures (backdrop, atlases, rock) are
+## read on a worker before the build phase, which otherwise decoded each
+## ~100 ms image synchronously inside one build job. Teleports, fast travel and
+## save loads never pass the border prefetch that covers walking transitions.
+var region_texture_jobs: Array[Dictionary] = []
+var region_texture_hold: Array[Texture2D] = []
 ## The World node is the persistent host. Only its region-owned children are
 ## evicted; the Player, WorldState and BuildSystem remain the same instances.
 ## This is a coarse active-region chunk, not yet distance-based room streaming.
@@ -905,6 +913,10 @@ func shutdown() -> void:
         player_art_job = null
     player_art_resources.clear()
     CHARACTER_ART_WARM_JOB.ART.shutdown_texture_requests()
+    for job in region_texture_jobs:
+        job.worker.shutdown()
+    region_texture_jobs.clear()
+    region_texture_hold.clear()
     phase = "idle"
     _clear_loading_canvas()
     _disconnect_startup_frames()
@@ -950,7 +962,11 @@ func _cancel_input() -> void:
 
 func _measure_batch(operations: int, started: int, metric: String) -> void:
     last_transition[metric] = maxi(int(last_transition.get(metric, 0)), operations)
-    last_transition["max_batch_usec"] = maxi(int(last_transition.get("max_batch_usec", 0)), Time.get_ticks_usec() - started)
+    var batch_usec := Time.get_ticks_usec() - started
+    last_transition["max_batch_usec"] = maxi(int(last_transition.get("max_batch_usec", 0)), batch_usec)
+    # Per phase (unload/build/commit), so the slowest phase is named.
+    var phase_key := metric.replace("_operations", "_batch_usec")
+    last_transition[phase_key] = maxi(int(last_transition.get(phase_key, 0)), batch_usec)
     last_transition["batches"] = int(last_transition.get("batches", 0)) + 1
 
 
@@ -1290,6 +1306,8 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     if not String(art_job.error).is_empty():
         last_error = String(art_job.error)
         return false
+    if not await _warm_region_textures(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
+        return false
     var jobs: Array = host._region_build_jobs()
     var cursor := 0
     last_transition["jobs"] = jobs.size()
@@ -1304,7 +1322,15 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
             if operations > 0 and Time.get_ticks_usec() - started >= FRAME_BUDGET_USEC:
                 break
             var job: Dictionary = jobs[cursor]
+            var job_started := Time.get_ticks_usec()
             host.callv(job.method, job.args)
+            var job_usec := Time.get_ticks_usec() - job_started
+            # Names the job behind max_batch_usec so the next stall is findable.
+            if job_usec > int(last_transition.get("max_build_job_usec", 0)):
+                last_transition["max_build_job_usec"] = job_usec
+                last_transition["max_build_job"] = String(job.method)
+            if String(job.method) in ["_background_art", "_background_cave"]:
+                last_transition[String(job.method).trim_prefix("_") + "_usec"] = job_usec
             cursor += 1
             operations += 1
         _measure_batch(operations, started, "max_build_operations")
@@ -1320,6 +1346,71 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     if not await _await_player_art(host, prepare_tree, prepare_generation, prepare_route_generation, cancellable):
         return false
     return not (cancellable and cancel_requested)
+
+
+static func region_texture_paths(theme: String) -> Array[String]:
+    var result: Array[String] = []
+    if theme == "moss_bell":
+        theme = "moss_cavern"
+    if theme.is_empty():
+        return result
+    for filename in PREFETCH.TEXTURES:
+        var path := "res://assets/sprites/flat_maps/%s/%s" % [theme, filename]
+        if ResourceLoader.exists(path, "Texture2D"):
+            result.append(path)
+    return result
+
+## Take finished reads; a cancelled transition leaves its reads here until
+## they finish (joined only by whole-loader shutdown).
+func _poll_region_textures(keep: bool) -> void:
+    for index in range(region_texture_jobs.size() - 1, -1, -1):
+        var job: Dictionary = region_texture_jobs[index]
+        if not job.worker.ready():
+            continue
+        var texture := job.worker.take().get("resource") as Texture2D
+        region_texture_jobs.remove_at(index)
+        if keep and texture != null:
+            region_texture_hold.append(texture)
+        elif keep:
+            last_transition["region_texture_failures"] = int(last_transition.get("region_texture_failures", 0)) + 1
+
+func _warm_region_textures(host: Node, tree: SceneTree, expected_generation: int, route_generation: int, cancellable: bool) -> bool:
+    region_texture_hold.clear()
+    _poll_region_textures(false)
+    var theme := String(host._art_theme_id()) if host.has_method("_art_theme_id") else ""
+    var pending: Array[String] = []
+    for path in region_texture_paths(theme):
+        if ResourceLoader.has_cached(path):
+            # Already resident: hold it so it cannot be released mid-build.
+            var resident := ResourceLoader.load(path, "Texture2D") as Texture2D
+            if resident != null:
+                region_texture_hold.append(resident)
+        else:
+            pending.append(path)
+    var started := Time.get_ticks_usec()
+    var batches := 0
+    last_transition["region_texture_requested"] = pending.size()
+    while not pending.is_empty() or not region_texture_jobs.is_empty():
+        while region_texture_jobs.size() < PREFETCH.MAX_JOBS and not pending.is_empty():
+            var path: String = pending.pop_front()
+            var worker := RESOURCE_JOB.new()
+            if worker.start(path, "Texture2D") == OK:
+                region_texture_jobs.append({"path": path, "worker": worker})
+            else:
+                last_transition["region_texture_failures"] = int(last_transition.get("region_texture_failures", 0)) + 1
+        _poll_region_textures(true)
+        if pending.is_empty() and region_texture_jobs.is_empty():
+            break
+        batches += 1
+        await _next_process_frame(tree)
+        if not _catalog_context_valid(host, tree, expected_generation, route_generation, cancellable):
+            region_texture_hold.clear()
+            return false
+        _cancel_input()
+    last_transition["region_texture_held"] = region_texture_hold.size()
+    last_transition["region_texture_batches"] = batches
+    last_transition["region_texture_wall_usec"] = Time.get_ticks_usec() - started
+    return true
 
 
 func _begin_player_art(host: Node) -> bool:

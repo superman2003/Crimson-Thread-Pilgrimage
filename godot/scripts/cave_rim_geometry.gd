@@ -10,17 +10,46 @@ static func subtract_span(spans: Array, cut: Vector2) -> Array:
             if cut.y < span.y: result.append(Vector2(maxf(cut.y,span.x),span.y))
     return result
 
-static func exposed(rects: Array[Rect2]) -> Array[Dictionary]:
-    var edges: Array[Dictionary] = []
+## Indices of rects overlapping each cell; queries return ascending indices so
+## callers see candidates in the same order as a full scan would.
+const GRID := 512.0
+
+static func grid_index(rects: Array[Rect2]) -> Dictionary:
+    var cells := {}
     for index in range(rects.size()):
         var rect := rects[index]
+        for cx in range(floori(rect.position.x/GRID),floori(rect.end.x/GRID)+1):
+            for cy in range(floori(rect.position.y/GRID),floori(rect.end.y/GRID)+1):
+                var key := Vector2i(cx,cy)
+                if not cells.has(key): cells[key] = PackedInt32Array()
+                cells[key].append(index)
+    return cells
+
+static func grid_query(cells: Dictionary, area: Rect2) -> PackedInt32Array:
+    var seen := {}
+    for cx in range(floori(area.position.x/GRID),floori(area.end.x/GRID)+1):
+        for cy in range(floori(area.position.y/GRID),floori(area.end.y/GRID)+1):
+            for index in cells.get(Vector2i(cx,cy),PackedInt32Array()): seen[index] = true
+    var result := PackedInt32Array(seen.keys())
+    result.sort()
+    return result
+
+static func exposed(rects: Array[Rect2]) -> Array[Dictionary]:
+    var edges: Array[Dictionary] = []
+    var cells := grid_index(rects)
+    for index in range(rects.size()):
+        var rect := rects[index]
+        # Only rects overlapping this one's footprint (plus the probe) can cut
+        # its top or bottom edge; every other cut leaves the spans unchanged.
+        var candidates := grid_query(cells,rect.grow(1.0))
         for ceiling in [false,true]:
             var y := rect.end.y if ceiling else rect.position.y
             var probe := y + (0.05 if ceiling else -0.05)
             var spans: Array = [Vector2(rect.position.x,rect.end.x)]
-            for other_index in range(rects.size()):
+            for other_index in candidates:
                 if other_index == index: continue
                 var other := rects[other_index]
+                if other.position.x >= rect.end.x or other.end.x <= rect.position.x: continue
                 var other_y := other.end.y if ceiling else other.position.y
                 var blocks := probe > other.position.y and probe < other.end.y
                 var duplicate := other_index < index and is_equal_approx(other_y,y)
