@@ -21,6 +21,8 @@ func observe(node: Node) -> void:
         text = str(node.item_count)
     elif node is Label or node is Button:
         text = node.text
+    elif node is LineEdit:
+        text = node.placeholder_text
     elif node is AcceptDialog:
         text = node.dialog_text  # title and buttons start with engine defaults
     entered.append({"node": node, "text": text})
@@ -50,6 +52,41 @@ func run() -> void:
     check(label.get_theme_font_size("font_size") == 16 and button.get_theme_font_size("font_size") == 17, "helper styles still apply")
     check(ui.inscription_mark("settings") == ui.inscription_mark("settings") and ui.inscription_mark("settings") is Texture2D, "inscribed title artwork is loaded once and shared")
     host.free()
+
+    # Rarely opened windows are not laid out on every region arrival (they
+    # cost 20–40 ms each there); they are built when first opened.
+    var purpose: Node = ui.get_node("ResourcePurposeWindow")
+    var finder: Node = ui.bag.get_node("JournalDocumentFind")
+    var output: Node = ui.get_node("AudioOutputDesk")
+    check(purpose.resources == null and purpose.get_child_count(false) == 0, "resource purpose window has no content until opened")
+    check(finder.editor == null and finder.get_child_count(false) == 0, "journal page-find window has no content until opened")
+    check(output.window == null and ui.settings.get_node_or_null("AudioOutputDeviceButton") != null, "audio output window is not built until opened; its launcher is")
+    world._toggle_backpack()
+    await process_frame
+    ui.bag.get_node("ResourcePurposeButton").pressed.emit()
+    await process_frame
+    check(is_instance_valid(purpose.resources) and purpose.visible and purpose.resources.item_count > 0, "resource purpose window builds and fills on first open")
+    purpose.hide()
+    world._close_overlays()
+    world._toggle_audio_settings()
+    await process_frame
+    output.open()
+    await process_frame
+    check(is_instance_valid(output.window) and output.window.visible and output.options.item_count > 0, "audio output window builds and lists devices on first open")
+    output.window.hide()
+    world._close_overlays()
+    await process_frame
+    # The bag's journal tools join the tree before their texts and items.
+    var observe_all := func(node: Node): observe(node)
+    node_added.connect(observe_all)
+    var old_bag: Control = ui.bag
+    ui._build_bag()
+    node_added.disconnect(observe_all)
+    check(entry_for(ui.journal_search).get("text", "x") == "" and not ui.journal_search.placeholder_text.is_empty(), "journal search joins the tree before its placeholder")
+    check(entry_for(ui.journal_unread).get("text", "x") == "" and ui.journal_unread.text == "仅未读", "journal filter toggle joins the tree before its text")
+    check(entry_for(ui.journal_sort).get("text", "x") == "0" and ui.journal_sort.item_count == 3, "journal sort menu joins the tree before its items")
+    ui.bag.free()
+    ui.bag = old_bag
 
     # Region-owned dialogs and the pin toolbar, rebuilt by the real setup calls.
     world.child_entered_tree.connect(observe)
