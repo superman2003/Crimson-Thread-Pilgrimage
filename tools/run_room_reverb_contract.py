@@ -14,6 +14,7 @@ SCRIPTS = (
     "audio_director.gd", "duck_mix.gd", "npc_landmark_schedule.gd",
     "audio_retirement.gd", "music_layer_phase.gd", "spatial_enemy_alert.gd", "landmark_spatial_refresh.gd",
     "room_reverb_validation.gd", "audio_user_volume_validation.gd",
+    "npc_sound_landmark.gd", "enemy_sound_filter.gd",
 )
 MARKER = re.compile(r"^ROOM_REVERB checks=[1-9][0-9]* failures=0$", re.M)
 

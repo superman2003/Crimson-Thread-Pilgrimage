@@ -1482,11 +1482,10 @@ func play_npc_landmark(source: Node2D) -> bool:
     var key := "npc_landmark_" + id
     var ticket := reserve_voice(key,3,12000,1)
     if ticket == 0:return false
-    var voice := preload("res://scripts/spatial_enemy_alert.gd").new()
+    var voice := preload("res://scripts/npc_sound_landmark.gd").new()
     voice.name = "NPCSoundLandmark"
     voice.set_meta("npc_landmark",true)
     voice.set_meta("landmark_source",weakref(source))
-    voice.bus = _bus_or("SFXWorld","SFX")
     voice.stream = npc_voice_stream("dry" if id.contains("carto") else "low" if id.contains("smith") else "warm")
     add_child(voice)
     if not voice.place(source.global_position,runtime_player,-25.0):

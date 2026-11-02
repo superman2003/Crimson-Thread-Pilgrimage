@@ -1,0 +1,38 @@
+{
+  "base": "8f3048c0c4d8b9456b488173c8ae4700c8f0ec29",
+  "restored": true,
+  "results": [
+    {
+      "label": "positive_headless",
+      "exit": 0,
+      "negative": false,
+      "passed": true,
+      "marker": "AUDIO_LANDMARKS checks=39 failures=0"
+    },
+    {
+      "label": "negative_old_npc_hook",
+      "exit": 1,
+      "negative": true,
+      "passed": true,
+      "marker": "AUDIO_LANDMARKS checks=39 failures=2"
+    },
+    {
+      "label": "negative_always_filtered",
+      "exit": 1,
+      "negative": true,
+      "passed": true,
+      "marker": "AUDIO_LANDMARKS checks=39 failures=2"
+    },
+    {
+      "label": "positive_native_gl",
+      "exit": 0,
+      "negative": false,
+      "passed": true,
+      "marker": "AUDIO_LANDMARKS checks=39 failures=0"
+    }
+  ],
+  "source_sha256": {
+    "godot/scripts/audio_director.gd": "2aea98057acb0403a2e6d6baad4cec1b4604632b4363509de8c999dd8a835f3d",
+    "godot/scripts/npc_sound_landmark.gd": "2c0a386753cfb398f581ff4fb94cfa7ada9ed56f56c86af04738037d5eb337ca"
+  }
+}
