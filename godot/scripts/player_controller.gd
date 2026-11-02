@@ -881,14 +881,16 @@ func _consume_action_input(action: StringName) -> bool:
     if buffered_action != action:
         return false
     var dash := action == &"dash"
+    if not dash and attack_cancel_lock > 0.0:
+        # The buffered swing or hook waits out the cut recovery instead of being
+        # lost, even when that recovery is longer than the input buffer and the
+        # dash that cut it is still running.
+        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
     if not _can_start_action(dash, dash):
         return false
     if dash and (not dash_unlocked or dash_cooldown > 0.0):
         return false
     if not dash and attack_cancel_lock > 0.0:
-        # The buffered swing waits out the cut recovery instead of being lost,
-        # even when that recovery is longer than the input buffer.
-        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
         return false
     var direction := buffered_direction
     # Consume before any signal/callback can re-enter action handling.

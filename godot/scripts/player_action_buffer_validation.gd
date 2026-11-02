@@ -183,6 +183,20 @@ func _run() -> void:
     await _frames(6)
     _check(player.strike_count == 1 and player.current_attack == &"hook_throw", "Hook pressed at the end of a dash throws when the dash ends")
 
+    # A dash that cut a recovery leaves debt; a hook pressed at the start of
+    # that dash (longer than the buffer) still waits for the debt, not dropped.
+    await _reset()
+    player.dash_timer = 0.16
+    player.attack_cancel_lock = 0.3
+    Input.action_press("hook")
+    await _frames(1)
+    Input.action_release("hook")
+    waited = 0
+    while player.strike_count == 0 and waited < 40:
+        await _frames(1)
+        waited += 1
+    _check(player.strike_count == 1 and player.current_attack == &"hook_throw" and player.attack_cancel_lock == 0.0, "Hook pressed early in a recovery-cancelling dash throws once the debt is paid")
+
     await _reset()
     player._start_attack(&"attack_1")
     player.strike_count = 0
