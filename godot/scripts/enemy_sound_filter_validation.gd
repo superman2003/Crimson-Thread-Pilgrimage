@@ -1,6 +1,7 @@
 extends SceneTree
 const FILTER := preload("res://scripts/enemy_sound_filter.gd")
 const ENEMY := preload("res://scripts/enemy_actor.gd")
+const LANDMARK := preload("res://scripts/npc_sound_landmark.gd")
 var checks := 0
 var failures := 0
 var saved_layout: AudioBusLayout
@@ -55,6 +56,7 @@ func run() -> void:
     ordering_checks()
     budget_checks()
     await playback_checks()
+    await landmark_checks()
     AudioServer.set_bus_layout(saved_layout)
     saved_layout = null
     print("ENEMY_SOUND_FILTER checks=%d failures=%d" % [checks, failures])
@@ -161,6 +163,57 @@ func playback_checks() -> void:
     actor.free()
     await process_frame
     ENEMY.audio_director_script=null
+
+func landmark_checks() -> void:
+    clean_layout()
+    var sfx:=add_bus("SFX")
+    var world:=add_bus("SFXWorld","SFX")
+    add_bus("SFXEnemy","SFX")
+    var stage:=Node2D.new();root.add_child(stage)
+    var listener:=CharacterBody2D.new();stage.add_child(listener)
+    var voice:=LANDMARK.new();stage.add_child(voice)
+    var source:=Vector2(200,0)
+    check(voice.place(source,listener,-25) and voice.bus=="SFXWorld","unobstructed landmark preserves its world parent")
+    check(AudioServer.get_bus_index(LANDMARK.FILTER_BUS)==-1,"clear landmarks allocate no processing bus")
+    var wall:=StaticBody2D.new();wall.position=Vector2(100,0)
+    var collision:=CollisionShape2D.new();var shape:=RectangleShape2D.new();shape.size=Vector2(20,200)
+    collision.shape=shape;wall.add_child(collision);stage.add_child(wall)
+    await physics_frame;await physics_frame
+    check(voice.refresh_spatial(source,listener) and voice.occluded and voice.bus==LANDMARK.FILTER_BUS,"real wall routes a landmark into its lowpass bus")
+    var bus:=AudioServer.get_bus_index(LANDMARK.FILTER_BUS)
+    var effect:=FILTER.owned_effect(bus,LANDMARK.FILTER_OWNER)
+    check(effect!=null and is_equal_approx(effect.cutoff_hz,2400) and AudioServer.is_bus_effect_enabled(bus,0),"landmark uses an enabled actual 2400Hz lowpass")
+    check(String(AudioServer.get_bus_send(bus))=="SFXWorld" and is_equal_approx(voice.volume_db,-37),"filter preserves world routing and existing twelve dB attenuation")
+    FILTER.ensure_bus()
+    check(FILTER.owned_effect(bus)==null and FILTER.owned_effect(AudioServer.get_bus_index(FILTER.BUS))!=effect,"enemy and landmark processing have independent owners")
+    AudioServer.set_bus_volume_db(sfx,-12);AudioServer.set_bus_mute(sfx,true)
+    AudioServer.set_bus_volume_db(world,-7)
+    var expected:=AudioServer.bus_count
+    for iteration in 12:
+        listener.position=Vector2(150,0) if iteration%2==0 else Vector2.ZERO
+        check(voice.refresh_spatial(source,listener),"in-range landmark can refresh across a physical wall")
+        check(voice.bus==("SFXWorld" if iteration%2==0 else LANDMARK.FILTER_BUS),"moving listener changes only the landmark route")
+        check(is_equal_approx(voice.volume_db,-25 if iteration%2==0 else -37),"repeated occlusion does not compound attenuation")
+        check(AudioServer.bus_count==expected and FILTER.owned_effect(AudioServer.get_bus_index(LANDMARK.FILTER_BUS),LANDMARK.FILTER_OWNER)==effect,"refresh reuses one stable effect and bounded bus graph")
+    check(AudioServer.is_bus_mute(sfx) and is_equal_approx(AudioServer.get_bus_volume_db(sfx),-12) and is_equal_approx(AudioServer.get_bus_volume_db(world),-7),"landmark filtering preserves user mute and category gains")
+    check(FILTER.route("SFXEnemy",true,0)=="SFXEnemy","danger cues bypass both occlusion filters")
+    AudioServer.move_bus(AudioServer.get_bus_index("SFXWorld"),-1)
+    voice.refresh_spatial(source,listener)
+    check(AudioServer.get_bus_index(LANDMARK.FILTER_BUS)>AudioServer.get_bus_index("SFXWorld"),"refresh repairs right-to-left mixing after parent reordering")
+    check(FILTER.owned_effect(AudioServer.get_bus_index(LANDMARK.FILTER_BUS),LANDMARK.FILTER_OWNER)==effect,"reordering preserves landmark effect identity")
+    AudioServer.remove_bus(AudioServer.get_bus_index("SFXWorld"))
+    voice.refresh_spatial(source,listener)
+    check(String(AudioServer.get_bus_send(AudioServer.get_bus_index(LANDMARK.FILTER_BUS)))=="SFX","missing world bus falls back to SFX")
+    add_bus("SFXWorld","SFX");voice.refresh_spatial(source,listener)
+    check(String(AudioServer.get_bus_send(AudioServer.get_bus_index(LANDMARK.FILTER_BUS)))=="SFXWorld","restored world bus is selected by name")
+    AudioServer.remove_bus(AudioServer.get_bus_index(LANDMARK.FILTER_BUS))
+    var foreign:=add_bus(LANDMARK.FILTER_BUS)
+    var reverb:=AudioEffectReverb.new();AudioServer.add_bus_effect(foreign,reverb)
+    voice.refresh_spatial(source,listener)
+    check(voice.bus=="SFXWorld" and AudioServer.get_bus_effect(foreign,0)==reverb,"foreign same-named landmark bus is never hijacked")
+    var alert:=preload("res://scripts/spatial_enemy_alert.gd").new();alert.bus="SFXEnemy";stage.add_child(alert)
+    check(alert.place(source,listener) and alert.occluded and alert.bus=="SFXEnemy","shared spatial alert class retains its original unfiltered route")
+    stage.free();await process_frame
 
 func ordering_checks() -> void:
     clean_layout()
