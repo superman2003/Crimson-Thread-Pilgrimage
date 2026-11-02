@@ -75,6 +75,8 @@ func investigate_lure(point: Vector2, seconds: float) -> void:
             return
         var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), point, 1)
         lure_ray.collide_with_areas = false
+        # Like sight, a lure is hidden by terrain, not by the Player's body.
+        lure_ray.exclude = ATTACK_EFFECT.player_bodies(get_tree())
         if not get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
             return
     lure_position = point
@@ -920,6 +922,7 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
         var step := signf(dx) * minf(absf(dx), _movement_speed() * delta)
         var lure_ray := PhysicsRayQueryParameters2D.create(global_position + Vector2(0,-24), global_position + Vector2(step + signf(dx) * 24,-24), 1)
         lure_ray.collide_with_areas = false
+        lure_ray.exclude = ATTACK_EFFECT.player_bodies(get_tree())
         if get_world_2d().direct_space_state.intersect_ray(lure_ray).is_empty():
             global_position.x += step
         return
