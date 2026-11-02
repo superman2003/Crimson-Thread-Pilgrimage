@@ -1,0 +1,37 @@
+{
+  "base": "8f3048c0",
+  "input_sha256": {
+    "godot/scripts/resupply_plan_memory.gd": "831c51cfc575c5592f5a4426c380b82117fabd706584025ef762345c8711c4c4",
+    "godot/scripts/resupply_planner.gd": "ae238771e798297aa90417d0f52860c707e193dfa60f5fe40b0622a70b4316e1",
+    "godot/scripts/resupply_plan_validation.gd": "a582b75a42fc0513326b6a90620e4c1a6171d3b68e966d7ad67be1da324f4e82",
+    "godot/scripts/pilgrimage_interface.gd": "a5d88f301ae741df381adc37ad5f5bfde18b8c699ee45547b357000b7e323a44",
+    "godot/scripts/ui_world_integration_validation.gd": "0c99ebad725ce5552aba5cc2888119993109021f00c65e08db21d7b6ec2086b6",
+    "tools/run_resupply_budget_contract.py": "58de5ca44f6c69bf3df5a261b589b6d4a68b1fd64a120d06dfd2a5ad6a067cfc"
+  },
+  "resupply_plan_headless": 65,
+  "resupply_plan_native_with_capture": 66,
+  "resupply_budget": 39,
+  "build_transaction_runtime": 47,
+  "ui_world_integration": "passed",
+  "dialog_viewport_fit": 110,
+  "controls": [
+    {
+      "label": "negative_without_stock_clamp",
+      "exit": 1,
+      "failed_assertions": 3,
+      "passed": true
+    },
+    {
+      "label": "negative_auto_order_new_unlock",
+      "exit": 1,
+      "failed_assertions": 1,
+      "passed": true
+    }
+  ],
+  "npm_test_exit": 0,
+  "campaign_exit": 0,
+  "limitations": [
+    "UI fixture does not represent natural earning",
+    "No physical controller acceptance"
+  ]
+}
