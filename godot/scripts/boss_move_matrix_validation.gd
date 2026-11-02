@@ -25,6 +25,8 @@ var report: Array = []
 ## Settled standing spot per sampled offset, reused by every move of a Boss.
 var stands := {}
 var physics_frames := 0
+## Height of the attacker above the Player's floor (non-zero for hovering foes).
+var stand_drop := 0.0
 
 
 func _initialize() -> void:
@@ -39,6 +41,14 @@ func _chapters() -> Array:
 
 func _marker() -> String:
     return "BOSS_MOVE_MATRIX"
+
+
+func _offsets() -> Array:
+    return OFFSETS
+
+
+func _min_windup() -> float:
+    return MIN_WINDUP
 
 
 func _run() -> void:
@@ -141,7 +151,7 @@ func _sample_move(scene: Node, boss: Node2D, player: CharacterBody2D, command: D
     var safe: Array = []
     var skipped: Array = []
     var warned := true
-    for offset: float in OFFSETS:
+    for offset: float in _offsets():
         var trial: Dictionary = await _trial(boss, player, command, home, front, offset, {})
         if not bool(trial.valid):
             skipped.append(offset)
@@ -188,7 +198,7 @@ func _sample_move(scene: Node, boss: Node2D, player: CharacterBody2D, command: D
                 _check(bool(guarded.get("guarded", false)) and guard == "blocked", "%s is stopped by a timed bell guard" % id)
             else:
                 _check(bool(guarded.get("guarded", false)) and guard == "through", "%s still wounds through a raised guard" % id)
-    _check(float(command.get("windup", 0.0)) >= MIN_WINDUP, "%s winds up for at least %.2fs" % [id, MIN_WINDUP])
+    _check(float(command.get("windup", 0.0)) >= _min_windup(), "%s winds up for at least %.2fs" % [id, _min_windup()])
     _check(warned, "%s shows a warning during every sampled windup" % id)
     _check(hits.size() + safe.size() >= 4, "%s has enough valid floor samples (%s skipped)" % [id, str(skipped)])
     _check(not hits.is_empty() or not wounded_by.is_empty(), "%s actually removes Player HP when stood in or moved through" % id)
@@ -214,7 +224,8 @@ func _evasion_plans(hit_frame: int) -> Array:
 func _trial(boss: Node2D, player: CharacterBody2D, command: Dictionary, home: Vector2, front: int, offset: float, plan: Dictionary) -> Dictionary:
     _reset_boss(boss, home, command)
     _release_inputs()
-    var target := Vector2(home.x + front * offset, home.y - 30.0)
+    var floor_y := home.y + stand_drop
+    var target := Vector2(home.x + front * offset, floor_y - 30.0)
     if stands.has(offset) and stands[offset] == null:
         return {"valid": false}
     player.restore_at_save_point()
@@ -227,7 +238,7 @@ func _trial(boss: Node2D, player: CharacterBody2D, command: Dictionary, home: Ve
         boss.contact_timer = 999.0
         boss.global_position = home
         await physics_frame
-    var landed := player.is_on_floor() and absf(player.global_position.x - target.x) < 28.0 and absf(player.global_position.y - home.y) < 90.0
+    var landed := player.is_on_floor() and absf(player.global_position.x - target.x) < 28.0 and absf(player.global_position.y - floor_y) < 90.0
     if not stands.has(offset):
         stands[offset] = player.global_position if landed else null
     if not landed:
@@ -332,7 +343,7 @@ func _warning_visible(boss: Node2D) -> bool:
     if is_instance_valid(boss.telegraph) or is_instance_valid(boss.windup_vfx):
         return true
     for child in boss.get_children():
-        if child.get_meta("boss_skill_art", "") == "warning" and not child.is_queued_for_deletion():
+        if (child.get_meta("boss_skill_art", "") == "warning" or child.get_meta("minor_enemy_skill_art", "") == "warning") and not child.is_queued_for_deletion():
             return true
     for effect in boss.owned_attack_effects:
         if is_instance_valid(effect) and float(effect.age) < float(effect.arm_delay):
