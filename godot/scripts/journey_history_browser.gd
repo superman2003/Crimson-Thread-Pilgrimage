@@ -32,6 +32,9 @@ func _ready() -> void:
     var header:=Label.new()
     header.text="只读浏览；关闭后继续当前旅途。选中归档查看当时已知的记录。"
     header.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+    # Without a width an autowrapped label reports one glyph per line as its
+    # minimum and stretched this dialog to ~1400px, off a 720px screen.
+    header.custom_minimum_size.x=840
     root.add_child(header)
     var navigation:=HBoxContainer.new()
     root.add_child(navigation)
