@@ -630,31 +630,33 @@ func _build_bag() -> void:
     journal_tools.size=Vector2(645,30)
     journal_tools.add_theme_constant_override("separation",8)
     bag.add_child(journal_tools)
+    # Enter the tree before setting text: shaping text on a detached control
+    # costs several ms each (see the 10-21 UI rebuild report).
     journal_search=LineEdit.new()
-    journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
-    journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
-    journal_search.max_length=80
     journal_search.custom_minimum_size=Vector2(236,30)
     journal_search.add_theme_font_size_override("font_size",13)
     journal_tools.add_child(journal_search)
+    journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
+    journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
+    journal_search.max_length=80
     journal_search.text_changed.connect(func(_value: String):journal_selection=0;refresh_inventory())
     journal_unread=CheckButton.new()
-    journal_unread.text="仅未读"
     journal_unread.add_theme_font_size_override("font_size",13)
     journal_tools.add_child(journal_unread)
+    journal_unread.text="仅未读"
     journal_unread.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_stars=CheckButton.new()
-    journal_stars.text="仅收藏"
     journal_stars.add_theme_font_size_override("font_size",13)
     journal_tools.add_child(journal_stars)
+    journal_stars.text="仅收藏"
     journal_stars.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_sort=OptionButton.new()
-    journal_sort.add_item("旅途顺序")
-    journal_sort.add_item("按标题")
-    journal_sort.add_item("未读优先")
     journal_sort.add_theme_font_size_override("font_size",13)
     journal_sort.custom_minimum_size=Vector2(127,30)
     journal_tools.add_child(journal_sort)
+    journal_sort.add_item("旅途顺序")
+    journal_sort.add_item("按标题")
+    journal_sort.add_item("未读优先")
     preload("res://scripts/journal_find_dialog.gd").install(self)
     journal_sort.item_selected.connect(func(_index: int):journal_selection=0;refresh_inventory())
     journal_count=_label(bag,"",Vector2(34,255),Vector2(645,20),12,MUTED)
