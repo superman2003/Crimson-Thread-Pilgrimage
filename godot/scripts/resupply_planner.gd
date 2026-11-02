@@ -1,5 +1,8 @@
 extends ConfirmationDialog
-## Session shopping list. Only the World's durable transaction can grant stock.
+## Shopping list. Only the World's durable transaction can grant stock.
+var memory:=preload("res://scripts/resupply_plan_memory.gd").new()
+var save_plan_button: Button
+var load_plan_button: Button
 var rows: Array = []
 var quantities: Dictionary = {}
 var query: Callable
@@ -34,6 +37,12 @@ func _ready() -> void:
         var button:=Button.new();button.text=pair[0];presets.add_child(button)
         var mode: String=pair[1]
         button.pressed.connect(func():apply_preset(mode))
+    var remembered:=HBoxContainer.new();body.add_child(remembered)
+    save_plan_button=Button.new();save_plan_button.text="记住当前清单";remembered.add_child(save_plan_button)
+    save_plan_button.pressed.connect(save_current_plan)
+    load_plan_button=Button.new();load_plan_button.text="读取已存清单";remembered.add_child(load_plan_button)
+    load_plan_button.pressed.connect(restore_saved_plan)
+    save_plan_button.disabled=memory.store.path.is_empty();load_plan_button.disabled=memory.store.path.is_empty()
     selection_summary=Label.new();body.add_child(selection_summary)
     row_scroll=ScrollContainer.new();row_scroll.custom_minimum_size=Vector2(630,135);row_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;body.add_child(row_scroll)
     choices=VBoxContainer.new();choices.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row_scroll.add_child(choices)
@@ -64,6 +73,27 @@ func open(options: Array, quote_action: Callable, buy_action: Callable, names: C
     call_deferred("_layout_body")
     get_cancel_button().grab_focus()
     if rows.is_empty():status.text="尚无可补给的已获得战具。"
+
+func configure_memory(journey: String) -> void:
+    memory.configure(journey)
+    if is_instance_valid(save_plan_button):save_plan_button.disabled=memory.store.path.is_empty()
+    if is_instance_valid(load_plan_button):load_plan_button.disabled=memory.store.path.is_empty()
+
+func save_current_plan() -> void:
+    var result: Dictionary=memory.save(plan())
+    status.text=String(result.reason)
+
+func restore_saved_plan() -> void:
+    var result: Dictionary=memory.load_for(rows)
+    if not result.ok:status.text=String(result.reason);return
+    var by_id:={}
+    for row in rows:by_id[String(row.id)]=row
+    var ordered: Array=[]
+    for id in result.plan.order:ordered.append(by_id[id])
+    rows=ordered;quantities=result.plan.limits.duplicate(true)
+    _rebuild_rows();_refresh_quote()
+    status.text="已读取申请，按当前缺额校正 %d 份、跳过 %d 种当前不可用战具。请核对新报价后确认购买。" % [int(result.clamped),int(result.skipped)]
+    get_cancel_button().grab_focus()
 
 func plan() -> Dictionary:
     var order: Array = []
