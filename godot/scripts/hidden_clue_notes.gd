@@ -8,6 +8,22 @@ const SEEN:="hidden_clue_seen_"
 const FOUND:="hidden_found_"
 const RETRY:="hidden_notice_retry_after"
 const RETRY_MSEC:=5000
+const SIGHT_RETRY:="hidden_sight_retry_after"
+const SIGHT_INTERVAL_MSEC:=150
+
+static func can_observe(level: Node, clue: Node2D) -> bool:
+    var player: Node2D=level.player
+    if not clue.is_visible_in_tree() or not player.is_inside_tree() or clue.get_world_2d()!=player.get_world_2d():return false
+    var eye:=player.global_position+Vector2(0,-42)
+    var target:=clue.global_position
+    if not eye.is_finite() or not target.is_finite() or player.global_position.distance_to(target)>level.HIDDEN_CLUE_NOTICE_RANGE:return false
+    # Authored rock/platform queries also cover collision segments not currently
+    # resident in physics. Do not force extra terrain into residency to observe.
+    if level.has_method("_rock_ray_hit") and not level._rock_ray_hit(eye,target).is_empty():return false
+    var ray:=PhysicsRayQueryParameters2D.create(eye,target,1)
+    ray.collide_with_areas=false
+    if player is CollisionObject2D:ray.exclude=[player.get_rid()]
+    return player.get_world_2d().direct_space_state.intersect_ray(ray).is_empty()
 
 static func visible(plan: Array, flags: Dictionary) -> Array[Dictionary]:
     var rows: Array[Dictionary]=[]
@@ -64,9 +80,12 @@ static func notice(level: Node) -> void:
         var entry: Dictionary=clue.get_meta("hidden_route",{})
         if String(entry.get("region_id",""))!=String(level.config.get("id","")):continue
         var flag:=SEEN+String(entry.get("id",""))
-        if bool(level.story_flags.get(flag,false)) or level.player.global_position.distance_to(clue.global_position)>level.HIDDEN_CLUE_NOTICE_RANGE:continue
+        if bool(level.story_flags.get(flag,false)) or level.player.global_position.distance_to(clue.global_position)>level.HIDDEN_CLUE_NOTICE_RANGE or not clue.is_visible_in_tree():continue
         var now:=Time.get_ticks_msec()
         if now<int(clue.get_meta(RETRY,0)):continue
+        if now<int(clue.get_meta(SIGHT_RETRY,0)):continue
+        clue.set_meta(SIGHT_RETRY,now+SIGHT_INTERVAL_MSEC)
+        if not can_observe(level,clue):continue
         var flags: Dictionary=level.story_flags.duplicate(true)
         flags[flag]=true
         var saved: Dictionary=level._persist_world_change({"story_flags":flags})
@@ -80,4 +99,7 @@ static func notice(level: Node) -> void:
         level.story_flags=flags
         if clue.has_meta(RETRY):clue.remove_meta(RETRY)
         level._toast(String(entry.clue.line))
+        # Nearby lever/lamp hints may replace the ordinary toast in this same
+        # frame. Preserve the earned observation in the existing reading banner.
+        level._show_lore_banner(String(entry.clue.line))
         return

@@ -9,6 +9,7 @@ const UI:=preload("res://scripts/map_directory_dialog.gd")
 const STATE:=preload("res://scripts/world_state.gd")
 static func run(tree: SceneTree,scene: Node) -> void:
     pure(tree)
+    await visibility(tree,scene)
     await notice(tree,scene)
     await picker(tree,scene)
 
@@ -95,6 +96,7 @@ static func notice(tree: SceneTree,scene: Node) -> void:
     tree.check(deadline>Time.get_ticks_msec() and int(clue.get_meta(NOTES.RETRY,0))==deadline and scene.story_flags==before,"failure backoff prevents per-frame I/O retries while retaining an unrecorded clue")
     scene.world_save_failure_injected_for_validation=false
     clue.set_meta(NOTES.RETRY,0)
+    clue.set_meta(NOTES.SIGHT_RETRY,0)
     NOTES.notice(scene)
     tree.check(scene.story_flags.get(NOTES.SEEN+String(entry.id),false) and not clue.has_meta(NOTES.RETRY),"after retry becomes due, actual successful save publishes the clue once")
     var reloaded:=STATE.new()
@@ -109,6 +111,7 @@ static func notice(tree: SceneTree,scene: Node) -> void:
     ui.journal_search.text=String(entry.clue.title)
     ui.refresh_inventory()
     await tree.process_frame
+
     tree.check(ui.bag_grid.get_child_count()==1 and ui.bag_description.text.contains(entry.clue.line),"real handbook reader finds the one saved entrance observation by its authored title")
     var resources: Dictionary=scene._build_wallet_snapshot()
     var recorded: Dictionary=scene.story_flags.duplicate(true)
@@ -127,6 +130,67 @@ static func notice(tree: SceneTree,scene: Node) -> void:
     scene.story_flags=flags;scene.world_state.data=world;scene.player.position=position
     scene.player.set_physics_process(physics)
     tree.check(scene._save_world(),"explicit notice fault fixture restores its original starting checkpoint")
+    await tree.process_frame
+
+static func visibility(tree: SceneTree,scene: Node) -> void:
+    var position: Vector2=scene.player.position
+    var physics: bool=scene.player.is_physics_processing()
+    var processing: bool=scene.is_processing()
+    scene.set_process(false);scene.player.set_physics_process(false)
+    # Use the authored first entrance's known clear eye-to-clue segment. Its flags
+    # are never a gameplay reward and are removed after the integration probe.
+    var clue:=Node2D.new();clue.set_script(preload("res://scripts/hidden_route_clue.gd"))
+    clue.clue_id="visibility_fixture"
+    var at: Vector2=scene._vec2(ROUTES.cached_hidden_clues()[0].clue.position)
+    clue.position=at
+    var entry:={"id":"visibility_fixture","region_id":scene.config.id,"clue":{"line":"测试入口的纸缝。"}}
+    clue.set_meta("hidden_route",entry);scene.add_child(clue)
+    scene.player.position=at
+    var old_clues: Array[Node2D]=scene.hidden_route_clues
+    var old_flags: Dictionary=scene.story_flags.duplicate(true)
+    var old_world: Dictionary=scene.world_state.data.duplicate(true)
+    var disk:=FileAccess.get_file_as_bytes(tree.SAVE)
+    var fixture_clues: Array[Node2D]=[clue]
+    scene.hidden_route_clues=fixture_clues
+    tree.check(NOTES.can_observe(scene,clue),"open actual World line permits observing a nearby entrance")
+    clue.hide()
+    tree.check(not NOTES.can_observe(scene,clue),"hidden visual cannot be read as an entrance observation")
+    NOTES.notice(scene)
+    tree.check(scene.story_flags==old_flags and FileAccess.get_file_as_bytes(tree.SAVE)==disk,"hidden clue spends neither a discovery flag nor a save")
+    clue.show()
+    var wall:=StaticBody2D.new();wall.position=at+Vector2(0,-21)
+    var collider:=CollisionShape2D.new();var rect:=RectangleShape2D.new();rect.size=Vector2(160,10)
+    collider.shape=rect;wall.add_child(collider);scene.add_child(wall)
+    await tree.physics_frame;await tree.physics_frame
+    tree.check(not NOTES.can_observe(scene,clue),"real layer-one wall blocks entrance observation across adjacent space")
+    NOTES.notice(scene)
+    tree.check(scene.story_flags==old_flags and scene.world_state.data==old_world and FileAccess.get_file_as_bytes(tree.SAVE)==disk,"occluded entrance does not reveal journal text or rewrite checkpoint")
+    var due:=int(clue.get_meta(NOTES.SIGHT_RETRY,0))
+    NOTES.notice(scene)
+    tree.check(due>Time.get_ticks_msec() and int(clue.get_meta(NOTES.SIGHT_RETRY,0))==due,"blocked observation retries within the existing frame loop at a bounded interval")
+    wall.collision_layer=2
+    await tree.physics_frame;await tree.physics_frame
+    tree.check(NOTES.can_observe(scene,clue),"actor-only collision does not hide environmental clues")
+    scene.player.position=at+Vector2(300,0)
+    tree.check(not NOTES.can_observe(scene,clue),"clear but out-of-range clue remains unknown")
+    scene.player.position=at
+    clue.set_meta(NOTES.SIGHT_RETRY,0)
+    NOTES.notice(scene)
+    tree.check(scene.story_flags.get(NOTES.SEEN+"visibility_fixture",false),"opening the sight line records the same previously blocked observation")
+    scene._toast("旁边的机关提示")
+    tree.check(scene.lore_banner_label.visible and scene.lore_banner_label.text==entry.clue.line,"interaction toast cannot overwrite the earned observation banner")
+    var saved:=FileAccess.get_file_as_bytes(tree.SAVE)
+    NOTES.notice(scene)
+    tree.check(FileAccess.get_file_as_bytes(tree.SAVE)==saved,"visible observed clue still commits only once")
+    var cave_clue: Node2D=scene.get_node("HiddenClue_ch01_fake_moss_grotto")
+    scene.player.position=cave_clue.position
+    tree.check(not NOTES.can_observe(scene,cave_clue),"authored nonresident low roof blocks an eye point inside its solid rock")
+    scene.player.position=cave_clue.position+Vector2(0,60)
+    tree.check(NOTES.can_observe(scene,cave_clue),"same low-roof crack remains visible from the actual space below the roof")
+    scene.hidden_route_clues=old_clues;scene.story_flags=old_flags;scene.world_state.data=old_world
+    clue.free();wall.free();scene.player.position=position
+    scene.player.set_physics_process(physics);scene.set_process(processing)
+    tree.check(scene._save_world(),"observation visibility fixture restores its original checkpoint")
     await tree.process_frame
 
 static func picker(tree: SceneTree,scene: Node) -> void:
