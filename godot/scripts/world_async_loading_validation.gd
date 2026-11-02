@@ -54,6 +54,11 @@ func _run() -> void:
         metrics.append(metric)
         _check(metric.max_build_operations <= 8 and metric.max_unload_operations <= 8 and metric.batches > 2, id + " bounded multi-frame operations")
         _check(metric.max_commit_operations <= 8 and metric.commit_batches > 2 and metric.commit_cursor == metric.commit_jobs, id + " arrival/UI jobs are bounded and complete across frames")
+        var theme_textures: Array = scene.world_loader.region_texture_paths(String(scene._art_theme_id()))
+        _check(theme_textures.size() >= 4 and int(metric.get("region_texture_held", -1)) == theme_textures.size() and int(metric.get("region_texture_failures", 0)) == 0, id + " destination theme textures are resident before the build phase (%d/%d)" % [int(metric.get("region_texture_held", -1)), theme_textures.size()])
+        var resident := true
+        for texture_path in theme_textures: resident = resident and ResourceLoader.has_cached(texture_path)
+        _check(resident, id + " built region reuses the warmed theme textures")
         var actual := _geometry_signature()
         var ui := _ui_signature()
         scene._travel_world(path, entry)
