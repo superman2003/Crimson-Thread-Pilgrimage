@@ -395,11 +395,20 @@ func _advance_wave(delta: float, target: Node2D) -> void:
         return
     queue_redraw()
 
+## The Player body shares terrain layer 1; it is the target, not a wall.
+## Treating it as one clipped every beam just short of the Player's centre.
+static func player_bodies(tree: SceneTree) -> Array[RID]:
+    var bodies: Array[RID] = []
+    for body in tree.get_nodes_in_group("player"):
+        if body is CollisionObject2D: bodies.append(body.get_rid())
+    return bodies
+
 func _wave_wall(start: Vector2, finish: Vector2) -> Dictionary:
     var level := get_parent()
     if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(start, finish)
     var ray := PhysicsRayQueryParameters2D.create(start, finish, 1)
     ray.collide_with_areas = false
+    ray.exclude = player_bodies(get_tree())
     var wall := get_world_2d().direct_space_state.intersect_ray(ray)
     if level.has_method("_rock_ray_hit"):
         var rock: Dictionary = level._rock_ray_hit(start, finish)
