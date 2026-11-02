@@ -1,0 +1,43 @@
+{
+  "base": "8f3048c0",
+  "source_sha256": {
+    "hidden_clue_notes.gd": "1a5bd78dcedf1202287d7bebe6cbec86f5a3173a5f39c7a858ed02584aa5f7c3",
+    "hidden_clue_notes_validation.gd": "e401bb35f5cc326da7870aae68673b2487139e5409fe1310113003f8f5565386",
+    "hidden_routes_validation.gd": "8d0440ca22c49a1ea7d2f6c3ecb0a429831efdfb315176b362ad3f3957e635e7",
+    "hidden_observation_validation.gd": "d4e370360e5d4e1117747e93d56f34318e9821f200f96a9b68920571afa9b421"
+  },
+  "hidden_routes_checks": 266,
+  "map_directory_checks": 32,
+  "controls": [
+    {
+      "label": "positive",
+      "exit": 0,
+      "marker": "HIDDEN_OBSERVATION checks=15 failures=0",
+      "passed": true
+    },
+    {
+      "label": "negative_notice_without_sight",
+      "exit": 1,
+      "marker": "HIDDEN_OBSERVATION checks=15 failures=1",
+      "passed": true
+    },
+    {
+      "label": "negative_without_authored_rock",
+      "exit": 1,
+      "marker": "HIDDEN_OBSERVATION checks=15 failures=1",
+      "passed": true
+    },
+    {
+      "label": "native",
+      "exit": 0,
+      "marker": "HIDDEN_OBSERVATION checks=15 failures=0",
+      "passed": true
+    }
+  ],
+  "npm_test_exit": 0,
+  "campaign_exit": 0,
+  "limitations": [
+    "controlled positioning is not natural exploration",
+    "Windows skips 42 shebang fixtures"
+  ]
+}
