@@ -18,6 +18,13 @@ func _ready() -> void:
     title="资源用途核对"
     min_size=Vector2i(880,580)
     get_ok_button().text="返回行囊"
+    confirmed.connect(return_focus)
+    canceled.connect(return_focus)
+
+## T03: the bag is rebuilt on every region arrival; laying out this rarely
+## opened window then cost ~40 ms of one arrival frame. Build it on first use.
+func ensure_built() -> void:
+    if is_instance_valid(resources):return
     var column:=VBoxContainer.new()
     column.add_theme_constant_override("separation",12)
     add_child(column)
@@ -62,8 +69,6 @@ func _ready() -> void:
     detail.focus_mode=Control.FOCUS_ALL
     detail.add_theme_font_size_override("normal_font_size",17)
     body.add_child(detail)
-    confirmed.connect(return_focus)
-    canceled.connect(return_focus)
 
 func usable() -> bool:
     if host==null:return false
@@ -73,6 +78,7 @@ func usable() -> bool:
 func open(ui: Control) -> void:
     host=weakref(ui)
     if not usable():return
+    ensure_built()
     selected="currency"
     ready_only.set_pressed_no_signal(false)
     query.clear();scope.select(0);order.select(0)
@@ -82,6 +88,7 @@ func open(ui: Control) -> void:
 
 func refresh() -> void:
     if not usable():return
+    ensure_built()
     var ui: Variant=host.get_ref()
     var level: Node=ui.level
     var items: Dictionary={}
@@ -93,6 +100,7 @@ func refresh() -> void:
 
 func render_resources() -> void:
     if not usable():return
+    ensure_built()
     var ui: Variant=host.get_ref()
     resources.clear();visible_resources=[]
     if not report.get("ok",false):detail.text=String(report.get("reason","资源暂不可读取。"));selected="";count_label.text="资源记录暂不可读取。";return
@@ -110,6 +118,7 @@ func render_resources() -> void:
 
 func render_detail() -> void:
     if not usable() or not report.get("ok",false):return
+    ensure_built()
     var ui: Variant=host.get_ref()
     detail.text="没有符合筛选的已知资源；请清空搜索或切换范围。"
     for row in visible_resources:

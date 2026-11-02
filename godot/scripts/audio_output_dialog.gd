@@ -20,6 +20,13 @@ func setup(shell: Control) -> void:
     # free header space left of the journey workbench entry.
     var launcher: Button=ui._button(ui.settings,"声音输出设备",Vector2(420,60),Vector2(210,30),open)
     launcher.name="AudioOutputDeviceButton";launcher.add_theme_font_size_override("font_size",15)
+    ui.settings.visibility_changed.connect(func():
+        if is_instance_valid(window) and not ui.settings.is_visible_in_tree():window.hide())
+
+## T03: settings are rebuilt on every region arrival; this window's layout cost
+## ~20 ms of that frame although it is rarely opened. Build it on first open.
+func ensure_window() -> void:
+    if is_instance_valid(window):return
     window=AcceptDialog.new();window.title="声音输出设备";window.min_size=Vector2i(660,360)
     ui.settings.add_child(window);ui.register_text_entry_window(window)
     var column:=VBoxContainer.new();column.add_theme_constant_override("separation",16);window.add_child(column)
@@ -41,11 +48,10 @@ func setup(shell: Control) -> void:
     confirm.confirmed.connect(commit)
     window.visibility_changed.connect(func():
         if not window.visible:pending={};confirm.hide())
-    ui.settings.visibility_changed.connect(func():
-        if not ui.settings.is_visible_in_tree():window.hide())
 
 func open() -> void:
     if not ui.settings.is_visible_in_tree():return
+    ensure_window()
     pending={};confirm.hide();refresh();window.popup_centered();options.grab_focus()
 
 func _process(delta: float) -> void:
@@ -59,6 +65,7 @@ func _process(delta: float) -> void:
         else:_status(view)
 
 func refresh() -> void:
+    if not is_instance_valid(window):return
     var previous: String=String(options.get_item_metadata(options.selected)) if options.item_count>0 and options.selected>=0 else model.active()
     var view:=model.refresh();shown.assign(view.devices);options.clear()
     for name in shown:
@@ -74,18 +81,18 @@ func _status(view: Dictionary) -> void:
         status.text+="\n"+String(view.save_error)
 
 func ask() -> void:
-    if not window.visible or not ui.settings.is_visible_in_tree() or options.selected<0:return
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree() or options.selected<0:return
     pending=model.quote(String(options.get_item_metadata(options.selected)))
     if not pending.get("ok",false):status.text=String(pending.get("reason","设备不可用"));return
     confirm.dialog_text="当前：%s\n切换到：%s\n确认后立即切换；取消保持当前输出。" % [pending.before,pending.device]
     confirm.popup_centered();confirm.get_cancel_button().grab_focus()
 
 func commit() -> void:
-    if not window.visible or not ui.settings.is_visible_in_tree() or pending.is_empty():return
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree() or pending.is_empty():return
     var request:=pending.duplicate(true);pending={}
     var result:=model.apply(String(request.device),String(request.fingerprint))
     refresh();status.text=String(result.reason)
 
 func retry_save() -> void:
-    if not window.visible or not ui.settings.is_visible_in_tree():return
+    if not is_instance_valid(window) or not window.visible or not ui.settings.is_visible_in_tree():return
     var result:=model.save();status.text=String(result.reason)
