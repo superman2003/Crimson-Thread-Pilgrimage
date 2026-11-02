@@ -21,10 +21,14 @@
 | 黑曜巡礼道 | 28 | 100 → 8ms | 7.6 → 1.1ms |
 | 无声王冠 | 98 | 202 → 24ms | 6.6 → 1.4ms |
 
+## 练习靶标签
+
+同批处理构建阶段的练习靶：工具练习靶也调用巡逻范围（随上面一起变快），两种练习靶的说明标签原先先设文字和字体、最后才入树，等于在树外按默认字体排一次版、入树后再排一次。改为先入树再设文字（与 10-21 批次的界面控件相同）。同一夹具无头计时（“改动前”已含巡逻范围修复）：符印练习靶约 20→9ms，工具练习靶约 22→5ms；每次会话第一次生成（约 160ms）主要是字体与图标首次加载，前后相同。`ui_text_order` 新增 1 项：练习靶标签入树时还没有文字（换回旧代码失败）。
+
 ## 验证
 
 - `pilgrimage_merge_regression` 内的出生点等价测试（`enemy_spawn_search_validation.gd`）新增巡逻范围比对：原函数逐字冻结在测试的 `Legacy` 类中，六区全部敌人与首领、两组固定夹具和 24 组随机布局上，新旧巡逻范围完全相同（333 处非空范围），且新的行走不再调用完整的 `_enemy_spawn_rect_clear`。共 1406 项通过。反向：把扫掠矩形缩小 20px，32 处巡逻范围不一致。
-- `world_async_loading`、`enemy_lifecycle_regression`、`world_enemy_residency`、`world_neighbor_gameplay` 通过。
+- `world_async_loading`、`enemy_lifecycle_regression`、`world_enemy_residency`、`world_neighbor_gameplay`、`ui_text_order`、`seal_acceptance`、`practice_curriculum`、`skill_branches` 通过。`tool_practice` 在本机真实 GPU 与软件 GL 下都有 3 项 AI 时序检查失败，main 上完全相同，与本批无关（CI 上为绿）。
 
 ## 边界
 

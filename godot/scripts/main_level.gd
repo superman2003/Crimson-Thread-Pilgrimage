@@ -3691,11 +3691,13 @@ func _spawn_seal_practice_targets() -> void:
         label.position = Vector2(-120, -175)
         label.size = Vector2(240, 130)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.set_meta("base_text",label.text)
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set; a detached label shapes
+        # its wrapped caption first with the default font, then again.
         target.add_child(label)
+        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.set_meta("base_text",label.text)
 
 ## E02: each primary tool has a practice puppet beside the skill racks. The
 ## puppet runs real AI from its plan profile so the tool visibly acts on it.
@@ -3737,10 +3739,11 @@ func _spawn_tool_practice_targets() -> void:
         label.position = Vector2(-120, -150)
         label.size = Vector2(240, 100)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set (see seal practice labels).
         target.add_child(label)
+        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
 
 
 func _in_tool_practice_room() -> bool:

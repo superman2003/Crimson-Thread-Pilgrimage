@@ -77,6 +77,17 @@ func run() -> void:
     var status: Label = world.map_panel.get_node_or_null("PlayerPinStatus")
     check(kinds != null and entry_for(kinds).get("text", "x") == "0" and kinds.item_count == 3, "pin kind menu joins the tree before its items")
     check(status != null and entry_for(status).get("text", "x") == "" and not status.text.is_empty(), "pin status joins the tree before its text")
+    # Practice-target captions (region build jobs) join the tree before text.
+    var captions: Array = []
+    var watch_captions := func(node: Node):
+        if node is Label and node.get_parent() != null and node.get_parent().has_method("configure"): captions.append({"node": node, "text": node.text})
+    node_added.connect(watch_captions)
+    var before_children := world.get_child_count()
+    world._spawn_seal_practice_targets()
+    world._spawn_tool_practice_targets()
+    node_added.disconnect(watch_captions)
+    check(captions.size() >= 2 and captions.all(func(item): return item.text == "" and not item.node.text.is_empty()), "practice target captions join the tree before their text (%d)" % captions.size())
+    for index in range(world.get_child_count() - 1, before_children - 1, -1): world.get_child(index).free()
     world.queue_free()
     await process_frame
     for suffix in ["", ".tmp", ".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path("user://ui_text_order_validation.json" + suffix))
