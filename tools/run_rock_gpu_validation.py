@@ -25,7 +25,7 @@ def main():
     parser.add_argument('--engine', required=True)
     parser.add_argument('--log-dir', type=Path, required=True)
     parser.add_argument('--script', default='../tools/validate_rock_seams.gd')
-    parser.add_argument('--success-marker', default='ROCK_SEAMS probes=12 failures=0')
+    parser.add_argument('--success-marker', default='ROCK_SEAMS probes=20 failures=0')
     parser.add_argument('--summary-path', default='artifacts/hero_rock_upgrade/checkpoint4/gpu_seams.json')
     parser.add_argument('--timeout', type=float, default=120,
                         help='maximum Godot runtime in seconds (default: 120)')
