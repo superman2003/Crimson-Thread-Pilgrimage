@@ -29,7 +29,7 @@ func _frames(count: int) -> void:
         await process_frame
 
 func _reset() -> void:
-    for action in ["attack", "dash", "aim_up", "aim_down", "move_left", "move_right"]:
+    for action in ["attack", "dash", "hook", "aim_up", "aim_down", "move_left", "move_right"]:
         Input.action_release(action)
     player.ui_input_locked = false
     player.restore_at_save_point()
@@ -126,6 +126,76 @@ func _run() -> void:
     Input.action_press("dash")
     await _frames(1)
     _check(player.dash_count == 1 and player.strike_count == 0, "Same tick preserves dash priority")
+
+    # C01: the hook is buffered like the nail instead of being dropped.
+    await _reset()
+    player._start_attack(&"attack_1")
+    player.strike_count = 0
+    player.attack_timer = 0.05
+    Input.action_press("hook")
+    await _frames(1)
+    _check(player.buffered_action == &"hook" and player.strike_count == 0, "Swing recovery retains a fresh hook press")
+    Input.action_release("hook")
+    await _frames(5)
+    _check(player.strike_count == 1 and player.current_attack == &"hook_throw" and player.buffered_action == &"", "Buffered hook throws once after the swing")
+    await _frames(40)
+    _check(player.strike_count == 1, "A buffered hook never repeats")
+
+    await _reset()
+    player.attack_cancel_lock = 0.2
+    Input.action_press("hook")
+    await _frames(1)
+    Input.action_release("hook")
+    _check(player.strike_count == 0 and player.buffered_action == &"hook", "Owed recovery holds the hook press")
+    var waited := 0
+    while player.strike_count == 0 and waited < 30:
+        await _frames(1)
+        waited += 1
+    _check(player.strike_count == 1 and player.current_attack == &"hook_throw" and player.attack_cancel_lock == 0.0, "Hook waits out an owed recovery longer than the buffer, then throws")
+
+    await _reset()
+    player._start_attack(&"attack_1")
+    player.strike_count = 0
+    player.attack_timer = 0.5
+    Input.action_press("hook")
+    await _frames(40)
+    _check(player.strike_count == 0 and player.buffered_action == &"", "Early hook press expires and holding does not auto throw")
+
+    await _reset()
+    player._start_attack(&"attack_1")
+    player.strike_count = 0
+    player.attack_timer = 0.06
+    Input.action_press("hook")
+    await _frames(1)
+    Input.action_release("hook")
+    Input.action_press("attack")
+    await _frames(1)
+    Input.action_release("attack")
+    _check(player.buffered_action == &"attack", "A later attack replaces the pending hook")
+    await _frames(6)
+    _check(player.strike_count == 1 and player.current_attack == &"attack_1", "Only the latest of hook and attack runs")
+
+    await _reset()
+    player.dash_timer = 0.05
+    Input.action_press("hook")
+    await _frames(1)
+    Input.action_release("hook")
+    await _frames(6)
+    _check(player.strike_count == 1 and player.current_attack == &"hook_throw", "Hook pressed at the end of a dash throws when the dash ends")
+
+    # A dash that cut a recovery leaves debt; a hook pressed at the start of
+    # that dash (longer than the buffer) still waits for the debt, not dropped.
+    await _reset()
+    player.dash_timer = 0.16
+    player.attack_cancel_lock = 0.3
+    Input.action_press("hook")
+    await _frames(1)
+    Input.action_release("hook")
+    waited = 0
+    while player.strike_count == 0 and waited < 40:
+        await _frames(1)
+        waited += 1
+    _check(player.strike_count == 1 and player.current_attack == &"hook_throw" and player.attack_cancel_lock == 0.0, "Hook pressed early in a recovery-cancelling dash throws once the debt is paid")
 
     await _reset()
     player._start_attack(&"attack_1")
