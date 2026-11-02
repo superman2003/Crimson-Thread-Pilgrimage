@@ -70,6 +70,13 @@ static func gate_open(gate: Dictionary, inventory: Dictionary, flags: Dictionary
 static func marker_text(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> String:
 	return "▢" if gate_open(gate, inventory, flags) else "▣"
 
+static func gate_tooltip(gate: Dictionary, inventory: Dictionary, flags: Dictionary) -> String:
+	var title:=String(gate.get("required_ability_name",gate.get("required_ability","能力门")))
+	if gate_open(gate,inventory,flags):return title+" · 已接通"
+	if int(inventory.get(String(gate.get("required_ability","")),0))<=0:return title+" · 尚未取得"
+	var instruction:=preload("res://scripts/authored_control_hints.gd").gate_instruction(String(gate.get("requires_action","")))
+	return title+(" · "+instruction if not instruction.is_empty() else " · 已有能力，寻找通路")
+
 static func marker_records(config: Dictionary, flags: Dictionary, region_id: String, inventory: Dictionary) -> Array[Dictionary]:
 	var records: Array[Dictionary] = []
 	for hazard in config.get("hazards", []):
@@ -81,7 +88,7 @@ static func marker_records(config: Dictionary, flags: Dictionary, region_id: Str
 		var rect := _data_rect(gate)
 		if visible(flags, region_id, config, rect):
 			var room := owner_room(config, rect)
-			records.append({"kind":"gate", "id":String(gate.get("id", "")), "rect":rect, "room_id":String(room.id), "text":marker_text(gate, inventory, flags), "tooltip":String(gate.get("required_ability_name", gate.get("required_ability", "能力门")))})
+			records.append({"kind":"gate", "id":String(gate.get("id", "")), "rect":rect, "room_id":String(room.id), "text":marker_text(gate, inventory, flags), "tooltip":gate_tooltip(gate,inventory,flags)})
 	return records
 
 ## Lever shortcuts are dynamic doors: the map shows whether each charted lever

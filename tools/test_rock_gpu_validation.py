@@ -12,7 +12,7 @@ from unittest import mock
 import run_rock_gpu_validation as runner
 
 
-MARKER = 'ROCK_SEAMS probes=12 failures=0'
+MARKER = 'ROCK_SEAMS probes=20 failures=0'
 
 
 class RockGPUValidationTests(unittest.TestCase):
@@ -62,7 +62,7 @@ class RockGPUValidationTests(unittest.TestCase):
         self.copyfile.assert_not_called()
 
     def test_colored_marker_succeeds(self):
-        output = '\x1b[32mROCK_SEAMS\x1b[0m probes=12 failures=0\n'
+        output = '\x1b[32mROCK_SEAMS\x1b[0m probes=20 failures=0\n'
         self.assertEqual(self.run_main(output), 0)
         self.copyfile.assert_called_once()
         self.assertEqual((self.logs / 'gpu.log').read_text(), output)

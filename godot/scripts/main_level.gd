@@ -2171,13 +2171,13 @@ func _item_display_description(item_id: String) -> String:
     if not parts.is_empty():
         var function_line := String(lore_entry.get("function", ""))
         if not function_line.is_empty():
-            parts.append(function_line)
+            parts.append(preload("res://scripts/authored_control_hints.gd").render(function_line))
         return "\n".join(parts)
     var item := _item_data(item_id)
     if item.has("description"):
-        return String(item.get("description", ""))
+        return preload("res://scripts/authored_control_hints.gd").render(String(item.get("description", "")))
     var display: Dictionary = ITEM_DISPLAY.get(item_id, {})
-    return String(display.get("description", ""))
+    return preload("res://scripts/authored_control_hints.gd").render(String(display.get("description", "")))
 
 
 func _room_map_copy(room_id: String, field: String, fallback: String) -> String:
@@ -2186,9 +2186,9 @@ func _room_map_copy(room_id: String, field: String, fallback: String) -> String:
             continue
         var room_data: Dictionary = room
         if String(room_data.get("id", "")) == room_id and room_data.has(field):
-            return String(room_data.get(field, fallback))
+            return preload("res://scripts/authored_control_hints.gd").render(String(room_data.get(field, fallback)))
     var copy: Dictionary = ROOM_MAP_COPY.get(room_id, {})
-    return String(copy.get(field, fallback))
+    return preload("res://scripts/authored_control_hints.gd").render(String(copy.get(field, fallback)))
 
 
 func _npc_display_name(data: Dictionary) -> String:
