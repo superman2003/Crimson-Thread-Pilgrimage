@@ -24,7 +24,7 @@ func _run() -> void:
         enemy.set_physics_process(false)
     var ui: Control = world.ui_shell
     ui.set_process(false)
-    for action in ["interact", "jump", "attack", "close_overlay", "skill_1"]:
+    for action in ["interact", "jump", "attack", "close_overlay", "skill_1","hook","bell_guard","lantern_phase","crown_resonance"]:
         original_bindings[action] = InputMap.action_get_events(action).duplicate()
     _bind("interact", [_key(KEY_F), _button(JOY_BUTTON_BACK)])
     _bind("jump", [_key(KEY_SPACE), _button(JOY_BUTTON_A)])
@@ -153,6 +153,7 @@ func _run() -> void:
     side_button.button_index = MOUSE_BUTTON_XBUTTON1
     _check(PROMPTS.binding_label(side_button) == "鼠标侧键 1", "mouse side-button remaps have a readable label")
 
+    _authored_hints(world)
     for action in original_bindings:
         _bind(action, original_bindings[action])
     PROMPTS.observe(_key(KEY_SPACE))
@@ -165,6 +166,42 @@ func _run() -> void:
             DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
     print("INPUT_PROMPT_VALIDATION checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)
+
+func _authored_hints(world: Node) -> void:
+    var hints:=preload("res://scripts/authored_control_hints.gd")
+    var knowledge:=preload("res://scripts/survey_map_knowledge.gd")
+    var source:="按 K 钩住铜环；按 Q 格挡；长按 E 穿影门；按 R 共鸣。"
+    _bind("hook",[_key(KEY_F),_button(JOY_BUTTON_RIGHT_SHOULDER)])
+    _bind("interact",[_key(KEY_E),_button(JOY_BUTTON_X)])
+    _bind("bell_guard",[_key(KEY_Z),_button(JOY_BUTTON_LEFT_SHOULDER)])
+    _bind("lantern_phase",[_key(KEY_C),_axis(JOY_AXIS_TRIGGER_LEFT,1)])
+    _bind("crown_resonance",[_key(KEY_V),_button(JOY_BUTTON_Y)])
+    PROMPTS.observe(_key(KEY_P))
+    _check(hints.render(source)=="按 F 钩住铜环；按 Z 格挡；按住 C 穿影门；按 V 共鸣。","authored ability instructions resolve all four current keyboard bindings")
+    _check(hints.render("按 K 钩住；按 F 交谈。")=="按 F 钩住；按 E 交谈。","inserted labels are never reinterpreted as another action's legacy key")
+    _check(hints.render("按 Key 记录；K 是题记编号。")=="按 Key 记录；K 是题记编号。","ordinary prose and key-name prefixes stay unchanged")
+    var room: Dictionary=world.config.map_rooms[0]
+    var before: Dictionary=room.duplicate(true)
+    room.guide=source
+    _check(world._room_map_copy(String(room.id),"guide","").contains("按 F 钩住"),"actual room description resolves remapped exploration controls")
+    world.world_catalog["remap_hint_fixture"]={"description":source}
+    _check(world._item_display_description("remap_hint_fixture").contains("按 Z 格挡"),"actual item reader resolves authored functional instructions")
+    var gate:={"id":"hint_gate","required_ability":"echo_hook","required_ability_name":"回声钩索","requires_action":"echo_hook","rect":[10,10,20,20]}
+    var config:={"map_rooms":[{"id":"hall","layout_rect":[0,0,200,200]}],"locked_gates":[gate]}
+    var flags:={preload("res://scripts/pilgrimage_cartography.gd").KEY:{"hint_region":{"owned":true,"charted":{"hall":true}}}}
+    var rows: Array=knowledge.marker_records(config,flags,"hint_region",{"echo_hook":1})
+    _check(rows.size()==1 and rows[0].tooltip.contains("按 F"),"known map gate uses the same live action hint as exploration text")
+    _check(not knowledge.gate_tooltip(gate,{},{}).contains("按 "),"unearned ability does not expose future operation instructions")
+    _check(knowledge.gate_tooltip(gate,{"echo_hook":1},{"action_gate_hint_gate":true}).ends_with("已接通"),"opened gate shows its persistent state instead of another activation command")
+    PROMPTS.observe(_button(JOY_BUTTON_GUIDE,7))
+    _check(hints.render(source)=="按 手柄 RB 钩住铜环；按 手柄 LB 格挡；按住 手柄 L2 穿影门；按 手柄 Y 共鸣。","authored text switches all four ability hints to the active controller")
+    _check(world._room_map_copy(String(room.id),"guide","").contains("手柄 RB") and world._item_display_description("remap_hint_fixture").contains("手柄 LB"),"real room and item readers refresh without changing source data")
+    _check(knowledge.marker_records(config,flags,"hint_region",{"echo_hook":1})[0].tooltip.contains("手柄 RB"),"map gate refresh switches to controller too")
+    _bind("hook",[])
+    _check(hints.gate_instruction("echo_hook").contains("未设置"),"missing ability binding is reported honestly")
+    _check(room.guide==source and world.world_catalog.remap_hint_fixture.description==source,"rendering never rewrites authored guides or item data")
+    room.clear();room.merge(before)
+    world.world_catalog.erase("remap_hint_fixture")
 
 func _bind(action: String, events: Array) -> void:
     InputMap.action_erase_events(action)

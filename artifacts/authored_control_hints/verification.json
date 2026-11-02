@@ -1,0 +1,28 @@
+{
+  "base": "8f3048c0",
+  "input_sha256": {
+    "main_level.gd": "32259c9b6dda24c35e2c1f1520397d2630ed77d47e5343bea99e1991aaad14b4",
+    "survey_map_knowledge.gd": "f1bbd1fc3f2d70d1e8f395448e1462f138d87ab0d429abc1eae01d8bdd1565ff",
+    "input_prompt_validation.gd": "51500f65c50b8fca37a327651c242bbe4cf047686660b4241202830c7b18aa9a",
+    "authored_control_hints.gd": "165f1e2651b65c702eafb00afc3c4efaba24d2b9f5576dd17daee895082129fe"
+  },
+  "input_prompt": 51,
+  "native_survey_map_knowledge": 199,
+  "map_directory": 32,
+  "controls": [
+    {
+      "label": "negative_legacy_keys",
+      "exit": 1,
+      "marker": "INPUT_PROMPT_VALIDATION checks=51 failures=6",
+      "passed": true
+    },
+    {
+      "label": "negative_unwired_map_gate",
+      "exit": 1,
+      "marker": "INPUT_PROMPT_VALIDATION checks=51 failures=2",
+      "passed": true
+    }
+  ],
+  "headless_survey_timeout_seconds": 180,
+  "npm_test_exit": 0
+}
