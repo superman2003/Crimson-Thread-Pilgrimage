@@ -586,11 +586,8 @@ func _physics_process(delta: float) -> void:
     if Input.is_action_just_pressed("heal"):
         _try_heal()
 
-    if _consume_action_input(&"attack"):
+    if _consume_action_input(&"attack") or _consume_action_input(&"hook"):
         pass
-    elif Input.is_action_just_pressed("hook") and _can_start_action() and attack_cancel_lock <= 0.0:
-        if not _try_start_grapple():
-            _start_attack(&"hook_throw")
     elif Input.is_action_just_pressed("skill_1") and _can_start_action() and attack_cancel_lock <= 0.0:
         _try_skill_burst()
 
@@ -865,6 +862,10 @@ func _sample_action_input(delta: float) -> void:
         action = &"dash"
     elif Input.is_action_just_pressed("attack"):
         action = &"attack"
+    elif Input.is_action_just_pressed("hook"):
+        # C01: a hook pressed during a swing, its owed recovery or a dash waits
+        # like the nail does instead of being dropped.
+        action = &"hook"
     if action == &"":
         return
     buffered_action = action
@@ -880,14 +881,16 @@ func _consume_action_input(action: StringName) -> bool:
     if buffered_action != action:
         return false
     var dash := action == &"dash"
+    if not dash and attack_cancel_lock > 0.0:
+        # The buffered swing or hook waits out the cut recovery instead of being
+        # lost, even when that recovery is longer than the input buffer and the
+        # dash that cut it is still running.
+        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
     if not _can_start_action(dash, dash):
         return false
     if dash and (not dash_unlocked or dash_cooldown > 0.0):
         return false
     if not dash and attack_cancel_lock > 0.0:
-        # The buffered swing waits out the cut recovery instead of being lost,
-        # even when that recovery is longer than the input buffer.
-        action_buffer_timer = maxf(action_buffer_timer, attack_cancel_lock + 0.05)
         return false
     var direction := buffered_direction
     # Consume before any signal/callback can re-enter action handling.
@@ -897,6 +900,9 @@ func _consume_action_input(action: StringName) -> bool:
         sprite.flip_h = facing < 0
     if action == &"attack":
         _start_attack(&"attack_1", true, direction)
+    elif action == &"hook":
+        if not _try_start_grapple():
+            _start_attack(&"hook_throw")
     else:
         _cancel_attack_recovery()
         _start_dash()
