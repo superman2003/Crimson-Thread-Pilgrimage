@@ -11,6 +11,17 @@ func check(ok: bool, message: String) -> void:
         failures += 1
         push_error(message)
 func run() -> void:
+    # Rims blend into the rock body with the body's own sampling; the shared
+    # block must stay byte-identical or a seam appears where they join.
+    var blocks: Array = []
+    for path in ["res://shaders/world_rock.gdshader","res://shaders/ink_cave_edge.gdshader","res://shaders/passage_support.gdshader"]:
+        var code: String = (load(path) as Shader).code
+        var begin := code.find("// ROCK_SAMPLE_BEGIN")
+        var end := code.find("// ROCK_SAMPLE_END")
+        check(begin>=0 and end>begin,path+" carries the shared rock sampling block")
+        blocks.append(code.substr(begin,end-begin))
+    check(blocks.size()==3 and blocks[0]==blocks[1],"rock body and rim join use identical sampling")
+    check(blocks.size()==3 and blocks[0]==blocks[2],"passage pilasters use the rear wall's rock sampling")
     for bridge in ["bronze_bridge", "sluice_bridge", "vellum_bridge", "glassvine_bridge", "ember_bridge", "void_bridge"]:
         check(MAP_ART.material_variant_for(bridge) in [6,7],bridge+" selects bridge rather than fractured rock")
     for id in ["demo_ch01_moss_bell_court","demo_ch02_rain_foundry_canal","demo_ch03_saltwhite_archive","demo_ch04_broken_string_greenhouse","demo_ch05_obsidian_pilgrim_road","demo_ch06_silent_crown_core"]:
@@ -51,9 +62,25 @@ func run() -> void:
             for face in form.get_children():
                 if face is Polygon2D and not face.has_meta("independent_edge_art"):
                     check(face.material==material,id+" entire ground stratum shares cave material")
+        var ledge_counts := {}
+        var ledge_total := 0
+        var flips := {}
         for data in scene.config.platforms:
             if data.has("terrain_id"): continue
             var platform: Node = scene.get_node(String(data.id))
+            var chosen := int(platform.get_meta("platform_art_variant",-1))
+            var art: Dictionary = data.get("art",{})
+            var again: Dictionary = MAP_ART.platform_choice(theme,String(data.id),String(data.get("material","moss_stone")),art)
+            check(int(again.variant)==chosen and bool(again.flip)==bool(platform.get_meta("platform_art_flip",false)),id+" platform slice and orientation are stable across rebuilds: "+String(data.id))
+            if int(again.family)==2 and art.get("flip_h") is bool and not art.has("material_flip_h"):
+                check(bool(platform.get_meta("platform_art_flip",false))==bool(art.flip_h),id+" authored whole-platform flip_h is honoured: "+String(data.id))
+            if int(again.family)!=2 and not art.has("material_flip_h"):
+                check(not bool(platform.get_meta("platform_art_flip",false)),id+" bridges and boss floors keep their unflipped art: "+String(data.id))
+            if int(again.family)==2 and not art.has("material_variant"):
+                check(chosen in MAP_ART.LEDGE_FAMILIES[theme],id+" ordinary ledge stays inside the theme ledge family: "+String(data.id))
+                ledge_counts[chosen]=int(ledge_counts.get(chosen,0))+1
+                ledge_total+=1
+                flips[bool(platform.get_meta("platform_art_flip",false))]=true
             var selected: Array = platform.get_meta("platform_art_body_variants",[])
             check(selected.size()==1 and int(selected[0])==int(platform.get_meta("platform_art_variant",-1)),id+" platform caps/body never mix variants: "+String(data.id))
             var sprites: Array = []
@@ -61,6 +88,12 @@ func run() -> void:
                 if child is Sprite2D and child.has_meta("original_map_asset"): sprites.append(child)
             if sprites.size()>1:
                 for sprite in sprites: check(sprite.flip_h==sprites[0].flip_h,id+" platform segments keep one orientation")
+        # V03: a region's ordinary ledges no longer repeat one silhouette.
+        var most := 0
+        for count in ledge_counts.values(): most=maxi(most,int(count))
+        check(ledge_total>=10 and ledge_counts.size()>=3,id+" ordinary ledges use at least three slices (%d ledges, %d slices)" % [ledge_total,ledge_counts.size()])
+        check(most*2<=ledge_total,id+" no single slice covers more than half the ordinary ledges (%d/%d)" % [most,ledge_total])
+        check(flips.size()==2,id+" ordinary ledges appear in both orientations")
         scene.queue_free()
         for i in 3: await process_frame
     print("WORLD_MATERIAL_VALIDATION regions=6 checks=%d failures=%d" % [checks,failures])
