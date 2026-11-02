@@ -18,6 +18,11 @@ func run() -> void:
     root.add_child(main)
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(main)
     await process_frame
+    main._toggle_build()
+    main.ui_shell._open_resupply_planner()
+    var remembered: ConfirmationDialog=main.ui_shell.resupply_planner
+    check(remembered.memory.journey_key==main.world_save_path and not remembered.save_plan_button.disabled and not remembered.load_plan_button.disabled,"real World resupply dialog scopes its remember/load controls to this journey")
+    remembered.hide();main._close_overlays()
     main.set_process(false)
     main.player.set_physics_process(false)
     for enemy in get_nodes_in_group("enemy"):enemy.set_physics_process(false)
