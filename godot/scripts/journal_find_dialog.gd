@@ -30,6 +30,13 @@ static func install(ui: Control) -> void:
 
 func _ready() -> void:
     title="本条旅记 · 页内查找";min_size=Vector2i(920,600);get_ok_button().text="返回原阅读位置"
+    visibility_changed.connect(_visibility_changed)
+    confirmed.connect(_restore_focus);canceled.connect(_restore_focus)
+
+## T03: installed with every bag rebuild (each region arrival); its layout cost
+## ~30 ms of that frame although it is rarely opened. Build it on first open.
+func ensure_built() -> void:
+    if is_instance_valid(editor):return
     var column:=VBoxContainer.new();column.custom_minimum_size.x=860;column.add_theme_constant_override("separation",9);add_child(column)
     var intro:=Label.new();intro.text="只读查看当前已知正文；按字面查找，不使用跨记录筛选语法。回车到下一处，Shift+回车到上一处。";intro.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;intro.custom_minimum_size.x=860;column.add_child(intro)
     var tools:=HBoxContainer.new();tools.add_theme_constant_override("separation",8);column.add_child(tools)
@@ -40,8 +47,6 @@ func _ready() -> void:
     count_label=Label.new();column.add_child(count_label)
     editor=TextEdit.new();editor.editable=false;editor.wrap_mode=TextEdit.LINE_WRAPPING_BOUNDARY;editor.custom_minimum_size=Vector2(860,360);editor.size_flags_horizontal=Control.SIZE_EXPAND_FILL;column.add_child(editor)
     preview=Label.new();preview.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;preview.custom_minimum_size=Vector2(850,44);column.add_child(preview)
-    visibility_changed.connect(_visibility_changed)
-    confirmed.connect(_restore_focus);canceled.connect(_restore_focus)
 
 func _button(parent: Node, caption: String, callback: Callable) -> Button:
     var button:=Button.new();button.text=caption;button.custom_minimum_size=Vector2(84,34);button.pressed.connect(callback);parent.add_child(button);return button
@@ -64,6 +69,7 @@ func refresh_launcher() -> void:
 func open() -> void:
     var ui:=_host()
     if not _available(ui):return
+    ensure_built()
     var document: Dictionary=ui.journal_current_document
     source=String(document.text);source_key=String(document.key);source_hash=String(document.fingerprint)
     source_scope=String(ui.level.world_save_path);source_generation=int(ui.reading_session_generation)
