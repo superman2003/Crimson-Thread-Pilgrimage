@@ -132,7 +132,10 @@ func run() -> void:
 			var top := list.scroll_vertical
 			await stick(1.0, 10)
 			check(list.scroll_vertical > top, "stick scrolls the focused list")
-			# A gentle tilt below one pixel per frame still adds up.
+			# A gentle tilt below one pixel per frame still adds up. Start from the
+			# top: a slow runner's longer frames can scroll the list to its end above.
+			list.scroll_vertical = 0
+			await frames(1)
 			top = list.scroll_vertical
 			for index in 10:
 				SCROLL.scroll(ui, 0.4)
