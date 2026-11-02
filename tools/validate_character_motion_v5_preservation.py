@@ -14,7 +14,7 @@ import subprocess
 import numpy as np
 from PIL import Image
 
-from build_character_motion_v5 import ROOT, operations
+from build_character_motion_v5 import ROOT, plan
 
 
 def main():
@@ -43,22 +43,25 @@ def main():
                          + manifest['visual_offset'][i] for i in (0, 1)])
 
     results = []
-    for kind in dict.fromkeys(spec[0] for spec in operations()):
-        family = 'original_npcs' if kind.startswith('npc_') else 'original_creatures'
-        path = f'godot/assets/sprites/{family}/{kind}/motion_manifest.json'
+    sheets = plan()
+    for folder in dict.fromkeys(sheet['folder'] for sheet in sheets):
+        kind = folder.rsplit('/', 1)[-1]
+        path = f'godot/assets/sprites/{folder}/motion_manifest.json'
         before = json.loads(old_bytes(path))
         after = json.loads((ROOT/path).read_text(encoding='utf-8'))
-        specs = [spec for spec in operations() if spec[0] == kind]
+        specs = [sheet for sheet in sheets if sheet['folder'] == folder]
         current = {animation['name']: animation for animation in after['animations']}
         preserved = 0
         for animation in before['animations']:
             name = animation['name']
-            change = next((spec for spec in specs if spec[2] == name), None)
-            if change and change[3] == 'replace':
+            changes = [sheet for sheet in specs if sheet['animation'] == name]
+            if any(sheet['op'] == 'replace_animation' for sheet in changes):
                 continue
-            shift = 2 if change and change[3] == 'prepend' else 0
+            # new_animation sheets add `<move>_bridge`/`_settle`; existing ones keep their frames.
+            shift = sum(sheet['grid'][0]*sheet['grid'][1] for sheet in changes if sheet['op'] == 'prepend_frames')
+            replaced = {index for sheet in changes if sheet['op'] == 'replace_frames' for index in sheet['indices']}
             for index, frame in enumerate(animation['frames']):
-                if change and change[3] == 'frame' and index == change[4]:
+                if index in replaced:
                     continue
                 new_frame = current[name]['frames'][index+shift]
                 if not np.array_equal(pixels(frame, True), pixels(new_frame, False)):

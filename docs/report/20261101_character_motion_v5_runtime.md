@@ -31,7 +31,9 @@
 python -X utf8 tools/build_character_motion_v5.py --check
 python -X utf8 tools/validate_character_motion_v5_preservation.py --baseline-ref da54e285
 godot --path godot --rendering-method gl_compatibility --fixed-fps 60 --script res://scripts/expanded_character_motion_validation.gd
-godot --path godot --rendering-method gl_compatibility --script res://../tools/capture_character_motion_v5.gd -- --capture-output=C:/absolute/output
+godot --path godot --rendering-method gl_compatibility --script res://../tools/capture_character_motion_v5.gd -- --capture-output=C:/absolute/output --baseline=C:/absolute/baseline
 ```
+
+`--baseline` 指向基线角色目录（`da54e285` 下各角色文件夹的 `motion_manifest.json` 与图集，按角色名分子目录）；不传时只输出 7 张 `after_*`，传入后才有 14 张前后对比。
 
 用户随后反馈 Boss 衔接仍跳帧。v5 完成的是源图接入，未完成所有动作的帧密度与连续性验收；六位正式 Boss 的后续 288 个新姿势已接入，见 [后续报告](20261101_boss_motion_v6.md)。自然带伤六区流程、全角色画风和长期稳定仍 OPEN。
