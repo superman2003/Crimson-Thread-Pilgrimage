@@ -1763,6 +1763,7 @@ func _open_resupply_planner() -> void:
         register_text_entry_window(resupply_planner)
         build_panel.visibility_changed.connect(func():
             if not build_panel.visible and is_instance_valid(resupply_planner):resupply_planner.hide())
+    if level.get("world_mode")==true:resupply_planner.configure_memory(String(level.world_save_path))
     resupply_planner.open(_build_snapshot().get("tools",[]),
         func(plan: Dictionary):return level.call("perform_build_action","quote_resupply","",plan),
         func(plan: Dictionary):
