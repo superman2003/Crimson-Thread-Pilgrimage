@@ -74,6 +74,17 @@ func windows(node: Node) -> Array:
 		out.append_array(windows(child))
 	return out
 
+func pad(window: Window, button: JoyButton, count: int) -> void:
+	for step in count:
+		var press := InputEventJoypadButton.new()
+		press.button_index = button
+		press.pressed = true
+		window.push_input(press)
+		var lift: InputEventJoypadButton = press.duplicate()
+		lift.pressed = false
+		window.push_input(lift)
+		await frames(2)
+
 func dialog_reach(dialog: AcceptDialog, label: String) -> void:
 	var start: Control = dialog.gui_get_focus_owner()
 	var content: Array = collect(dialog, [], false)
@@ -199,6 +210,57 @@ func run() -> void:
 			await frames(2)
 		check(caption.gui_get_focus_owner() in BRIDGE.row_buttons(caption), "joypad d-pad down returns from the options to the button row")
 		caption.hide()
+	# Dialogs opened from other dialogs (profile transfer, craft dependencies,
+	# map checklist) are created with the shell or level and bridged as well.
+	var unbridged: Array = world.find_children("*", "AcceptDialog", true, false).filter(func(dialog): return not dialog.has_meta("dialog_focus_bridge"))
+	check(unbridged.is_empty(), "every dialog under the World is bridged (missing %s)" % ", ".join(unbridged.map(func(dialog): return String(dialog.name))))
+	# A chained list taller than its ScrollContainer scrolls with the focus.
+	var tall := ConfirmationDialog.new()
+	ui.add_child(tall)
+	var scroll := ScrollContainer.new()
+	scroll.custom_minimum_size = Vector2(360, 120)
+	tall.add_child(scroll)
+	var rows := VBoxContainer.new()
+	scroll.add_child(rows)
+	for index in 12:
+		var row_button := Button.new()
+		row_button.text = "row %d" % index
+		row_button.custom_minimum_size = Vector2(320, 36)
+		rows.add_child(row_button)
+	tall.popup_centered(Vector2i(420, 260))
+	tall.get_cancel_button().grab_focus()
+	await frames(4)
+	# Up from the buttons lands on the lowest row, below the visible area.
+	await pad(tall, JOY_BUTTON_DPAD_UP, 1)
+	var deep: Control = tall.gui_get_focus_owner()
+	check(deep == rows.get_child(rows.get_child_count() - 1), "joypad d-pad up enters a clipped list at its last row (%s)" % (deep.name if deep else "none"))
+	if deep != null:
+		check(scroll.scroll_vertical > 0 and scroll.get_global_rect().grow(1.0).encloses(deep.get_global_rect()), "the focused clipped row is scrolled into view (%d px)" % scroll.scroll_vertical)
+	await pad(tall, JOY_BUTTON_DPAD_UP, 11)
+	var first: Control = tall.gui_get_focus_owner()
+	check(first == rows.get_child(0) and scroll.scroll_vertical == 0, "walking up to the first row scrolls back to the top (%d px)" % scroll.scroll_vertical)
+	await pad(tall, JOY_BUTTON_DPAD_DOWN, 12)
+	check(tall.gui_get_focus_owner() in BRIDGE.row_buttons(tall), "d-pad down past the last row returns to the button row")
+	tall.hide()
+	tall.queue_free()
+	# A native list keeps up/down for its own selection; past its last item
+	# d-pad down still leaves it for the button row.
+	var listed := ConfirmationDialog.new()
+	ui.add_child(listed)
+	var items := ItemList.new()
+	items.custom_minimum_size = Vector2(320, 120)
+	for index in 3:
+		items.add_item("item %d" % index)
+	listed.add_child(items)
+	listed.popup_centered(Vector2i(400, 260))
+	listed.get_cancel_button().grab_focus()
+	await frames(4)
+	await pad(listed, JOY_BUTTON_DPAD_UP, 1)
+	check(listed.gui_get_focus_owner() == items, "d-pad up from the button row enters the list")
+	await pad(listed, JOY_BUTTON_DPAD_DOWN, 4)
+	check(listed.gui_get_focus_owner() in BRIDGE.row_buttons(listed), "d-pad down through the list's last item returns to the button row")
+	listed.hide()
+	listed.queue_free()
 	world._close_overlays()
 	await frames(2)
 	world.queue_free()

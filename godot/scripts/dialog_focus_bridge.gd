@@ -96,6 +96,9 @@ static func link(dialog: AcceptDialog) -> Dictionary:
         if scroll.get_window() != dialog or not scroll.is_visible_in_tree():
             continue
         var items := content_controls(scroll, row, [])
+        # The chain reaches clipped rows; the view must follow the focus there.
+        if items.size() > 1:
+            scroll.follow_focus = true
         for index in range(items.size() - 1):
             var above: Control = items[index]
             var below: Control = items[index + 1]
