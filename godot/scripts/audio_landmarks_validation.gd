@@ -75,6 +75,7 @@ func run() -> void:
     check(director.play_npc_landmark(npc),"actual nearby NPC starts a spatial nonverbal landmark")
     var voice:=cue(director)
     check(voice!=null and voice.global_position==npc.global_position and voice.max_distance==650 and voice.has_stream_playback(),"landmark uses actual positional playback with a finite hearing radius")
+    check(voice!=null and voice.bus=="SFXWorld","clear NPC landmark stays on the world sound bus")
     check(not director.play_npc_landmark(npc),"global and per-NPC limits prevent repeated greeting spam")
     npc.position=Vector2(3000,0);director.landmark_next_ms=0
     check(not director.play_npc_landmark(npc),"distant NPCs cannot allocate landmark voices")
@@ -94,6 +95,22 @@ func run() -> void:
     check(director.play_npc_landmark(npc),"nearby occluded NPC can still have a quiet landmark")
     voice=cue(director)
     check(voice!=null and voice.occluded and voice.volume_db<=-37,"terrain occlusion attenuates actual landmark playback")
+    var landmark_filter:=preload("res://scripts/npc_sound_landmark.gd")
+    check(voice!=null and voice.bus==landmark_filter.FILTER_BUS,"production NPC admission applies its own occlusion filter")
+    var playback:=voice.get_stream_playback()
+    var landmark_stream:=voice.stream
+    player.position=Vector2(250,0)
+    await physics_frame;await physics_frame
+    director.landmark_spatial_refresh.next_ms=0
+    director._retire_invalid_landmarks()
+    check(not voice.occluded and voice.bus=="SFXWorld" and is_equal_approx(voice.volume_db,-25),"moving past the wall restores the clear route and original gain")
+    check(voice.playing and voice.stream==landmark_stream and voice.get_stream_playback()==playback,"spatial refresh keeps the same running playback")
+    player.position=Vector2.ZERO
+    await physics_frame;await physics_frame
+    director.landmark_spatial_refresh.next_ms=0
+    director._retire_invalid_landmarks()
+    check(voice.occluded and voice.bus==landmark_filter.FILTER_BUS and is_equal_approx(voice.volume_db,-37),"returning behind the wall reapplies filtering without cumulative attenuation")
+    playback=null;landmark_stream=null
     director.foreground_warning(npc)
     check(not voice.playing and not director.duck_mix.layers.is_empty(),"nearby danger retires the landmark and gives music priority to the warning")
     director.set_user_volume("sfx",0)
@@ -121,7 +138,6 @@ func run() -> void:
     check(await RETIREMENT.drain(self),"fixture drains real audio players streams and leases")
     check(AUDIO.active_voice_count()==0,"all admitted landmark voices release the existing global voice budget")
     for file in ["audio_landmarks_mix.cfg","audio_landmarks_replacement.cfg","audio_landmarks_spatial.cfg","audio_landmark_ui.cfg"]:DirAccess.remove_absolute(ProjectSettings.globalize_path("user://"+file))
-    if failures.is_empty():print("AUDIO_LANDMARKS checks=%d failures=0" % checks)
-    else:
-        for item in failures:push_error(item)
+    for item in failures:push_error(item)
+    print("AUDIO_LANDMARKS checks=%d failures=%d" % [checks,failures.size()])
     quit(0 if failures.is_empty() else 1)
