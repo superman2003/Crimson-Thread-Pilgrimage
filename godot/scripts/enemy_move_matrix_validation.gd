@@ -39,10 +39,10 @@ func _run() -> void:
     print("%s_COST attack_frames=%d elapsed_ms=%d" % [_marker(), physics_frames, Time.get_ticks_msec()])
     if failures > 0:
         print("%s_FAIL failures=%d checks=%d" % [_marker(), failures, checks])
-        quit(1)
+        call_deferred("quit", 1)
         return
     print("%s_PASS kinds=%d moves=%d checks=%d" % [_marker(), report.size(), _move_count(), checks])
-    quit(0)
+    call_deferred("quit", 0)
 
 
 func _run_field_chapter(path: String) -> Array:
