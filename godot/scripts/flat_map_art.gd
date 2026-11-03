@@ -9,15 +9,32 @@ const INKS := {"moss_cavern": "173c3f", "rain_foundry": "183744", "salt_archive"
 ## Bridges, bronze sluices and boss floors keep their single slice.
 const LEDGE_FAMILIES := {"moss_cavern": [0, 2, 3, 9], "rain_foundry": [0, 2, 3, 4, 10], "salt_archive": [0, 2, 4, 9], "string_greenhouse": [0, 2, 5, 9], "obsidian_pilgrim": [0, 2, 3, 9], "silent_crown": [0, 2, 9, 10]}
 const ACCENTS := {"moss_cavern": "8eab79", "rain_foundry": "9c9980", "salt_archive": "baa794", "string_greenhouse": "94b57e", "obsidian_pilgrim": "a2747a", "silent_crown": "a6aec3"}
+## V03: viewports the "expand" stretch produces from the 1280x720 base: 16:9,
+## 64:27 ultrawide, 16:10 and 4:3. Parallax layouts cover every one of them.
+const VIEWPORTS := [Vector2(1280, 720), Vector2(1706, 720), Vector2(1280, 800), Vector2(1280, 960)]
+## Player.tscn camera zoom.
+const CAMERA_ZOOM := 1.25
+## main_level._configure_player_camera() limits around the region rect.
+const CAMERA_LIMIT_MIN := Vector2(-40, -120)
+const CAMERA_LIMIT_MAX_MARGIN := Vector2(80, 70)
+const ORNAMENT_CELL := Vector2(1280, 720)
 var theme := "moss_cavern"
+var region_id := ""
+var region_size := Vector2(4096, 720)
 var manifest: Dictionary = {}
 var platform_styles: Dictionary = {}
 var texture_cache: Dictionary = {}
+var ornament_materials: Dictionary = {}
+## Shared by every region build so a rebuild never recompiles it.
+static var ornament_shader: Shader
 
 
 func configure(theme_id: String, chapter: Dictionary) -> void:
     name = "FlatMapArt"
     theme = theme_id
+    region_id = String(chapter.get("id", ""))
+    var world: Dictionary = chapter.get("world", {})
+    region_size = Vector2(float(world.get("width", 4096.0)), float(world.get("height", 720.0)))
     var file := FileAccess.open(ROOT + theme + "/manifest.json", FileAccess.READ)
     if file != null:
         var parsed = JSON.parse_string(file.get_as_text())
@@ -27,6 +44,29 @@ func configure(theme_id: String, chapter: Dictionary) -> void:
         platform_styles[String(platform.get("id", ""))] = platform.get("art", {})
     _background_layers()
     _room_landmarks(chapter)
+
+
+## Layer-local rect a Parallax2D layer shows while the camera roams the whole
+## region at one viewport size. Godot's Parallax2D offsets the layer by the
+## unzoomed screen position (centre - viewport/2), so a view's left edge lands at
+## scroll * (centre - viewport/2) + viewport/2 - view/2 in layer space (measured
+## in the formal World; `parallax_layout` checks it against the engine).
+static func parallax_window(region: Vector2, scroll: Vector2, viewport: Vector2) -> Rect2:
+    var half := viewport / (2.0 * CAMERA_ZOOM)
+    var low := CAMERA_LIMIT_MIN + half
+    var high := (region + CAMERA_LIMIT_MAX_MARGIN - half).max(low)
+    var shift := viewport * 0.5 - half
+    var start := scroll * (low - viewport * 0.5) + shift
+    var finish := scroll * (high - viewport * 0.5) + shift + half * 2.0
+    return Rect2(start, finish - start)
+
+
+## Union of parallax_window() over every supported viewport.
+static func parallax_reach(region: Vector2, scroll: Vector2) -> Rect2:
+    var reach := parallax_window(region, scroll, VIEWPORTS[0])
+    for viewport in VIEWPORTS:
+        reach = reach.merge(parallax_window(region, scroll, viewport))
+    return reach
 
 
 func ready_for_platforms() -> bool:
@@ -55,8 +95,16 @@ func _background_layers() -> void:
     layer.name = "PaintedBackdrop"
     layer.scroll_scale = Vector2(0.075, 0.06)
     layer.z_index = -116
-    var scale_value := maxf(1.0, 960.0 / float(texture.get_height()))
+    # V03: the second copy is mirrored so the plain repeat has no hard edge, but
+    # each join is then a visible symmetry axis. Size and place the unmirrored
+    # copy so everything the region can show (any supported viewport) stays
+    # inside it; the mirrored copy only remains for views wider than those.
+    var reach := parallax_reach(region_size, layer.scroll_scale)
+    var main_view := parallax_window(region_size, layer.scroll_scale, VIEWPORTS[0])
+    var scale_value := maxf(maxf(1.0, 960.0 / float(texture.get_height())), ceilf(reach.size.x + 2.0) / float(texture.get_width()))
     var tile_size := Vector2(texture.get_size()) * scale_value
+    # Vertically the 16:9 view is centred on the painting (taller views reach the faded edges).
+    var origin := Vector2(reach.get_center().x - tile_size.x * 0.5, main_view.get_center().y - tile_size.y * 0.5)
     layer.repeat_size = Vector2(tile_size.x * 2, tile_size.y)
     layer.repeat_times = 3
     var fade := Shader.new()
@@ -68,7 +116,7 @@ func _background_layers() -> void:
         var sprite := Sprite2D.new()
         sprite.texture = texture
         sprite.centered = false
-        sprite.position = Vector2(float(i) * tile_size.x, 0)
+        sprite.position = origin + Vector2(float(i) * tile_size.x, 0)
         sprite.scale = Vector2.ONE * scale_value
         sprite.flip_h = i == 1
         sprite.modulate = Color(0.60, 0.64, 0.65, 1)
@@ -79,15 +127,47 @@ func _background_layers() -> void:
         var ornaments := Parallax2D.new()
         ornaments.name = "FlatMiddleDistance" if i == 0 else "FlatNearEdges"
         ornaments.scroll_scale = Vector2(0.24, 0.20) if i == 0 else Vector2(0.55, 0.40)
-        ornaments.repeat_size = Vector2(2560, 1440)
-        ornaments.repeat_times = 3
+        # The period now exceeds every view, so one copy on each side is enough.
+        ornaments.repeat_times = 1
         ornaments.z_index = -109 if i == 0 else -101
-        for j in range(4):
-            var art := ornament(Vector2(240 + j * 26, 350 + j * 37), j + i * 11)
-            art.position = Vector2(110 + j * 610, 25 + (j % 2) * 900)
-            art.modulate.a = 0.21 if i == 0 else 0.33
-            ornaments.add_child(art)
+        _scatter_ornaments(ornaments, i, 0.21 if i == 0 else 0.33)
         add_child(ornaments)
+
+
+## V03: the layers used to repeat four evenly spaced ornaments every 2560x1440,
+## so the same row came round as the camera crossed a region. Now one ornament
+## per ORNAMENT_CELL (the same density), jittered by a seed from region and
+## layer, over a repeat period wider than everything the layer can show in the
+## region: normal play never sees the arrangement twice. Rebuilds are identical.
+func _scatter_ornaments(layer: Parallax2D, layer_index: int, opacity: float) -> void:
+    var reach := parallax_reach(region_size, layer.scroll_scale)
+    var columns := int(ceil(reach.size.x / ORNAMENT_CELL.x)) + 1
+    var rows := int(ceil(reach.size.y / ORNAMENT_CELL.y)) + 1
+    layer.repeat_size = Vector2(columns, rows) * ORNAMENT_CELL
+    var random := RandomNumberGenerator.new()
+    random.seed = hash("%s|%s|%d" % [theme, region_id, layer_index])
+    var count := maxi(manifest.get("decorations", []).size(), 1)
+    var previous_row: Array = []
+    for row in rows:
+        var current_row: Array = []
+        for column in columns:
+            var variant := random.randi_range(0, count - 1)
+            # Neighbouring cells never repeat the same ornament side by side or stacked.
+            for attempt in 4:
+                if count < 3 or (variant != (current_row[column - 1] if column > 0 else -1) and variant != (previous_row[column] if row > 0 else -1)):
+                    break
+                variant = random.randi_range(0, count - 1)
+            current_row.append(variant)
+            var size_value := Vector2(random.randf_range(240, 320), random.randf_range(350, 460))
+            var art := ornament(size_value, variant)
+            # ornament() ties the flip to the seed's parity; choose it independently.
+            if art is Sprite2D:
+                art.flip_h = random.randi_range(0, 1) == 1
+            var free := (ORNAMENT_CELL - size_value).max(Vector2.ZERO)
+            art.position = reach.position + Vector2(column, row) * ORNAMENT_CELL + Vector2(random.randf() * free.x, random.randf() * free.y)
+            art.modulate.a = opacity
+            layer.add_child(art)
+        previous_row = current_row
 
 
 func ornament(size_value: Vector2, seed_number: int) -> Node2D:
@@ -107,8 +187,26 @@ func ornament(size_value: Vector2, seed_number: int) -> Node2D:
     sprite.region_rect = Rect2(region[0], region[1], region[2], region[3])
     sprite.scale = Vector2.ONE * minf(size_value.x / float(region[2]), size_value.y / float(region[3]))
     sprite.flip_h = posmod(seed_number, 2) == 1
+    sprite.material = _ornament_feather(index, texture, sprite.region_rect)
     sprite.set_meta("decoration_variant", index)
     return sprite
+
+
+## V03: several atlas cells cut their art at the cell border (the moss arch's
+## base, ginkgo leaves on the right edge), which showed as a straight hard line
+## wherever the ornament stood. Fade every ornament out over its outer 7%.
+func _ornament_feather(index: int, texture: Texture2D, region: Rect2) -> ShaderMaterial:
+    if ornament_materials.has(index):
+        return ornament_materials[index]
+    if ornament_shader == null:
+        ornament_shader = Shader.new()
+        ornament_shader.code = "shader_type canvas_item; uniform vec4 region_uv; uniform float feather = 0.07; varying vec4 tint_color; void vertex() { tint_color = COLOR; } void fragment() { vec2 t = (UV - region_uv.xy) / (region_uv.zw - region_uv.xy); vec2 edge = min(t, 1.0 - t); vec4 tex = texture(TEXTURE, UV); COLOR = tex * tint_color; COLOR.a *= smoothstep(0.0, feather, edge.x) * smoothstep(0.0, feather, edge.y); }"
+    var material := ShaderMaterial.new()
+    material.shader = ornament_shader
+    var size := Vector2(texture.get_size())
+    material.set_shader_parameter("region_uv", Vector4(region.position.x / size.x, region.position.y / size.y, region.end.x / size.x, region.end.y / size.y))
+    ornament_materials[index] = material
+    return material
 
 
 func _room_landmarks(chapter: Dictionary) -> void:
