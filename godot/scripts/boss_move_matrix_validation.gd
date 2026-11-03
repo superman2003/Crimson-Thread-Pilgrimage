@@ -54,6 +54,8 @@ func _run() -> void:
         var entry: Dictionary = await _run_chapter(path)
         if not entry.is_empty():
             report.append(entry)
+    # Let the last freed chapter release its resources before quitting.
+    await _frames(10)
     print(_marker() + "_REPORT " + JSON.stringify(report))
     if failures > 0:
         print("%s_FAIL failures=%d checks=%d" % [_marker(), failures, checks])
@@ -332,7 +334,9 @@ func _retry_cost(scene: Node, boss: Node2D, player: CharacterBody2D) -> Dictiona
     player.hurt_timer = 0.0
     var fatal: bool = player.take_damage(1, boss.global_position, false)
     var respawned := false
-    for frame in 240:
+    # The fatal hit's hitstop would stretch the death fade by host speed.
+    for frame in 600:
+        _end_hitstop()
         await physics_frame
         if player.hp > 0 and player.death_timer <= 0.0:
             respawned = true
