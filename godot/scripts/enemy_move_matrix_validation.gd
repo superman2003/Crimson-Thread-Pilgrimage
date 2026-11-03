@@ -34,6 +34,7 @@ func _run() -> void:
         if not only.is_empty() and not path.contains(only):
             continue
         report.append_array(await _run_field_chapter(path))
+    await _frames(10)
     print(_marker() + "_REPORT " + JSON.stringify(report))
     print("%s_COST attack_frames=%d elapsed_ms=%d" % [_marker(), physics_frames, Time.get_ticks_msec()])
     if failures > 0:
