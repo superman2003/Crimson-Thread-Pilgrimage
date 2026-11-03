@@ -4,11 +4,11 @@
 
 | 地区 | NPC | 平台 |
 |---|---|---|
-| 铸雨渠 | 闸门修女 `npc_sluice_nun` | `pw01` |
-| 铸雨渠 | 溺工工头 `npc_drowned_foreman` | `sv_lip` |
-| 苔钟庭 | 齿轮测绘师 `npc_gear_cartographer` | `rain_observation_ledge` |
-| 苔钟庭 | 后门司事 `npc_backdoor_sacristan` | `sw01` |
-| 苔钟庭 | 回程斥候 `npc_runback_scout` | `pbs_votive_shelf` |
+| 铸雨渠 | 锈泵修女 `npc_sluice_nun` | `pw01` |
+| 铸雨渠 | 半沉工头 `npc_drowned_foreman` | `sv_lip` |
+| 苔钟庭 | 升台绘图师 `npc_gear_cartographer` | `rain_observation_ledge` |
+| 苔钟庭 | 后门司铃人 `npc_backdoor_sacristan` | `sw01` |
+| 苔钟庭 | 回廊斥候 `npc_runback_scout` | `pbs_votive_shelf` |
 
 ## 改动
 
@@ -18,4 +18,4 @@
 
 ## 边界
 
-苔钟庭三位的坐标由地图生成器（`tools/generate_ch01_*.py`）产出，手改数据会与生成器漂移，留待调整生成器时处理；其中测绘师截图显示台子只贴着头部后方，影响较轻。
+苔钟庭三位的坐标由地图生成器（`tools/generate_ch01_*.py`）产出，手改数据会与生成器漂移，留待调整生成器时处理；其中绘图师截图显示台子只贴着头部后方，影响较轻。
