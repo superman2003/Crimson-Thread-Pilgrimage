@@ -44,7 +44,7 @@ def render_loop_args(real_gl, suite):
     # These non-pixel suites keep physics/state checks. Keep the real GL
     # resource backend, but avoid automatic rasterization on every churn frame.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network']:
+    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'boss_move_matrix', 'boss_move_matrix_late']:
         return ['--disable-render-loop']
     return []
 
