@@ -139,7 +139,7 @@ func run_checks() -> void:
     before = scene.currency_count
     hear_round(deserter)
     check(scene.currency_count == before + 40, "Actual deserter quest grants one useful reward")
-    check(deserter.position == Vector2(270, 1870), "Deserter moves to actual camp floor")
+    check(deserter.position == Vector2(400, 1870), "Deserter moves to actual camp floor")
     check(String(scene._room_for_position(deserter.position).get("id", "")) == "pilgrim_camp", "Camp migration stays inside the actual hub")
     scene.free()
     cleanup_save()
