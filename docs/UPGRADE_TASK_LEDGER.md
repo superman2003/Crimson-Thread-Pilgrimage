@@ -1,5 +1,9 @@
 # 升级任务台账：以可玩验收为完成标准
 
+## 2026-11-02：HUD 战斗栏不再每帧重建整份构筑快照（T03 子项）
+
+`pilgrimage_interface._refresh_combat_status` 每帧调用 `get_snapshot()` 深拷贝全部构筑目录，单次 4.3–5.5ms，占整个 HUD 刷新的大半。现在以构筑系统实例加 `state` 内容哈希为键缓存快照，状态不变就复用；冷却秒数本来直接读 `cooldowns`，仍逐帧更新。HUD `_process` 5.3–5.9ms→1.1–1.3ms，章节场景无头每帧约 12ms→9.4ms。`seal_ui` 新增：状态不变时文字不变、正式 `refund_tool` 改库存后立即显示新数。报告：`docs/report/20261102_t03_hud_frame_cost.md`。
+
 ## 2026-11-02：CI 上接近限时的流式套件给足超时（T03 子项）
 
 当天 runtime 分片 4 次失败都是流式套件超时、套件本身无失败项。按通过运行的日志实测，`world_route_walk` 175 秒、`world_passage` 167 秒、`world_async_loading` 141 秒、`world_neighbor_gameplay_live` 130 秒，默认限时 180 秒；本机新旧 main 耗时相同，不是代码变慢。四个套件限时改为实测的约两倍（300–360 秒），运行器单测新增“超时表只含默认套件且不少于实测两倍”。见[报告](report/20261102_t03_ci_streaming_timeouts.md)。
