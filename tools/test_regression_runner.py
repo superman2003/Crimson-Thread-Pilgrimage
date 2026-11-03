@@ -39,6 +39,18 @@ class CompletionContractTests(unittest.TestCase):
                 self.assertEqual(launch.call_args.kwargs['timeout'], 0.05)
                 self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 0.05s'])
 
+    def test_slow_streaming_suites_have_measured_headroom(self):
+        # Each override names a real default suite (a typo would silently keep 180s)
+        # and leaves at least twice the slowest passing CI duration measured.
+        measured = {'world_route_walk': 175, 'world_passage': 167, 'world_async_loading': 141,
+                    'world_neighbor_gameplay_live': 130, 'world_neighbor_gameplay': 150}
+        defaults = set(runner.DEFAULT_SUITES)
+        for suite, seconds in runner.SUITE_TIMEOUTS.items():
+            self.assertIn(suite, defaults)
+            self.assertGreater(seconds, runner.DEFAULT_TIMEOUT)
+        for suite, seconds in measured.items():
+            self.assertGreaterEqual(runner.SUITE_TIMEOUTS.get(suite, runner.DEFAULT_TIMEOUT), 2 * seconds, suite)
+
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
         combat_additions = {
