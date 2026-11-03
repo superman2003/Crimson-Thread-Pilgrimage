@@ -136,6 +136,10 @@ var last_overlay := ""
 var overlay_focus_memory: Dictionary = {}
 var build_refresh_elapsed := 0.0
 var last_build_signature := ""
+## The HUD build line reads names, stock and slot dormancy, all derived from
+## build state; a full snapshot costs ~5ms, so it is rebuilt only on change.
+var combat_snapshot: Dictionary = {}
+var combat_snapshot_key := 0
 var applied_player: Node
 var save_slot_buttons: Dictionary={}
 var journey_history_button: Button
@@ -2558,10 +2562,20 @@ func _dialogue_binding_hint() -> String:
     var action := "继续查看 / 记入旅记" if is_instance_valid(dialogue_area) and String(dialogue_area.get_meta("kind",""))=="history" else "继续"
     return "%s %s\n%s 离开" % [_short_binding("interact"),action,_short_binding("close_overlay")]
 
+func _combat_snapshot() -> Dictionary:
+    var system: Variant=level.call("get_build_system") if level!=null and level.has_method("get_build_system") else null
+    var source: Variant=system.get("state") if system is Object else null
+    if not source is Dictionary:return _build_snapshot()
+    var key:=hash([system.get_instance_id(),source])
+    if combat_snapshot.is_empty() or key!=combat_snapshot_key:
+        combat_snapshot=_build_snapshot()
+        combat_snapshot_key=key
+    return combat_snapshot
+
 func _refresh_combat_status(player: Node) -> void:
     var state: Dictionary={}
     if player.has_method("get_combat_ui_state"):state=player.call("get_combat_ui_state")
-    var snapshot:=_build_snapshot()
+    var snapshot:=_combat_snapshot()
     var skill_lines: Array[String]=[]
     var tool_lines: Array[String]=[]
     var system: Variant=level.call("get_build_system") if level.has_method("get_build_system") else null
