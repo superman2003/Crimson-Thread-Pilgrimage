@@ -5,6 +5,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEPS = ['scripts/audio_director.gd', 'scripts/audio_retirement.gd', 'scripts/audio_volume_preferences.gd', 'scripts/duck_mix.gd', 'scripts/landmark_spatial_refresh.gd', 'scripts/music_layer_phase.gd', 'scripts/npc_landmark_schedule.gd', 'scripts/room_reverb_mix.gd', 'scripts/spatial_enemy_alert.gd', 'scripts/reliability_98fd8e2f_r10_validation.gd']
 MARKER = '^RELIABILITY_R10 checks=[1-9][0-9]* failures=0$'
+DEPS += ['scripts/npc_sound_landmark.gd', 'scripts/enemy_sound_filter.gd']
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

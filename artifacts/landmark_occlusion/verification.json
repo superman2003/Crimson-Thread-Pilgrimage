@@ -1,0 +1,67 @@
+{
+  "base": "8f3048c0c4d8b9456b488173c8ae4700c8f0ec29",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "audio_driver": "Dummy",
+  "input_sha256": {
+    "godot/scripts/audio_director.gd": "2aea98057acb0403a2e6d6baad4cec1b4604632b4363509de8c999dd8a835f3d",
+    "godot/scripts/enemy_sound_filter.gd": "fa4ff4a640f679fd40a76805975aa7aa2e2958bb886b66b3d662feb443486b45",
+    "godot/scripts/npc_sound_landmark.gd": "2c0a386753cfb398f581ff4fb94cfa7ada9ed56f56c86af04738037d5eb337ca",
+    "godot/scripts/audio_landmarks_validation.gd": "0a1c4e38bfd3085c0ce3f37bbafca6231e9851d2d3fea89f0070b2604b162e8d",
+    "godot/scripts/enemy_sound_filter_validation.gd": "79f2082df2cc203d44142a0faa1514bf472c92377bfafa3efff1db4e4e855691",
+    "tools/run_audio_volume_save_contract.py": "06474755eb58f97f628d488a3a514bb41d6ccac3ea18d813f6277289ff1e729c",
+    "tools/run_room_reverb_contract.py": "530c47607cd28979db0f8cebd4f3812d0e9bfa7cfbfa2010710bf7e99d1e154b",
+    "tools/run_reliability_98fd8e2f_r10.py": "f735d373fd6de84caeef139b5833a6be5f9cb121130410673f26a8b27e2fbd0e"
+  },
+  "log_sha256": {
+    "contracts/contracts.log": "441e2c392d0cc3771ed6e4c7360f7ee63c83d5906c3798726e6f6ed6f62a204f",
+    "contracts/import.log": "40ac49dfa309683bbf730314f5c80d9970c1de14a2b7b575d0dd61b958c08eb5",
+    "controls/negative_always_filtered.log": "d8774be24624d2745bd61d137e64d2bdbb080dae7d92eb4c2e5f5452b23b36a3",
+    "controls/negative_old_npc_hook.log": "d824accfd4bc08d2eb4a19e1658cbfca6e1e81909551d1666f54beae4ef58fc9",
+    "controls/positive_headless.log": "4e5070f2faa9de7a8b5243d72539ecdad209439cf02eb41ee6f7a36a9de857c9",
+    "controls/positive_native_gl.log": "c4ca69003007ca90d0407404228b47a7ccdb8fab32bc3f9c802c550ae5cec158",
+    "final_runtime/audio_landmarks.log": "4e5070f2faa9de7a8b5243d72539ecdad209439cf02eb41ee6f7a36a9de857c9",
+    "import/import-1.log": "432865e40fbf2ee05683f762d9d0a74f68f32b5d899aff206825066afc13292f",
+    "import/import-2.log": "2f6f696f83fad6aa380512aee53860ed34c4eafc8894bdf0214b2d353eabad3d",
+    "initial/audio_landmarks_held_playback.log": "6437c0ee1bde8ab70ff2ada5fcd67fd3e9d1f266ed19b560ce26d72ca5c5ce31",
+    "music_handoff/import.log": "cdf3d46f59b8c7ebfe2f3c4d55f2fac7b83f75cc5d0761e9e5b568eb8f66d253",
+    "music_handoff/native.log": "0dd5ac351251f6c54190da5b96a4a3e2aaa1cab52198495797eb8114a2d44511",
+    "reverb/contracts.log": "da31b0052da05ebf22221b6db01aec237bdb0d425438dd7882df20baee25d326",
+    "reverb/import.log": "78d8547d51477241d2d7737d2cf1ad41e3bf7f992f66b39b103b386636b3f157",
+    "runtime/audio_landmarks.log": "6437c0ee1bde8ab70ff2ada5fcd67fd3e9d1f266ed19b560ce26d72ca5c5ce31",
+    "runtime/audio_retirement.log": "0871e9fb8deda9edc6da4ecfce86a26c562c0e2ed81d16ac3ac8db3624a5c0f7",
+    "runtime/enemy_ai_behavior.log": "8303335e28a94536c200b640c9e455e93a788c4af8a8a679d398d495c1e76724",
+    "runtime/enemy_tactical_roles.log": "d566560b110f4f4193a0c3602c043f7abd34aa338154eecb353e8da9efff5b6b",
+    "spatial_refresh/import.log": "cdf3d46f59b8c7ebfe2f3c4d55f2fac7b83f75cc5d0761e9e5b568eb8f66d253",
+    "spatial_refresh/native.log": "bf659a5c5e4e14cecb71935914ae9d1bc02453451ac96bb8f94e7e09f42c883e",
+    "volume/contracts.log": "7c98533d006a0a948baca6cc8b9dab778e2b7a70b54bea0a4f5197b1b80a86c1",
+    "volume/import.log": "78d8547d51477241d2d7737d2cf1ad41e3bf7f992f66b39b103b386636b3f157"
+  },
+  "checks": {
+    "enemy_sound_filter": 701,
+    "audio_landmarks_headless": 39,
+    "audio_landmarks_native_gl": 39,
+    "enemy_ai_behavior": 38,
+    "enemy_tactical_roles": 293,
+    "room_reverb_including_user_volume": 182,
+    "audio_volume_save": 99,
+    "reliability_r09": 11,
+    "reliability_r10": 11,
+    "room_reverb_runner_tests": 5
+  },
+  "npm_test_exit": 0,
+  "npm_campaign_exit": 0,
+  "windows_conditional_skips": {
+    "test_regression_runner": 31,
+    "test_godot_import": 11
+  },
+  "import_passes": 2,
+  "initial_failures_retained": [
+    "test-held-playback prevented retirement",
+    "raw CRLF marker parser"
+  ],
+  "limitations": [
+    "Dummy audio is not subjective listening",
+    "No natural six-region playthrough or long soak",
+    "Remote exact-head CI pending PR creation"
+  ]
+}
