@@ -59,6 +59,7 @@ class CompletionContractTests(unittest.TestCase):
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
             'interaction_reach',
+            'parallax_layout',
             'combat_input_events',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
