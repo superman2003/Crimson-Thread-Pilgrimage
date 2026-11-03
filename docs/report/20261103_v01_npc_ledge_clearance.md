@@ -1,4 +1,4 @@
-# V01：铸雨渠两位 NPC 不再被平台横穿身体
+# V01：五位 NPC 不再被平台横穿身体
 
 2026-11-03。按数据计算每个 NPC 待机图的绘制范围与实心平台的重叠，六区共 5 位 NPC 的身体被 22–26px 厚的平台横穿（站立位置头顶 66–110px 处横着一块台子，玩家在那里也站不下）：
 
@@ -12,10 +12,9 @@
 
 ## 改动
 
-铸雨渠两位挪到同一地面的开阔处：修女 2570→2770（`hub_floor_w` 上，离工房入口 2870 仍有 100px），工头 3950→4020（`sv_floor` 上，离工房入口 4240 有 220px）。软件 GL 截图核对两处画面。
+五位都挪到同一块地面的开阔处：
 
-`ch02_demo` 新增：铸雨渠四位 NPC 站立身形（脚下 8–110px、宽 80px）不与任何平台相交；旧坐标下准确失败于 `pw01`、`sv_lip`，新坐标通过。`rain_foundry_experience`、`silent_crown_experience`（工头仍是不受敌人攻击的安全交谈点）、`npm test`、`test:campaign` 通过。
+- 铸雨渠：修女 2570→2770（`hub_floor_w`，离工房入口 2870 仍 100px），工头 3950→4020（`sv_floor`，离工房入口 4240 有 220px）；软件 GL 截图核对两处画面。
+- 苔钟庭：绘图师 6020→5950（`ro_floor`，避开头顶观察台），司铃人 2210→2315（`sl_floor` 上两块平台之间的空档，离捷径拉杆 145px），斥候 5540→5320（`pbs_floor`，避开供台，离钟龛 100px）。苔钟庭坐标最早由 `tools/generate_ch01_*.py` 一次性生成，现已无测试或流程重新生成，直接改数据。
 
-## 边界
-
-苔钟庭三位的坐标由地图生成器（`tools/generate_ch01_*.py`）产出，手改数据会与生成器漂移，留待调整生成器时处理；其中绘图师截图显示台子只贴着头部后方，影响较轻。
+`ch02_demo` 新增铸雨渠四位、`all_chapters_demo` 新增六区全部 NPC 的检查：站立身形（脚下 8–110px、宽 80px）不与任何平台相交；旧坐标准确失败（苔钟庭 3 处、铸雨渠 2 处）。`rain_foundry_experience`、`silent_crown_experience`（工头仍是安全交谈点）、`cartography`、`world_host`、`first_court_experience`、`chinese_story`、`demo`、`ch01_room_reconstruction`、`chapter_route_regression`、`npm test`、`test:campaign` 通过；用 #514 的 `rest_point_safety` 与 #508 的 `interaction_reach` 对新坐标复查，未出现新问题。
