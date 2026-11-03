@@ -54,6 +54,8 @@ func _run() -> void:
         var entry: Dictionary = await _run_chapter(path)
         if not entry.is_empty():
             report.append(entry)
+    # Let the last freed chapter release its resources before quitting.
+    await _frames(10)
     print(_marker() + "_REPORT " + JSON.stringify(report))
     if failures > 0:
         print("%s_FAIL failures=%d checks=%d" % [_marker(), failures, checks])
