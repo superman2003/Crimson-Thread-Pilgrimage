@@ -69,11 +69,11 @@ func _run() -> void:
     print(_marker() + "_REPORT " + JSON.stringify(report))
     if failures > 0:
         print("%s_FAIL failures=%d checks=%d" % [_marker(), failures, checks])
-        quit(1)
+        call_deferred("quit", 1)
         return
     print("%s_COST attack_frames=%d elapsed_ms=%d" % [_marker(), physics_frames, Time.get_ticks_msec()])
     print("%s_PASS bosses=%d moves=%d checks=%d" % [_marker(), report.size(), _move_count(), checks])
-    quit(0)
+    call_deferred("quit", 0)
 
 
 ## All six authored move sets (type + guardability) differ, read from data so
