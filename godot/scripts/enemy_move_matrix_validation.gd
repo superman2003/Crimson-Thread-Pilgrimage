@@ -54,6 +54,10 @@ func _run_field_chapter(path: String) -> Array:
     for node in scene.find_children("*", "Control", true, false):
         if node.get_script() != null and node.get_script().resource_path.ends_with("pilgrimage_interface.gd"):
             node.set_process(false)
+    # Let deferred region jobs (enemy spawn/respawn) settle before choosing
+    # instances; a slow host can still be running them right after ready.
+    for frame in 30:
+        await physics_frame
     var player: CharacterBody2D = scene.player
     player.debug_invulnerable = false
     player.bell_guard_unlocked = true
