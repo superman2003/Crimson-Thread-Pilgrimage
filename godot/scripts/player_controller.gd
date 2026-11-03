@@ -244,7 +244,6 @@ const FOOTSTEP_MATERIAL_REMAP := {"fiber": "glass", "copper": "wet"}
 ## 脚步压低音量（规格要求约 -14dB），避免盖过攻击/能力等动作音。
 const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
-const FOOTSTEP_STRIDE := 88.0
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
 # Runtime registration of the existing four idle poses, in source-texture pixels.
 # Midpoint of the two opaque boot soles (y=276..281), not cape/weapon bounds.
@@ -389,7 +388,8 @@ var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
-var footstep_distance: float = 0.0
+## Foot contacts crossed by the run cycle since the last footstep update.
+var footstep_contacts := 0
 var ground_motion_x := 0.0
 var ground_motion_speed := 0.0
 var run_cycle_phase := 0.0
@@ -1658,6 +1658,10 @@ func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO
         ground_motion_x = 0.0
         ground_motion_speed = 0.0
         return
+    # The run pose is driven by this phase; its two foot contacts are poses 0
+    # (left) and the half cycle (right). Count crossings for the footstep sound.
+    var half_cycles := run_cycle_phase * 2.0 + absf(ground_motion_x) / RUN_CYCLE_DISTANCE * 2.0
+    footstep_contacts += int(floor(half_cycles)) - int(floor(run_cycle_phase * 2.0))
     run_cycle_phase = fposmod(run_cycle_phase + absf(ground_motion_x) / RUN_CYCLE_DISTANCE, 1.0)
 
 
@@ -1976,17 +1980,14 @@ func _stop_wall_slide_loop() -> void:
         wall_slide_audio.stop()
 
 
-## 材质化脚步触发（音频规格 §4.2）：地面横移时按"距离积分"计步——
-## 每累计 FOOTSTEP_STRIDE 像素触发一步，比动画帧回调更抗速度突变。
-func _update_footsteps(delta: float) -> void:
-    if not is_on_floor() or dash_timer > 0.0 or attack_timer > 0.0 or absf(velocity.x) < 60.0:
-        # 停步/离地时把计步器压到半步：再起步时第一声脚步很快落地，不抢拍。
-        footstep_distance = FOOTSTEP_STRIDE * 0.55
+## 材质化脚步触发（音频规格 §4.2）：跑步姿态由位移相位驱动，脚步声在相位
+## 跨过左右两个落脚姿态时触发，与画面上的落脚同拍（不再另按固定步距计步）。
+func _update_footsteps(_delta: float) -> void:
+    var contacts := footstep_contacts
+    footstep_contacts = 0
+    if contacts <= 0 or not is_on_floor() or dash_timer > 0.0 or attack_timer > 0.0 or ground_motion_speed < 60.0:
         return
-    footstep_distance += absf(velocity.x) * delta
-    if footstep_distance >= FOOTSTEP_STRIDE:
-        footstep_distance = 0.0
-        _play_footstep()
+    _play_footstep()
 
 
 func _play_footstep() -> void:
