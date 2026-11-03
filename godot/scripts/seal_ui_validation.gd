@@ -90,6 +90,16 @@ func run() -> void:
     check(ui.combat_status.text.contains("1.7s") and ui.combat_status.text.contains("回声针"),"HUD shows independently equipped skills and actual cooldown")
     check(ui.combat_status.text.contains("线势") and ui.combat_status.text.contains("2 / 3"),"HUD reads seal mechanism from the live player interface")
     check(ui.combat_status.text.contains("盐雾瓶"),"HUD shows both finite-use tool slots")
+    # The HUD keeps one build snapshot between frames; any build-state change must still show.
+    var cached_line:=ui.combat_status.text
+    ui._refresh_combat_status(runtime.player)
+    check(ui.combat_status.text==cached_line,"Unchanged build state keeps the same HUD line")
+    var stocked_id:=String(model.state.tools[1])
+    var stock_before:=int(model.state.tool_counts[stocked_id])
+    model.refund_tool(stocked_id)
+    ui._refresh_combat_status(runtime.player)
+    var stock:="%d次" % int(model.state.tool_counts[stocked_id])
+    check(int(model.state.tool_counts[stocked_id])==stock_before+1 and ui.combat_status.text!=cached_line and ui.combat_status.text.contains(stock),"A tool stock change updates the cached HUD line at once")
     ui.accessibility.subtitle_size=26
     ui._apply_accessibility()
     check(ui.build_detail.get_theme_font_size("normal_font_size")==26 and ui.build_detail.scroll_active,"Large-font details remain scrollable")
