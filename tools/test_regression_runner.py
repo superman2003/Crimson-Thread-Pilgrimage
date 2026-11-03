@@ -63,6 +63,7 @@ class CompletionContractTests(unittest.TestCase):
             'enemy_move_matrix',
             'enemy_move_matrix_mid',
             'enemy_move_matrix_late',
+            'parallax_layout',
             'combat_input_events',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
