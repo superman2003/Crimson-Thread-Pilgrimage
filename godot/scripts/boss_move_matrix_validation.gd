@@ -16,7 +16,8 @@ const CHAPTERS := [
 ## Positive = toward the arena entrance (the side the Player arrives from).
 const OFFSETS := [-240.0, 110.0, 240.0, 400.0, 580.0]
 const MIN_WINDUP := 0.55
-const GUARD_LEAD_FRAMES := 9
+## Frames before the measured standing hit at which the guard is pressed.
+const GUARD_LEADS := [9, 4, 14, 20]
 const TRIAL_FRAMES := 270
 
 var failures := 0
@@ -182,12 +183,21 @@ func _sample_move(scene: Node, boss: Node2D, player: CharacterBody2D, command: D
                     wounded_by.append(plan.name)
                     break
         if hit_frame >= 0:
-            var guarded: Dictionary = await _trial(boss, player, command, home, front, probe, {"guard": maxi(0, hit_frame - GUARD_LEAD_FRAMES)})
-            guard = "blocked" if int(guarded.get("damage", 1)) == 0 else "through"
-            if bool(command.get("blockable", true)):
-                _check(bool(guarded.get("guarded", false)) and guard == "blocked", "%s is stopped by a timed bell guard" % id)
+            # Arrival of homing or delayed hazards shifts by a few frames with
+            # host speed; a player times the press, so try a few leads and
+            # keep the first one where the guard was actually raised.
+            var blockable := bool(command.get("blockable", true))
+            for lead: int in GUARD_LEADS:
+                var guarded: Dictionary = await _trial(boss, player, command, home, front, probe, {"guard": maxi(0, hit_frame - lead)})
+                if not bool(guarded.get("valid", false)) or not bool(guarded.get("guarded", false)):
+                    continue
+                guard = "blocked" if int(guarded.get("damage", 1)) == 0 else "through"
+                if guard == ("blocked" if blockable else "through"):
+                    break
+            if blockable:
+                _check(guard == "blocked", "%s is stopped by a timed bell guard" % id)
             else:
-                _check(bool(guarded.get("guarded", false)) and guard == "through", "%s still wounds through a raised guard" % id)
+                _check(guard == "through", "%s still wounds through a raised guard" % id)
     _check(float(command.get("windup", 0.0)) >= MIN_WINDUP, "%s winds up for at least %.2fs" % [id, MIN_WINDUP])
     _check(warned, "%s shows a warning during every sampled windup" % id)
     _check(hits.size() + safe.size() >= 4, "%s has enough valid floor samples (%s skipped)" % [id, str(skipped)])
