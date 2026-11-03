@@ -58,6 +58,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
+            'parallax_layout',
             'combat_input_events',
             'rest_point_safety',
         }
