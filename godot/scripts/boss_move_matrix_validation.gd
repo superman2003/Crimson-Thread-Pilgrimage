@@ -332,7 +332,9 @@ func _retry_cost(scene: Node, boss: Node2D, player: CharacterBody2D) -> Dictiona
     player.hurt_timer = 0.0
     var fatal: bool = player.take_damage(1, boss.global_position, false)
     var respawned := false
-    for frame in 240:
+    # The fatal hit's hitstop would stretch the death fade by host speed.
+    for frame in 600:
+        _end_hitstop()
         await physics_frame
         if player.hp > 0 and player.death_timer <= 0.0:
             respawned = true
