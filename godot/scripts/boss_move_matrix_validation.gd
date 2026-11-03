@@ -222,6 +222,7 @@ func _evasion_plans(hit_frame: int) -> Array:
 
 
 func _trial(boss: Node2D, player: CharacterBody2D, command: Dictionary, home: Vector2, front: int, offset: float, plan: Dictionary) -> Dictionary:
+    _end_hitstop()
     _reset_boss(boss, home, command)
     _release_inputs()
     var floor_y := home.y + stand_drop
@@ -250,6 +251,7 @@ func _trial(boss: Node2D, player: CharacterBody2D, command: Dictionary, home: Ve
     var away := "move_right" if side > 0 else "move_left"
     var toward := "move_left" if side > 0 else "move_right"
     var hp_before: int = player.hp
+    _end_hitstop()
     boss._begin_attack(command)
     var warned := _warning_visible(boss)
     var hit_frame := -1
@@ -290,6 +292,14 @@ func _trial(boss: Node2D, player: CharacterBody2D, command: Dictionary, home: Ve
     var damage: int = hp_before - int(player.hp)
     _reset_boss(boss, home, command)
     return {"valid": true, "offset": offset, "damage": damage, "hit_frame": hit_frame, "warned": warned, "guarded": guarded}
+
+
+## The previous sample's hit starts a wall-clock hitstop; left running it
+## slows the next sample by however long the host takes per frame.
+func _end_hitstop() -> void:
+    var feel := root.get_node_or_null("FeelKit")
+    if feel != null and feel.has_method("cancel_hitstop"):
+        feel.cancel_hitstop()
 
 
 func _release_inputs() -> void:
