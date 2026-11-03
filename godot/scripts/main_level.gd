@@ -26,6 +26,7 @@ const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_PASSAGE := preload("res://scripts/world_passage.gd")
 const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const ABILITY_GATE_SIGN := preload("res://scripts/ability_gate_sign.gd")
 const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
 var world_platforms: RefCounted
 const WORLD_GAMEPLAY_RESIDENCY := preload("res://scripts/world_gameplay_residency.gd")
@@ -3653,6 +3654,19 @@ func _region_gate(data: Dictionary) -> void:
         gate.add_to_group("phase_gate")
     if String(data.get("requires_action", "")) == "thorn_downstrike":
         gate.add_to_group("fragile_terrain")
+    var ability := String(data.get("required_ability", ""))
+    if not ability.is_empty():
+        var sign := Node2D.new()
+        sign.set_script(ABILITY_GATE_SIGN)
+        sign.name = "AbilityGateSign"
+        sign.ability = ability
+        sign.ability_name = String(data.get("required_ability_name", ""))
+        sign.host = self
+        # Eye height above the gate's floor end (tall walls) or centred (short ledges).
+        var size := _rect2(data.get("rect", [])).size
+        sign.position = Vector2(0, maxf(0.0, size.y * 0.5 - 92.0))
+        sign.z_index = 3
+        gate.add_child(sign)
     locked_gate_bodies[String(data.get("id", "locked_gate"))] = gate
 
 
