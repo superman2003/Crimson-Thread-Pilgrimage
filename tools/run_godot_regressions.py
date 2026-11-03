@@ -33,8 +33,13 @@ SUCCESS_MARKERS = json.loads((ROOT / 'tools/godot_suite_success_markers.json').r
 # The full neighbor gameplay fixture renders and exercises several transitions;
 # software GL on a loaded runner can exceed the normal three-minute budget.
 DEFAULT_TIMEOUT = 180
-SUITE_TIMEOUTS = {'world_neighbor_gameplay': 300,
-                  # 84 field-enemy moves sampled one by one (~100-130s locally).
+# Measured on the shared CI runners (2026-11-02, passing runs): world_route_walk
+# 175s, world_passage 167s, world_async_loading 141s, world_neighbor_gameplay_live
+# 130s against the 180s default, so a slightly slower runner failed them while
+# the suite itself passed (~100-135s locally). Twice the observed time instead.
+SUITE_TIMEOUTS = {'world_neighbor_gameplay': 300, 'world_route_walk': 360, 'world_passage': 360,
+                  'world_async_loading': 300, 'world_neighbor_gameplay_live': 300,
+                  # 84 field-enemy moves sampled one by one (~80-130s locally).
                   'enemy_move_matrix': 300, 'enemy_move_matrix_mid': 300, 'enemy_move_matrix_late': 300}
 
 def suite_path(name):
