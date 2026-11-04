@@ -121,8 +121,13 @@
         "env_shrine_rest",
         "env_shrine_wrap",
         "player_attack_kill",
+        "player_bind_interrupt",
+        "player_bind_tighten",
         "player_death_cocoon",
+        "player_double_jump_wings",
         "player_downstrike_break",
+        "player_guard_block",
+        "player_guard_perfect",
         "player_hook_latch",
         "player_hook_reel",
         "player_low_hp_heartbeat",
@@ -137,12 +142,7 @@
       "asset_ready_events": [
         "env_gate_guardbreak",
         "player_bind_channel",
-        "player_bind_interrupt",
-        "player_bind_tighten",
-        "player_double_jump_wings",
-        "player_downstrike_crack",
-        "player_guard_block",
-        "player_guard_perfect"
+        "player_downstrike_crack"
       ],
       "superseded_events": [
         "player_attack_hit_light",
@@ -408,12 +408,14 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_double_jump_wings.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "second thread-jump: twin silk snap-taut ping, brighter than first jump",
-      "wiring_note": "double_thread_jump movement ability not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_physics_process",
+      "runtime_key": "double_jump",
+      "note": "plays on the second (air) thread jump instead of the pitched ground jump"
     },
     "player_wall_grip_attach": {
       "key": "player_wall_grip_attach",
@@ -449,24 +451,28 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_guard_block.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "bell-shell guard close: muted bronze clamp",
-      "wiring_note": "bell_guard mechanic not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::take_damage",
+      "runtime_key": "guard_block",
+      "note": "plays on the frame a late bell guard blocks a hit"
     },
     "player_guard_perfect": {
       "key": "player_guard_perfect",
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_guard_perfect.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "perfect guard: half-shell bronze bell true strike at A4 with energy backflow (ch03 beat bell_guard)",
-      "wiring_note": "bell_guard perfect-parry mechanic not implemented yet (A4 strike with strong A5 fifth overtone)"
+      "implemented_in": "res://scripts/player_controller.gd::take_damage",
+      "runtime_key": "guard_perfect",
+      "note": "plays on the frame a perfect bell guard (first 0.14s) blocks a hit"
     },
     "player_downstrike_crack": {
       "key": "player_downstrike_crack",
@@ -512,12 +518,14 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_bind_tighten.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "bind threads pulling tight near completion",
-      "wiring_note": "four-stage bind heal channel not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_update_heal",
+      "runtime_key": "bind_tighten",
+      "note": "plays on the frame a completed heal returns HP"
     },
     "player_bind_complete": {
       "key": "player_bind_complete",
@@ -536,12 +544,14 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P1",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_bind_interrupt.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "heal interrupted: single thread snapping",
-      "wiring_note": "four-stage bind heal channel not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_interrupt_heal",
+      "runtime_key": "bind_interrupt",
+      "note": "plays when a heal is broken; the channel sound is cut on the same frame"
     },
     "player_hurt_snap": {
       "key": "player_hurt_snap",

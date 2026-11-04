@@ -24,6 +24,7 @@ var selected_skill: Dictionary = {}
 var build_profile: Dictionary = {}
 var heal_timer := 0.0
 var heal_reserved_cost := 0
+var heal_voice: Node
 var heal_reserved_loss_ratio := 1.0
 var heal_reservation_generation := 0
 var guard_timer := 0.0
@@ -169,6 +170,12 @@ const SFX := {
     # 落地分档（音频规格 §4.1）：按触地前下落速度选软/硬采样。
     "land_soft": "res://assets/audio/sfx/generated/player_land_soft.ogg",
     "land_hard": "res://assets/audio/sfx/generated/player_land_hard.ogg",
+    # 动作同步（S02）：二段跳、钟壳格挡、疗伤完成/打断各用自己的声音。
+    "double_jump": "res://assets/audio/sfx/generated/player_double_jump_wings.ogg",
+    "guard_block": "res://assets/audio/sfx/generated/player_guard_block.ogg",
+    "guard_perfect": "res://assets/audio/sfx/generated/player_guard_perfect.ogg",
+    "bind_tighten": "res://assets/audio/sfx/generated/player_bind_tighten.ogg",
+    "bind_interrupt": "res://assets/audio/sfx/generated/player_bind_interrupt.ogg",
     # 章节 beat 叠层（audio_visual_manifest chapter beats，ch2 雨铸运河 / ch4 断弦温室）：
     # 材质条件由 main_level 写入的 footstep_material 判定（copper=ch2、fiber=ch4）。
     "ch02_beat_wall_grip_drip": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
@@ -571,7 +578,7 @@ func _physics_process(delta: float) -> void:
         coyote_timer = 0.0
         wall_sliding = false
         _play(&"jump_start")
-        _play_sfx("jump", -6.0, 1.16)
+        _play_sfx("double_jump", -6.0)
         MOVEMENT_ART.double_jump(self)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
@@ -828,9 +835,7 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
     _play(animation, true)
     if animation == &"hook_throw":
         _play_sfx("hook", -6.0)
-    elif animation == &"attack_2":
-        _play_sfx("skill", -7.0)
-    else:
+    elif animation != &"attack_2":
         _play_attack_swing_sfx()
 
 
@@ -1069,7 +1074,7 @@ func _try_heal() -> bool:
         return false
     HEAL_ART.start(self)
     _seal_present("heal", "prepare")
-    _play_sfx("heal", -5.0)
+    heal_voice = _play_sfx_voice("heal", -5.0)
     _play(&"heal")
     heal_state_changed.emit("started")
     return heal_reservation_generation == reservation_generation and heal_timer > 0.0
@@ -1089,6 +1094,7 @@ func _update_heal(delta: float) -> void:
         heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
+        _play_sfx("bind_tighten", -6.0)
         # Settle the paid build before HP listeners can replace that build.
         _seal_heal_completed()
         HEAL_ART.completed(self)
@@ -1110,6 +1116,12 @@ func _interrupt_heal() -> void:
         heal_cooldown = maxf(heal_cooldown, 0.3)
         heal_reserved_practice = 0
         HEAL_ART.interrupted(self)
+        # The channel sound outlasts the channel; cut it where the thread snaps.
+        if is_instance_valid(heal_voice) and not heal_voice.is_queued_for_deletion():
+            heal_voice.stop()
+            heal_voice.queue_free()
+        heal_voice = null
+        _play_sfx("bind_interrupt", -6.0)
         # Publish provenance before gain_energy emits. Reentrant listeners may
         # leave practice or pay a newer heal before this call returns.
         _apply_thread_balance(int(settled.energy_after),int(settled.practice_after))
@@ -1428,6 +1440,9 @@ func _update_attack(delta: float) -> void:
     var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
     if crossed and not attack_vfx_started:
         attack_vfx_started = true
+        # The heavy strike's impact peaks at once: play it with the strike, not the windup.
+        if current_attack == &"attack_2" and active_skill.is_empty():
+            _play_sfx("skill", -7.0)
         if not active_skill.is_empty():
             _seal_present(String(active_skill.get("id", "cleave")), "active")
         if not special: _spawn_attack_vfx(current_attack)
@@ -1783,18 +1798,23 @@ func _update_attack_pose() -> void:
 
 
 func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> void:
+    _play_sfx_voice(audio_key, volume_db, pitch_scale, voice_key, voice_priority)
+
+
+## Same as _play_sfx, returning the playing node so a cut-short action can stop it.
+func _play_sfx_voice(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> Node:
     if not _should_play_sfx():
-        return
+        return null
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
     var resolved_voice_key := voice_key if not voice_key.is_empty() else "player_" + audio_key
     var voice_ticket := _request_voice(resolved_voice_key, voice_priority)
     if voice_ticket == 0:
-        return
+        return null
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
         _release_voice(voice_ticket)
-        return
+        return null
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
     player_node.set_meta("retire_after_playback",true)
@@ -1807,6 +1827,7 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
     _start_voice(voice_ticket,player_node)
+    return player_node
 
 
 ## 落地分档（音频规格 §4.1）：按触地前一帧的下落速度选软/硬落地采样。
@@ -2201,6 +2222,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
         guard_timer = 0.0
         hurt_timer = 0.12
+        _play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
         GUARD_ART.blocked(self, perfect)
         combat_observed.emit({"kind":"guard","perfect":perfect})
         return false
