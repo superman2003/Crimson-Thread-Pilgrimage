@@ -35,7 +35,12 @@ func find_button(node: Node, text: String) -> Button:
 
 func stick(value: float, count: int) -> void:
 	ui.reading_axis_override = value
-	await frames(count)
+	# Production integrates SPEED * delta. Exercise a duration, so a faster
+	# headless host does not shorten the simulated gesture to a few milliseconds.
+	var elapsed := 0.0
+	while elapsed < float(count) / 60.0:
+		await process_frame
+		elapsed += root.get_process_delta_time()
 	ui.reading_axis_override = 0.0
 	await frames(1)
 
@@ -166,6 +171,20 @@ func run() -> void:
 	var item_top := item_bar.value
 	await stick(1.0, 10)
 	check(item_bar.value > item_top, "stick scrolls the level-owned list")
+	# Journal page-find uses a read-only TextEdit rather than a RichTextLabel.
+	items.hide()
+	var editor := TextEdit.new()
+	editor.editable = false
+	editor.custom_minimum_size = Vector2(320, 200)
+	editor.text = "旅记长文\n".repeat(100)
+	owned.add_child(editor)
+	editor.grab_focus()
+	await frames(4)
+	check(SCROLL.scrollable(editor) and SCROLL.target(ui) == editor, "an overflowing read-only TextEdit is the reading target")
+	var editor_bar: VScrollBar = editor.get_v_scroll_bar()
+	var editor_top := editor_bar.value
+	SCROLL.scroll(ui, 40.0)
+	check(editor_bar.value > editor_top, "the reading stick can scroll a TextEdit body")
 	owned.hide()
 	owned.queue_free()
 	world._close_overlays()

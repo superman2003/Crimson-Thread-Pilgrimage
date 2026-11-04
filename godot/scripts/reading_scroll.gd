@@ -36,7 +36,7 @@ static func scrollable(control: Control) -> bool:
         bar = control.get_v_scroll_bar()
     elif control is ScrollContainer and control.vertical_scroll_mode != ScrollContainer.SCROLL_MODE_DISABLED:
         bar = control.get_v_scroll_bar()
-    elif control is ItemList or control is Tree:
+    elif control is ItemList or control is Tree or control is TextEdit:
         bar = control.get_v_scroll_bar()
     return bar != null and bar.max_value - bar.page > 0.5
 

@@ -161,6 +161,14 @@ func _settle(spawn: Vector2, wounded: bool) -> void:
     build.cooldowns.clear()
     for frame in 30:
         await physics_frame
+    # Teleporting the fixture can request fresh streamed collision bodies.
+    # Wait for the production action gate before injecting the next device event.
+    for frame in 120:
+        if scene._world_collision_ready() and player._can_start_action():
+            break
+        await physics_frame
+        await process_frame
+    _check(scene._world_collision_ready() and player._can_start_action(), "fixture is ready for device input")
     if wounded:
         player.hp = player.max_hp - 1
     await process_frame
@@ -229,6 +237,9 @@ func _remapped_attack(spawn: Vector2) -> void:
 func _physics(count: int) -> void:
     for index in count:
         await physics_frame
+        # physics_frame is emitted before Player._physics_process. Observe the
+        # completed tick, as _case already does, including on catch-up frames.
+        await process_frame
 
 
 func _tool_total() -> int:
