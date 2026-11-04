@@ -8,6 +8,8 @@ var combat_effect_generation := 0
 
 signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 signal heal_state_changed(state: String)
+## A strike met breakable terrain it did not break (no thorn downstrike).
+signal gate_struck(gate: Node, point: Vector2)
 signal skill_cast(skill_id: String)
 ## Post-acceptance observations; consumers cannot change combat outcomes.
 signal combat_observed(event: Dictionary)
@@ -36,6 +38,7 @@ var phase_energy_fraction := 0.0
 var phase_safe_position := Vector2.ZERO
 var phase_exceptions: Array[PhysicsBody2D] = []
 var attack_vfx_started := false
+var gate_strike_paid := false
 var attack_windup := 0.06
 var attack_active_time := 0.22
 var active_skill: Dictionary = {}
@@ -155,6 +158,8 @@ const SFX := {
     "hurt": "res://assets/audio/sfx/player_hurt.ogg",
     # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4）。
     "pogo": "res://assets/audio/sfx/generated/player_pogo_bounce.ogg",
+    # 可破地面被普通一击敲到：只开裂、不碎（棘线下劈才能击碎）。
+    "downstrike_crack": "res://assets/audio/sfx/generated/player_downstrike_crack.ogg",
     "wall_grip_attach": "res://assets/audio/sfx/generated/player_wall_grip_attach.ogg",
     "wall_slide_loop": "res://assets/audio/sfx/generated/player_wall_slide_loop.ogg",
     "death_cocoon": "res://assets/audio/sfx/generated/player_death_cocoon.ogg",
@@ -822,6 +827,7 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
     hit_targets.clear()
     attack_pogo_paid = false
+    gate_strike_paid = false
     hook_latch_played = false
     hook_reel_played = false
     _sync_attack_hitbox()
@@ -1506,7 +1512,29 @@ func _apply_attack_hits() -> void:
                 attack_pogo_paid = true
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack, node, contact_call)
+    _try_gate_strike(attack_rect)
     _try_hazard_pogo(attack_rect)
+
+
+## Breakable floors answer an ordinary strike with a crack, once per swing, so
+## the player learns the floor gives way to a stronger blow. No text: abilities
+## not yet found are not named. The thorn downstrike itself breaks the floor.
+func _try_gate_strike(attack_rect: Rect2) -> void:
+    if gate_strike_paid or traversal_downstrike_active or current_attack == &"hook_throw":
+        return
+    for gate in get_tree().get_nodes_in_group("fragile_terrain"):
+        if not gate is Node2D or not gate.has_meta("gate_size") or not gate.is_inside_tree():
+            continue
+        var size: Vector2 = gate.get_meta("gate_size")
+        var rect := Rect2(gate.global_position - size * 0.5, size)
+        if not attack_rect.intersects(rect):
+            continue
+        gate_strike_paid = true
+        var point := Vector2(clampf(attack_rect.get_center().x, rect.position.x, rect.end.x),
+            clampf(attack_rect.get_center().y, rect.position.y, rect.end.y))
+        _play_sfx("downstrike_crack", -6.0)
+        gate_struck.emit(gate, point)
+        return
 
 
 ## A downslash that meets static spikes bounces like an enemy hit, but awards no

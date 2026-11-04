@@ -473,12 +473,14 @@
       "family": "neutral",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_downstrike_crack.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "downstrike cracking a breakable: short wood/shell split",
-      "wiring_note": "breakable-crack stage not implemented yet"
+      "implemented_in": "res://scripts/player_controller.gd::_try_gate_strike",
+      "runtime_key": "downstrike_crack",
+      "note": "plays once per swing when an ordinary strike meets a breakable floor it does not break; the thorn downstrike breaks it instead"
     },
     "player_downstrike_break": {
       "key": "player_downstrike_break",
