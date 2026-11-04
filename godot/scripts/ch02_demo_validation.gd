@@ -110,6 +110,14 @@ func _run() -> void:
         _assert(npc.get_meta("dialogue", []).size() >= 2, npc_id + " has chapter dialogue")
         var npc_sprite := npc.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
         _assert(npc_sprite != null and npc_sprite.sprite_frames != null and npc_sprite.sprite_frames.get_frame_count("talk") > 0, npc_id + " has animated friendly conversation art")
+        # V01: no solid ledge cuts through the standing figure (head room the Player could not stand in).
+        var feet := npc.position.y + 40.0
+        var figure := Rect2(npc.position.x - 40.0, feet - 110.0, 80.0, 102.0)
+        var clashes: Array = []
+        for platform: Dictionary in config.get("platforms", []):
+            if figure.intersects(Rect2(platform.rect[0], platform.rect[1], platform.rect[2], platform.rect[3])):
+                clashes.append(platform.get("id", ""))
+        _assert(clashes.is_empty(), "%s stands clear of ledges %s" % [npc_id, str(clashes)])
         _assert(not String(npc.get_meta("dialogue_topics", {}).get("route", "")).is_empty(), npc_id + " has a route choice")
 
     var enemy_kinds := _enemy_kinds()
