@@ -2828,6 +2828,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
         lines.append("\n"+String(entry.get("guidance","")))
         if String(entry.get("status",""))=="complete":lines.append("奖励已领取。" if bool(entry.get("reward_claimed",false)) else "可以返回委托人领取奖励。")
+        lines.append_array(preload("res://scripts/quest_contacts.gd").appendix(String(entry.get("id","")),level.inventory_counts,level.story_flags))
     else:
         var acquired:=bool(entry.get("acquired",false))
         category="证词 · "+("已发现" if acquired else "缺页")
@@ -2840,6 +2841,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
+            lines.append_array(preload("res://scripts/testimony_sources.gd").appendix(String(entry.get("id","")),level.inventory_counts))
     return {"text":"\n".join(lines),"category":category}
 
 func _show_journal_record(entry: Dictionary) -> void:
