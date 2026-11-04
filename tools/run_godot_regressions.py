@@ -48,8 +48,10 @@ def suite_path(name):
 def render_loop_args(real_gl, suite):
     # These non-pixel suites keep physics/state checks. Keep the real GL
     # resource backend, but avoid automatic rasterization on every churn frame.
+    # world_streaming inspects authored polygons, residency and worker state;
+    # rasterizing its paused World can starve the unchanged 8s prefetch window.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'parallax_layout', 'player_action_sfx_sync']:
+    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'world_streaming', 'parallax_layout', 'player_action_sfx_sync']:
         return ['--disable-render-loop']
     return []
 
