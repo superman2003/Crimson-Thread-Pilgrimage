@@ -93,6 +93,7 @@ func run_checks() -> void:
 
     scene = await spawn("res://data/demo_ch06_silent_crown_core.json")
     await frames()
+    preload("res://scripts/testimony_sources_validation.gd").new().run(self, scene)
     var initial: Dictionary = scene.world_narrative.main_line({}, {})
     scene.ui_shell._show_journal_record(initial.merged({"record_kind": "main"}))
     check(not scene.ui_shell.bag_description.text.contains("同一根新线"), "the real journal withholds unearned synthesis")

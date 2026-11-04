@@ -2840,6 +2840,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
+            lines.append_array(preload("res://scripts/testimony_sources.gd").appendix(String(entry.get("id","")),level.inventory_counts))
     return {"text":"\n".join(lines),"category":category}
 
 func _show_journal_record(entry: Dictionary) -> void:
