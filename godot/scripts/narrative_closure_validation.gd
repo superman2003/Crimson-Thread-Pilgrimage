@@ -61,6 +61,7 @@ func run_checks() -> void:
     check(canon.present_year - canon.hush_year == canon.silent_years, "one chronology is used")
     preload("res://scripts/personal_codas_checks.gd").new().pure(self)
     preload("res://scripts/ending_return_journal_checks.gd").new().pure(self)
+    preload("res://scripts/journal_sources_checks.gd").new().pure(self)
     check(JOURNEY.reflections({}, {}).is_empty(), "new journey has no invented revelations")
     check(JOURNEY.reflections({"testimony_03": 0}, {"evidence_known_testimony_03": true}).is_empty(), "known or zero-count proof does not reveal synthesis")
     for bad in [-1, 0.5, true, "1", INF]:

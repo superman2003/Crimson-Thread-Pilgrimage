@@ -60,14 +60,20 @@ static func for_evidence(id: String, inventory: Dictionary) -> Dictionary:
         return {}
     var source: Dictionary = all.sources[id]
     var comparisons: Array[String] = []
+    var comparison_keys: Array[String] = []
     for check in source.cross_checks:
         var ready := true
         for required in check.evidence_all:
             ready = ready and owns(inventory, String(required))
         if ready:
             comparisons.append(String(check.text))
+            for required in check.evidence_all:
+                var key := "evidence:" + String(required)
+                if required != id and not comparison_keys.has(key):
+                    comparison_keys.append(key)
     source.erase("cross_checks")
     source["comparisons"] = comparisons
+    source["comparison_keys"] = comparison_keys
     return source
 
 static func appendix(id: String, inventory: Dictionary) -> Array[String]:

@@ -97,6 +97,7 @@ func run_checks() -> void:
     scene.ui_shell._show_journal_record(ending)
     check(not scene.ui_shell.bag_description.text.contains("npc_") and scene.ui_shell.bag_description.text.contains("灯影修女"), "real journal localizes consequence names")
     check(scene.ui_shell._ending_status_label({"status": "closed", "available": false}) == "已关闭", "closed branches are distinct from unfinished requirements")
+    await preload("res://scripts/journal_sources_checks.gd").new().live(self, scene)
     scene.free()
     cleanup_save()
     await process_frame

@@ -159,6 +159,7 @@ var journal_mark_button: Button
 var journal_star_button: Button
 var journal_batch_button: Button
 var journal_batch_dialog: ConfirmationDialog
+var journal_source_dialog: AcceptDialog
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
@@ -712,6 +713,12 @@ func _matches(category: String) -> bool:
 func refresh_inventory() -> void:
     if bag_grid==null:return
     if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
     if journal_filters!=null:
         journal_filters.visible=bag_category=="旅记"
         bag_scroll.position.y=279 if journal_filters.visible else 194
@@ -726,6 +733,7 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
     _remember_journal_scroll()
     if bag_category!="旅记":
         journal_reading_key=""
@@ -786,6 +794,9 @@ func _category_name(category: String) -> String:
     return {"Tools":"织具","Abilities":"能力","Charms":"铭饰","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
 
 func _pin_item() -> void:
+    if bag_category=="旅记":
+        _open_journal_sources()
+        return
     var id := _reconcile_inventory_selection()
     if id.is_empty():return
     var was_pinned:=bool(level.story_flags.get("ui_pin_"+id,false))
@@ -2904,6 +2915,12 @@ func _refresh_journal_actions() -> void:
     journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
     journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
     if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
 
 func _journal_preference_result(result: Dictionary) -> void:
     if not String(result.get("reason","")).is_empty() and is_instance_valid(toast):toast.text=String(result.reason)
@@ -2924,6 +2941,18 @@ func _journal_batch_available() -> bool:
 
 func _journal_batch_documents() -> Array:
     return journal_catalog.filter_documents(journal_documents,journal_search.text,journal_unread.button_pressed,journal_stars.button_pressed,journal_sort.selected)
+
+func _open_journal_sources() -> void:
+    if not _journal_batch_available():return
+    if not is_instance_valid(journal_source_dialog):
+        journal_source_dialog=preload("res://scripts/journal_source_desk.gd").new()
+        bag.add_child(journal_source_dialog)
+        register_text_entry_window(journal_source_dialog)
+        var popup_ref: WeakRef=weakref(journal_source_dialog)
+        bag.visibility_changed.connect(func():
+            var popup: AcceptDialog=popup_ref.get_ref()
+            if is_instance_valid(popup) and not bag.is_visible_in_tree():popup.hide())
+    journal_source_dialog.open_for(self)
 
 func _open_journal_batch() -> void:
     if not _journal_batch_available():return
@@ -2967,6 +2996,12 @@ func _apply_journal_scroll(key: String, text: String, offset: float, request_gen
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
         journal_restore_pending=false
         if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
 
 func _scroll_journal(step: int) -> void:
     if bag_description==null:return

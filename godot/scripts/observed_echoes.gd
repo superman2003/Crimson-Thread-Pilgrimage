@@ -77,12 +77,15 @@ static func records(inventory: Dictionary, flags: Dictionary) -> Array[Dictionar
         if not known:
             continue
         var sources: Array[String] = []
+        var source_keys: Array[String] = []
         for id in row.observations_all:
             var observation: Dictionary = _observations[id]
+            source_keys.append("evidence:" + HISTORY.FLAG_PREFIX + String(id))
             sources.append(String(observation.title) + " · " + String(observation.place))
         for id in row.evidence_all:
             sources.append(String(_proofs[id]))
+            source_keys.append("evidence:" + String(id))
         result.append({"id": PREFIX + String(row.id), "title": String(row.title),
             "description": String(row.text), "record_kind": "voice", "acquired": true,
-            "voice_context": "观察遗迹之后", "voice_sources": sources})
+            "voice_context": "观察遗迹之后", "voice_sources": sources, "journal_source_keys": source_keys})
     return result
