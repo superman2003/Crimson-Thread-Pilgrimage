@@ -101,6 +101,7 @@ func run_checks() -> void:
     await preload("res://scripts/known_world_terms_checks.gd").new().live(self, scene)
     await preload("res://scripts/guardian_identities_checks.gd").new().live(self, scene)
     await preload("res://scripts/inquiry_source_notes_checks.gd").new().live(self, scene)
+    await preload("res://scripts/known_inquiry_contacts_checks.gd").new().live(self, scene)
     scene.free()
     cleanup_save()
     await process_frame

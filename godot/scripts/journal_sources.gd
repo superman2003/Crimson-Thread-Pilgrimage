@@ -1,6 +1,8 @@
 extends RefCounted
 ## Source links are reconstructed from public, currently earned origin records.
 const ECHOES := preload("res://scripts/observed_echoes.gd")
+const FOLLOWUPS := preload("res://scripts/known_inquiry_contacts.gd")
+const MEMORY := preload("res://scripts/npc_recollections.gd")
 const IDENTITIES := preload("res://scripts/guardian_identities.gd")
 const INQUIRIES := preload("res://scripts/narrative_inquiries.gd")
 const TERMS := preload("res://scripts/known_world_terms.gd")
@@ -19,7 +21,9 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     var clean := CONTACTS.confirmed_flags(flags)
     var origin := {}
     var origins: Array = []
-    if origin_key.begins_with("people:" + INQUIRIES.PREFIX):
+    if origin_key.begins_with("guide:" + FOLLOWUPS.PREFIX):
+        origins = FOLLOWUPS.records(held, clean)
+    elif origin_key.begins_with("people:" + INQUIRIES.PREFIX):
         origins = INQUIRIES.records(clean)
     elif origin_key.begins_with("voice:" + ECHOES.PREFIX):
         origins = ECHOES.records(held, clean)
@@ -46,6 +50,7 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     var public: Array = HISTORY.records(clean)
     if requested.any(func(target): return target is String and target.begins_with("people:")):
         public.append_array(INQUIRIES.records(clean))
+        public.append_array(MEMORY.records(clean))
     var narrative := CONTACTS.narrative()
     for row in narrative.evaluate_evidence(held, clean).get("known_entries", []):
         if row.get("acquired", false):
