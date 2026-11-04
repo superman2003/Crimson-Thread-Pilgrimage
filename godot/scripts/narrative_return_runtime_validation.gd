@@ -99,6 +99,7 @@ func run_checks() -> void:
     check(scene.ui_shell._ending_status_label({"status": "closed", "available": false}) == "已关闭", "closed branches are distinct from unfinished requirements")
     await preload("res://scripts/journal_sources_checks.gd").new().live(self, scene)
     await preload("res://scripts/known_world_terms_checks.gd").new().live(self, scene)
+    await preload("res://scripts/guardian_identities_checks.gd").new().live(self, scene)
     scene.free()
     cleanup_save()
     await process_frame

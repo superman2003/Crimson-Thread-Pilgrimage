@@ -205,7 +205,9 @@ static func records(flags: Dictionary) -> Array[Dictionary]:
                 labels.append(String(source.label))
             var text := "我问：%s\n\n%s\n\n巡礼者手记：%s\n\n当时核对的线索：%s" % [row.question, "\n\n".join(row.lines), row.reflection, "、".join(labels)]
             result.append({"id": row.marker, "title": "追问 · " + String(row.question),
-                "record_kind": "people", "acquired": true, "description": text, "places": []})
+                "record_kind": "people", "acquired": true, "description": text, "places": [],
+                "inquiry_id": String(row.id), "inquiry_lines": row.lines.duplicate(),
+                "inquiry_expanded": version.lines.size() > entry.lines.size()})
     return result
 
 static func can_talk(ui: Node, area: Area2D) -> bool:

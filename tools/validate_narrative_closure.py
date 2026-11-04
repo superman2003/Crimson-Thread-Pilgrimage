@@ -10,6 +10,8 @@ def read(path):
 
 
 def validate():
+    from validate_guardian_identities import validate as validate_identities
+    validate_identities()
     from validate_known_world_terms import validate as validate_terms
     validate_terms()
     from validate_ending_return_journal import validate as validate_return

@@ -1,6 +1,8 @@
 extends RefCounted
 ## Source links are reconstructed from public, currently earned origin records.
 const ECHOES := preload("res://scripts/observed_echoes.gd")
+const IDENTITIES := preload("res://scripts/guardian_identities.gd")
+const INQUIRIES := preload("res://scripts/narrative_inquiries.gd")
 const TERMS := preload("res://scripts/known_world_terms.gd")
 const RETURNS := preload("res://scripts/ending_return_journal.gd")
 const CONTACTS := preload("res://scripts/quest_contacts.gd")
@@ -15,9 +17,15 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     var held := CONTACTS.confirmed_inventory(inventory)
     var clean := CONTACTS.confirmed_flags(flags)
     var origin := {}
-    var origins: Array = ECHOES.records(held, clean)
-    origins.append_array(RETURNS.records(held, clean))
-    origins.append_array(TERMS.records(held))
+    var origins: Array = []
+    if origin_key.begins_with("voice:" + ECHOES.PREFIX):
+        origins = ECHOES.records(held, clean)
+    elif origin_key == "guide:ending_return_contacts":
+        origins = RETURNS.records(held, clean)
+    elif origin_key.begins_with("guide:" + TERMS.PREFIX):
+        origins = TERMS.records(held)
+    elif origin_key.begins_with("guide:" + IDENTITIES.PREFIX):
+        origins = IDENTITIES.records(clean)
     for row in origins:
         if key(row) == origin_key:
             origin = row
@@ -33,6 +41,8 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     if requested.is_empty() or requested.size() > 6:
         return result
     var public: Array = HISTORY.records(clean)
+    if requested.any(func(target): return target is String and target.begins_with("people:")):
+        public.append_array(INQUIRIES.records(clean))
     var narrative := CONTACTS.narrative()
     for row in narrative.evaluate_evidence(held, clean).get("known_entries", []):
         public.append(row.merged({"record_kind": "evidence"}))
