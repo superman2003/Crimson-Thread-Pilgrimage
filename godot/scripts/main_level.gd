@@ -4915,15 +4915,52 @@ func _hazard(data: Dictionary) -> void:
     area.add_child(shape)
     HAZARD_POGO.mark(area, String(data.get("kind", "spikes")), rect.size)
 
-    var sprite := Sprite2D.new()
-    sprite.texture = load(SPRITES.get(String(data.get("kind", "spikes")), SPRITES["spikes"]))
-    var visual_scale := maxf(rect.size.x, rect.size.y) / 112.0
-    sprite.scale = Vector2(visual_scale, visual_scale)
-    sprite.position = Vector2(0, -rect.size.y * 0.9)
-    sprite.z_index = 6
-    area.add_child(sprite)
+    _add_hazard_visual(area, String(data.get("kind", "spikes")), rect.size)
     area.body_entered.connect(_on_hazard_body_entered.bind(area))
     add_child(area)
+
+
+## V01: the drawn danger spans the damaging width. Each sheet has a small
+## opaque motif inside a wide transparent cell; traps repeat the cropped motif
+## along their width (spikes, gaps, moss, spore pods) and the hanging clapper
+## scales to it, all standing on the trap's floor.
+const HAZARD_MOTIFS := {
+    "spikes": Rect2(34, 47, 28, 49), "bell_gap": Rect2(38, 20, 35, 52),
+    "fake_moss_floor": Rect2(27, 22, 58, 50), "shortcut_revenge": Rect2(42, 23, 28, 49),
+    "spore_chest": Rect2(35, 20, 42, 52), "falling_clapper": Rect2(19, 8, 73, 88),
+}
+const HAZARD_OBJECTS := ["falling_clapper"]
+
+func _add_hazard_visual(area: Area2D, kind: String, size: Vector2) -> void:
+    var motif := kind if HAZARD_MOTIFS.has(kind) else "spikes"
+    var crop := AtlasTexture.new()
+    crop.atlas = load(SPRITES.get(kind, SPRITES["spikes"]))
+    crop.region = HAZARD_MOTIFS[motif]
+    var floor_y := size.y * 0.5 + 2.0
+    if HAZARD_OBJECTS.has(motif):
+        var scale_value := size.x * 0.9 / crop.region.size.x
+        var sprite := Sprite2D.new()
+        sprite.name = "HazardMotif"
+        sprite.texture = crop
+        sprite.scale = Vector2.ONE * scale_value
+        sprite.position = Vector2(0, floor_y - crop.region.size.y * scale_value * 0.5)
+        sprite.z_index = 6
+        area.add_child(sprite)
+        return
+    # Strip traps: tiles about twice the trap's height, never thinner than 32px.
+    var tile_height := clampf(size.y * 2.2, 32.0, 56.0)
+    var tile_width := tile_height * crop.region.size.x / crop.region.size.y
+    var count := maxi(1, roundi(size.x / tile_width))
+    var scale_x := size.x / count / crop.region.size.x
+    var scale_y := tile_height / crop.region.size.y
+    for index in count:
+        var tile := Sprite2D.new()
+        tile.name = "HazardMotif%d" % index
+        tile.texture = crop
+        tile.scale = Vector2(scale_x, scale_y)
+        tile.position = Vector2(-size.x * 0.5 + (index + 0.5) * size.x / count, floor_y - tile_height * 0.5)
+        tile.z_index = 6
+        area.add_child(tile)
 
 
 func _apply_original_prop(sprite: Sprite2D, key: String, height: float) -> void:
