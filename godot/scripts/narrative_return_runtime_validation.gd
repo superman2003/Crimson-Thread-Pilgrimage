@@ -9,6 +9,7 @@ func run_checks() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     cleanup_save()
     scene = await spawn("res://data/demo_ch04_broken_string_greenhouse.json")
+    preload("res://scripts/quest_contacts_validation.gd").new().run(self, scene)
     var prisoner: Area2D = await resident_npc(scene, "npc_root_prisoner")
     if not is_instance_valid(prisoner):
         scene.free()
@@ -41,6 +42,7 @@ func run_checks() -> void:
     check(String(scene.toast_label.text).begins_with("巡礼者 · ") and String(scene.toast_label.text).contains("线端"), "successful real conversation presents the short gesture response")
     hear_round(prisoner)
     check(scene.currency_count == currency_before + 45, "repeat visit cannot pay again")
+    preload("res://scripts/quest_contacts_validation.gd").new().migrated_reader(self, scene)
     scene.free()
     scene = await spawn("res://data/demo_ch04_broken_string_greenhouse.json", true)
     prisoner = await resident_npc(scene, "npc_root_prisoner")

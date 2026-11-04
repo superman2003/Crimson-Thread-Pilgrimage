@@ -8,6 +8,8 @@ DATA = ROOT / 'godot/data/world_narrative.json'
 
 
 def validate() -> None:
+    from validate_quest_contacts import validate as validate_contacts
+    validate_contacts()
     data = json.loads(DATA.read_text(encoding='utf-8'))
     configs = [json.loads(path.read_text(encoding='utf-8')) for path in (ROOT / 'godot/data').glob('demo_ch0[1-6]_*.json') if 'boss_trial' not in path.name]
     npc_ids = {npc['id'] for chapter in configs for npc in chapter.get('npcs', [])}
