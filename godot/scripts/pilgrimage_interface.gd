@@ -2726,7 +2726,7 @@ func _refresh_journal() -> void:
             bag_description.text="完整读完交谈并成功留下记录后，可以在这里回看相识之人的话。"
         if journal_filter=="voice":
             bag_name.text="尚无自述"
-            bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
+            bag_description.text="获得永久能力、确认交谈或近看遗迹后，可以在这里回看旅途自述。"
         if not journal_search.text.is_empty() or journal_unread.button_pressed or journal_stars.button_pressed:
             bag_name.text="没有符合筛选的已知记录"
             bag_description.text="清空搜索、关闭仅未读/收藏，或切换分类。未发现内容不会列出或被搜索命中。"
@@ -2774,8 +2774,9 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         category="人物重逢 · 已确认交谈"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="voice":
-        category="自述 · 获得能力之后"
+        category="自述 · "+String(entry.get("voice_context","获得能力之后"))
         lines.append(String(entry.get("description","")))
+        for source in entry.get("voice_sources",[]):lines.append("\n记自："+String(source))
     elif String(entry.get("record_kind",""))=="guide":
         category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "操作手册 · 当前规则"
         lines.append(String(entry.get("description","")))
