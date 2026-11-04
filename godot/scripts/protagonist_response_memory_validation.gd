@@ -11,7 +11,7 @@ static func run(tree: SceneTree) -> void:
 
 static func pure(tree: SceneTree) -> void:
     var rows:=MEMORY.catalog()
-    tree.check(rows.size()==16 and MEMORY.records({}).is_empty(),"all sixteen authored protagonist responses remain private without exact earned identities")
+    tree.check(rows.size()==31 and MEMORY.records({}).is_empty(),"the original sixteen and fifteen personal coda responses remain private without exact earned identities")
     var modes:={}
     for row in rows:
         modes[row.mode]=true
@@ -25,6 +25,7 @@ static func pure(tree: SceneTree) -> void:
         var public:=MEMORY.records(flags)
         tree.check(public.size()==1 and public[0].description.contains(row.text) and public[0].response_mode==row.mode,"exact earned response reveals only its own words and presentation mode")
         tree.check(public[0].description.contains(String(MEMORY.REGIONS[region])) and public[0].description.contains(result.lines.back()),"response context is its actual commit place and already heard final NPC line")
+        tree.check(public[0].voice_context=="确认交谈之后","conversation responses retain their own source category")
         tree.check(not public[0].has("grant_flags") and not public[0].has("grant_rewards") and flags==before,"journal response has no executable outcome and cannot mutate the flags it reads")
         tree.check(MEMORY.records({String(quoted.marker):1}).is_empty(),"numeric pseudo-markers cannot disclose a protagonist response")
         tree.check(MEMORY.quote(row.npc,result,last,flags,region).is_empty(),"exact same committed response cannot be granted twice")

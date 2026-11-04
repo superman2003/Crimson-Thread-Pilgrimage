@@ -10,6 +10,8 @@ def read(path):
 
 
 def validate():
+    from validate_personal_codas import validate as validate_codas
+    validate_codas()
     from validate_testimony_sources import validate as validate_sources
     validate_sources()
     journey = read('godot/data/narrative_journey.json')

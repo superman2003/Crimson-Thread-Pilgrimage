@@ -50,5 +50,5 @@ static func records(flags: Dictionary) -> Array[Dictionary]:
             var mode:=String(MODES[row.mode])
             result.append({"id":marker,"record_kind":"voice","acquired":true,"title":"%s · 向%s" % [mode,row.name],
                 "description":"%s · %s\n\n巡礼者 · %s\n\n回应之前，对方说：\n%s" % [String(REGIONS[region]),mode,row.text,String(row.result.lines.back())],
-                "response_mode":row.mode,"region":String(region)})
+                "response_mode":row.mode,"region":String(region),"voice_context":"确认交谈之后"})
     return result

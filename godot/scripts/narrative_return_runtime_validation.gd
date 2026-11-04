@@ -79,6 +79,8 @@ func run_checks() -> void:
     check(scene.story_flags.get("ending_chosen", "") == "ending_b" and bool(scene.story_flags.get("world_black_tide_uncontained", false)), "restart preserves selected ending and consequences")
     prisoner = await resident_npc(scene, "npc_root_prisoner")
     check(is_instance_valid(prisoner) and scene._resolve_npc_lines(prisoner) == scene.world_narrative.resolve("npc_root_prisoner", [], [], scene.story_flags, scene.inventory_counts).lines, "restored real NPC uses selected aftermath")
+    if is_instance_valid(prisoner):
+        preload("res://scripts/personal_codas_checks.gd").new().live(self, scene, prisoner)
 
     # Journal surface consumes canonical records, using localized names and
     # scene witnesses instead of internal NPC keys or outdated pickup rooms.

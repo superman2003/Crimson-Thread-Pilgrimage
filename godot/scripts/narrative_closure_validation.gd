@@ -59,6 +59,7 @@ func run_checks() -> void:
     var narrative := preload("res://scripts/world_narrative.gd").new()
     var canon: Dictionary = JOURNEY.catalog().canon
     check(canon.present_year - canon.hush_year == canon.silent_years, "one chronology is used")
+    preload("res://scripts/personal_codas_checks.gd").new().pure(self)
     check(JOURNEY.reflections({}, {}).is_empty(), "new journey has no invented revelations")
     check(JOURNEY.reflections({"testimony_03": 0}, {"evidence_known_testimony_03": true}).is_empty(), "known or zero-count proof does not reveal synthesis")
     for bad in [-1, 0.5, true, "1", INF]:
@@ -89,7 +90,13 @@ func run_checks() -> void:
             var after := flags.duplicate()
             after["ending_chosen"] = id
             after[id + "_done"] = true
-            check(String(narrative.resolve(npc_id, [], [], after).state).begins_with("aftermath_"), "the selected ending keeps its priority")
+            var personal: Dictionary = narrative.resolve(npc_id, [], [], after)
+            check(String(personal.state).begins_with("coda_"), "a completed relationship offers its selected ending's personal coda")
+            var settled: Dictionary = narrative.completion_outcome(personal, personal.lines.size() - 1, after)
+            check(settled.rewards.is_empty() and settled.flags.size() == 1, "personal ending follow-up records one marker and never pays twice")
+            for flag in settled.flags:
+                after[String(flag)] = true
+            check(String(narrative.resolve(npc_id, [], [], after).state).begins_with("aftermath_"), "the same ending's ordinary aftermath resumes after its personal coda")
 
     scene = await spawn("res://data/demo_ch06_silent_crown_core.json")
     await frames()
