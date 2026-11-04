@@ -2651,6 +2651,7 @@ func _refresh_journal() -> void:
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts,level.story_flags))
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/narrative_inquiries.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/ending_return_journal.gd").records(level.inventory_counts,level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -2778,7 +2779,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         lines.append(String(entry.get("description","")))
         for source in entry.get("voice_sources",[]):lines.append("\n记自："+String(source))
     elif String(entry.get("record_kind",""))=="guide":
-        category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "操作手册 · 当前规则"
+        category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else String(entry.get("guide_context","操作手册 · 当前规则"))
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))

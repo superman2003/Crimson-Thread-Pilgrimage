@@ -82,6 +82,8 @@ func run_checks() -> void:
     if is_instance_valid(prisoner):
         preload("res://scripts/personal_codas_checks.gd").new().live(self, scene, prisoner)
 
+    preload("res://scripts/ending_return_journal_checks.gd").new().live(self, scene)
+
     # Journal surface consumes canonical records, using localized names and
     # scene witnesses instead of internal NPC keys or outdated pickup rooms.
     var evidence: Dictionary = scene.world_narrative.evaluate_progress({"testimony_02": 1, "testimony_03": 1}, {})
