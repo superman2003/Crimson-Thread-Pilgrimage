@@ -1,7 +1,7 @@
 extends SceneTree
 ## C01: a field enemy's hit box sits on its drawn body and is at least as wide
 ## as the core of that body, while the box its attack lunges sweep against
-## terrain keeps the configured footprint. Measured on the frame on screen.
+## terrain keeps the configured footprint. Measure every idle frame.
 const CHAPTERS := ["res://data/demo_ch01_moss_bell_court.json", "res://data/demo_ch02_rain_foundry_canal.json",
     "res://data/demo_ch03_saltwhite_archive.json", "res://data/demo_ch04_broken_string_greenhouse.json",
     "res://data/demo_ch05_obsidian_pilgrim_road.json", "res://data/demo_ch06_silent_crown_core.json"]
@@ -44,17 +44,22 @@ func _run() -> void:
                 continue
             seen[enemy.kind] = true
             kinds += 1
-            var body := _opaque_rect(enemy.animated_sprite)
-            var hit: Rect2 = enemy.get_hurtbox_rect()
-            var overlap := body.intersection(hit).get_area()
-            var on_body := overlap / maxf(1.0, hit.get_area())
-            var covered := overlap / maxf(1.0, body.get_area())
-            lowest_body = minf(lowest_body, covered)
-            _check(on_body >= 0.9, "%s hit box lies on its drawn body (%.2f)" % [enemy.kind, on_body])
-            _check(covered >= 0.38, "%s drawn body is mostly hittable (%.2f)" % [enemy.kind, covered])
-            _check(hit.size.x >= 48.0, "%s hit box never narrower than the old fixed 48px" % enemy.kind)
-            var motion: Rect2 = enemy.get_motion_rect() if enemy.has_method("get_motion_rect") else hit
-            _check(is_equal_approx(motion.size.x, 48.0), "%s lunges keep the configured terrain footprint" % enemy.kind)
+            var sprite: AnimatedSprite2D = enemy.animated_sprite
+            sprite.play(&"idle")
+            sprite.pause()
+            for index in sprite.sprite_frames.get_frame_count(&"idle"):
+                sprite.frame = index
+                var body := _opaque_rect(sprite)
+                var hit: Rect2 = enemy.get_hurtbox_rect()
+                var overlap := body.intersection(hit).get_area()
+                var on_body := overlap / maxf(1.0, hit.get_area())
+                var covered := overlap / maxf(1.0, body.get_area())
+                lowest_body = minf(lowest_body, covered)
+                _check(on_body >= 0.9, "%s idle[%d] hit box lies on its drawn body (%.2f)" % [enemy.kind, index, on_body])
+                _check(covered >= 0.38, "%s idle[%d] drawn body is mostly hittable (%.2f)" % [enemy.kind, index, covered])
+                _check(hit.size.x >= 48.0, "%s hit box never narrower than the old fixed 48px" % enemy.kind)
+                var motion: Rect2 = enemy.get_motion_rect() if enemy.has_method("get_motion_rect") else hit
+                _check(is_equal_approx(motion.size.x, 48.0), "%s lunges keep the configured terrain footprint" % enemy.kind)
         scene.queue_free()
         await _frames(4)
     _check(kinds >= 35, "field enemy kinds measured (%d)" % kinds)

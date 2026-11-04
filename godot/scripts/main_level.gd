@@ -7675,9 +7675,15 @@ func get_demo_state() -> Dictionary:
         var spawn_visual_height := float(enemy_area.get_meta("spawn_visual_height", 104.0))
         var query := PhysicsShapeQueryParameters2D.new()
         var shape := RectangleShape2D.new()
-        shape.size=enemy_area.hurtbox_size
+        # Birth clearance uses the terrain footprint retained by motion sweeps;
+        # the enlarged combat hurtbox can extend beyond that footprint.
+        var motion_size: Variant = enemy_area.get("motion_box_size")
+        var has_motion_box: bool = motion_size is Vector2 and motion_size != Vector2.ZERO
+        shape.size=motion_size if has_motion_box else enemy_area.hurtbox_size
         query.shape=shape
-        query.transform=Transform2D(0,enemy_area.global_position+enemy_area.hurtbox_offset)
+        # Zero is a configured offset here, rather than the combat-rect fallback.
+        var clearance_offset: Vector2 = enemy_area.get("motion_box_offset") if has_motion_box else enemy_area.hurtbox_offset
+        query.transform=Transform2D(0,enemy_area.global_position+clearance_offset)
         query.collision_mask=1
         query.collide_with_areas=false
         var spawn_clear := get_world_2d().direct_space_state.intersect_shape(query,1).is_empty()

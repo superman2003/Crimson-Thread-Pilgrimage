@@ -712,20 +712,21 @@ func _fit_hurtbox_to_art() -> void:
     var count := frames.get_frame_count(animation) if frames != null and frames.has_animation(animation) else 0
     var width := 0.0
     var height := 0.0
-    var center_y := 0.0
+    var core := Rect2()
     var measured := 0
     for index in count:
         var drawn := _drawn_body_rect(animation, index)
         if drawn.has_area():
             width += drawn.size.x
             height += drawn.size.y
-            center_y += drawn.get_center().y
+            core = drawn if measured == 0 else core.intersection(drawn)
             measured += 1
-    if measured == 0:
+    if measured == 0 or not core.has_area():
         return
-    # Never narrower than the previous fixed box: this only widens toward the art.
-    hurtbox_size = Vector2(clampf(maxf(hurtbox_size.x, width / measured * 0.62), 40.0, 160.0), height / measured * 0.84)
-    hurtbox_offset = Vector2(0.0, center_y / measured)
+    # Keep the fixed box inside every idle pose, including the smallest one.
+    # Averaging alone put part of it in the air as bees/lancers changed pose.
+    hurtbox_size = Vector2(clampf(maxf(hurtbox_size.x, minf(width / measured * 0.62, core.size.x)), 40.0, 160.0), minf(height / measured * 0.84, core.size.y))
+    hurtbox_offset = core.get_center()
 
 
 ## Opaque part of one animation frame in this actor's local space.
