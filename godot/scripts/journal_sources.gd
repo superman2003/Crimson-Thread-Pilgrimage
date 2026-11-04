@@ -1,6 +1,7 @@
 extends RefCounted
 ## Source links are reconstructed from public, currently earned origin records.
 const ECHOES := preload("res://scripts/observed_echoes.gd")
+const TERMS := preload("res://scripts/known_world_terms.gd")
 const RETURNS := preload("res://scripts/ending_return_journal.gd")
 const CONTACTS := preload("res://scripts/quest_contacts.gd")
 const HISTORY := preload("res://scripts/scene_history.gd")
@@ -16,6 +17,7 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     var origin := {}
     var origins: Array = ECHOES.records(held, clean)
     origins.append_array(RETURNS.records(held, clean))
+    origins.append_array(TERMS.records(held))
     for row in origins:
         if key(row) == origin_key:
             origin = row

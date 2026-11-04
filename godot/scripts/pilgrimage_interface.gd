@@ -2663,6 +2663,7 @@ func _refresh_journal() -> void:
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/narrative_inquiries.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/ending_return_journal.gd").records(level.inventory_counts,level.story_flags))
+    records.append_array(preload("res://scripts/known_world_terms.gd").records(level.inventory_counts))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
