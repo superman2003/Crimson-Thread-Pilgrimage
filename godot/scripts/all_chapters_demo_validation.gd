@@ -125,6 +125,14 @@ func _validate_chapter_visual_uniqueness() -> void:
             _assert(FileAccess.file_exists(String(background_path)), String(config.get("id", "")) + " background asset file exists: " + String(background_path))
             _assert(not used_background_asset_paths.has(background_path), String(config.get("id", "")) + " background asset file is not reused: " + String(background_path))
             used_background_asset_paths.append(background_path)
+        # V01: no solid ledge cuts through a standing NPC (head room the Player could not stand in).
+        var clashes: Array = []
+        for npc in config.get("npcs", []):
+            var figure := Rect2(float(npc.position[0]) - 40.0, float(npc.position[1]) + 40.0 - 110.0, 80.0, 102.0)
+            for platform in config.get("platforms", []):
+                if figure.intersects(Rect2(platform.rect[0], platform.rect[1], platform.rect[2], platform.rect[3])):
+                    clashes.append("%s/%s" % [npc.id, platform.get("id", "")])
+        _assert(clashes.is_empty(), String(config.get("id", "")) + " NPCs stand clear of ledges " + str(clashes))
         var boss: Dictionary = config.get("boss", {})
         var boss_signature := _visual_signature(boss)
         _assert(_uses_dark_fantasy_sprite(boss), String(config.get("id", "")) + " boss uses dark fantasy sprite")
