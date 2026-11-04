@@ -7,6 +7,7 @@ const TERMS := preload("res://scripts/known_world_terms.gd")
 const RETURNS := preload("res://scripts/ending_return_journal.gd")
 const CONTACTS := preload("res://scripts/quest_contacts.gd")
 const HISTORY := preload("res://scripts/scene_history.gd")
+const MAX_SOURCE_KEYS := 12
 const PROVENANCE := preload("res://scripts/testimony_sources.gd")
 
 static func key(entry: Dictionary) -> String:
@@ -18,7 +19,9 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     var clean := CONTACTS.confirmed_flags(flags)
     var origin := {}
     var origins: Array = []
-    if origin_key.begins_with("voice:" + ECHOES.PREFIX):
+    if origin_key.begins_with("people:" + INQUIRIES.PREFIX):
+        origins = INQUIRIES.records(clean)
+    elif origin_key.begins_with("voice:" + ECHOES.PREFIX):
         origins = ECHOES.records(held, clean)
     elif origin_key == "guide:ending_return_contacts":
         origins = RETURNS.records(held, clean)
@@ -38,14 +41,15 @@ static func links(origin_key: String, inventory: Dictionary, flags: Dictionary) 
     if origin.is_empty():
         return result
     var requested: Array = origin.get("journal_source_keys", [])
-    if requested.is_empty() or requested.size() > 6:
+    if requested.is_empty() or requested.size() > MAX_SOURCE_KEYS:
         return result
     var public: Array = HISTORY.records(clean)
     if requested.any(func(target): return target is String and target.begins_with("people:")):
         public.append_array(INQUIRIES.records(clean))
     var narrative := CONTACTS.narrative()
     for row in narrative.evaluate_evidence(held, clean).get("known_entries", []):
-        public.append(row.merged({"record_kind": "evidence"}))
+        if row.get("acquired", false):
+            public.append(row.merged({"record_kind": "evidence"}))
     for row in narrative.quest_journal(held, clean):
         public.append(row.merged({"record_kind": "quest"}))
     var indexed := {}
