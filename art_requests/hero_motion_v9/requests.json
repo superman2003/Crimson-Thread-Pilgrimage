@@ -1,0 +1,51 @@
+{
+  "base_commit": "f1ea3ec7322e6e63f724a68809278dad50075efe",
+  "scope": "Complete body idle breathing plus authored heavy melee; no extra attack trails",
+  "planned_new_drawings": 14,
+  "runtime_integrated": true,
+  "actions": [
+    {
+      "name": "idle",
+      "target_drawings": 8,
+      "loop": true,
+      "target_visual_duration": 1.6,
+      "constraint": "Both feet planted; no legacy separate cloth body; all body parts newly drawn",
+      "source_file": "idle.png"
+    },
+    {
+      "name": "attack_2",
+      "target_drawings": 6,
+      "loop": false,
+      "nominal_duration": 0.4,
+      "constraint": "Existing 0.48s heavy clock and damage phases remain authoritative",
+      "source_file": "attack_2_v5.png"
+    }
+  ],
+  "superseded_sources": [
+    {
+      "source": "sources/idle_v2.png",
+      "reason": "Torso/legs were over-compressed. User rejected the shorter, wider physique; withdrawn."
+    },
+    {
+      "source": "sources/idle_v3.png",
+      "reason": "Unselected proportion experiment. The original slender idle candidate matches the standing reference more closely."
+    },
+    {
+      "source": "sources/attack_2.png",
+      "reason": "Initial heavy draft; not the selected original-physique revision."
+    },
+    {
+      "source": "sources/attack_2_v2.png",
+      "reason": "Compact draft changed the original physique; withdrawn."
+    },
+    {
+      "source": "sources/attack_2_v3.png",
+      "reason": "Endpoint stance correction on the compact draft; not selected."
+    },
+    {
+      "source": "sources/attack_2_v4.png",
+      "reason": "User flagged the compact physique as short/wide. Replaced by a fresh drawing from the original slender reference."
+    }
+  ],
+  "review_status": "Original slender reference restored; corrected sources passed native validation. Natural-play and complete V02 art acceptance remain OPEN."
+}

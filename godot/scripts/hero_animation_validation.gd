@@ -30,6 +30,28 @@ func run() -> void:
             check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" has complete padded imported pixels")
             if cel!=null: authored[cel.resource_path] = true
     check(authored.size()==28,"aliases share exactly twenty-eight distinct newly drawn cels")
+    var motion_v8 := {"guard":6, "heal":6, "hook_throw":4, "wall_slide":4, "phase":4,
+        "resonance":6, "skill_projectile":6, "skill_control":6, "skill_defense":4}
+    var ability_cels: Dictionary = {}
+    for anim in motion_v8:
+        var count := int(motion_v8[anim])
+        check(sprite.sprite_frames.get_frame_count(anim)==count,anim+" loads every new ability cel")
+        check(sprite.sprite_frames.get_animation_loop(anim)==(anim in ["wall_slide","phase"]),anim+" preserves loop behavior")
+        check(is_equal_approx(count/sprite.sprite_frames.get_animation_speed(anim),0.4),anim+" preserves original nominal clock")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var cel := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v8/frames/"+anim+"_"),anim+" uses its own versioned artwork")
+            check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" imports complete padded pixels")
+            if cel!=null: ability_cels[cel.resource_path] = true
+    check(ability_cels.size()==46,"nine ability families use forty-six distinct new cels")
+    for anim in ["idle","attack_2"]:
+        var count := 8 if anim=="idle" else 6
+        check(sprite.sprite_frames.get_frame_count(anim)==count,anim+" uses all complete-body new drawings")
+        check(is_equal_approx(sprite.sprite_frames.get_animation_speed(anim),5.0 if anim=="idle" else 15.0),anim+" uses reviewed visual cadence")
+        check(sprite.sprite_frames.get_animation_loop(anim)==(anim=="idle"),anim+" retains its intended loop behavior")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var cel := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v9/frames/"+anim+"_"),anim+" loads its versioned authored body cel")
     check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
     for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
@@ -58,9 +80,34 @@ func run() -> void:
         check(sprite.animation==data[1],"airborne attack direction selects "+String(data[1]))
     player.current_attack_direction=Vector2.RIGHT
     player.attack_timer=0
+    # Existing attack phase ownership must reach all six new casting poses.
+    for kind in ["ranged", "control", "resonance"]:
+        player.active_skill={"kind":kind}
+        for data in [[0.0,0],[0.075,1],[0.15,2],[0.299,3],[0.35,4],[0.45,5]]:
+            player.attack_timer=0.5-float(data[0])
+            player._update_animation(0)
+            var expected := "skill_projectile" if kind=="ranged" else ("skill_control" if kind=="control" else "resonance")
+            check(sprite.animation==StringName(expected) and sprite.frame==int(data[1]),kind+" follows real windup/active/recovery phases")
+    player.active_skill={"kind":"defense","duration":0.5}
+    player.attack_timer=0.5
+    player._update_animation(0)
+    check(sprite.animation==&"skill_defense" and sprite.frame==0,"ward starts in its dedicated windup pose")
+    player._apply_special_skill()
+    player._update_animation(0)
+    check(sprite.animation==&"guard" and sprite.frame==0,"live ward window takes over with raised guard")
+    player.guard_timer=player.guard_initial_duration*0.01
+    player._update_animation(0)
+    check(sprite.animation==&"guard" and sprite.frame==5,"ward reaches final guard cel at actual expiry")
+    player.guard_timer=0
+    player.active_skill.clear()
+    player.attack_timer=0
+    for index in 6:
+        player.heal_timer=player.heal_duration*(1.0-(float(index)+0.1)/6.0)
+        player._update_animation(0)
+        check(sprite.animation==&"heal" and sprite.frame==index,"heal advances all six poses on original heal duration")
     player.heal_timer=player.heal_duration*0.25
     player._update_animation(0)
-    check(sprite.animation==&"heal" and sprite.frame==3,"heal reaches final pose")
+    check(sprite.animation==&"heal" and sprite.frame==4,"heal progress selects the matching new pose")
     player.hurt_timer=0.1
     player._update_animation(0)
     check(sprite.animation==&"hurt","hurt interrupts heal pose")

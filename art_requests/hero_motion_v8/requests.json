@@ -1,0 +1,100 @@
+{
+  "base_commit": "e90d4d85bd4d77c8904f7478c51cf6aacdaaa4ae",
+  "scope": "V02 nine remaining hero action families; idle and attack_2 excluded",
+  "planned_new_drawings": 46,
+  "runtime_integrated": true,
+  "actions": [
+    {
+      "name": "guard",
+      "current_frames": 4,
+      "target_drawings": 6,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative",
+      "source_file": "guard_v2.png"
+    },
+    {
+      "name": "heal",
+      "current_frames": 4,
+      "target_drawings": 6,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative"
+    },
+    {
+      "name": "hook_throw",
+      "current_frames": 4,
+      "target_drawings": 4,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Preserve four release/pull/recovery frame roles"
+    },
+    {
+      "name": "wall_slide",
+      "current_frames": 4,
+      "target_drawings": 4,
+      "nominal_duration": 0.4,
+      "loop": true,
+      "constraint": "Preserve loop and wall contact registration"
+    },
+    {
+      "name": "phase",
+      "current_frames": 4,
+      "target_drawings": 4,
+      "nominal_duration": 0.4,
+      "loop": true,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative"
+    },
+    {
+      "name": "resonance",
+      "current_frames": 4,
+      "target_drawings": 6,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative"
+    },
+    {
+      "name": "skill_projectile",
+      "current_frames": 4,
+      "target_drawings": 6,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative"
+    },
+    {
+      "name": "skill_control",
+      "current_frames": 4,
+      "target_drawings": 6,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Body animation only; effects and gameplay clocks stay authoritative"
+    },
+    {
+      "name": "skill_defense",
+      "current_frames": 4,
+      "target_drawings": 4,
+      "nominal_duration": 0.4,
+      "loop": false,
+      "constraint": "Retain four original slots. Windup uses skill_defense; active ward uses guard; recovery may return to slot 3. Do not manufacture a new skill clock.",
+      "source_file": "skill_defense_v3.png"
+    }
+  ],
+  "superseded_sources": [
+    {
+      "source": "sources/guard.png",
+      "sha256": "59ecfd3fd7d17e4eb14f2eb24411ac3834d126efe1f1cd70bc9186d6c26eecbc",
+      "reason": "Instant guard must start raised, including ward handoff; selected guard_v2 corrects the first cel."
+    },
+    {
+      "source": "sources/skill_defense.png",
+      "sha256": "67cabfc3d6cc21c0aadba0efc050c10dca5ffa5ec311a61f123695a55c60abf3",
+      "reason": "User flagged cel 2 forearms crowded behind the head. v2 moves the hilt forward and separates elbows; selected v3 retains that correction and removes background haze."
+    },
+    {
+      "source": "sources/skill_defense_v2.png",
+      "sha256": "1cf5203b6b08e582a67ace403e50bf9622425412085c4c228ad6d0c4fc7ff650",
+      "reason": "Corrected pose retained in v3; v2 had opaque noisy background patches and failed silhouette isolation. v3 is the clean cutout selected for packaging."
+    }
+  ],
+  "acceptance": "See the versioned report and validation evidence; source delivery alone is not acceptance."
+}

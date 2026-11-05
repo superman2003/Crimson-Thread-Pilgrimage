@@ -1,0 +1,30 @@
+GODOT_SHARD index=1 count=1 suites=7
+Running player_motion_continuity
+PASS: player_motion_continuity
+IDLE_SOLE_CENTER pose=7 source_x=185.894144 correction_x=0.442913
+PLAYER_MOTION_CONTINUITY checks=1208 failures=0
+Running player_state_cleanup
+PASS: player_state_cleanup
+
+PLAYER_STATE_CLEANUP_PASS checks=9 failures=0
+Running player_action_buffer
+PASS: player_action_buffer
+
+PLAYER_ACTION_BUFFER checks=42 failures=0
+Running player_upgrade_regression
+PASS: player_upgrade_regression
+
+PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0
+Running melee_recovery
+PASS: melee_recovery
+
+MELEE_RECOVERY_VALIDATION_PASS checks=70 terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3
+Running player_effect_lifecycle
+PASS: player_effect_lifecycle
+
+PLAYER_EFFECT_LIFECYCLE checks=24 failures=0
+Running player_action_sfx_sync
+PASS: player_action_sfx_sync
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2641)
+GODOT_REGRESSIONS suites=7 failures=0

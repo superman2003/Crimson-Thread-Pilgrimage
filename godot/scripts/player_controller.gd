@@ -262,6 +262,9 @@ const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest
 # The source poses change their stance slightly; this removes the whole-body
 # side-to-side drift without replacing the authored breathing/cape frames.
 const IDLE_FOOT_CENTER_X := [186.223262, 187.667973, 186.765838, 185.263814]
+var idle_foot_centers: Array = IDLE_FOOT_CENTER_X.duplicate()
+var grounded_pose_foot_centers: Dictionary = {}
+var use_layered_idle := true
 # Preserve the authored nominal cadence (285 px/s, four poses at 12 fps), but
 # advance it from collision-resolved ground travel rather than a wall clock.
 const RUN_CYCLE_DISTANCE := 95.0
@@ -282,7 +285,6 @@ const HEAL_ART := preload("res://scripts/player_heal_art.gd")
 const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
-const BASIC_ATTACK_VFX := preload("res://scripts/player_basic_attack_vfx.gd")
 const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
 const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
@@ -441,10 +443,11 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
-    layered_idle = LAYERED_IDLE.new()
-    if not layered_idle.attach(sprite):
-        layered_idle.free()
-        layered_idle = null
+    if use_layered_idle:
+        layered_idle = LAYERED_IDLE.new()
+        if not layered_idle.attach(sprite):
+            layered_idle.free()
+            layered_idle = null
     build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed,
         "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
         "heal_amount": heal_amount, "heal_duration": heal_duration}
@@ -1216,7 +1219,6 @@ func _try_resonance() -> bool:
     active_skill = {"kind": "resonance", "range": 160.0, "damage": 1}
     skill_effect_started = false
     ability_action.emit("crown_resonance", global_position, Vector2(facing, 0))
-    _ability_ring(160.0, THREAD_T3_CORE)
     ABILITY_ART.resonance(self)
     return true
 
@@ -1245,7 +1247,6 @@ func _update_phase(delta: float) -> void:
         phase_safe_position = global_position
         _sync_phase_gates()
         ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
-        _ability_ring(54.0, Color(0.5, 0.7, 1.0, 0.9))
         ABILITY_ART.phase_enter(self)
 
 
@@ -1282,22 +1283,6 @@ func _stop_phase() -> void:
     phase_exceptions.clear()
     phase_active = false
     phase_energy_fraction = 0.0
-
-
-func _ability_ring(radius: float, color: Color) -> void:
-    var ring := Line2D.new()
-    ring.name = "AbilityPulse"
-    ring.closed = true
-    ring.width = 3.0
-    ring.default_color = color
-    for step in range(32):
-        var angle := TAU * float(step) / 32.0
-        ring.add_point(Vector2(cos(angle), sin(angle)) * radius + Vector2(0, -42))
-    ring.z_index = 60
-    if not VISUAL_POLICY.attach_secondary(self, ring, &"state", self): return
-    var tween := ring.create_tween()
-    tween.tween_property(ring, "modulate:a", 0.0, 0.3)
-    tween.finished.connect(ring.queue_free)
 
 
 func _update_camera(delta: float) -> void:
@@ -1363,7 +1348,6 @@ func _apply_special_skill() -> void:
         cast_tool({"kind":"snare_field", "damage":attack_damage, "range":10000.0, "duration":maxf(0.4, float(active_skill.get("duration",1.5))), "salt_consume":_crest() == "salt" and _seal_mechanism_ready(), "skill_effect":true})
     elif kind == "resonance":
         var radius := float(active_skill.get("range", 160.0))
-        _ability_ring(radius, THREAD_T2_CORE)
         for enemy in get_tree().get_nodes_in_group("enemy"):
             if enemy.has_method("world_residency_active") and not enemy.world_residency_active(): continue
             if enemy is Node2D and enemy.global_position.distance_to(global_position) <= radius and _attack_line_clear(enemy.global_position):
@@ -1723,9 +1707,14 @@ func _pose_ground_run() -> void:
 
 func _sync_sprite_pose_anchor() -> void:
     sprite.offset = Vector2.ZERO
-    if sprite.animation == &"idle" and sprite.frame < IDLE_FOOT_CENTER_X.size():
-        var correction: float = IDLE_FOOT_CENTER_X[0] - IDLE_FOOT_CENTER_X[sprite.frame]
+    if sprite.animation == &"idle" and sprite.frame < idle_foot_centers.size():
+        var correction: float = float(idle_foot_centers[0]) - float(idle_foot_centers[sprite.frame])
         sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
+    elif grounded_pose_foot_centers.has(String(sprite.animation)):
+        var centers: Array = grounded_pose_foot_centers[String(sprite.animation)]
+        if sprite.frame < centers.size():
+            var correction: float = float(idle_foot_centers[0]) - float(centers[sprite.frame])
+            sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
     if is_instance_valid(layered_idle):
         layered_idle.sync_pose()
 
@@ -2113,26 +2102,6 @@ func _spawn_attack_vfx(animation: StringName) -> void:
         _spawn_hook_trail_vfx()
     elif animation == &"attack_2":
         _spawn_skill_slash_vfx()
-    else:
-        _spawn_slash_vfx()
-
-
-func _spawn_slash_vfx() -> void:
-    BASIC_ATTACK_VFX.spawn(self, sprite, current_attack_direction, not attack_started_grounded, attack_active_time, _accessibility())
-
-
-## 辉光复线（规格 §1.2）：同路径宽复线 + 加法混合，构成廉价 2D 辉光。
-func _make_glow_twin(line: Line2D, width_ratio: float, glow_color: Color) -> Line2D:
-    var glow := Line2D.new()
-    glow.name = String(line.name) + "Glow"
-    glow.points = line.points
-    glow.width = line.width * width_ratio
-    glow.default_color = glow_color
-    glow.z_index = line.z_index - 1
-    var glow_material := CanvasItemMaterial.new()
-    glow_material.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-    glow.material = glow_material
-    return glow
 
 
 func _spawn_hook_trail_vfx() -> void:
@@ -2142,57 +2111,6 @@ func _spawn_hook_trail_vfx() -> void:
 func _spawn_skill_slash_vfx() -> void:
     if CONTACT_ART.supported_slash(self):
         CONTACT_ART.skill_slash(self)
-    else:
-        _spawn_legacy_skill_slash_vfx()
-
-
-func _spawn_legacy_skill_slash_vfx() -> void:
-    var burst := Line2D.new()
-    burst.name = "SkillSlashVfx"
-    burst.width = 7.0
-    burst.default_color = Color(1.0, 0.36, 0.74, 0.88)
-    burst.z_index = 61
-    var burst_center := _attack_center_offset()
-    if current_attack_direction.y < -0.5:
-        burst.points = PackedVector2Array([
-            burst_center + Vector2(-42.0, 26.0),
-            burst_center + Vector2(-10.0, -48.0),
-            burst_center + Vector2(12.0, -52.0),
-            burst_center + Vector2(44.0, 24.0)
-        ])
-    elif current_attack_direction.y > 0.5:
-        burst.points = PackedVector2Array([
-            burst_center + Vector2(-44.0, -26.0),
-            burst_center + Vector2(-10.0, 52.0),
-            burst_center + Vector2(12.0, 48.0),
-            burst_center + Vector2(42.0, -24.0)
-        ])
-    else:
-        burst.points = PackedVector2Array([
-            Vector2(20.0 * facing, -86.0),
-            Vector2(56.0 * facing, -56.0),
-            Vector2(84.0 * facing, -24.0),
-            Vector2(112.0 * facing, 8.0)
-        ])
-    var ring := Line2D.new()
-    ring.name = "SkillBurstRingVfx"
-    var points := PackedVector2Array()
-    for step in range(28):
-        var angle := TAU * float(step) / 28.0
-        points.append(Vector2(cos(angle), sin(angle)) * 36.0 + burst_center)
-    ring.points = points
-    ring.closed = true
-    ring.width = 3.0
-    ring.default_color = Color(0.46, 1.0, 0.90, 0.70)
-    ring.z_index = 60
-    if not VISUAL_POLICY.attach_secondary_batch(self, [burst, ring], &"state", self): return
-    var tween := burst.create_tween()
-    tween.tween_property(burst, "scale", Vector2(1.22, 1.22), 0.22)
-    tween.parallel().tween_property(burst, "modulate:a", 0.0, 0.22)
-    tween.parallel().tween_property(ring, "scale", Vector2(1.8, 1.8), 0.22)
-    tween.parallel().tween_property(ring, "modulate:a", 0.0, 0.22)
-    tween.finished.connect(Callable(burst, "queue_free"))
-    tween.finished.connect(Callable(ring, "queue_free"))
 
 
 func _spawn_hit_confirm_vfx(world_position: Vector2, animation: StringName, receiver: Node2D = null, contact_call: int = -1) -> void:
@@ -2465,6 +2383,10 @@ func _load_sprite_frames() -> void:
     if typeof(data) != TYPE_DICTIONARY:
         push_error("Invalid lumen animation manifest.")
         return
+
+    use_layered_idle = String(data.get("idle_presentation", "layered")) != "full_body"
+    idle_foot_centers = data.get("idle_foot_center_x", IDLE_FOOT_CENTER_X).duplicate()
+    grounded_pose_foot_centers = data.get("grounded_pose_foot_center_x", {}).duplicate(true)
 
     if data.has("frames"):
         sprite.sprite_frames = _load_generated_hero_frames(data)

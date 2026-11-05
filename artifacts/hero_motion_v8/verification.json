@@ -1,0 +1,315 @@
+{
+  "stage_base": "e90d4d85bd4d77c8904f7478c51cf6aacdaaa4ae",
+  "selected_source_sheets": 9,
+  "new_drawings": 46,
+  "runtime_unique_cels": 148,
+  "replaced_runtime_cels": 36,
+  "unaffected_runtime_cels": 102,
+  "source_audit": "9 sheets, 46 poses, 0 missing",
+  "final_headless_suites": 12,
+  "final_native_suites": 8,
+  "old_binding_negative_failures": 63,
+  "native_results": [
+    {
+      "suite": "player_basic_attack_vfx",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "PLAYER_BASIC_ATTACK_VFX checks=2055 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/player_basic_attack_vfx_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    },
+    {
+      "suite": "seal_presentation",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "SEAL_PRESENTATION_VALIDATION: 177 checks, 0 failures",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/seal_presentation_validation.gd"
+      ]
+    },
+    {
+      "suite": "player_contact_art",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "PLAYER_CONTACT_ART checks=190 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/player_contact_art_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--output=C:/Users/Administrator/.codex/worktrees/hero-motion-v7/Crimson-Thread-Pilgrimage/artifacts/hero_motion_v8/final-native/actual-attacks"
+      ]
+    },
+    {
+      "suite": "hero_animation",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "HERO_ANIMATION_VALIDATION checks=342 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/hero_animation_validation.gd"
+      ]
+    },
+    {
+      "suite": "seal_combat",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "SEAL_COMBAT_VALIDATION PASS checks=194 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/seal_combat_validation.gd"
+      ]
+    },
+    {
+      "suite": "player_ability_art",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "PLAYER_ABILITY_ART checks=141 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/player_ability_art_validation.gd"
+      ]
+    },
+    {
+      "suite": "combat_visual_budget",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/combat_visual_budget_validation.gd"
+      ]
+    },
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "CHARACTER_ART_PREWARM checks=853 failures=0 sync_loads=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/character_art_prewarm_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    }
+  ],
+  "checks": {
+    "npm_test": true,
+    "campaign": true,
+    "complete_character_motion": true,
+    "reproducible_hero_pack": true,
+    "two_pass_import": true,
+    "export_audit_presets": 2,
+    "export_errors": 0
+  },
+  "published_ci": "pending",
+  "limitations": [
+    "Staged source comparisons are not natural gameplay or performance measurements",
+    "V02 remains open; idle, attack_2, NPCs and full-flow review remain"
+  ],
+  "post_sync": {
+    "trap_and_pixels": {
+      "results": [
+        {
+          "suite": "seal_combat",
+          "passed": true,
+          "exit_code": 0,
+          "errors": [],
+          "marker": "SEAL_COMBAT_VALIDATION PASS checks=195 failures=0",
+          "command": [
+            "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+            "--path",
+            "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+            "--rendering-method",
+            "gl_compatibility",
+            "--audio-driver",
+            "Dummy",
+            "--position",
+            "-20000,-20000",
+            "--script",
+            "res://scripts/seal_combat_validation.gd"
+          ]
+        },
+        {
+          "suite": "player_contact_art",
+          "passed": true,
+          "exit_code": 0,
+          "errors": [],
+          "marker": "PLAYER_CONTACT_ART checks=190 failures=0",
+          "command": [
+            "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+            "--path",
+            "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+            "--rendering-method",
+            "gl_compatibility",
+            "--audio-driver",
+            "Dummy",
+            "--position",
+            "-20000,-20000",
+            "--script",
+            "res://scripts/player_contact_art_validation.gd",
+            "--fixed-fps",
+            "60",
+            "--",
+            "--output=C:/Users/Administrator/.codex/worktrees/hero-motion-v7/Crimson-Thread-Pilgrimage/artifacts/hero_motion_v8/trap-final-native/actual-attacks"
+          ]
+        }
+      ]
+    },
+    "tools_and_practice": {
+      "results": [
+        {
+          "suite": "tool_practice",
+          "passed": true,
+          "exit_code": 0,
+          "errors": [],
+          "marker": "TOOL_PRACTICE checks=98 failures=0",
+          "command": [
+            "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+            "--path",
+            "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+            "--rendering-method",
+            "gl_compatibility",
+            "--audio-driver",
+            "Dummy",
+            "--position",
+            "-20000,-20000",
+            "--script",
+            "res://scripts/tool_practice_validation.gd",
+            "--fixed-fps",
+            "60"
+          ]
+        }
+      ]
+    },
+    "prewarm": {
+      "results": [
+        {
+          "suite": "character_art_prewarm",
+          "passed": true,
+          "exit_code": 0,
+          "errors": [],
+          "marker": "CHARACTER_ART_PREWARM checks=885 failures=0 sync_loads=0",
+          "command": [
+            "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+            "--path",
+            "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+            "--rendering-method",
+            "gl_compatibility",
+            "--audio-driver",
+            "Dummy",
+            "--position",
+            "-20000,-20000",
+            "--script",
+            "res://scripts/character_art_prewarm_validation.gd",
+            "--fixed-fps",
+            "60"
+          ]
+        }
+      ]
+    },
+    "synced_base": "cdccb61bad62b427d7c9cc45678a77d9f49df8f2",
+    "cpu_summary": "GODOT_REGRESSIONS suites=7 failures=0",
+    "circle_reverse_test": {
+      "restored_legacy_circle": true,
+      "native_exit_code": 1,
+      "pixel_marker": "PLAYER_SKILL_ART_VALIDATION checks=254 failures=24",
+      "rejected_by_full_source_pixel_comparison": true
+    },
+    "validation_input_sha256": {
+      "godot/scripts/player_controller.gd": "4d01fdb7d73ad7d7bccc310baaebf4d21fa86684d5b19b5d0ec1839137c62371",
+      "godot/scripts/player_tool_effect.gd": "919cdd54df710a2d34631838b0d8cb6ac87f4df02afb5a1ce38bf78764bea101",
+      "godot/scripts/player_skill_art_validation.gd": "0291d2ab5a0d99b4cf81bc69b3dc528a6e931044f73076c69cdec8300605e985",
+      "godot/assets/sprites/player/generated_hero_v3/manifest.json": "f6a87ee8877aead45132d408ed7f08a86001bdf158ceb274fb81c1ec0b77e850"
+    },
+    "export_reachable": 376,
+    "export_presets": 2,
+    "export_errors": 0
+  }
+}

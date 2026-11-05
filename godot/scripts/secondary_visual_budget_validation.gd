@@ -64,7 +64,6 @@ func run(tree: SceneTree) -> int:
     for attempt in 40:
         player._spawn_double_jump_vfx()
         player._spawn_heal_effect()
-        player._ability_ring(64, Color.WHITE)
         player._spawn_hook_trail_vfx()
         player._spawn_skill_slash_vfx()
         player._spawn_thread_snap_vfx(Vector2(-10,0))
@@ -126,13 +125,10 @@ func run(tree: SceneTree) -> int:
     check(count_units(tree) <= 24, "environment cannot overrun the global unit budget")
     await tree.create_timer(0.9).timeout
     check(live(tree).is_empty(), "all admitted production tweens retire their own accents")
-    var feedback := preload("res://scripts/player_melee_feedback.gd")
-    var admitted := 0
-    for swing in 30:
-        if feedback.spawn_swing(player,player.sprite,0.1) != null: admitted += 1
-    check(admitted == POLICY.MAX_ACTION_TRACES, "real weapon smears share the existing eight action trace units")
     player._start_attack(&"attack_1")
-    check(player.attack_timer > 0.0 and player.current_attack == &"attack_1", "full weapon smear budget leaves the actual attack state and body animation intact")
+    for swing in 30: player._spawn_attack_vfx(&"attack_1")
+    check(tree.get_nodes_in_group(POLICY.ACTION_TRACE_GROUP).filter(func(n):return not n.is_queued_for_deletion()).is_empty(), "repeated basic attacks allocate no decorative blade traces")
+    check(player.attack_timer > 0.0 and player.current_attack == &"attack_1", "removing blade trails preserves actual attack state and body animation")
     second._spawn_dash_ghost()
     var departed_owner: int = second.get_instance_id()
     second.free()

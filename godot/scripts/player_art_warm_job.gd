@@ -79,16 +79,21 @@ static func _load(manifest_path: String, idle_path: String) -> Dictionary:
     # or unsupported optional assets must leave the original body idle usable.
     var optional_paths: Dictionary = {}
     var optional_skipped: Array[String] = []
-    read = _read_manifest(idle_path)
-    if not String(read.error).is_empty():
+    if String(data.get("idle_presentation", "layered")) == "full_body":
+        # The selected body loop is already among the required animation images.
+        # Do not decode or retain the retired fixed-support/cloth composition.
         optional_skipped.append(idle_path)
     else:
-        var idle: Dictionary = read.data
-        for key in ["support", "cloth"]:
-            if not idle.get(key) is Dictionary or not idle[key].get("file") is String:
-                optional_skipped.append(String(key))
-                continue
-            optional_paths[idle_path.get_base_dir().path_join(String(idle[key].file))] = true
+        read = _read_manifest(idle_path)
+        if not String(read.error).is_empty():
+            optional_skipped.append(idle_path)
+        else:
+            var idle: Dictionary = read.data
+            for key in ["support", "cloth"]:
+                if not idle.get(key) is Dictionary or not idle[key].get("file") is String:
+                    optional_skipped.append(String(key))
+                    continue
+                optional_paths[idle_path.get_base_dir().path_join(String(idle[key].file))] = true
     if paths.is_empty(): return {"error":"主角素材清单没有图片。"}
     var textures: Dictionary = {}
     for path in paths:

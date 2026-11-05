@@ -186,82 +186,6 @@ func _run() -> void:
     _check(offset_left[1].is_equal_approx(left[1] + sprite.offset * sprite.scale), "Sprite draw offset is not mirrored with its texture")
     sprite.offset = Vector2.ZERO
     sprite.flip_h = false
-    var trace = MELEE.spawn_swing(arena, sprite, 0.22, {"flash_enabled":false})
-    trace.set_process(false)
-    trace._process(0.001)
-    _check(trace.name == &"AttackSlashVfx" and trace.get_child_count() == 0, "Swing is one blade-local draw node with no halo/particle hierarchy")
-    _check(is_equal_approx(trace.lifetime, MELEE.TRACE_SECONDS) and MELEE.TRACE_SECONDS <= 0.1 and trace.reduced_flash, "Trace has a 100 ms ceiling and honors reduced flash")
-    _check(trace.blade[1].is_equal_approx(right[1]), "Runtime trace samples the same displayed blade endpoint")
-    # Rising cut: wind-up blade behind and low, first damage cel forward-up.
-    # The swept band must travel through the front of the body, both facings.
-    for facing_left in [false, true]:
-        sprite.flip_h = facing_left
-        sprite.animation = &"up_attack"
-        sprite.frame = 2
-        var arc_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-        arc_trace.set_process(false)
-        arc_trace._process(0.001)
-        var forward := Vector2.LEFT if facing_left else Vector2.RIGHT
-        var middle := Vector2.from_angle(arc_trace.sweep_from + arc_trace.sweep * 0.5)
-        _check(absf(arc_trace.sweep) > deg_to_rad(120.0) and middle.dot(forward) > 0.3, "Rising cut arc sweeps through the front (left=%s, sweep=%.0f deg)" % [facing_left, rad_to_deg(arc_trace.sweep)])
-        sprite.frame = 3
-        arc_trace._process(0.01)
-        _check(absf(arc_trace.sweep) > deg_to_rad(120.0), "Arc keeps its swept extent across the damage cels (left=%s)" % facing_left)
-        arc_trace.queue_free()
-    sprite.flip_h = false
-    sprite.animation = &"attack_1"
-    sprite.frame = 2
-    trace._process(MELEE.TRACE_SECONDS)
-    _check(trace.is_queued_for_deletion(), "Trace cannot linger through recovery")
-    var retired_traces: Array[WeakRef] = []
-    for first_delta in [0.053, 0.1]:
-        var slow_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-        slow_trace.set_process(false)
-        slow_trace._process(first_delta)
-        _check(not slow_trace.is_queued_for_deletion() and slow_trace.age == 0.0 and slow_trace.blade.size() == 2 and slow_trace.prior_blade.size() == 2, "Low-FPS first sample remains drawable at original opacity: %s" % first_delta)
-        slow_trace._process(first_delta)
-        _check(slow_trace.is_queued_for_deletion() == (first_delta >= slow_trace.lifetime), "Every subsequent low-FPS delta counts toward the finite lifetime: %s" % first_delta)
-        slow_trace._process(slow_trace.lifetime)
-        _check(slow_trace.is_queued_for_deletion(), "Low-FPS trace reaches cleanup without resetting its grace: %s" % first_delta)
-        var final_age: float = slow_trace.age
-        slow_trace._process(0.001)
-        _check(slow_trace.age == final_age and slow_trace.is_queued_for_deletion(), "Queued trace cannot resample or restart: %s" % first_delta)
-        retired_traces.append(weakref(slow_trace))
-    var changing_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-    changing_trace.set_process(false)
-    changing_trace._process(0.1)
-    changing_trace._process(changing_trace.lifetime * 0.6)
-    sprite.frame = 3
-    changing_trace._process(changing_trace.lifetime * 0.6)
-    _check(changing_trace.is_queued_for_deletion(), "Changing animation frames does not renew the trace lifetime")
-    retired_traces.append(weakref(changing_trace))
-    sprite.frame = 2
-    var cancelled_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-    cancelled_trace.set_process(false)
-    sprite.animation = &"default"
-    cancelled_trace._process(0.1)
-    _check(cancelled_trace.is_queued_for_deletion() and cancelled_trace.sampled_frame == -1, "Interrupted/unsupported pose receives no first-frame grace")
-    retired_traces.append(weakref(cancelled_trace))
-    sprite.animation = &"air_attack"
-    sprite.frame = 4
-    var empty_blade_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-    empty_blade_trace.set_process(false)
-    empty_blade_trace._process(0.053)
-    _check(empty_blade_trace.is_queued_for_deletion(), "A pose with no displayed blade cancels instead of waiting indefinitely")
-    retired_traces.append(weakref(empty_blade_trace))
-    sprite.animation = &"attack_1"
-    sprite.frame = 2
-    var lost_sprite_trace = MELEE.spawn_swing(arena, sprite, 0.22)
-    lost_sprite_trace.set_process(false)
-    lost_sprite_trace.weapon_sprite = null
-    lost_sprite_trace._process(0.053)
-    _check(lost_sprite_trace.is_queued_for_deletion(), "Missing weapon sprite cancels before its first draw sample")
-    retired_traces.append(weakref(lost_sprite_trace))
-    await process_frame
-    await process_frame
-    for reference in retired_traces:
-        _check(reference.get_ref() == null, "Expired/cancelled draw nodes are actually freed by the SceneTree")
-
     var contact = MELEE.spawn_hit(arena, Vector2(100, 80), Vector2.LEFT, &"attack_1", {"flash_enabled":false})
     contact.set_process(false)
     _check(contact.global_position == Vector2(100, 80) and contact.length == 11.0 and contact.reduced_flash, "Contact is a compact world-anchored nick")
@@ -298,7 +222,6 @@ func _run() -> void:
     await process_frame
     for reference in retired_contacts:
         _check(reference.get_ref() == null, "Expired/cancelled contact nodes are actually freed by the SceneTree")
-    _check(MELEE.spawn_swing(arena, sprite, 0.0) == null, "Inactive window cannot spawn a trace")
 
     var feel := RecordingFeel.new()
     root.add_child(feel)
@@ -394,7 +317,7 @@ func _run() -> void:
     player._update_attack(player.attack_windup + 0.001)
     player._update_attack_pose()
     _check(feel.starts.is_empty() and feel.stop_requests.is_empty() and target.hit_calls == 0, "Real player whiff causes no rumble, hitstop, or target call")
-    _check(player.get_node_or_null("AttackSlashVfx") != null, "Real active boundary creates the replacement trace")
+    _check(player.get_node_or_null("AttackSlashVfx") == null, "Real active boundary emits no procedural blade trail")
     target.global_position = player.global_position + player._attack_center_offset()
     target.accepts = false
     player._apply_attack_hits()

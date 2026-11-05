@@ -511,49 +511,21 @@ func _pixel_checks() -> void:
 
 
 func _real_player_lifecycle_checks() -> void:
-    var scene := load("res://scenes/Player.tscn") as PackedScene
-    var player := scene.instantiate()
+    # Legacy helper fixtures above remain covered for old source manifests.
+    # The production Player now draws complete body cels with its original shader.
+    var player = load("res://scenes/Player.tscn").instantiate()
     root.add_child(player)
     player.set_physics_process(false)
     var production_sprite: AnimatedSprite2D = player.sprite
     var production_material: Material = player.flash_material
-    var production_helper: Node2D = player.layered_idle
-    var saved_color: Color = production_helper._saved_self_modulate
-    _check(production_helper.active and production_helper.material == production_material,
-        "Real Player ready installs a live layered idle with original flash object")
-    production_sprite.remove_child(production_helper)
-    player._sync_sprite_pose_anchor()
-    _check(not production_helper.active and production_sprite.material == production_material and production_sprite.self_modulate == saved_color,
-        "Real Player pose sync cannot reactivate a detached helper or hide its source")
-    for index in range(8):
-        await process_frame
+    _check(not player.use_layered_idle and player.layered_idle==null,
+        "Production complete-body idle has no fixed support or cloth helper")
+    for action in [&"idle", &"hurt", &"dash", &"attack_1", &"idle"]:
+        player._play(action,true)
         player._sync_sprite_pose_anchor()
-    _check(production_sprite.is_visible_in_tree() and production_sprite.material == production_material and production_sprite.self_modulate == saved_color,
-        "Detached-helper source stays visible across actual frame/pose synchronization")
-    production_helper.free()
-    _check(not is_instance_valid(player.layered_idle), "Real Player retains an actual freed helper reference in the probe")
-    player._sync_sprite_pose_anchor()
-    _check(production_sprite.material == production_material and production_sprite.self_modulate == saved_color,
-        "Real Player is_instance_valid guard tolerates detached-then-freed helper")
-    player._play(&"hurt")
-    _check(production_sprite.animation == &"hurt" and production_sprite.material == production_material,
-        "Real Player continues normal hurt poses after helper removal")
-    player.free()
-    player = scene.instantiate()
-    root.add_child(player)
-    player.set_physics_process(false)
-    production_sprite = player.sprite
-    production_material = player.flash_material
-    production_helper = player.layered_idle
-    saved_color = production_helper._saved_self_modulate
-    _check(production_helper.active, "Second real Player exercises direct free while helper is active")
-    production_helper.free()
-    _check(production_sprite.material == production_material and production_sprite.self_modulate == saved_color and production_sprite.is_visible_in_tree(),
-        "Directly freeing active real Player helper synchronously restores original draw")
-    player._sync_sprite_pose_anchor()
-    player._play(&"dash")
-    _check(production_sprite.animation == &"dash" and production_sprite.material == production_material,
-        "Real Player continues synchronization and dash after direct helper free")
+        _check(production_sprite.material==production_material and production_sprite.self_modulate.a==1.0,
+            "Whole-body action keeps its shader and source visibility: "+String(action))
+        _check(production_sprite.get_child_count()==0,"No retired layer can mask a complete body cel")
     player.free()
 
 
@@ -580,7 +552,7 @@ func _run() -> void:
     await process_frame
     await process_frame
     print("PLAYER_LAYERED_IDLE_VALIDATION checks=%d failures=%d real_gl=%s pixels_complete=%s" % [checks, failures.size(), str(real_gl), str(pixels_complete)])
-    print("LAYERED_IDLE_SCOPE structural/state/pixel contracts only; full idle/breathing and product transitions OPEN")
+    print("LAYERED_IDLE_SCOPE legacy-helper contracts only; production complete-body idle is verified by player_idle_motion")
     for failure in failures:
         print("FAIL: " + failure)
     quit(0 if failures.is_empty() else 1)

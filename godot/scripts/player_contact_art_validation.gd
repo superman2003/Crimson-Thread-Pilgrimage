@@ -68,7 +68,7 @@ func run() -> void:
                 var mark:Node2D=marks(enemy)[0];check(mark.refined and mark.global_position==enemy.global_position+Vector2(0,-28) and mark.strike_direction==player.current_attack_direction.normalized(),crest+" exact receiver event only refines original anchor/direction")
                 check(mark.z_index==80 and mark.length==17 and mark.age<.16,crest+" refinement preserves receiver size/lifetime and contact80")
                 var age:float=mark.age;paused=true;await frames(3);check(mark.age==age,crest+" pause freezes contact age");paused=false
-            check(slashes().size()==1 if crest=="bell" else blades().size()==1,crest+" actual heavy/basic action receives its specific delivered material")
+            check(slashes().size()==1 if crest=="bell" else blades().is_empty(),crest+" heavy action keeps authored material; basic action emits no blade trail")
             print("CONTACT_TRACE basic ",crest," direction=",direction," enemy_hp=",enemy.hp," knockback=",enemy.knockback_velocity," hp=",player.hp," energy=",player.energy," damage=",player.attack_damage," duration=",player.attack_duration," windup=",player.attack_windup," active=",player.attack_active_time," range=",player.attack_range," height=",player.attack_height)
             await capture(crest+("_basic_left" if direction<0 else "_basic_right"));await frames(25);check(marks().is_empty() and slashes().is_empty() and blades().is_empty(),crest+" finite materials retire")
         for skill in ["cleave","crosscut","needle","snare","ward","shockwave"]:
@@ -141,7 +141,7 @@ func run() -> void:
         if enemy.hp<40:break
         await frames()
     check(marks(enemy).size()==1 and marks(enemy)[0].reduced_flash,"low-flash receiver mark is bounded before first draw/refinement")
-    check(not blades().is_empty() and blades()[0].reduced_flash,"low-flash blade retains same measured geometry")
+    check(blades().is_empty(),"low-flash accepted hit emits no procedural blade trail")
     await capture("reduced_contact_first")
     await prepare("crimson",1,"cleave");player.set_meta("accessibility",{"flash_enabled":false});await pulse("skill_1")
     for i in 30:
