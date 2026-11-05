@@ -38,13 +38,6 @@ static func refine_receiver(receiver:Node2D,serial:int,point:Vector2,direction:V
     # A rejected/cancelled/budget-dropped receiver event must not become a new mark.
     return null
 static func frame_index(age:float,lifetime:float,reduced:bool) -> int:return 3 if reduced else mini(5,int(maxf(0,age)*6/maxf(.001,lifetime)))
-static func paint_polygon(host:Node2D,row:int,frame:int,vertices:PackedVector2Array,colors:PackedColorArray,unit_uv:PackedVector2Array) -> void:
-    var uv:=PackedVector2Array()
-    for point in unit_uv:uv.append((Vector2(frame*192,row*192)+point*192)/Vector2(1152,576))
-    host.draw_polygon(vertices,colors,uv,ATLAS)
-static func paint_line(host:Node2D,frame:int,from:Vector2,to:Vector2,width:float,color:Color) -> void:
-    var normal:=(to-from).normalized().orthogonal()*width/2
-    paint_polygon(host,1,frame,PackedVector2Array([from-normal,to-normal,to+normal,from+normal]),PackedColorArray([color]),PackedVector2Array([Vector2(0,0),Vector2(1,0),Vector2(1,1),Vector2(0,1)]))
 static func paint_contact(host:Node2D,age:float,lifetime:float,direction:Vector2,length:float,reduced:bool) -> void:
     var alpha:float=(.46 if reduced else .76)*clampf(1-age/maxf(.001,lifetime),0,1);var size:=length*2
     host.draw_set_transform(Vector2.ZERO,direction.angle());host.draw_texture_rect_region(ATLAS,Rect2(-size/2,-size/2,size,size),Rect2(frame_index(age,lifetime,reduced)*192,384,192,192),Color(1,1,1,alpha));host.draw_set_transform(Vector2.ZERO)

@@ -35,9 +35,9 @@ func run() -> void:
     axis(1);await frames(45);axis(-1);await frames(2);axis(0)
     Input.action_press("attack");await frames(3);Input.action_release("attack")
     for i in 20:
-        if not blades().is_empty():break
+        if scene.player.attack_vfx_started:break
         await frames()
-    check(blades().size()==1,"normal World J whiff owns measured-weapon material")
+    check(scene.player.attack_vfx_started and blades().is_empty(),"normal World J reaches active stage without decorative blade trails")
     print("CONTACT_WORLD_BLADE pos=",scene.player.position," hp=",scene.player.hp," energy=",scene.player.energy," wallet=",scene.currency_count)
     await capture("world_measured_blade");await frames(35)
     var enemy:Node2D

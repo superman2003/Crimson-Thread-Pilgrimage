@@ -8,6 +8,14 @@ on:
       - 'godot/assets/sprites/player/generated_hero_motion_v4/**'
       - 'godot/assets/sprites/player/generated_hero_motion_v7/**'
       - 'art_requests/hero_motion_v7/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v8/**'
+      - 'art_requests/hero_motion_v8/**'
+      - 'tools/build_hero_motion_v8.py'
+      - 'tools/check_hero_motion_v8_native.py'
+      - 'godot/scripts/player_*.gd'
+      - 'godot/scripts/seal_presentation*.gd'
+      - 'godot/scripts/hero_animation_validation.gd'
+      - 'tools/validate_hero_v3.py'
       - 'tools/build_hero_motion_v7.py'
       - 'godot/assets/sprites/player/generated_hero_v3/manifest.json'
       - 'godot/scripts/enemy_actor.gd'
@@ -66,6 +74,10 @@ jobs:
             --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
             --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
             --suite hero_animation --suite player_motion_continuity \
+            --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
+            --suite seal_combat --suite seal_identity \
+            --suite player_basic_attack_vfx --suite player_melee_feedback --suite seal_presentation \
+            --suite player_contact_art --suite combat_visual_budget \
             --suite enemy_lifecycle_regression --suite enemy_visibility --suite boss_trial \
             --timeout 180 --log-dir "$RUNNER_TEMP/motion-logs/runtime"
       - uses: actions/upload-artifact@v4

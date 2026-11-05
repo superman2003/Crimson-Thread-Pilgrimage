@@ -35,7 +35,7 @@ jobs:
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**'
+          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**'
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
@@ -94,7 +94,7 @@ jobs:
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**'
+          git lfs pull --include='godot/assets/**,godot/addons/MetroidvaniaSystem/**,art_requests/hero_motion_v7/**,art_requests/hero_motion_v8/**'
       - name: Install Godot 4.6.1
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \

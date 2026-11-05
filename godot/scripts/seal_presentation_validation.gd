@@ -27,7 +27,7 @@ func _run() -> void:
         presentation.play_action(action, "active", 1)
         presentation.play_action(action, "recovery", 1)
         presentation.play_hit(action, Vector2(100, 100))
-        _check(presentation.active_effect_count() <= PRESENTATION.MAX_EFFECTS, "action burst effect cap")
+        _check(presentation.active_effect_count() == 0, "attack prepare/active/recovery/hit never create line cues")
         _check(presentation._voices.size() <= PRESENTATION.MAX_VOICES, "action burst audio cap")
     presentation.cue_unblockable(Vector2(150, 100))
     _check(presentation.active_effect_count() <= 8, "danger cue shares bounded pool")
@@ -69,8 +69,13 @@ func _global_trace_budget() -> void:
     for index in range(20):
         var actor := PRESENTATION.new(); actor.muted = true; stage.add_child(actor); actors.append(actor)
         actor.play_action("needle", "active")
+    _check(get_nodes_in_group(policy.ACTION_TRACE_GROUP).is_empty(), "twenty attack owners emit no decorative traces")
+    var fixtures: Array[Node2D] = []
+    for index in policy.MAX_ACTION_TRACES:
+        var node := Node2D.new()
+        if policy.attach_action_trace(stage,node): fixtures.append(node)
     var traces := get_nodes_in_group(policy.ACTION_TRACE_GROUP)
-    _check(traces.size() == policy.MAX_ACTION_TRACES, "twenty owners share eight harmless action traces")
+    _check(traces.size() == policy.MAX_ACTION_TRACES, "generic trace fixtures saturate the existing pool")
     for trace in traces:
         _check(not trace.z_as_relative and trace.z_index == policy.BLADE_Z, "parent decorative Z cannot raise an action trace over danger")
     for actor in actors: actor.cue_unblockable(Vector2(50, 60))
@@ -80,11 +85,12 @@ func _global_trace_budget() -> void:
         for burst in range(12): actor.play_action("cleave", "active")
         _check(not warning.is_queued_for_deletion(), "ordinary attacks never evict an existing warning")
     _check(get_nodes_in_group(policy.ACTION_TRACE_GROUP).size() == policy.MAX_ACTION_TRACES, "warnings do not consume or expand decorative capacity")
-    actors[0].queue_free(); await process_frame
+    fixtures[0].queue_free(); await process_frame
+    _check(policy.attach_action_trace(stage,Node2D.new()), "retiring a generic trace releases its existing slot")
     actors.back().play_action("needle", "active")
     var active := 0
     for trace in get_nodes_in_group(policy.ACTION_TRACE_GROUP):
         if not trace.is_queued_for_deletion(): active += 1
-    _check(active == policy.MAX_ACTION_TRACES, "retiring an owner releases its cosmetic slot immediately")
+    _check(active == policy.MAX_ACTION_TRACES, "audio-only attack cannot change a saturated generic trace pool")
     stage.queue_free(); await process_frame; await process_frame
     _check(get_nodes_in_group(policy.ACTION_TRACE_GROUP).is_empty(), "scene retirement releases all global trace membership")
