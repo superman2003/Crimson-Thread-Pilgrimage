@@ -88,7 +88,7 @@ def download(url, target, expected=None, *, attempts=5, timeout=45, sleep=time.s
             if isinstance(error.reason, ssl.SSLCertVerificationError):
                 raise
             failure = error
-        except (TimeoutError, ConnectionError, http.client.IncompleteRead, DownloadIntegrityError) as error:
+        except (ssl.SSLEOFError, TimeoutError, ConnectionError, http.client.IncompleteRead, DownloadIntegrityError) as error:
             failure = error
         finally:
             pending.unlink(missing_ok=True)

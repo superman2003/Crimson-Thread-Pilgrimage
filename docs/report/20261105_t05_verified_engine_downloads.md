@@ -16,3 +16,9 @@ PR #542 的原头 a13c4760 中，Windows 与 Linux 发布任务都在安装引�
 临时取消下载后的 SHA512 检查，错误摘要测试准确失败；还原生产 SHA 后再次通过 14 项。YAML 实际解析，并核对两个平台配对、两种事件路径、真实安装入口和回执收存。证据位于 artifacts/t05_verified_downloads_v16/。本地 HTTP 与伪二进制 ZIP 只证明下载／安装协议，不替代官方编辑器、模板和实际发布包；两平台 CI 的新头结果另行追加。
 
 [原 Linux 失败](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/42046470529/job/127310647288) · [原 Windows 失败](https://github.com/superman2003/Crimson-Thread-Pilgrimage/actions/runs/42046470529/job/127310646793)。T05 最终候选包及人工实机验收继续 OPEN。
+
+## TLS 读取中途断连与新头复验
+
+审阅指出 HTTPS 响应已打开后，read 可能直接抛出 SSLEOFError，它不属于 ConnectionError／URLError；本批明确将该提前 EOF 纳入相同重试次数与退避，未扩大为所有 SSLError。新增读取中途 EOF 后恢复、EOF 持续发生时次数上限，以及直接／包装的证书验证失败始终不重试，完整工具检查由 14 增至 17 项。暂时移除此类型处理时，两项 EOF 测试报错，恢复源码 SHA 后 17 项重新通过。
+
+修正前头 fedccd2d 的两平台实际发布 CI 已通过，合并候选 d7387e173c66 完成官方编辑器／模板校验安装、实际 ZIP、首启／续档／写回。TLS 修正新头的 CI 另行复验，不把旧头结果算到新头。原始日志与恢复证明见 artifacts/t05_verified_downloads_v16/。

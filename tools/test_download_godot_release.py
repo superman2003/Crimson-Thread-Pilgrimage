@@ -4,6 +4,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import io
 import json
 from pathlib import Path
+import ssl
 import tempfile
 import threading
 import unittest
@@ -88,6 +89,62 @@ class ReleaseDownload(unittest.TestCase):
             self.fetch(digest(b'actual'))
         self.assertEqual(self.calls['/payload'], 1)
         self.assertEqual(self.delays, [])
+
+    def eof_response(self, exception):
+        class BrokenResponse:
+            headers = {}
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                pass
+
+            def read(self, _size):
+                raise exception
+        return BrokenResponse()
+
+    def test_abrupt_tls_eof_during_body_read_is_retried(self):
+        self.actions['/payload']=[(200,b'actual',{})]
+        open_response=release.urllib.request.urlopen
+        calls=[]
+
+        def open_then_disconnect(*args, **kwargs):
+            calls.append(args[0])
+            if len(calls)==1:
+                return self.eof_response(ssl.SSLEOFError(8,'abrupt TLS EOF'))
+            return open_response(*args, **kwargs)
+
+        with patch('download_godot_release.urllib.request.urlopen',side_effect=open_then_disconnect):
+            self.assertEqual(self.fetch(digest(b'actual')).read_bytes(),b'actual')
+        self.assertEqual(len(calls),2)
+        self.assertEqual(self.delays,[5])
+        self.assertEqual(list(self.root.glob('*.part')),[])
+
+    def test_repeated_abrupt_tls_eof_is_bounded(self):
+        with patch('download_godot_release.urllib.request.urlopen',
+                   side_effect=lambda *a,**kw:self.eof_response(ssl.SSLEOFError(8,'abrupt TLS EOF'))) as opening:
+            with self.assertRaisesRegex(RuntimeError,'after 2 attempts'):
+                self.fetch(digest(b'actual'),attempts=2)
+        self.assertEqual(opening.call_count,2)
+        self.assertEqual(self.delays,[5])
+        self.assertFalse((self.root/'download').exists())
+        self.assertEqual(list(self.root.glob('*.part')),[])
+
+    def test_certificate_failures_are_never_retried(self):
+        certificate=ssl.SSLCertVerificationError(1,'certificate verification failed')
+        with patch('download_godot_release.urllib.request.urlopen',
+                   return_value=self.eof_response(certificate)) as opening:
+            with self.assertRaises(ssl.SSLCertVerificationError):
+                self.fetch(digest(b'actual'))
+        self.assertEqual(opening.call_count,1)
+        with patch('download_godot_release.urllib.request.urlopen',
+                   side_effect=urllib.error.URLError(certificate)) as opening:
+            with self.assertRaises(urllib.error.URLError):
+                self.fetch(digest(b'actual'))
+        self.assertEqual(opening.call_count,1)
+        self.assertEqual(self.delays,[])
+        self.assertEqual(list(self.root.glob('*.part')),[])
 
     def test_retry_limit_preserves_existing_destination(self):
         self.actions['/payload'] = [(504,b'',{})]
