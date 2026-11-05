@@ -3,6 +3,7 @@ extends Control
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
+const READING_SCROLL := preload("res://scripts/reading_scroll.gd")
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
@@ -124,6 +125,8 @@ var settings_save_notice: Label
 var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
 var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
+## Fixture hook for the reading stick; NAN reads real connected pads.
+var reading_axis_override := NAN
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -2399,6 +2402,9 @@ func _refresh_save_slots() -> void:
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
     _sync_reading_session()
+    if not String(level.active_overlay).is_empty() or has_modal_window():
+        var reading_axis: float=reading_axis_override if is_finite(reading_axis_override) else READING_SCROLL.stick_axis(float(accessibility.get("controller_deadzone",0.2)))
+        if reading_axis!=0.0:READING_SCROLL.scroll(self,reading_axis*READING_SCROLL.SPEED*delta)
     _refresh_quick_action_bindings()
     if dialogue.visible:
         dialogue_hint.text=_dialogue_binding_hint()
