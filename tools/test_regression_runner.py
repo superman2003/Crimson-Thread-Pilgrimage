@@ -58,6 +58,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
+            'player_idle_motion',
             'dialog_dpad_focus',
             'reading_scroll',
             'boss_move_matrix',
@@ -88,6 +89,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("permanent_capacity", DEFAULT_SUITES)
         self.assertIn("boss_skill_art", DEFAULT_SUITES)
         self.assertIn("player_contact_art", DEFAULT_SUITES)
+        self.assertIn("player_idle_motion", DEFAULT_SUITES)
         self.assertIn("player_ability_art", DEFAULT_SUITES)
         self.assertIn("player_dash_art", DEFAULT_SUITES)
         self.assertIn("player_hook_art", DEFAULT_SUITES)
@@ -388,11 +390,12 @@ class RunnerTests(unittest.TestCase):
     def test_layered_idle_rejects_headless_partial_or_missing_pixels(self):
         for marker in [
             'PLAYER_LAYERED_IDLE_VALIDATION checks=200 failures=0 real_gl=true pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=false pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=211 failures=0 real_gl=true pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=1 real_gl=true pixels_complete=true',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=false',
-            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=false pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=213 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=1 real_gl=true pixels_complete=true',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=true pixels_complete=false',
+            'PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=true',
         ]:
             with self.subTest(marker=marker):
                 result = self.run_engine(f'print({marker!r})\n', suite='player_layered_idle')
@@ -406,7 +409,7 @@ class RunnerTests(unittest.TestCase):
             captured = root / 'args'
             engine.write_text(
                 '#!' + sys.executable + '\nimport sys\n'
-                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=212 failures=0 real_gl=true pixels_complete=true")\n'
+                + 'print("PLAYER_LAYERED_IDLE_VALIDATION checks=214 failures=0 real_gl=true pixels_complete=true")\n'
                 + f'open({str(captured)!r}, "w").write("\\n".join(sys.argv[1:]))\n'
             )
             engine.chmod(0o755)

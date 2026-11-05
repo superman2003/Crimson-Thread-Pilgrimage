@@ -13,19 +13,20 @@ DEFAULT = ['player_basic_attack_vfx', 'seal_presentation', 'player_contact_art',
            'combat_visual_budget', 'character_art_prewarm', 'tool_practice']
 
 
-def main():
+def main(default_suites=None, default_output=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', required=True)
     parser.add_argument('--suite', action='append')
-    parser.add_argument('--output', type=Path, default=ROOT/'artifacts/hero_motion_v8/final-native')
+    parser.add_argument('--output', type=Path, default=default_output or ROOT/'artifacts/hero_motion_v8/final-native')
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=True)
     captures = out/'actual-attacks'
     captures.mkdir(exist_ok=True)
     markers = json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text())
-    suites = args.suite or DEFAULT
-    if any(suite not in DEFAULT for suite in suites):
+    allowed = default_suites or DEFAULT
+    suites = args.suite or allowed
+    if any(suite not in allowed for suite in suites):
         parser.error('Choose a registered hero/native acceptance suite')
     records = []
     with tempfile.TemporaryDirectory(prefix='hero-motion-v8-') as scratch:
@@ -33,7 +34,7 @@ def main():
             cmd = [args.engine, '--path', str(ROOT/'godot'), '--rendering-method',
                    'gl_compatibility', '--audio-driver', 'Dummy', '--position',
                    '-20000,-20000', '--script', f'res://scripts/{suite}_validation.gd']
-            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm', 'tool_practice']:
+            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm', 'tool_practice', 'player_idle_motion', 'player_motion_continuity', 'player_layered_idle']:
                 cmd += ['--fixed-fps', '60']
             if suite == 'player_contact_art':
                 cmd += ['--', '--output='+captures.as_posix()]
