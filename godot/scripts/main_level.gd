@@ -3691,11 +3691,13 @@ func _spawn_seal_practice_targets() -> void:
         label.position = Vector2(-120, -175)
         label.size = Vector2(240, 130)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.set_meta("base_text",label.text)
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set; a detached label shapes
+        # its wrapped caption first with the default font, then again.
         target.add_child(label)
+        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.set_meta("base_text",label.text)
 
 ## E02: each primary tool has a practice puppet beside the skill racks. The
 ## puppet runs real AI from its plan profile so the tool visibly acts on it.
@@ -3737,10 +3739,11 @@ func _spawn_tool_practice_targets() -> void:
         label.position = Vector2(-120, -150)
         label.size = Vector2(240, 100)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set (see seal practice labels).
         target.add_child(label)
+        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
 
 
 func _in_tool_practice_room() -> bool:
@@ -5567,14 +5570,51 @@ func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector
     var step := maxf(8.0, minf(18.0, half_width * 0.45))
     var left := center_x
     var right := center_x
-    while left - step >= min_x and _enemy_spawn_rect_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, platform_id):
+    # T03: the walk tests up to ~100 positions; each full clearance query
+    # scanned every platform and rock rect (10–60 ms per enemy in one build
+    # frame). Collect once what can touch this floor's swept band, then test
+    # the same positions against only those (same results, same order).
+    var obstacles := _enemy_walk_obstacles(Rect2(min_x - step - half_width, spawn_position.y - visual_height, max_x - min_x + 2.0 * (step + half_width), visual_height + 8.0).grow(1.0), spawn_position.y, platform_id)
+    while left - step >= min_x and _enemy_walk_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, obstacles):
         left -= step
-    while right + step <= max_x and _enemy_spawn_rect_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, platform_id):
+    while right + step <= max_x and _enemy_walk_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, obstacles):
         right += step
     if right - left < half_width:
         return [left-0.05, right+0.05]
     return [left, right]
 
+
+
+## The subset of _enemy_spawn_rect_clear's blockers that can intersect any
+## actor rect inside `sweep` standing at `floor_y` (same filters).
+func _enemy_walk_obstacles(sweep: Rect2, floor_y: float, floor_platform_id: String) -> Dictionary:
+    var rects: Array[Rect2] = []
+    if cave_world != null:
+        for solid in cave_world.solid_rects:
+            if solid.intersects(sweep): rects.append(solid)
+    for platform in config.get("platforms", []):
+        if not (platform is Dictionary):
+            continue
+        var platform_data: Dictionary = platform
+        if not String(platform_data.get("terrain_id", "")).is_empty():
+            continue
+        if String(platform_data.get("id", "")) == floor_platform_id:
+            continue
+        var rect := _rect2(platform_data.get("rect", []))
+        if rect.size.x <= 0.0 or rect.size.y <= 0.0 or rect.position.y >= floor_y + 10.0:
+            continue
+        if rect.intersects(sweep): rects.append(rect)
+    return {"rects": rects, "terrain": chapter_terrain != null and chapter_terrain.intersects_rect(sweep)}
+
+
+func _enemy_walk_clear(position_value: Vector2, half_width: float, visual_height: float, obstacles: Dictionary) -> bool:
+    var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
+    if obstacles.terrain and chapter_terrain.intersects_rect(actor_rect):
+        return false
+    for rect in obstacles.rects:
+        if actor_rect.intersects(rect):
+            return false
+    return true
 
 func _spawn_normal_enemies() -> void:
     for spawn in config.get("enemy_spawns", []):
