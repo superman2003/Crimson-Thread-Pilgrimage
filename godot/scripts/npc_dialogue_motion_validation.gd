@@ -3,10 +3,12 @@ extends SceneTree
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const LEVEL := preload("res://scripts/main_level.gd")
 const MOTION := preload("res://scripts/npc_dialogue_motion.gd")
+const LIVE := preload("res://scripts/world_neighbor_gameplay_live_validation.gd")
 var checks := 0
 var failures := 0
 var character_count := 0
 var evidence: Array = []
+var callback_contract: Dictionary = {}
 
 func _initialize() -> void: call_deferred("run")
 func check(ok: bool, label: String) -> void:
@@ -60,7 +62,7 @@ func run() -> void:
     var output := ProjectSettings.globalize_path("res://../artifacts/npc_dialogue_motion_v10")
     DirAccess.make_dir_recursive_absolute(output)
     var file := FileAccess.open(output.path_join("verification.json"),FileAccess.WRITE)
-    file.store_string(JSON.stringify({"checks":checks,"failures":failures,"characters":character_count,"actual_dialogue":true,"characters_checked":evidence},"  ")+"\n"); file.close()
+    file.store_string(JSON.stringify({"checks":checks,"failures":failures,"characters":character_count,"actual_dialogue":true,"characters_checked":evidence,"callback_contract":callback_contract},"  ")+"\n"); file.close()
     print("NPC_DIALOGUE_MOTION checks=%d failures=%d characters=%d actual_dialogue=true"%[checks,failures,character_count])
     quit(0 if failures==0 else 1)
 
@@ -154,6 +156,30 @@ func actual_dialogue() -> void:
     await frames(24)
     check(sprite.animation==&"talk","normal interface reaches talk after greeting")
     await capture("talking",sprite)
+    var shrine := level.get_node_or_null("save_first_bell") as Area2D
+    var bindings := LIVE.arrival_bindings(level,npc,shrine)
+    callback_contract.exact=bindings.gameplay and bindings.components
+    check(callback_contract.exact,"real NPC and shrine have exact gameplay and greeting callbacks")
+    if shrine==null: level.free(); return
+    var correct := Callable(level,"_on_interactable_entered").bind(npc)
+    var foreign := Callable(level,"_on_interactable_entered").bind(shrine)
+    var extra := Callable(level,"_on_interactable_exited").bind(shrine)
+    npc.body_entered.connect(extra)
+    bindings=LIVE.arrival_bindings(level,npc,shrine)
+    callback_contract.extra_listener_rejected=not (bindings.gameplay and bindings.components)
+    check(callback_contract.extra_listener_rejected,"an additional foreign-area listener is rejected")
+    npc.body_entered.disconnect(extra)
+    bindings=LIVE.arrival_bindings(level,npc,shrine)
+    callback_contract.extra_removed=bindings.gameplay and bindings.components
+    check(callback_contract.extra_removed,"removing an extra listener restores the exact contract")
+    npc.body_entered.disconnect(correct); npc.body_entered.connect(foreign)
+    bindings=LIVE.arrival_bindings(level,npc,shrine)
+    callback_contract.wrong_area_rejected=not bindings.gameplay and bindings.components
+    check(callback_contract.wrong_area_rejected,"correct listener totals with the wrong bound area are rejected")
+    npc.body_entered.disconnect(foreign); npc.body_entered.connect(correct)
+    bindings=LIVE.arrival_bindings(level,npc,shrine)
+    callback_contract.restored=bindings.gameplay and bindings.components
+    check(callback_contract.restored,"restoring the correct area restores the exact contract")
     var second: Area2D = level._make_npc({"id":"npc_gear_cartographer","name":"dialogue switch fixture"})
     level.add_child(second)
     level._show_dialogue(second,"切换说话者夹具。")

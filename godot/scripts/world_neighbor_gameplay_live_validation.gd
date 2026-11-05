@@ -22,6 +22,28 @@ func check(ok: bool, message: String) -> void:
         failures.append(message)
         print("LIVE GAMEPLAY FAIL ",message)
 
+static func callback_count(signal_value: Signal, expected: Callable) -> int:
+    var count := 0
+    for connection in signal_value.get_connections():
+        var actual: Callable = connection.callable
+        if actual.get_object()==expected.get_object() and actual.get_method()==expected.get_method() \
+            and actual.get_bound_arguments()==expected.get_bound_arguments(): count += 1
+    return count
+
+static func arrival_bindings(owner_level: Node, npc: Area2D, shrine: Area2D) -> Dictionary:
+    if owner_level==null or npc==null or shrine==null:
+        return {"gameplay":false,"components":false}
+    var gameplay_once := true
+    for area: Area2D in [npc,shrine]:
+        gameplay_once = gameplay_once \
+            and callback_count(area.body_entered,Callable(owner_level,"_on_interactable_entered").bind(area)) == 1 \
+            and callback_count(area.body_exited,Callable(owner_level,"_on_interactable_exited").bind(area)) == 1
+    var motion := npc.get_node_or_null("FriendlyFamilySprite")
+    var components_once := motion != null and callback_count(npc.body_entered,Callable(motion,"_approached")) == 1 \
+        and npc.body_entered.get_connections().size() == 2 and npc.body_exited.get_connections().size() == 1 \
+        and shrine.body_entered.get_connections().size() == 1 and shrine.body_exited.get_connections().size() == 1
+    return {"gameplay":gameplay_once,"components":components_once}
+
 func tick(count: int = 1) -> void:
     for unused in count:
         await physics_frame
@@ -204,7 +226,9 @@ func interactions(records: Dictionary) -> void:
     await press("interact")
     check(scene.active_overlay == "dialogue" and npc.get_meta("dialogue_index",0) > 0,"reused NPC opens live dialogue through input")
     await press("interact")
-    check(npc.body_entered.get_connections().size() == 1 and shrine.body_entered.get_connections().size() == 1,"arrival callbacks bound exactly once")
+    var bindings := arrival_bindings(scene,npc,shrine)
+    check(bindings.gameplay,"arrival gameplay callbacks retain the correct owner and area exactly once")
+    check(bindings.components,"arrival has exactly one greeting callback and no extra interaction listeners")
     scene._close_overlays()
 
 func run() -> void:
