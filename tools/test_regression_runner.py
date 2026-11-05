@@ -65,6 +65,7 @@ class CompletionContractTests(unittest.TestCase):
             'enemy_move_matrix',
             'enemy_move_matrix_mid',
             'enemy_move_matrix_late',
+            'interaction_reach',
             'parallax_layout',
             'combat_input_events',
             'hazard_readability',

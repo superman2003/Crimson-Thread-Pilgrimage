@@ -24,7 +24,7 @@ DEFAULT_SUITES = (
     'permanent_capacity player_contact_art player_ability_art player_dash_art player_hook_art player_hurt_art player_movement_art player_heal_art player_guard_art player_upgrade_regression build_system world_upgrade world_workshop_group_one world_workshop_group_two world_ability_acquisition upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign global_font ui_text_order '
     'seal_system seal_combat seal_ui combat_input_events seal_acceptance seal_acquisition seal_presentation seal_identity world_prepare_budget world_save_candidate map_player_pins world_preflight_budget world_config_background world_catalog_background world_startup_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer player_motion_continuity player_layered_idle player_melee_feedback camera_focus room_camera_stability first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience obsidian_road_clearance obsidian_dock_clearance crown_rain_slot crown_vault_door '
-    'world_startup_budget world_variant_copy survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush death_cache_placement g02_respawn '
+    'world_startup_budget world_variant_copy interaction_reach survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush death_cache_placement g02_respawn '
     'melee_recovery spike_pogo combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles enemy_ai_behavior enemy_tactical_roles build_slots_ui narrative_outcomes skill_branches artisan_crafts tool_practice shrine_exit_probe shrine_exit_routes hidden_routes save_recovery ending_aftermath settings_remap scene_history quiet_sole_traps wish_reward_atomic legacy_travel_rewards'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
@@ -51,7 +51,7 @@ def render_loop_args(real_gl, suite):
     # These non-pixel suites keep physics/state checks. Keep the real GL
     # resource backend, but avoid automatic rasterization on every churn frame.
     # Dedicated GL pixel and live gameplay suites keep the render loop enabled.
-    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'boss_move_matrix', 'boss_move_matrix_late', 'enemy_move_matrix', 'enemy_move_matrix_mid', 'enemy_move_matrix_late', 'parallax_layout']:
+    if real_gl and suite in ['world_upgrade', 'world_workshop_group_one', 'world_workshop_group_two', 'world_ability_acquisition', 'world_neighbor_gameplay_stress', 'world_passage_network', 'boss_move_matrix', 'boss_move_matrix_late', 'enemy_move_matrix', 'enemy_move_matrix_mid', 'enemy_move_matrix_late', 'parallax_layout', 'interaction_reach']:
         return ['--disable-render-loop']
     return []
 

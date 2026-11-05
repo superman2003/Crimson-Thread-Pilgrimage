@@ -58,6 +58,7 @@
   "demo": "^DEMO_VALIDATION_PASS enemies=.* hazards=.* keys=0 boss=1 combat_clear=true complete=true$",
   "ch02_demo": "^CH02_DEMO_VALIDATION_PASS enemies=.* npcs=4 keys=0 boss=C2_B01 combat_clear=true complete=true$",
   "inventory_map": "^INVENTORY_MAP_VALIDATION_PASS backpack=true map=true visited=\\d+ currency=\\d+$",
+  "interaction_reach": "^INTERACTION_REACH_PASS interactables=\\d+ migrations=2 narrowest=\\d+ checks=\\d+$",
   "boss_trial": "^BOSS_TRIAL_VALIDATION_PASS config=.* spawn=.* boss=.* boss_spawned=.*$",
   "boss_move_matrix": "^BOSS_MOVE_MATRIX_PASS bosses=3 moves=12 checks=\\d+$",
   "boss_move_matrix_late": "^BOSS_MOVE_MATRIX_LATE_PASS bosses=3 moves=12 checks=\\d+$",
