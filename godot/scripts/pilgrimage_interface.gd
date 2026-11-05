@@ -2,6 +2,7 @@ extends Control
 
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
+const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
@@ -256,6 +257,11 @@ func finish_bind() -> void:
         get_viewport().gui_focus_changed.connect(_remember_gui_focus)
     if not Input.joy_connection_changed.is_connected(_on_joy_connection_changed):
         Input.joy_connection_changed.connect(_on_joy_connection_changed)
+    # Every dialog under this shell, including ones desks create later, gets
+    # its button row and content joined for d-pad navigation.
+    if not get_tree().node_added.is_connected(_bridge_dialog_focus):
+        get_tree().node_added.connect(_bridge_dialog_focus)
+    for dialog in (level.find_children("*","AcceptDialog",true,false) if level is Node else find_children("*","AcceptDialog",true,false)):_bridge_dialog_focus(dialog)
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -993,7 +999,8 @@ func _build_settings() -> void:
         settings.add_child(slider)
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
-    _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
+    var comfort_button:=_button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort)
+    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",15)
     # Row 332 to the right of the comfort button belongs to the danger-caption
     # desk; the retry sits beside the NPC toggle, its notice by the section title.
     settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
@@ -3096,7 +3103,12 @@ func _sync_reading_session() -> void:
     journal_restore_pending = false
     dialogue_reading_key = ""
 
+func _bridge_dialog_focus(node: Node) -> void:
+    # Map, recall and new-journey dialogs live under the level, not this shell.
+    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):DIALOG_FOCUS.install(node)
+
 func _exit_tree() -> void:
+    if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)
     # Snapshot reading numbers only; never commit a conversation or grant rewards.
     _remember_journal_scroll(true)
     _remember_dialogue_reading()
