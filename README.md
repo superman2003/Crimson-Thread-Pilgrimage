@@ -6,7 +6,7 @@
 
 ![46 项最终验收与当前子项证据](docs/gallery/upgrade_progress.svg)
 
-[进度图说明与下一批范围](docs/gallery/20261024_upgrade_progress.md) · [任务台账](docs/UPGRADE_TASK_LEDGER.md) · [最终验收清单](docs/UPGRADE_COMPLETION_CHECKLIST.md)
+[进度图说明与下一批范围](docs/gallery/20261024_upgrade_progress.md) · [任务台账](docs/UPGRADE_TASK_LEDGER.md)（新增记录写在 [docs/ledger/](docs/ledger/README.md)）· [最终验收清单](docs/UPGRADE_COMPLETION_CHECKLIST.md)
 
 ## 当前版本实机画面（2026-10-15）
 
