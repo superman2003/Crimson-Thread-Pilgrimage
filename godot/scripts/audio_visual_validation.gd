@@ -162,7 +162,7 @@ func _run() -> void:
     _assert(_has_named_child(scene.player, "HealThread"), "heal thread effect spawns")
 
     scene.player._start_attack(&"attack_1")
-    _assert(_has_named_child(scene.player, "AttackSlashVfx"), "normal attack slash vfx spawns")
+    _assert(not _has_named_child(scene.player, "AttackSlashVfx"), "normal attack emits no decorative ribbon")
     _assert(_audio_children_on_bus(scene.player, "SFXPlayer"), "player sfx players routed to SFXPlayer sub-bus")
     scene.player.attack_timer = 0.0
     scene.player._start_attack(&"hook_throw")

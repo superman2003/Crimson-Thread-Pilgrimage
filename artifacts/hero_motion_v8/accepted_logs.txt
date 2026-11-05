@@ -1,0 +1,450 @@
+final-runtime/ability_movement.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PASS: fixture starts on solid ground
+PASS: first jump still uses the existing movement
+PASS: locked double jump cannot create upward impulse
+PASS: held first jump does not spend the second jump
+PASS: fresh airborne press performs double jump
+PASS: third press cannot create an infinite jump
+PASS: landing restores the air jump
+ABILITY_PEAK locked=175.028 unlocked=57.458
+PASS: double jump reaches a high ledge that a single jump cannot reach
+PASS: locked grapple ignores a reachable anchor
+PASS: unlocked grapple latches an explicit visible anchor
+PASS: grapple moves the actual collision body toward the anchor
+PASS: dash cancels active grapple
+PASS: solid wall prevents latching through terrain
+PASS: disabled anchor cannot be targeted
+PASS: out of range anchor cannot be targeted
+PASS: hidden anchor cannot be targeted
+PASS: reachable anchor is available again
+PASS: freed anchor cancels without retaining an invalid reference
+PASS: respawn resets traversal impulses and air jump
+ABILITY_MOVEMENT_VALIDATION failures=0
+
+
+final-runtime/combat_input_events.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 休息，恢复状态并记录归途。
+按 T 使用战具；在钟龛休息可补满次数。
+沿路牌箭头步行进入通道，可沿来路折返。
+站稳后按 H 缝补；移动或受击会打断。
+COMBAT_INPUT_EVENTS_REPORT [{"action":"attack","device":"key J","fired":true,"mapped":true},{"action":"attack","device":"mouse left","fired":true,"mapped":true},{"action":"attack","device":"pad X","fired":true,"mapped":true},{"action":"hook","device":"key K","fired":true,"mapped":true},{"action":"hook","device":"pad RB","fired":true,"mapped":true},{"action":"jump","device":"key Space","fired":true,"mapped":true},{"action":"jump","device":"pad A","fired":true,"mapped":true},{"action":"dash","device":"key Shift","fired":true,"mapped":true},{"action":"dash","device":"pad B","fired":true,"mapped":true},{"action":"skill_1","device":"key L","fired":true,"mapped":true},{"action":"skill_1","device":"pad Y","fired":true,"mapped":true},{"action":"bell_guard","device":"key Q","fired":true,"mapped":true},{"action":"bell_guard","device":"pad left","fired":true,"mapped":true},{"action":"heal","device":"key H","fired":true,"mapped":true},{"action":"heal","device":"pad LB","fired":true,"mapped":true},{"action":"lantern_phase","device":"key E","fired":true,"mapped":true},{"action":"lantern_phase","device":"pad right","fired":true,"mapped":true},{"action":"crown_resonance","device":"key R","fired":true,"mapped":true},{"action":"crown_resonance","device":"pad up","fired":true,"mapped":true},{"action":"tool_cast","device":"key T","fired":true,"mapped":true},{"action":"tool_cast","device":"pad down","fired":true,"mapped":true},{"action":"skill_cycle","device":"key C","fired":true,"mapped":true},{"action":"skill_cycle","device":"pad LT","fired":true,"mapped":true},{"action":"tool_cycle","device":"key G","fired":true,"mapped":true},{"action":"tool_cycle","device":"pad RT","fired":true,"mapped":true},{"action":"move_left","device":"key A","fired":true,"mapped":true},{"action":"move_left","device":"stick left","fired":true,"mapped":true},{"action":"move_right","device":"key D","fired":true,"mapped":true},{"action":"move_right","device":"stick right","fired":true,"mapped":true},{"action":"attack","device":"key U (rebound)","fired":true,"mapped":true},{"action":"attack","device":"key J (old)","fired":false,"mapped":false},{"action":"attack","device":"pad X (kept)","fired":true,"mapped":true}]
+COMBAT_INPUT_EVENTS_PASS cases=32 checks=66
+
+
+final-runtime/melee_recovery.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+MELEE_RECOVERY_VALIDATION_PASS checks=70 terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3
+
+
+final-runtime/player_action_buffer.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_ACTION_BUFFER checks=42 failures=0
+
+
+final-runtime/player_effect_lifecycle.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_EFFECT_LIFECYCLE checks=24 failures=0
+
+
+final-runtime/player_guard_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=2 retired=0
+PLAYER_GUARD_ART checks=113 failures=0
+
+
+final-runtime/player_heal_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+PLAYER_HEAL_ART checks=95 failures=0
+
+
+final-runtime/player_hook_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+PLAYER_HOOK_ART checks=88 failures=0
+
+
+final-runtime/player_melee_feedback.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_MELEE_FEEDBACK_PASS checks=85 hardware=simulated physical_feel=unverified
+
+
+final-runtime/player_motion_continuity.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+IDLE_SOLE_CENTER pose=0 source_x=186.223262 correction_x=0.000000
+IDLE_SOLE_CENTER pose=1 source_x=187.667973 correction_x=-1.444711
+IDLE_SOLE_CENTER pose=2 source_x=186.765838 correction_x=-0.542576
+IDLE_SOLE_CENTER pose=3 source_x=185.263814 correction_x=0.959448
+PLAYER_MOTION_CONTINUITY checks=1192 failures=0
+
+
+final-runtime/player_state_cleanup.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_STATE_CLEANUP_PASS checks=9 failures=0
+
+
+final-runtime/player_upgrade_regression.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0
+
+
+final-native/character_art_prewarm.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PLAYER_ART_PREWARM checks=253 failures=0 ready_usec=3195
+CHARACTER_ART_PREWARM checks=853 failures=0 sync_loads=0
+
+
+final-native/combat_visual_budget.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+SECONDARY_VISUAL_BUDGET checks=52 failures=0
+COMBAT_VISUAL_BUDGET checks=44 failures=0 real_gl=true
+
+
+final-native/hero_animation.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+HERO_ANIMATION_VALIDATION checks=342 failures=0
+
+
+final-native/player_ability_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+ABILITY_TRACE downstrike crimson direction=-1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.22898550724638
+ABILITY_TRACE phase crimson direction=-1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance crimson direction=-1 pos=(477.775, 360.0) hp=5 energy=0 attack=0.33405797101449 cooldown=1.33333333333333
+ABILITY_TRACE downstrike crimson direction=1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.22898550724638
+ABILITY_TRACE phase crimson direction=1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance crimson direction=1 pos=(482.225, 360.0) hp=5 energy=0 attack=0.33405797101449 cooldown=1.33333333333333
+ABILITY_TRACE downstrike bell direction=-1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.54871794871795
+ABILITY_TRACE phase bell direction=-1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance bell direction=-1 pos=(477.775, 360.0) hp=5 energy=0 attack=0.53205128205128 cooldown=1.33333333333333
+ABILITY_TRACE downstrike bell direction=1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.54871794871795
+ABILITY_TRACE phase bell direction=1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance bell direction=1 pos=(482.225, 360.0) hp=5 energy=0 attack=0.53205128205128 cooldown=1.33333333333333
+ABILITY_TRACE downstrike salt direction=-1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.31111111111111
+ABILITY_TRACE phase salt direction=-1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance salt direction=-1 pos=(477.775, 360.0) hp=5 energy=0 attack=0.45 cooldown=1.33333333333333
+ABILITY_TRACE downstrike salt direction=1 pos=(480.0, 359.9449) velocity=(0.0, 0.0) hp=5 energy=20 attack=0.31111111111111
+ABILITY_TRACE phase salt direction=1 pos=(480.0, 360.0) hp=5 energy=8 exceptions=0
+ABILITY_TRACE resonance salt direction=1 pos=(482.225, 360.0) hp=5 energy=0 attack=0.45 cooldown=1.33333333333333
+ABILITY_TRACE gate pos=(480.0, 360.0) energy=5 exceptions=0
+ABILITY_TRACE resonance_hits inside=18 outside=20 energy=0 attack=0.30072463768116
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=15 retired=8
+PLAYER_ABILITY_ART checks=141 failures=0
+
+
+final-native/player_basic_attack_vfx.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PLAYER_BASIC_ATTACK_VFX checks=2055 failures=0
+
+
+final-native/player_contact_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+CONTACT_TRACE basic crimson direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6
+CONTACT_TRACE basic crimson direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6
+CONTACT_TRACE skill crimson id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=86.4
+CONTACT_TRACE skill crimson id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=86.4
+CONTACT_TRACE skill crimson id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=86.4
+CONTACT_TRACE skill crimson id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=86.4
+CONTACT_TRACE skill crimson id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=86.4
+CONTACT_TRACE skill crimson id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=86.4
+CONTACT_TRACE basic bell direction=-1 enemy_hp=37 knockback=-460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0
+CONTACT_TRACE basic bell direction=1 enemy_hp=37 knockback=460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0
+CONTACT_TRACE skill bell id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=135.0
+CONTACT_TRACE skill bell id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=135.0
+CONTACT_TRACE skill bell id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=135.0
+CONTACT_TRACE skill bell id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=135.0
+CONTACT_TRACE skill bell id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=135.0
+CONTACT_TRACE skill bell id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=135.0
+CONTACT_TRACE basic salt direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0
+CONTACT_TRACE basic salt direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0
+CONTACT_TRACE skill salt id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=162.0
+CONTACT_TRACE skill salt id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=162.0
+CONTACT_TRACE skill salt id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=162.0
+CONTACT_TRACE skill salt id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=162.0
+CONTACT_TRACE skill salt id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=162.0
+CONTACT_TRACE skill salt id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=162.0
+CONTACT_TRACE twin first=39 second=39 energy=100
+CONTACT_TRACE distinct hp=38 other=39
+CONTACT_TRACE fatal hp=-1 dying=true energy=75 knockback=0.0
+CONTACT_TRACE reentrant hp=38 energy=100 knockback=560.0
+CONTACT_TRACE pogo chain=1 hp=5 energy=100 velocity=(0.0, -744.0)
+AUDIO_RETIREMENT pending=0 elapsed_msec=56 observed=59 retired=19
+PLAYER_CONTACT_ART checks=190 failures=0
+
+
+final-native/seal_combat.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+POT_FLIGHT_CASE direction=-1 drop=0 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=-1 drop=20 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=20 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=180 range_limited=false blocked=false landed=false warned_after_limit=false damage=0
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=true blocked=false landed=false warned_after_limit=false damage=0
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=false blocked=true landed=true warned_after_limit=true damage=0
+PLAYER_SKILL_ART_VALIDATION checks=254 failures=0 families=3 frames=24
+SEAL_COMBAT_VALIDATION PASS checks=194 failures=0
+
+
+final-native/seal_presentation.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+SEAL_PRESENTATION_VALIDATION: 177 checks, 0 failures
+
+
+synced-runtime/fragile_gate_crack.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+动作唤醒旧机关，回访通路永久接通。
+棘根底部的铭牌
+FRAGILE_GATE_CRACK_PASS checks=14
+
+
+synced-runtime/hero_animation.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+HERO_ANIMATION_VALIDATION checks=342 failures=0
+
+
+synced-runtime/player_action_sfx_sync.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_ACTION_SFX_SYNC_REPORT {"heavy_impact_after_press":0.117}
+PLAYER_ACTION_SFX_SYNC_PASS checks=17
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2641)
+
+
+synced-runtime/player_basic_attack_vfx.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_BASIC_ATTACK_VFX checks=2055 failures=0
+
+
+synced-runtime/player_melee_feedback.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_MELEE_FEEDBACK_PASS checks=85 hardware=simulated physical_feel=unverified
+
+
+synced-runtime/player_motion_continuity.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+IDLE_SOLE_CENTER pose=0 source_x=186.223262 correction_x=0.000000
+IDLE_SOLE_CENTER pose=1 source_x=187.667973 correction_x=-1.444711
+IDLE_SOLE_CENTER pose=2 source_x=186.765838 correction_x=-0.542576
+IDLE_SOLE_CENTER pose=3 source_x=185.263814 correction_x=0.959448
+PLAYER_MOTION_CONTINUITY checks=1196 failures=0
+
+
+synced-runtime/seal_presentation.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+SEAL_PRESENTATION_VALIDATION: 177 checks, 0 failures
+
+
+trap-final-native/player_contact_art.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+CONTACT_TRACE basic crimson direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6
+CONTACT_TRACE basic crimson direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=44 damage=1 duration=0.29565217391304 windup=0.06 active=0.15373913043478 range=68.8 height=73.6
+CONTACT_TRACE skill crimson id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=86.4
+CONTACT_TRACE skill crimson id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=86.4
+CONTACT_TRACE skill crimson id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=86.4
+CONTACT_TRACE skill crimson id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=86.4
+CONTACT_TRACE skill crimson id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=86.4
+CONTACT_TRACE skill crimson id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=86.4
+CONTACT_TRACE basic bell direction=-1 enemy_hp=37 knockback=-460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0
+CONTACT_TRACE basic bell direction=1 enemy_hp=37 knockback=460.0 hp=5 energy=44 damage=3 duration=0.61538461538462 windup=0.1 active=0.32 range=157.5 height=135.0
+CONTACT_TRACE skill bell id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=135.0
+CONTACT_TRACE skill bell id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=135.0
+CONTACT_TRACE skill bell id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=135.0
+CONTACT_TRACE skill bell id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=135.0
+CONTACT_TRACE skill bell id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=135.0
+CONTACT_TRACE skill bell id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=135.0
+CONTACT_TRACE basic salt direction=-1 enemy_hp=39 knockback=-320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0
+CONTACT_TRACE basic salt direction=1 enemy_hp=39 knockback=320.0 hp=5 energy=39 damage=1 duration=0.37777777777778 windup=0.06 active=0.19644444444444 range=129.0 height=138.0
+CONTACT_TRACE skill salt id=cleave hp=5 energy=75 damage=3 duration=0.61 windup=0.18 active=0.15 range=115.0 height=162.0
+CONTACT_TRACE skill salt id=crosscut hp=5 energy=70 damage=2 duration=0.65 windup=0.15 active=0.2 range=170.0 height=162.0
+CONTACT_TRACE skill salt id=needle hp=5 energy=80 damage=2 duration=0.46 windup=0.12 active=0.12 range=420.0 height=162.0
+CONTACT_TRACE skill salt id=snare hp=5 energy=70 damage=1 duration=0.72 windup=0.22 active=0.2 range=145.0 height=162.0
+CONTACT_TRACE skill salt id=ward hp=5 energy=80 damage=1 duration=0.78 windup=0.08 active=0.55 range=0.0 height=162.0
+CONTACT_TRACE skill salt id=shockwave hp=5 energy=65 damage=3 duration=0.78 windup=0.25 active=0.18 range=160.0 height=162.0
+CONTACT_TRACE twin first=39 second=39 energy=100
+CONTACT_TRACE distinct hp=38 other=39
+CONTACT_TRACE fatal hp=-1 dying=true energy=75 knockback=0.0
+CONTACT_TRACE reentrant hp=38 energy=100 knockback=560.0
+CONTACT_TRACE pogo chain=1 hp=5 energy=100 velocity=(0.0, -744.0)
+AUDIO_RETIREMENT pending=0 elapsed_msec=34 observed=60 retired=20
+PLAYER_CONTACT_ART checks=190 failures=0
+
+
+trap-final-native/seal_combat.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+POT_FLIGHT_CASE direction=-1 drop=0 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=-1 drop=20 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=20 range_limited=false blocked=false landed=true warned_after_limit=true damage=2
+POT_FLIGHT_CASE direction=1 drop=180 range_limited=false blocked=false landed=false warned_after_limit=false damage=0
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=true blocked=false landed=false warned_after_limit=false damage=0
+POT_FLIGHT_CASE direction=1 drop=0 range_limited=false blocked=true landed=true warned_after_limit=true damage=0
+PLAYER_SKILL_ART_VALIDATION checks=254 failures=0 families=3 frames=24
+SEAL_COMBAT_VALIDATION PASS checks=195 failures=0
+
+
+trap-tool-native/tool_practice.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=72 observed=14 retired=6
+PLAYER_TOOL_ART_VALIDATION checks=312 failures=0 families=4 frames=28
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 通过旧通路。
+PASS all four tools have a practice puppet
+PASS all four tools have a suited encounter
+PASS shard build page names its practice spot and encounter
+PASS shard build page encounter names the planned room
+PASS mine build page names its practice spot and encounter
+PASS mine build page encounter names the planned room
+PASS fog build page names its practice spot and encounter
+PASS fog build page encounter names the planned room
+PASS lure build page names its practice spot and encounter
+PASS lure build page encounter names the planned room
+PASS shard has a practice plan
+苔钟庭
+PASS shard fixture reaches demo_ch01_moss_bell_court
+PASS shard practice puppet exists
+PASS shard puppet stands in its practice room
+PASS shard puppet stands on the workshop floor
+PASS shard puppet stands in the open anteroom, before the ability gate
+PASS shard practice room has no real enemies, so free tool use cannot farm them
+PASS shard equips in a compatible tool position
+PASS shard fixture stands in the practice room
+PASS shard can be used in the practice room
+PASS shard practice use keeps the carried stock
+PASS shard can be practised with an empty stock
+PASS shard empty-stock practice gives nothing to carry away
+PASS shard saved stock is unchanged by practice
+PASS shard practice pays no currency or materials
+PASS shard puppet never dies
+PASS shard puppet is knocked down, not killed
+PASS shard puppet stands back up
+PASS knocking down a puppet is not a kill and pays nothing
+归途重新开始，敌群与守门者已经归位。
+PASS a death reset keeps the tool puppet
+PASS a death reset keeps both skill practice racks
+PASS a real normal melee swing hits the tool puppet
+PASS all puppet hit energy is practice-only thread
+PASS leaving practice removes every point of puppet-earned thread
+PASS mine has a practice plan
+铸雨渠
+PASS mine fixture reaches demo_ch02_rain_foundry_canal
+PASS mine practice puppet exists
+PASS mine puppet stands in its practice room
+PASS mine puppet stands on the workshop floor
+PASS mine puppet stands in the open anteroom, before the ability gate
+PASS mine practice room has no real enemies, so free tool use cannot farm them
+PASS mine equips in a compatible tool position
+PASS mine fixture stands in the practice room
+PASS mine can be used in the practice room
+PASS mine practice use keeps the carried stock
+PASS mine can be practised with an empty stock
+PASS mine empty-stock practice gives nothing to carry away
+PASS mine saved stock is unchanged by practice
+PASS mine practice pays no currency or materials
+PASS mine puppet never dies
+PASS a trip spike is laid in the puppet's path
+PASS mine puppet walks toward the player
+PASS mine puppet is tripped by the spike
+PASS fog has a practice plan
+盐白书库
+PASS fog fixture reaches demo_ch03_saltwhite_archive
+PASS fog practice puppet exists
+PASS fog puppet stands in its practice room
+PASS fog puppet stands on the workshop floor
+PASS fog puppet stands in the open anteroom, before the ability gate
+PASS fog practice room has no real enemies, so free tool use cannot farm them
+PASS fog equips in a compatible tool position
+PASS fog fixture stands in the practice room
+PASS fog can be used in the practice room
+PASS fog practice use keeps the carried stock
+PASS fog can be practised with an empty stock
+PASS fog empty-stock practice gives nothing to carry away
+PASS fog saved stock is unchanged by practice
+PASS fog practice pays no currency or materials
+PASS fog puppet never dies
+PASS fog puppet winds up its practice beam at the player
+PASS salt fog is thrown over the puppet
+PASS salt fog blinds the puppet
+PASS a blinded puppet does not wind up another beam
+PASS the practice beam never hurts the player
+PASS lure has a practice plan
+断弦温室
+PASS lure fixture reaches demo_ch04_broken_string_greenhouse
+PASS lure practice puppet exists
+PASS lure puppet stands in its practice room
+PASS lure puppet stands on the workshop floor
+PASS lure puppet stands in the open anteroom, before the ability gate
+PASS lure practice room has no real enemies, so free tool use cannot farm them
+PASS lure equips in a compatible tool position
+PASS lure fixture stands in the practice room
+PASS lure can be used in the practice room
+PASS lure practice use keeps the carried stock
+PASS lure can be practised with an empty stock
+PASS lure empty-stock practice gives nothing to carry away
+PASS lure saved stock is unchanged by practice
+PASS lure practice pays no currency or materials
+PASS lure puppet never dies
+PASS the echo bell is rung near the puppet
+PASS the puppet hears the bell
+PASS a lured puppet heads for the bell, away from the player
+盐白书库
+PASS fog equips in a compatible tool position
+战具提示 · 盐雾瓶：封存书堆里有会远程擦除的法警；先用盐雾瓶罩住他，再处理近身的书虫。
+PASS fixture enters the fog encounter room
+PASS entering the room with salt fog equipped shows its encounter hint
+PASS the encounter hint is remembered
+PASS the encounter hint is shown only once
+TOOL_PRACTICE checks=98 failures=0
+
+
+synced-prewarm/character_art_prewarm.log
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PLAYER_ART_PREWARM checks=312 failures=0 ready_usec=5246
+CHARACTER_ART_PREWARM checks=885 failures=0 sync_loads=0
+

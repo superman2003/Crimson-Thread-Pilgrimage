@@ -1,0 +1,48 @@
+{
+  "results": [
+    {
+      "suite": "seal_combat",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "SEAL_COMBAT_VALIDATION PASS checks=195 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/seal_combat_validation.gd"
+      ]
+    },
+    {
+      "suite": "player_contact_art",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "PLAYER_CONTACT_ART checks=190 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/player_contact_art_validation.gd",
+        "--fixed-fps",
+        "60",
+        "--",
+        "--output=C:/Users/Administrator/.codex/worktrees/hero-motion-v7/Crimson-Thread-Pilgrimage/artifacts/hero_motion_v8/trap-final-native/actual-attacks"
+      ]
+    }
+  ]
+}

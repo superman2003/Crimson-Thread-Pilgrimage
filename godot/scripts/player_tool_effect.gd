@@ -147,10 +147,6 @@ func _draw() -> void:
     if art_family.is_empty():
         return
     SKILL_ART.draw_frame(self, art_family, SKILL_ART.active_frame(art_family, elapsed), direction)
-    if art_family == "snare":
-        # Appearance does not delay the original active control radius.
-        draw_arc(Vector2.ZERO,36,0,TAU,32,Color(.08,.1,.12,.8),3,true)
-        draw_arc(Vector2.ZERO,36,0,TAU,32,Color(.9,.92,.84,.7),1,true)
 
 func _finish_skill(reason: String, point: Vector2) -> void:
     if is_queued_for_deletion():

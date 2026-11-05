@@ -1,7 +1,6 @@
 extends SceneTree
 ## A staged real-GL capture of the production Player poses and VFX helper.
 ## Fixed time steps, no user's save, combat AI or game state is loaded.
-const VFX := preload("res://scripts/player_basic_attack_vfx.gd")
 class QuietPlayer extends "res://scripts/player_controller.gd":
     func _play_sfx(_key: String, _volume: float = -5.0, _pitch: float = 1.0, _voice_key: String = "", _priority: int = 1) -> void:
         pass
@@ -33,8 +32,8 @@ func run() -> void:
     root.content_scale_size = Vector2i(1280, 720)
     root.get_viewport().transparent_bg = false
     RenderingServer.set_default_clear_color(Color("11181e"))
-    label_at("绯线巡礼  /  普攻刀光", Vector2(40, 20), 29, Color("f7e7d4"))
-    label_at("Pixel VFX Forge · 绯红拖尾 / 骨色刀锋 · 实际角色叠加", Vector2(42, 62), 17, Color("acb0af"))
+    label_at("绯线巡礼  /  攻击去除程序线条", Vector2(40, 20), 29, Color("f7e7d4"))
+    label_at("正式挥剑动作 · 原攻击时钟 · 无额外刀带或线条", Vector2(42, 62), 17, Color("acb0af"))
     var specs := [
         ["右向横斩", Vector2.RIGHT, 1, false], ["左向横斩", Vector2.LEFT, -1, false],
         ["上挑 · 右", Vector2.UP, 1, false], ["上挑 · 左", Vector2.UP, -1, false],
