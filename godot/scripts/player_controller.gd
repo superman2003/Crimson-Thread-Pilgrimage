@@ -262,6 +262,9 @@ const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest
 # The source poses change their stance slightly; this removes the whole-body
 # side-to-side drift without replacing the authored breathing/cape frames.
 const IDLE_FOOT_CENTER_X := [186.223262, 187.667973, 186.765838, 185.263814]
+var idle_foot_centers: Array = IDLE_FOOT_CENTER_X.duplicate()
+var grounded_pose_foot_centers: Dictionary = {}
+var use_layered_idle := true
 # Preserve the authored nominal cadence (285 px/s, four poses at 12 fps), but
 # advance it from collision-resolved ground travel rather than a wall clock.
 const RUN_CYCLE_DISTANCE := 95.0
@@ -440,10 +443,11 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
-    layered_idle = LAYERED_IDLE.new()
-    if not layered_idle.attach(sprite):
-        layered_idle.free()
-        layered_idle = null
+    if use_layered_idle:
+        layered_idle = LAYERED_IDLE.new()
+        if not layered_idle.attach(sprite):
+            layered_idle.free()
+            layered_idle = null
     build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed,
         "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
         "heal_amount": heal_amount, "heal_duration": heal_duration}
@@ -1703,9 +1707,14 @@ func _pose_ground_run() -> void:
 
 func _sync_sprite_pose_anchor() -> void:
     sprite.offset = Vector2.ZERO
-    if sprite.animation == &"idle" and sprite.frame < IDLE_FOOT_CENTER_X.size():
-        var correction: float = IDLE_FOOT_CENTER_X[0] - IDLE_FOOT_CENTER_X[sprite.frame]
+    if sprite.animation == &"idle" and sprite.frame < idle_foot_centers.size():
+        var correction: float = float(idle_foot_centers[0]) - float(idle_foot_centers[sprite.frame])
         sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
+    elif grounded_pose_foot_centers.has(String(sprite.animation)):
+        var centers: Array = grounded_pose_foot_centers[String(sprite.animation)]
+        if sprite.frame < centers.size():
+            var correction: float = float(idle_foot_centers[0]) - float(centers[sprite.frame])
+            sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
     if is_instance_valid(layered_idle):
         layered_idle.sync_pose()
 
@@ -2374,6 +2383,10 @@ func _load_sprite_frames() -> void:
     if typeof(data) != TYPE_DICTIONARY:
         push_error("Invalid lumen animation manifest.")
         return
+
+    use_layered_idle = String(data.get("idle_presentation", "layered")) != "full_body"
+    idle_foot_centers = data.get("idle_foot_center_x", IDLE_FOOT_CENTER_X).duplicate()
+    grounded_pose_foot_centers = data.get("grounded_pose_foot_center_x", {}).duplicate(true)
 
     if data.has("frames"):
         sprite.sprite_frames = _load_generated_hero_frames(data)

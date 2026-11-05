@@ -44,6 +44,14 @@ func run() -> void:
             check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" imports complete padded pixels")
             if cel!=null: ability_cels[cel.resource_path] = true
     check(ability_cels.size()==46,"nine ability families use forty-six distinct new cels")
+    for anim in ["idle","attack_2"]:
+        var count := 8 if anim=="idle" else 6
+        check(sprite.sprite_frames.get_frame_count(anim)==count,anim+" uses all complete-body new drawings")
+        check(is_equal_approx(sprite.sprite_frames.get_animation_speed(anim),5.0 if anim=="idle" else 15.0),anim+" uses reviewed visual cadence")
+        check(sprite.sprite_frames.get_animation_loop(anim)==(anim=="idle"),anim+" retains its intended loop behavior")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var cel := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v9/frames/"+anim+"_"),anim+" loads its versioned authored body cel")
     check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
     for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:

@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "suite": "player_idle_motion",
+      "passed": false,
+      "exit_code": 1,
+      "errors": [
+        "\nERROR: IDLE_MOTION: drawn anticipation and settle return both boots close to idle support",
+        "ERROR: IDLE_MOTION: drawn anticipation and settle return both boots close to idle support",
+        "ERROR: IDLE_MOTION: drawn anticipation and settle return both boots close to idle support",
+        "ERROR: IDLE_MOTION: drawn anticipation and settle return both boots close to idle support"
+      ],
+      "marker": null,
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/player_idle_motion_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    }
+  ]
+}

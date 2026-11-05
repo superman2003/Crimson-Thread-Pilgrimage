@@ -1,5 +1,5 @@
 extends SceneTree
-## Real floor/wall physics and the production four-pose sprite. This validates
+## Real floor/wall physics and the complete production pose sequences. This validates
 ## registration/state/phase, not the subjective quality of the source artwork.
 class ProbePlayer extends "res://scripts/player_controller.gd":
     var samples: Array[Dictionary] = []
@@ -89,20 +89,20 @@ func _sole_center(image: Image, left: int, right: int) -> float:
 func _check_idle_registration() -> void:
     var sprite := player.sprite
     var frames := sprite.sprite_frames
-    _check(frames.get_frame_count(&"idle") == 4, "Idle retains all four authored breathing/cape poses")
+    _check(frames.get_frame_count(&"idle") == 8, "Idle uses eight complete authored breathing poses")
     var centers: Array[float] = []
-    for frame in range(4):
+    for frame in frames.get_frame_count(&"idle"):
         var image := frames.get_frame_texture(&"idle", frame).get_image()
         var center := (_sole_center(image, 150, 185) + _sole_center(image, 185, 220)) * 0.5
         centers.append(center)
-        print("IDLE_SOLE_CENTER pose=%d source_x=%.6f correction_x=%.6f" % [frame, center, player.IDLE_FOOT_CENTER_X[0] - player.IDLE_FOOT_CENTER_X[frame]])
-        _check(absf(center - player.IDLE_FOOT_CENTER_X[frame]) < 0.001,
+        print("IDLE_SOLE_CENTER pose=%d source_x=%.6f correction_x=%.6f" % [frame, center, player.idle_foot_centers[0] - player.idle_foot_centers[frame]])
+        _check(absf(center - player.idle_foot_centers[frame]) < 0.001,
             "Idle source foot registration matches actual pixels, pose %d" % frame)
     player.set_physics_process(false)
     for flip in [false, true]:
         sprite.flip_h = flip
-        for frame in range(4):
-            player._pose_progress(&"idle", float(frame) / 4.0)
+        for frame in frames.get_frame_count(&"idle"):
+            player._pose_progress(&"idle", float(frame) / frames.get_frame_count(&"idle"))
             var registered_x: float = (centers[frame] - 192.0) * (-1.0 if flip else 1.0) + sprite.offset.x
             var reference_x: float = (centers[0] - 192.0) * (-1.0 if flip else 1.0)
             _check(absf(registered_x - reference_x) < 0.001,
@@ -192,7 +192,8 @@ func _check_death_timer_boundary() -> void:
             _check(notifications.respawns == before + 1,
                 "Expiry emits exactly one existing respawn signal")
             _check(is_equal_approx(float(player.flash_material.get_shader_parameter("presentation_alpha")), 0.0)
-                and player.layered_idle.active, "Expiry starts the idle layers hidden at the checkpoint")
+                and player.layered_idle==null and player.sprite.material==player.flash_material,
+                "Expiry starts the complete body idle hidden by its original shader at the checkpoint")
             _release()
             # Manual ticks share one engine input frame. Advance that frame so
             # the earlier attack press is not still reported as just_pressed.
@@ -348,7 +349,7 @@ func _run() -> void:
         _check(sample.sprite_position == sprite_before and sample.sprite_scale == scale_before,
             "Idle registration does not move/scale the sprite node")
         _check(sample.camera_position == camera_before, "Stationary idle does not move the camera target")
-    _check(seen_frames.size() == 4, "Continuous idle still displays four breathing poses")
+    _check(seen_frames.size() == 8, "Continuous idle displays all eight complete breathing poses")
 
     await _reset()
     var initial_phase := player.run_cycle_phase
