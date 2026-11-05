@@ -24,6 +24,9 @@ on:
       - 'godot/assets/sprites/player/generated_hero_v3/manifest.json'
       - 'godot/scripts/enemy_actor.gd'
       - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/npc_dialogue_motion*.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/check_npc_motion_v10_native.py'
       - 'godot/scripts/hand_drawn_assets.gd'
       - 'godot/scripts/character_art_*.gd'
       - 'godot/scripts/world_gameplay_prefetch.gd'
@@ -81,7 +84,7 @@ jobs:
           python3 tools/run_godot_regressions.py \
             --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
             --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
-            --suite hero_animation --suite player_motion_continuity --suite player_idle_motion \
+            --suite hero_animation --suite player_motion_continuity --suite player_idle_motion --suite npc_dialogue_motion \
             --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
             --suite seal_combat --suite seal_identity \
             --suite player_basic_attack_vfx --suite player_melee_feedback --suite seal_presentation \
