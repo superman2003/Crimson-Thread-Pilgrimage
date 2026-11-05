@@ -60,6 +60,8 @@ class CompletionContractTests(unittest.TestCase):
             'player_basic_attack_vfx', 'dialog_viewport_fit',
             'dialog_dpad_focus',
             'reading_scroll',
+            'boss_move_matrix',
+            'boss_move_matrix_late',
             'parallax_layout',
             'combat_input_events',
             'hazard_readability',

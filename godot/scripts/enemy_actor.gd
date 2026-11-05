@@ -135,6 +135,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
             get_parent()._ensure_collision_segment(point, point + effect.heading * effect.length)
         var query := PhysicsRayQueryParameters2D.create(point, point + effect.heading * effect.length, 1)
         query.collide_with_areas = false
+        query.exclude = ATTACK_EFFECT.player_bodies(get_tree())
         var obstruction := get_world_2d().direct_space_state.intersect_ray(query)
         if get_parent().has_method("_rock_ray_hit"):
             var rock: Dictionary = get_parent()._rock_ray_hit(point, point + effect.heading * effect.length)
