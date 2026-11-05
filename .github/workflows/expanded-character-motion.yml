@@ -81,7 +81,7 @@ jobs:
             --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
             --suite seal_combat --suite seal_identity \
             --suite player_basic_attack_vfx --suite player_melee_feedback --suite seal_presentation \
-            --suite player_contact_art --suite combat_visual_budget \
+            --suite player_contact_art --suite combat_visual_budget --suite tool_practice \
             --suite enemy_lifecycle_regression --suite enemy_visibility --suite boss_trial \
             --timeout 180 --log-dir "$RUNNER_TEMP/motion-logs/runtime"
       - uses: actions/upload-artifact@v4

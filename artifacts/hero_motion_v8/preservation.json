@@ -1,5 +1,5 @@
 {
-  "base": "e90d4d85bd4d77c8904f7478c51cf6aacdaaa4ae",
+  "base": "cdccb61bad62b427d7c9cc45678a77d9f49df8f2",
   "original_png_files_preserved": 174,
   "unaffected_runtime_cels": 102,
   "untouched_animation_bindings": 22,
@@ -714,12 +714,20 @@
       "_try_resonance",
       "_update_phase"
     ],
-    "removed_visual_factories": [
+    "removed_functions": [
       "_ability_ring",
       "_make_glow_twin",
       "_spawn_legacy_skill_slash_vfx",
       "_spawn_slash_vfx"
     ],
-    "other_functions_unchanged": 118
+    "other_functions_unchanged": 120
+  },
+  "original_stage_base": "e90d4d85bd4d77c8904f7478c51cf6aacdaaa4ae",
+  "tool_effect_presentation_changes": {
+    "changed_functions": [
+      "_draw"
+    ],
+    "removed_functions": [],
+    "other_functions_unchanged": 8
   }
 }

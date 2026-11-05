@@ -10,7 +10,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT = ['player_basic_attack_vfx', 'seal_presentation', 'player_contact_art',
            'hero_animation', 'seal_combat', 'player_ability_art',
-           'combat_visual_budget', 'character_art_prewarm']
+           'combat_visual_budget', 'character_art_prewarm', 'tool_practice']
 
 
 def main():
@@ -33,20 +33,33 @@ def main():
             cmd = [args.engine, '--path', str(ROOT/'godot'), '--rendering-method',
                    'gl_compatibility', '--audio-driver', 'Dummy', '--position',
                    '-20000,-20000', '--script', f'res://scripts/{suite}_validation.gd']
-            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm']:
+            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm', 'tool_practice']:
                 cmd += ['--fixed-fps', '60']
             if suite == 'player_contact_art':
                 cmd += ['--', '--output='+captures.as_posix()]
             env = dict(os.environ, APPDATA=str(Path(scratch)/suite), XDG_DATA_HOME=str(Path(scratch)/suite))
-            result = subprocess.run(cmd, env=env, stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT, timeout=240)
-            text = result.stdout.decode('utf-8', errors='replace').replace('\r\n', '\n')
+            process = subprocess.Popen(cmd, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            timed_out = False
+            try:
+                output, _ = process.communicate(timeout=240)
+            except subprocess.TimeoutExpired:
+                timed_out = True
+                # The Windows console binary launches a second Godot process.
+                # Retire that whole owned tree so it cannot retain the output pipe.
+                if os.name == 'nt':
+                    subprocess.run(['taskkill', '/PID', str(process.pid), '/T', '/F'],
+                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=15)
+                else:
+                    process.kill()
+                output, _ = process.communicate(timeout=15)
+            text = output.decode('utf-8', errors='replace').replace('\r\n', '\n')
+            if timed_out: text += '\nERROR: Native acceptance timed out after 240 seconds\n'
             (out/(suite+'.log')).write_text(text, encoding='utf-8')
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', text, re.M)
             matched = re.search(markers[suite], text, re.M)
             real_gl = 'OpenGL API' in text and 'headless' not in text
-            passed = result.returncode == 0 and not errors and matched is not None and real_gl
-            records.append({'suite':suite, 'passed':passed, 'exit_code':result.returncode,
+            passed = process.returncode == 0 and not errors and matched is not None and real_gl
+            records.append({'suite':suite, 'passed':passed, 'exit_code':process.returncode,
                             'errors':errors, 'marker':matched.group(0) if matched else None,
                             'command':cmd})
             (out/'verification.json').write_text(json.dumps({'results':records}, indent=2)+'\n', encoding='utf-8')

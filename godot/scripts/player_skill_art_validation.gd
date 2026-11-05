@@ -150,7 +150,6 @@ func _pixels(tree:SceneTree)->void:
                     var a:=actual.get_data();var b:=expected.get_data();var max_error:=0;var visible:=0
                     for y in range(size.y):
                         for x in range(size.x):
-                            if index==2 and frame<6 and absf((Vector2(offset+Vector2i(x,y))+Vector2(.5,.5)).length()-36)<3.5:continue
                             if frame==2:
                                 var pixel:=actual.get_pixel(x,y)
                                 if Vector3(pixel.r-background.color.r,pixel.g-background.color.g,pixel.b-background.color.b).length()>.1:visible+=1
