@@ -12,9 +12,13 @@ var frames := 0
 var failures: Array[String] = []
 var crossings: Array = []
 var combat: Dictionary = {}
+var focus_events: Array = []
 
 func _initialize() -> void:
     call_deferred("run")
+
+func record_focus(focused: bool) -> void:
+    focus_events.append({"focused":focused,"physics_frame":Engine.get_physics_frames()})
 
 func check(ok: bool, message: String) -> void:
     checks += 1
@@ -61,6 +65,9 @@ func axis(direction: float) -> void:
         Input.action_press("move_right" if direction > 0 else "move_left")
 
 func press(action: String) -> void:
+    # A screenshot resumes after frame_post_draw, after the host's input poll.
+    # Put the synthetic edge before the next poll without changing held frames.
+    await process_frame
     Input.action_press(action)
     await tick(2)
     Input.action_release(action)
@@ -229,6 +236,12 @@ func interactions(records: Dictionary) -> void:
     var saved := STATE.new()
     check(saved.read(SAVE) and String(saved.get_region(MOSS).get("checkpoint_id","")) == String(shrine.name),"reused shrine records checkpoint")
     if not await walk(npc.position,"reused NPC"): return
+    var approach_motion := npc.get_node_or_null("FriendlyFamilySprite")
+    check(approach_motion != null and approach_motion.has_method("greet_on_approach") \
+        and int(approach_motion.get("last_approach_greeting_msec")) >= 0 \
+        and not bool(approach_motion.get("conversation_active")),
+        "reused NPC greets on physical approach before dialogue opens")
+    await capture_review("live_04_npc_greeting.jpg")
     await press("interact")
     check(scene.active_overlay == "dialogue" and npc.get_meta("dialogue_index",0) > 0,"reused NPC opens live dialogue through input")
     await press("interact")
@@ -238,6 +251,13 @@ func interactions(records: Dictionary) -> void:
     scene._close_overlays()
 
 func run() -> void:
+    # SceneTree initialization applies project window flags after _initialize.
+    # Configure the offscreen window here, before any held synthetic action.
+    if DisplayServer.get_name() != "headless":
+        root.focus_entered.connect(record_focus.bind(true))
+        root.focus_exited.connect(record_focus.bind(false))
+        root.unfocusable = true
+        check(root.unfocusable,"background input fixture does not take desktop focus")
     for suffix in ["",".bak",".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
     scene = load("res://scenes/World.tscn").instantiate()
@@ -282,7 +302,9 @@ func run() -> void:
     await tick(4)
     for suffix in ["",".bak",".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
-    var result := {"crossings":crossings,"combat":combat,"physics_frames":frames,"initial_checkpoint_fixture":true,"damage_suppression":false,"six_region_playthrough":false,"failures":failures.size()}
+    if DisplayServer.get_name() != "headless":
+        check(root.unfocusable,"background focus policy survives scene replacement")
+    var result := {"crossings":crossings,"combat":combat,"physics_frames":frames,"initial_checkpoint_fixture":true,"damage_suppression":false,"six_region_playthrough":false,"failures":failures.size(),"test_window_unfocusable":root.unfocusable,"focus_events":focus_events}
     if DisplayServer.get_name() != "headless":
         result.renderer = "real OpenGL"
         var output := FileAccess.open("res://../artifacts/neighbor_gameplay/gpu_live.json",FileAccess.WRITE)

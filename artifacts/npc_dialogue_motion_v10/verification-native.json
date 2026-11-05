@@ -22,7 +22,28 @@
         "--fixed-fps",
         "60"
       ],
-      "log": "callback-contract-native/npc_dialogue_motion.log"
+      "log": "callback-final-native/npc_dialogue_motion.log"
+    },
+    {
+      "suite": "world_neighbor_gameplay_live",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=52 failures=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_neighbor_gameplay_live_validation.gd"
+      ],
+      "log": "neighbor-clean-native/world_neighbor_gameplay_live.log"
     },
     {
       "suite": "expanded_character_motion",
@@ -91,5 +112,10 @@
       ],
       "log": "callback-contract-native/character_art_prewarm.log"
     }
-  ]
+  ],
+  "source_hashes": {
+    "godot/scripts/npc_dialogue_motion.gd": "ada9a4da5d3e47a24cf63e9a0728313d02324af770b14dda5e486bb4f118c063",
+    "godot/scripts/world_neighbor_gameplay_live_validation.gd": "2ba0f69cdabb73a4d4fb7e69b7d9ea3e5016716d7b6e6b0a11a3c0cec24f4840"
+  },
+  "notes": "Native live route retains normal clock; the same displayed-window branch ran before a headless-only guard was added. NPC 244 was then rerun against the final conditional source."
 }

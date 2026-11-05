@@ -16,5 +16,10 @@
     "restored": true,
     "wrong_area_rejected": true
   },
-  "linux_live_journey_still_required": true
+  "linux_live_journey_still_required": true,
+  "followup_head": "86ce22101e51a6d80cc4ffed4b9406f25073d1d0",
+  "followup_linux_live_marker": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=49 failures=0",
+  "followup_failure": "Focused workflow still required the former literal checks=48 marker. The actual live journey passed all 49 assertions, then the wrapper rejected the stale completion contract.",
+  "followup_job_id": 127177179831,
+  "completion_contract_fix": "Focused and integration GPU workflows plus their contract test now require checks=52: original 48, strict callback split +1, physical NPC approach +1, displayed-window focus checks +2. Headless executes 50 checks without the two inapplicable window assertions."
 }
