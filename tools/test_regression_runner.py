@@ -77,6 +77,7 @@ class CompletionContractTests(unittest.TestCase):
             'fragile_gate_crack',
             'hidden_drone',
             'hazard_readability',
+            'audio_construction',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still

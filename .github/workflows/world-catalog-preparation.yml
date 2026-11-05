@@ -10,6 +10,8 @@ on:
       - 'godot/scripts/world_config_read_job.gd'
       - 'godot/scripts/world_routes.gd'
       - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_construction_validation.gd'
       - 'godot/data/world_routes.json'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
@@ -63,7 +65,7 @@ jobs:
             --suite world_catalog_background --suite world_startup_config_background \
             --suite world_prepare_budget --suite world_startup_budget \
             --suite world_host --suite save_product --suite world_route_manifest_integration \
-            --suite world_gameplay_plan \
+            --suite world_gameplay_plan --suite audio_construction \
             --log-dir "$RUNNER_TEMP/world-catalog-preparation-logs"
       - name: Preserve regression logs
         if: always()

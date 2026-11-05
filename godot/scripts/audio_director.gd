@@ -552,12 +552,18 @@ func attach_explore_player(player: AudioStreamPlayer) -> void:
 
 
 func set_chapter(chapter_id: String) -> void:
-    chapter_short_id = _short_chapter_id(chapter_id)
-    _capture_base_reverb()
+    prepare_chapter(chapter_id)
     if not autoplay_enabled:
         return
     _play_explore_track(_explore_track_path())
     _start_ambience()
+
+
+## World preparation admits exploration and ambience on separate budgeted jobs.
+## Direct callers retain the synchronous set_chapter entry above.
+func prepare_chapter(chapter_id: String) -> void:
+    chapter_short_id = _short_chapter_id(chapter_id)
+    _capture_base_reverb()
 
 
 func _chapter_slug() -> String:
