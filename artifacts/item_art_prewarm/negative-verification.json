@@ -1,0 +1,20 @@
+{
+  "mutation": "Skip item descriptors while retaining character prewarm",
+  "actual_exit": 1,
+  "marker": "ITEM_ART_PREWARM checks=243 failures=29 regions=6 sync_loads=6",
+  "metrics": {
+    "item_atlases": 6,
+    "item_descriptors": 0,
+    "max_requests": 2,
+    "natural_playthrough": false,
+    "regions": 6,
+    "sync_loads": 6,
+    "world_inventory_binding": false
+  },
+  "script_errors": 0,
+  "source_sha256_before": "6e16e8545fd6ddd0fbb14bcb1ae263994517d9457e68d860d57d9bf138b213fd",
+  "test_sha256": "5c4358a84894d7163ab0353ce77823953f483c9decf7a8b3ab9d4b9d47c56d51",
+  "source_sha256_restored": "6e16e8545fd6ddd0fbb14bcb1ae263994517d9457e68d860d57d9bf138b213fd",
+  "log": "negative-final-native/item_art_prewarm.log",
+  "restored_log": "restored-native/item_art_prewarm.log"
+}
