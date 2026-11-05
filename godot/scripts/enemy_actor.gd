@@ -300,6 +300,11 @@ var sprite_base_scale := Vector2.ONE
 var body_size := Vector2.ZERO
 var hurtbox_size := Vector2.ZERO
 var hurtbox_offset := Vector2.ZERO
+## Box swept against terrain when an attack moves the actor. It keeps the
+## configured footprint even when the hit box is fitted to the drawn body.
+var motion_box_size := Vector2.ZERO
+var motion_box_offset := Vector2.ZERO
+var hurtbox_authored := false
 
 var start_x: float
 var spawn_position := Vector2.ZERO
@@ -415,6 +420,7 @@ func prepare_presentation() -> void:
     if presentation_prepared: return
     _build_shape()
     _build_sprite()
+    _fit_hurtbox_to_art()
     if is_boss: boss_skill_texture = BOSS_SKILL_ART.texture_for(kind)
     MINOR_SKILL_ART.prepare(self)
     presentation_prepared = true
@@ -542,6 +548,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
             body_size=Vector2(98 if is_boss else 35,h*.72)
         if not data.has("hurtbox_size"):
             hurtbox_size=Vector2(125 if is_boss else 48,h*.84)
+    hurtbox_authored = data.has("hurtbox_size") or data.has("hurtbox_offset")
     ai_profile["lure_eligible"] = bool(data.get("lure_eligible", ai_profile.get("lure_eligible", not is_boss and locomotion != "stationary")))
     is_elite = bool(data.get("elite", false)) and not is_boss and ai_profile.get("elite") is Dictionary
     if is_elite:
@@ -692,6 +699,62 @@ func _begin_death_dissolve() -> void:
     tween.parallel().tween_property(sprite, "position:y", sprite.position.y + 14.0, duration)
     tween.parallel().tween_property(sprite, "scale", sprite.scale * 0.90, duration)
     tween.finished.connect(Callable(self, "queue_free"))
+
+
+## C01: field enemies were hittable only through a fixed 48px-wide box while
+## their drawn bodies are 70-180px wide, so swings at a visible flank missed.
+## Fit the hit box to the drawn idle body (core 62% of its width, centred on it
+## vertically); authored boxes, Bosses and contact damage are unchanged.
+func _fit_hurtbox_to_art() -> void:
+    motion_box_size = hurtbox_size
+    motion_box_offset = hurtbox_offset
+    if is_boss or hurtbox_authored or not original_visual or not is_instance_valid(animated_sprite):
+        return
+    var frames := animated_sprite.sprite_frames
+    var animation := &"idle" if frames != null and frames.has_animation(&"idle") else animated_sprite.animation
+    var count := frames.get_frame_count(animation) if frames != null and frames.has_animation(animation) else 0
+    var width := 0.0
+    var height := 0.0
+    var core := Rect2()
+    var measured := 0
+    for index in count:
+        var drawn := _drawn_body_rect(animation, index)
+        if drawn.has_area():
+            width += drawn.size.x
+            height += drawn.size.y
+            core = drawn if measured == 0 else core.intersection(drawn)
+            measured += 1
+    if measured == 0 or not core.has_area():
+        return
+    # Keep the fixed box inside every idle pose, including the smallest one.
+    # Averaging alone put part of it in the air as bees/lancers changed pose.
+    hurtbox_size = Vector2(clampf(maxf(hurtbox_size.x, minf(width / measured * 0.62, core.size.x)), 40.0, 160.0), minf(height / measured * 0.84, core.size.y))
+    hurtbox_offset = core.get_center()
+
+
+## Opaque part of one animation frame in this actor's local space.
+func _drawn_body_rect(animation: StringName, index: int) -> Rect2:
+    var frames := animated_sprite.sprite_frames
+    if frames == null or not frames.has_animation(animation):
+        return Rect2()
+    var texture := frames.get_frame_texture(animation, index)
+    if texture == null:
+        return Rect2()
+    var size := texture.get_size()
+    var inner := Rect2(Vector2.ZERO, size)
+    if texture is AtlasTexture:
+        inner = Rect2(texture.margin.position, texture.region.size)
+    var origin := (-size * 0.5 if animated_sprite.centered else Vector2.ZERO) + animated_sprite.offset
+    var a := animated_sprite.transform * (origin + inner.position)
+    var b := animated_sprite.transform * (origin + inner.end)
+    return Rect2(Vector2(minf(a.x, b.x), minf(a.y, b.y)), (b - a).abs())
+
+
+func get_motion_rect() -> Rect2:
+    var size := motion_box_size if motion_box_size != Vector2.ZERO else (hurtbox_size if hurtbox_size != Vector2.ZERO else (Vector2(142, 144) if is_boss else Vector2(58, 56)))
+    var offset := motion_box_offset if motion_box_size != Vector2.ZERO else hurtbox_offset
+    var center := global_position + (offset if offset != Vector2.ZERO else (Vector2(0.0, -40.0) if is_boss else Vector2(0.0, -18.0)))
+    return Rect2(center - size * 0.5, size)
 
 
 func get_hurtbox_rect() -> Rect2:
