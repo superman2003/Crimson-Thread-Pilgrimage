@@ -29,3 +29,7 @@ Windows、Godot 4.6.1、NVIDIA RTX 5060、原生 OpenGL。未改的六区 `world
 303 个原音频文件逐项比对 main blob／LFS SHA256，全部一致。主控制器 458 个原函数中只改准备计划和音频构造两个函数；导演 100 个原函数中只改 `set_chapter` 的共同准备入口。播放器控制器、NPC 动作与主界面代码均与该 main 相同。[源保留记录](../../artifacts/audio_construction_v13/source-preservation.json)。
 
 新专项进入默认回归，211→212，并加入既有目录／启动准备 CI 的软件 GL 门禁。物品预热 #539 与设置拆分 #540 为独立待审升级，合并时保留各自新增专项。自然连续帧时间、初始化／发布其它尖峰、当前组合整合长跑及发布包退出仍需继续验收。
+
+## 同步已合入的物品预热
+
+已合并 main `9ed0d619`（含 #539），默认完整回归 212→213，物品与音频专项均保留。组合版本原生音频 108 项、物品 243 项（同步解码 0）与六区 504 项重新通过。七个物品／NPC／主界面文件逐 blob 对照该 main 相同，见[组合源保留](../../artifacts/audio_construction_v13/main-integration-v14.json)及[原生记录](../../artifacts/audio_construction_v13/merged-native/verification.json)。前文耗时仍是原隔离实验，未以本次组合验证重写测量。同步前 `a57f2681` 的 34 个工作流及完整 212 套已成功；新同步头 CI 另行跟进。原一次 ObjectDB warning 和旧辅助脚本失败继续保留。
