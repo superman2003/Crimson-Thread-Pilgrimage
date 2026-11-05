@@ -1,0 +1,20 @@
+{
+  "initial_head": "280d9a553c650b792be4253402fe5fbda9b66ffd",
+  "workflow_successes": 46,
+  "workflow_failures": 2,
+  "same_regression": "Old live-neighbor validation expected exactly one total entered listener on an NPC; gameplay plus greeting correctly has two.",
+  "failed_job_ids": [
+    127134394559,
+    127134394763,
+    127134395037
+  ],
+  "fix": "Compare owner, method, bound area and complete entered/exited listener totals; extra and wrongly-bound callbacks remain rejected.",
+  "local_callback_contract": {
+    "exact": true,
+    "extra_listener_rejected": true,
+    "extra_removed": true,
+    "restored": true,
+    "wrong_area_rejected": true
+  },
+  "linux_live_journey_still_required": true
+}

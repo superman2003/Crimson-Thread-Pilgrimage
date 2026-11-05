@@ -138,6 +138,12 @@ func crossing(target: String, direction: int) -> Dictionary:
         entered = entered or scene.world_passage.active
         if entered and not scene.world_passage.active and not scene.chapter_transitioning:
             break
+    if not entered or scene.world_passage.active or String(scene.config.id)!=target:
+        print("LIVE_PIPE_ENTRY_STATE ",JSON.stringify({"entered":entered,"region":String(scene.config.id),"target":target,
+            "player":scene.player.position,"velocity":scene.player.velocity,"axis":Input.get_axis("move_left","move_right"),
+            "ui_input_locked":scene.player.ui_input_locked,"overlay":scene.active_overlay,"loading":scene.world_loading,
+            "transitioning":scene.chapter_transitioning,"loader_phase":scene.world_loader.phase,
+            "passage_active":scene.world_passage.active,"last_passage":scene.world_passage.last_result}))
     release_input()
     # Inspect adoption before active destination AI has time to despawn actors.
     check(entered and String(scene.config.id) == target and scene.world_loader.phase == "idle","directional input completes authored pipe crossing")

@@ -1,12 +1,12 @@
 {
-  "base_commit": "20e28a2fdea607d84244873638dcd637163e6c58",
+  "base_commit": "4242f790eb43b684b9e86e970075350abbec13c9",
   "results": [
     {
       "suite": "npc_dialogue_motion",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "marker": "NPC_DIALOGUE_MOTION checks=239 failures=0 characters=25 actual_dialogue=true",
+      "marker": "NPC_DIALOGUE_MOTION checks=244 failures=0 characters=25 actual_dialogue=true",
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
@@ -22,7 +22,7 @@
         "--fixed-fps",
         "60"
       ],
-      "log": "delivery-native/npc_dialogue_motion.log"
+      "log": "callback-contract-native/npc_dialogue_motion.log"
     },
     {
       "suite": "expanded_character_motion",
@@ -45,7 +45,7 @@
         "--fixed-fps",
         "60"
       ],
-      "log": "final-native/expanded_character_motion.log"
+      "log": "callback-contract-native/expanded_character_motion.log"
     },
     {
       "suite": "story_guidance",
@@ -66,14 +66,14 @@
         "--script",
         "res://scripts/story_guidance_validation.gd"
       ],
-      "log": "final-native/story_guidance.log"
+      "log": "callback-contract-native/story_guidance.log"
     },
     {
       "suite": "character_art_prewarm",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "marker": "CHARACTER_ART_PREWARM checks=864 failures=0 sync_loads=0",
+      "marker": "CHARACTER_ART_PREWARM checks=858 failures=0 sync_loads=0",
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
@@ -89,7 +89,7 @@
         "--fixed-fps",
         "60"
       ],
-      "log": "final-native/character_art_prewarm.log"
+      "log": "callback-contract-native/character_art_prewarm.log"
     }
   ]
 }
