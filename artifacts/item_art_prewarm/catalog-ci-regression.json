@@ -1,0 +1,17 @@
+{
+  "first_head": "6a539e54be4bbbdd335a46e3cb1de17fc3bb31d5",
+  "failed_workflow": 42015734035,
+  "failed_job": 127205695520,
+  "error": "SchedulingHost fixture lacked inventory_counts; actual World already provides it.",
+  "fix": "Add explicit empty inventory to the scheduling host. Keep all original no-empty-frame and final-prepare-boundary assertions unchanged.",
+  "native_marker": "WORLD CATALOG BACKGROUND PASS checks=177",
+  "headless_marker": "WORLD CATALOG BACKGROUND PASS checks=177",
+  "native_log": "catalog-native/world_catalog_background.log",
+  "headless_log": "catalog-headless/world_catalog_background.log",
+  "manifest_restore": {
+    "manifest_sha256_before": "81e00d164ccbaa3e9784f964fbc377a83ae10b68eda4f393372bbba4c7ee80fc",
+    "manifest_sha256_after": "81e00d164ccbaa3e9784f964fbc377a83ae10b68eda4f393372bbba4c7ee80fc",
+    "timestamp_restored": true,
+    "fixture_host_inventory": "explicit empty inventory, matching the production host contract"
+  }
+}
