@@ -72,6 +72,7 @@ class CompletionContractTests(unittest.TestCase):
             'enemy_hurtbox_fit',
             'rest_point_safety',
             'player_action_sfx_sync',
+            'fragile_gate_crack',
             'hazard_readability',
         }
         # Keep the original 182-suite floor exact while counting each explicitly

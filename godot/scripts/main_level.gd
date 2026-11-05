@@ -3654,6 +3654,7 @@ func _region_gate(data: Dictionary) -> void:
         gate.add_to_group("phase_gate")
     if String(data.get("requires_action", "")) == "thorn_downstrike":
         gate.add_to_group("fragile_terrain")
+        gate.set_meta("gate_size", _rect2(data.get("rect", [])).size)
     var ability := String(data.get("required_ability", ""))
     if not ability.is_empty():
         var sign := Node2D.new()
@@ -3967,6 +3968,8 @@ func _spawn_player() -> void:
         player.energy_changed.connect(_on_energy_changed)
         player.player_respawned.connect(_on_player_respawned)
         player.ability_action.connect(_on_ability_action)
+    if player.has_signal("gate_struck") and not player.gate_struck.is_connected(_on_gate_struck):
+        player.gate_struck.connect(_on_gate_struck)
     if world_mode:
         player.build_system = build_system
         _sync_player_build()
@@ -8256,6 +8259,24 @@ func _toggle_build() -> void:
     ui_shell.build_panel.visible = true
     ui_shell.refresh_build()
     _sync_ui_input_lock()
+
+## An ordinary strike on a breakable floor: the floor shudders but holds.
+func _on_gate_struck(gate: Node, _point: Vector2) -> void:
+    if not is_instance_valid(gate) or not gate.is_inside_tree():
+        return
+    gate.set_meta("crack_count", int(gate.get_meta("crack_count", 0)) + 1)
+    for child in gate.get_children():
+        # Only the drawing shudders; the collision the player stands on stays put.
+        if not child is Node2D or child is CollisionShape2D or child is CollisionPolygon2D:
+            continue
+        if not child.has_meta("shudder_base"):
+            child.set_meta("shudder_base", child.position)
+        var base: Vector2 = child.get_meta("shudder_base")
+        var tween := child.create_tween()
+        tween.tween_property(child, "position", base + Vector2(3, 1), 0.04)
+        tween.tween_property(child, "position", base + Vector2(-2, 0), 0.04)
+        tween.tween_property(child, "position", base, 0.05)
+
 
 func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2) -> void:
     if _walking_world_passage():
