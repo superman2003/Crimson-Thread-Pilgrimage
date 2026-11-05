@@ -1,0 +1,61 @@
+{
+  "platform": "Windows native GL",
+  "accepted_as_pass": true,
+  "previous_attempt": {
+    "accepted_as_pass": false,
+    "platform": "Windows native GL",
+    "observation": "Pipe was entered but destination had not been reached within the existing test budget. No assertion or budget was relaxed.",
+    "state": {
+      "axis": 0.0,
+      "entered": true,
+      "last_passage": {},
+      "loader_phase": "idle",
+      "loading": true,
+      "overlay": "",
+      "passage_active": true,
+      "player": "(6421.759, 3756.269)",
+      "region": "demo_ch01_moss_bell_court",
+      "target": "demo_ch02_rain_foundry_canal",
+      "transitioning": false,
+      "ui_input_locked": false,
+      "velocity": "(0.0, 0.0)"
+    },
+    "marker": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=18 failures=10"
+  },
+  "resolution": "Configure the offscreen window unfocusable in deferred run, after project window initialization. Align synthetic action edges before the next process poll after a frame_post_draw capture. Production movement and traversal budgets are unchanged.",
+  "final_marker": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=52 failures=0",
+  "log": "neighbor-clean-native/world_neighbor_gameplay_live.log",
+  "result": {
+    "combat": {
+      "actor_id": 602805377308,
+      "direct_damage_calls": false,
+      "hp_after_hit": 3,
+      "hp_before": 4,
+      "killed": true,
+      "reward_delta": 8
+    },
+    "crossings": [
+      {
+        "damage_suppression": false,
+        "distance": 8573.87526130676,
+        "reused": 5,
+        "target": "demo_ch02_rain_foundry_canal"
+      },
+      {
+        "damage_suppression": false,
+        "distance": 8573.81536340714,
+        "reused": 8,
+        "target": "demo_ch01_moss_bell_court"
+      }
+    ],
+    "damage_suppression": false,
+    "failures": 0,
+    "focus_events": [],
+    "initial_checkpoint_fixture": true,
+    "physics_frames": 4392,
+    "renderer": "real OpenGL",
+    "six_region_playthrough": false,
+    "test_window_unfocusable": true
+  },
+  "scope": "Initial checkpoint uses a fixture; both subsequent pipe crossings, combat, shrine and NPC approach use live input and normal damage. This is not a six-region playthrough."
+}
