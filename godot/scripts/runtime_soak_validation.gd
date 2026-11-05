@@ -34,6 +34,14 @@ func _initialize() -> void:
         if argument.begins_with("--soak-seconds="): seconds=float(argument.get_slice("=",1))
         elif argument.begins_with("--soak-output="): output=argument.trim_prefix("--soak-output=")
         elif argument.begins_with("--soak-save="): save_path=argument.trim_prefix("--soak-save=")
+    if not output.is_empty():
+        # The Windows console executable launches a second process. The runner
+        # must sample this actual engine, then match it to final metrics.
+        var receipt := FileAccess.open(output+".process.json",FileAccess.WRITE)
+        check(receipt != null,"engine process receipt can be written")
+        if receipt != null:
+            receipt.store_string(JSON.stringify({"schema":1,"engine_pid":OS.get_process_id(),"output":output}))
+            receipt.close()
     call_deferred("run")
 
 func check(ok: bool,label: String) -> void:
@@ -211,7 +219,7 @@ func finish() -> void:
     var final_orphans := int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))
     check(final_orphans<=initial_orphans,"all owned orphan nodes released at final teardown")
     if final_orphans>initial_orphans:Node.print_orphan_nodes()
-    var result := {"schema":1,"scope":"lifecycle stress with explicit travel/focus/invulnerability/kill fixtures; not natural gameplay acceptance",
+    var result := {"schema":1,"engine_pid":OS.get_process_id(),"scope":"lifecycle stress with explicit travel/focus/invulnerability/kill fixtures; not natural gameplay acceptance",
         "requested_seconds":seconds,"measured_seconds":float(Time.get_ticks_msec()-measured_start)/1000.0 if measured_start>0 else 0.0,
         "warmup_cycles":2,"cycles":cycle,"transitions":transitions,"deaths":deaths,"ui_opens":ui_opens,"dialogue_opens":dialogue_opens,
         "attack_inputs":attack_inputs,"observed_defeats":observed_defeats,"frames":frames,"frame_bins_usec":[8000,16667,33334,50000,100000,250000,500000],"frame_bin_counts":frame_bins,"frame_max_usec":frame_max_usec,
