@@ -19,6 +19,7 @@ from copy import deepcopy
 from hashlib import sha256
 from io import BytesIO
 import json
+import zlib
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
@@ -121,7 +122,32 @@ def registered_copy(source, mask, old_frame, old_canvas):
 def png_bytes(rgba):
     buffer = BytesIO()
     Image.fromarray(rgba).save(buffer,format='PNG',compress_level=9)
-    return buffer.getvalue()
+    png = buffer.getvalue()
+    # Some Pillow wheels use zlib-ng, which changes compressed bytes even when
+    # all filtered scanlines are identical. Preserve the original byte contract
+    # with the original libpng deflate settings, via Python's standard zlib.
+    chunks, cursor = [], 8
+    while cursor < len(png):
+        size = int.from_bytes(png[cursor:cursor+4], 'big')
+        kind = png[cursor+4:cursor+8]
+        chunks.append((kind, png[cursor+8:cursor+8+size], png[cursor:cursor+12+size]))
+        cursor += 12 + size
+    filtered = zlib.decompress(b''.join(data for kind, data, _ in chunks if kind == b'IDAT'))
+    compressor = zlib.compressobj(9, zlib.DEFLATED, 15, 9, zlib.Z_FILTERED)
+    compressed = compressor.compress(filtered) + compressor.flush()
+    result = bytearray(png[:8])
+    inserted = False
+    for kind, _, original in chunks:
+        if kind != b'IDAT':
+            result.extend(original)
+        elif not inserted:
+            inserted = True
+            for offset in range(0, len(compressed), 65536):
+                payload = compressed[offset:offset+65536]
+                result.extend(len(payload).to_bytes(4, 'big'))
+                result.extend(b'IDAT' + payload)
+                result.extend((zlib.crc32(b'IDAT' + payload) & 0xffffffff).to_bytes(4, 'big'))
+    return bytes(result)
 
 def json_bytes(value):
     return (json.dumps(value,ensure_ascii=False,indent=2)+'\n').encode()

@@ -14,6 +14,22 @@ func run() -> void:
     player.set_physics_process(false)
     await process_frame
     var sprite: AnimatedSprite2D = player.sprite
+    # New drawings retain each original clock; aliases share authored cels.
+    var motion_v7 := {"jump":[4,0.4], "jump_start":[4,2.0/18.0],
+        "landing":[4,0.4], "land":[4,3.0/22.0], "dash":[6,0.4],
+        "hurt":[6,0.4], "death":[8,0.4]}
+    var authored: Dictionary = {}
+    for anim in motion_v7:
+        var spec: Array = motion_v7[anim]
+        check(sprite.sprite_frames.get_frame_count(anim)==int(spec[0]),anim+" uses its complete new pose sequence")
+        check(not sprite.sprite_frames.get_animation_loop(anim),anim+" remains non-looping")
+        check(is_equal_approx(float(spec[0])/sprite.sprite_frames.get_animation_speed(anim),float(spec[1])),anim+" preserves its original playback length")
+        for index in sprite.sprite_frames.get_frame_count(anim):
+            var cel := sprite.sprite_frames.get_frame_texture(anim,index)
+            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v7/frames/"),anim+" uses versioned new artwork")
+            check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" has complete padded imported pixels")
+            if cel!=null: authored[cel.resource_path] = true
+    check(authored.size()==28,"aliases share exactly twenty-eight distinct newly drawn cels")
     check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
     for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
@@ -52,7 +68,7 @@ func run() -> void:
     player.heal_timer=0
     player.dash_timer=player.dash_time*0.1
     player._update_animation(1)
-    check(sprite.animation==&"dash" and sprite.frame==3,"short dash reaches authored recovery pose")
+    check(sprite.animation==&"dash" and sprite.frame==sprite.sprite_frames.get_frame_count(&"dash")-1,"short dash reaches authored recovery pose")
     player.dash_timer=0
     player.grapple_timer=player.grapple_timeout
     player._update_animation(0)

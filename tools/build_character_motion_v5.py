@@ -277,7 +277,7 @@ def register(folder: Path, items: list[dict], check: bool) -> dict:
             if poses is None:
                 poses = existing_poses(folder)
             values = calibrate(item, cels, poses)
-        entries = [{"source": str(path.relative_to(ROOT)), "region": cel["region"], "component_seeds": cel["seeds"],
+        entries = [{"source": path.relative_to(ROOT).as_posix(), "region": cel["region"], "component_seeds": cel["seeds"],
                     "scale": values["scale"], "anchor_x": anchor, "grade": values["grade"]}
                    for cel, anchor in zip(cels, values["anchors"])]
         changes.append(apply(runtime, item, entries))

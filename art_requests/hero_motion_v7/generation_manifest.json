@@ -1,0 +1,291 @@
+{
+  "schema": "hero-motion-v7-sources",
+  "base_commit": "db87145b6d439d20e320a953bc9dc1f86a25db5e",
+  "generator": "built-in image_gen.imagegen",
+  "new_drawings": 28,
+  "animations": {
+    "jump": {
+      "source": "sources/jump_land.png",
+      "source_sha256": "a5fd22bc0d2d7e3292aa1d567d00bce9a7b2b4d86503a2d353ce68cb2ee367c4",
+      "prompt": "sources/jump_land.txt",
+      "prompt_sha256": "69122262b79aa456cd0c148a3d74ee75f7a61a1d82ba17d695c0218a2bacc533",
+      "image_size": [
+        1774,
+        887
+      ],
+      "regions": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ]
+      ],
+      "scale": 0.40384615384615385,
+      "calibration": "Face height matched to the 21px exposed face in runtime_run/run_00.png; one scale per sheet. Torso horizontal registration; grounded soles row 280 (production foot_baseline), airborne torso row 222.",
+      "reference_paths": [
+        "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
+        "godot/assets/sprites/player/generated_hero_v3/frames/jump_00.png"
+      ]
+    },
+    "landing": {
+      "source": "sources/jump_land.png",
+      "source_sha256": "a5fd22bc0d2d7e3292aa1d567d00bce9a7b2b4d86503a2d353ce68cb2ee367c4",
+      "prompt": "sources/jump_land.txt",
+      "prompt_sha256": "69122262b79aa456cd0c148a3d74ee75f7a61a1d82ba17d695c0218a2bacc533",
+      "image_size": [
+        1774,
+        887
+      ],
+      "regions": [
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "scale": 0.40384615384615385,
+      "calibration": "Face height matched to the 21px exposed face in runtime_run/run_00.png; one scale per sheet. Torso horizontal registration; grounded soles row 280 (production foot_baseline), airborne torso row 222.",
+      "reference_paths": [
+        "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
+        "godot/assets/sprites/player/generated_hero_v3/frames/jump_00.png"
+      ]
+    },
+    "dash": {
+      "source": "sources/dash_v2.png",
+      "source_sha256": "1e3f9057f33e844f93d2666fe1745f5cbb7ae0e07deb093411d298cc6b40e93e",
+      "prompt": "sources/dash_v2.txt",
+      "prompt_sha256": "472c69adf75b9b7bcaf653b033df6455a393555580d9f01033e778cfd262aa87",
+      "image_size": [
+        1536,
+        1024
+      ],
+      "regions": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "scale": 0.35,
+      "calibration": "Face height matched to the 21px exposed face in runtime_run/run_00.png; one scale per sheet. Torso horizontal registration; grounded soles row 280 (production foot_baseline), airborne torso row 222.",
+      "reference_paths": [
+        "art_requests/hero_motion_v7/sources/dash.png",
+        "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png"
+      ]
+    },
+    "hurt": {
+      "source": "sources/hurt.png",
+      "source_sha256": "91652441b943159b9574c5e7ba0743c0fcdffd9e69297e4c574a0bd1dd4463a6",
+      "prompt": "sources/hurt.txt",
+      "prompt_sha256": "23576bdb9233ab199ccef575de3367851d4048916b11a1d13b807f9b500620c7",
+      "image_size": [
+        1536,
+        1024
+      ],
+      "regions": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "scale": 0.3,
+      "calibration": "Face height matched to the 21px exposed face in runtime_run/run_00.png; one scale per sheet. Torso horizontal registration; grounded soles row 280 (production foot_baseline), airborne torso row 222.",
+      "reference_paths": [
+        "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png"
+      ]
+    },
+    "death": {
+      "source": "sources/death.png",
+      "source_sha256": "17b8400ec7025e23cf9ccfe91ce886973633394ee7ba47f0307f2578e7c80967",
+      "prompt": "sources/death.txt",
+      "prompt_sha256": "73b5f49722cf768990ac91e5b6c2eb1edc48249c7b6acdfd783bed871f0ad7e0",
+      "image_size": [
+        1774,
+        887
+      ],
+      "regions": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "scale": 0.375,
+      "calibration": "Face height matched to the 21px exposed face in runtime_run/run_00.png; one scale per sheet. Torso horizontal registration; grounded soles row 280 (production foot_baseline), airborne torso row 222.",
+      "reference_paths": [
+        "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
+        "godot/assets/sprites/player/generated_hero_v3/frames/death_03.png"
+      ]
+    }
+  },
+  "references": [
+    {
+      "path": "godot/assets/sprites/player/generated_hero_motion_v4/run_sheet.png",
+      "sha256": "266a1ef8f14baff8358ed3700a79ee3c61bf8ff4dd4230da3c2d9dd85d8c1730"
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_v3/frames/jump_00.png",
+      "sha256": "becf69df12e0b64b475ac74853f82d27f17dc6f5d66a897ef9b0a03c9e4c07c6"
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_v3/frames/dash_00.png",
+      "sha256": "277b6394c875fa88a9408b2429a24580a06c966bdad948d7e9494e092057703b"
+    },
+    {
+      "path": "godot/assets/sprites/player/generated_hero_v3/frames/death_03.png",
+      "sha256": "b281bcbf45bee3b8c2b434dc44670164569649c03f5362cdaf40cc7646998603"
+    }
+  ],
+  "candidate_sources": [
+    {
+      "path": "art_requests/hero_motion_v7/sources/dash.png",
+      "sha256": "29babeaf02ad99fc3c50b353fab0cf606870d9357afe9a0b858788901adeceb9",
+      "selected": false,
+      "reason": "First dash delivery had a short blade; dash_v2 is the selected edit and counts as the same six poses."
+    }
+  ]
+}

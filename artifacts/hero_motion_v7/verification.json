@@ -1,0 +1,253 @@
+{
+  "date": "2026-11-05",
+  "base_commit": "db87145b6d439d20e320a953bc9dc1f86a25db5e",
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "selected_sheets": 4,
+  "new_drawings": 28,
+  "original_pose_files_preserved": 130,
+  "unaffected_runtime_cels": 110,
+  "runtime_cels_before": 130,
+  "runtime_cels_after": 138,
+  "unchanged_playback_clocks": 7,
+  "regressions": {
+    "ability_movement": {
+      "marker": "ABILITY_MOVEMENT_VALIDATION failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/ability_movement.log"
+    },
+    "character_art_prewarm": {
+      "marker": "CHARACTER_ART_PREWARM checks=697 failures=0 sync_loads=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/character_art_prewarm.log"
+    },
+    "combat_input_events": {
+      "marker": "COMBAT_INPUT_EVENTS_PASS cases=32 checks=66",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/combat_input_events.log"
+    },
+    "hero_animation": {
+      "marker": "HERO_ANIMATION_VALIDATION checks=195 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/hero_animation.log"
+    },
+    "melee_recovery": {
+      "marker": "MELEE_RECOVERY_VALIDATION_PASS checks=70 terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/melee_recovery.log"
+    },
+    "player_action_buffer": {
+      "marker": "PLAYER_ACTION_BUFFER checks=42 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_action_buffer.log"
+    },
+    "player_dash_art": {
+      "marker": "PLAYER_DASH_ART checks=77 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_dash_art.log"
+    },
+    "player_hurt_art": {
+      "marker": "PLAYER_HURT_ART checks=99 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_hurt_art.log"
+    },
+    "player_motion_continuity": {
+      "marker": "PLAYER_MOTION_CONTINUITY checks=1192 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_motion_continuity.log"
+    },
+    "player_movement_art": {
+      "marker": "PLAYER_MOVEMENT_ART checks=91 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_movement_art.log"
+    },
+    "player_state_cleanup": {
+      "marker": "PLAYER_STATE_CLEANUP_PASS checks=9 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_state_cleanup.log"
+    },
+    "player_upgrade_regression": {
+      "marker": "PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0",
+      "log": "artifacts/hero_motion_v7/regressions-accepted/player_upgrade_regression.log"
+    }
+  },
+  "gpu": {
+    "hero_animation": {
+      "marker": "HERO_ANIMATION_VALIDATION checks=195 failures=0",
+      "log": "artifacts/hero_motion_v7/hero_animation-gl.log"
+    },
+    "player_motion_continuity": {
+      "marker": "PLAYER_MOTION_CONTINUITY checks=1192 failures=0",
+      "log": "artifacts/hero_motion_v7/player_motion_continuity-gl.log"
+    },
+    "character_art_prewarm": {
+      "marker": "CHARACTER_ART_PREWARM checks=856 failures=0 sync_loads=0",
+      "log": "artifacts/hero_motion_v7/character_art_prewarm-gl.log"
+    }
+  },
+  "negative_previous_manifest": {
+    "exit_code": 1,
+    "marker": "HERO_ANIMATION_VALIDATION checks=173 failures=36",
+    "restored_sha256": "db4007490e5755522f64aa8b04b3a5d79916d3269d64800c1a3cf908c2bcb3d1"
+  },
+  "capture": {
+    "frames": 216,
+    "fps": 60,
+    "physics": "paused scripted pose sampling",
+    "video": "before_after.mp4"
+  },
+  "checks": {
+    "npm_test": "passed",
+    "campaign": "passed",
+    "complete_character_motion": "passed",
+    "hero_asset_validation": "138 cels, no clipping",
+    "legacy_enemy_repair_tests": 17,
+    "hero_pose_extraction_tests": 2,
+    "export_audit_tests": 19,
+    "workflow_tests": 6,
+    "ci_shard_tests": 3,
+    "recovery_import_passes": 2
+  },
+  "revision_hashes": {
+    "godot/assets/sprites/player/generated_hero_v3/manifest.json": "db4007490e5755522f64aa8b04b3a5d79916d3269d64800c1a3cf908c2bcb3d1",
+    "godot/assets/sprites/player/generated_hero_motion_v7/registration.json": "618f5d4e5b0b1b92a62ce3aeaec60fd8f76310420f6350332f192dfb8ff2a845",
+    "tools/build_hero_motion_v7.py": "bdfb14fed4aaec8aa2dad3ce1aafb3f3138f73050575df2394f6de5423cc2129",
+    "godot/scripts/hero_animation_validation.gd": "972fe848b455ebf1ccb2b7c42b9b346357faf14389acaa75c885b08db5e6d7d7",
+    "godot/scripts/capture_hero_motion_v7.gd": "be7ff299b41c3f6f9218669e806ac3e2e0ee275f7e59c6d0ad61d0a2d7fbc7e6",
+    "tools/build_creature_attack_motion.py": "9937ce9d6ad94bf8c7bb7de4d5cef8d71824570196519c2985d114682c480c6d",
+    "tools/build_character_motion_v5.py": "e13524441f4032fc2b720d5f8d2b9c5b99ea979300e3a4882bec584e24d525b1",
+    "tools/build_expanded_character_motion.py": "f29ce9c2f561e464a7e9514274e8c1cc5ea4648d3470bb17cc4eafb609cd60ea",
+    "tools/repack_enemy_attack_frames.py": "7e7e1a881a55fd1118780ea64cef3163e1c1c328d26d84e79c8abea89ce63928",
+    "tools/run_python_tool.mjs": "0b19843f890992f3257c64d0fde84b817d876ed632f979cf7d13ad0b6d2bef65"
+  },
+  "frozen_original_hashes": {
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_00.png": "741020151df05af1552dac9995aa2b5700b41cbf1e6083e6c9cf269d9bb08b26",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_01.png": "3bf0c347b539b889a4241b10c6b749eb5b9909996166055253441757dfbeaab9",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_02.png": "8c7a48e24ae947afc17d752484f9a4db45479d565afe657c1c1a648250308b40",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_03.png": "67cae6edd693be692c53135f8ce982ae2c518977290cf8cdd65f5080383402b9",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_04.png": "620c5aeda01c8e8b14a7e8815587c47ffca4dc4070f479c977ccf789c1dbe8b0",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_05.png": "f631ab4fdb2d92ed4e4778cfab0d11be894498094d0da694ab455f3610fdfc35",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_06.png": "40dd8dcc09b2990159b2a1c8366128e7c33f3a031de42244faeaa811b142cf86",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_run/run_07.png": "bc98f2a6b1b2f2fb90994023e54a7004ebea8362040bfa8edf0ff21cb0b0c265",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_00.png": "2b98e227d79b9bd6d42f88055ab6e77e6170022c4c76872f6ff38bfc3cd3f82f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_01.png": "656114ce6bd838d9fc4f6da9deb6867f064f63057d207a19793eeea9a892721e",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_02.png": "2dd30471b5b67686e31299becad4ec82d4b6b3ee05547ec9ca19b88a16d35f94",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_03.png": "8bc8e527e31a5e64bbc233ec347374e83e4fd4392f574683ff78890a405f98c2",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_04.png": "092630582e7b56cc332b8272d975749a8919ad07861f2dfc4f98a236b80444b2",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_attack_05.png": "28e3a617de678445181696180cc907591ed35ebd9612f3c3cafaf0bdc3ab079d",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_00.png": "2a21482239bd812804246b0988e63e98e0a33be102b18f5b171e7c72a335b9e2",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_01.png": "c24764d16babc82c002b56b87ffa49cd4cb8769f525344a991f73644ee63f35f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_02.png": "2edeebea26c70f8bffb6de8bab9c154ca42e6e2ab54a43cb54aadc30a3fd5934",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_03.png": "e6746dc727dd60dc0521242915829084e87488e06465fe2529e649197d9b4836",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_04.png": "9045b20856faff7fd2c451443d3432c410b29043e86ede1506bbccc37dd73bda",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/air_up_attack_05.png": "2e64d70b1fcfe18643b40b914760e2c460732bec57b4f876ebc5e9facfe75273",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_00.png": "40e19fff56f25ad96187076e20e7095ff57dcc3d1bf8bcdf39de40889e7e1277",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_01.png": "1541f098ae2988f3ee2f15f4fabd65605b23619515e7ec602047f7705906a1da",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_02.png": "d61f7756256db36582ace17289cd009b6a6a09d9f35c80d219f9086bece7ea40",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_03.png": "f31a9d0f3fac759499c46be081586cc6e3c64d4ff1c0c12c469d5aa48bcde138",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_04.png": "eabad417f8a8967b9ecb40e2f882906e1e938af0b8bd22bf608f72e1a974e3e4",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/attack_1_05.png": "dacfb01e6eb73ebb6610674bb3252ea7cf6422f2398bdf7b7b52cd12a53951d3",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_00.png": "9d065f1141a024bd82e26f0c442f69d11e162c16e5404532e7d00e03e056d39f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_01.png": "7da0937f57d145b56afc9e8ac46c7497deb0e975fca52e2716c21430eb779a45",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_02.png": "d1e17886002b2b3393fd584cb6fe69f60020aa8f16f0250cae24f3b5284d8666",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_03.png": "552985b558b6f1e7792bf91fbc42bec48c7623e9d1f312a6d8dcde3f754f340f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_04.png": "74798fd5bf8db5e0f80a280c86102deb035b974128179d7f3b1b831f38c96338",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/down_attack_05.png": "10dee5d5bb5765bad34c7b7bcdf09ac4dcc5c33467d4e6c9a1e9698e14a64b31",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/fall_00.png": "0eec711dbb668b15ce9dad0e6b037f8c0d4d55a0b29c1e7d84218c3994877300",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/fall_01.png": "3178c2e0366075e96aec0d161816d43bb8de222c24ba441ae01b1062775d9d32",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_00.png": "9c6c0a251d51e41de9293c7383a9c0e7a189bc4b5a9ee96458133f68efe0352a",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_01.png": "15e258ac125f9fddb4d102781f3f0f01156f324172a3d0bba62b120379686a7c",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_02.png": "a364c8547fd6ddcf5fc835a6b1f645bb61599477b18e491b7bd5d346f8526033",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_03.png": "0b6e5d43b9ea35c00d2308b9e6b98bc612150d230ff82ef3a2cf0773d65e07fa",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_04.png": "14ec57d5a696dc34977d5f268b20d136f92d49178bcb2f8fd8ff58396e09eb15",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/ground_down_attack_05.png": "8074e20b592120f2e0d57ef267e08067288bbbd2818671dcce2e85604a7ec608",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/item_use_00.png": "49d88118bbf889c7ea35fccfb692750f597326027836b323c4cfbf46397e82e0",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/item_use_01.png": "6802e2ef7d4e21812d1cd264f426ebb6da6f7cf1b07aa6e84a4dad942e09ce70",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/item_use_02.png": "d21398bf594e63e7b178327c447f4cec2c5eefb021af7d7215bc8ab303bac1dc",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/item_use_03.png": "63771205a5a3dfda554e631df9828965d9648db1ee8fbb683005b5ed5fb3b44f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/jump_loop_00.png": "44ab4fcc6a39bc7082b41a40347befc16b189becca0dd28af5e6fa11402e8a98",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/jump_loop_01.png": "9d39bf09fee5a0a3292abace603673d2ed16cd03d967dd834a9a5f56be82cfdd",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_00.png": "f88c6f6bdcaf4993f98306aaaf0372c8d8b95f9ed34b06c64b0cc67e410a035e",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_01.png": "2ce067c54fd99faf7b964a1977a4ddc266a3ea4d510964be884d54532914ce72",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_02.png": "c9c69643f3a911d96f4b816222f22aee817d16ed63c1dfbb85581ac749dc312c",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_03.png": "7566d68a4ad7244378254ce345629169140b17e96b1fe57fe7cd6ff90031b02a",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_04.png": "273a98ce6fead22b4132eca3bcc212ccdf5f5069c5e1d995f1dee98fde3f2c29",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/run_attack_05.png": "11e387b966e174c30054042651353895708326fd1a7aefdeabf5bdab20af8661",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_melee_00.png": "2b7993241f084141760e9d6065917d1d0b7ff2c7b21f634198fd20d1d7128624",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_melee_01.png": "d98e54e8a95aa61cecbac0bd81fc35b3952bf41fc6948fba2822b2a7f9e636c2",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_melee_02.png": "a1261b8b52abb81f7c63937a8900daab37d57857af536529798596620c1def3f",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_melee_03.png": "4c89a2a812465ba9d65ae8756e3035da0c27dca5384ec62bb0ff9a3ff4913452",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_wave_00.png": "177b83796df1bf529fa23202de94ff1b3648da8879ca5f382827af7115ed9072",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_wave_01.png": "0bf5f1566f9e84e4a6d2bf8f5a593e9f85437f65f8b885404f1ec7d9361b21d1",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_wave_02.png": "38ea6edfbc3aea193d21b55903d4b47ac2565be945d516beb3691f4a90ba86ab",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/skill_wave_03.png": "9f5248d13fa99df06d5c0f230ff9348051cfee27e3994a42a0a1462b62d593ab",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_00.png": "d10ab54817c70f417d2826dfee89854c3cb0c2870e636ff1a79d48079edc7b70",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_01.png": "86dc092d37c2d09eaee86e4d3ae2aa683b43fcaa4e8f8ff9424393f2a03a09c8",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_02.png": "5b8d5f800147f87012387ee4732b2a5f83fd67ee153393e4681418c25fe6528b",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_03.png": "3acce337e0714dcc1b2743fb2fa17b45eb9e0e7d011e969bebeeaf8f72a05884",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_04.png": "b3b85186532d24f069a9794092764d6271c5c3359e25b6501b1a0b18ad579ba8",
+    "godot/assets/sprites/player/generated_hero_motion_v4/runtime_supplement/up_attack_05.png": "83aeba345de57afdd97a07440f8e9a7be1ac7915f6f2cddd7bce5d5f19e3acb8",
+    "godot/assets/sprites/player/generated_hero_v3/frames/attack_2_00.png": "407c69c8972870ecd15e43119c9e4baf281779111d5fc388377a212df31139ed",
+    "godot/assets/sprites/player/generated_hero_v3/frames/attack_2_01.png": "8ec13e6fe01176cc12d3b901a9606bcc2ff8ac3a70c66c26b516a80fdd71b864",
+    "godot/assets/sprites/player/generated_hero_v3/frames/attack_2_02.png": "bf1c5eba337d6c38444989b9b5ba632ba8327f73dc7feea8b762b7eb44414fd2",
+    "godot/assets/sprites/player/generated_hero_v3/frames/attack_2_03.png": "bab40aff050119b5cd9a50ee3e15fad95277e14d2f86ca66bc9febc89c63134e",
+    "godot/assets/sprites/player/generated_hero_v3/frames/dash_00.png": "277b6394c875fa88a9408b2429a24580a06c966bdad948d7e9494e092057703b",
+    "godot/assets/sprites/player/generated_hero_v3/frames/dash_01.png": "8fa9cf237baeddeafb9883bd58927df145b4f715e73f976d8740a26a333de875",
+    "godot/assets/sprites/player/generated_hero_v3/frames/dash_02.png": "7ece531dbaed1982b6e8b9477816fa8a16b4451c9f248f9b07a78c075658d3b9",
+    "godot/assets/sprites/player/generated_hero_v3/frames/dash_03.png": "4f28826865e5dcda7e963f08957e17b22e378c4ca14a2ffaef3a0907d88e01b5",
+    "godot/assets/sprites/player/generated_hero_v3/frames/death_00.png": "c6c8510900268b20fb96b6473192229c0bedd24285cdf00f50d26602033ad09a",
+    "godot/assets/sprites/player/generated_hero_v3/frames/death_01.png": "19119edb922f9ad773fd64c78dd0b66f15194ea2c74d76f47499457a1120b6dc",
+    "godot/assets/sprites/player/generated_hero_v3/frames/death_02.png": "df99c515a2a80efc686a9fe2c2026e51181fb181b0d10ed04e5dd2c31a17c564",
+    "godot/assets/sprites/player/generated_hero_v3/frames/death_03.png": "b281bcbf45bee3b8c2b434dc44670164569649c03f5362cdaf40cc7646998603",
+    "godot/assets/sprites/player/generated_hero_v3/frames/guard_00.png": "5f35f456e4f8b08894adecff5c0253c01fa2a1a0c8b4341ef3b4122bd18d13e8",
+    "godot/assets/sprites/player/generated_hero_v3/frames/guard_01.png": "c7764370a64cbc4471668cbca79040412471d553e1f4dd2410b9834d3b659ca9",
+    "godot/assets/sprites/player/generated_hero_v3/frames/guard_02.png": "085f542113c0aed65576d4760b7e3589f037d43edfa7702b1541828b4ff12c14",
+    "godot/assets/sprites/player/generated_hero_v3/frames/guard_03.png": "20c49550e9353f6f93c279980112e813908fc3272038708b4fe5333b1810e1d0",
+    "godot/assets/sprites/player/generated_hero_v3/frames/heal_00.png": "bf5893510912562b08e28ab7735bc7b35aa8f53efcd6881c02c6403a44bb3335",
+    "godot/assets/sprites/player/generated_hero_v3/frames/heal_01.png": "2c034236cff4ccc74c659c80fcc5d7d427b18fc5e55ae019511060cd7a6a8112",
+    "godot/assets/sprites/player/generated_hero_v3/frames/heal_02.png": "68dac40dc896b811765964a270ea6fa61cf7d9b83ce9b8672299b42ea9a497f4",
+    "godot/assets/sprites/player/generated_hero_v3/frames/heal_03.png": "670c7b2fa9e33066d5c5a5346eedb15c353d58c2b3b3d358835099ef77951fa2",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hook_throw_00.png": "5dfc26b1e2c36115e4ef83c11d15011854240881d16ba449b8a24cd06cac8885",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hook_throw_01.png": "c0fe6cba506bc4392b645dc52d322c289feef74a8fdffb8607ee7451acbd9a43",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hook_throw_02.png": "82eb6af5fd9b455b9d929d9e4cef5a38c540aac9eede8a893afbcf5f3768d605",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hook_throw_03.png": "0af1c469842bb7c7dfca42ae4f36ed0623e1e3d31868a05a83f49ebc20af19b1",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hurt_00.png": "88064231306ed104130dc0403a770913a86c78192b35bf1da67dbfbef80753a9",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hurt_01.png": "ffdd99166c2b0799a38edb17e9bcfca308cfee90500f10e1055d0cefabf311dd",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hurt_02.png": "3eb8a2dd81c9f2ba33d2ce577ad4ea781e2c483cc102fda9c5792377cbf1b33e",
+    "godot/assets/sprites/player/generated_hero_v3/frames/hurt_03.png": "161150f89a4b7e45b4556124f9eede21c433f6f7867316cbae3ec14d7dbe7568",
+    "godot/assets/sprites/player/generated_hero_v3/frames/idle_00.png": "b446f77e559e868967dc7e0ce5d4e52cf205b73775d4ec91b50b3b0099e573b0",
+    "godot/assets/sprites/player/generated_hero_v3/frames/idle_01.png": "8dce628f48c696fdc4b621e99610e714f7a57fb25b8eaea8ab6fdff82b43ce3f",
+    "godot/assets/sprites/player/generated_hero_v3/frames/idle_02.png": "c8413402c22ed3d26d1f9ab6bcf933921cd2eaf12d50b986a2586ff9e5b90a96",
+    "godot/assets/sprites/player/generated_hero_v3/frames/idle_03.png": "72176b44e612ca6d6e95e25ddd2d6b963494d8b77c44b1a3b07b27e10a2390c8",
+    "godot/assets/sprites/player/generated_hero_v3/frames/jump_00.png": "becf69df12e0b64b475ac74853f82d27f17dc6f5d66a897ef9b0a03c9e4c07c6",
+    "godot/assets/sprites/player/generated_hero_v3/frames/jump_01.png": "afebd3efef3ca3c6a5b92833db1816397aaf1e32106b559821c530428738dfd6",
+    "godot/assets/sprites/player/generated_hero_v3/frames/jump_02.png": "99dbf42df526105b7403723b720a0e7a62b0897d3b6338a57baedbe8b7c3c30a",
+    "godot/assets/sprites/player/generated_hero_v3/frames/jump_03.png": "7710b38d07cbe7b4d59878503cddfcb383d10620a274d634ec00145d1649fdd9",
+    "godot/assets/sprites/player/generated_hero_v3/frames/landing_00.png": "ee2a0dca330a850537d63278412061313aeec26e23204088b7c8fb1c41f2d95b",
+    "godot/assets/sprites/player/generated_hero_v3/frames/landing_01.png": "2988dac49717a468a9876f9342e574fab21ec296f572ce83947fe925dd1e3fcd",
+    "godot/assets/sprites/player/generated_hero_v3/frames/landing_02.png": "ffdcc467e3eda078edf00f8812344f02902691fac6fc7f475920e733e37ab943",
+    "godot/assets/sprites/player/generated_hero_v3/frames/landing_03.png": "5f7953a12c9f2c60a4e8251041eccb1318765f08738a41fc5587beee47241570",
+    "godot/assets/sprites/player/generated_hero_v3/frames/phase_00.png": "4026e16505b7f2c2eb0dd004849ae171d17c9dd18747e6686f8ab17ff0f34fa0",
+    "godot/assets/sprites/player/generated_hero_v3/frames/phase_01.png": "ce20fdbe73a368c2dc7ffd291d62b65a1c14ec6b7bc57b73592f854e0483efc2",
+    "godot/assets/sprites/player/generated_hero_v3/frames/phase_02.png": "5eedbad4b6fc9246bdac69cabed6e93335985d57e67c79a9d12ad7abc8f3facf",
+    "godot/assets/sprites/player/generated_hero_v3/frames/phase_03.png": "8ab1cd8f17885152b3cb8ff502f6fd5a790cb98c6fd2f08aca1621689db1f8e7",
+    "godot/assets/sprites/player/generated_hero_v3/frames/resonance_00.png": "19862e70869368a8b1368186849142653b3eea756129d71484b76c825525f492",
+    "godot/assets/sprites/player/generated_hero_v3/frames/resonance_01.png": "6ededf9746b7c921dd2ea3c312313a7669045dda36d6cbfd283e29d928450390",
+    "godot/assets/sprites/player/generated_hero_v3/frames/resonance_02.png": "d4a84bb1297649ccaf5612ec4e0c2d96908d7e878d2041958a8102b1c702012c",
+    "godot/assets/sprites/player/generated_hero_v3/frames/resonance_03.png": "2fbfd6e84e973b2a9a6c2bd6dca4dc393442ca11a9a84de86802702429b1a36d",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_control_00.png": "2d76ba43dac92865197b69b31b03fb08d1bdd846aa62b80cde34287961442dbe",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_control_01.png": "8cd0c92b8567fda52719207762c9ebae412e499dd04f32cbfa67243ec8639d1f",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_control_02.png": "fcbcb079ebdb8fef6b08ef9c02bbc134c046c40b3c0a1e70fb64c771c845f0ef",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_control_03.png": "c9fccb39038830147c22b3c9da2111bf25d1d19b51ca5b284b412e8442698f13",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_defense_00.png": "fb3d835b76d778e4ae95e787d4aece24bf79932159a9722a79ece97d801f3713",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_defense_01.png": "f1735fcf257532df4de4c0b1f886c264297b4496313673e32c75bff8c73198e6",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_defense_02.png": "42521f60c76f2f06afeb55a9b589fc0c5a6c7ea085758e9cf71e94612edbdbb3",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_defense_03.png": "b623a0a20ae7e6fc3321e7c19f9de0842670deb76eb42dd880bb31712737565b",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_projectile_00.png": "089042e350f91334a5eb5f9eabcf0569c90c90818cb8a4842ad039a92130e54b",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_projectile_01.png": "0005a50d14d013e0783abfb9237cb6f911345f5f9e6d4757c58544a061136b80",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_projectile_02.png": "361c2b1e4ff55f4153fa245937986637e96061c95faec54a21d803382ce86161",
+    "godot/assets/sprites/player/generated_hero_v3/frames/skill_projectile_03.png": "f8081699bf3fdb6f88cc1b14bee605f7586356ba11d67ba1bb5bd3ab11f7e610",
+    "godot/assets/sprites/player/generated_hero_v3/frames/wall_slide_00.png": "7da9f1ec2d7b3feb5e4ec7e03edf3097491f362fbdb11beb138df24d4ef2bbf3",
+    "godot/assets/sprites/player/generated_hero_v3/frames/wall_slide_01.png": "4de95b0f78cbf7356ef77528adfc2977450ea5ddbc96a708e2611720cffb2ed5",
+    "godot/assets/sprites/player/generated_hero_v3/frames/wall_slide_02.png": "068a640045eeacfa780112ec7e84236491c132dbf3315d8e990970f188830b46",
+    "godot/assets/sprites/player/generated_hero_v3/frames/wall_slide_03.png": "88964e923a177156e6fe2020aca2be39c92a8dd9c079101e92d82f0547d76c71",
+    "godot/scripts/player_controller.gd": "f4d3d301788d69eb5339e9677c2fe557b37971cc2d3fc87b697df14dea0f9d5b",
+    "godot/scripts/player_art_warm_job.gd": "e1ef26cfb5f05bca057f58cbc4881565a122d4bda189410bb2398cb2776fa298",
+    "godot/scripts/player_melee_feedback.gd": "d97bba1705335da76775d0a499e54c2dd1cc0573691c211994c2fdf4284e8040",
+    "godot/scenes/Player.tscn": "f06f9b30ff1ff9e26a4769cfd21e591ddd3e78e8dae7778d3aea7576774f72d8"
+  },
+  "limitations": [
+    "Full 195-suite list not run locally",
+    "Native capture is not a playthrough or performance measurement",
+    "V02 remaining character actions and T03/T04/T05 remain open",
+    "Published-head CI pending"
+  ]
+}

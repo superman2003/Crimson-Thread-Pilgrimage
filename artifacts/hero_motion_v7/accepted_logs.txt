@@ -1,0 +1,250 @@
+artifacts/hero_motion_v7/regressions-accepted/ability_movement.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PASS: fixture starts on solid ground
+PASS: first jump still uses the existing movement
+PASS: locked double jump cannot create upward impulse
+PASS: held first jump does not spend the second jump
+PASS: fresh airborne press performs double jump
+PASS: third press cannot create an infinite jump
+PASS: landing restores the air jump
+ABILITY_PEAK locked=175.028 unlocked=57.458
+PASS: double jump reaches a high ledge that a single jump cannot reach
+PASS: locked grapple ignores a reachable anchor
+PASS: unlocked grapple latches an explicit visible anchor
+PASS: grapple moves the actual collision body toward the anchor
+PASS: dash cancels active grapple
+PASS: solid wall prevents latching through terrain
+PASS: disabled anchor cannot be targeted
+PASS: out of range anchor cannot be targeted
+PASS: hidden anchor cannot be targeted
+PASS: reachable anchor is available again
+PASS: freed anchor cancels without retaining an invalid reference
+PASS: respawn resets traversal impulses and air jump
+ABILITY_MOVEMENT_VALIDATION failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/character_art_prewarm.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_ART_PREWARM checks=166 failures=0 ready_usec=5604
+CHARACTER_ART_PREWARM checks=697 failures=0 sync_loads=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/combat_input_events.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+按 F 休息，恢复状态并记录归途。
+沿路牌箭头步行进入通道，可沿来路折返。
+按 T 使用战具；在钟龛休息可补满次数。
+站稳后按 H 缝补；移动或受击会打断。
+COMBAT_INPUT_EVENTS_REPORT [{"action":"attack","device":"key J","fired":true,"mapped":true},{"action":"attack","device":"mouse left","fired":true,"mapped":true},{"action":"attack","device":"pad X","fired":true,"mapped":true},{"action":"hook","device":"key K","fired":true,"mapped":true},{"action":"hook","device":"pad RB","fired":true,"mapped":true},{"action":"jump","device":"key Space","fired":true,"mapped":true},{"action":"jump","device":"pad A","fired":true,"mapped":true},{"action":"dash","device":"key Shift","fired":true,"mapped":true},{"action":"dash","device":"pad B","fired":true,"mapped":true},{"action":"skill_1","device":"key L","fired":true,"mapped":true},{"action":"skill_1","device":"pad Y","fired":true,"mapped":true},{"action":"bell_guard","device":"key Q","fired":true,"mapped":true},{"action":"bell_guard","device":"pad left","fired":true,"mapped":true},{"action":"heal","device":"key H","fired":true,"mapped":true},{"action":"heal","device":"pad LB","fired":true,"mapped":true},{"action":"lantern_phase","device":"key E","fired":true,"mapped":true},{"action":"lantern_phase","device":"pad right","fired":true,"mapped":true},{"action":"crown_resonance","device":"key R","fired":true,"mapped":true},{"action":"crown_resonance","device":"pad up","fired":true,"mapped":true},{"action":"tool_cast","device":"key T","fired":true,"mapped":true},{"action":"tool_cast","device":"pad down","fired":true,"mapped":true},{"action":"skill_cycle","device":"key C","fired":true,"mapped":true},{"action":"skill_cycle","device":"pad LT","fired":true,"mapped":true},{"action":"tool_cycle","device":"key G","fired":true,"mapped":true},{"action":"tool_cycle","device":"pad RT","fired":true,"mapped":true},{"action":"move_left","device":"key A","fired":true,"mapped":true},{"action":"move_left","device":"stick left","fired":true,"mapped":true},{"action":"move_right","device":"key D","fired":true,"mapped":true},{"action":"move_right","device":"stick right","fired":true,"mapped":true},{"action":"attack","device":"key U (rebound)","fired":true,"mapped":true},{"action":"attack","device":"key J (old)","fired":false,"mapped":false},{"action":"attack","device":"pad X (kept)","fired":true,"mapped":true}]
+COMBAT_INPUT_EVENTS_PASS cases=32 checks=66
+
+
+artifacts/hero_motion_v7/regressions-accepted/hero_animation.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+HERO_ANIMATION_VALIDATION checks=195 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/melee_recovery.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+MELEE_RECOVERY_VALIDATION_PASS checks=70 terrain_occlusion=true accepted_hit_rewards=true rejected_hit_pogo=false heal_interrupts=3
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_action_buffer.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_ACTION_BUFFER checks=42 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_dash_art.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+DASH_TRACE crimson facing=-1 x=-130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+DASH_TRACE crimson facing=1 x=130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+DASH_TRACE bell facing=-1 x=-130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+DASH_TRACE bell facing=1 x=130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+DASH_TRACE salt facing=-1 x=-130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+DASH_TRACE salt facing=1 x=130.0 timer=-0.00666666666667 cooldown=0.45 hp=5 energy=20
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+PLAYER_DASH_ART checks=77 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_hurt_art.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+PLAYER_HURT_ART checks=99 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_motion_continuity.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+IDLE_SOLE_CENTER pose=0 source_x=186.223262 correction_x=0.000000
+IDLE_SOLE_CENTER pose=1 source_x=187.667973 correction_x=-1.444711
+IDLE_SOLE_CENTER pose=2 source_x=186.765838 correction_x=-0.542576
+IDLE_SOLE_CENTER pose=3 source_x=185.263814 correction_x=0.959448
+PLAYER_MOTION_CONTINUITY checks=1192 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_movement_art.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=0 retired=0
+PLAYER_MOVEMENT_ART checks=91 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_state_cleanup.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_STATE_CLEANUP_PASS checks=9 failures=0
+
+
+artifacts/hero_motion_v7/regressions-accepted/player_upgrade_regression.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+
+PLAYER_UPGRADE_REGRESSION_PASS checks=46 failures=0
+
+
+artifacts/hero_motion_v7/hero_animation-gl.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+HERO_ANIMATION_VALIDATION checks=195 failures=0
+
+
+artifacts/hero_motion_v7/player_motion_continuity-gl.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+IDLE_SOLE_CENTER pose=0 source_x=186.223262 correction_x=0.000000
+IDLE_SOLE_CENTER pose=1 source_x=187.667973 correction_x=-1.444711
+IDLE_SOLE_CENTER pose=2 source_x=186.765838 correction_x=-0.542576
+IDLE_SOLE_CENTER pose=3 source_x=185.263814 correction_x=0.959448
+PLAYER_MOTION_CONTINUITY checks=1192 failures=0
+
+
+artifacts/hero_motion_v7/character_art_prewarm-gl.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+PLAYER_ART_PREWARM checks=250 failures=0 ready_usec=2820
+CHARACTER_ART_PREWARM checks=856 failures=0 sync_loads=0
+
+
+artifacts/hero_motion_v7/capture-gl-final.log
+
+Godot Engine v4.6.1.stable.official.14d19694e - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 621.01 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 5060
+
+HERO_MOTION_V7_CAPTURE frames=216 fps=60 staged=true
+
+
+artifacts/hero_motion_v7/npm-test.log (tail)
+
+OK (skipped=11)
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.104s
+
+OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK
+THREAD_SKILLS PASS: errors=0
+
+artifacts/hero_motion_v7/campaign.log (tail)
+
+      "demo_ch01_moss_bell_court",
+      "demo_ch02_rain_foundry_canal",
+      "demo_ch03_saltwhite_archive",
+      "demo_ch05_obsidian_pilgrim_road",
+      "demo_ch06_silent_crown_core",
+      "demo_ch04_broken_string_greenhouse"
+    ]
+  ],
+  "limitation": "Static overlay structure, paired landing geometry, cave/hazard clearance and abstract progression graph. Physical route controls/combat require Godot suites."
+}
+ENEMY_JOURNAL_DATA errors=0
+SCENE_HISTORY_DATA_PASS regions=6 artifacts=12 witnesses=6 floor_anchors=12
+
+artifacts/hero_motion_v7/character-motion.log (tail)
+
+      "frames": 16,
+      "canvas": [
+        450,
+        331
+      ],
+      "source_hash": "d5d3f44bb95b70483a17aaf7e9fed385248706b1372768881f49f746226b76cd"
+    }
+  ]
+}
+HERO_EXPANDED_RUN poses=8 canvas=384x384 shared_scale=0.405660377
+HERO_SUPPLEMENT_MOTION animations=12 frames=58 run_scale=0.405660377
+HERO_MOTION_V7 actions=5 drawings=28 aliases=7 check=True
+
+artifacts/hero_motion_v7/enemy-repair-tests.log (tail)
+
+test_page_bridge_exclusion_is_geometric_not_alpha_filter (__main__.EnemyAttackIntegrityTests.test_page_bridge_exclusion_is_geometric_not_alpha_filter) ... ok
+test_png_outputs_are_real_rgba_not_lfs_pointers (__main__.EnemyAttackIntegrityTests.test_png_outputs_are_real_rgba_not_lfs_pointers) ... ok
+test_reproduction_matches_every_deliverable_byte (__main__.EnemyAttackIntegrityTests.test_reproduction_matches_every_deliverable_byte) ... ok
+test_source_and_output_edges_are_not_cut (__main__.EnemyAttackIntegrityTests.test_source_and_output_edges_are_not_cut) ... ok
+test_source_drift_requires_new_review (__main__.EnemyAttackIntegrityTests.test_source_drift_requires_new_review) ... ok
+test_ten_nonattack_frames_keep_actual_rgba_and_display_coordinates (__main__.EnemyAttackIntegrityTests.test_ten_nonattack_frames_keep_actual_rgba_and_display_coordinates) ... ok
+test_weapon_recovery_and_other_pose_exclusion (__main__.EnemyAttackIntegrityTests.test_weapon_recovery_and_other_pose_exclusion) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 5.427s
+
+OK
+
+artifacts/hero_motion_v7/import-final/import-1.log (tail)
+
+[  96% ] [90m[1mreimport[22m | 正在结束资产导入……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started 正在导入或重新导入资产 (26 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | 正在执行重新导入的后置操作……[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+
+artifacts/hero_motion_v7/import-final/import-2.log (tail)
+
+[  16% ] [90m[1mfirst_scan_filesystem[22m | 正在加载全局类名……[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | 正在校验 GDExtension……[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | 正在创建自动加载脚本……[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | 正在初始化插件……[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | 正在启动文件扫描……[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started 正在加载编辑器 (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | 正在加载编辑器布局……[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | 正在加载停靠面板……[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

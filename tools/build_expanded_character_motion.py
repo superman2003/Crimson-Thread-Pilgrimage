@@ -201,7 +201,7 @@ def build(folder: Path, check=False):
         frames=[]
         for pose in entries:
             _,_,w,h=pose["region"]
-            frames.append({"atlas":"res://"+str((folder/pose["sheet"]).relative_to(ROOT/"godot")), "region":pose["region"], "margin":[int(round(half+pose["left"])),height-8-h,canvas[0]-w,height-h]})
+            frames.append({"atlas":"res://"+(folder/pose["sheet"]).relative_to(ROOT/"godot").as_posix(), "region":pose["region"], "margin":[int(round(half+pose["left"])),height-8-h,canvas[0]-w,height-h]})
         fps = FPS.get(name,12)
         if name in ("idle", "walk"):
             old = source_animations[name]
