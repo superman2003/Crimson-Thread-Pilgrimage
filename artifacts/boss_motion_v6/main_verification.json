@@ -1,0 +1,170 @@
+{
+  "base_ref": "bd11a96f972b518550abaaba3427dc9ac4aefdd7",
+  "source_drawings": 288,
+  "runtime_drawings": 286,
+  "current_ai_drawings": 262,
+  "prepared_fallback_drawings": 24,
+  "source_only_drawings": 2,
+  "characters": 71,
+  "runtime_pose_references": 3114,
+  "expanded_motion_checks": 6230,
+  "expanded_motion_failures": 0,
+  "npm_test_exit": 0,
+  "character_motion_check_exit": 0,
+  "import_passes": 2,
+  "import_engine_errors": 0,
+  "native_gl": {
+    "suites": 8,
+    "failures": 0,
+    "results": [
+      {
+        "suite": "expanded_character_motion",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "EXPANDED_CHARACTER_MOTION checks=6230 failures=0 characters=71 poses=3114",
+        "passed": true
+      },
+      {
+        "suite": "character_art_prewarm",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "CHARACTER_ART_PREWARM checks=861 failures=0 sync_loads=0",
+        "passed": true
+      },
+      {
+        "suite": "enemy_atlas_integrity",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "ENEMY_ATLAS_INTEGRITY checks=3325 failures=0 static_frames=48 playbacks=8",
+        "passed": true
+      },
+      {
+        "suite": "hero_animation",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "HERO_ANIMATION_VALIDATION checks=101 failures=0",
+        "passed": true
+      },
+      {
+        "suite": "player_motion_continuity",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "PLAYER_MOTION_CONTINUITY checks=1192 failures=0",
+        "passed": true
+      },
+      {
+        "suite": "enemy_lifecycle_regression",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0",
+        "passed": true
+      },
+      {
+        "suite": "enemy_visibility",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "ENEMY_VISIBILITY_VALIDATION checks=638 failures=0",
+        "passed": true
+      },
+      {
+        "suite": "boss_trial",
+        "exit": 0,
+        "engine_errors": [],
+        "completion": "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1018.81201171875, 720.0] boss_spawned=true",
+        "passed": true
+      }
+    ]
+  },
+  "render_coverage": {
+    "bosses": 6,
+    "new_runtime_cels": 286,
+    "captured_frames": 3711,
+    "failures": 0,
+    "coverage": [
+      {
+        "kind": "broken_string_gardener",
+        "new_runtime_cels": 46,
+        "captured_frames": 599,
+        "missing": []
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "new_runtime_cels": 48,
+        "captured_frames": 649,
+        "missing": []
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "new_runtime_cels": 48,
+        "captured_frames": 676,
+        "missing": []
+      },
+      {
+        "kind": "silent_crown_core",
+        "new_runtime_cels": 48,
+        "captured_frames": 599,
+        "missing": []
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "new_runtime_cels": 48,
+        "captured_frames": 570,
+        "missing": []
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "new_runtime_cels": 48,
+        "captured_frames": 618,
+        "missing": []
+      }
+    ]
+  },
+  "preservation": {
+    "bosses": 6,
+    "original_poses_preserved": 376,
+    "failures": 0,
+    "coverage": [
+      {
+        "kind": "broken_string_gardener",
+        "original_poses_preserved": 63
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "original_poses_preserved": 62
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "original_poses_preserved": 64
+      },
+      {
+        "kind": "silent_crown_core",
+        "original_poses_preserved": 62
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "original_poses_preserved": 63
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "original_poses_preserved": 62
+      }
+    ]
+  },
+  "warnings": [
+    {
+      "suite": "boss_trial",
+      "message": "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+    },
+    {
+      "suite": "enemy_lifecycle_regression",
+      "message": "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+    },
+    {
+      "suite": "enemy_visibility",
+      "message": "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+    }
+  ],
+  "renderer": "NVIDIA GeForce RTX 5060 / Compatibility",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "scope": "Production resources, staged playback and eight related GL suites; natural combat, long-term stability and overall frame-rate acceptance remain separate."
+}
