@@ -58,7 +58,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
-            'player_idle_motion', 'item_art_prewarm',
+            'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion',
             'dialog_dpad_focus',
             'reading_scroll',
             'boss_move_matrix',
@@ -90,6 +90,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("boss_skill_art", DEFAULT_SUITES)
         self.assertIn("player_contact_art", DEFAULT_SUITES)
         self.assertIn("player_idle_motion", DEFAULT_SUITES)
+        self.assertIn("npc_dialogue_motion", DEFAULT_SUITES)
         self.assertIn("player_ability_art", DEFAULT_SUITES)
         self.assertIn("player_dash_art", DEFAULT_SUITES)
         self.assertIn("player_hook_art", DEFAULT_SUITES)

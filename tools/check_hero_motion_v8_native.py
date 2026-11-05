@@ -34,7 +34,7 @@ def main(default_suites=None, default_output=None):
             cmd = [args.engine, '--path', str(ROOT/'godot'), '--rendering-method',
                    'gl_compatibility', '--audio-driver', 'Dummy', '--position',
                    '-20000,-20000', '--script', f'res://scripts/{suite}_validation.gd']
-            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm', 'tool_practice', 'player_idle_motion', 'player_motion_continuity', 'player_layered_idle']:
+            if suite in ['player_basic_attack_vfx', 'player_contact_art', 'character_art_prewarm', 'tool_practice', 'player_idle_motion', 'player_motion_continuity', 'player_layered_idle', 'npc_dialogue_motion', 'expanded_character_motion']:
                 cmd += ['--fixed-fps', '60']
             if suite == 'player_contact_art':
                 cmd += ['--', '--output='+captures.as_posix()]

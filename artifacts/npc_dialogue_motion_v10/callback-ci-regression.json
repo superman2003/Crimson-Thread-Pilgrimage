@@ -1,0 +1,25 @@
+{
+  "initial_head": "280d9a553c650b792be4253402fe5fbda9b66ffd",
+  "workflow_successes": 46,
+  "workflow_failures": 2,
+  "same_regression": "Old live-neighbor validation expected exactly one total entered listener on an NPC; gameplay plus greeting correctly has two.",
+  "failed_job_ids": [
+    127134394559,
+    127134394763,
+    127134395037
+  ],
+  "fix": "Compare owner, method, bound area and complete entered/exited listener totals; extra and wrongly-bound callbacks remain rejected.",
+  "local_callback_contract": {
+    "exact": true,
+    "extra_listener_rejected": true,
+    "extra_removed": true,
+    "restored": true,
+    "wrong_area_rejected": true
+  },
+  "linux_live_journey_still_required": true,
+  "followup_head": "86ce22101e51a6d80cc4ffed4b9406f25073d1d0",
+  "followup_linux_live_marker": "WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=49 failures=0",
+  "followup_failure": "Focused workflow still required the former literal checks=48 marker. The actual live journey passed all 49 assertions, then the wrapper rejected the stale completion contract.",
+  "followup_job_id": 127177179831,
+  "completion_contract_fix": "Focused and integration GPU workflows plus their contract test now require checks=52: original 48, strict callback split +1, physical NPC approach +1, displayed-window focus checks +2. Headless executes 50 checks without the two inapplicable window assertions."
+}
