@@ -1,0 +1,372 @@
+{
+  "baseline_commit": "4242f790eb43b684b9e86e970075350abbec13c9",
+  "engine": "Godot 4.6.1 Windows native GL",
+  "fixture": "Unchanged world_async_loading validation: 504 checks, six sequential region transitions, root processing disabled. Each sample uses a fresh isolated engine process.",
+  "scope": "CPU work measured inside loader jobs/batches, not full presented-frame time or natural gameplay FPS. Background waiting and other phases remain visible separately.",
+  "samples": {
+    "before": [
+      {
+        "log": "baseline-native/world_async_loading.log",
+        "regions": [
+          {
+            "region": "demo_ch01_moss_bell_court",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 13.288,
+            "max_commit_batch_ms": 36.052,
+            "append_inventory_item_ms": 36.032,
+            "art_wall_ms": 33.382,
+            "publish_ms": 20.328,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch02_rain_foundry_canal",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 11.622,
+            "max_commit_batch_ms": 10.63,
+            "append_inventory_item_ms": 1.317,
+            "art_wall_ms": 428.16,
+            "publish_ms": 18.701,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch03_saltwhite_archive",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 5.596,
+            "max_commit_batch_ms": 13.514,
+            "append_inventory_item_ms": 0.473,
+            "art_wall_ms": 470.276,
+            "publish_ms": 23.871,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch04_broken_string_greenhouse",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 9.246,
+            "max_commit_batch_ms": 11.208,
+            "append_inventory_item_ms": 0.477,
+            "art_wall_ms": 455.42,
+            "publish_ms": 17.206,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch05_obsidian_pilgrim_road",
+            "max_build_job": "_collectible",
+            "max_build_job_ms": 31.702,
+            "max_commit_batch_ms": 12.485,
+            "append_inventory_item_ms": 0.598,
+            "art_wall_ms": 460.744,
+            "publish_ms": 17.582,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch06_silent_crown_core",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 8.804,
+            "max_commit_batch_ms": 12.143,
+            "append_inventory_item_ms": 0.807,
+            "art_wall_ms": 516.61,
+            "publish_ms": 32.113,
+            "item_atlases": null,
+            "item_paths": null
+          }
+        ]
+      },
+      {
+        "log": "baseline-second-native/world_async_loading.log",
+        "regions": [
+          {
+            "region": "demo_ch01_moss_bell_court",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 12.44,
+            "max_commit_batch_ms": 34.519,
+            "append_inventory_item_ms": 33.641,
+            "art_wall_ms": 31.871,
+            "publish_ms": 25.825,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch02_rain_foundry_canal",
+            "max_build_job": "_enemy",
+            "max_build_job_ms": 12.401,
+            "max_commit_batch_ms": 10.213,
+            "append_inventory_item_ms": 0.491,
+            "art_wall_ms": 444.362,
+            "publish_ms": 15.045,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch03_saltwhite_archive",
+            "max_build_job": "_spawn_seal_practice_targets",
+            "max_build_job_ms": 7.157,
+            "max_commit_batch_ms": 11.247,
+            "append_inventory_item_ms": 0.668,
+            "art_wall_ms": 444.134,
+            "publish_ms": 18.599,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch04_broken_string_greenhouse",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 9.078,
+            "max_commit_batch_ms": 10.798,
+            "append_inventory_item_ms": 0.475,
+            "art_wall_ms": 416.451,
+            "publish_ms": 16.989,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch05_obsidian_pilgrim_road",
+            "max_build_job": "_collectible",
+            "max_build_job_ms": 36.27,
+            "max_commit_batch_ms": 11.292,
+            "append_inventory_item_ms": 1.441,
+            "art_wall_ms": 499.982,
+            "publish_ms": 17.376,
+            "item_atlases": null,
+            "item_paths": null
+          },
+          {
+            "region": "demo_ch06_silent_crown_core",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 8.236,
+            "max_commit_batch_ms": 12.724,
+            "append_inventory_item_ms": 0.434,
+            "art_wall_ms": 513.967,
+            "publish_ms": 16.669,
+            "item_atlases": null,
+            "item_paths": null
+          }
+        ]
+      }
+    ],
+    "after": [
+      {
+        "log": "second-native/world_async_loading.log",
+        "regions": [
+          {
+            "region": "demo_ch01_moss_bell_court",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 12.521,
+            "max_commit_batch_ms": 10.635,
+            "append_inventory_item_ms": 0.603,
+            "art_wall_ms": 133.235,
+            "publish_ms": 17.214,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch02_rain_foundry_canal",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 9.41,
+            "max_commit_batch_ms": 12.259,
+            "append_inventory_item_ms": 0.724,
+            "art_wall_ms": 455.25,
+            "publish_ms": 16.922,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch03_saltwhite_archive",
+            "max_build_job": "_spawn_seal_practice_targets",
+            "max_build_job_ms": 5.254,
+            "max_commit_batch_ms": 11.203,
+            "append_inventory_item_ms": 0.497,
+            "art_wall_ms": 483.265,
+            "publish_ms": 16.684,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch04_broken_string_greenhouse",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 6.891,
+            "max_commit_batch_ms": 10.209,
+            "append_inventory_item_ms": 0.833,
+            "art_wall_ms": 444.725,
+            "publish_ms": 16.815,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_4.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png"
+            ]
+          },
+          {
+            "region": "demo_ch05_obsidian_pilgrim_road",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 6.86,
+            "max_commit_batch_ms": 10.155,
+            "append_inventory_item_ms": 0.413,
+            "art_wall_ms": 533.437,
+            "publish_ms": 12.062,
+            "item_atlases": 6,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_5.png",
+              "res://assets/sprites/original_items/items_4.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png"
+            ]
+          },
+          {
+            "region": "demo_ch06_silent_crown_core",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 7.685,
+            "max_commit_batch_ms": 10.881,
+            "append_inventory_item_ms": 0.572,
+            "art_wall_ms": 555.216,
+            "publish_ms": 16.7,
+            "item_atlases": 6,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_5.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          }
+        ]
+      },
+      {
+        "log": "final-timing-native/world_async_loading.log",
+        "regions": [
+          {
+            "region": "demo_ch01_moss_bell_court",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 14.31,
+            "max_commit_batch_ms": 12.247,
+            "append_inventory_item_ms": 0.463,
+            "art_wall_ms": 134.348,
+            "publish_ms": 16.751,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch02_rain_foundry_canal",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 9.629,
+            "max_commit_batch_ms": 12.183,
+            "append_inventory_item_ms": 0.727,
+            "art_wall_ms": 479.915,
+            "publish_ms": 16.512,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch03_saltwhite_archive",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 7.666,
+            "max_commit_batch_ms": 10.593,
+            "append_inventory_item_ms": 0.683,
+            "art_wall_ms": 476.312,
+            "publish_ms": 17.548,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          },
+          {
+            "region": "demo_ch04_broken_string_greenhouse",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 7.313,
+            "max_commit_batch_ms": 11.865,
+            "append_inventory_item_ms": 0.963,
+            "art_wall_ms": 455.463,
+            "publish_ms": 17.405,
+            "item_atlases": 5,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_4.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png"
+            ]
+          },
+          {
+            "region": "demo_ch05_obsidian_pilgrim_road",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 10.261,
+            "max_commit_batch_ms": 10.427,
+            "append_inventory_item_ms": 0.454,
+            "art_wall_ms": 449.964,
+            "publish_ms": 14.019,
+            "item_atlases": 6,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_5.png",
+              "res://assets/sprites/original_items/items_4.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png"
+            ]
+          },
+          {
+            "region": "demo_ch06_silent_crown_core",
+            "max_build_job": "_background_cave",
+            "max_build_job_ms": 7.632,
+            "max_commit_batch_ms": 10.19,
+            "append_inventory_item_ms": 0.561,
+            "art_wall_ms": 517.295,
+            "publish_ms": 12.491,
+            "item_atlases": 6,
+            "item_paths": [
+              "res://assets/sprites/original_items/items_5.png",
+              "res://assets/sprites/original_items/items_1.png",
+              "res://assets/sprites/original_items/items_0.png",
+              "res://assets/sprites/original_items/items_2.png",
+              "res://assets/sprites/original_items/items_3.png",
+              "res://assets/sprites/original_items/items_4.png"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

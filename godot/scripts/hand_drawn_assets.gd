@@ -31,6 +31,10 @@ static func character_manifests(kind: String, data: Dictionary) -> Array[String]
         if FileAccess.file_exists(skill_manifest):
             var skill_path := String(manifest(skill_manifest).get("creatures", {}).get(String(data.get("kind", "")), {}).get("texture", ""))
             if not skill_path.is_empty(): result.append(skill_path)
+    elif kind == "item":
+        var item_id := String(data.get("item_id", data.get("kind", "bell_key")))
+        var path := String(item_spec(item_id).get("atlas", ""))
+        if not path.is_empty(): result.append(path)
     return result
 
 static func atlas_paths(path: String) -> Array[String]:
@@ -165,9 +169,12 @@ static func frames(path: String) -> SpriteFrames:
     frame_cache[path] = result
     return result
 
-static func item(item_id: String) -> Texture2D:
+static func item_spec(item_id: String) -> Dictionary:
     var data := manifest("res://assets/sprites/original_items/manifest.json")
-    return frame(data.get(item_id, data.get("thread_burst" if item_id.contains("_ability_") else "map_fragment", {})))
+    return data.get(item_id, data.get("thread_burst" if item_id.contains("_ability_") else "map_fragment", {}))
+
+static func item(item_id: String) -> Texture2D:
+    return frame(item_spec(item_id))
 
 static func portrait(npc_id: String) -> Texture2D:
     var data := manifest("res://assets/sprites/original_npcs/" + npc_art_id(npc_id) + "/manifest.json")
