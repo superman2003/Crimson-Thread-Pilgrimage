@@ -62,6 +62,7 @@ func run() -> void:
     root.add_child(world)
     await READY.wait_for(world)
     current_scene = world
+    print("SETTINGS CAPTURE ready=true render_loop=",RenderingServer.render_loop_enabled)
     for child in world.get_children():
         if child is CanvasItem: child.visible = false
         elif child is CanvasLayer and child != world.ui_canvas: child.visible = false
@@ -70,7 +71,10 @@ func run() -> void:
         if child is CanvasItem: child.visible = false
     ui.settings.visible = true
     for unused in 4: await process_frame
-    await RenderingServer.frame_post_draw
+    # This paused capture needs one explicit frame, including offscreen windows.
+    # https://docs.godotengine.org/en/4.6/classes/class_renderingserver.html#class-renderingserver-method-force-draw
+    RenderingServer.force_draw(false)
+    print("SETTINGS CAPTURE explicit_frame=true")
     var pixels := root.get_texture().get_image()
     var output := ProjectSettings.globalize_path("res://../artifacts/settings_construction_v12/capture/current")
     DirAccess.make_dir_recursive_absolute(output)

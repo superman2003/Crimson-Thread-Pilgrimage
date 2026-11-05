@@ -4,5 +4,22 @@
   "original_statements_sha256": "9c4e9134425febc87be98179ebbe955992ea43686513293145192995cd34f032",
   "extracted_statements_sha256": "9c4e9134425febc87be98179ebbe955992ea43686513293145192995cd34f032",
   "identical_order_and_statements": true,
-  "production_scope": "build_steps and the settings wrapper/five ordered groups; artwork and existing constructor statements retained"
+  "production_scope": "build_steps and the settings wrapper/five ordered groups; artwork and existing constructor statements retained",
+  "integration_main": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "changed_existing_functions": [
+    "build_steps",
+    "_build_settings"
+  ],
+  "unchanged_existing_functions": 162,
+  "added_functions": [
+    "_begin_settings",
+    "_build_settings_accessibility",
+    "_build_settings_audio",
+    "_build_settings_controls",
+    "_finish_settings"
+  ],
+  "ui_source_sha256": "704610c565408a160107c27f80658fbcba59b35d5d0c4b6ea02fc47bdb0bc8ac",
+  "integrated_constructor_statements_match": true,
+  "original_regression_markers_preserved": 211,
+  "default_suites": 212
 }
