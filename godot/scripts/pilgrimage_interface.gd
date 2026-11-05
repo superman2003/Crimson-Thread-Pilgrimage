@@ -857,6 +857,8 @@ func _build_dialogue() -> void:
         dialogue_body.visible_characters=-1)
 
 func show_speaker(area: Area2D) -> void:
+    if is_instance_valid(dialogue_area) and dialogue_area != area:
+        _speaker_motion(dialogue_area,false)
     dialogue_area=area
     dialogue_scroll.scroll_vertical=0
     dialogue_reading_key=_dialogue_reading_key(area,dialogue_body.text)
@@ -879,8 +881,15 @@ func show_speaker(area: Area2D) -> void:
             dialogue_quest_button.text="预览交付"
         elif bool(level.story_flags.get(String(quest.get("complete_flag","")),false)):
             dialogue_quest_button.text="回访心愿"
-    var sprite:=area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
-    if sprite!=null:sprite.play("talk")
+    _speaker_motion(area,true)
+
+func _speaker_motion(area, talking: bool) -> void:
+    if not is_instance_valid(area): return
+    var sprite := area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
+    if sprite==null: return
+    var method := &"begin_conversation" if talking else &"end_conversation"
+    if sprite.has_method(method): sprite.call(method)
+    else: sprite.play(&"talk" if talking else &"idle")
 
 func _open_narrative_inquiries() -> void:
     if not preload("res://scripts/narrative_inquiries.gd").can_talk(self,dialogue_area):return
@@ -982,9 +991,7 @@ func _remember_dialogue_reading() -> void:
 
 func close_dialogue() -> void:
     _remember_dialogue_reading()
-    if is_instance_valid(dialogue_area):
-        var sprite:=dialogue_area.get_node_or_null("FriendlyFamilySprite") as AnimatedSprite2D
-        if sprite!=null:sprite.play("idle")
+    _speaker_motion(dialogue_area,false)
     dialogue_area=null
     dialogue_reading_key=""
 

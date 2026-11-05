@@ -1,0 +1,90 @@
+{
+  "results": [
+    {
+      "suite": "npc_dialogue_motion",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "NPC_DIALOGUE_MOTION checks=244 failures=0 characters=25 actual_dialogue=true",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/npc_dialogue_motion_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    },
+    {
+      "suite": "expanded_character_motion",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "EXPANDED_CHARACTER_MOTION checks=6230 failures=0 characters=71 poses=3114",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/expanded_character_motion_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    },
+    {
+      "suite": "story_guidance",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "STORY_GUIDANCE_VALIDATION_PASS chapters=6 arrows=0 npc_story=true dialogue_panel=true",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/story_guidance_validation.gd"
+      ]
+    },
+    {
+      "suite": "character_art_prewarm",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "CHARACTER_ART_PREWARM checks=858 failures=0 sync_loads=0",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/character_art_prewarm_validation.gd",
+        "--fixed-fps",
+        "60"
+      ]
+    }
+  ]
+}

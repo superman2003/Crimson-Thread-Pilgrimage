@@ -12,15 +12,41 @@ var frames := 0
 var failures: Array[String] = []
 var crossings: Array = []
 var combat: Dictionary = {}
+var focus_events: Array = []
 
 func _initialize() -> void:
     call_deferred("run")
+
+func record_focus(focused: bool) -> void:
+    focus_events.append({"focused":focused,"physics_frame":Engine.get_physics_frames()})
 
 func check(ok: bool, message: String) -> void:
     checks += 1
     if not ok:
         failures.append(message)
         print("LIVE GAMEPLAY FAIL ",message)
+
+static func callback_count(signal_value: Signal, expected: Callable) -> int:
+    var count := 0
+    for connection in signal_value.get_connections():
+        var actual: Callable = connection.callable
+        if actual.get_object()==expected.get_object() and actual.get_method()==expected.get_method() \
+            and actual.get_bound_arguments()==expected.get_bound_arguments(): count += 1
+    return count
+
+static func arrival_bindings(owner_level: Node, npc: Area2D, shrine: Area2D) -> Dictionary:
+    if owner_level==null or npc==null or shrine==null:
+        return {"gameplay":false,"components":false}
+    var gameplay_once := true
+    for area: Area2D in [npc,shrine]:
+        gameplay_once = gameplay_once \
+            and callback_count(area.body_entered,Callable(owner_level,"_on_interactable_entered").bind(area)) == 1 \
+            and callback_count(area.body_exited,Callable(owner_level,"_on_interactable_exited").bind(area)) == 1
+    var motion := npc.get_node_or_null("FriendlyFamilySprite")
+    var components_once := motion != null and callback_count(npc.body_entered,Callable(motion,"_approached")) == 1 \
+        and npc.body_entered.get_connections().size() == 2 and npc.body_exited.get_connections().size() == 1 \
+        and shrine.body_entered.get_connections().size() == 1 and shrine.body_exited.get_connections().size() == 1
+    return {"gameplay":gameplay_once,"components":components_once}
 
 func tick(count: int = 1) -> void:
     for unused in count:
@@ -39,6 +65,9 @@ func axis(direction: float) -> void:
         Input.action_press("move_right" if direction > 0 else "move_left")
 
 func press(action: String) -> void:
+    # A screenshot resumes after frame_post_draw, after the host's input poll.
+    # Put the synthetic edge before the next poll without changing held frames.
+    await process_frame
     Input.action_press(action)
     await tick(2)
     Input.action_release(action)
@@ -116,6 +145,12 @@ func crossing(target: String, direction: int) -> Dictionary:
         entered = entered or scene.world_passage.active
         if entered and not scene.world_passage.active and not scene.chapter_transitioning:
             break
+    if not entered or scene.world_passage.active or String(scene.config.id)!=target:
+        print("LIVE_PIPE_ENTRY_STATE ",JSON.stringify({"entered":entered,"region":String(scene.config.id),"target":target,
+            "player":scene.player.position,"velocity":scene.player.velocity,"axis":Input.get_axis("move_left","move_right"),
+            "ui_input_locked":scene.player.ui_input_locked,"overlay":scene.active_overlay,"loading":scene.world_loading,
+            "transitioning":scene.chapter_transitioning,"loader_phase":scene.world_loader.phase,
+            "passage_active":scene.world_passage.active,"last_passage":scene.world_passage.last_result}))
     release_input()
     # Inspect adoption before active destination AI has time to despawn actors.
     check(entered and String(scene.config.id) == target and scene.world_loader.phase == "idle","directional input completes authored pipe crossing")
@@ -201,13 +236,28 @@ func interactions(records: Dictionary) -> void:
     var saved := STATE.new()
     check(saved.read(SAVE) and String(saved.get_region(MOSS).get("checkpoint_id","")) == String(shrine.name),"reused shrine records checkpoint")
     if not await walk(npc.position,"reused NPC"): return
+    var approach_motion := npc.get_node_or_null("FriendlyFamilySprite")
+    check(approach_motion != null and approach_motion.has_method("greet_on_approach") \
+        and int(approach_motion.get("last_approach_greeting_msec")) >= 0 \
+        and not bool(approach_motion.get("conversation_active")),
+        "reused NPC greets on physical approach before dialogue opens")
+    await capture_review("live_04_npc_greeting.jpg")
     await press("interact")
     check(scene.active_overlay == "dialogue" and npc.get_meta("dialogue_index",0) > 0,"reused NPC opens live dialogue through input")
     await press("interact")
-    check(npc.body_entered.get_connections().size() == 1 and shrine.body_entered.get_connections().size() == 1,"arrival callbacks bound exactly once")
+    var bindings := arrival_bindings(scene,npc,shrine)
+    check(bindings.gameplay,"arrival gameplay callbacks retain the correct owner and area exactly once")
+    check(bindings.components,"arrival has exactly one greeting callback and no extra interaction listeners")
     scene._close_overlays()
 
 func run() -> void:
+    # SceneTree initialization applies project window flags after _initialize.
+    # Configure the offscreen window here, before any held synthetic action.
+    if DisplayServer.get_name() != "headless":
+        root.focus_entered.connect(record_focus.bind(true))
+        root.focus_exited.connect(record_focus.bind(false))
+        root.unfocusable = true
+        check(root.unfocusable,"background input fixture does not take desktop focus")
     for suffix in ["",".bak",".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
     scene = load("res://scenes/World.tscn").instantiate()
@@ -252,7 +302,9 @@ func run() -> void:
     await tick(4)
     for suffix in ["",".bak",".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
-    var result := {"crossings":crossings,"combat":combat,"physics_frames":frames,"initial_checkpoint_fixture":true,"damage_suppression":false,"six_region_playthrough":false,"failures":failures.size()}
+    if DisplayServer.get_name() != "headless":
+        check(root.unfocusable,"background focus policy survives scene replacement")
+    var result := {"crossings":crossings,"combat":combat,"physics_frames":frames,"initial_checkpoint_fixture":true,"damage_suppression":false,"six_region_playthrough":false,"failures":failures.size(),"test_window_unfocusable":root.unfocusable,"focus_events":focus_events}
     if DisplayServer.get_name() != "headless":
         result.renderer = "real OpenGL"
         var output := FileAccess.open("res://../artifacts/neighbor_gameplay/gpu_live.json",FileAccess.WRITE)

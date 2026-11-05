@@ -5347,6 +5347,7 @@ func _make_npc(data: Dictionary) -> Area2D:
     var npc_frames := ORIGINAL_ART.frames(manifest_path)
     if npc_frames != null:
         var sprite := AnimatedSprite2D.new()
+        sprite.set_script(preload("res://scripts/npc_dialogue_motion.gd"))
         sprite.name="FriendlyFamilySprite"
         sprite.sprite_frames=npc_frames
         sprite.play("idle")
