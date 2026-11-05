@@ -2,12 +2,16 @@ extends Control
 
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
+const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
+const READING_SCROLL := preload("res://scripts/reading_scroll.gd")
 const FONT := preload("res://assets/fonts/GlobalTypeface.otf")
 const INSCRIBED_BUTTON := preload("res://scripts/pilgrimage_button.gd")
 static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const HUD_OCCLUSION := preload("res://scripts/hud_occlusion.gd")
 const HEAL_READOUT := preload("res://scripts/heal_resource_readout.gd")
+const DIALOG_READING := preload("res://scripts/dialog_reading_adapter.gd")
+var dialog_reading: Node
 var healing_payment: Label
 var healing_payment_track: Control
 const IVORY := Color("e8d7b8")
@@ -123,6 +127,8 @@ var settings_save_notice: Label
 var settings_save_retry: Button
 var accessibility_toggles: Dictionary={}
 var accessibility: Dictionary={"danger_captions":false,"danger_caption_limit":2,"danger_caption_contrast":true,"npc_landmarks":true,"controller_deadzone":0.2,"subtitle_speed":1.0,"subtitle_size":21,"flash_enabled":true,"vibration_enabled":true,"vibration_strength":1.0,"camera_shake":1.0,"camera_lookahead":1.0,"observation_mode":0,"observation_delay":0.35,"observation_distance":1.0,"tutorial_hints":false,"navigation_assist":false}
+## Fixture hook for the reading stick; NAN reads real connected pads.
+var reading_axis_override := NAN
 var remap_target := ""
 # Polling Input ignores handled events; keep captured input out of the level loop.
 var remap_capture_frame := -1
@@ -159,6 +165,7 @@ var journal_mark_button: Button
 var journal_star_button: Button
 var journal_batch_button: Button
 var journal_batch_dialog: ConfirmationDialog
+var journal_source_dialog: AcceptDialog
 var journal_current_document: Dictionary={}
 var journal_documents: Array=[]
 var text_entry_windows: Array[WeakRef]=[]
@@ -256,6 +263,11 @@ func finish_bind() -> void:
         get_viewport().gui_focus_changed.connect(_remember_gui_focus)
     if not Input.joy_connection_changed.is_connected(_on_joy_connection_changed):
         Input.joy_connection_changed.connect(_on_joy_connection_changed)
+    # Every dialog under this shell, including ones desks create later, gets
+    # its button row and content joined for d-pad navigation.
+    if not get_tree().node_added.is_connected(_bridge_dialog_focus):
+        get_tree().node_added.connect(_bridge_dialog_focus)
+    for dialog in (level.find_children("*","AcceptDialog",true,false) if level is Node else find_children("*","AcceptDialog",true,false)):_bridge_dialog_focus(dialog)
     _fit_viewport()
     construction_complete=true
     set_process(true)
@@ -712,6 +724,12 @@ func _matches(category: String) -> bool:
 func refresh_inventory() -> void:
     if bag_grid==null:return
     if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
     if journal_filters!=null:
         journal_filters.visible=bag_category=="旅记"
         bag_scroll.position.y=279 if journal_filters.visible else 194
@@ -726,6 +744,7 @@ func refresh_inventory() -> void:
     finish_inventory_refresh()
 
 func begin_inventory_refresh() -> void:
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
     _remember_journal_scroll()
     if bag_category!="旅记":
         journal_reading_key=""
@@ -786,6 +805,9 @@ func _category_name(category: String) -> String:
     return {"Tools":"织具","Abilities":"能力","Charms":"铭饰","Upgrades":"强化","Relics":"遗物","Quest":"要物","Materials":"材料","Combat":"印记","Currency":"碎钱"}.get(category,category)
 
 func _pin_item() -> void:
+    if bag_category=="旅记":
+        _open_journal_sources()
+        return
     var id := _reconcile_inventory_selection()
     if id.is_empty():return
     var was_pinned:=bool(level.story_flags.get("ui_pin_"+id,false))
@@ -993,7 +1015,8 @@ func _build_settings() -> void:
         settings.add_child(slider)
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
-    _button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort).add_theme_font_size_override("font_size",15)
+    var comfort_button:=_button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort)
+    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",15)
     # Row 332 to the right of the comfort button belongs to the danger-caption
     # desk; the retry sits beside the NPC toggle, its notice by the section title.
     settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
@@ -1248,6 +1271,11 @@ func _open_controller_comfort() -> void:
         var saved:=_save_accessibility()
         return {"ok":true,"persisted":saved==OK})
 
+func _ready() -> void:
+    dialog_reading=DIALOG_READING.new()
+    dialog_reading.name="DialogReadingAdapter"
+    add_child(dialog_reading)
+
 func _apply_accessibility() -> void:
     if settings_persistence.pending:
         settings_persistence.reconcile(_accessibility_config(),accessibility_path)
@@ -1260,6 +1288,7 @@ func _apply_accessibility() -> void:
         feel.set_accessibility(accessibility)
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
     if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
+    if is_instance_valid(dialog_reading):dialog_reading.refresh()
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())
         applied_player=level.player
@@ -2392,6 +2421,9 @@ func _refresh_save_slots() -> void:
 func _process(delta: float) -> void:
     if level==null or not construction_complete:return
     _sync_reading_session()
+    if not String(level.active_overlay).is_empty() or has_modal_window():
+        var reading_axis: float=reading_axis_override if is_finite(reading_axis_override) else READING_SCROLL.stick_axis(float(accessibility.get("controller_deadzone",0.2)))
+        if reading_axis!=0.0:READING_SCROLL.scroll(self,reading_axis*READING_SCROLL.SPEED*delta)
     _refresh_quick_action_bindings()
     if dialogue.visible:
         dialogue_hint.text=_dialogue_binding_hint()
@@ -2651,6 +2683,10 @@ func _refresh_journal() -> void:
     records.append_array(preload("res://scripts/protagonist_voice.gd").records(level.inventory_counts,level.story_flags))
     records.append_array(preload("res://scripts/npc_recollections.gd").records(level.story_flags))
     records.append_array(preload("res://scripts/narrative_inquiries.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/ending_return_journal.gd").records(level.inventory_counts,level.story_flags))
+    records.append_array(preload("res://scripts/known_world_terms.gd").records(level.inventory_counts))
+    records.append_array(preload("res://scripts/guardian_identities.gd").records(level.story_flags))
+    records.append_array(preload("res://scripts/known_inquiry_contacts.gd").records(level.inventory_counts,level.story_flags))
     var progress: Dictionary={}
     if narrative.has_method("evaluate_progress"):
         progress=narrative.call("evaluate_progress",level.inventory_counts,level.story_flags)
@@ -2726,7 +2762,7 @@ func _refresh_journal() -> void:
             bag_description.text="完整读完交谈并成功留下记录后，可以在这里回看相识之人的话。"
         if journal_filter=="voice":
             bag_name.text="尚无自述"
-            bag_description.text="获得新的永久能力后，这里会留下一句旅途自述。"
+            bag_description.text="获得永久能力、确认交谈或近看遗迹后，可以在这里回看旅途自述。"
         if not journal_search.text.is_empty() or journal_unread.button_pressed or journal_stars.button_pressed:
             bag_name.text="没有符合筛选的已知记录"
             bag_description.text="清空搜索、关闭仅未读/收藏，或切换分类。未发现内容不会列出或被搜索命中。"
@@ -2774,10 +2810,11 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         category="人物重逢 · 已确认交谈"
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="voice":
-        category="自述 · 获得能力之后"
+        category="自述 · "+String(entry.get("voice_context","获得能力之后"))
         lines.append(String(entry.get("description","")))
+        for source in entry.get("voice_sources",[]):lines.append("\n记自："+String(source))
     elif String(entry.get("record_kind",""))=="guide":
-        category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else "操作手册 · 当前规则"
+        category="永久能力 · "+preload("res://scripts/permanent_ability_roles.gd").label(entry) if preload("res://scripts/permanent_ability_roles.gd").is_ability(entry) else String(entry.get("guide_context","操作手册 · 当前规则"))
         lines.append(String(entry.get("description","")))
     elif String(entry.get("record_kind",""))=="ending":
         var chosen:=bool(entry.get("chosen",false))
@@ -2827,6 +2864,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
         for step in entry.get("steps",[]):lines.append(("● " if bool(step.get("complete",false)) else "○ ")+String(step.get("label","")))
         lines.append("\n"+String(entry.get("guidance","")))
         if String(entry.get("status",""))=="complete":lines.append("奖励已领取。" if bool(entry.get("reward_claimed",false)) else "可以返回委托人领取奖励。")
+        lines.append_array(preload("res://scripts/quest_contacts.gd").appendix(String(entry.get("id","")),level.inventory_counts,level.story_flags))
     else:
         var acquired:=bool(entry.get("acquired",false))
         category="证词 · "+("已发现" if acquired else "缺页")
@@ -2839,6 +2877,7 @@ func _journal_presentation(entry: Dictionary) -> Dictionary:
                 lines.append(String(witness.get("text","")))
             for connection in entry.get("connections",[]):
                 lines.append("\n互证："+String(connection))
+            lines.append_array(preload("res://scripts/testimony_sources.gd").appendix(String(entry.get("id","")),level.inventory_counts))
     return {"text":"\n".join(lines),"category":category}
 
 func _show_journal_record(entry: Dictionary) -> void:
@@ -2900,6 +2939,12 @@ func _refresh_journal_actions() -> void:
     journal_mark_button.text="标为未读" if valid and journal_catalog.is_read(journal_current_document) else "标为已读"
     journal_star_button.text="取消收藏" if valid and journal_catalog.is_starred(String(journal_current_document.key)) else "收藏记录"
     if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
 
 func _journal_preference_result(result: Dictionary) -> void:
     if not String(result.get("reason","")).is_empty() and is_instance_valid(toast):toast.text=String(result.reason)
@@ -2920,6 +2965,18 @@ func _journal_batch_available() -> bool:
 
 func _journal_batch_documents() -> Array:
     return journal_catalog.filter_documents(journal_documents,journal_search.text,journal_unread.button_pressed,journal_stars.button_pressed,journal_sort.selected)
+
+func _open_journal_sources() -> void:
+    if not _journal_batch_available():return
+    if not is_instance_valid(journal_source_dialog):
+        journal_source_dialog=preload("res://scripts/journal_source_desk.gd").new()
+        bag.add_child(journal_source_dialog)
+        register_text_entry_window(journal_source_dialog)
+        var popup_ref: WeakRef=weakref(journal_source_dialog)
+        bag.visibility_changed.connect(func():
+            var popup: AcceptDialog=popup_ref.get_ref()
+            if is_instance_valid(popup) and not bag.is_visible_in_tree():popup.hide())
+    journal_source_dialog.open_for(self)
 
 func _open_journal_batch() -> void:
     if not _journal_batch_available():return
@@ -2963,6 +3020,12 @@ func _apply_journal_scroll(key: String, text: String, offset: float, request_gen
         bar.value=clampf(offset,bar.min_value,maxf(bar.min_value,bar.max_value-bar.page))
         journal_restore_pending=false
         if has_node("JournalMarkDesk"):get_node("JournalMarkDesk").refresh_launcher()
+    if bag_category=="旅记":
+        var sources:=preload("res://scripts/journal_sources.gd").links(String(journal_current_document.get("key","")),level.inventory_counts,level.story_flags)
+        bag_pin.disabled=sources.is_empty()
+        bag_pin.text="回看来源 · %d条" % sources.size() if not sources.is_empty() else "PgUp/PgDn · LB/RB 翻页"
+        bag_pin.tooltip_text="回看本条引用的已知原始记录；关闭后回到原文。" if not sources.is_empty() else "Home 到开头，End 到末尾；切换记录后保留本次阅读位置。"
+    if is_instance_valid(journal_source_dialog):journal_source_dialog.refresh_binding()
 
 func _scroll_journal(step: int) -> void:
     if bag_description==null:return
@@ -3096,7 +3159,12 @@ func _sync_reading_session() -> void:
     journal_restore_pending = false
     dialogue_reading_key = ""
 
+func _bridge_dialog_focus(node: Node) -> void:
+    # Map, recall and new-journey dialogs live under the level, not this shell.
+    if node is AcceptDialog and (is_ancestor_of(node) or (level is Node and is_instance_valid(level) and level.is_ancestor_of(node))):DIALOG_FOCUS.install(node)
+
 func _exit_tree() -> void:
+    if get_tree().node_added.is_connected(_bridge_dialog_focus):get_tree().node_added.disconnect(_bridge_dialog_focus)
     # Snapshot reading numbers only; never commit a conversation or grant rewards.
     _remember_journal_scroll(true)
     _remember_dialogue_reading()

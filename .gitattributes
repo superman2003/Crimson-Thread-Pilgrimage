@@ -252,3 +252,12 @@ artifacts/b01_role_cues/*.png -filter -diff -merge -text
 artifacts/u03_thread_thresholds/*.png -filter -diff -merge -text
 artifacts/u03_hud_occlusion/*.png -filter -diff -merge -text
 artifacts/upgrade_20261025e/**/*.png -filter -diff -merge -text
+
+# Boss v6 authored assets and native validation evidence.
+art_requests/boss_motion_v6/**/*.png -filter -diff -merge -text
+artifacts/boss_motion_v6/*.mp4 -filter -diff -merge -text
+artifacts/boss_motion_v6/**/*.mp4 -filter -diff -merge -text
+artifacts/motion_v5_runtime/*.jpg -filter -diff -merge -text
+artifacts/boss_motion_v6/**/*.log -text whitespace=cr-at-eol
+artifacts/motion_v5_runtime/**/*.log -text whitespace=cr-at-eol
+artifacts/boss_motion_v6/first_capture.log whitespace=cr-at-eol,-blank-at-eof

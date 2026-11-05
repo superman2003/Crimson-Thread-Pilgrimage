@@ -33,6 +33,7 @@ repack (build_expanded_character_motion.py), then run this tool again.
 from __future__ import annotations
 import argparse
 import colorsys
+from copy import deepcopy
 from hashlib import sha256
 import json
 import math
@@ -117,7 +118,7 @@ def graded_mean(cel: np.ndarray, saturation: float) -> np.ndarray:
 
 
 def existing_poses(folder: Path) -> dict:
-    manifest = json.loads((folder / "motion_manifest.json").read_text())
+    manifest = json.loads((folder / "motion_manifest.json").read_text(encoding="utf-8"))
     half = manifest["canvas"][0] / 2.0
     atlases, poses = {}, {}
     for animation in manifest["animations"]:
@@ -244,21 +245,27 @@ def apply(runtime: dict, item: dict, entries: list[dict]) -> dict:
 
 def undo(folder: Path) -> None:
     record_path = folder / "motion_generation.json"
-    record = json.loads(record_path.read_text())
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    if "boss_motion_v6" in record:
+        raise ValueError(f"{folder.name}: remove/repack the v6 layer before undoing v5")
     restore(record["runtime_frames"], record.pop(RECORD_KEY, {}))
-    record_path.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n")
+    record_path.write_text(json.dumps(record, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def register(folder: Path, items: list[dict], check: bool) -> dict:
     record_path = folder / "motion_generation.json"
-    record = json.loads(record_path.read_text())
-    runtime = record["runtime_frames"]
+    record = json.loads(record_path.read_text(encoding="utf-8"))
+    downstream = record.get("boss_motion_v6")
+    current = record["runtime_frames"]
+    # Reconstruct v5 against its frozen upstream layer. Do not overwrite the
+    # interleaved v6 frames when checking or re-registering unchanged sources.
+    runtime = deepcopy(downstream["baseline_frames"]) if downstream else current
     previous = record.get(RECORD_KEY, {})
     stored = {s["image"]: s for s in previous.get("sheets", [])}
     restore(runtime, previous)
     poses = None
     sheets, changes = [], []
-    delivery = {a["name"]: a for a in json.loads((INCOMING / "delivery_manifest.json").read_text())["assets"]}
+    delivery = {a["name"]: a for a in json.loads((INCOMING / "delivery_manifest.json").read_text(encoding="utf-8"))["assets"]}
     for item in items:
         path = INCOMING / item["image"]
         digest = sha256(path.read_bytes()).hexdigest()
@@ -284,12 +291,14 @@ def register(folder: Path, items: list[dict], check: bool) -> dict:
         sheets.append({"image": item["image"], "image_sha256": digest, "op": item["op"], "animation": item["animation"], **values})
     record[RECORD_KEY] = {"brief": "art_requests/character_motion_v5/README.md", "tool": "tools/build_character_motion_v5.py",
                           "sheets": sheets, "changes": changes}
+    if downstream and runtime != downstream["baseline_frames"]:
+        raise ValueError(f"{folder.name}: v5 changed beneath v6; remove/repack v6 before recalibrating")
     encoded = json.dumps(record, ensure_ascii=False, indent=2) + "\n"
     if check:
-        if record_path.read_text() != encoded:
+        if record_path.read_text(encoding="utf-8") != encoded:
             raise ValueError(f"{folder.name}: v5 registration differs; rebuild")
     else:
-        record_path.write_text(encoded)
+        record_path.write_text(encoded, encoding="utf-8")
     return {"character": folder.name, "sheets": [s["image"] for s in sheets],
             "scales": {s["image"]: s["scale"] for s in sheets}, "grades": {s["image"]: s["grade"] for s in sheets}}
 
@@ -298,7 +307,7 @@ def verify_phase_strikes() -> list[str]:
     """The batch's reason to exist: no boss phase cel may repeat an attack cel."""
     for boss in E_BOSSES:
         folder = SPRITES / "original_creatures" / boss
-        manifest = json.loads((folder / "motion_manifest.json").read_text())
+        manifest = json.loads((folder / "motion_manifest.json").read_text(encoding="utf-8"))
         atlases, digests = {}, {}
         for animation in manifest["animations"]:
             if animation["name"] not in ("attack", "phase"):
@@ -308,7 +317,8 @@ def verify_phase_strikes() -> list[str]:
                 atlases.setdefault(path, Image.open(path).convert("RGBA"))
                 x, y, w, h = frame["region"]
                 digests.setdefault(animation["name"], set()).add(sha256(atlases[path].crop((x, y, x + w, y + h)).tobytes()).hexdigest())
-        if len(digests["phase"]) != 4 or digests["phase"] & digests["attack"]:
+        expected = len(next(a for a in manifest["animations"] if a["name"] == "phase")["frames"])
+        if len(digests["phase"]) != expected or digests["phase"] & digests["attack"]:
             raise ValueError(f"{boss}: phase strike still repeats attack cels")
     return E_BOSSES
 
@@ -326,6 +336,11 @@ def main():
     for item in items:
         by_folder.setdefault(item["folder"], []).append(item)
     if args.undo:
+        # Validate the entire batch before changing even the first character.
+        for folder in sorted(by_folder):
+            record = json.loads((SPRITES / folder / "motion_generation.json").read_text(encoding="utf-8"))
+            if "boss_motion_v6" in record:
+                raise ValueError(f"{folder}: remove/repack the v6 layer before undoing v5")
         for folder in sorted(by_folder):
             undo(SPRITES / folder)
         print(json.dumps({"undone": sorted(by_folder)}, indent=2))

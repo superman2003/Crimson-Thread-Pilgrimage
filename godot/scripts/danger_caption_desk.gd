@@ -19,6 +19,12 @@ func setup(shell: Control) -> void:
     ui=shell
     var button: Button=ui._button(ui.settings,"危险字幕辅助",Vector2(244,332),Vector2(200,32),open)
     button.name="DangerCaptionButton";button.add_theme_font_size_override("font_size",15)
+    # Geometric search from the comfort button picks the taller NPC toggle above
+    # and right, leaving this button unreachable by d-pad; pair the row explicitly.
+    var comfort: Control=ui.settings.get_node_or_null("ControllerComfortButton")
+    if comfort!=null:
+        comfort.focus_neighbor_right=comfort.get_path_to(button)
+        button.focus_neighbor_left=button.get_path_to(comfort)
     director=preload("res://scripts/danger_captions.gd").new();director.name="DangerCaptions";ui.level.add_child(director);director.setup(ui.level,ui)
 
 func _build() -> void:

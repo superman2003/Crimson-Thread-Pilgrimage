@@ -91,6 +91,23 @@ func _run() -> void:
     enemy.apply_target_interference(2)
     enemy.investigate_lure(Vector2(150,-42),1)
     check(enemy.interference_timer == 2 and enemy.lure_timer == 1, "fog and lure have bounded enemy state")
+    # Luring an enemy past the Player: the Player's own body between them must
+    # not hide the lure (terrain still does, as for sight).
+    var player_spot: Vector2 = player.global_position
+    player.add_to_group("player")
+    player.global_position = Vector2(170, 0)
+    await frames(2)
+    enemy.lure_timer = 0
+    enemy.investigate_lure(Vector2(260,-42),1)
+    var lured_past: bool = enemy.lure_timer == 1
+    enemy.lure_position = Vector2(260,-42)
+    var start_x: float = enemy.global_position.x
+    enemy.position.x = 140
+    enemy._update_patrol_or_aggro(0.1, null)
+    check(lured_past and enemy.global_position.x > 140, "a Player between an enemy and its lure neither hides the lure nor stops the walk")
+    enemy.position.x = start_x
+    player.global_position = player_spot
+    await frames(2)
     player.hp = 2
     player.energy = 53
     player.line_stacks = 3

@@ -1,0 +1,13 @@
+
+> crimson-thread-odyssey@1.0.0 test:boss-assets
+> node tools/run_python_tool.mjs tools/validate_boss01_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_directional_assets.py && node tools/run_python_tool.mjs tools/validate_boss_keyframes.py && node tools/run_python_tool.mjs tools/validate_boss_special_attacks.py && node tools/run_python_tool.mjs tools/validate_boss_asset_registry.py
+
+C:\Users\Administrator\Desktop\开源项目\Crimson-Thread-Pilgrimage\tools\validate_boss01_directional_assets.py:202: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  for r, g, b, a in image.getdata():
+BOSS01_DIRECTIONAL_ASSET_VALIDATION_PASS animations=10 frames=96 manifest=godot/assets/sprites/bosses/boss_01_moss_bell_matriarch/manifest.json alpha_bottoms=attack_left=246..246, attack_right=246..246, boss_01_atk_01_left=246..246, boss_01_atk_01_right=246..246, boss_01_atk_02_left=246..246, boss_01_atk_02_right=246..246, boss_01_atk_03_left=246..246, boss_01_atk_03_right=246..246, walk_left=246..246, walk_right=246..246 magenta_like=attack_left=1/231391, attack_right=1/231365, boss_01_atk_01_left=5/245797, boss_01_atk_01_right=5/245432, boss_01_atk_02_left=7/249166, boss_01_atk_02_right=7/249031, boss_01_atk_03_left=0/184745, boss_01_atk_03_right=0/184972, walk_left=0/348350, walk_right=0/348350
+C:\Users\Administrator\Desktop\开源项目\Crimson-Thread-Pilgrimage\tools\validate_boss_directional_assets.py:216: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  visible = sum(1 for _, _, _, a in rgba.getdata() if a > 24)
+BOSS_DIRECTIONAL_ASSET_VALIDATION_PASS bosses=19 animations=190 frames=1824 range=boss_02..boss_20 preview_gap_min=30 previews=19
+VALIDATE_BOSS_KEYFRAMES_PASS bosses=20 frames=240 artifact_index=artifacts/boss_keyframes/boss_attack_keyframes_index.json godot_index=godot/assets/sprites/bosses/boss_attack_keyframes_index.json
+VALIDATE_BOSS_SPECIAL_ATTACKS_PASS completed_bosses=20 special_attacks=60 frames=720 artifact_index=artifacts/boss_keyframes/boss_special_attack_keyframes_index.json godot_index=godot/assets/sprites/bosses/boss_special_attack_keyframes_index.json
+VALIDATE_BOSS_ASSET_REGISTRY_PASS bosses=20 core_frames=1920 demo_refs=7 registry=godot/assets/sprites/bosses/boss_asset_registry.json

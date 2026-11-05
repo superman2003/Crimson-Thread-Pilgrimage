@@ -10,6 +10,7 @@ var checks := 0
 var failures := 0
 var old_e04_checks := 0
 var new_e04_checks := 0
+var walk_bounds := 0
 
 class Current extends "res://scripts/main_level.gd":
     var clearance_checks := 0
@@ -107,6 +108,41 @@ class Legacy extends "res://scripts/main_level.gd":
             push_warning("No clear enemy spawn found for " + String(data.get("id", "enemy")) + "; check platform geometry.")
         return best_position
 
+    # Frozen verbatim from main 86183b86 (full clearance query per walk step).
+    func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector2, data: Dictionary) -> Array:
+        if platform_id.is_empty():
+            return []
+        var floor_rect := Rect2()
+        for platform in config.get("platforms", []):
+            if not (platform is Dictionary):
+                continue
+            var platform_data: Dictionary = platform
+            if String(platform_data.get("id", "")) == platform_id:
+                floor_rect = _rect2(platform_data.get("rect", []))
+                break
+        if floor_rect.size.x <= 0.0:
+            return []
+
+        var half_width := float(data.get("spawn_half_width", 36.0))
+        var visual_height := float(data.get("spawn_visual_height", _enemy_spawn_visual_height(data)))
+        var margin := maxf(half_width + 12.0, minf(54.0, floor_rect.size.x * 0.24))
+        var min_x := floor_rect.position.x + margin
+        var max_x := floor_rect.position.x + floor_rect.size.x - margin
+        if min_x >= max_x:
+            return []
+
+        var center_x := clampf(spawn_position.x, min_x, max_x)
+        var step := maxf(8.0, minf(18.0, half_width * 0.45))
+        var left := center_x
+        var right := center_x
+        while left - step >= min_x and _enemy_spawn_rect_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, platform_id):
+            left -= step
+        while right + step <= max_x and _enemy_spawn_rect_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, platform_id):
+            right += step
+        if right - left < half_width:
+            return [left-0.05, right+0.05]
+        return [left, right]
+
 func check(ok: bool,label: String) -> void:
     checks += 1
     if not ok:
@@ -144,6 +180,12 @@ func compare(config: Dictionary,probes: Array,label: String) -> void:
         if probe.has("expected"):
             var authored: Array=probe.expected
             check(actual==Vector2(authored[0],authored[1]),"explicit first-winner fixture: "+String(probe.id))
+        var floor_id: String=current._platform_under_position(actual,float(probe.get("clearance",40)))
+        current.clearance_checks=0
+        var walk: Array=current._enemy_platform_movement_bounds(floor_id,actual,probe)
+        check(walk==legacy._enemy_platform_movement_bounds(floor_id,expected,probe),label+" same patrol bounds: "+String(probe.get("id","")))
+        check(current.clearance_checks==0,label+" patrol walk uses the prefiltered blockers: "+String(probe.get("id","")))
+        if not walk.is_empty(): walk_bounds+=1
     # Exercise the fallback entry point with and without preferred-floor bias.
     if not probes.is_empty():
         var probe: Dictionary=probes[0]
@@ -188,5 +230,6 @@ func run() -> int:
             if index%3==0: rocks.append([x+width*0.25,y-150,width*0.5,150])
         compare({"platforms":platforms,"cave_world":{"solid_rects":rocks}},probes,"seeded layout %d"%iteration)
     check(old_e04_checks>0 and new_e04_checks*4<old_e04_checks,"real bell mote cuts at least 75 percent of clearance calls without changing its anchor")
-    print("SPAWN_SEARCH checks=%d failures=%d old_e04_checks=%d new_e04_checks=%d"%[checks,failures,old_e04_checks,new_e04_checks])
+    check(walk_bounds>=100,"patrol bounds compared on real and seeded floors (%d)"%walk_bounds)
+    print("SPAWN_SEARCH checks=%d failures=%d old_e04_checks=%d new_e04_checks=%d walk_bounds=%d"%[checks,failures,old_e04_checks,new_e04_checks,walk_bounds])
     return failures

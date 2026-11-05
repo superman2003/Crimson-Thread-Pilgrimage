@@ -1,0 +1,96 @@
+{
+  "bosses": 1,
+  "new_drawings": 48,
+  "coverage": [
+    {
+      "kind": "rust_crown_guardian",
+      "new_drawings": 48,
+      "sources": [
+        {
+          "image": "rust_crown_guardian_combat_01.png",
+          "sha256": "18ca1dbccbba26e57a5bf198b17123391ed29c5478da6a49e80b04bd42aaed88",
+          "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+          "role": "combat_01",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_combat_02.png",
+          "sha256": "86a95962c282da007e5fce4d9898f10543cb7043f4aba4ddb74248c3f6008f7e",
+          "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+          "role": "combat_02",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_combat_03.png",
+          "sha256": "6d6ee3e95b4192f2704b1ec955225ab01ccad8906f13557fa14ac8172aa8638c",
+          "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+          "role": "combat_03",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_combat_04.png",
+          "sha256": "89d85c2cb9313aefd7d6686d4106a707fd6fde5d94f4d297b97e1f025158e267",
+          "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+          "role": "combat_04",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_recovery_01.png",
+          "sha256": "5995bf3b80a97e05fc41729df4fe5c93c837bb71ae1faedff8181512b197806e",
+          "prompt_sha256": "de161a7d4a3b5f31f1e13db389fdbca21a5607f5cf46d8a6721948d448e156d9",
+          "role": "recovery_01",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_recovery_02.png",
+          "sha256": "c22f8470a7a00cfd211795c4bea5dcd8fe176d77f06f7c74558508b6df2b6f7d",
+          "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+          "role": "recovery_02",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_locomotion_01.png",
+          "sha256": "d5fb76f42f787b701d80f895d4d077bc514fbc14167f318262c1ae69c6777061",
+          "prompt_sha256": "b3b9cdda56d2d10a2886497a9e43642971e41ec45b1af65798bb53c3b27c508a",
+          "role": "locomotion_01",
+          "frames": 6
+        },
+        {
+          "image": "rust_crown_guardian_locomotion_02.png",
+          "sha256": "4f2804bfffb2da0ca9ac16aef277f860704cc26dfcc17770f004dcf8e9dbda1f",
+          "prompt_sha256": "b3b9cdda56d2d10a2886497a9e43642971e41ec45b1af65798bb53c3b27c508a",
+          "role": "locomotion_02",
+          "frames": 6
+        }
+      ],
+      "runtime": {
+        "id": "rust_crown_guardian",
+        "family": "original_creatures",
+        "animations": {
+          "idle": 8,
+          "walk": 16,
+          "windup": 7,
+          "attack": 7,
+          "recover": 12,
+          "hurt": 2,
+          "death": 4,
+          "heavy_windup": 7,
+          "heavy": 7,
+          "cast_windup": 7,
+          "cast": 7,
+          "phase_windup": 7,
+          "phase": 7,
+          "heavy_recover": 16,
+          "phase_recover": 16,
+          "cast_recover": 16
+        },
+        "frames": 146,
+        "canvas": [
+          498,
+          279
+        ],
+        "source_hash": "7f3c2325750ba674eb737c7911491dc976aec444eb88f399b72c3953e0b85726"
+      }
+    }
+  ]
+}

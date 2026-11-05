@@ -1,0 +1,2023 @@
+{
+  "bosses": 6,
+  "sheets": 48,
+  "new_frames": 288,
+  "jobs": [
+    {
+      "kind": "rust_crown_guardian",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.6666666666666666
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.33, 6: 0.67. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/rust_crown_guardian_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 苔鐘守母, a tall moss mantis matriarch: a pale bone skull-mask head with long curling antennae that end in two small brass bells, a huge drooping cloak of mossy green fern fronds dotted with tiny white flowers, a dark bronze bell-shaped armoured torso, slender brown wooden limbs and root feet, and two long bone-white scythe forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.6666666666666666
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.33, 6: 0.67. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/sunken_hammer_smith_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 緋線執剪者, a crimson bird-like shear wielder: a hooked beak, a tall comb crest of bronze quills, long thin red whip antennae sweeping back, a deep crimson ragged feather cloak, a pale cream segmented belly, thin dark clawed legs, and enormous ornate bronze shears with ring handles held in front of the body. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.6666666666666666
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.33, 6: 0.67. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "saltwhite_contract_judge",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/saltwhite_contract_judge_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 灰冠螳將, a spiky mantis general: a charcoal-black insect body on thin long legs, a jagged brown spiked crown head with glowing amber eyes, bone-white serrated blade plates covering the shoulders and back, a long tattered crimson cloak and red ribbons, a small gold clasp at the waist, and two very long bone-white curved scythe blades for forearms. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.6666666666666666
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.6666666666666666
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.33, 2: 0.67, 3: 0.50, 4: 0.50, 5: 0.33, 6: 0.67. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "broken_string_gardener",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/broken_string_gardener_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 銅根主教, a hunched root-bishop: a tall pale wooden mitre-shaped head with two small black eyes, a crown of orange coral-like root hair, a layered dark green leafy feather cloak, long cream lace stoles hanging from the shoulders, gnarled root-claw feet, and a twisted wooden crozier staff whose spiral head carries small hanging orange seed pods. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 5,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_pilgrim_commander",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_pilgrim_commander_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 靜音巡禮統帥, a tall slender veiled commander: a white oval mask face, a crown of pale spikes hung with small crystal pendants, a long translucent lavender veil, a layered cream petal gown set with large oval silver mirror panels, thin dark legs on heeled feet, and a long thin silver lance. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "combat_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_combat_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "attack",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "combat_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_combat_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "combat_03",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_combat_03.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "cast_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "combat_04",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_combat_04.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "phase_windup",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_windup",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase",
+          "after": 2,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "recovery_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_recovery_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 0,
+          "fraction": 0.6666666666666666
+        },
+        {
+          "animation": "recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.3333333333333333
+        },
+        {
+          "animation": "recover",
+          "after": 3,
+          "fraction": 0.6666666666666666
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.33, 2: 0.67, 3: 0.50, 4: 0.50, 5: 0.33, 6: 0.67. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "recovery_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_recovery_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "heavy_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "heavy_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "cast_recover",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "phase_recover",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "locomotion_01",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_locomotion_01.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "idle",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 1,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "idle",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 0,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 1,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    },
+    {
+      "kind": "silent_crown_core",
+      "role": "locomotion_02",
+      "refs": [
+        "art_requests/boss_motion_v6/refs/silent_crown_core_locomotion_02.png"
+      ],
+      "columns": 3,
+      "rows": 2,
+      "slots": [
+        {
+          "animation": "walk",
+          "after": 2,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 3,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 4,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 5,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 6,
+          "fraction": 0.5
+        },
+        {
+          "animation": "walk",
+          "after": 7,
+          "fraction": 0.5
+        }
+      ],
+      "prompt": "Use case: identity-preserve. Production hand-drawn game sprite animation in-between poses for Crimson Thread Pilgrimage. Reference 1 is the exact boss 無聲王冠, an armoured key king: a dark insect body in black plate armour, a pale bone crescent-horned crown head hung with small chains and keys, a tall golden organ-pipe crown of keys rising behind the head, a white ermine fur collar, a long red royal cloak with gold embroidery, and a giant ornate golden key with a wheel-shaped bow carried like a polearm. Lock its design, proportions, palette, materials, ink linework and weapon length.\nThe reference image contains SIX PAIRS in TWO COLUMNS x THREE ROWS, each pair is TWO chronological endpoint figures, LEFT then RIGHT. Read the PAIRS left-to-right then top-to-bottom, pair 1 through 6. Pair captions are metadata only.\nDraw EXACTLY SIX NEW intermediate character drawings: one between the LEFT and RIGHT endpoints of each pair, respecting their exact limb, weapon, head and cloak movement. Most are halfway; exact progress fractions by pair: 1: 0.50, 2: 0.50, 3: 0.50, 4: 0.50, 5: 0.50, 6: 0.50. A genuinely new articulated pose at that position, not either endpoint copied, not a blended double/ghost, not an alternate attack. If the two endpoints differ sharply, bridge them with believable joints and momentum. For airborne frames preserve airborne intent; for grounded walking keep the supporting foot planted and body origin fixed. For idle support feet stay fixed while chest/cape/antennae articulate.\nOUTPUT LAYOUT: THREE COLUMNS x TWO ROWS, SIX total cels, 1536x1024 transparent RGBA canvas. Cel 1 matches pair 1, cel 2 pair 2, ... cel 6 pair 6. Only one COMPLETE full-body boss with its COMPLETE weapon per cell, all facing RIGHT, fixed side-view, same body scale, feet at 88% cell height when grounded, clear transparent 10% gutters all sides. Never touch canvas/cell edge.\nNo text, labels, digits, grid, floor, shadows, checkerboard, background, particles, magic, glows, speed trails or effects. Keep the exact hand-painted existing style and sharp details. Six NEW coherent anatomical key poses, not duplicates."
+    }
+  ]
+}

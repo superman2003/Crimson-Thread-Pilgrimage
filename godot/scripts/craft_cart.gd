@@ -19,6 +19,7 @@ func _ready() -> void:
     var filters:=HBoxContainer.new();filters.add_theme_constant_override("separation",12);column.add_child(filters)
     query=LineEdit.new();query.placeholder_text="搜索制作名称";query.custom_minimum_size=Vector2(420,34);query.max_length=64;filters.add_child(query)
     unfinished=CheckButton.new();unfinished.text="隐藏已完成改制";filters.add_child(unfinished)
+    unfinished.focus_neighbor_left=unfinished.get_path_to(query);query.focus_neighbor_right=query.get_path_to(unfinished)
     query.text_changed.connect(func(_value: String):_render_recipes())
     query.text_submitted.connect(func(_value: String):_focus_first_recipe())
     unfinished.toggled.connect(func(_value: bool):_render_recipes())
@@ -64,6 +65,10 @@ func _render_recipes() -> void:
         button.toggled.connect(func(enabled: bool):set_recipe(key,enabled))
     if switches.is_empty():
         var empty:=Label.new();empty.text="当前筛选没有制作方案；已选清单仍保留。";rows.add_child(empty)
+    else:
+        # Up from the list reaches the filter toggle; its left is the search box.
+        var first: Control=switches.values()[0]
+        first.focus_neighbor_top=first.get_path_to(unfinished)
 func _focus_first_recipe() -> void:
     for button in switches.values():
         if button is BaseButton and not button.disabled:button.grab_focus();return
