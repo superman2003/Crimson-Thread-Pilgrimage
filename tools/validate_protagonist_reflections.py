@@ -18,6 +18,8 @@ def validate(data):
             if not isinstance(text,str) or len(text.strip())<minimum or not any("一"<=c<="鿿" for c in text):errors.append("incomplete Chinese text")
     return errors
 if __name__=="__main__":
+    from validate_observed_echoes import validate as validate_observed
+    validate_observed()
     data=json.loads((ROOT/"godot/data/protagonist_voice.json").read_text())
     errors=validate(data)
     print("PROTAGONIST_REFLECTIONS errors="+str(len(errors)))

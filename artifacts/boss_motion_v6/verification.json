@@ -1,0 +1,96 @@
+{
+  "engine": "Godot 4.6.1.stable.official.14d19694e",
+  "generator": "built-in image_gen",
+  "bosses": 6,
+  "source_sheets": 48,
+  "new_drawings": 288,
+  "original_pose_preservation": {
+    "bosses": 6,
+    "original_poses_preserved": 481,
+    "failures": 0,
+    "coverage": [
+      {
+        "kind": "broken_string_gardener",
+        "original_poses_preserved": 78
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "original_poses_preserved": 80
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "original_poses_preserved": 82
+      },
+      {
+        "kind": "silent_crown_core",
+        "original_poses_preserved": 77
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "original_poses_preserved": 84
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "original_poses_preserved": 80
+      }
+    ]
+  },
+  "regressions": {
+    "expanded_character_motion": "EXPANDED_CHARACTER_MOTION checks=6610 failures=0 characters=71 poses=3329",
+    "character_art_prewarm": "CHARACTER_ART_PREWARM checks=23410 failures=0 sync_loads=0",
+    "enemy_lifecycle_regression": "ENEMY_LIFECYCLE_REGRESSION checks=31 failures=0",
+    "enemy_visibility": "ENEMY_VISIBILITY_VALIDATION checks=641 failures=0",
+    "boss_trial": "BOSS_TRIAL_VALIDATION_PASS config=demo_ch01_boss_trial spawn=[430.0, 690.0] boss=[1020.0, 720.0] boss_spawned=true"
+  },
+  "real_gl": "EXPANDED_CHARACTER_MOTION checks=6610 failures=0 characters=71 poses=3329",
+  "capture_frames": 3711,
+  "checks": {
+    "npm_test": "passed",
+    "character_motion": "passed",
+    "recovery_mode_import_passes": 2
+  },
+  "limitations": [
+    "staged playback does not exercise AI/movement/damage",
+    "existing ObjectDB warnings remain",
+    "old 4.6 capture stalled; 4.6.1 final capture succeeded"
+  ],
+  "render_coverage": {
+    "bosses": 6,
+    "new_runtime_frame_refs": 396,
+    "unique_authored_cels_seen": 288,
+    "real_profile_new_cels": 264,
+    "prepared_fallback_new_cels": 24,
+    "coverage": [
+      {
+        "kind": "broken_string_gardener",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      },
+      {
+        "kind": "rust_crown_guardian",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      },
+      {
+        "kind": "saltwhite_contract_judge",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      },
+      {
+        "kind": "silent_crown_core",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      },
+      {
+        "kind": "silent_pilgrim_commander",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      },
+      {
+        "kind": "sunken_hammer_smith",
+        "new_runtime_frame_refs": 66,
+        "missing": []
+      }
+    ]
+  }
+}

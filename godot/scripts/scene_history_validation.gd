@@ -2,6 +2,7 @@ extends SceneTree
 const HISTORY := preload("res://scripts/scene_history.gd")
 const STATE := preload("res://scripts/world_state.gd")
 const RETIRE := preload("res://scripts/audio_retirement.gd")
+const ECHOES := preload("res://scripts/observed_echoes.gd")
 const SAVE := "user://scene_history_validation.json"
 var failures := 0
 var checks := 0
@@ -132,10 +133,12 @@ func run() -> void:
                 scene._try_interact()
                 scene._try_interact()
                 scene.world_save_failure_injected_for_validation=true
+                var echoes_before := ECHOES.records(scene.inventory_counts,scene.story_flags)
                 var saved_before := FileAccess.get_file_as_bytes(SAVE)
                 scene._try_interact()
                 check(scene.active_overlay=="dialogue" and not prop.seen and not HISTORY.discovered(scene.story_flags,String(entry.id)),"save failure keeps the reader open and rolls back observation state")
                 check(FileAccess.get_file_as_bytes(SAVE)==saved_before,"failed observation leaves the disk save unchanged")
+                check(ECHOES.records(scene.inventory_counts,scene.story_flags)==echoes_before,"failed observation cannot publish a new protagonist reflection")
                 scene.world_save_failure_injected_for_validation=false
                 scene._try_interact()
                 check(scene.active_overlay.is_empty() and prop.seen,"the same confirmation can retry and commit after write recovery")
@@ -170,6 +173,10 @@ func run() -> void:
     var after: Dictionary=scene.world_narrative.evaluate_progress(scene.inventory_counts,scene.story_flags)
     check(int(after.evidence_count)==int(before_progress.evidence_count) and not after.evidence_complete,"physical observations do not replace any original testimony or ending requirement")
     check(HISTORY.records(scene.story_flags).size()==12,"all twelve observations remain unique across region visits")
+    var echoes := ECHOES.records(scene.inventory_counts,scene.story_flags)
+    check(echoes.size()>=6,"the six actually saved facilities support their cross-city reflections")
+    var echo_save := STATE.new()
+    check(echo_save.read(SAVE) and ECHOES.records(echo_save.data.inventory_counts,echo_save.data.story_flags)==echoes,"actual World checkpoint reload reconstructs the same earned environmental reflections")
     var first: Dictionary=entries[0]
     var first_config: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/"+String(first.region_id)+".json"))
     scene._travel_world("res://data/"+String(first.region_id)+".json",Vector2(first_config.player_start[0],first_config.player_start[1]))

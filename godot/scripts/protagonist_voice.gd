@@ -27,6 +27,7 @@ static func records(inventory: Dictionary, flags: Dictionary={}) -> Array[Dictio
             if not ability is String or not held(inventory.get(ability,0)):acquired=false;break
         if acquired:result.append({"id":"voice_combo_"+String(entry.id),"title":String(entry.get("title","")),"description":String(entry.get("text","")),"record_kind":"voice","acquired":true})
     result.append_array(preload("res://scripts/protagonist_response_memory.gd").records(flags))
+    result.append_array(preload("res://scripts/observed_echoes.gd").records(inventory,flags))
     return result
 
 static func held(value: Variant) -> bool:

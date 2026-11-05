@@ -28,7 +28,13 @@ def software_gl(log_dir: Path):
     if display is None:
         raise RuntimeError('No free X display port')
     with (log_dir / 'xvfb.log').open('w') as log:
-        server = subprocess.Popen(['Xvfb', f':{display}', '-screen', '0', '1280x720x24', '-ac', '-nolisten', 'unix', '-nolisten', 'local', '-listen', 'tcp'], stdout=log, stderr=log)
+        # Clients connect over TCP and may not share the server's IPC namespace.
+        # Do not advertise MIT-SHM: stale/unshareable segments otherwise produce
+        # BadShmSeg even when the actual rendered game assertions all pass.
+        server = subprocess.Popen(['Xvfb', f':{display}', '-screen', '0', '1280x720x24',
+                                   '-ac', '-nolisten', 'unix', '-nolisten', 'local',
+                                   '-listen', 'tcp', '-extension', 'MIT-SHM'],
+                                  stdout=log, stderr=log)
         try:
             deadline = time.monotonic() + 10
             while True:

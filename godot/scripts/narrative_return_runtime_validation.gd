@@ -9,6 +9,7 @@ func run_checks() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     cleanup_save()
     scene = await spawn("res://data/demo_ch04_broken_string_greenhouse.json")
+    preload("res://scripts/quest_contacts_validation.gd").new().run(self, scene)
     var prisoner: Area2D = await resident_npc(scene, "npc_root_prisoner")
     if not is_instance_valid(prisoner):
         scene.free()
@@ -41,6 +42,7 @@ func run_checks() -> void:
     check(String(scene.toast_label.text).begins_with("巡礼者 · ") and String(scene.toast_label.text).contains("线端"), "successful real conversation presents the short gesture response")
     hear_round(prisoner)
     check(scene.currency_count == currency_before + 45, "repeat visit cannot pay again")
+    preload("res://scripts/quest_contacts_validation.gd").new().migrated_reader(self, scene)
     scene.free()
     scene = await spawn("res://data/demo_ch04_broken_string_greenhouse.json", true)
     prisoner = await resident_npc(scene, "npc_root_prisoner")
@@ -77,6 +79,10 @@ func run_checks() -> void:
     check(scene.story_flags.get("ending_chosen", "") == "ending_b" and bool(scene.story_flags.get("world_black_tide_uncontained", false)), "restart preserves selected ending and consequences")
     prisoner = await resident_npc(scene, "npc_root_prisoner")
     check(is_instance_valid(prisoner) and scene._resolve_npc_lines(prisoner) == scene.world_narrative.resolve("npc_root_prisoner", [], [], scene.story_flags, scene.inventory_counts).lines, "restored real NPC uses selected aftermath")
+    if is_instance_valid(prisoner):
+        preload("res://scripts/personal_codas_checks.gd").new().live(self, scene, prisoner)
+
+    preload("res://scripts/ending_return_journal_checks.gd").new().live(self, scene)
 
     # Journal surface consumes canonical records, using localized names and
     # scene witnesses instead of internal NPC keys or outdated pickup rooms.
@@ -91,6 +97,11 @@ func run_checks() -> void:
     scene.ui_shell._show_journal_record(ending)
     check(not scene.ui_shell.bag_description.text.contains("npc_") and scene.ui_shell.bag_description.text.contains("灯影修女"), "real journal localizes consequence names")
     check(scene.ui_shell._ending_status_label({"status": "closed", "available": false}) == "已关闭", "closed branches are distinct from unfinished requirements")
+    await preload("res://scripts/journal_sources_checks.gd").new().live(self, scene)
+    await preload("res://scripts/known_world_terms_checks.gd").new().live(self, scene)
+    await preload("res://scripts/guardian_identities_checks.gd").new().live(self, scene)
+    await preload("res://scripts/inquiry_source_notes_checks.gd").new().live(self, scene)
+    await preload("res://scripts/known_inquiry_contacts_checks.gd").new().live(self, scene)
     scene.free()
     cleanup_save()
     await process_frame

@@ -1,0 +1,76 @@
+name: ledger
+
+# Each PR adds docs/ledger/entries/<date>-<HHMM>-<topic>.md (and edits
+# docs/ledger/status/<ID>.md); docs/UPGRADE_TASK_LEDGER.md is generated here on
+# main, so parallel PRs no longer conflict at the top of one shared file.
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'tools/build_ledger.py'
+      - 'tools/test_build_ledger.py'
+      - '.github/workflows/ledger.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/ledger/**'
+      - 'docs/UPGRADE_TASK_LEDGER.md'
+      - 'tools/build_ledger.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ledger-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: false
+      - name: Entry and status files are valid
+        run: |
+          python3 tools/build_ledger.py --validate
+          python3 tools/test_build_ledger.py
+      - name: The generated ledger is not edited by hand
+        run: |
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")
+          if echo "$changed" | grep -qx 'docs/UPGRADE_TASK_LEDGER.md' && ! echo "$changed" | grep -qx 'tools/build_ledger.py'; then
+            echo "::error file=docs/UPGRADE_TASK_LEDGER.md::此文件由 tools/build_ledger.py 生成。请新建 docs/ledger/entries/YYYY-MM-DD-HHMM-主题.md，状态改 docs/ledger/status/<编号>.md。"
+            exit 1
+          fi
+
+  render:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          lfs: false
+      - name: Regenerate and commit the ledger
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            python3 tools/build_ledger.py
+            if git diff --quiet -- docs/UPGRADE_TASK_LEDGER.md; then
+              echo "ledger already current"
+              exit 0
+            fi
+            git add docs/UPGRADE_TASK_LEDGER.md
+            git commit -q -m "台账：由 docs/ledger 重新生成 [skip ci]"
+            if git push -q origin HEAD:main; then
+              exit 0
+            fi
+            echo "main moved; retrying ($attempt)"
+            sleep 5
+          done
+          exit 1

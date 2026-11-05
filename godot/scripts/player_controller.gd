@@ -8,6 +8,8 @@ var combat_effect_generation := 0
 
 signal ability_action(ability_id: String, origin: Vector2, direction: Vector2)
 signal heal_state_changed(state: String)
+## A strike met breakable terrain it did not break (no thorn downstrike).
+signal gate_struck(gate: Node, point: Vector2)
 signal skill_cast(skill_id: String)
 ## Post-acceptance observations; consumers cannot change combat outcomes.
 signal combat_observed(event: Dictionary)
@@ -24,6 +26,7 @@ var selected_skill: Dictionary = {}
 var build_profile: Dictionary = {}
 var heal_timer := 0.0
 var heal_reserved_cost := 0
+var heal_voice: Node
 var heal_reserved_loss_ratio := 1.0
 var heal_reservation_generation := 0
 var guard_timer := 0.0
@@ -36,6 +39,7 @@ var phase_energy_fraction := 0.0
 var phase_safe_position := Vector2.ZERO
 var phase_exceptions: Array[PhysicsBody2D] = []
 var attack_vfx_started := false
+var gate_strike_paid := false
 var attack_windup := 0.06
 var attack_active_time := 0.22
 var active_skill: Dictionary = {}
@@ -155,6 +159,8 @@ const SFX := {
     "hurt": "res://assets/audio/sfx/player_hurt.ogg",
     # 自产 SFX 包（tools/generate_sfx_pack.py，project-generated CC0，音频规格 §4）。
     "pogo": "res://assets/audio/sfx/generated/player_pogo_bounce.ogg",
+    # 可破地面被普通一击敲到：只开裂、不碎（棘线下劈才能击碎）。
+    "downstrike_crack": "res://assets/audio/sfx/generated/player_downstrike_crack.ogg",
     "wall_grip_attach": "res://assets/audio/sfx/generated/player_wall_grip_attach.ogg",
     "wall_slide_loop": "res://assets/audio/sfx/generated/player_wall_slide_loop.ogg",
     "death_cocoon": "res://assets/audio/sfx/generated/player_death_cocoon.ogg",
@@ -169,6 +175,12 @@ const SFX := {
     # 落地分档（音频规格 §4.1）：按触地前下落速度选软/硬采样。
     "land_soft": "res://assets/audio/sfx/generated/player_land_soft.ogg",
     "land_hard": "res://assets/audio/sfx/generated/player_land_hard.ogg",
+    # 动作同步（S02）：二段跳、钟壳格挡、疗伤完成/打断各用自己的声音。
+    "double_jump": "res://assets/audio/sfx/generated/player_double_jump_wings.ogg",
+    "guard_block": "res://assets/audio/sfx/generated/player_guard_block.ogg",
+    "guard_perfect": "res://assets/audio/sfx/generated/player_guard_perfect.ogg",
+    "bind_tighten": "res://assets/audio/sfx/generated/player_bind_tighten.ogg",
+    "bind_interrupt": "res://assets/audio/sfx/generated/player_bind_interrupt.ogg",
     # 章节 beat 叠层（audio_visual_manifest chapter beats，ch2 雨铸运河 / ch4 断弦温室）：
     # 材质条件由 main_level 写入的 footstep_material 判定（copper=ch2、fiber=ch4）。
     "ch02_beat_wall_grip_drip": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
@@ -244,7 +256,6 @@ const FOOTSTEP_MATERIAL_REMAP := {"fiber": "glass", "copper": "wet"}
 ## 脚步压低音量（规格要求约 -14dB），避免盖过攻击/能力等动作音。
 const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
-const FOOTSTEP_STRIDE := 88.0
 const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
 # Runtime registration of the existing four idle poses, in source-texture pixels.
 # Midpoint of the two opaque boot soles (y=276..281), not cape/weapon bounds.
@@ -388,7 +399,8 @@ var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
-var footstep_distance: float = 0.0
+## Foot contacts crossed by the run cycle since the last footstep update.
+var footstep_contacts := 0
 var ground_motion_x := 0.0
 var ground_motion_speed := 0.0
 var run_cycle_phase := 0.0
@@ -570,7 +582,7 @@ func _physics_process(delta: float) -> void:
         coyote_timer = 0.0
         wall_sliding = false
         _play(&"jump_start")
-        _play_sfx("jump", -6.0, 1.16)
+        _play_sfx("double_jump", -6.0)
         MOVEMENT_ART.double_jump(self)
 
     if Input.is_action_just_released("jump") and velocity.y < 0.0:
@@ -821,15 +833,14 @@ func _start_attack(animation: StringName, allow_traversal_action: bool = true, q
     enemy_contact_guard_timer = maxf(enemy_contact_guard_timer, enemy_contact_guard_time)
     hit_targets.clear()
     attack_pogo_paid = false
+    gate_strike_paid = false
     hook_latch_played = false
     hook_reel_played = false
     _sync_attack_hitbox()
     _play(animation, true)
     if animation == &"hook_throw":
         _play_sfx("hook", -6.0)
-    elif animation == &"attack_2":
-        _play_sfx("skill", -7.0)
-    else:
+    elif animation != &"attack_2":
         _play_attack_swing_sfx()
 
 
@@ -1068,7 +1079,7 @@ func _try_heal() -> bool:
         return false
     HEAL_ART.start(self)
     _seal_present("heal", "prepare")
-    _play_sfx("heal", -5.0)
+    heal_voice = _play_sfx_voice("heal", -5.0)
     _play(&"heal")
     heal_state_changed.emit("started")
     return heal_reservation_generation == reservation_generation and heal_timer > 0.0
@@ -1088,6 +1099,7 @@ func _update_heal(delta: float) -> void:
         heal_reserved_practice = 0
         hp = mini(max_hp, hp + heal_amount)
         heal_cooldown = 0.4
+        _play_sfx("bind_tighten", -6.0)
         # Settle the paid build before HP listeners can replace that build.
         _seal_heal_completed()
         HEAL_ART.completed(self)
@@ -1109,6 +1121,12 @@ func _interrupt_heal() -> void:
         heal_cooldown = maxf(heal_cooldown, 0.3)
         heal_reserved_practice = 0
         HEAL_ART.interrupted(self)
+        # The channel sound outlasts the channel; cut it where the thread snaps.
+        if is_instance_valid(heal_voice) and not heal_voice.is_queued_for_deletion():
+            heal_voice.stop()
+            heal_voice.queue_free()
+        heal_voice = null
+        _play_sfx("bind_interrupt", -6.0)
         # Publish provenance before gain_energy emits. Reentrant listeners may
         # leave practice or pay a newer heal before this call returns.
         _apply_thread_balance(int(settled.energy_after),int(settled.practice_after))
@@ -1408,6 +1426,9 @@ func _update_attack(delta: float) -> void:
     var special := not active_skill.is_empty() and String(active_skill.get("kind", "melee")) not in ["melee", "thrust", "crosscut"]
     if crossed and not attack_vfx_started:
         attack_vfx_started = true
+        # The heavy strike's impact peaks at once: play it with the strike, not the windup.
+        if current_attack == &"attack_2" and active_skill.is_empty():
+            _play_sfx("skill", -7.0)
         if not active_skill.is_empty():
             _seal_present(String(active_skill.get("id", "cleave")), "active")
         if not special: _spawn_attack_vfx(current_attack)
@@ -1486,7 +1507,29 @@ func _apply_attack_hits() -> void:
                 attack_pogo_paid = true
             _trigger_hit_feedback(killed)
             _spawn_hit_confirm_vfx(node.global_position, current_attack, node, contact_call)
+    _try_gate_strike(attack_rect)
     _try_hazard_pogo(attack_rect)
+
+
+## Breakable floors answer an ordinary strike with a crack, once per swing, so
+## the player learns the floor gives way to a stronger blow. No text: abilities
+## not yet found are not named. The thorn downstrike itself breaks the floor.
+func _try_gate_strike(attack_rect: Rect2) -> void:
+    if gate_strike_paid or traversal_downstrike_active or current_attack == &"hook_throw":
+        return
+    for gate in get_tree().get_nodes_in_group("fragile_terrain"):
+        if not gate is Node2D or not gate.has_meta("gate_size") or not gate.is_inside_tree():
+            continue
+        var size: Vector2 = gate.get_meta("gate_size")
+        var rect := Rect2(gate.global_position - size * 0.5, size)
+        if not attack_rect.intersects(rect):
+            continue
+        gate_strike_paid = true
+        var point := Vector2(clampf(attack_rect.get_center().x, rect.position.x, rect.end.x),
+            clampf(attack_rect.get_center().y, rect.position.y, rect.end.y))
+        _play_sfx("downstrike_crack", -6.0)
+        gate_struck.emit(gate, point)
+        return
 
 
 ## A downslash that meets static spikes bounces like an enemy hit, but awards no
@@ -1638,6 +1681,10 @@ func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO
         ground_motion_x = 0.0
         ground_motion_speed = 0.0
         return
+    # The run pose is driven by this phase; its two foot contacts are poses 0
+    # (left) and the half cycle (right). Count crossings for the footstep sound.
+    var half_cycles := run_cycle_phase * 2.0 + absf(ground_motion_x) / RUN_CYCLE_DISTANCE * 2.0
+    footstep_contacts += int(floor(half_cycles)) - int(floor(run_cycle_phase * 2.0))
     run_cycle_phase = fposmod(run_cycle_phase + absf(ground_motion_x) / RUN_CYCLE_DISTANCE, 1.0)
 
 
@@ -1763,18 +1810,23 @@ func _update_attack_pose() -> void:
 
 
 func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> void:
+    _play_sfx_voice(audio_key, volume_db, pitch_scale, voice_key, voice_priority)
+
+
+## Same as _play_sfx, returning the playing node so a cut-short action can stop it.
+func _play_sfx_voice(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 1.0, voice_key: String = "", voice_priority: int = 1) -> Node:
     if not _should_play_sfx():
-        return
+        return null
     # 声部准入（AudioDirector 契约）：同 key 最小间隔/并发上限/全局 24 声部抢占。
     var resolved_voice_key := voice_key if not voice_key.is_empty() else "player_" + audio_key
     var voice_ticket := _request_voice(resolved_voice_key, voice_priority)
     if voice_ticket == 0:
-        return
+        return null
     var stream := _load_sfx_stream(audio_key)
     if stream == null:
         # 声部回滚（AudioDirector 契约）：流缺失/解码失败时释放已占用的声部。
         _release_voice(voice_ticket)
-        return
+        return null
     var player_node := AudioStreamPlayer2D.new()
     player_node.name = "Sfx_" + audio_key
     player_node.set_meta("retire_after_playback",true)
@@ -1787,6 +1839,7 @@ func _play_sfx(audio_key: String, volume_db: float = -5.0, pitch_scale: float = 
     add_child(player_node)
     player_node.finished.connect(Callable(player_node, "queue_free"))
     _start_voice(voice_ticket,player_node)
+    return player_node
 
 
 ## 落地分档（音频规格 §4.1）：按触地前一帧的下落速度选软/硬落地采样。
@@ -1956,17 +2009,14 @@ func _stop_wall_slide_loop() -> void:
         wall_slide_audio.stop()
 
 
-## 材质化脚步触发（音频规格 §4.2）：地面横移时按"距离积分"计步——
-## 每累计 FOOTSTEP_STRIDE 像素触发一步，比动画帧回调更抗速度突变。
-func _update_footsteps(delta: float) -> void:
-    if not is_on_floor() or dash_timer > 0.0 or attack_timer > 0.0 or absf(velocity.x) < 60.0:
-        # 停步/离地时把计步器压到半步：再起步时第一声脚步很快落地，不抢拍。
-        footstep_distance = FOOTSTEP_STRIDE * 0.55
+## 材质化脚步触发（音频规格 §4.2）：跑步姿态由位移相位驱动，脚步声在相位
+## 跨过左右两个落脚姿态时触发，与画面上的落脚同拍（不再另按固定步距计步）。
+func _update_footsteps(_delta: float) -> void:
+    var contacts := footstep_contacts
+    footstep_contacts = 0
+    if contacts <= 0 or not is_on_floor() or dash_timer > 0.0 or attack_timer > 0.0 or ground_motion_speed < 60.0:
         return
-    footstep_distance += absf(velocity.x) * delta
-    if footstep_distance >= FOOTSTEP_STRIDE:
-        footstep_distance = 0.0
-        _play_footstep()
+    _play_footstep()
 
 
 func _play_footstep() -> void:
@@ -2110,6 +2160,7 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
             ability_action.emit("bell_guard", global_position, Vector2(facing, 0))
         guard_timer = 0.0
         hurt_timer = 0.12
+        _play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
         GUARD_ART.blocked(self, perfect)
         combat_observed.emit({"kind":"guard","perfect":perfect})
         return false

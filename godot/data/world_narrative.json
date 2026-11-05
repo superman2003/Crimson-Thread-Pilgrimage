@@ -10,6 +10,81 @@
       "voice_profile": "warm",
       "states": [
         {
+          "id": "coda_resound",
+          "quest_coda": "bring_names_home",
+          "ending": "ending_a",
+          "flags_all": [
+            "quest_bring_names_complete",
+            "reward_returned_names_claimed",
+            "skill_crosscut_learned",
+            "charm_reflux_found",
+            "ending_a_done"
+          ],
+          "flags_none": [
+            "story_coda_bring_names_home_ending_a"
+          ],
+          "grant_flags": [
+            "story_coda_bring_names_home_ending_a"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "学徒把找回的名单压在重新响起的钟下：阿禾还在这儿，钟却依旧只认编号。",
+            "我会继续认那些空字，但这块布不能替别人的孩子答应旧约。"
+          ],
+          "response": "你把布角翻到刻名的一面，没有替空格补字。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_severed",
+          "quest_coda": "bring_names_home",
+          "ending": "ending_b",
+          "flags_all": [
+            "quest_bring_names_complete",
+            "reward_returned_names_claimed",
+            "skill_crosscut_learned",
+            "charm_reflux_found",
+            "ending_b_done"
+          ],
+          "flags_none": [
+            "story_coda_bring_names_home_ending_b"
+          ],
+          "grant_flags": [
+            "story_coda_bring_names_home_ending_b"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "学徒刚试着念出阿禾，水声就从低阶漫了上来。",
+            "名字能叫出声了，也得有人腾出手搬挡潮板。我把名布先挂高，等回来的人认。"
+          ],
+          "response": "你按住布角，给搬挡潮板的人让出一只手。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_rewritten",
+          "quest_coda": "bring_names_home",
+          "ending": "ending_c",
+          "flags_all": [
+            "quest_bring_names_complete",
+            "reward_returned_names_claimed",
+            "skill_crosscut_learned",
+            "charm_reflux_found",
+            "ending_c_done"
+          ],
+          "flags_none": [
+            "story_coda_bring_names_home_ending_c"
+          ],
+          "grant_flags": [
+            "story_coda_bring_names_home_ending_c"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "学徒把名单分成能认清与仍空着的两边，没有把空格算进轮值。",
+            "认字、守潮，都得听见人自己的回答。今天没答的人，我明天还可以再问。"
+          ],
+          "response": "你把空着的那一栏留好，等下一次回答。",
+          "response_mode": "gesture"
+        },
+        {
           "id": "aftermath_resound",
           "flags_all": [
             "ending_a_done"
@@ -501,6 +576,78 @@
       "voice_profile": "hushed",
       "states": [
         {
+          "id": "coda_resound",
+          "quest_coda": "root_rescue",
+          "ending": "ending_a",
+          "flags_all": [
+            "quest_root_rescue_complete",
+            "reward_root_rescue_claimed",
+            "npc_root_prisoner_at_west_gate",
+            "ending_a_done"
+          ],
+          "flags_none": [
+            "story_coda_root_rescue_ending_a"
+          ],
+          "grant_flags": [
+            "story_coda_root_rescue_ending_a"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "西门的灯没灭，囚徒已经能自己把苗盆挪开。旧钟每响一次，他仍会停一下。",
+            "门是我走出来的。钟里还有别人的约，我不能说他们也已经出来。"
+          ],
+          "response": "你等他把最后一盆苗挪稳，才收回线端。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_severed",
+          "quest_coda": "root_rescue",
+          "ending": "ending_b",
+          "flags_all": [
+            "quest_root_rescue_complete",
+            "reward_root_rescue_claimed",
+            "npc_root_prisoner_at_west_gate",
+            "ending_b_done"
+          ],
+          "flags_none": [
+            "story_coda_root_rescue_ending_b"
+          ],
+          "grant_flags": [
+            "story_coda_root_rescue_ending_b"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "他把西门低处的苗盆一只只搬上台阶，声音还生涩，先喊你让一让。",
+            "能开口不是潮会停。今天先把人和苗都抬高，哪盆先搬，我自己来挑。"
+          ],
+          "response": "你让开台阶，把空盆接到身侧。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_rewritten",
+          "quest_coda": "root_rescue",
+          "ending": "ending_c",
+          "flags_all": [
+            "quest_root_rescue_complete",
+            "reward_root_rescue_claimed",
+            "npc_root_prisoner_at_west_gate",
+            "ending_c_done"
+          ],
+          "flags_none": [
+            "story_coda_root_rescue_ending_c"
+          ],
+          "grant_flags": [
+            "story_coda_root_rescue_ending_c"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "囚徒在西门灯旁留下一截能松开的线：今天我照这排苗，到天黑就停。",
+            "轮到谁之前先问谁；我记得根笼里没人问过我。"
+          ],
+          "response": "你把那截松线留在他够得到的位置。",
+          "response_mode": "gesture"
+        },
+        {
           "id": "aftermath_resound",
           "flags_all": [
             "ending_a_done"
@@ -688,6 +835,81 @@
     "npc_beeswax_vendor": {
       "voice_profile": "bright",
       "states": [
+        {
+          "id": "coda_resound",
+          "quest_coda": "wax_lamps",
+          "ending": "ending_a",
+          "flags_all": [
+            "quest_wax_lamps_complete",
+            "reward_wax_lamps_claimed",
+            "tool_lure_found",
+            "charm_mender_found",
+            "ending_a_done"
+          ],
+          "flags_none": [
+            "story_coda_wax_lamps_ending_a"
+          ],
+          "grant_flags": [
+            "story_coda_wax_lamps_ending_a"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "蜜岚检查补好的灯芯，旧钟恢复节拍，灯却仍照着她选的那道根缝。",
+            "钟管所有人的时辰，我只答应补这一盏。蜡的用处不能替我多签一回。"
+          ],
+          "response": "你把灯罩转向她指的根缝。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_severed",
+          "quest_coda": "wax_lamps",
+          "ending": "ending_b",
+          "flags_all": [
+            "quest_wax_lamps_complete",
+            "reward_wax_lamps_claimed",
+            "tool_lure_found",
+            "charm_mender_found",
+            "ending_b_done"
+          ],
+          "flags_none": [
+            "story_coda_wax_lamps_ending_b"
+          ],
+          "grant_flags": [
+            "story_coda_wax_lamps_ending_b"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "蜜岚把检修灯挪到高一点的路口，试着喊住还往低处走的人。",
+            "人声回来了，黑潮也得靠人盯着。灯芯省一省，今夜照路比照货架要紧。"
+          ],
+          "response": "你扶稳高处的灯架，等她调好灯芯。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_rewritten",
+          "quest_coda": "wax_lamps",
+          "ending": "ending_c",
+          "flags_all": [
+            "quest_wax_lamps_complete",
+            "reward_wax_lamps_claimed",
+            "tool_lure_found",
+            "charm_mender_found",
+            "ending_c_done"
+          ],
+          "flags_none": [
+            "story_coda_wax_lamps_ending_c"
+          ],
+          "grant_flags": [
+            "story_coda_wax_lamps_ending_c"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "蜜岚在补灯的班次后面画了一格空白：缺人时先来问，别替谁写满。",
+            "这次的花粉蜡和报酬已经算清；明天谁守灯，明天再谈。"
+          ],
+          "response": "你把记号停在空格外，没有替她添下一班。",
+          "response_mode": "gesture"
+        },
         {
           "id": "aftermath_resound",
           "flags_all": [
@@ -917,6 +1139,75 @@
       "voice_profile": "warm",
       "states": [
         {
+          "id": "coda_resound",
+          "quest_coda": "lantern_watch",
+          "ending": "ending_a",
+          "flags_all": [
+            "quest_lantern_watch_complete",
+            "reward_lantern_watch_claimed",
+            "ending_a_done"
+          ],
+          "flags_none": [
+            "story_coda_lantern_watch_ending_a"
+          ],
+          "grant_flags": [
+            "story_coda_lantern_watch_ending_a"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "修女重数了一遍校正过的灯号，旧钟又催着各处归拍，她没有把检修信号改回召集。",
+            "这盏只告诉人路况；是否往前走，不能由灯替他答。"
+          ],
+          "response": "你等那一轮灯号过去，没有跟着钟声抬手。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_severed",
+          "quest_coda": "lantern_watch",
+          "ending": "ending_b",
+          "flags_all": [
+            "quest_lantern_watch_complete",
+            "reward_lantern_watch_claimed",
+            "ending_b_done"
+          ],
+          "flags_none": [
+            "story_coda_lantern_watch_ending_b"
+          ],
+          "grant_flags": [
+            "story_coda_lantern_watch_ending_b"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "修女把检修灯转向高路，让刚能出声的人按自己的步子报平安。",
+            "不用再从军号里分辨召回线了；潮边少一个回答，我也得去找。"
+          ],
+          "response": "你替她遮住侧面的风，等下一个人报平安。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_rewritten",
+          "quest_coda": "lantern_watch",
+          "ending": "ending_c",
+          "flags_all": [
+            "quest_lantern_watch_complete",
+            "reward_lantern_watch_claimed",
+            "ending_c_done"
+          ],
+          "flags_none": [
+            "story_coda_lantern_watch_ending_c"
+          ],
+          "grant_flags": [
+            "story_coda_lantern_watch_ending_c"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "修女把你们校正过的检修信号分给愿意接班的人，最后一盏仍空着。",
+            "有人今天不接，就留到明天。引路的灯不能借轮值重新学会召兵。"
+          ],
+          "response": "你把空着的灯钩递回她手里。",
+          "response_mode": "gesture"
+        },
+        {
           "id": "aftermath_resound",
           "flags_all": [
             "ending_a_done"
@@ -1021,6 +1312,81 @@
     "npc_deserter_flagbearer": {
       "voice_profile": "hushed",
       "states": [
+        {
+          "id": "coda_resound",
+          "quest_coda": "deserter_order",
+          "ending": "ending_a",
+          "flags_all": [
+            "quest_deserter_order_complete",
+            "reward_deserter_order_claimed",
+            "npc_deserter_at_camp",
+            "charm_needlecase_found",
+            "ending_a_done"
+          ],
+          "flags_none": [
+            "story_coda_deserter_order_ending_a"
+          ],
+          "grant_flags": [
+            "story_coda_deserter_order_ending_a"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "逃旗手在营地听见旧军号，手指摸到已经断开的召回线，又松开。",
+            "它还在叫。我这次不答，也不能替还被叫着的人说他们已经自由。"
+          ],
+          "response": "你没有替他把那段线重新接上。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_severed",
+          "quest_coda": "deserter_order",
+          "ending": "ending_b",
+          "flags_all": [
+            "quest_deserter_order_complete",
+            "reward_deserter_order_claimed",
+            "npc_deserter_at_camp",
+            "charm_needlecase_found",
+            "ending_b_done"
+          ],
+          "flags_none": [
+            "story_coda_deserter_order_ending_b"
+          ],
+          "grant_flags": [
+            "story_coda_deserter_order_ending_b"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "营地的军号不再拽他的肩，他却还会在相同的拍子醒来。",
+            "没有人逼我应声以后，下一步往哪儿走，还得让我慢慢学。今夜我先守这里。"
+          ],
+          "response": "你坐到他看得见的地方，留出一段安静。",
+          "response_mode": "gesture"
+        },
+        {
+          "id": "coda_rewritten",
+          "quest_coda": "deserter_order",
+          "ending": "ending_c",
+          "flags_all": [
+            "quest_deserter_order_complete",
+            "reward_deserter_order_claimed",
+            "npc_deserter_at_camp",
+            "charm_needlecase_found",
+            "ending_c_done"
+          ],
+          "flags_none": [
+            "story_coda_deserter_order_ending_c"
+          ],
+          "grant_flags": [
+            "story_coda_deserter_order_ending_c"
+          ],
+          "continues_after_ending": true,
+          "lines": [
+            "逃旗手在轮值旁写了自己的名字，没有把旧军号旁的空位填上。",
+            "这一晚是我答应的，不是从前那张军令替我答应；天亮以后，你们再问。"
+          ],
+          "response": "你把轮值纸按稳，只留下他亲手写下的一行。",
+          "response_mode": "gesture"
+        },
         {
           "id": "aftermath_resound",
           "flags_all": [
@@ -1136,7 +1502,7 @@
           "room": "pilgrim_camp",
           "visible": true,
           "position": [
-            270,
+            400,
             1870
           ]
         },
