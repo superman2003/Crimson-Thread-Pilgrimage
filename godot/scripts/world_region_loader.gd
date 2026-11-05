@@ -1283,8 +1283,14 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
         return false
     # Cover the entire target region, including NPCs outside the landing
     # top-k and original portrait atlases, before any actor can be published.
+    # Collectibles and held inventory use the same bounded resource owners;
+    # their first atlas decode must not land in a build/UI job.
     var art_job := CHARACTER_ART_WARM_JOB.new()
-    art_job.begin(host.config)
+    var inventory_art_ids: Array = []
+    for item_id in host.inventory_counts:
+        if int(host.inventory_counts[item_id]) > 0: inventory_art_ids.append(item_id)
+    inventory_art_ids.append("currency")
+    art_job.begin(host.config, [], false, inventory_art_ids)
     var art_started := Time.get_ticks_usec()
     var art_batches := 0
     while not art_job.done:
@@ -1301,6 +1307,9 @@ func _construct_budgeted(host: Node, target: Dictionary, cancellable: bool) -> b
     last_transition["character_art_batches"] = art_batches
     last_transition["character_art_textures"] = art_job.paths.size()
     last_transition["character_art_scanned"] = art_job.scanned
+    last_transition["item_art_scanned"] = art_job.item_scanned
+    last_transition["item_art_textures"] = art_job.item_paths.size()
+    last_transition["item_art_paths"] = art_job.item_paths.duplicate()
     last_transition["character_art_max_operations"] = art_job.max_step_operations
     last_transition["character_art_wall_usec"] = Time.get_ticks_usec() - art_started
     if not String(art_job.error).is_empty():

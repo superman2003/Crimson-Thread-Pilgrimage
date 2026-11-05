@@ -2,27 +2,33 @@ extends RefCounted
 ## Incremental descriptor scan plus a bounded shared threaded texture queue.
 ## Cancelling drops this lease's plan, never joins a running engine request.
 const ART := preload("res://scripts/hand_drawn_assets.gd")
-const FIELDS := ["enemy_spawns", "npcs", "boss"]
+const FIELDS := ["enemy_spawns", "npcs", "boss", "collectibles"]
 var done := true
 var cancelled := false
 var error := ""
 var scanned := 0
+var item_scanned := 0
 var max_step_operations := 0
 var paths: Array[String] = []
+var item_paths: Array[String] = []
 var _seen: Dictionary = {}
 var _manifests: Dictionary = {}
 var _config: Dictionary = {}
 var _selection: Array = []
+var _item_ids: Array = []
+var _item_index := 0
 var _selected_mode := false
 var _field := 0
 var _index := 0
 var _texture_index := 0
 var _scanning := true
 
-func begin(config: Dictionary, selection: Array = [], selected_mode: bool = false) -> void:
+func begin(config: Dictionary, selection: Array = [], selected_mode: bool = false, item_ids: Array = []) -> void:
     _config = config
     _selection = selection
     _selected_mode = selected_mode
+    _item_ids = item_ids.duplicate()
+    _item_index = 0
     _field = 0
     _index = 0
     _texture_index = 0
@@ -30,7 +36,9 @@ func begin(config: Dictionary, selection: Array = [], selected_mode: bool = fals
     _seen = {}
     _manifests = {}
     paths = []
+    item_paths = []
     scanned = 0
+    item_scanned = 0
     done = false
     cancelled = false
     error = ""
@@ -60,20 +68,21 @@ func step(max_operations: int = 2, budget_usec: int = 2000) -> void:
             done = true
             _config = {}
             _selection = []
+            _item_ids = []
         operations += 1
     max_step_operations = maxi(max_step_operations, operations)
 
 func _scan_one() -> void:
     if _selected_mode:
         if _index >= _selection.size():
-            _scanning = false
+            _scan_owned_item()
             return
         var descriptor: Dictionary = _selection[_index]
         _index += 1
         _add_actor(String(descriptor.kind), descriptor.data)
         return
     if _field >= FIELDS.size():
-        _scanning = false
+        _scan_owned_item()
         return
     if FIELDS[_field] == "boss":
         var boss: Variant = _config.get("boss", {})
@@ -87,10 +96,20 @@ func _scan_one() -> void:
         return
     var data: Variant = records[_index]
     _index += 1
-    if data is Dictionary: _add_actor("npc" if FIELDS[_field] == "npcs" else "enemy", data)
+    if data is Dictionary:
+        var kind := "item" if FIELDS[_field] == "collectibles" else ("npc" if FIELDS[_field] == "npcs" else "enemy")
+        _add_actor(kind, data)
+
+func _scan_owned_item() -> void:
+    if _item_index >= _item_ids.size():
+        _scanning = false
+        return
+    _add_actor("item", {"item_id":String(_item_ids[_item_index])})
+    _item_index += 1
 
 func _add_actor(kind: String, data: Dictionary) -> void:
-    scanned += 1
+    if kind == "item": item_scanned += 1
+    else: scanned += 1
     for manifest_path in ART.character_manifests(kind, data):
         if _manifests.has(manifest_path): continue
         _manifests[manifest_path] = true
@@ -99,6 +118,7 @@ func _add_actor(kind: String, data: Dictionary) -> void:
             done = true
             return
         for path in ART.atlas_paths(manifest_path):
+            if kind == "item" and not item_paths.has(path): item_paths.append(path)
             if _seen.has(path): continue
             _seen[path] = true
             paths.append(path)
@@ -108,4 +128,6 @@ func cancel() -> void:
     done = true
     _config = {}
     _selection = []
+    _item_ids = []
     paths = []
+    item_paths = []
