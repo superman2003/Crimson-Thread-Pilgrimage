@@ -35,6 +35,12 @@ func _run() -> void:
             continue
         report.append_array(await _run_field_chapter(path))
     await _frames(10)
+    # Cached audio streams outlive the freed chapters; release them before
+    # exit as the other World suites do (CI: "1 resources still in use").
+    var director := preload("res://scripts/audio_director.gd")
+    director._stream_cache.clear()
+    director._npc_voice_cache.clear()
+    await _frames(2)
     print(_marker() + "_REPORT " + JSON.stringify(report))
     print("%s_COST attack_frames=%d elapsed_ms=%d" % [_marker(), physics_frames, Time.get_ticks_msec()])
     if failures > 0:
