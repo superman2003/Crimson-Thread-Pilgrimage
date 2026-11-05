@@ -13,6 +13,8 @@ on:
       - 'godot/scripts/world_state.gd'
       - 'godot/scripts/world_save_backup_job.gd'
       - 'godot/scripts/world_save_backup_validation.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_construction_validation.gd'
       - 'godot/data/world_routes.json'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
@@ -68,6 +70,7 @@ jobs:
             --suite world_host --suite save_product --suite world_route_manifest_integration \
             --suite world_gameplay_plan --suite world_save_backup \
             --suite world_save_candidate --suite save_recovery --suite world_state \
+            --suite audio_construction \
             --log-dir "$RUNNER_TEMP/world-catalog-preparation-logs"
       - name: Preserve regression logs
         if: always()

@@ -1,0 +1,39 @@
+{
+  "base": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "runtime_functions": {
+    "main_level.gd": {
+      "existing": 458,
+      "changed": [
+        "_build_audio",
+        "_region_prepare_jobs"
+      ],
+      "added": [
+        "_begin_audio",
+        "_start_audio_ambience",
+        "_start_audio_explore"
+      ],
+      "current_sha256": "97eef2840f6e1aaf4ef5df01f1fc54afb7132d9937a3a8efe659492688c6fe04"
+    },
+    "audio_director.gd": {
+      "existing": 100,
+      "changed": [
+        "set_chapter"
+      ],
+      "added": [
+        "prepare_chapter"
+      ],
+      "current_sha256": "5c1ed39fa48e7822060ab83cde9dc52dd08311eb774680f33ae37521c190312d"
+    }
+  },
+  "unchanged_files": {
+    "godot/scripts/player_controller.gd": "7fba4901dbdf5c7cb46ff6f319092adb0efd3c466dddeb637e6b27e1a949d178",
+    "godot/scripts/npc_dialogue_motion.gd": "ada9a4da5d3e47a24cf63e9a0728313d02324af770b14dda5e486bb4f118c063",
+    "godot/scripts/pilgrimage_interface.gd": "1e1e28dd121ebeada22c90f88b26076468529de7673944b2068b9ca3391c5db7"
+  },
+  "audio_assets": {
+    "files_compared": 303,
+    "lfs_files": 245,
+    "all_main_sha256_match": true,
+    "ordered_path_hash_digest": "de8859cf154a727ed61d813cafd0c64877491ac5ca68195a1e6b5ec61ddd08bf"
+  }
+}

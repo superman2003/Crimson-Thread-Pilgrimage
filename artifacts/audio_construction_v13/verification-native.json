@@ -1,0 +1,138 @@
+{
+  "base": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "registered_suites": [
+    "audio_construction",
+    "world_async_loading",
+    "world_prepare_budget",
+    "audio_retirement",
+    "audio_landmarks"
+  ],
+  "results": [
+    {
+      "suite": "audio_construction",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "AUDIO_CONSTRUCTION checks=108 failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/audio_construction_validation.gd"
+      ],
+      "log": "final-native/audio_construction.log",
+      "warnings": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD ASYNC LOADING PASS: 504 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_async_loading_validation.gd"
+      ],
+      "log": "final-native/world_async_loading.log",
+      "warnings": []
+    },
+    {
+      "suite": "world_prepare_budget",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_prepare_budget_validation.gd"
+      ],
+      "log": "final-native/world_prepare_budget.log",
+      "warnings": []
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/audio_retirement_validation.gd"
+      ],
+      "log": "remaining-native/audio_retirement.log",
+      "warnings": []
+    },
+    {
+      "suite": "audio_landmarks",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "AUDIO_LANDMARKS checks=39 failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/audio_landmarks_validation.gd"
+      ],
+      "log": "remaining-native/audio_landmarks.log",
+      "warnings": []
+    }
+  ],
+  "headless": {
+    "suite": "audio_construction",
+    "marker": "AUDIO_CONSTRUCTION checks=108 failures=0",
+    "log": "headless/audio_construction.log"
+  },
+  "negative": "negative-verification.json",
+  "source_preservation": "source-preservation.json",
+  "extra_legacy_attempt": "legacy-auxiliary-failure.json",
+  "additional_diagnostic": {
+    "log": "verbose-native/audio_construction.log",
+    "marker": "AUDIO_CONSTRUCTION checks=108 failures=0",
+    "warning_reproduced": false,
+    "warning_resolved": false
+  }
+}

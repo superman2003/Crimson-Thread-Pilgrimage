@@ -1,0 +1,18 @@
+{
+  "attempt": "Initial native wrapper accidentally included an unregistered legacy auxiliary script; it is excluded from the formal five registered gates.",
+  "base": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "auxiliary_script_unchanged_from_main": true,
+  "missing_image_paths_also_absent_in_main": [
+    "godot/assets/sprites/original_map/moss_cavern/platform_mid.png",
+    "godot/assets/sprites/original_map/moss_cavern/platform_cap_small.png",
+    "godot/assets/sprites/original_map/moss_cavern/wall.png",
+    "godot/assets/sprites/original_map/moss_cavern/map.png"
+  ],
+  "errors_before_main_scene_instantiation": true,
+  "later_failure": "Legacy start_ground lookup returned null; coroutine raised SCRIPT ERROR and did not reach quit.",
+  "timeout_seconds": 240,
+  "owned_process_tree_retired_by_existing_timeout": true,
+  "completion_marker_registry_contains_auxiliary": false,
+  "log": "final-native/audio_visual.log",
+  "status": "Unresolved legacy auxiliary fixture, not counted as a successful gate"
+}
