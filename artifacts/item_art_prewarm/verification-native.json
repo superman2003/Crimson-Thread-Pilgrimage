@@ -1,5 +1,4 @@
 {
-  "base_commit": "4242f790eb43b684b9e86e970075350abbec13c9",
   "results": [
     {
       "suite": "item_art_prewarm",
@@ -10,7 +9,7 @@
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
-        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
         "--rendering-method",
         "gl_compatibility",
         "--audio-driver",
@@ -20,7 +19,7 @@
         "--script",
         "res://scripts/item_art_prewarm_validation.gd"
       ],
-      "log": "restored-native/item_art_prewarm.log"
+      "log": "merged-native/item_art_prewarm.log"
     },
     {
       "suite": "world_async_loading",
@@ -31,7 +30,7 @@
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
-        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
         "--rendering-method",
         "gl_compatibility",
         "--audio-driver",
@@ -41,7 +40,7 @@
         "--script",
         "res://scripts/world_async_loading_validation.gd"
       ],
-      "log": "final-timing-native/world_async_loading.log"
+      "log": "merged-native/world_async_loading.log"
     },
     {
       "suite": "pickup_ledger",
@@ -52,7 +51,7 @@
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
-        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
         "--rendering-method",
         "gl_compatibility",
         "--audio-driver",
@@ -62,18 +61,18 @@
         "--script",
         "res://scripts/pickup_ledger_validation.gd"
       ],
-      "log": "final-native/pickup_ledger.log"
+      "log": "merged-native/pickup_ledger.log"
     },
     {
       "suite": "character_art_prewarm",
       "passed": true,
       "exit_code": 0,
       "errors": [],
-      "marker": "CHARACTER_ART_PREWARM checks=875 failures=0 sync_loads=0",
+      "marker": "CHARACTER_ART_PREWARM checks=897 failures=0 sync_loads=0",
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
-        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
         "--rendering-method",
         "gl_compatibility",
         "--audio-driver",
@@ -85,7 +84,7 @@
         "--fixed-fps",
         "60"
       ],
-      "log": "final-native/character_art_prewarm.log"
+      "log": "merged-native/character_art_prewarm.log"
     },
     {
       "suite": "ui_text_order",
@@ -96,7 +95,7 @@
       "command": [
         "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
         "--path",
-        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
         "--rendering-method",
         "gl_compatibility",
         "--audio-driver",
@@ -106,14 +105,39 @@
         "--script",
         "res://scripts/ui_text_order_validation.gd"
       ],
-      "log": "final-native/ui_text_order.log"
+      "log": "merged-native/ui_text_order.log"
+    }
+  ],
+  "base_commit": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "measurement_base_commit": "4242f790eb43b684b9e86e970075350abbec13c9",
+  "additional_results": [
+    {
+      "suite": "world_catalog_background",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD CATALOG BACKGROUND PASS checks=177",
+      "command": [
+        "C:\\Users\\Administrator\\AppData\\Local\\Temp\\ctp-godot-4.6.1\\Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_catalog_background_validation.gd"
+      ],
+      "log": "merged-catalog-native/world_catalog_background.log"
     }
   ],
   "source_sha256": {
     "godot/scripts/hand_drawn_assets.gd": "c4706b3ecf35696fe74bcdbe61643d013e7735e6eecc9265f75ef9c76cc29d9c",
     "godot/scripts/character_art_warm_job.gd": "6e16e8545fd6ddd0fbb14bcb1ae263994517d9457e68d860d57d9bf138b213fd",
     "godot/scripts/world_region_loader.gd": "89751e291816e12bbc9bb866cfe5696d37eaf6a782f5e3e4fff695ac98030fdf",
-    "godot/scripts/item_art_prewarm_validation.gd": "5c4358a84894d7163ab0353ce77823953f483c9decf7a8b3ab9d4b9d47c56d51"
-  },
-  "note": "After adding the zero-count inventory filter, the item/actual-World suite and unchanged six-region loader suite were rerun; the other three results retain unchanged ART/WARM and gameplay consumers."
+    "godot/scripts/item_art_prewarm_validation.gd": "5c4358a84894d7163ab0353ce77823953f483c9decf7a8b3ab9d4b9d47c56d51",
+    "godot/scripts/world_catalog_background_validation.gd": "446272007af97ca6a40fee3bd7574972564190adf90f0b36fcb22df0c7552717"
+  }
 }
