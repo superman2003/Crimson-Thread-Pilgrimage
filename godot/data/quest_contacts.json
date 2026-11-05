@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "homes": {
+    "npc_threadsmith_apprentice": {
+      "region": "demo_ch01_moss_bell_court",
+      "room": "first_bell_shrine"
+    },
+    "npc_canal_child": {
+      "region": "demo_ch02_rain_foundry_canal",
+      "room": "rain_deck"
+    },
+    "npc_fugitive_scribe": {
+      "region": "demo_ch03_saltwhite_archive",
+      "room": "secret_nook"
+    },
+    "npc_root_prisoner": {
+      "region": "demo_ch04_broken_string_greenhouse",
+      "room": "root_vault"
+    },
+    "npc_beeswax_vendor": {
+      "region": "demo_ch04_broken_string_greenhouse",
+      "room": "beeswax_nook"
+    },
+    "npc_lantern_sister": {
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "room": "watch_tower"
+    },
+    "npc_deserter_flagbearer": {
+      "region": "demo_ch05_obsidian_pilgrim_road",
+      "room": "war_graves"
+    }
+  },
+  "places": {
+    "demo_ch01_moss_bell_court:first_bell_shrine": "初鸣钟龛",
+    "demo_ch02_rain_foundry_canal:rain_deck": "雨栅长堤",
+    "demo_ch03_saltwhite_archive:secret_nook": "秘阁暗格",
+    "demo_ch04_broken_string_greenhouse:root_vault": "根库",
+    "demo_ch04_broken_string_greenhouse:beeswax_nook": "蜂蜡暗屋",
+    "demo_ch05_obsidian_pilgrim_road:watch_tower": "瞭望塔",
+    "demo_ch05_obsidian_pilgrim_road:war_graves": "巡礼军墓",
+    "demo_ch03_saltwhite_archive:sealed_stacks": "封存书堆",
+    "demo_ch04_broken_string_greenhouse:west_gate": "温室西门",
+    "demo_ch05_obsidian_pilgrim_road:pilgrim_camp": "巡礼营地",
+    "demo_ch04_broken_string_greenhouse:tree_heart": "大树之心"
+  },
+  "acquisitions": {
+    "thorn_downstrike": {
+      "region_id": "demo_ch04_broken_string_greenhouse",
+      "room_id": "tree_heart",
+      "collectible_id": "upgrade_obtain_thorn_downstrike"
+    },
+    "lantern_phase": {
+      "region_id": "demo_ch05_obsidian_pilgrim_road",
+      "room_id": "pilgrim_camp",
+      "collectible_id": "upgrade_obtain_lantern_phase"
+    }
+  },
+  "quests": {
+    "bring_names_home": {
+      "return_to": "npc_threadsmith_apprentice",
+      "completed_reason": "带回的名字由学徒继续缝认；有些字仍需相识的人来辨认。",
+      "steps": [
+        {
+          "npc": "npc_canal_child",
+          "why": "先听孩子把记得的名字说完，再决定去登记里核对什么。"
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "room": "sealed_stacks",
+          "why": "可先查看封存原页；已经找到的契约残片也能交给书记核对，不必重复取证。"
+        },
+        {
+          "npc": "npc_fugitive_scribe",
+          "why": "让能辨认旧字的人核对证物；持有原件本身还不等于这次核对已经完成。"
+        },
+        {
+          "npc": "npc_threadsmith_apprentice",
+          "why": "把两处听到的话带回钟庭，让学徒确认名单；读完交谈才算这一步完成。"
+        }
+      ]
+    },
+    "root_rescue": {
+      "return_to": "npc_root_prisoner",
+      "completed_reason": "解缚后由他自己确认去路；重逢地点跟随已经保存的人物迁移。",
+      "steps": [
+        {
+          "ability": "thorn_downstrike",
+          "why": "先取得可以解开根缚的技巧；旅记指向实际取得点，不把囚徒的解缚写成已经发生。"
+        },
+        {
+          "npc": "npc_root_prisoner",
+          "why": "回去听他确认落脚点与退路；学会下劈不会代替与他的完整交谈。"
+        }
+      ]
+    },
+    "wax_lamps": {
+      "return_to": "npc_beeswax_vendor",
+      "completed_reason": "这次补灯的材料与报酬已经谈清，之后仍可回商人处重逢。",
+      "steps": [
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "room": "beeswax_nook",
+          "why": "可先查看蜂蜡支路。花粉蜡是补灯的材料，找到后仍要回来与商人确认。"
+        },
+        {
+          "npc": "npc_beeswax_vendor",
+          "why": "把材料带给提出补灯的人，听她确认用途与这一次的报酬。"
+        }
+      ]
+    },
+    "lantern_watch": {
+      "return_to": "npc_lantern_sister",
+      "completed_reason": "检修信号已经校正；今后的灯号仍由看灯的人守着，不是新的征召令。",
+      "steps": [
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "room": "war_graves",
+          "why": "可先在军墓查找军令；若已取得黑曜证词，同样可以带去与修女对照。"
+        },
+        {
+          "ability": "lantern_phase",
+          "why": "灯影穿行的正式取得点在巡礼营地。取得技巧后再回来谈灯号，不必先打倒镜池新娘。"
+        },
+        {
+          "npc": "npc_lantern_sister",
+          "why": "把军令或证词与亲手学到的穿行技巧放在一起，和修女校正检修信号。"
+        }
+      ]
+    },
+    "deserter_order": {
+      "return_to": "npc_deserter_flagbearer",
+      "completed_reason": "是否回答旧军号由他决定；保存迁移后，重逢提示会跟随他到巡礼营地。",
+      "steps": [
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "room": "war_graves",
+          "why": "到军墓查找仍能牵动旧拍的军令，把实物带给逃旗手。"
+        },
+        {
+          "npc": "npc_deserter_flagbearer",
+          "why": "请他辨认召回线，等他自己决定怎样处置；交谈与迁移会一起保存。"
+        }
+      ]
+    }
+  }
+}

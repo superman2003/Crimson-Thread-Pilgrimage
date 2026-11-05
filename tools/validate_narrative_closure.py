@@ -10,6 +10,20 @@ def read(path):
 
 
 def validate():
+    from validate_known_inquiry_contacts import validate as validate_followups
+    validate_followups()
+    from validate_inquiry_source_notes import validate as validate_inquiry_notes
+    validate_inquiry_notes()
+    from validate_guardian_identities import validate as validate_identities
+    validate_identities()
+    from validate_known_world_terms import validate as validate_terms
+    validate_terms()
+    from validate_ending_return_journal import validate as validate_return
+    validate_return()
+    from validate_personal_codas import validate as validate_codas
+    validate_codas()
+    from validate_testimony_sources import validate as validate_sources
+    validate_sources()
     journey = read('godot/data/narrative_journey.json')
     story = read('godot/data/world_narrative.json')
     assert journey['version'] == 1

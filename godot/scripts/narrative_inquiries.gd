@@ -1,5 +1,6 @@
 extends RefCounted
 ## Optional, evidence-led questions. Reading these never advances a quest.
+const SOURCE_NOTES := preload("res://scripts/inquiry_source_notes.gd")
 const DIRECTORY := "res://data/inquiries"
 const ARCHIVE_DIRECTORY := "res://data/inquiry_archive"
 const PREFIX := "narrative_inquiry_"
@@ -8,6 +9,8 @@ const MAX_ENTRIES := 256
 const MAX_LINES := 8
 static var _catalog: Array[Dictionary] = []
 static var _archive: Array[Dictionary] = []
+static var _memory_template_key := ""
+static var _memory_templates: Array[Dictionary] = []
 
 static func archived_catalog() -> Array[Dictionary]:
     # Published text is immutable memory material, never an active question.
@@ -171,10 +174,23 @@ static func find(id: String) -> Dictionary:
     return {}
 
 static func records(flags: Dictionary) -> Array[Dictionary]:
-    var result: Array[Dictionary] = []
-    var seen: Dictionary = {}
     var entries := catalog()
     entries.append_array(archived_catalog())
+    # The exact source snapshot owns these templates. A changed published
+    # catalogue invalidates them; callers receive detached public rows only.
+    var key := JSON.stringify(entries).sha256_text()
+    if key != _memory_template_key:
+        _memory_templates = _build_memory_templates(entries)
+        _memory_template_key = key
+    var result: Array[Dictionary] = []
+    for row in _memory_templates:
+        if true_flag(flags, String(row.id)):
+            result.append(row.duplicate(true))
+    return result
+
+static func _build_memory_templates(entries: Array) -> Array[Dictionary]:
+    var result: Array[Dictionary] = []
+    var seen: Dictionary = {}
     # Reconstruct only versions actually confirmed. Current possession is not
     # needed for a durable memory, and a new source cannot rewrite an old one.
     for entry in entries:
@@ -197,15 +213,17 @@ static func records(flags: Dictionary) -> Array[Dictionary]:
                 else:
                     earned[source.id] = true
             var row := quote(version, inventory, earned)
-            if row.is_empty() or not true_flag(flags, row.marker) or seen.has(row.marker):
+            if row.is_empty() or seen.has(row.marker):
                 continue
             seen[row.marker] = true
             var labels: Array[String] = []
             for source in row.sources:
                 labels.append(String(source.label))
             var text := "我问：%s\n\n%s\n\n巡礼者手记：%s\n\n当时核对的线索：%s" % [row.question, "\n\n".join(row.lines), row.reflection, "、".join(labels)]
-            result.append({"id": row.marker, "title": "追问 · " + String(row.question),
-                "record_kind": "people", "acquired": true, "description": text, "places": []})
+            result.append(SOURCE_NOTES.annotate({"id": row.marker, "title": "追问 · " + String(row.question),
+                "record_kind": "people", "acquired": true, "description": text, "places": [],
+                "inquiry_id": String(row.id), "inquiry_lines": row.lines.duplicate(),
+                "inquiry_expanded": version.lines.size() > entry.lines.size()}, row))
     return result
 
 static func can_talk(ui: Node, area: Area2D) -> bool:

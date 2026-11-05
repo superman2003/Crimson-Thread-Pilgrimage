@@ -5,7 +5,7 @@ const NARRATIVE := preload("res://scripts/world_narrative.gd")
 const REGIONS := preload("res://scripts/save_inspector.gd").REGION_NAMES
 const PREFIX := "npc_recollection_"
 const MAX_NPCS := 64
-const MAX_STATES := 16
+const MAX_STATES := 20
 const MAX_LINES := 16
 static var _catalog: Dictionary={}
 
