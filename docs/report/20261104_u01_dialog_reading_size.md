@@ -18,8 +18,7 @@
 新节点 `DialogReadingAdapter`，挂在 UI 外壳下。它监听外壳内的所有 AcceptDialog，在对话框第一次弹出时按情况处理：
 
 - 已有旅途或设置布局的：不处理，交给原布局；
-- 内容列本来就在滚动容器里的：装上设置表单适配器（`settings_dialog_layout`），获得统一的字号缩放和屏内定位；
-- 内容列直接挂在对话框下的：原地按阅读字号缩放（`journey_window_layout.apply_reading`，与旅途窗口同一比例）。不移动节点，因为移动会丢掉搜索框焦点、TextEdit 选区，以及按名字查找的路径（如 `LegendText`）；
+- 内容列（不论是否在滚动容器里）：原地按阅读字号缩放（`journey_window_layout.apply_reading`，与旅途窗口同一比例）。滚动容器里的文字变大后在原有滚动区内滚动，不改动对话框自己的滚动区尺寸（集成时发现，改动滚动区会让手柄焦点桥刚滚到的行移出视野，见 `dialog_dpad_focus`）；
 - 只有一段文字的提示框：缩放文字和按钮。
 
 原地缩放之后：

@@ -1,16 +1,13 @@
 extends Node
 ## U01/U05: every page dialog under the shell follows the reading size, as the
-## settings forms do. A dialog with one content column gets the shared settings
-## adapter (scrolling body, reading font scale, on-screen frame) on its first
-## popup when the column already scrolls, otherwise its text is scaled in
-## place; a bare message box scales its text and buttons. Dialogs that already
-## carry a journey or settings layout are left to it.
-const LAYOUT := preload("res://scripts/settings_dialog_layout.gd")
+## settings forms do. A dialog with one content column has its text scaled in
+## place on each popup (scrolling parts give back height if it would leave the
+## screen); a bare message box scales its text and buttons. Dialogs that
+## already carry a journey or settings layout are left to it.
 const POLICY := preload("res://scripts/journey_window_layout.gd")
 const WATCHED := "dialog_reading_watched"
 const MIN_HEIGHT := "dialog_reading_min_height"
 const MIN_SCROLLER := 80.0
-var adapted := 0
 var scaled := 0
 var pending_refresh := false
 
@@ -74,16 +71,12 @@ func _prepare(ref: WeakRef) -> void:
     if column == null:
         _scale_bare(host)
         return
-    # The adapter would move a direct child into a new scroll body, which drops
-    # focus, text selection and path lookups ("LegendText"). Without an
-    # existing scroll body, only scale the text in place.
-    if not column.get_parent() is ScrollContainer:
-        _watch_content(column)
-        _scale_in_place(host, column)
-        scaled += 1
-        return
-    LAYOUT.install(host, column, Vector2i(host.size).max(host.min_size).max(Vector2i(320, 180)))
-    adapted += 1
+    # Scale in place. Installing the settings adapter would move or resize a
+    # dialog's own scroll body (and the d-pad bridge's scrolled-to row with it);
+    # text inside an existing scroll body simply scrolls.
+    _watch_content(column)
+    _scale_in_place(host, column)
+    scaled += 1
 
 ## Rows built after the popup (search results, pages) take the same scale.
 func _watch_content(node: Node) -> void:
@@ -153,7 +146,7 @@ func _scale_bare(host: AcceptDialog) -> void:
     if host is ConfirmationDialog:
         POLICY.apply_reading(host.get_cancel_button(), reading)
 
-## Called when the reading size changes; adapted dialogs refit themselves.
+## Called when the reading size changes: open dialogs rescale at once.
 func refresh() -> void:
     pending_refresh = false
     var pending: Array[Node] = [get_parent()]
@@ -162,7 +155,7 @@ func refresh() -> void:
         pending.append_array(node.get_children())
         if node is AcceptDialog and node.visible and node.has_meta(WATCHED) and not handled(node):
             var column := content_column(node)
-            if column != null and not column.get_parent() is ScrollContainer:
+            if column != null:
                 _scale_in_place(node, column)
             else:
                 _scale_bare(node)
