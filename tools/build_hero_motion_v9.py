@@ -16,6 +16,24 @@ RESOURCE = 'res://assets/sprites/player/generated_hero_motion_v9/frames/'
 COUNTS = {'idle':8, 'attack_2':6}
 
 
+def first_difference(actual, expected, path='$'):
+    if type(actual) is not type(expected):
+        return f'{path}: {type(actual).__name__} != {type(expected).__name__}'
+    if isinstance(expected, dict):
+        if actual.keys() != expected.keys(): return f'{path}: different keys'
+        for key in expected:
+            diff = first_difference(actual[key], expected[key], f'{path}.{key}')
+            if diff: return diff
+    elif isinstance(expected, list):
+        if len(actual) != len(expected): return f'{path}: different lengths'
+        for index, value in enumerate(expected):
+            diff = first_difference(actual[index], value, f'{path}[{index}]')
+            if diff: return diff
+    elif actual != expected:
+        return f'{path}: {actual!r} != {expected!r}'
+    return ''
+
+
 def sole_centers(image):
     """Two disconnected support soles, measured from actual packed alpha."""
     mask = np.asarray(image)[276:282,:,3] > 128
@@ -126,7 +144,9 @@ def build(check=False):
         a = np.asarray(im).astype(float)/255
         a[:,:,:3] *= a[:,:,3:4]
         premultiplied.append(a)
-    registration['idle_adjacent_pixel_distance'] = [float(np.mean(np.abs(premultiplied[(i+1)%8]-a))) for i,a in enumerate(premultiplied)]
+    # This diagnostic reduction can differ in its last floating-point bits across
+    # NumPy/SIMD builds. Canonicalize it; all RGBA hashes and anchors stay exact.
+    registration['idle_adjacent_pixel_distance'] = [round(float(np.mean(np.abs(premultiplied[(i+1)%8]-a))),12) for i,a in enumerate(premultiplied)]
     registration['idle_foot_center_x'] = idle_centers
     registration['grounded_pose_foot_center_x'] = {'attack_2':heavy_centers}
     outputs[OUT/'registration.json'] = (json.dumps(registration,ensure_ascii=False,indent=2)+'\n').encode()
@@ -136,7 +156,9 @@ def build(check=False):
             if path.suffix=='.png':
                 if not np.array_equal(np.asarray(Image.open(path)),np.asarray(Image.open(BytesIO(content)))):
                     raise ValueError(f'{path}: stale pixels')
-            elif path.read_bytes()!=content: raise ValueError(f'{path}: stale registration')
+            elif path.read_bytes()!=content:
+                diff = first_difference(json.loads(path.read_bytes()), json.loads(content))
+                raise ValueError(f'{path}: stale registration ({diff or "noncanonical JSON formatting"})')
         else:
             path.parent.mkdir(parents=True,exist_ok=True)
             path.write_bytes(content)
