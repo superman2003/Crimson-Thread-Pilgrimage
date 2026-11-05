@@ -77,6 +77,8 @@ class CompletionContractTests(unittest.TestCase):
             'hidden_drone',
             'hazard_readability',
             'world_save_backup',
+
+            'settings_construction',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
@@ -133,6 +135,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("player_layered_idle", DEFAULT_SUITES)
         self.assertIn("input_prompt", DEFAULT_SUITES)
         self.assertIn("ui_text_order", DEFAULT_SUITES)
+        self.assertIn("settings_construction", DEFAULT_SUITES)
         self.assertIn("combat_resource_cycle", DEFAULT_SUITES)
         self.assertIn("world_gameplay_plan", DEFAULT_SUITES)
         self.assertIn("player_motion_continuity", DEFAULT_SUITES)

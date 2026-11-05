@@ -204,7 +204,9 @@ func bind(runtime: Node) -> void:
     finish_bind()
 
 static func build_steps() -> Array[String]:
-    return ["_build_hud", "_build_bag", "_build_dialogue", "_build_settings", "_build_build_panel"]
+    return ["_build_hud", "_build_bag", "_build_dialogue", "_begin_settings",
+        "_build_settings_audio", "_build_settings_accessibility", "_build_settings_controls",
+        "_finish_settings", "_build_build_panel"]
 
 ## Inscribed title artwork is 1-2 MB per image. Each region rebuilds the UI
 ## shell, and freeing the old one released these textures, so every transition
@@ -994,12 +996,22 @@ func close_dialogue() -> void:
     dialogue_reading_key=""
 
 func _build_settings() -> void:
+    # Direct callers and budgeted arrivals use the same ordered groups.
+    _begin_settings()
+    _build_settings_audio()
+    _build_settings_accessibility()
+    _build_settings_controls()
+    _finish_settings()
+
+func _begin_settings() -> void:
     settings=_panel(self,"设置与无障碍",Vector2(135,48),Vector2(1010,618))
     settings.name="AudioSettingsOverlay"
     preload("res://scripts/decorative_motion_settings.gd").install(self)
     _well(settings,Vector2(22,98),Vector2(458,280))
     _well(settings,Vector2(500,98),Vector2(487,280))
     _label(settings,"声音",Vector2(34,100),Vector2(440,26),20,GOLD)
+
+func _build_settings_audio() -> void:
     var rows: Array=level.AUDIO_SETTINGS_ROWS
     for i in rows.size():
         var key:=String(rows[i][0])
@@ -1032,6 +1044,8 @@ func _build_settings() -> void:
     settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),13,GOLD)
     settings_save_notice.clip_text=true
     _refresh_settings_save_notice()
+
+func _build_settings_accessibility() -> void:
     _label(settings,"阅读、画面与手柄",Vector2(512,100),Vector2(440,26),20,GOLD)
     _accessibility_slider("subtitle_size","字幕字号",Vector2(512,136),17,26,1)
     _accessibility_slider("subtitle_speed","字幕速度",Vector2(512,170),0.5,2.0,0.25)
@@ -1043,6 +1057,8 @@ func _build_settings() -> void:
     _accessibility_toggle("vibration_enabled","手柄震动",Vector2(725,305))
     _accessibility_toggle("tutorial_hints","探索提示",Vector2(512,339))
     _accessibility_toggle("navigation_assist","导航辅助",Vector2(725,339))
+
+func _build_settings_controls() -> void:
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
     reset_bindings_button.add_theme_font_size_override("font_size",13)
@@ -1069,6 +1085,8 @@ func _build_settings() -> void:
     remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),13,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+
+func _finish_settings() -> void:
     for slot_index in 3:
         var slot:=slot_index+1
         save_slot_buttons[slot]=_button(settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():_select_save_slot(slot))
