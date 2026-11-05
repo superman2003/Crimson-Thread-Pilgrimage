@@ -47,14 +47,14 @@ GATE_OFFSETS = {
 # Two actual old-area targets per ability, with different physical source rooms.
 # platform IDs keep entrances on supported, existing ground, away from hazards.
 TARGETS = {
-    'thread_dash': [(1, 'first_bell_shrine', 'shrine_floor', 1630, '排水计时闸'), (2, 'silt_vault', 'sv_floor', 4240, '淤泥排压室')],
+    'thread_dash': [(1, 'first_bell_shrine', 'shrine_floor', 1580, '排水计时闸'), (2, 'silt_vault', 'sv_floor', 4240, '淤泥排压室')],
     'silk_wall_grip': [(1, 'threadmakers_cache', 'cache_floor', 1600, '纺线检修仓'), (2, 'pump_atrium', 'hub_floor_w', 2870, '泵房上检修舱')],
     'echo_hook': [(1, 'east_balcony', 'eb_floor', 4580, '钟骨吊运台'), (3, 'mezz_reading_ledges', 'mezz_gallery_floor', 1990, '运书吊篮仓')],
     'double_thread_jump': [(1, 'belfry_top', 'belfry_floor', 3140, '钟冠双线仓'), (2, 'riser_shrine', 'rs_floor', 1470, '双层水位记录室')],
     'bell_guard': [(1, 'bell_marrow_cell', 'cell_floor', 4030, '钟髓封蜡室'), (2, 'atrium_west_vault', 'vault_floor', 2200, '旧铸工证物柜')],
     'thorn_downstrike': [(1, 'root_vault', 'rv_floor', 2840, '棘根深井'), (3, 'salt_gate_walk', 'sg_run_a', 3250, '盐脊碎板井')],
     'lantern_phase': [(2, 'tide_listening_cell', 'tide_floor', 1760, '潮影检修室'), (4, 'beeswax_nook', 'bw_floor', 5070, '蜂蜡影闩室')],
-    'crown_resonance': [(1, 'crown_treasury', 'ct_floor', 6600, '无名钟契库'), (3, 'secret_nook', 'nook_floor', 1490, '删名契约暗柜')],
+    'crown_resonance': [(1, 'crown_treasury', 'ct_floor', 6600, '无名钟契库'), (3, 'secret_nook', 'nook_floor', 1310, '删名契约暗柜')],
 }
 EVIDENCE = {
     'thread_dash': ['计时闸检修签', '淤泥排压账'],

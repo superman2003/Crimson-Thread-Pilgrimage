@@ -1,0 +1,96 @@
+{
+  "bosses": 1,
+  "new_drawings": 48,
+  "coverage": [
+    {
+      "kind": "silent_crown_core",
+      "new_drawings": 48,
+      "sources": [
+        {
+          "image": "silent_crown_core_combat_01.png",
+          "sha256": "e0b379e1178002e7549b5766e2b0dbb6d6e0612157327d6b50a7ff07fafd9367",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "combat_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_combat_02.png",
+          "sha256": "1050e09d26b9d7cdb9bf9cbaaddf8e1c1c4b9397b10616c2ab0efec85cbb813f",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "combat_02",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_combat_03.png",
+          "sha256": "bd999a1cbeaba7ea21965d943b0d70d0ac4a0b2c0153c74a499cf1c995f5fe37",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "combat_03",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_combat_04.png",
+          "sha256": "f8f71bfc1f66428980d31dbac1b468a96d9aa41111ccf39fc1f5c8d57f4c6503",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "combat_04",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_recovery_01.png",
+          "sha256": "622f7df96ac416eccad18e6f12b2920bf5adb2aae6c89248356b0b2fd52d8c5c",
+          "prompt_sha256": "d660ec0d73e46575f7b0a07a1bf97269801e163973b3cb5b178835a0ecde3bc1",
+          "role": "recovery_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_recovery_02.png",
+          "sha256": "ff0584d701c6aa6a9acbd5eec03a1b754ac6d7e2a540d09d8e323b8e2838ebde",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "recovery_02",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_locomotion_01.png",
+          "sha256": "dec605995bb69a04611fbe6c5dc19d497d9a90a04cfac75e65f8e95c7114fe93",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "locomotion_01",
+          "frames": 6
+        },
+        {
+          "image": "silent_crown_core_locomotion_02.png",
+          "sha256": "d77b4a284d1cb6740b64cc8b2f8674210b9908ffad05f881ddce6df2efde65a5",
+          "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+          "role": "locomotion_02",
+          "frames": 6
+        }
+      ],
+      "runtime": {
+        "id": "silent_crown_core",
+        "family": "original_creatures",
+        "animations": {
+          "idle": 8,
+          "walk": 16,
+          "windup": 7,
+          "attack": 7,
+          "recover": 11,
+          "hurt": 3,
+          "death": 4,
+          "heavy_windup": 7,
+          "heavy": 7,
+          "cast_windup": 7,
+          "cast": 7,
+          "phase_windup": 7,
+          "phase": 7,
+          "heavy_recover": 15,
+          "phase_recover": 15,
+          "cast_recover": 15
+        },
+        "frames": 143,
+        "canvas": [
+          522,
+          233
+        ],
+        "source_hash": "3208ead49c2b5ce8ed7a6f342d8e4a186123dc5a9c5be11d19541c90a0bf4fa5"
+      }
+    }
+  ]
+}

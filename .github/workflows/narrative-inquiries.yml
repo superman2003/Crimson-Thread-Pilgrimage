@@ -28,7 +28,7 @@ jobs:
           GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           git lfs install --skip-smudge
-          git lfs pull --include='godot/assets/**'
+          python3 tools/hydrate_runtime_assets.py --include='godot/assets/**'
       - name: Install engine
         run: |
           curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \

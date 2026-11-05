@@ -41,6 +41,10 @@ const BOSS_DB := -16.0
 const LULLABY_DB := -14.0
 const STINGER_DB := -12.0
 const TRANSIT_LOOP_DB := -10.0
+## Hidden rooms lay a low drone under the region ambience (W04/S03).
+const HIDDEN_DRONE_DB := -12.0
+const HIDDEN_DRONE_FADE_IN_S := 1.5
+const HIDDEN_DRONE_FADE_OUT_S := 1.2
 const AMBIENCE_BED_DB := 0.0
 const AMBIENCE_ONESHOT_DB := -6.0
 const ANVIL_FAR_DB := -8.0
@@ -121,6 +125,7 @@ const STINGER_TRACKS := {
 }
 ## 钟道站厅音乐层（transit 房低音量循环，on_room_changed 驱动）。
 const BELLWAY_TRANSIT_LOOP := "res://assets/audio/bgm/generated/bellway_transit_loop.ogg"
+const HIDDEN_DRONE := "res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
 ## Session-only phrase positions. Values are seconds/instance IDs, never streams.
@@ -140,6 +145,8 @@ var boss_player: AudioStreamPlayer
 var lullaby_player: AudioStreamPlayer
 var stinger_player: AudioStreamPlayer
 var transit_player: AudioStreamPlayer
+var hidden_drone_player: AudioStreamPlayer
+var hidden_zone := false
 var ambience_bed_player: AudioStreamPlayer
 var oneshot_timer: Timer
 var anvil_timer: Timer
@@ -168,6 +175,7 @@ var lullaby_tween: Tween
 var explore_tween: Tween
 var boss_tween: Tween
 var transit_tween: Tween
+var hidden_drone_tween: Tween
 var low_hp_tween: Tween
 var death_tween: Tween
 var bus_tweens: Dictionary = {}
@@ -196,13 +204,13 @@ func _exit_tree() -> void:
         _explore_owners.erase(_explore_path)
     # Stop local envelopes before retirement. Global mix belongs to the latest
     # director; a queued old scene must never strip a new scene's death/HP filter.
-    for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, low_hp_tween, death_tween]:
+    for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, hidden_drone_tween, low_hp_tween, death_tween]:
         if tween != null and tween.is_valid():
             tween.kill()
     for tween in bus_tweens.values() + reverb_tweens.values():
         if tween != null and tween.is_valid():
             tween.kill()
-    for voice in [explore_player, combat_player, boss_player, lullaby_player, stinger_player, transit_player, ambience_bed_player, _npc_voice_player]:
+    for voice in [explore_player, combat_player, boss_player, lullaby_player, stinger_player, transit_player, hidden_drone_player, ambience_bed_player, _npc_voice_player]:
         if voice != null and is_instance_valid(voice):
             voice.stop()
             voice.stream = null
@@ -1065,6 +1073,7 @@ func on_key_item_pickup() -> void:
 func begin_chapter_transition() -> void:
     _clear_duck_layers()
     _stop_npc_landmarks()
+    set_hidden_zone(false)
     _tween_bus_db("BGM", SILENT_DB, CHAPTER_EXIT_BGM_FADE_S)
 
 
@@ -1127,6 +1136,47 @@ func _update_transit_loop(in_transit: bool) -> void:
     transit_tween = create_tween()
     transit_tween.tween_property(transit_player, "volume_db", SILENT_DB, TRANSIT_LOOP_FADE_OUT_S)
     transit_tween.tween_callback(transit_player.stop)
+
+
+## 隐藏房间：在 Ambience 总线上 1.5s 淡入黑潮低鸣，离开 1.2s 淡出。
+## 进入同一类房间不重启已在响的循环。
+func set_hidden_zone(active: bool) -> void:
+    if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
+        return
+    if active == hidden_zone:
+        return
+    hidden_zone = active
+    if hidden_drone_tween != null and hidden_drone_tween.is_valid():
+        hidden_drone_tween.kill()
+    if active:
+        if not autoplay_enabled:
+            return
+        var stream := load_cached(HIDDEN_DRONE, true)
+        if stream == null:
+            return
+        if hidden_drone_player == null or not is_instance_valid(hidden_drone_player):
+            hidden_drone_player = AudioStreamPlayer.new()
+            hidden_drone_player.name = "HiddenDrone"
+            hidden_drone_player.bus = _bus_or("Ambience", "Master")
+            add_child(hidden_drone_player)
+        if not hidden_drone_player.playing:
+            hidden_drone_player.stream = stream
+            hidden_drone_player.volume_db = SILENT_DB
+            hidden_drone_player.play()
+        if not is_inside_tree():
+            hidden_drone_player.volume_db = HIDDEN_DRONE_DB
+            return
+        hidden_drone_tween = create_tween()
+        hidden_drone_tween.tween_property(hidden_drone_player, "volume_db", HIDDEN_DRONE_DB, HIDDEN_DRONE_FADE_IN_S)
+        return
+    if hidden_drone_player == null or not is_instance_valid(hidden_drone_player) or not hidden_drone_player.playing:
+        return
+    if not is_inside_tree():
+        hidden_drone_player.stop()
+        return
+    hidden_drone_tween = create_tween()
+    hidden_drone_tween.tween_property(hidden_drone_player, "volume_db", SILENT_DB, HIDDEN_DRONE_FADE_OUT_S)
+    hidden_drone_tween.tween_callback(hidden_drone_player.stop)
 
 
 ## 濒死低通扫频：2kHz 起 2s 滑到 800Hz。关断需当帧移除效果

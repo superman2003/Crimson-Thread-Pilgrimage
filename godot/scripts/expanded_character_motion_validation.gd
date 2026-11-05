@@ -57,10 +57,50 @@ func run() -> void:
     await _check_boss_recovery_bridges(stage)
     await _check_v5_runtime_sources(stage)
     _check_recovery_hitch(stage)
+    _check_v6_registration()
     _check_elite_profiles(stage)
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
+func _check_v6_registration() -> void:
+    var bosses := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
+    var total := 0
+    var playable := 0
+    var source_only := 0
+    for kind: String in bosses:
+        var record: Dictionary = ART.manifest("res://assets/sprites/original_creatures/" + kind + "/motion_generation.json")
+        check(record.has("boss_motion_v6"), kind + " new in-between batch exists")
+        if not record.has("boss_motion_v6"): continue
+        var batch: Dictionary = record.boss_motion_v6
+        check(batch.runtime_model == "main-bridge-settle", kind + " preserves upstream bridge/settle model")
+        check(batch.sources.size() == 8 and int(batch.new_drawings) == 48, kind + " eight sheets / 48 authored drawings")
+        total += int(batch.new_drawings)
+        playable += int(batch.runtime_drawings)
+        source_only += batch.source_only.size()
+        var runtime: Dictionary = record.runtime_frames
+        check(runtime.idle.size() == 8 and runtime.walk.size() == 16, kind + " idle and gait include loop seam drawings")
+        for animation in ["windup","attack","heavy_windup","heavy","cast_windup","cast","phase_windup","phase"]:
+            check(runtime[animation].size() == 7, kind + "/" + animation + " three new anatomical in-betweens")
+        check(runtime.recover.size() == batch.baseline_frames.recover.size()+6, kind + " generic return to guard gains six drawings")
+        for move in ["heavy","cast","phase"]:
+            var settles: bool = kind == "broken_string_gardener" and move in ["heavy","phase"]
+            var name: String = move + ("_settle" if settles else "_bridge")
+            check(runtime[name].size() == (3 if settles else 4), kind + "/" + name + " preserves standing settle or shared recovery")
+            check(not runtime.has(move+"_recover"), kind + " does not override main bridge routing")
+        var new_entries := 0
+        for animation: String in batch.baseline_frames:
+            var cursor := 0
+            for original: Dictionary in batch.baseline_frames[animation]:
+                while cursor < runtime[animation].size() and runtime[animation][cursor] != original: cursor += 1
+                check(cursor < runtime[animation].size(), kind + "/" + animation + " keeps upstream pose order and grade")
+                cursor += 1
+            for entry: Dictionary in runtime[animation]:
+                if String(entry.get("source", "")).begins_with("art_requests/boss_motion_v6/"):
+                    new_entries += 1
+                    check(entry.has("grade"), kind + " new cel matches main palette")
+        check(new_entries == int(batch.runtime_drawings), kind + " all registered new drawings are accounted for")
+    check(total == 288 and playable == 286 and source_only == 2, "288 authored poses: 286 compatible runtime cels, two source-only upright-to-crouch cels")
+
 func _check_frames(frames: SpriteFrames, manifest: Dictionary, id: String) -> void:
     characters += 1
     check(frames != null, id + " frames loaded")
@@ -199,7 +239,7 @@ func _check_boss_recovery_bridges(stage: Node2D) -> void:
             var bridge := move + ("_settle" if settles else "_bridge")
             var after := "idle" if settles else "recover"
             var label: String = kind+"/"+String(command.id)
-            check(sprite.sprite_frames.get_frame_count(bridge) == 2, label+" has a two-cel "+bridge)
+            check(sprite.sprite_frames.get_frame_count(bridge) == (3 if settles else 4), label+" includes compatible bridge in-betweens")
             enemy.state = "recover"
             enemy.state_timer = float(command.get("recover", 0.5))
             enemy._pose_sprite("recover", command)

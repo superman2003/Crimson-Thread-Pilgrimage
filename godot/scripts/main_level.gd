@@ -26,6 +26,7 @@ const WORLD_STATE_SCRIPT := preload("res://scripts/world_state.gd")
 const WORLD_PASSAGE := preload("res://scripts/world_passage.gd")
 const WORLD_REGION_LOADER := preload("res://scripts/world_region_loader.gd")
 const PLATFORM_BODY := preload("res://scripts/world_platform_body.gd")
+const ABILITY_GATE_SIGN := preload("res://scripts/ability_gate_sign.gd")
 const WORLD_PLATFORMS := preload("res://scripts/world_platform_residency.gd")
 var world_platforms: RefCounted
 const WORLD_GAMEPLAY_RESIDENCY := preload("res://scripts/world_gameplay_residency.gd")
@@ -3162,6 +3163,8 @@ func _update_room_visit() -> void:
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
             if audio_director != null:
                 audio_director.on_room_changed(String(room.get("kind", "")))
+                if audio_director.has_method("set_hidden_zone"):
+                    audio_director.set_hidden_zone(_is_hidden_room(current_room_id))
 
 
 func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:
@@ -3653,6 +3656,20 @@ func _region_gate(data: Dictionary) -> void:
         gate.add_to_group("phase_gate")
     if String(data.get("requires_action", "")) == "thorn_downstrike":
         gate.add_to_group("fragile_terrain")
+        gate.set_meta("gate_size", _rect2(data.get("rect", [])).size)
+    var ability := String(data.get("required_ability", ""))
+    if not ability.is_empty():
+        var sign := Node2D.new()
+        sign.set_script(ABILITY_GATE_SIGN)
+        sign.name = "AbilityGateSign"
+        sign.ability = ability
+        sign.ability_name = String(data.get("required_ability_name", ""))
+        sign.host = self
+        # Eye height above the gate's floor end (tall walls) or centred (short ledges).
+        var size := _rect2(data.get("rect", [])).size
+        sign.position = Vector2(0, maxf(0.0, size.y * 0.5 - 92.0))
+        sign.z_index = 3
+        gate.add_child(sign)
     locked_gate_bodies[String(data.get("id", "locked_gate"))] = gate
 
 
@@ -3691,11 +3708,13 @@ func _spawn_seal_practice_targets() -> void:
         label.position = Vector2(-120, -175)
         label.size = Vector2(240, 130)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
-        label.set_meta("base_text",label.text)
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set; a detached label shapes
+        # its wrapped caption first with the default font, then again.
         target.add_child(label)
+        label.text = String(entry.get("label", "练针架：没有接触伤害，击倒后复位。"))
+        label.set_meta("base_text",label.text)
 
 ## E02: each primary tool has a practice puppet beside the skill racks. The
 ## puppet runs real AI from its plan profile so the tool visibly acts on it.
@@ -3737,10 +3756,11 @@ func _spawn_tool_practice_targets() -> void:
         label.position = Vector2(-120, -150)
         label.size = Vector2(240, 100)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
+        # T03: join the tree before the text is set (see seal practice labels).
         target.add_child(label)
+        label.text = String(entry.get("label", "战具练习傀儡：没有伤害，击倒后复位。"))
 
 
 func _in_tool_practice_room() -> bool:
@@ -3874,6 +3894,16 @@ func _notice_hidden_route_clues() -> void:
     preload("res://scripts/hidden_clue_notes.gd").notice(self)
 
 
+## Rooms the hidden route plan reaches through an environmental clue.
+func _is_hidden_room(room_id: String) -> bool:
+    if not world_mode or room_id.is_empty():
+        return false
+    for entry in WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
+        if entry is Dictionary and String(entry.get("region_id", "")) == String(config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
+            return true
+    return false
+
+
 func _mark_hidden_route_found() -> void:
     for clue in hidden_route_clues:
         if not is_instance_valid(clue) or clue.found:
@@ -3950,6 +3980,8 @@ func _spawn_player() -> void:
         player.energy_changed.connect(_on_energy_changed)
         player.player_respawned.connect(_on_player_respawned)
         player.ability_action.connect(_on_ability_action)
+    if player.has_signal("gate_struck") and not player.gate_struck.is_connected(_on_gate_struck):
+        player.gate_struck.connect(_on_gate_struck)
     if world_mode:
         player.build_system = build_system
         _sync_player_build()
@@ -5567,14 +5599,51 @@ func _enemy_platform_movement_bounds(platform_id: String, spawn_position: Vector
     var step := maxf(8.0, minf(18.0, half_width * 0.45))
     var left := center_x
     var right := center_x
-    while left - step >= min_x and _enemy_spawn_rect_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, platform_id):
+    # T03: the walk tests up to ~100 positions; each full clearance query
+    # scanned every platform and rock rect (10–60 ms per enemy in one build
+    # frame). Collect once what can touch this floor's swept band, then test
+    # the same positions against only those (same results, same order).
+    var obstacles := _enemy_walk_obstacles(Rect2(min_x - step - half_width, spawn_position.y - visual_height, max_x - min_x + 2.0 * (step + half_width), visual_height + 8.0).grow(1.0), spawn_position.y, platform_id)
+    while left - step >= min_x and _enemy_walk_clear(Vector2(left - step, spawn_position.y), half_width, visual_height, obstacles):
         left -= step
-    while right + step <= max_x and _enemy_spawn_rect_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, platform_id):
+    while right + step <= max_x and _enemy_walk_clear(Vector2(right + step, spawn_position.y), half_width, visual_height, obstacles):
         right += step
     if right - left < half_width:
         return [left-0.05, right+0.05]
     return [left, right]
 
+
+
+## The subset of _enemy_spawn_rect_clear's blockers that can intersect any
+## actor rect inside `sweep` standing at `floor_y` (same filters).
+func _enemy_walk_obstacles(sweep: Rect2, floor_y: float, floor_platform_id: String) -> Dictionary:
+    var rects: Array[Rect2] = []
+    if cave_world != null:
+        for solid in cave_world.solid_rects:
+            if solid.intersects(sweep): rects.append(solid)
+    for platform in config.get("platforms", []):
+        if not (platform is Dictionary):
+            continue
+        var platform_data: Dictionary = platform
+        if not String(platform_data.get("terrain_id", "")).is_empty():
+            continue
+        if String(platform_data.get("id", "")) == floor_platform_id:
+            continue
+        var rect := _rect2(platform_data.get("rect", []))
+        if rect.size.x <= 0.0 or rect.size.y <= 0.0 or rect.position.y >= floor_y + 10.0:
+            continue
+        if rect.intersects(sweep): rects.append(rect)
+    return {"rects": rects, "terrain": chapter_terrain != null and chapter_terrain.intersects_rect(sweep)}
+
+
+func _enemy_walk_clear(position_value: Vector2, half_width: float, visual_height: float, obstacles: Dictionary) -> bool:
+    var actor_rect := Rect2(position_value + Vector2(-half_width, -visual_height), Vector2(half_width * 2.0, visual_height + 8.0))
+    if obstacles.terrain and chapter_terrain.intersects_rect(actor_rect):
+        return false
+    for rect in obstacles.rects:
+        if actor_rect.intersects(rect):
+            return false
+    return true
 
 func _spawn_normal_enemies() -> void:
     for spawn in config.get("enemy_spawns", []):
@@ -7712,9 +7781,15 @@ func get_demo_state() -> Dictionary:
         var spawn_visual_height := float(enemy_area.get_meta("spawn_visual_height", 104.0))
         var query := PhysicsShapeQueryParameters2D.new()
         var shape := RectangleShape2D.new()
-        shape.size=enemy_area.hurtbox_size
+        # Birth clearance uses the terrain footprint retained by motion sweeps;
+        # the enlarged combat hurtbox can extend beyond that footprint.
+        var motion_size: Variant = enemy_area.get("motion_box_size")
+        var has_motion_box: bool = motion_size is Vector2 and motion_size != Vector2.ZERO
+        shape.size=motion_size if has_motion_box else enemy_area.hurtbox_size
         query.shape=shape
-        query.transform=Transform2D(0,enemy_area.global_position+enemy_area.hurtbox_offset)
+        # Zero is a configured offset here, rather than the combat-rect fallback.
+        var clearance_offset: Vector2 = enemy_area.get("motion_box_offset") if has_motion_box else enemy_area.hurtbox_offset
+        query.transform=Transform2D(0,enemy_area.global_position+clearance_offset)
         query.collision_mask=1
         query.collide_with_areas=false
         var spawn_clear := get_world_2d().direct_space_state.intersect_shape(query,1).is_empty()
@@ -8196,6 +8271,24 @@ func _toggle_build() -> void:
     ui_shell.build_panel.visible = true
     ui_shell.refresh_build()
     _sync_ui_input_lock()
+
+## An ordinary strike on a breakable floor: the floor shudders but holds.
+func _on_gate_struck(gate: Node, _point: Vector2) -> void:
+    if not is_instance_valid(gate) or not gate.is_inside_tree():
+        return
+    gate.set_meta("crack_count", int(gate.get_meta("crack_count", 0)) + 1)
+    for child in gate.get_children():
+        # Only the drawing shudders; the collision the player stands on stays put.
+        if not child is Node2D or child is CollisionShape2D or child is CollisionPolygon2D:
+            continue
+        if not child.has_meta("shudder_base"):
+            child.set_meta("shudder_base", child.position)
+        var base: Vector2 = child.get_meta("shudder_base")
+        var tween := child.create_tween()
+        tween.tween_property(child, "position", base + Vector2(3, 1), 0.04)
+        tween.tween_property(child, "position", base + Vector2(-2, 0), 0.04)
+        tween.tween_property(child, "position", base, 0.05)
+
 
 func _on_ability_action(ability_id: String, origin: Vector2, direction: Vector2) -> void:
     if _walking_world_passage():

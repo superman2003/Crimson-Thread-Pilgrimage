@@ -168,7 +168,7 @@ def register(kind: str, sheets: list, check: bool) -> dict:
             if name in runtime:
                 raise ValueError(f"{kind}/{name}: already registered")
             runtime[name] = [
-                {"source": str(sheet.relative_to(ROOT)), "region": data["frames"][index + i]["region"],
+                {"source": sheet.relative_to(ROOT).as_posix(), "region": data["frames"][index + i]["region"],
                  "component_seeds": [data["frames"][index + i]["component_seed"]], "scale": scale, "anchor_x": anchors[index + i]}
                 for i in range(count)]
             added.append(name)

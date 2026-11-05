@@ -48,3 +48,4 @@ func run(main: Node,tree: SceneTree,check: Callable) -> void:
     await tree.process_frame
     check.call(ui.bag_grid.get_child_count()==0,"removing fixture ownership removes the derived reflection")
     main._close_overlays()
+    await preload("res://scripts/observed_echoes_checks.gd").new().run(main,tree,check)

@@ -51,6 +51,13 @@ func run() -> void:
     node.free(); player.hits = 0
     node = beam(stage); player.ui_input_locked = true; node._physics_process(1)
     check(node.age == 0 and not node.cancelled and player.hits == 0, "UI pause freezes beam time")
-    player.ui_input_locked = false; node.free(); stage.free()
+    player.ui_input_locked = false; node.free()
+    # Production Player collides on terrain layer 1 with a 34x84 body.
+    var body := CollisionShape2D.new(); var box := RectangleShape2D.new(); box.size = Vector2(34, 84)
+    body.shape = box; player.add_child(body); player.hits = 0
+    await physics_frame; await process_frame
+    node = beam(stage); node._physics_process(0.4)
+    check(player.hits == 1 and node.length == 300, "the Player body is the target, not a wall that clips the beam")
+    node.free(); stage.free()
     print("BEAM_CHANNEL checks=%d failures=%d" % [checks, failures])
     quit(0 if failures == 0 else 1)

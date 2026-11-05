@@ -58,8 +58,22 @@ class CompletionContractTests(unittest.TestCase):
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
+            'dialog_dpad_focus',
+            'reading_scroll',
+            'boss_move_matrix',
+            'boss_move_matrix_late',
+            'enemy_move_matrix',
+            'enemy_move_matrix_mid',
+            'enemy_move_matrix_late',
+            'interaction_reach',
+            'ability_gate_signs',
             'parallax_layout',
             'combat_input_events',
+            'enemy_hurtbox_fit',
+            'rest_point_safety',
+            'player_action_sfx_sync',
+            'fragile_gate_crack',
+            'hidden_drone',
             'hazard_readability',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
@@ -178,7 +192,7 @@ class RunnerTests(unittest.TestCase):
         result = self.run_engine('print("ENEMY_VISIBILITY_VALIDATION checks=1 failures=0")\n')
         self.assertEqual(result.returncode, 0)
 
-    def test_audio_retirement_uses_wall_clock_with_both_renderers(self):
+    def test_audio_suites_use_wall_clock_with_both_renderers(self):
         # Real audio mixing and reservation expiry do not follow the accelerated
         # simulation clock. Check the actual child command used by both paths.
         with tempfile.TemporaryDirectory() as directory:
@@ -188,15 +202,17 @@ class RunnerTests(unittest.TestCase):
                 '#!' + sys.executable + '\nimport sys\n'
                 + 'assert "--fixed-fps" not in sys.argv, "audio needs wall-clock timing"\n'
                 + 'print("AUDIO RETIREMENT PASS: fixture, failures=0")\n'
+                + 'print("PLAYER_ACTION_SFX_SYNC_PASS checks=17")\n'
             )
             engine.chmod(0o755)
             logs = root / 'logs'
             logs.mkdir()
-            for real_gl in [False, True]:
-                with self.subTest(real_gl=real_gl):
-                    failures = run_suites(str(engine), ['audio_retirement'], 2,
-                                          logs, root / 'scratch', real_gl, {})
-                    self.assertEqual(failures, [])
+            for suite in ['audio_retirement', 'player_action_sfx_sync']:
+                for real_gl in [False, True]:
+                    with self.subTest(suite=suite, real_gl=real_gl):
+                        failures = run_suites(str(engine), [suite], 2,
+                                              logs, root / 'scratch', real_gl, {})
+                        self.assertEqual(failures, [])
 
     def test_zero_exit_without_completion_is_failure(self):
         result = self.run_engine('print("PASS: first assertion only")\n')
@@ -434,6 +450,9 @@ class RunnerTests(unittest.TestCase):
     def test_only_lifecycle_pressure_suites_skip_real_gl_drawing(self):
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_stress'), ['--disable-render-loop'])
         self.assertEqual(render_loop_args(True, 'world_upgrade'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(True, 'world_streaming'), ['--disable-render-loop'])
+        self.assertEqual(render_loop_args(False, 'world_streaming'), [])
+        self.assertEqual(render_loop_args(True, 'world_material'), [])
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay_live'), [])
         self.assertEqual(render_loop_args(True, 'world_neighbor_gameplay'), [])
         self.assertEqual(render_loop_args(True, 'world_route_manifest_walk_lower'), [])
