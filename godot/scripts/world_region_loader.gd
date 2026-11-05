@@ -18,6 +18,8 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const CONFIG_READ_JOB := preload("res://scripts/world_config_read_job.gd")
 var config_read_job := CONFIG_READ_JOB.new()
+const SAVE_BACKUP_JOB := preload("res://scripts/world_save_backup_job.gd")
+var save_backup_job := SAVE_BACKUP_JOB.new()
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const VARIANT_COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
 const TRANSITION_TOKEN := preload("res://scripts/world_transition_token.gd")
@@ -908,6 +910,7 @@ func shutdown() -> void:
         startup_token.cancel()
     _discard_startup_config_read_ahead()
     config_read_job.shutdown()
+    save_backup_job.shutdown()
     if player_art_job != null:
         player_art_job.shutdown()
         player_art_job = null
@@ -1504,7 +1507,64 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
         if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         _cancel_input()
     last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
-    return not (cancellable and cancel_requested)
+    if cancellable and cancel_requested:
+        return false
+    var warmed: bool = await _warm_arrival_save_backup(host,cancellable)
+    last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
+    return warmed
+
+
+## Only the settled source is mirrored. The target checkpoint, rewards and
+## generation still publish together inside the original non-yielding boundary.
+## A cancelled transition may finish this source-only maintenance; shutdown
+## joins its one owned worker before the host releases the loader.
+func _warm_arrival_save_backup(host: Node, cancellable: bool) -> bool:
+    if not host.world_mode or host.world_state == null or host.world_save_blocked or host.world_save_failure_injected_for_validation:
+        return true
+    var tree := host.get_tree()
+    var expected_generation := generation
+    var route_generation := ROUTES.cached_generation()
+    var began := Time.get_ticks_usec()
+    var retiring_frames := 0
+    # Rollback must not race a still-running source backup from the cancelled
+    # target. Keep yielding; only whole-host shutdown joins an unfinished job.
+    while save_backup_job.busy():
+        if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable): return false
+        await _next_process_frame(tree)
+        retiring_frames += 1
+        if not _alive(host): return false
+        _cancel_input()
+    if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable): return false
+    var admission_started := Time.get_ticks_usec()
+    save_backup_job.take()
+    var digest: String = host.world_state.backup_source_hash(host.world_save_path)
+    var already_verified: bool = not digest.is_empty() and host.world_state._backup_matches(host.world_save_path,digest)
+    last_transition["save_backup_already_verified"] = already_verified
+    var admitted := not digest.is_empty() and not already_verified and save_backup_job.begin(host.world_save_path,digest)
+    last_transition["save_backup_main_usec"] = Time.get_ticks_usec()-admission_started
+    _measure_batch(1,admission_started,"max_save_backup_operations")
+    if not admitted:
+        return true
+    var frames := 0
+    while save_backup_job.busy():
+        if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable):
+            return false
+        await _next_process_frame(tree)
+        frames += 1
+        if not _alive(host): return false
+        if phase == "startup" and not _startup_config_context_valid(host,tree,last_transition.startup_config_lease): return false
+        _cancel_input()
+    var result: Dictionary = save_backup_job.take()
+    result["wait_frames"] = frames
+    result["retiring_frames"] = retiring_frames
+    result["wall_usec"] = Time.get_ticks_usec()-began
+    result["role"] = "startup" if phase == "startup" else ("target" if cancellable else "rollback")
+    var attempts: Array = last_transition.get("save_backup_attempts",[])
+    attempts.append(result)
+    last_transition["save_backup_attempts"] = attempts
+    # Any stale/unwritable backup simply leaves write_candidate's original
+    # verified-copy path in charge. Preparation cannot authorize a target write.
+    return _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable)
 
 
 func _set_destination(host: Node, path: String, entry: Vector2, previous_id: String, target: Dictionary) -> void:

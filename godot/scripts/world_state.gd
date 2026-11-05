@@ -6,8 +6,14 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const VERSION := 3
 const DEFAULT_PATH := "user://pilgrimage_world.json"
 const MAX_BYTES := 4 * 1024 * 1024
+## Serializes this process's primary writes and background backup installation.
+## External writers retain the original hash/reader-lease checks below.
+static var _file_write_mutex := Mutex.new()
 var last_error := ""
 var _source_hashes: Dictionary={}
+## Validation proof is separate from the reader lease. Writer-only callers may
+## prepare a backup of bytes they installed without acquiring write authority.
+var _verified_hashes: Dictionary={}
 var _validated_source_hash:=""
 var data: Dictionary = fresh_data()
 
@@ -24,6 +30,7 @@ static func fresh_region() -> Dictionary:
 func reset() -> void:
     data = fresh_data()
     _source_hashes.clear()
+    _verified_hashes.clear()
     last_error = ""
 
 func get_region(region_id: String) -> Dictionary:
@@ -129,9 +136,31 @@ func read(path: String = DEFAULT_PATH) -> bool:
 func write(path: String = DEFAULT_PATH) -> bool:
     return write_candidate(data, path)
 
+## A backup worker may mirror only an already validated, unchanged source.
+## This observes the existing lease; it never acquires new write authority.
+func backup_source_hash(path: String = DEFAULT_PATH) -> String:
+    var key := ProjectSettings.globalize_path(path).simplify_path()
+    var verified := String(_verified_hashes.get(key,""))
+    if verified.length() != 64 or (_source_hashes.has(key) and _source_hashes[key] != verified):
+        return ""
+    return verified if _file_hash(path) == verified else ""
+
+## A link to the primary is not an independent backup: replacing the primary
+## could make that link expose the destination rather than the old checkpoint.
+static func _backup_matches(path: String, expected: String) -> bool:
+    var absolute := ProjectSettings.globalize_path(path).simplify_path()+".bak"
+    var directory := DirAccess.open(absolute.get_base_dir())
+    return directory != null and not directory.is_link(absolute) and _file_hash(absolute) == expected
+
 ## Persist a borrowed, complete candidate using the existing atomic file
 ## protocol. This never publishes it: the owner transfers data only on success.
 func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool:
+    _file_write_mutex.lock()
+    var result: Variant = _write_candidate_locked(candidate,path)
+    _file_write_mutex.unlock()
+    return result == true
+
+func _write_candidate_locked(candidate: Dictionary, path: String) -> bool:
     last_error = ""
     if not _valid_data(candidate):
         return _fail("invalid in-memory world state")
@@ -158,7 +187,7 @@ func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool
         return _fail("save changed while preparing candidate; left untouched")
     var installed_hash:=_validated_source_hash
     var absolute := ProjectSettings.globalize_path(path)
-    if FileAccess.file_exists(path):
+    if FileAccess.file_exists(path) and not _backup_matches(path,before_hash):
         var pending:=absolute+".bak.pending"
         var backup_status:=DirAccess.copy_absolute(absolute,pending)
         if backup_status==OK and _file_hash(pending)!=before_hash:backup_status=ERR_FILE_CORRUPT
@@ -167,14 +196,26 @@ func write_candidate(candidate: Dictionary, path: String = DEFAULT_PATH) -> bool
             DirAccess.remove_absolute(pending)
             DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
             return _fail("cannot preserve verified previous save: %s" % backup_status)
-    var rename_status := DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary), absolute)
+    # A duplicate checkpoint is already durable. Keep its independent verified
+    # backup, retire the verified temporary copy, and avoid a redundant primary
+    # replacement. The ordinary validation and write-lease checks still ran.
+    if _file_hash(path) != before_hash:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
+        return _fail("save changed while preserving backup; primary left untouched")
+    var directory := DirAccess.open(absolute.get_base_dir())
+    var unchanged := installed_hash == before_hash and directory != null and not directory.is_link(absolute)
+    var rename_status := DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary)) if unchanged else _install_candidate(temporary,absolute)
     if rename_status != OK:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
         return _fail("cannot install save: %s" % rename_status)
     # Only actual readers/recovery acquire a lease; writer-only legacy callers retain authority.
     if _source_hashes.has(source_key):_remember_source(path,installed_hash)
+    _remember_verified(path,installed_hash)
     last_error = ""
     return true
+
+func _install_candidate(temporary: String, absolute: String) -> Error:
+    return DirAccess.rename_absolute(ProjectSettings.globalize_path(temporary),absolute)
 
 func _read_valid_file(path: String) -> Variant:
     var handle := FileAccess.open(path, FileAccess.READ)
@@ -202,6 +243,12 @@ func _remember_source(path: String,digest: String) -> void:
     var key:=ProjectSettings.globalize_path(path).simplify_path()
     _source_hashes.erase(key);_source_hashes[key]=digest
     while _source_hashes.size()>16:_source_hashes.erase(_source_hashes.keys()[0])
+    _remember_verified(path,digest)
+
+func _remember_verified(path: String,digest: String) -> void:
+    var key:=ProjectSettings.globalize_path(path).simplify_path()
+    _verified_hashes.erase(key);_verified_hashes[key]=digest
+    while _verified_hashes.size()>16:_verified_hashes.erase(_verified_hashes.keys()[0])
 
 static func _file_hash(path: String) -> String:
     if not FileAccess.file_exists(path):return ""
@@ -327,6 +374,12 @@ static func slot_summaries() -> Array:
 
 ## A damaged primary is retained verbatim before installing a validated backup.
 func restore_backup(path: String = DEFAULT_PATH) -> bool:
+    _file_write_mutex.lock()
+    var result: Variant = _restore_backup_locked(path)
+    _file_write_mutex.unlock()
+    return result == true
+
+func _restore_backup_locked(path: String) -> bool:
     var backup := path + ".bak"
     var candidate: Variant = _read_valid_file(backup)
     if candidate == null:
