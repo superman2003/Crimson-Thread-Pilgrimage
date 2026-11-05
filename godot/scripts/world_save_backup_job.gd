@@ -66,6 +66,14 @@ func _copy_source(source: String, pending_path: String) -> Error:
     return DirAccess.copy_absolute(source,pending_path)
 
 func _prepare_backup(source: String, pending_path: String, expected: String) -> Dictionary:
+    # CopyFile can hold an OS read handle on the primary. Serialize the whole
+    # source operation with cooperative writers, not just its final rename.
+    STATE._file_write_mutex.lock()
+    var value: Variant = _prepare_backup_locked(source,pending_path,expected)
+    STATE._file_write_mutex.unlock()
+    return value if value is Dictionary else {"ok":false,"reason":"worker failed"}
+
+func _prepare_backup_locked(source: String, pending_path: String, expected: String) -> Dictionary:
     var began := Time.get_ticks_usec()
     var result := {"ok":false,"reason":"source changed","copied":false,"installed":false,
         "worker_is_main":OS.get_thread_caller_id() == OS.get_main_thread_id(),"worker_usec":0}
@@ -80,14 +88,15 @@ func _prepare_backup(source: String, pending_path: String, expected: String) -> 
             result.copied = status == OK
             if status != OK:
                 result.reason = "copy failed"
-            elif STATE._file_hash(pending_path) != expected:
+            elif STATE._file_hash(source) != expected:
+                result.reason = "source changed after copy"
+            elif STATE._file_hash(pending_path) != expected or not STATE._files_identical(pending_path,source):
                 result.reason = "copied bytes changed"
             else:
                 # Only the known-good source becomes .bak. Destination data is
                 # installed later by the original main-thread write_candidate.
                 # A second WorldState in this process cannot install a newer
                 # primary/backup between this final source guard and rename.
-                STATE._file_write_mutex.lock()
                 if STATE._file_hash(source) != expected:
                     result.reason = "source changed after copy"
                 elif STATE._backup_matches(source,expected):
@@ -98,7 +107,6 @@ func _prepare_backup(source: String, pending_path: String, expected: String) -> 
                     result.ok = status == OK
                     result.installed = status == OK
                     result.reason = "verified source backed up" if status == OK else "backup install failed"
-                STATE._file_write_mutex.unlock()
     if FileAccess.file_exists(pending_path):
         DirAccess.remove_absolute(pending_path)
     result.worker_usec = Time.get_ticks_usec()-began

@@ -10,6 +10,7 @@ var checks := 0
 var failures := 0
 var records: Array = []
 var cancelled_target_unpublished := false
+var exited_target_unpublished := false
 
 class HeldJob:
     extends "res://scripts/world_save_backup_job.gd"
@@ -113,6 +114,14 @@ func ordinary_and_faults() -> void:
         "target installation retains the exact prior source backup")
     DirAccess.remove_absolute(path+".bak.pending")
     var second := FileAccess.get_file_as_bytes(path)
+    var bom_backup := FileAccess.open(path+".bak",FileAccess.WRITE)
+    bom_backup.store_buffer(PackedByteArray([0xef,0xbb,0xbf])+second)
+    bom_backup.close()
+    check(not STATE._backup_matches(path,STATE._file_hash(path)), "a differently encoded recovery copy cannot satisfy exact backup reuse")
+    candidate.currency = 250
+    check(state.write_candidate(candidate,path) and FileAccess.get_file_as_bytes(path+".bak") == second,
+        "different backup encoding is replaced with exact previous primary bytes")
+    second = FileAccess.get_file_as_bytes(path)
     write_text(path+".bak","{damaged backup")
     candidate.currency = 300
     check(state.write_candidate(candidate,path) and FileAccess.get_file_as_bytes(path+".bak") == second,
@@ -188,6 +197,18 @@ func bounded_proofs_and_links() -> void:
         check(state.write_candidate(candidate,path), "normal persistence replaces the linked backup with a verified independent file")
         check(not directory.is_link(ProjectSettings.globalize_path(path+".bak"))
             and JSON.parse_string(FileAccess.get_file_as_string(path+".bak")).currency == 100, "linked backup retains the old checkpoint after target installation")
+        fixture = make_checkpoint_fixture("hardlinked_backup")
+        state = fixture.state
+        path = fixture.path
+        check(OS.execute("ln",[ProjectSettings.globalize_path(path),ProjectSettings.globalize_path(path+".bak")]) == 0,
+            "POSIX fixture creates a hard link to the primary")
+        check(not STATE._backup_matches(path,STATE._file_hash(path)), "a shared primary inode cannot count as an independent recovery copy")
+        candidate = state.data.duplicate(true)
+        candidate.currency = 250
+        check(state.write_candidate(candidate,path), "hard-linked backup is replaced before target installation")
+        check(not directory.is_equivalent(ProjectSettings.globalize_path(path),ProjectSettings.globalize_path(path+".bak"))
+            and JSON.parse_string(FileAccess.get_file_as_string(path+".bak")).currency == 100,
+            "replaced hard-linked backup preserves independent old bytes")
     else:
         records.append({"link_fixture":"POSIX CI only; Windows symbolic-link privileges are not changed"})
 
@@ -205,9 +226,12 @@ func copy_race_and_mutex() -> void:
     check(copied, "late-source fixture pauses after exact source bytes were copied")
     var candidate: Dictionary = state.data.duplicate(true)
     candidate.currency = 150
-    check(state.write_candidate(candidate,path), "first newer checkpoint installs while private copying is held")
+    write_text(path,JSON.stringify(candidate))
+    check(JSON.parse_string(FileAccess.get_file_as_string(path)).currency == 150, "an external writer installs a newer checkpoint while copying is held")
+    write_text(path+".bak",JSON.stringify(candidate))
     candidate.currency = 200
-    check(state.write_candidate(candidate,path), "second newer checkpoint installs before source recheck")
+    write_text(path,JSON.stringify(candidate))
+    check(JSON.parse_string(FileAccess.get_file_as_string(path)).currency == 200, "external writes can advance again before source recheck")
     var latest := FileAccess.get_file_as_bytes(path)
     var previous := FileAccess.get_file_as_bytes(path+".bak")
     held_copy.gate.post()
@@ -359,6 +383,48 @@ func cleanup() -> void:
     for name in directory.get_files():
         if String(name).begins_with(PREFIX): DirAccess.remove_absolute("user://"+String(name))
 
+func actual_world_exit_during_backup() -> void:
+    var world: Node = load("res://scenes/World.tscn").instantiate()
+    world.world_resume = false
+    world.world_save_path = "user://"+PREFIX+"exit.json"
+    root.add_child(world)
+    await READY.wait_for(world)
+    current_scene = world
+    var held := HeldJob.new()
+    world.world_loader.save_backup_job.shutdown()
+    world.world_loader.save_backup_job = held
+    var path := ROUTES.config_path("demo_ch02_rain_foundry_canal")
+    var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+    world._request_world_travel(path,Vector2(config.player_start[0],config.player_start[1]))
+    var removed := false
+    for unused in 4000:
+        if world.world_loader.phase == "loading" and not removed:
+            DirAccess.remove_absolute(world.world_save_path+".bak")
+            removed = true
+        if held.started > 0 and held.busy(): break
+        await process_frame
+    check(held.busy(), "exit fixture reaches a live held backup owner")
+    var save_path: String = world.world_save_path
+    var primary := FileAccess.get_file_as_bytes(save_path)
+    var issued: String = held._pending_path
+    var loader: RefCounted = world.world_loader
+    var release := Thread.new()
+    check(release.start(func():
+        OS.delay_msec(50)
+        held.gate.post()) == OK, "exit fixture owns its bounded worker releaser")
+    world.free()
+    current_scene = null
+    release.wait_to_finish()
+    for unused in 3: await process_frame
+    exited_target_unpublished = FileAccess.get_file_as_bytes(save_path) == primary
+    check(exited_target_unpublished and FileAccess.get_file_as_bytes(save_path+".bak") == primary,
+        "whole-host exit keeps the saved source and never installs the destination")
+    check(loader.shutting_down and held.closed and not held.pending() and not FileAccess.file_exists(issued),
+        "whole-host exit joins the live worker and retires its private file")
+    check(loader.phase == "idle" and loader.transition_token == null and loader.loading_canvas == null,
+        "suspended backup arrival unwinds and releases the transition after host exit")
+    check(await RETIRE.drain(self), "exit fixture releases actual AudioServer owners")
+
 func run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     cleanup()
@@ -368,7 +434,8 @@ func run() -> void:
     await unchanged_primary()
     bounded_proofs_and_links()
     await actual_world_cancellation()
+    await actual_world_exit_during_backup()
     cleanup()
     print("SAVE_BACKUP METRICS ",JSON.stringify(records))
-    print("WORLD_SAVE_BACKUP checks=%d failures=%d cancelled_target_unpublished=%s" % [checks,failures,cancelled_target_unpublished])
+    print("WORLD_SAVE_BACKUP checks=%d failures=%d cancelled_target_unpublished=%s exited_target_unpublished=%s" % [checks,failures,cancelled_target_unpublished,exited_target_unpublished])
     quit(0 if failures == 0 else 1)

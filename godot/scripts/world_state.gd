@@ -150,7 +150,13 @@ func backup_source_hash(path: String = DEFAULT_PATH) -> String:
 static func _backup_matches(path: String, expected: String) -> bool:
     var absolute := ProjectSettings.globalize_path(path).simplify_path()+".bak"
     var directory := DirAccess.open(absolute.get_base_dir())
-    return directory != null and not directory.is_link(absolute) and _file_hash(absolute) == expected
+    return directory != null and FileAccess.file_exists(absolute) and not directory.is_link(absolute) and not directory.is_equivalent(ProjectSettings.globalize_path(path),absolute) and _file_hash(absolute) == expected and _files_identical(path,absolute)
+
+## Text decoding can normalize a BOM. Reusing a file requires actual byte
+## identity as well as the existing textual validation/authority digest.
+static func _files_identical(left: String, right: String) -> bool:
+    var digest := FileAccess.get_sha256(left)
+    return digest.length() == 64 and digest == FileAccess.get_sha256(right)
 
 ## Persist a borrowed, complete candidate using the existing atomic file
 ## protocol. This never publishes it: the owner transfers data only on success.
@@ -203,7 +209,7 @@ func _write_candidate_locked(candidate: Dictionary, path: String) -> bool:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))
         return _fail("save changed while preserving backup; primary left untouched")
     var directory := DirAccess.open(absolute.get_base_dir())
-    var unchanged := installed_hash == before_hash and directory != null and not directory.is_link(absolute)
+    var unchanged := installed_hash == before_hash and directory != null and not directory.is_link(absolute) and _files_identical(temporary,path)
     var rename_status := DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary)) if unchanged else _install_candidate(temporary,absolute)
     if rename_status != OK:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(temporary))

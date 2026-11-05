@@ -1551,6 +1551,7 @@ func _warm_arrival_save_backup(host: Node, cancellable: bool) -> bool:
     last_transition["save_backup_already_verified"] = already_verified
     var admitted := not digest.is_empty() and not already_verified and save_backup_job.begin(host.world_save_path,digest)
     last_transition["save_backup_main_usec"] = Time.get_ticks_usec()-admission_started
+    last_transition["commit_work_usec"] = int(last_transition.get("commit_work_usec",0))+int(last_transition.save_backup_main_usec)
     _measure_batch(1,admission_started,"max_save_backup_operations")
     if not admitted:
         return true
