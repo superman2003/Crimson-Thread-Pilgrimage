@@ -160,6 +160,11 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn('engine_errors=1 completion_marker=True', result.stdout)
 
+    def test_shared_memory_error_with_hidden_routes_success_still_fails(self):
+        result = self.run_engine('print("ERROR: Unhandled XServer error: BadShmSeg (invalid shared segment parameter)")\nprint("HIDDEN_ROUTES checks=266 failures=0")\n', suite='hidden_routes')
+        self.assertEqual(result.returncode, 1)
+        self.assertIn('engine_errors=1 completion_marker=True', result.stdout)
+
     def test_colored_success_marker_is_success(self):
         result = self.run_engine('print("\\x1b[32mENEMY_VISIBILITY_VALIDATION checks=1 failures=0\\x1b[0m")\n')
         self.assertEqual(result.returncode, 0)
