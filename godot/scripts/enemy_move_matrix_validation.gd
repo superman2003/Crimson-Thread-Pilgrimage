@@ -35,8 +35,10 @@ func _run() -> void:
             continue
         report.append_array(await _run_field_chapter(path))
     await _frames(10)
-    # Cached audio streams outlive the freed chapters; release them before
-    # exit as the other World suites do (CI: "1 resources still in use").
+    # Wait until playback has actually let go of every chapter stream, then
+    # drop the cached streams, as the other World suites do before exiting
+    # (CI only: "1 resources still in use at exit").
+    _check(await RETIRE.drain(self, 3000), "chapter audio is released before exit")
     var director := preload("res://scripts/audio_director.gd")
     director._stream_cache.clear()
     director._npc_voice_cache.clear()
@@ -113,6 +115,8 @@ func _run_field_chapter(path: String) -> Array:
         enemy._cancel_attack_effects()
         enemy.process_mode = Node.PROCESS_MODE_DISABLED
         enemy.global_position = home + Vector2(0, 4000)
+    # Stop the chapter voices first; fast headless frames are not mix time.
+    RETIRE.retire_tree(scene)
     scene.queue_free()
     await _frames(3)
     return entries
