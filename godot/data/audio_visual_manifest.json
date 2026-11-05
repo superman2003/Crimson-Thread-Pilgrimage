@@ -2416,13 +2416,14 @@
     "hidden_black_tide_drone": {
       "key": "hidden_black_tide_drone",
       "kind": "drone_loop",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg",
       "loop": true,
       "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
       "license": "project-generated (CC0)",
       "description": "hidden black-tide generative low drone",
-      "wiring_note": "hidden zone ambience switch not implemented; no runtime caller yet"
+      "implemented_in": "res://scripts/audio_director.gd::set_hidden_zone (main_level.gd::_update_room_visit via _is_hidden_room)",
+      "note": "Ambience bus at -12 dB, 1.5 s in / 1.2 s out while the player is in a hidden_route_plan room; never restarts while staying hidden; region transitions stop it"
     }
   },
   "runtime_events": {

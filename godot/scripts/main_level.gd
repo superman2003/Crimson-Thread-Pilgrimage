@@ -3163,6 +3163,8 @@ func _update_room_visit() -> void:
             # 房型混响微调（规格 §5.2）：hub/vista 抬 wet、corridor/secret 收 wet。
             if audio_director != null:
                 audio_director.on_room_changed(String(room.get("kind", "")))
+                if audio_director.has_method("set_hidden_zone"):
+                    audio_director.set_hidden_zone(_is_hidden_room(current_room_id))
 
 
 func _room_for_x(world_x: float, legacy_only: bool = false) -> Dictionary:
@@ -3890,6 +3892,16 @@ func _sync_hidden_route_clues_with_visits() -> void:
 
 func _notice_hidden_route_clues() -> void:
     preload("res://scripts/hidden_clue_notes.gd").notice(self)
+
+
+## Rooms the hidden route plan reaches through an environmental clue.
+func _is_hidden_room(room_id: String) -> bool:
+    if not world_mode or room_id.is_empty():
+        return false
+    for entry in WORLD_ROUTES_SCRIPT._data().get("hidden_route_plan", []):
+        if entry is Dictionary and String(entry.get("region_id", "")) == String(config.get("id", "")) and String(entry.get("hidden_room_id", "")) == room_id:
+            return true
+    return false
 
 
 func _mark_hidden_route_found() -> void:
