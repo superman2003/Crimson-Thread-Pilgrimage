@@ -4,6 +4,7 @@ extends SceneTree
 ## Boss's own windup path and sampled with the Player standing at fixed floor
 ## offsets; HP loss is the only hit evidence. Body contact is held off so a
 ## sample measures the move, not walking into the Boss.
+const RETIRE := preload("res://scripts/audio_retirement.gd")
 const MAIN_SCENE := preload("res://scenes/Main.tscn")
 const CHAPTERS := [
     "res://data/demo_ch01_moss_bell_court.json",
@@ -66,6 +67,14 @@ func _run() -> void:
             report.append(entry)
     # Let the last freed chapter release its resources before quitting.
     await _frames(10)
+    # Wait until playback has actually let go of every chapter stream, then
+    # drop the cached streams, as the other World suites do before exiting
+    # (CI only: "1 resources still in use at exit").
+    _check(await RETIRE.drain(self, 3000), "chapter audio is released before exit")
+    var director := preload("res://scripts/audio_director.gd")
+    director._stream_cache.clear()
+    director._npc_voice_cache.clear()
+    await _frames(2)
     print(_marker() + "_REPORT " + JSON.stringify(report))
     if failures > 0:
         print("%s_FAIL failures=%d checks=%d" % [_marker(), failures, checks])
@@ -115,6 +124,8 @@ func _run_chapter(path: String) -> Dictionary:
     var player: CharacterBody2D = scene.player
     _check(is_instance_valid(boss) and boss.is_boss, path + " spawns its production Boss")
     if not is_instance_valid(boss):
+        # Stop the chapter voices first; fast headless frames are not mix time.
+        RETIRE.retire_tree(scene)
         scene.queue_free()
         await _frames(2)
         return {}
@@ -142,6 +153,8 @@ func _run_chapter(path: String) -> Dictionary:
     var retry: Dictionary = await _retry_cost(scene, boss, player)
     signature.sort()
     var entry := {"kind": kind, "chapter": path.get_file(), "hp": max_hp, "front": front, "moves": moves, "signature": signature, "retry": retry}
+    # Stop the chapter voices first; fast headless frames are not mix time.
+    RETIRE.retire_tree(scene)
     scene.queue_free()
     await _frames(3)
     return entry
