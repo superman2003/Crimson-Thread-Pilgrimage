@@ -23,6 +23,10 @@ class ProbePlayer extends "res://scripts/player_controller.gd":
     func _play_sfx(_key: String, _volume: float = -6.0, _pitch: float = 1.0,
             _voice_key: String = "", _priority: int = 1) -> void:
         pass
+    var footstep_phases: Array[float] = []
+    func _play_footstep() -> void:
+        if recording:
+            footstep_phases.append(run_cycle_phase)
 
 var checks := 0
 var failures: Array[String] = []
@@ -55,9 +59,11 @@ func _reset(position_value: Vector2 = Vector2(300, 300)) -> void:
     player.respawn_at(position_value)
     await _frames(12)
     player.samples.clear()
+    player.footstep_phases.clear()
 
 func _capture() -> void:
     player.samples.clear()
+    player.footstep_phases.clear()
     player.recording = true
 
 func _body(center: Vector2, size: Vector2) -> void:
@@ -104,6 +110,22 @@ func _check_idle_registration() -> void:
         player._play(&"attack_1")
         _check(sprite.offset == Vector2.ZERO, "Attack does not inherit idle registration offset")
     player.set_physics_process(true)
+
+
+## S02: a footstep sounds exactly when the drawn run cycle reaches a foot
+## contact (pose 0 = left, half cycle = right), once per contact.
+func _check_footsteps_on_contacts(initial_phase: float) -> void:
+    var expected := 0
+    var previous := initial_phase
+    for sample in player.samples:
+        var phase := float(sample.phase)
+        if int(floor(phase * 2.0)) != int(floor(previous * 2.0)) and bool(sample.grounded) and float(sample.motion_speed) >= 60.0:
+            expected += 1
+        previous = phase
+    _check(expected >= 2, "Cruise segment crosses both foot contacts (%d)" % expected)
+    _check(player.footstep_phases.size() == expected, "One footstep per drawn foot contact (%d sounds, %d contacts)" % [player.footstep_phases.size(), expected])
+    for phase in player.footstep_phases:
+        _check(fposmod(phase * 2.0, 1.0) < 0.15, "Footstep sounds right after a contact pose (phase %.3f)" % phase)
 
 func _check_travel_samples(label: String, initial_phase: float) -> void:
     var expected := initial_phase
@@ -335,6 +357,7 @@ func _run() -> void:
     await _frames(30)
     _check_travel_samples("Idle to acceleration and cruise", initial_phase)
     _check(absf(player.velocity.x - player.speed) < 0.001, "Nominal movement speed remains unchanged")
+    _check_footsteps_on_contacts(initial_phase)
     initial_phase = player.run_cycle_phase
     _capture()
     Input.action_release("move_right")
