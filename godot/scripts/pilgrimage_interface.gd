@@ -10,6 +10,8 @@ static var _survey_font: FontFile
 const CHROME := preload("res://scripts/pilgrimage_chrome.gd")
 const HUD_OCCLUSION := preload("res://scripts/hud_occlusion.gd")
 const HEAL_READOUT := preload("res://scripts/heal_resource_readout.gd")
+const DIALOG_READING := preload("res://scripts/dialog_reading_adapter.gd")
+var dialog_reading: Node
 var healing_payment: Label
 var healing_payment_track: Control
 const IVORY := Color("e8d7b8")
@@ -1258,6 +1260,11 @@ func _open_controller_comfort() -> void:
         var saved:=_save_accessibility()
         return {"ok":true,"persisted":saved==OK})
 
+func _ready() -> void:
+    dialog_reading=DIALOG_READING.new()
+    dialog_reading.name="DialogReadingAdapter"
+    add_child(dialog_reading)
+
 func _apply_accessibility() -> void:
     if settings_persistence.pending:
         settings_persistence.reconcile(_accessibility_config(),accessibility_path)
@@ -1270,6 +1277,7 @@ func _apply_accessibility() -> void:
         feel.set_accessibility(accessibility)
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
     if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
+    if is_instance_valid(dialog_reading):dialog_reading.refresh()
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())
         applied_player=level.player
