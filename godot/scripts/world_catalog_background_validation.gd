@@ -54,6 +54,7 @@ class LookaheadReader extends "res://scripts/world_config_read_job.gd":
 # crossed its final cancellation window when the next prepare job is admitted.
 class SchedulingHost extends Node:
     var config: Dictionary = {}
+    var inventory_counts: Dictionary = {}
     var world_catalog_prepare_staging: Dictionary = {}
     var catalog_resumed_frame := -1
     var next_prepare_frame := -1
