@@ -728,7 +728,9 @@ func _region_prepare_jobs(prepared_config: Dictionary = {}) -> Array:
         {"method": "_prepare_build_inputs", "args": []},
         {"method": "_prepare_audio_settings_key", "args": []},
         {"method": "_prepare_metsys_bridge", "args": []},
-        {"method": "_prepare_audio", "args": []}
+        {"method": "_begin_audio", "args": []},
+        {"method": "_start_audio_explore", "args": []},
+        {"method": "_start_audio_ambience", "args": []}
     ])
     if world_mode:
         jobs.append({"method": "_prepare_platform_and_gameplay_residency", "args": []})
@@ -1129,7 +1131,7 @@ func _exit_tree() -> void:
 func _release_region_audio() -> void:
     # Preserve phrase position while the actual player still owns playback.
     # The Director exits after this host has already detached every stream.
-    if is_instance_valid(audio_director):audio_director._remember_explore_position()
+    if is_instance_valid(audio_director):audio_director.release_region_audio()
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
@@ -2365,6 +2367,16 @@ func _build_metsys_bridge() -> void:
 
 
 func _build_audio() -> void:
+    _begin_audio()
+    _start_audio_explore()
+    _start_audio_ambience()
+
+
+## Separate stream loads remain ordinary prepare jobs so cancellation and the
+## existing per-frame operation/time budget also apply between the two decodes.
+func _begin_audio() -> void:
+    if config.is_empty():
+        return
     _ensure_audio_buses()
     _apply_chapter_reverb(String(config.get("id", "")))
     # AudioDirector 一期：不注册 autoload，由本函数实例化挂树（headless 验证脚本
@@ -2377,7 +2389,17 @@ func _build_audio() -> void:
         # 探索播放器仍叫 BgmPlayer、挂本节点、bus=BGM（audio_visual_validation 口径）。
         _ensure_bgm_player()
         audio_director.attach_explore_player(bgm_player)
-    audio_director.set_chapter(String(config.get("id", "")))
+    audio_director.prepare_chapter(String(config.get("id", "")))
+
+
+func _start_audio_explore() -> void:
+    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
+        audio_director._play_explore_track(audio_director._explore_track_path())
+
+
+func _start_audio_ambience() -> void:
+    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
+        audio_director._start_ambience()
 
 
 ## 音频设置面板开关键（V）：玩家基础键位由 player_controller 注册，这里只补自己的。

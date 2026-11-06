@@ -46,7 +46,7 @@ var transition_serial := 0
 var startup_token: RefCounted
 # A speculative startup read stays private until the exact manifest is committed.
 var startup_config_read_ahead: Dictionary = {}
-# Startup owns its frame wakeups so whole-host shutdown can unwind its token
+# Owned loading keeps frame wakeups so whole-host shutdown can unwind its token
 # before SceneTree stops emitting frames (including --quit-after).
 signal _startup_frame_ready
 var _startup_frame_tree: SceneTree
@@ -648,7 +648,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
                 batch_wall_list.append(batch_wall_usec)
                 last_transition["preflight_copy_batch_wall_usec"] = batch_wall_list
                 last_transition["preflight_copy_batches"] = int(last_transition["preflight_copy_batches"]) + 1
-                await host.get_tree().process_frame
+                await _next_process_frame(host.get_tree())
                 last_transition["preflight_copy_wall_usec"] = Time.get_ticks_usec() - copy_wall_started
                 if not _alive(host):
                     last_transition["preflight_cancelled"] = true
@@ -673,7 +673,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
                 last_transition["json_background"] = true
                 # Yield even when a tiny file has already completed: the caller
                 # always gets a cancellation window before validator/handoff.
-                await host.get_tree().process_frame
+                await _next_process_frame(host.get_tree())
                 last_transition["json_wait_frames"] += 1
                 if not _alive(host):
                     config_read_job.discard(ticket)
@@ -731,7 +731,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
             loading_label.text = "正在检查旧路… %d%%\nEsc 返回来路" % int(validator.progress * 100.0)
         # Yield on the final batch too. The source is not handed off until the
         # caller resumes here and observes that cancellation was not requested.
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
         if not _alive(host):
             last_transition["preflight_cancelled"] = true
@@ -828,10 +828,10 @@ func cancel_transition() -> void:
         cancel_requested = true
 
 
-## Preserve normal frame boundaries. Only an owned startup uses the private
-## signal; foreground travel and background refresh retain their existing waits.
+## Owned startup and foreground travel must unwind before the host leaves.
+## Ordinary callers and background refresh retain their SceneTree waits.
 func _next_process_frame(tree: SceneTree) -> Signal:
-    if startup_token == null:
+    if startup_token == null and transition_token == null:
         return tree.process_frame
     if _startup_frame_tree != tree:
         _disconnect_startup_frames()
@@ -923,7 +923,7 @@ func shutdown() -> void:
     phase = "idle"
     _clear_loading_canvas()
     _disconnect_startup_frames()
-    # All startup continuations see shutting_down and return without publishing.
+    # Owned startup/travel continuations see shutting_down and cannot publish.
     # Merely setting token.cancelled leaves its await stack alive if no next
     # SceneTree frame exists, which leaks the token on Godot 4.6.1 at exit.
     _wake_startup_frame()
@@ -993,7 +993,7 @@ func _evict_budgeted(host: Node) -> bool:
             unloaded_nodes += 1
             operations += 1
         _measure_batch(operations, started, "max_unload_operations")
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         if not _alive(host):
             return false
         _cancel_input()
@@ -1782,6 +1782,8 @@ func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, 
     token.finished = true
     if transition_token == token:
         transition_token = null
+        if startup_token == null:
+            _disconnect_startup_frames()
     if token.cancelled or not _alive(host):
         phase = "idle"
         cancel_requested = false
@@ -1820,6 +1822,8 @@ func _run_owned_transition(token: RefCounted, host: Node, path: String, entry: V
     token.finished = true
     if transition_token == token:
         transition_token = null
+        if startup_token == null:
+            _disconnect_startup_frames()
     if _alive(host):
         host.world_portal_request_pending = false
     if token.cancelled or not _alive(host):

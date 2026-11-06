@@ -3,6 +3,10 @@ name: Background resource ownership
 on:
   pull_request:
     paths:
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/audio_construction_validation.gd'
       - 'godot/scripts/background_resource_job.gd'
       - 'godot/scripts/hand_drawn_assets.gd'
       - 'godot/scripts/character_art_warm_job.gd'

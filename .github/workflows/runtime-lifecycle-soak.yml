@@ -3,6 +3,11 @@ name: Runtime lifecycle soak
 on:
   pull_request:
     paths:
+      - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/audio_director.gd'
+      - 'godot/scripts/audio_retirement.gd'
+      - 'godot/scripts/audio_construction_validation.gd'
       - 'godot/scripts/runtime_soak_validation.gd'
       - 'tools/run_runtime_soak.py'
       - 'tools/runtime_soak_metrics.py'

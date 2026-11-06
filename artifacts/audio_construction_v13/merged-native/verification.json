@@ -1,0 +1,64 @@
+{
+  "results": [
+    {
+      "suite": "audio_construction",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "AUDIO_CONSTRUCTION checks=108 failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/audio_construction_validation.gd"
+      ]
+    },
+    {
+      "suite": "item_art_prewarm",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "ITEM_ART_PREWARM checks=243 failures=0 regions=6 sync_loads=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/item_art_prewarm_validation.gd"
+      ]
+    },
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD ASYNC LOADING PASS: 504 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\hero-motion-v7\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_async_loading_validation.gd"
+      ]
+    }
+  ]
+}
