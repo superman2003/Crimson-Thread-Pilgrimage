@@ -1,0 +1,160 @@
+{
+  "baseline": "2ceea261b137ebb87a59bde99776900310eb35d2",
+  "scope": "U04 known directory group framing; final acceptance remains OPEN",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "backend": "Mesa llvmpipe GL / Dummy audio; separate headless checks",
+  "checks": {
+    "new_group_fixture": 73,
+    "directory": 32,
+    "world_map": 675,
+    "dialog_dpad_focus": 122,
+    "dialog_count": 21,
+    "knowledge_after_retirement": 200,
+    "isolated_floor_contract": 345
+  },
+  "negative_controls": {
+    "first_anchor_only": {
+      "failures": 1,
+      "engine_errors": 0
+    },
+    "partial_stale_acceptance": {
+      "failures": 2,
+      "engine_errors": 0
+    }
+  },
+  "default_suite_count": 214,
+  "source_sha256": {
+    "godot/scripts/map_group_framing.gd": "3ef708da7a24740c67311945277d45ba3d392323a6ac0da6949445f1113b5aa6",
+    "godot/scripts/map_group_framing_validation.gd": "a379c78d3089d81af09ec5a6b5889beb12881710f5f7e6732a614f1a91e9d5d0",
+    "godot/scripts/map_directory_runtime.gd": "d1f821a7c4af0de064bce90ff0ef0e11c428d1df247498551b8b51caaf5234cf",
+    "godot/scripts/map_directory_dialog.gd": "952e592577d8bfbced9daae8cc507b6fd4e06a23f0fdf232571655fc0be5476c",
+    "godot/scripts/survey_map_view.gd": "79ef7794028830c38bc87bca817147825918fedeb02a3a0a916082cd0ff5852e",
+    "godot/scripts/survey_map_knowledge_validation.gd": "f8b7e3b6f8b1898e1c7caaf395826e43d0baa56274844561f3f7291f1c26028a",
+    "tools/run_godot_regressions.py": "d163b79ab76a45d77d59c523eecfbd2098270328db25593b25760302d31aabf4",
+    "tools/godot_suite_success_markers.json": "14ed900ccc2fe31ba9350b05a167a5599d0de5785966bc0638b4c4c6f2596af0",
+    "tools/test_regression_runner.py": "57bf8d36816605422705e19928da935a7c4228d32d8b8e5a8781be06bf4fcf7d"
+  },
+  "positive_diagnostics": {
+    "positive-gl/map_directory.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    },
+    "positive-gl/world_map.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    },
+    "positive-gl/dialog_dpad_focus.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    },
+    "positive-gl/map_group_framing.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    },
+    "positive-dummy/map_group_framing.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": false
+    },
+    "restored-gl/map_group_framing.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    },
+    "restored-dummy/map_group_framing.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": false
+    },
+    "knowledge-retired/survey_map_knowledge.log": {
+      "engine_errors": 0,
+      "resource_warnings": 0,
+      "display_capability_warning": true
+    }
+  },
+  "logs": {
+    "attempts/controller-before-production-binding.log": {
+      "sha256": "ebf98268b2a754d2c56223a57460130d53c5a71975d8ff38cc4a7c6a2f2dbeee",
+      "bytes": 569
+    },
+    "attempts/knowledge-before-retirement.log": {
+      "sha256": "291f3b5aeeccf2775a5b9eded3846f11b2103affae68d77efa235f550efed998",
+      "bytes": 18476
+    },
+    "attempts/unhydrated-gl.log": {
+      "sha256": "b906853ed41b11a351b9a85e1762a7a3fd30a0d8333a7283df977046f8ff9835",
+      "bytes": 8012
+    },
+    "campaign.log": {
+      "sha256": "be5c4e119a2fc8a5bfd2d3aa6f70ab885d3555a147de00b51c176839d2b0ebd6",
+      "bytes": 2809
+    },
+    "floor-contract/contracts.log": {
+      "sha256": "140d3e7f17688c707b6affc989870932a50259b8831e27d2ff68d752d5eeb47e",
+      "bytes": 112
+    },
+    "floor-contract/import.log": {
+      "sha256": "28057b5cc121cea598a622dc25ecbf989a48a0711ea8b34afcb8bef97d8d5973",
+      "bytes": 40372
+    },
+    "knowledge-retired/survey_map_knowledge.log": {
+      "sha256": "94cdbb20102d2d8709aa95cd3a69ea4706fe7bbaa58b9cbea268219b3f377603",
+      "bytes": 18415
+    },
+    "negative-extent/map_group_framing.log": {
+      "sha256": "f41937a3430b4a6db48caec68a258186db9dcffdeb590bcef32c14a922a42393",
+      "bytes": 592
+    },
+    "negative-stale/map_group_framing.log": {
+      "sha256": "a81a0e7691741608937e9e05c755b9a1261e7985c8c56e6498297efabffaaa1c",
+      "bytes": 774
+    },
+    "npm.log": {
+      "sha256": "d00094aa0e1aa25cc8e658c301663382b91a170271fb4d0e7713a3bb8df7b91b",
+      "bytes": 11374
+    },
+    "positive-dummy/map_group_framing.log": {
+      "sha256": "ba38fed9f268d56cc6475b6afcb654c5549029d672a6f5396e912f57355fa68c",
+      "bytes": 545
+    },
+    "positive-gl/dialog_dpad_focus.log": {
+      "sha256": "99467e4e3f5cf538e718462db4b22e95dfb2e1a0f2a4a61490a36b54472bf61b",
+      "bytes": 628
+    },
+    "positive-gl/map_directory.log": {
+      "sha256": "abb19392fcab871f002a4021f82d3ee3fb3dca12bca20e4dc605607df648f943",
+      "bytes": 668
+    },
+    "positive-gl/map_group_framing.log": {
+      "sha256": "ba5fccc35ddea676db8e8f3cb071901ef3a20fd92cd8281c6ba9fe6e762e73ca",
+      "bytes": 848
+    },
+    "positive-gl/world_map.log": {
+      "sha256": "109f61ea0d2c4d2abc704312883ef2a5541888e9062ca8cd4f9f63266d4a61a1",
+      "bytes": 540
+    },
+    "restored-dummy/map_group_framing.log": {
+      "sha256": "ba38fed9f268d56cc6475b6afcb654c5549029d672a6f5396e912f57355fa68c",
+      "bytes": 545
+    },
+    "restored-gl/map_group_framing.log": {
+      "sha256": "b4c46efae844bd8dad1dacdcfec5ef918d3bb71c56495e9a219b5ad4a473a617",
+      "bytes": 848
+    },
+    "runner.log": {
+      "sha256": "b3af53888c99a2cf00cb258e5a505a75180f1bbb89c7c77bd2c9cf9012149ace",
+      "bytes": 4041
+    }
+  },
+  "limits": [
+    "explicit charting/placement and paused World fixture",
+    "no physical controller review",
+    "no natural six-region navigation acceptance",
+    "no full local default regression run",
+    "no final distribution build"
+  ]
+}

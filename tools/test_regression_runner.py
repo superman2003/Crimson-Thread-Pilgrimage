@@ -59,6 +59,7 @@ class CompletionContractTests(unittest.TestCase):
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
             'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion',
+            'spatial_ambience', 'spatial_ambience_world',
             'dialog_dpad_focus',
             'reading_scroll',
             'boss_move_matrix',
@@ -78,6 +79,7 @@ class CompletionContractTests(unittest.TestCase):
             'hazard_readability',
             'settings_construction',
             'world_save_backup',
+            'map_group_framing',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still

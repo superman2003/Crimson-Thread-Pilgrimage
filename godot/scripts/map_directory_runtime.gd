@@ -1,4 +1,6 @@
 extends RefCounted
+const GROUP = preload("res://scripts/map_group_framing.gd")
+const COORD = preload("res://scripts/world_coordinates.gd")
 const INDEX = preload("res://scripts/map_directory.gd")
 const JOURNAL = preload("res://scripts/pilgrimage_cartography.gd")
 const ATLAS = preload("res://scripts/world_atlas.gd")
@@ -51,7 +53,10 @@ static func open(level: Node) -> void:
     var host: WeakRef=weakref(level);var panel: WeakRef=weakref(level.map_panel)
     dialog.open(rows(level),func(row: Dictionary):
         var owner: Variant=host.get_ref();var map: Variant=panel.get_ref()
-        return focus(owner,row) if _owns(owner,map) else {"ok":false,"reason":"地图已经关闭或重建。"})
+        return focus(owner,row) if _owns(owner,map) else {"ok":false,"reason":"地图已经关闭或重建。"},
+        func(request: Dictionary):
+            var owner: Variant=host.get_ref();var map: Variant=panel.get_ref()
+            return focus_group(owner,request) if _owns(owner,map) else {"ok":false,"reason":"地图已经关闭或重建。"})
 
 static func focus(level: Node, candidate: Dictionary) -> Dictionary:
     if level.active_overlay!="map" or not level.map_panel.visible or level.world_loading or level.chapter_transitioning:return {"ok":false,"reason":"请在当前地图中查看。"}
@@ -64,3 +69,30 @@ static func focus(level: Node, candidate: Dictionary) -> Dictionary:
         PIN_VIEW._notify(level,"正在查看「%s」；角色与旅途进度不变。" % String(row.title))
         return {"ok":true}
     return {"ok":false,"reason":"地点已不在已购且已补绘的记录中。"}
+
+static func focus_group(level: Node, request: Dictionary) -> Dictionary:
+    if not is_instance_valid(level) or not level.is_inside_tree() or level.is_queued_for_deletion():
+        return {"ok":false,"reason":"地图已经关闭或重建。"}
+    if level.active_overlay!="map" or not level.map_panel.is_visible_in_tree() or level.world_loading or level.chapter_transitioning:
+        return {"ok":false,"reason":"请在当前地图中查看。"}
+    var resolved:=GROUP.resolve(rows(level),request)
+    if not resolved.ok:return resolved
+    var public_rows: Array=resolved.rows
+    var use_world: bool=level.world_map_view or GROUP.needs_world(public_rows,String(level.config.id))
+    var layout:=ATLAS.frame(level.map_draw_root.size) if use_world else {}
+    var project:=func(region: String,point: Vector2) -> Vector2:
+        if use_world:return ATLAS.project(COORD.to_world(region,point),layout)
+        return PIN_VIEW.project(level,region,point)
+    var framed:=GROUP.projected_bounds(public_rows,project,Rect2(Vector2.ZERO,level.map_draw_root.size))
+    if not framed.ok:return {"ok":false,"reason":"当前地图无法框取这些地点。"}
+    var old_mode: bool=level.world_map_view
+    if use_world!=old_mode:
+        level.world_map_view=use_world
+        level._refresh_map_overlay()
+    if not level.survey_map_view.frame_bounds(framed.bounds):
+        if level.world_map_view!=old_mode:
+            level.world_map_view=old_mode
+            level._refresh_map_overlay()
+        return {"ok":false,"reason":"当前地图视野尚未准备完成。"}
+    PIN_VIEW._notify(level,"正在查看当前筛选的 %d 处已知地点；角色与旅途进度不变。" % public_rows.size())
+    return {"ok":true,"count":public_rows.size()}
