@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "-X",
+    "utf8",
+    "tools/verify_second_order_crown.py"
+  ],
+  "exit": 0,
+  "evidence_index_sha256": "5718c106a06f4e9bf78f3e9360ef3df70a6a0cf7fc0241f8d48b9e3d5798c169",
+  "stdout": "PASS 295 exact archives; native PIDs [38028, 22724, 12076]; independent camp restore; CPU deaths 5\nPASS 383 exact continuation archives; D-G PIDs [3664, 14272, 37736, 9676]; original C bytes; paid 50+10; independent C6 restore\nPASS 347 crown archives; native G-H-I-J chain PIDs [9676, 33704, 5932, 39684]; paid 55; 6 west + 2 returning guards; independent front-shrine restore\n",
+  "stderr": "",
+  "evidence_index_hash_normalization": "LF"
+}
