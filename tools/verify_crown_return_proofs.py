@@ -28,7 +28,15 @@ def verify():
         assert hashlib.sha256(packed).hexdigest() == row["gzip_sha256"]
         assert hashlib.sha256(raw).hexdigest() == row["raw_sha256"] and len(raw) == row["raw_bytes"]
         if row["path"].endswith(".png") and (ROOT / row["path"]).exists():
-            assert (ROOT / row["path"]).read_bytes() == raw
+            committed = (ROOT / row["path"]).read_bytes()
+            if committed.startswith(b"version https://git-lfs.github.com/spec/v1\n"):
+                # The proof workflow skips game-art hydration. Bind the exact
+                # committed LFS object to the fully archived screenshot bytes.
+                pointer = committed.decode("ascii").splitlines()
+                assert "oid sha256:" + hashlib.sha256(raw).hexdigest() in pointer
+                assert "size " + str(len(raw)) in pointer
+            else:
+                assert committed == raw
         files[row["path"]] = raw
 
     def read(name):
