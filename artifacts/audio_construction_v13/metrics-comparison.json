@@ -1,0 +1,126 @@
+{
+  "base": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "fixture": "Unchanged six-region 504-check fixture, one fresh Windows native GL process per variant; CPU job durations, not frame time or total loading speed.",
+  "samples": [
+    {
+      "role": "before",
+      "log": "baseline-native/world_async_loading.log",
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "audio_jobs_ms": {
+            "_prepare_audio": 11.758
+          },
+          "maximum_audio_job_ms": 11.758,
+          "maximum_prepare_batch_ms": 11.779
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "audio_jobs_ms": {
+            "_prepare_audio": 15.924
+          },
+          "maximum_audio_job_ms": 15.924,
+          "maximum_prepare_batch_ms": 15.948
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "audio_jobs_ms": {
+            "_prepare_audio": 13.097
+          },
+          "maximum_audio_job_ms": 13.097,
+          "maximum_prepare_batch_ms": 15.013
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "audio_jobs_ms": {
+            "_prepare_audio": 13.288
+          },
+          "maximum_audio_job_ms": 13.288,
+          "maximum_prepare_batch_ms": 14.626
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "audio_jobs_ms": {
+            "_prepare_audio": 11.877
+          },
+          "maximum_audio_job_ms": 11.877,
+          "maximum_prepare_batch_ms": 12.877
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "audio_jobs_ms": {
+            "_prepare_audio": 11.79
+          },
+          "maximum_audio_job_ms": 11.79,
+          "maximum_prepare_batch_ms": 12.916
+        }
+      ]
+    },
+    {
+      "role": "after",
+      "log": "final-native/world_async_loading.log",
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "audio_jobs_ms": {
+            "_begin_audio": 6.928,
+            "_start_audio_explore": 1.796,
+            "_start_audio_ambience": 2.133
+          },
+          "maximum_audio_job_ms": 6.928,
+          "maximum_prepare_batch_ms": 6.951
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "audio_jobs_ms": {
+            "_begin_audio": 6.368,
+            "_start_audio_explore": 1.324,
+            "_start_audio_ambience": 2.924
+          },
+          "maximum_audio_job_ms": 6.368,
+          "maximum_prepare_batch_ms": 6.386
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "audio_jobs_ms": {
+            "_begin_audio": 6.124,
+            "_start_audio_explore": 1.759,
+            "_start_audio_ambience": 2.187
+          },
+          "maximum_audio_job_ms": 6.124,
+          "maximum_prepare_batch_ms": 7.661
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "audio_jobs_ms": {
+            "_begin_audio": 5.307,
+            "_start_audio_explore": 1.252,
+            "_start_audio_ambience": 1.619
+          },
+          "maximum_audio_job_ms": 5.307,
+          "maximum_prepare_batch_ms": 6.816
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "audio_jobs_ms": {
+            "_begin_audio": 5.8,
+            "_start_audio_explore": 1.291,
+            "_start_audio_ambience": 2.037
+          },
+          "maximum_audio_job_ms": 5.8,
+          "maximum_prepare_batch_ms": 7.069
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "audio_jobs_ms": {
+            "_begin_audio": 7.284,
+            "_start_audio_explore": 1.944,
+            "_start_audio_ambience": 2.981
+          },
+          "maximum_audio_job_ms": 7.284,
+          "maximum_prepare_batch_ms": 8.938
+        }
+      ]
+    }
+  ]
+}
