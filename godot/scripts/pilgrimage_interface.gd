@@ -639,7 +639,7 @@ func _build_bag() -> void:
             bag_scroll.scroll_vertical=0
             refresh_inventory())
         filter_button.custom_minimum_size=Vector2(filter_width,28)
-        filter_button.add_theme_font_size_override("font_size",13)
+        filter_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
         journal_filter_buttons[filter_id]=filter_button
     journal_tools=HBoxContainer.new()
     journal_tools.position=Vector2(34,222)
@@ -650,24 +650,24 @@ func _build_bag() -> void:
     # costs several ms each (see the 10-21 UI rebuild report).
     journal_search=LineEdit.new()
     journal_search.custom_minimum_size=Vector2(236,30)
-    journal_search.add_theme_font_size_override("font_size",13)
+    journal_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_search)
     journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
     journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
     journal_search.max_length=80
     journal_search.text_changed.connect(func(_value: String):journal_selection=0;refresh_inventory())
     journal_unread=CheckButton.new()
-    journal_unread.add_theme_font_size_override("font_size",13)
+    journal_unread.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_unread)
     journal_unread.text="仅未读"
     journal_unread.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_stars=CheckButton.new()
-    journal_stars.add_theme_font_size_override("font_size",13)
+    journal_stars.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_stars)
     journal_stars.text="仅收藏"
     journal_stars.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_sort=OptionButton.new()
-    journal_sort.add_theme_font_size_override("font_size",13)
+    journal_sort.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_sort.custom_minimum_size=Vector2(127,30)
     journal_tools.add_child(journal_sort)
     journal_sort.add_item("旅途顺序")
@@ -703,10 +703,10 @@ func _build_bag() -> void:
     bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
     journal_mark_button=_button(bag,"标为已读",Vector2(738,571),Vector2(160,27),_toggle_journal_read)
     journal_star_button=_button(bag,"收藏记录",Vector2(908,571),Vector2(160,27),_toggle_journal_star)
-    journal_mark_button.add_theme_font_size_override("font_size",13)
-    journal_star_button.add_theme_font_size_override("font_size",13)
+    journal_mark_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    journal_star_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
-    journal_batch_button.add_theme_font_size_override("font_size",13)
+    journal_batch_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
     _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)

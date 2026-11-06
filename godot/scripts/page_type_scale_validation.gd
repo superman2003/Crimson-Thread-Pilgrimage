@@ -1,11 +1,12 @@
 extends SceneTree
-## U01: on the four main pages every visible text uses the shared type scale
+## U01: on the four main pages (and the backpack journal view) every visible
+## text uses the shared type scale
 ## and fits the control it is drawn in. Production World pages at 1280x720.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const TYPE := preload("res://scripts/ui_type_scale.gd")
-const PAGES := ["backpack", "build", "map", "settings"]
+const PAGES := ["backpack", "journal", "build", "map", "settings"]
 ## The page overlays themselves; the HUD behind a page is not part of it.
-const ROOTS := {"backpack": "BackpackOverlay", "build": "BuildOverlay", "map": "CourtMapOverlay", "settings": "AudioSettingsOverlay"}
+const ROOTS := {"backpack": "BackpackOverlay", "journal": "BackpackOverlay", "build": "BuildOverlay", "map": "CourtMapOverlay", "settings": "AudioSettingsOverlay"}
 var checks := 0
 var failures: Array[String] = []
 var world: Node
@@ -64,6 +65,12 @@ func open_page(page: String) -> void:
 	await frames(2)
 	match page:
 		"backpack": world._toggle_backpack()
+		"journal":
+			# The backpack's journal view: filters, search, sort and read marks.
+			world._toggle_backpack()
+			await frames(2)
+			world.ui_shell.bag_category = "旅记"
+			world.ui_shell.refresh_inventory()
 		"build": world._toggle_build()
 		"map": world._toggle_map()
 		"settings": world._toggle_audio_settings()
