@@ -37,7 +37,7 @@
 | 阅读基准 | 21 |
 | 地区与物品名 | 23 |
 
-四个页面上原来用 13／15 的 26 个控件改为引用这些常量，涉及 12 个文件。行囊的旅记视图里另有 17 个 13 号控件（10 个分类筛选、仅未读／仅收藏、排序、本条查找、标为已读、收藏记录、筛选结果标已读），一并改为 14，改后全部能容纳在原控件内。归档规则：
+四个页面上原来用 13／15 的 26 个控件改为引用这些常量，涉及 12 个文件。行囊的旅记视图里另有 17 个 13 号控件（10 个分类筛选、仅未读／仅收藏、排序、本条查找、标为已读、收藏记录、筛选结果标已读），一并改为 14。钟龛工作台装备面板上的 6 个 13 号控件（搜索、仅可装入此槽、卸下此槽装备、查看补给报价、确认购买补给、按需与优先补给）同样改为 14。改后全部能容纳在原控件内，`pilgrimage_interface.gd` 中已没有 13 号字。归档规则：
 
 - 按钮 13／15 → 14；
 - 提示与角标 13／15 → 12；
@@ -48,17 +48,17 @@
 
 ## 验证
 
-新套件 `page_type_scale`：四个页面及行囊旅记视图的可见文字只使用这九档字号，且单行 Label／Button 的文字宽度（含按钮边距和图标）不超出控件。原代码上报告 43 处字号不符（默认视图 26、旅记视图 17）和 1 处截断。改后通过。
+新套件 `page_type_scale`：四个页面、行囊旅记视图和钟龛装备面板（技能、战具两类，沿用 `build_slots_ui` 的工作台夹具）的可见文字只使用这九档字号，且单行 Label／Button 的文字宽度（含按钮边距和图标）不超出控件。原代码上报告 48 处字号不符（默认视图 26、旅记视图 17、装备面板 5，搜索框不是文字控件不计）和 1 处截断。改后通过。
 
 以下相关套件本地通过：
 
-- `ui_text_order`、`dialog_viewport_fit`、`dialog_dpad_focus`、`journal_desk`、`reading_scroll`、`story_guidance`
+- `ui_text_order`、`dialog_viewport_fit`、`dialog_dpad_focus`、`journal_desk`、`reading_scroll`、`story_guidance`、`build_slots_ui`、`equipment_catalog_filter`、`ui_build_accessibility`、`build_system`、`resupply_plan`、`loadout_workbench`、`build_transaction_runtime`
 - `map_player_pins`、`map_directory`、`world_map`、`map_group_framing`
 - `settings_remap`、`settings_profiles`、`input_settings_regression`、`save_desk`
 - `expedition_desk`、`shrine_return_world`、`ui_redesign`、`ui_world_integration`、`global_font`、`controller_comfort`
 
 ## 边界
 
-- 检查四个页面的默认视图和行囊旅记视图。构筑页的装备面板只在钟龛工作台出现，那里还有 13 号控件，留到下一步。
+- 检查四个页面的默认视图、行囊旅记视图和钟龛装备面板。HUD 与页面内弹出的对话框不在范围内。
 - 页面内弹出的对话框已由 `dialog_viewport_fit` 跟随阅读字号；HUD 不在本次范围内。
 - 颜色与间距未改，观感仍需实机确认。

@@ -4,6 +4,8 @@ extends SceneTree
 ## and fits the control it is drawn in. Production World pages at 1280x720.
 const READY := preload("res://scripts/world_ready_validation_helper.gd")
 const TYPE := preload("res://scripts/ui_type_scale.gd")
+const UI := preload("res://scripts/pilgrimage_interface.gd")
+const FIXTURE := preload("res://scripts/build_slots_ui_validation.gd")
 const PAGES := ["backpack", "journal", "build", "map", "settings"]
 ## The page overlays themselves; the HUD behind a page is not part of it.
 const ROOTS := {"backpack": "BackpackOverlay", "journal": "BackpackOverlay", "build": "BuildOverlay", "map": "CourtMapOverlay", "settings": "AudioSettingsOverlay"}
@@ -60,6 +62,63 @@ func overflows(control: Control) -> bool:
 			padding += control.icon.get_width()
 	return width + padding > control.size.x + 1.0
 
+func audit(name: String, page_root: Node) -> void:
+	var off_scale: Array = []
+	var clipped: Array = []
+	var seen := {}
+	for control in texts(page_root, []):
+		var size := size_of(control)
+		seen[size] = int(seen.get(size, 0)) + 1
+		if not TYPE.SCALE.has(size):
+			off_scale.append(describe(control))
+		if overflows(control):
+			clipped.append(describe(control))
+	report[name] = {"sizes": seen, "off_scale": off_scale, "clipped": clipped}
+	check(not seen.is_empty(), "%s shows text" % name)
+	check(off_scale.is_empty(), "%s uses only the shared type scale (off: %s)" % [name, off_scale])
+	check(clipped.is_empty(), "%s text fits its controls (clipped: %s)" % [name, clipped])
+
+func entry(id: String, title: String, family: String) -> Dictionary:
+	return {"id": id, "name": title, "slot_family": family, "unlocked": true, "description": "已知装备说明", "cost": 1}
+
+func slot(family: String, index: int, allowed: Array) -> Dictionary:
+	return {"id": family + str(index), "family": family, "index": index, "compatible": allowed, "unlocked": true, "equipped_id": ""}
+
+## The shrine workbench equipment page, opened at a workstation on the shared
+## build-slot fixture (the World build page outside a shrine has no catalog).
+func equipment_page() -> void:
+	var runtime := FIXTURE.MockRuntime.new()
+	runtime.player = FIXTURE.MockPlayer.new()
+	runtime.add_child(runtime.player)
+	runtime.build_system = FIXTURE.MockBuild.new()
+	runtime.world_narrative = FIXTURE.MockNarrative.new()
+	var skills := [entry("cleave", "裂斩", "thread_skill"), entry("needle", "丝针", "thread_skill")]
+	var tools := [entry("shard", "碎片", "tool"), entry("mine", "线雷", "tool")]
+	runtime.build_system.snapshot = {"at_workstation": true, "slots_used": 0, "slots_total": 3,
+		"skills": skills, "tools": tools, "passive_options": [], "crests": [],
+		"slot_layout": {"thread_skill": [slot("thread_skill", 0, ["cleave", "needle"])], "tool": [slot("tool", 0, ["shard", "mine"])],
+			"combat_accessory": [slot("combat_accessory", 0, ["mender"])], "travel_accessory": [slot("travel_accessory", 0, ["wayfinder"])]},
+		"slot_families": {"thread_skill": {"id": "thread_skill", "name": "绯线技", "options": skills},
+			"tool": {"id": "tool", "name": "战具", "options": tools},
+			"combat_accessory": {"id": "combat_accessory", "name": "战斗铭饰", "options": [entry("mender", "愈线铭饰", "combat_accessory")]},
+			"travel_accessory": {"id": "travel_accessory", "name": "行旅铭饰", "options": [entry("wayfinder", "引路铭饰", "travel_accessory")]}}}
+	root.add_child(runtime)
+	var ui := UI.new()
+	ui.accessibility_path = "user://page_type_scale_fixture.cfg"
+	runtime.add_child(ui)
+	ui.bind(runtime)
+	ui.set_process(false)
+	for category in ["技能", "战具"]:
+		ui.build_panel.show()
+		ui.build_category = category
+		ui.refresh_build()
+		await frames(3)
+		audit("equipment " + category, ui.build_panel)
+	runtime.queue_free()
+	await frames(2)
+	if FileAccess.file_exists("user://page_type_scale_fixture.cfg"):
+		DirAccess.remove_absolute("user://page_type_scale_fixture.cfg")
+
 func open_page(page: String) -> void:
 	world._close_overlays()
 	await frames(2)
@@ -107,6 +166,8 @@ func run() -> void:
 	world._close_overlays()
 	await frames(2)
 	world.queue_free()
+	await frames(3)
+	await equipment_page()
 	await frames(3)
 	for name in DirAccess.get_files_at("user://"):
 		if name.begins_with("page_type_scale.json"):

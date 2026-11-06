@@ -1497,7 +1497,7 @@ func _build_build_panel() -> void:
     equipment_search.position=Vector2(34,180)
     equipment_search.size=Vector2(340,28)
     equipment_search.max_length=equipment_filter.QUERY_LIMIT
-    equipment_search.add_theme_font_size_override("font_size",13)
+    equipment_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     equipment_search.placeholder_text="搜索此类已知装备"
     equipment_search.clear_button_enabled=true
     equipment_search.tooltip_text="按装备名称搜索。搜索与筛选不会执行装备操作或消耗资源。"
@@ -1505,7 +1505,7 @@ func _build_build_panel() -> void:
     equipment_compatible=CheckBox.new()
     equipment_compatible.position=Vector2(384,180)
     equipment_compatible.size=Vector2(225,28)
-    equipment_compatible.add_theme_font_size_override("font_size",13)
+    equipment_compatible.add_theme_font_size_override("font_size",TYPE.CONTROL)
     equipment_compatible.text="仅可装入此槽"
     equipment_compatible.tooltip_text="只显示已解锁且兼容当前所选槽位的装备。"
     build_panel.add_child(equipment_compatible)
@@ -1529,7 +1529,7 @@ func _build_build_panel() -> void:
         var family_id:=_build_family_for_page()
         if family_id.is_empty():return
         _perform_build_action("equip_family_slot","",{"family":family_id,"slot":build_assign_slot}))
-    clear_family_slot_button.add_theme_font_size_override("font_size",13)
+    clear_family_slot_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     build_emblem=_icon(build_panel,null,Vector2(645,290),Vector2(48,48))
     build_heading=_label(build_panel,"",Vector2(710,290),Vector2(350,45),23,GOLD)
     build_detail.position=Vector2(646,340)
@@ -1540,11 +1540,11 @@ func _build_build_panel() -> void:
     build_panel.add_child(build_detail)
     resupply_preview_button=_button(build_panel,"查看补给报价",Vector2(640,535),Vector2(200,30),_preview_tool_resupply)
     resupply_confirm_button=_button(build_panel,"确认购买补给",Vector2(850,535),Vector2(220,30),_confirm_tool_resupply)
-    resupply_preview_button.add_theme_font_size_override("font_size",13)
-    resupply_confirm_button.add_theme_font_size_override("font_size",13)
+    resupply_preview_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    resupply_confirm_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     resupply_confirm_button.disabled=true
     resupply_planner_button=_button(build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),_open_resupply_planner)
-    resupply_planner_button.add_theme_font_size_override("font_size",13)
+    resupply_planner_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
     craft_cart_button.add_theme_font_size_override("font_size",14)
     _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)
