@@ -1,0 +1,24 @@
+{
+  "mutation": "Schedule the retained synchronous settings wrapper as one UI job; all other main/NPC code remains intact",
+  "base_main": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+  "marker": "SETTINGS_CONSTRUCTION checks=77 failures=1",
+  "max_controls": 82,
+  "work": [
+    {
+      "args": [
+        "_build_settings"
+      ],
+      "controls_added": 82,
+      "job": "_build_interface_step"
+    },
+    {
+      "args": [],
+      "controls_added": 4,
+      "job": "_finish_hud"
+    }
+  ],
+  "script_errors": 0,
+  "source_sha256_before": "704610c565408a160107c27f80658fbcba59b35d5d0c4b6ea02fc47bdb0bc8ac",
+  "log": "integrated-negative-native/settings_construction.log",
+  "source_sha256_restored": "704610c565408a160107c27f80658fbcba59b35d5d0c4b6ea02fc47bdb0bc8ac"
+}

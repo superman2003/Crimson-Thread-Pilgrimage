@@ -1,0 +1,18 @@
+.........Retrying download: attempt 1/3, wait 5s: HTTP Error 504: Gateway Timeout
+Retrying download: attempt 2/3, wait 10s: HTTP Error 504: Gateway Timeout
+.Retrying download: attempt 1/5, wait 5s: HTTP Error 504: Gateway Timeout
+Retrying download: attempt 2/5, wait 10s: HTTP Error 503: Service Unavailable
+.Retrying download: attempt 1/5, wait 5s: Incomplete response: download
+..F
+======================================================================
+FAIL: test_wrong_hash_cannot_replace_previous_bytes (__main__.ReleaseDownload.test_wrong_hash_cannot_replace_previous_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 109, in test_wrong_hash_cannot_replace_previous_bytes
+    with self.assertRaisesRegex(RuntimeError, 'SHA512 mismatch'):
+AssertionError: RuntimeError not raised
+
+----------------------------------------------------------------------
+Ran 14 tests in 1.039s
+
+FAILED (failures=1)

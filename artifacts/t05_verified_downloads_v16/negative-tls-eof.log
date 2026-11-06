@@ -1,0 +1,44 @@
+E..........ERetrying download: attempt 1/3, wait 5s: HTTP Error 504: Gateway Timeout
+Retrying download: attempt 2/3, wait 10s: HTTP Error 504: Gateway Timeout
+.Retrying download: attempt 1/5, wait 5s: HTTP Error 504: Gateway Timeout
+Retrying download: attempt 2/5, wait 10s: HTTP Error 503: Service Unavailable
+.Retrying download: attempt 1/5, wait 5s: Incomplete response: download
+..Retrying download: attempt 1/2, wait 5s: Official SHA512 mismatch: download
+.
+======================================================================
+ERROR: test_abrupt_tls_eof_during_body_read_is_retried (__main__.ReleaseDownload.test_abrupt_tls_eof_during_body_read_is_retried)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 119, in test_abrupt_tls_eof_during_body_read_is_retried
+    self.assertEqual(self.fetch(digest(b'actual')).read_bytes(),b'actual')
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 77, in fetch
+    return release.download(self.base+'payload', self.root/'download', expected,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\download_godot_release.py", line 73, in download
+    while chunk := response.read(1024*1024):
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 104, in read
+    raise exception
+ssl.SSLEOFError: abrupt TLS EOF
+
+======================================================================
+ERROR: test_repeated_abrupt_tls_eof_is_bounded (__main__.ReleaseDownload.test_repeated_abrupt_tls_eof_is_bounded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 128, in test_repeated_abrupt_tls_eof_is_bounded
+    self.fetch(digest(b'actual'),attempts=2)
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 77, in fetch
+    return release.download(self.base+'payload', self.root/'download', expected,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\download_godot_release.py", line 73, in download
+    while chunk := response.read(1024*1024):
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Administrator\.codex\worktrees\arrival-budget-v11\Crimson-Thread-Pilgrimage\tools\test_download_godot_release.py", line 104, in read
+    raise exception
+ssl.SSLEOFError: abrupt TLS EOF
+
+----------------------------------------------------------------------
+Ran 17 tests in 1.131s
+
+FAILED (errors=2)

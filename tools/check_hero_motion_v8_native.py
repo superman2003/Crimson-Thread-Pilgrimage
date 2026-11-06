@@ -13,7 +13,7 @@ DEFAULT = ['player_basic_attack_vfx', 'seal_presentation', 'player_contact_art',
            'combat_visual_budget', 'character_art_prewarm', 'tool_practice']
 
 
-def main(default_suites=None, default_output=None):
+def main(default_suites=None, default_output=None, extra_markers=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', required=True)
     parser.add_argument('--suite', action='append')
@@ -24,6 +24,9 @@ def main(default_suites=None, default_output=None):
     captures = out/'actual-attacks'
     captures.mkdir(exist_ok=True)
     markers = json.loads((ROOT/'tools/godot_suite_success_markers.json').read_text())
+    if set(extra_markers or {}) & set(markers):
+        parser.error('Additional native markers cannot replace registered regressions')
+    markers.update(extra_markers or {})
     allowed = default_suites or DEFAULT
     suites = args.suite or allowed
     if any(suite not in allowed for suite in suites):

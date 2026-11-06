@@ -14,6 +14,9 @@ on:
       - 'godot/default_bus_layout.tres'
       - 'tools/run_godot_regressions.py'
       - 'tools/godot_suite_success_markers.json'
+      - 'tools/run_reliability_98fd8e2f_r10.py'
+      - 'tools/run_audio_volume_save_contract.py'
+      - 'tools/run_room_reverb_contract.py'
 permissions:
   contents: read
 concurrency:
@@ -53,6 +56,12 @@ jobs:
             --log-dir "$RUNNER_TEMP/ambience-logs/gl"
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
             --suite spatial_ambience --log-dir "$RUNNER_TEMP/ambience-logs/dummy"
+      - name: Validate isolated director dependency copies
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_reliability_98fd8e2f_r10.py --engine "$engine" --log-dir "$RUNNER_TEMP/ambience-logs/r10"
+          python3 tools/run_audio_volume_save_contract.py --engine "$engine" --log-dir "$RUNNER_TEMP/ambience-logs/volume"
+          python3 tools/run_room_reverb_contract.py --engine "$engine" --log-dir "$RUNNER_TEMP/ambience-logs/reverb"
       - name: Reject engine errors and unexpected warnings
         run: |
           python3 - <<'PY'
