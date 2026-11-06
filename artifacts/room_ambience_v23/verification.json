@@ -1,0 +1,239 @@
+{
+  "baseline_main": "0fc65b199ef64c3c040c8035931f018f1e228b9b",
+  "software_gl": [
+    {
+      "suite": "audio_landmarks",
+      "sha256": "6cdb502ddede021212f7f35d3e896302fed6b343f38c388870eb2c9c3e578bce",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "AUDIO_LANDMARKS checks=39 failures=0",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "audio_retirement",
+      "sha256": "3c5bd3b4db8a856603af87904d10da81e12a72f5314e52f6e79ee5d06c318a98",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "room_ambience",
+      "sha256": "33f013b40f517e2b8ba07e7fd1b9e9a876d1b72d642e3688d54210afc73b4519",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "ROOM_AMBIENCE checks=239 failures=0 rooms=24",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "room_ambience_world",
+      "sha256": "9d5f798197f9dff536f7197d6803bd076d84a9cfc97a7a3cf71254e33bb0453d",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "ROOM_AMBIENCE_WORLD checks=104 failures=0 regions=6",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "spatial_ambience",
+      "sha256": "f83a36bacc04205daee623c1914408eb1ea4df69301c1b3cabbe2c04b5a4bda1",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "SPATIAL_AMBIENCE checks=165 failures=0",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "spatial_ambience_world",
+      "sha256": "a87011b7f6b70966729140962c1dd170778fb448b96ec9eae4d29b8b4bdc4f4d",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "SPATIAL_AMBIENCE_WORLD checks=16 failures=0",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "world_async_loading",
+      "sha256": "3ef3b8525666d7a81a6dfa083bec46eed698f2574fba54334e1c9bb78590b913",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "WORLD ASYNC LOADING PASS: 504 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "world_prepare_budget",
+      "sha256": "ead83b358de2fa781338957e5f8c3b3cc70be01cd37d5811d0dd59f4456242dd",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    },
+    {
+      "suite": "world_save_backup",
+      "sha256": "0bb466a7c8c839b435813cbd8b24b3b76ede3c2163bf719b52fec7086571843e",
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ],
+      "leaks": [],
+      "completion_marker": "WORLD_SAVE_BACKUP checks=123 failures=0 cancelled_target_unpublished=true exited_target_unpublished=true",
+      "passed": true,
+      "renderer": "OpenGL API 4.5 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 20.1.2, 256 bits)"
+    }
+  ],
+  "headless": [
+    {
+      "suite": "room_ambience",
+      "sha256": "ae91415d9322cd61c24fbb2f423b425139dc3dac40fade78ec195264606c0801",
+      "errors": [],
+      "warnings": [],
+      "leaks": [],
+      "completion_marker": "ROOM_AMBIENCE checks=239 failures=0 rooms=24",
+      "passed": true
+    },
+    {
+      "suite": "room_ambience_world",
+      "sha256": "11c48694afbb41b317e7ac28458078b8befdb06f28cbd39047281c48451bdedd",
+      "errors": [],
+      "warnings": [],
+      "leaks": [],
+      "completion_marker": "ROOM_AMBIENCE_WORLD checks=104 failures=0 regions=6",
+      "passed": true
+    },
+    {
+      "suite": "spatial_ambience",
+      "sha256": "7e651020eb0faf659accf480006b47560f6ba884f107eef430e1da5e6a2d7942",
+      "errors": [],
+      "warnings": [],
+      "leaks": [],
+      "completion_marker": "SPATIAL_AMBIENCE checks=165 failures=0",
+      "passed": true
+    }
+  ],
+  "combined_541": {
+    "main": "0fc65b199ef64c3c040c8035931f018f1e228b9b",
+    "pending_541": "1e5cc2cb4ab306ce19a4bda129f102adf1f80b67",
+    "audio_director_merge_conflicts": 0,
+    "before": {
+      "audio_director.gd": "f1dd3e1080906b822a61da838af58fbf4bd44a0a00d23c461102fed751beb439",
+      "main_level.gd": "f28b25037bbfaa79f185fcbded248dd0282e5eb6efbf854b65035f04bab3b544",
+      "world_region_loader.gd": "7d3901cf4bfc4a0d1cbea81da986a4ed3604d061ac17e062c13c1c225d22c253",
+      "music_phrase_resume_validation.gd": "84d414532ad80e6ad168f9f1a2adc1673ef6f133db6ca53603c4cb49e276b06f",
+      "audio_construction_validation.gd": "c75296580e6ca66331f4a7da54aeca9e48551376df6414f584a6024af1c2a357",
+      "room_ambience_mix.gd": "de60692739dd33b1db3872928f58ae8b2aa3e647cfbe05f2c0bbebab1c0a0df2",
+      "room_ambience_validation.gd": "703109dab5dd9b971365db566048826f9213f97cba8b5af2886eea65f34f863b",
+      "room_ambience_world_validation.gd": "6655ff36309f438f6114c4dae28116de411d9e6ec3a8bb7e7b9d58102047d50b"
+    },
+    "after": {
+      "audio_director.gd": "f1dd3e1080906b822a61da838af58fbf4bd44a0a00d23c461102fed751beb439",
+      "main_level.gd": "f28b25037bbfaa79f185fcbded248dd0282e5eb6efbf854b65035f04bab3b544",
+      "world_region_loader.gd": "7d3901cf4bfc4a0d1cbea81da986a4ed3604d061ac17e062c13c1c225d22c253",
+      "music_phrase_resume_validation.gd": "84d414532ad80e6ad168f9f1a2adc1673ef6f133db6ca53603c4cb49e276b06f",
+      "audio_construction_validation.gd": "c75296580e6ca66331f4a7da54aeca9e48551376df6414f584a6024af1c2a357",
+      "room_ambience_mix.gd": "de60692739dd33b1db3872928f58ae8b2aa3e647cfbe05f2c0bbebab1c0a0df2",
+      "room_ambience_validation.gd": "703109dab5dd9b971365db566048826f9213f97cba8b5af2886eea65f34f863b",
+      "room_ambience_world_validation.gd": "6655ff36309f438f6114c4dae28116de411d9e6ec3a8bb7e7b9d58102047d50b"
+    },
+    "unchanged": true,
+    "results": [
+      {
+        "suite": "room_ambience",
+        "exit_code": 0,
+        "marker": "ROOM_AMBIENCE checks=239 failures=0 rooms=24",
+        "errors": [],
+        "leaks": [],
+        "passed": true
+      },
+      {
+        "suite": "room_ambience_world",
+        "exit_code": 0,
+        "marker": "ROOM_AMBIENCE_WORLD checks=104 failures=0 regions=6",
+        "errors": [],
+        "leaks": [],
+        "passed": true
+      },
+      {
+        "suite": "audio_construction",
+        "exit_code": 0,
+        "marker": "AUDIO_CONSTRUCTION checks=233 failures=0",
+        "errors": [],
+        "leaks": [],
+        "passed": true
+      }
+    ]
+  },
+  "negative_controls": [
+    {
+      "case": "room-callback",
+      "expected_rejection": true,
+      "exit_code": 1,
+      "expected_failure": "actual room callback selects authored exposure",
+      "script_errors": 0,
+      "modified_sha256": "998ae4dccb024a91941cc33d3807e69ac0ff65c4cc7ca1fdbb846fbe50cedc1f"
+    },
+    {
+      "case": "bus-retirement",
+      "expected_rejection": true,
+      "exit_code": 1,
+      "expected_failure": "retired room bus is removed rather than accumulating",
+      "script_errors": 0,
+      "modified_sha256": "9320afdb6c4f3b9876091571a7bf896790c4f9069de5ec0358782dd0bcf7a220"
+    },
+    {
+      "case": "gain-treatment",
+      "expected_rejection": true,
+      "exit_code": 1,
+      "expected_failure": "shelter attenuates six decibels",
+      "script_errors": 0,
+      "modified_sha256": "f4a2ff067de6873ddb03568de5ddb06f3acb77ed7e6dfbda8539272717c91306"
+    }
+  ],
+  "source_sha256": {
+    "godot/scripts/audio_director.gd": "3654f0baa766efbdd8dd6889dd61636098164934efecacd126b31ffc46780faf",
+    "godot/scripts/room_ambience_mix.gd": "de60692739dd33b1db3872928f58ae8b2aa3e647cfbe05f2c0bbebab1c0a0df2",
+    "godot/scripts/room_ambience_validation.gd": "703109dab5dd9b971365db566048826f9213f97cba8b5af2886eea65f34f863b",
+    "godot/scripts/room_ambience_world_validation.gd": "6655ff36309f438f6114c4dae28116de411d9e6ec3a8bb7e7b9d58102047d50b",
+    "tools/run_godot_regressions.py": "88a2dc65645e9853dca57e65e54bc45b23dfff434ef4706ac47ffc664ec90864",
+    "tools/run_reliability_98fd8e2f_r10.py": "efdb1f5b5da6f7a8a0348ffd746f3d55fa8e5ed451cbcd478fe131665b067e2d",
+    "tools/run_audio_volume_save_contract.py": "c224513acae05905db204293902f9dd64283abc865381ed1095e6c69b3e64ce2",
+    "tools/run_room_reverb_contract.py": "c6ebe1b704ee878600f45eb0cc607974d461fdaaf780638bdaa5a54b8c01b6b9"
+  },
+  "audio_media": {
+    "count": 303,
+    "changed_tracked_files": []
+  },
+  "isolated_tools": {
+    "reliability_r10": 11,
+    "volume_save": 103,
+    "room_reverb": 182
+  }
+}

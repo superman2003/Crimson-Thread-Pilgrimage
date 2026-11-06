@@ -1,0 +1,52 @@
+{
+  "main": "0fc65b199ef64c3c040c8035931f018f1e228b9b",
+  "pending_541": "1e5cc2cb4ab306ce19a4bda129f102adf1f80b67",
+  "audio_director_merge_conflicts": 0,
+  "before": {
+    "audio_director.gd": "f1dd3e1080906b822a61da838af58fbf4bd44a0a00d23c461102fed751beb439",
+    "main_level.gd": "f28b25037bbfaa79f185fcbded248dd0282e5eb6efbf854b65035f04bab3b544",
+    "world_region_loader.gd": "7d3901cf4bfc4a0d1cbea81da986a4ed3604d061ac17e062c13c1c225d22c253",
+    "music_phrase_resume_validation.gd": "84d414532ad80e6ad168f9f1a2adc1673ef6f133db6ca53603c4cb49e276b06f",
+    "audio_construction_validation.gd": "c75296580e6ca66331f4a7da54aeca9e48551376df6414f584a6024af1c2a357",
+    "room_ambience_mix.gd": "de60692739dd33b1db3872928f58ae8b2aa3e647cfbe05f2c0bbebab1c0a0df2",
+    "room_ambience_validation.gd": "703109dab5dd9b971365db566048826f9213f97cba8b5af2886eea65f34f863b",
+    "room_ambience_world_validation.gd": "6655ff36309f438f6114c4dae28116de411d9e6ec3a8bb7e7b9d58102047d50b"
+  },
+  "after": {
+    "audio_director.gd": "f1dd3e1080906b822a61da838af58fbf4bd44a0a00d23c461102fed751beb439",
+    "main_level.gd": "f28b25037bbfaa79f185fcbded248dd0282e5eb6efbf854b65035f04bab3b544",
+    "world_region_loader.gd": "7d3901cf4bfc4a0d1cbea81da986a4ed3604d061ac17e062c13c1c225d22c253",
+    "music_phrase_resume_validation.gd": "84d414532ad80e6ad168f9f1a2adc1673ef6f133db6ca53603c4cb49e276b06f",
+    "audio_construction_validation.gd": "c75296580e6ca66331f4a7da54aeca9e48551376df6414f584a6024af1c2a357",
+    "room_ambience_mix.gd": "de60692739dd33b1db3872928f58ae8b2aa3e647cfbe05f2c0bbebab1c0a0df2",
+    "room_ambience_validation.gd": "703109dab5dd9b971365db566048826f9213f97cba8b5af2886eea65f34f863b",
+    "room_ambience_world_validation.gd": "6655ff36309f438f6114c4dae28116de411d9e6ec3a8bb7e7b9d58102047d50b"
+  },
+  "unchanged": true,
+  "results": [
+    {
+      "suite": "room_ambience",
+      "exit_code": 0,
+      "marker": "ROOM_AMBIENCE checks=239 failures=0 rooms=24",
+      "errors": [],
+      "leaks": [],
+      "passed": true
+    },
+    {
+      "suite": "room_ambience_world",
+      "exit_code": 0,
+      "marker": "ROOM_AMBIENCE_WORLD checks=104 failures=0 regions=6",
+      "errors": [],
+      "leaks": [],
+      "passed": true
+    },
+    {
+      "suite": "audio_construction",
+      "exit_code": 0,
+      "marker": "AUDIO_CONSTRUCTION checks=233 failures=0",
+      "errors": [],
+      "leaks": [],
+      "passed": true
+    }
+  ]
+}

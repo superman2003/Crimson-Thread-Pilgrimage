@@ -81,6 +81,7 @@ class CompletionContractTests(unittest.TestCase):
             'player_basic_attack_vfx', 'dialog_viewport_fit',
             'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion',
             'spatial_ambience', 'spatial_ambience_world',
+            'room_ambience', 'room_ambience_world',
             'dialog_dpad_focus',
             'reading_scroll',
             'boss_move_matrix',
