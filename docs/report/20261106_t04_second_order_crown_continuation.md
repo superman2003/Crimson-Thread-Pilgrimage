@@ -28,6 +28,8 @@ H–J 合计48步3139固定物理帧，3次伤害、2次耗能疗伤、零死亡
 
 ## 复查
 
+审阅后加强归档核验：正式 G 恢复使用 `native_G_restore02`（`01` 是更早的历史探针），它与最终恢复都逐项核对退出状态、完整日志、原生命令、来源字节／证明／PID、冻结清单及初态／终态。H／I／J 的逐段步数、帧计数、伤害和疗伤固定为本文记录，18次校准的完整目录与15失败／3通过、唯一1次死亡均有门禁。12项正反检查覆盖缺失恢复、伪造通过、非零退出、日志错误／警告、错误来源／命令、改变冻结输入、同时改写日志与回执的指标，以及删除或篡改校准记录；全部通过。这里只加强检查工具，没有重新执行或改写已归档的游戏运行。
+
 运行 `python -X utf8 tools/verify_second_order_crown.py` 核验已提交证据。完整原始文件按确定性 gzip 保存在 [archive](../../artifacts/t04_second_order_crown_v18/archive/)，索引为 [evidence_index.json](../../artifacts/t04_second_order_crown_v18/evidence_index.json)，本机核验回执为 [verifier_result.json](../../artifacts/t04_second_order_crown_v18/verifier_result.json)。所有校准均附当时的回放／runner源码快照，不能将其当成最终控制器结果。
 
 要重新实跑，先将 `archive/source_G/{result.json,checkpoint_proof.json,earned_checkpoint.json}.gz` 解压至一个新来源目录，然后用 `tools/run_second_order.py --engine <Godot4.6.1-console> --native-gl --stage crown_map --source <来源目录> --output <全新H目录>`；按相同方式以 H运行 `crown_west`、以 I运行 `crown_upper`、以 J运行 `earned_restore`。每次输出必须新建，180秒上限保持。私人APPDATA只复制上段原存档字节，不写入位置、速度、HP、背包、钱包、能力或旗标。
