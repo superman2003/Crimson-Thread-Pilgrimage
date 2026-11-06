@@ -1,5 +1,6 @@
 extends Control
 
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
@@ -689,7 +690,7 @@ func _build_bag() -> void:
     bag_icon=_icon(bag,null,Vector2(834,166),Vector2(95,95))
     bag_name=_label(bag,"",Vector2(734,273),Vector2(342,34),23)
     bag_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    bag_category_label=_label(bag,"",Vector2(734,314),Vector2(342,26),15,GOLD)
+    bag_category_label=_label(bag,"",Vector2(734,314),Vector2(342,26),TYPE.BODY,GOLD)
     bag_category_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     bag_description=RichTextLabel.new()
     bag_description.position=Vector2(738,354)
@@ -707,7 +708,7 @@ func _build_bag() -> void:
     journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
     journal_batch_button.add_theme_font_size_override("font_size",13)
     journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
-    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),15,MUTED)
+    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     preload("res://scripts/journal_mark_desk.gd").install(self)
@@ -776,7 +777,7 @@ func append_inventory_item(item_id: String) -> void:
     var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
     var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
     name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+    _label(button,str(count),Vector2(59,48),Vector2(30,23),TYPE.CAPTION,GOLD)
 
 func finish_inventory_refresh() -> void:
     var selected := inventory_build_selection
@@ -1035,13 +1036,13 @@ func _build_settings_audio() -> void:
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     var comfort_button:=_button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort)
-    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",15)
+    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     # Row 332 to the right of the comfort button belongs to the danger-caption
     # desk; the retry sits beside the NPC toggle, its notice by the section title.
     settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
-    settings_save_retry.add_theme_font_size_override("font_size",13)
+    settings_save_retry.add_theme_font_size_override("font_size",TYPE.CONTROL)
     settings_save_retry.tooltip_text="保存本次已生效的设置与按键；不重置输入、音量或旅途资源。"
-    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),13,GOLD)
+    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),TYPE.CAPTION,GOLD)
     settings_save_notice.clip_text=true
     _refresh_settings_save_notice()
 
@@ -1061,7 +1062,7 @@ func _build_settings_accessibility() -> void:
 func _build_settings_controls() -> void:
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
-    reset_bindings_button.add_theme_font_size_override("font_size",13)
+    reset_bindings_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     remap_scroll=ScrollContainer.new()
     remap_scroll.name="RemapScroll"
     remap_scroll.position=Vector2(34,414)
@@ -1082,7 +1083,7 @@ func _build_settings_controls() -> void:
         button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),13,MUTED)
+    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -1090,11 +1091,11 @@ func _finish_settings() -> void:
     for slot_index in 3:
         var slot:=slot_index+1
         save_slot_buttons[slot]=_button(settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():_select_save_slot(slot))
-        save_slot_buttons[slot].add_theme_font_size_override("font_size",13)
+        save_slot_buttons[slot].add_theme_font_size_override("font_size",TYPE.CONTROL)
         save_slot_buttons[slot].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",13)
+    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",TYPE.CONTROL)
     journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
-    journey_history_button.add_theme_font_size_override("font_size",13)
+    journey_history_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     preload("res://scripts/audio_output_dialog.gd").install(self)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false

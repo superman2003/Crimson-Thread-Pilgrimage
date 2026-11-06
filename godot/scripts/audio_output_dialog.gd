@@ -1,4 +1,5 @@
 extends Node
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 ## One settings-owned dialog. Closing it discards confirmation, never changes route.
 var ui: Control
 var model:=preload("res://scripts/audio_output_preferences.gd").new()
@@ -19,7 +20,7 @@ func setup(shell: Control) -> void:
     # Row 332 already holds the comfort and danger-caption launchers; use the
     # free header space left of the journey workbench entry.
     var launcher: Button=ui._button(ui.settings,"声音输出设备",Vector2(420,60),Vector2(210,30),open)
-    launcher.name="AudioOutputDeviceButton";launcher.add_theme_font_size_override("font_size",15)
+    launcher.name="AudioOutputDeviceButton";launcher.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.settings.visibility_changed.connect(func():
         if is_instance_valid(window) and not ui.settings.is_visible_in_tree():window.hide())
 

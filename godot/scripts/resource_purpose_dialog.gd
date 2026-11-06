@@ -1,4 +1,5 @@
 extends AcceptDialog
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const MODEL:=preload("res://scripts/resource_purpose_ledger.gd")
 var host: WeakRef
 var report: Dictionary={}
@@ -139,7 +140,7 @@ static func setup(ui: Control) -> void:
     ui.add_child(dialog)
     var button: Button=ui._button(ui.bag,"资源用途核对",Vector2(510,94),Vector2(180,34),func():dialog.open(ui))
     button.name="ResourcePurposeButton"
-    button.add_theme_font_size_override("font_size",15)
+    button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     ui.bag.visibility_changed.connect(func():
         if not ui.bag.visible:dialog.hide();dialog.report={})
 
