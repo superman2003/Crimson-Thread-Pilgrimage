@@ -1,0 +1,18 @@
+{
+  "cases": [
+    {
+      "behavior": "old_launcher_only",
+      "launcher_pid": 14840,
+      "engine_fixture_pid": 6776,
+      "child_alive_after_stop": true,
+      "expected": true
+    },
+    {
+      "behavior": "owned_process_tree",
+      "launcher_pid": 35836,
+      "engine_fixture_pid": 6188,
+      "child_alive_after_stop": false,
+      "expected": false
+    }
+  ]
+}

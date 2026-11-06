@@ -1,6 +1,11 @@
 import copy
+import json
+from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import Mock, patch
 from runtime_soak_metrics import evaluate, MIB
+from run_runtime_soak import engine_process_id, process_memory_errors, terminate_process_tree
 
 
 def evidence():
@@ -78,6 +83,71 @@ class SoakMetrics(unittest.TestCase):
         original = copy.deepcopy(result)
         self.assertFalse(evaluate(result, 1800)['passed'])
         self.assertEqual(result, original)
+
+
+class SoakProcessIdentity(unittest.TestCase):
+    def test_engine_receipt_is_bound_to_this_run(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            result = Path(scratch)/'metrics.json'
+            receipt = Path(scratch)/'process.json'
+            self.assertIsNone(engine_process_id(receipt, result))
+            receipt.write_text('{', encoding='utf-8')
+            self.assertIsNone(engine_process_id(receipt, result))
+            receipt.write_text(json.dumps({'schema':1, 'engine_pid':321, 'output':result.as_posix()}), encoding='utf-8')
+            self.assertEqual(engine_process_id(receipt, result), 321)
+            self.assertIsNone(engine_process_id(receipt, Path(scratch)/'old.json'))
+
+    def test_invalid_process_receipts_do_not_select_a_pid(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            result = Path(scratch)/'metrics.json'
+            receipt = Path(scratch)/'process.json'
+            for value in [None, [], {}, {'schema':True, 'engine_pid':321},
+                          *({'schema':1, 'engine_pid':pid} for pid in [None, True, 0, -2, '321', 3.2])]:
+                with self.subTest(value=value):
+                    if isinstance(value,dict):value['output']=result.as_posix()
+                    receipt.write_text(json.dumps(value), encoding='utf-8')
+                    self.assertIsNone(engine_process_id(receipt, result))
+
+    def test_actual_child_memory_is_accepted_after_startup(self):
+        rows=[{'pid':None,'resident_bytes':None}, {'pid':321,'resident_bytes':400*MIB}]
+        self.assertEqual(process_memory_errors(321, {'engine_pid':321}, rows), [])
+
+    def test_console_launcher_cannot_stand_in_for_engine(self):
+        rows=[{'pid':123,'resident_bytes':7*MIB}]
+        self.assertTrue(process_memory_errors(321, {'engine_pid':321}, rows))
+        self.assertTrue(process_memory_errors(123, {'engine_pid':321}, rows))
+
+    def test_missing_or_unreadable_engine_memory_fails(self):
+        for rows in [[], [{'pid':None,'resident_bytes':None}],
+                     [{'pid':321,'resident_bytes':None}], [{'pid':321,'resident_bytes':0}]]:
+            with self.subTest(rows=rows):
+                self.assertTrue(process_memory_errors(321, {'engine_pid':321}, rows))
+
+    def test_final_metrics_must_match_engine_identity(self):
+        rows=[{'pid':321,'resident_bytes':400*MIB}]
+        for result in [{}, {'engine_pid':123}, {'engine_pid':True}, {'engine_pid':'321'}]:
+            with self.subTest(result=result):
+                self.assertTrue(process_memory_errors(321, result, rows))
+
+    def test_windows_timeout_retires_owned_launcher_tree(self):
+        proc=Mock(pid=123)
+        proc.poll.return_value=None
+        with patch('run_runtime_soak.os.name','nt'), patch('run_runtime_soak.subprocess.run') as run:
+            terminate_process_tree(proc)
+        self.assertEqual(run.call_args.args[0], ['taskkill','/PID','123','/T','/F'])
+        proc.kill.assert_not_called()
+
+    def test_unix_timeout_and_already_exited_process(self):
+        proc=Mock(pid=123)
+        proc.poll.return_value=None
+        with patch('run_runtime_soak.os.name','posix'):
+            terminate_process_tree(proc)
+        proc.kill.assert_called_once()
+        proc.poll.return_value=0
+        with patch('run_runtime_soak.subprocess.run') as run:
+            terminate_process_tree(proc)
+        run.assert_not_called()
+        proc.kill.assert_called_once()
 
 
 if __name__ == '__main__':
