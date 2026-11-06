@@ -1,0 +1,10 @@
+{
+  "mutation": "omit direct SSLEOFError from retry handler",
+  "unit_tests": 17,
+  "exit_code": 1,
+  "expected_error_tests": [
+    "test_abrupt_tls_eof_during_body_read_is_retried",
+    "test_repeated_abrupt_tls_eof_is_bounded"
+  ],
+  "restored_sha256": "f9538c157bbedc17c93f8761d3feb68fe31e1bccb9b7f21b646b3d54fd977a17"
+}

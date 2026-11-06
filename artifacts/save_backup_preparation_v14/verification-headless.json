@@ -1,0 +1,42 @@
+{
+  "runner_exit": 0,
+  "suites": 4,
+  "results": [
+    {
+      "suite": "world_save_backup",
+      "passed": true,
+      "marker": "WORLD_SAVE_BACKUP checks=111 failures=0 cancelled_target_unpublished=true exited_target_unpublished=true",
+      "errors": [],
+      "warnings": [],
+      "log": "artifacts/save_backup_preparation_v14/headless-final/world_save_backup.log",
+      "sha256": "adec249ac7c91d81351a84684af6e9d53fe305c12a1d19572479324422717952"
+    },
+    {
+      "suite": "world_save_candidate",
+      "passed": true,
+      "marker": "WORLD SAVE CANDIDATE PASS checks=103",
+      "errors": [],
+      "warnings": [],
+      "log": "artifacts/save_backup_preparation_v14/headless-final/world_save_candidate.log",
+      "sha256": "2f478ec7981b6b7bb67f475c37b62bbeb37f26934436d8374da5cfafbc9114cc"
+    },
+    {
+      "suite": "world_catalog_background",
+      "passed": true,
+      "marker": "WORLD CATALOG BACKGROUND PASS checks=177",
+      "errors": [],
+      "warnings": [],
+      "log": "artifacts/save_backup_preparation_v14/headless-final/world_catalog_background.log",
+      "sha256": "2df5c2409315a1853a46c3bf521c6b2069dc7cb23cd3cc2634f7086e1407f552"
+    },
+    {
+      "suite": "world_startup_config_background",
+      "passed": true,
+      "marker": "WORLD STARTUP CONFIG BACKGROUND PASS checks=1054",
+      "errors": [],
+      "warnings": [],
+      "log": "artifacts/save_backup_preparation_v14/headless-final/world_startup_config_background.log",
+      "sha256": "9bad30bbcd9503fe72451d3c1f16c5ad5aa5eb0486d22aaa696ef0e4636e39a4"
+    }
+  ]
+}

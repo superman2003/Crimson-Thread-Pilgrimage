@@ -18,6 +18,8 @@ const COORDINATES := preload("res://scripts/world_coordinates.gd")
 const ROUTES := preload("res://scripts/world_routes.gd")
 const CONFIG_READ_JOB := preload("res://scripts/world_config_read_job.gd")
 var config_read_job := CONFIG_READ_JOB.new()
+const SAVE_BACKUP_JOB := preload("res://scripts/world_save_backup_job.gd")
+var save_backup_job := SAVE_BACKUP_JOB.new()
 const CONFIG_VALIDATOR := preload("res://scripts/world_config_validator.gd")
 const VARIANT_COPY_JOB := preload("res://scripts/world_variant_copy_job.gd")
 const TRANSITION_TOKEN := preload("res://scripts/world_transition_token.gd")
@@ -44,7 +46,7 @@ var transition_serial := 0
 var startup_token: RefCounted
 # A speculative startup read stays private until the exact manifest is committed.
 var startup_config_read_ahead: Dictionary = {}
-# Startup owns its frame wakeups so whole-host shutdown can unwind its token
+# Owned loading keeps frame wakeups so whole-host shutdown can unwind its token
 # before SceneTree stops emitting frames (including --quit-after).
 signal _startup_frame_ready
 var _startup_frame_tree: SceneTree
@@ -646,7 +648,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
                 batch_wall_list.append(batch_wall_usec)
                 last_transition["preflight_copy_batch_wall_usec"] = batch_wall_list
                 last_transition["preflight_copy_batches"] = int(last_transition["preflight_copy_batches"]) + 1
-                await host.get_tree().process_frame
+                await _next_process_frame(host.get_tree())
                 last_transition["preflight_copy_wall_usec"] = Time.get_ticks_usec() - copy_wall_started
                 if not _alive(host):
                     last_transition["preflight_cancelled"] = true
@@ -671,7 +673,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
                 last_transition["json_background"] = true
                 # Yield even when a tiny file has already completed: the caller
                 # always gets a cancellation window before validator/handoff.
-                await host.get_tree().process_frame
+                await _next_process_frame(host.get_tree())
                 last_transition["json_wait_frames"] += 1
                 if not _alive(host):
                     config_read_job.discard(ticket)
@@ -729,7 +731,7 @@ func _preflight_async(path: String, entry: Vector2, prefetch: RefCounted, host: 
             loading_label.text = "正在检查旧路… %d%%\nEsc 返回来路" % int(validator.progress * 100.0)
         # Yield on the final batch too. The source is not handed off until the
         # caller resumes here and observes that cancellation was not requested.
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         last_transition["preflight_wall_usec"] = Time.get_ticks_usec() - wall_started
         if not _alive(host):
             last_transition["preflight_cancelled"] = true
@@ -826,10 +828,10 @@ func cancel_transition() -> void:
         cancel_requested = true
 
 
-## Preserve normal frame boundaries. Only an owned startup uses the private
-## signal; foreground travel and background refresh retain their existing waits.
+## Owned startup and foreground travel must unwind before the host leaves.
+## Ordinary callers and background refresh retain their SceneTree waits.
 func _next_process_frame(tree: SceneTree) -> Signal:
-    if startup_token == null:
+    if startup_token == null and transition_token == null:
         return tree.process_frame
     if _startup_frame_tree != tree:
         _disconnect_startup_frames()
@@ -908,6 +910,7 @@ func shutdown() -> void:
         startup_token.cancel()
     _discard_startup_config_read_ahead()
     config_read_job.shutdown()
+    save_backup_job.shutdown()
     if player_art_job != null:
         player_art_job.shutdown()
         player_art_job = null
@@ -920,7 +923,7 @@ func shutdown() -> void:
     phase = "idle"
     _clear_loading_canvas()
     _disconnect_startup_frames()
-    # All startup continuations see shutting_down and return without publishing.
+    # Owned startup/travel continuations see shutting_down and cannot publish.
     # Merely setting token.cancelled leaves its await stack alive if no next
     # SceneTree frame exists, which leaks the token on Godot 4.6.1 at exit.
     _wake_startup_frame()
@@ -990,7 +993,7 @@ func _evict_budgeted(host: Node) -> bool:
             unloaded_nodes += 1
             operations += 1
         _measure_batch(operations, started, "max_unload_operations")
-        await host.get_tree().process_frame
+        await _next_process_frame(host.get_tree())
         if not _alive(host):
             return false
         _cancel_input()
@@ -1513,7 +1516,65 @@ func _finish_budgeted(host: Node, cancellable: bool) -> bool:
         if phase == "startup" and not _startup_config_context_valid(host, finish_tree, last_transition.startup_config_lease): return false
         _cancel_input()
     last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
-    return not (cancellable and cancel_requested)
+    if cancellable and cancel_requested:
+        return false
+    var warmed: bool = await _warm_arrival_save_backup(host,cancellable)
+    last_transition["commit_wall_usec"] = Time.get_ticks_usec() - wall_started
+    return warmed
+
+
+## Only the settled source is mirrored. The target checkpoint, rewards and
+## generation still publish together inside the original non-yielding boundary.
+## A cancelled transition may finish this source-only maintenance; shutdown
+## joins its one owned worker before the host releases the loader.
+func _warm_arrival_save_backup(host: Node, cancellable: bool) -> bool:
+    if not host.world_mode or host.world_state == null or host.world_save_blocked or host.world_save_failure_injected_for_validation:
+        return true
+    var tree := host.get_tree()
+    var expected_generation := generation
+    var route_generation := ROUTES.cached_generation()
+    var began := Time.get_ticks_usec()
+    var retiring_frames := 0
+    # Rollback must not race a still-running source backup from the cancelled
+    # target. Keep yielding; only whole-host shutdown joins an unfinished job.
+    while save_backup_job.busy():
+        if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable): return false
+        await _next_process_frame(tree)
+        retiring_frames += 1
+        if not _alive(host): return false
+        _cancel_input()
+    if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable): return false
+    var admission_started := Time.get_ticks_usec()
+    save_backup_job.take()
+    var digest: String = host.world_state.backup_source_hash(host.world_save_path)
+    var already_verified: bool = not digest.is_empty() and host.world_state._backup_matches(host.world_save_path,digest)
+    last_transition["save_backup_already_verified"] = already_verified
+    var admitted := not digest.is_empty() and not already_verified and save_backup_job.begin(host.world_save_path,digest)
+    last_transition["save_backup_main_usec"] = Time.get_ticks_usec()-admission_started
+    last_transition["commit_work_usec"] = int(last_transition.get("commit_work_usec",0))+int(last_transition.save_backup_main_usec)
+    _measure_batch(1,admission_started,"max_save_backup_operations")
+    if not admitted:
+        return true
+    var frames := 0
+    while save_backup_job.busy():
+        if not _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable):
+            return false
+        await _next_process_frame(tree)
+        frames += 1
+        if not _alive(host): return false
+        if phase == "startup" and not _startup_config_context_valid(host,tree,last_transition.startup_config_lease): return false
+        _cancel_input()
+    var result: Dictionary = save_backup_job.take()
+    result["wait_frames"] = frames
+    result["retiring_frames"] = retiring_frames
+    result["wall_usec"] = Time.get_ticks_usec()-began
+    result["role"] = "startup" if phase == "startup" else ("target" if cancellable else "rollback")
+    var attempts: Array = last_transition.get("save_backup_attempts",[])
+    attempts.append(result)
+    last_transition["save_backup_attempts"] = attempts
+    # Any stale/unwritable backup simply leaves write_candidate's original
+    # verified-copy path in charge. Preparation cannot authorize a target write.
+    return _catalog_context_valid(host,tree,expected_generation,route_generation,cancellable)
 
 
 func _set_destination(host: Node, path: String, entry: Vector2, previous_id: String, target: Dictionary) -> void:
@@ -1721,6 +1782,8 @@ func _run_owned_passage_transition(token: RefCounted, host: Node, path: String, 
     token.finished = true
     if transition_token == token:
         transition_token = null
+        if startup_token == null:
+            _disconnect_startup_frames()
     if token.cancelled or not _alive(host):
         phase = "idle"
         cancel_requested = false
@@ -1759,6 +1822,8 @@ func _run_owned_transition(token: RefCounted, host: Node, path: String, entry: V
     token.finished = true
     if transition_token == token:
         transition_token = null
+        if startup_token == null:
+            _disconnect_startup_frames()
     if _alive(host):
         host.world_portal_request_pending = false
     if token.cancelled or not _alive(host):

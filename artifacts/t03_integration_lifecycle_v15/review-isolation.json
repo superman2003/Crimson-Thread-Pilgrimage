@@ -1,0 +1,15 @@
+{
+  "review_branch": "codex/t03-engine-process-observation-v15",
+  "review_base": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+  "implementation_commit": "6a0e0cf157c6d26680277cb9fd0ef5f9d0df0637",
+  "changed_files": [
+    "docs/RUNTIME_SOAK.md",
+    "godot/scripts/runtime_soak_validation.gd",
+    "tools/run_runtime_soak.py",
+    "tools/test_runtime_soak_metrics.py",
+    ".github/workflows/runtime-lifecycle-soak.yml"
+  ],
+  "integration_commit": "9db93359da50e4583554a1eba102e1afc7906c2c",
+  "production_gameplay_unchanged": true,
+  "ci_checkout_exact_head": true
+}

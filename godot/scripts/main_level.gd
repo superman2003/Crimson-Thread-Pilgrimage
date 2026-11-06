@@ -925,6 +925,7 @@ func _finish_region_spawn() -> void:
 
 
 func _bind_region_audio() -> void:
+    audio_director.configure_ambience(config, self)
     audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
 
 
@@ -1130,7 +1131,7 @@ func _exit_tree() -> void:
 func _release_region_audio() -> void:
     # Preserve phrase position while the actual player still owns playback.
     # The Director exits after this host has already detached every stream.
-    if is_instance_valid(audio_director):audio_director._remember_explore_position()
+    if is_instance_valid(audio_director):audio_director.release_region_audio()
     # Snapshot weak playback/stream handles before stopping and detaching any
     # owned players. AudioServer can retain a completed Ogg voice until its next
     # mix tick, so the shutdown probe drains these exact objects afterward.
@@ -2392,12 +2393,12 @@ func _begin_audio() -> void:
 
 
 func _start_audio_explore() -> void:
-    if is_instance_valid(audio_director) and audio_director.autoplay_enabled:
+    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
         audio_director._play_explore_track(audio_director._explore_track_path())
 
 
 func _start_audio_ambience() -> void:
-    if is_instance_valid(audio_director) and audio_director.autoplay_enabled:
+    if not is_queued_for_deletion() and is_instance_valid(audio_director) and audio_director.autoplay_enabled:
         audio_director._start_ambience()
 
 

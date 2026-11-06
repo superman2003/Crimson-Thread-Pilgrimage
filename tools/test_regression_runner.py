@@ -39,6 +39,27 @@ class CompletionContractTests(unittest.TestCase):
                 self.assertEqual(launch.call_args.kwargs['timeout'], 0.05)
                 self.assertEqual(failures, ['world_neighbor_gameplay: timeout after 0.05s'])
 
+    def test_audio_completion_cannot_hide_exit_leaks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scripts = root / 'godot/scripts'
+            scripts.mkdir(parents=True)
+            (scripts / 'audio_construction_validation.gd').touch()
+            logs = root / 'logs'
+            logs.mkdir()
+            for warning in ['', 'WARNING: ObjectDB instances leaked at exit',
+                            'ERROR: 2 resources still in use',
+                            'Leaked instance: AudioStreamOggVorbis',
+                            'A function exited without its completion']:
+                def execute(command, **kwargs):
+                    kwargs['stdout'].write('AUDIO_CONSTRUCTION checks=200 failures=0\n' + warning)
+                    return subprocess.CompletedProcess(command, 0)
+                with self.subTest(warning=warning), patch.object(runner, 'ROOT', root), patch.object(
+                    runner.subprocess, 'run', side_effect=execute
+                ):
+                    failures = run_suites('godot', ['audio_construction'], None, logs, root, False, {})
+                    self.assertEqual(bool(failures), bool(warning))
+
     def test_slow_streaming_suites_have_measured_headroom(self):
         # Each override names a real default suite (a typo would silently keep 180s)
         # and leaves at least twice the slowest passing CI duration measured.
@@ -59,6 +80,7 @@ class CompletionContractTests(unittest.TestCase):
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
             'player_basic_attack_vfx', 'dialog_viewport_fit',
             'player_idle_motion', 'item_art_prewarm', 'npc_dialogue_motion',
+            'spatial_ambience', 'spatial_ambience_world',
             'dialog_dpad_focus',
             'reading_scroll',
             'boss_move_matrix',
@@ -78,6 +100,8 @@ class CompletionContractTests(unittest.TestCase):
             'hazard_readability',
             'audio_construction',
             'settings_construction',
+            'world_save_backup',
+            'map_group_framing',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still

@@ -50,6 +50,40 @@ def resident_bytes(pid):
         return None
 
 
+def engine_process_id(receipt, result_file):
+    """Read this run's engine-owned identity, never a console wrapper's PID."""
+    try:
+        value = json.loads(receipt.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+    if not isinstance(value, dict) or type(value.get('schema')) is not int or value['schema'] != 1 or value.get('output') != result_file.as_posix():
+        return None
+    pid = value.get('engine_pid')
+    return pid if type(pid) is int and pid > 0 else None
+
+
+def process_memory_errors(engine_pid, result, readings):
+    if type(engine_pid) is not int or engine_pid <= 0 or type(result.get('engine_pid')) is not int or result['engine_pid'] != engine_pid:
+        return ['engine process identity is missing or does not match final metrics']
+    if any(row.get('pid') is not None and (type(row['pid']) is not int or row['pid'] != engine_pid) for row in readings):
+        return ['process memory samples include a different process']
+    if not any(row.get('pid') == engine_pid and type(row.get('resident_bytes')) is int and row['resident_bytes'] > 0 for row in readings):
+        return ['no resident-memory sample from the actual engine process']
+    return []
+
+
+def terminate_process_tree(proc):
+    if proc.poll() is not None:
+        return
+    # Godot's Windows console launcher owns a separate engine process. Killing
+    # only the launcher leaves the renderer, audio and save writer running.
+    if os.name == 'nt':
+        subprocess.run(['taskkill', '/PID', str(proc.pid), '/T', '/F'],
+                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=15)
+    else:
+        proc.kill()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
@@ -76,6 +110,8 @@ def main():
     readings = []
     timed_out = False
     result_file = logs/'engine_metrics.json'
+    process_receipt = Path(str(result_file)+'.process.json')
+    engine_pid = None
     # A fresh run must never reuse a previous run's successful engine output.
     if result_file.exists():
         raise RuntimeError('use a new log directory; engine_metrics.json already exists')
@@ -92,16 +128,19 @@ def main():
             print(f'RUNTIME_SOAK_STARTED pid={proc.pid} revision={revision} requested_seconds={args.seconds}', flush=True)
             try:
                 while proc.poll() is None:
-                    readings.append({'elapsed_seconds': time.monotonic()-started, 'resident_bytes': resident_bytes(proc.pid)})
+                    if engine_pid is None:
+                        engine_pid = engine_process_id(process_receipt, result_file)
+                    readings.append({'elapsed_seconds': time.monotonic()-started, 'pid': engine_pid,
+                                     'resident_bytes': resident_bytes(engine_pid) if engine_pid is not None else None})
                     if time.monotonic()-started > args.seconds+600:
                         timed_out = True
-                        proc.kill()
+                        terminate_process_tree(proc)
                         break
                     time.sleep(5)
                 exit_code = proc.wait(timeout=15)
             finally:
                 if proc.poll() is None:
-                    proc.kill()
+                    terminate_process_tree(proc)
                     proc.wait(timeout=15)
     plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', (logs/'runtime.log').read_text(encoding='utf-8', errors='replace'))
     engine_errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)
@@ -111,6 +150,7 @@ def main():
     result = json.loads(result_file.read_text(encoding='utf-8')) if result_file.exists() else {}
     assessment = evaluate(result, args.seconds)
     errors = assessment['errors']
+    errors.extend(process_memory_errors(engine_pid, result, readings))
     if exit_code or timed_out or engine_errors or not re.search(r'^RUNTIME_SOAK_PASS ', plain, re.MULTILINE):
         errors.append(f'engine failed: exit={exit_code} timeout={timed_out} errors={len(engine_errors)}')
     if any('ObjectDB instances leaked' in item or 'resources still in use' in item for item in warnings):
@@ -120,7 +160,8 @@ def main():
     assessment['passed'] = not errors
     assessment['long_session'] = args.seconds >= 1800 and not errors
     report = {'revision': revision, 'engine_version': version, 'renderer': 'native GL' if args.native_gl else 'software GL', 'command': command, 'wall_seconds': time.monotonic()-started, 'exit_code': exit_code,
-              'source_changes': changed, 'engine_errors': engine_errors, 'warnings': warnings, 'process_memory_samples': readings, 'assessment': assessment}
+              'source_changes': changed, 'engine_errors': engine_errors, 'warnings': warnings,
+              'launcher_pid': proc.pid, 'engine_pid': engine_pid, 'process_memory_samples': readings, 'assessment': assessment}
     (logs/'verification.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(assessment, ensure_ascii=False), flush=True)
     return 0 if assessment['passed'] else 1

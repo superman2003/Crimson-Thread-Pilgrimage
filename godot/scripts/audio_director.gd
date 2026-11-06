@@ -55,6 +55,7 @@ const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "amb
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
 var music_retry_after: Dictionary = {}
+var ambient_soundscape := preload("res://scripts/ambient_soundscape.gd").new()
 var landmark_spatial_refresh:=preload("res://scripts/landmark_spatial_refresh.gd").new()
 var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
 var volume_preferences_dirty := false
@@ -187,6 +188,8 @@ var ai_poll_accum := 0.0
 var combat_calm_time := 0.0
 var shrine_anchor := Vector2.ZERO
 var shrine_engaged := false
+# A retired preparation must never reacquire playback before eviction completes.
+var region_audio_released := false
 
 
 func _ready() -> void:
@@ -196,29 +199,45 @@ func _ready() -> void:
     _load_user_volumes()
 
 
-func _exit_tree() -> void:
-    room_reverb_mix.release(self)
-    _clear_duck_layers(instance == self)
+## Called while the host still owns its children, including its external BGM.
+## Idempotent for partial preparation, rollback and the later tree-exit callback.
+func release_region_audio() -> void:
+    if region_audio_released:
+        return
     _remember_explore_position()
-    if _explore_owners.get(_explore_path, 0) == get_instance_id():
-        _explore_owners.erase(_explore_path)
-    # Stop local envelopes before retirement. Global mix belongs to the latest
-    # director; a queued old scene must never strip a new scene's death/HP filter.
+    region_audio_released = true
+    autoplay_enabled = false
+    set_process(false)
+    ambient_soundscape.clear()
+    for timer in [oneshot_timer, anvil_timer]:
+        if is_instance_valid(timer):
+            timer.stop()
     for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, hidden_drone_tween, low_hp_tween, death_tween]:
         if tween != null and tween.is_valid():
             tween.kill()
     for tween in bus_tweens.values() + reverb_tweens.values():
         if tween != null and tween.is_valid():
             tween.kill()
+    # The exploration player is owned by Main rather than this director.
+    # Capture it explicitly; tree exit runs children before their parent.
     for voice in [explore_player, combat_player, boss_player, lullaby_player, stinger_player, transit_player, hidden_drone_player, ambience_bed_player, _npc_voice_player]:
-        if voice != null and is_instance_valid(voice):
+        if is_instance_valid(voice):
+            preload("res://scripts/audio_retirement.gd").watch_player(voice)
             voice.stop()
             voice.stream = null
+
+
+func _exit_tree() -> void:
+    release_region_audio()
+    room_reverb_mix.release(self)
+    _clear_duck_layers(instance == self)
+    if _explore_owners.get(_explore_path, 0) == get_instance_id():
+        _explore_owners.erase(_explore_path)
     if instance != null and instance != self:
         return
     if instance == self:
         instance = null
-    # 总线是全局状态：摘除死亡/濒死滤波，避免跨章节残留（音量复位由 main_level 兜底）。
+    # Global filters belong to the newest director during scene handoff.
     _clear_death_lowpass()
     if low_hp_active:
         set_low_hp(false)
@@ -453,6 +472,7 @@ func engage_shrine(anchor: Vector2) -> void:
 
 func _process(delta: float) -> void:
     _tick_shrine_lullaby()
+    ambient_soundscape.tick(self, runtime_player as Node2D)
     ai_poll_accum += delta
     if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
         return
@@ -551,6 +571,10 @@ func attach_explore_player(player: AudioStreamPlayer) -> void:
     explore_player = player
 
 
+func configure_ambience(config: Dictionary, host: Node2D) -> void:
+    ambient_soundscape.configure(config,host)
+
+
 func set_chapter(chapter_id: String) -> void:
     prepare_chapter(chapter_id)
     if not autoplay_enabled:
@@ -562,6 +586,7 @@ func set_chapter(chapter_id: String) -> void:
 ## World preparation admits exploration and ambience on separate budgeted jobs.
 ## Direct callers retain the synchronous set_chapter entry above.
 func prepare_chapter(chapter_id: String) -> void:
+    ambient_soundscape.clear()
     chapter_short_id = _short_chapter_id(chapter_id)
     _capture_base_reverb()
 
@@ -598,6 +623,8 @@ func _boss_track_path(boss_id: String, phase: int) -> String:
 
 
 func _play_explore_track(path: String) -> void:
+    if region_audio_released:
+        return
     var stream := load_cached(path, true)
     if stream == null:
         return
@@ -705,6 +732,7 @@ func _fade_explore_resume(seconds: float) -> void:
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
 func enter_combat() -> void:
+    ambient_soundscape.stop()
     _stop_npc_landmarks()
     if boss_active or combat_active:
         return
@@ -789,6 +817,7 @@ func _music_candidate(path: String) -> AudioStream:
     return stream
 
 func start_boss_music(boss_id: String) -> void:
+    ambient_soundscape.stop()
     _stop_npc_landmarks()
     if boss_active and active_boss_id == boss_id \
             and boss_player != null and is_instance_valid(boss_player) and boss_player.playing:
@@ -943,6 +972,8 @@ func play_stinger(key: String) -> void:
 # ---- 环境床与稀疏 one-shot（规格 §4.6）----
 
 func _start_ambience() -> void:
+    if region_audio_released:
+        return
     var bed_stream := load_cached(_ambience_bed_path(), true)
     if bed_stream != null:
         if ambience_bed_player == null or not is_instance_valid(ambience_bed_player):
@@ -983,34 +1014,17 @@ func _probe_oneshot_variant_count() -> int:
 
 func _on_oneshot_timer() -> void:
     if oneshot_variant_count > 0:
-        var path := "res://assets/audio/ambience/amb_%s_os_%d.ogg" % [chapter_short_id, randi_range(1, oneshot_variant_count)]
-        _play_ambience_oneshot(path, AMBIENCE_ONESHOT_DB)
+        _play_ambience_oneshot(AMBIENCE_ONESHOT_DB)
     oneshot_timer.start(randf_range(ONESHOT_INTERVAL_MIN_S, ONESHOT_INTERVAL_MAX_S))
 
 
 func _on_anvil_timer() -> void:
-    _play_ambience_oneshot("res://assets/audio/ambience/amb_ch02_anvil_far.ogg", ANVIL_FAR_DB)
+    _play_ambience_oneshot(ANVIL_FAR_DB, "anvil")
     anvil_timer.start(randf_range(ANVIL_INTERVAL_MIN_S, ANVIL_INTERVAL_MAX_S))
 
 
-func _play_ambience_oneshot(path: String, volume_db: float) -> void:
-    if not autoplay_enabled:
-        return
-    var voice_ticket := reserve_voice("amb_oneshot", 2, 250, 2)
-    if voice_ticket == 0:
-        return
-    var stream := load_cached(path)
-    if stream == null:
-        release_ticket(voice_ticket)
-        return
-    var player_node := AudioStreamPlayer.new()
-    player_node.name = "AmbienceOneShot"
-    player_node.bus = _bus_or("Ambience", "Master")
-    player_node.stream = stream
-    player_node.volume_db = volume_db
-    add_child(player_node)
-    player_node.finished.connect(Callable(player_node, "queue_free"))
-    start_reserved_voice(voice_ticket,player_node)
+func _play_ambience_oneshot(volume_db: float, family: String = "regional") -> bool:
+    return ambient_soundscape.play_nearby(self,runtime_player as Node2D,volume_db,family)
 
 
 # ---- 混音状态（规格 §5.3/§5.5）----
@@ -1062,6 +1076,7 @@ func on_dialogue(open: bool) -> void:
     if open == dialogue_open:
         return
     dialogue_open = open
+    if open:ambient_soundscape.stop()
     if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
         _npc_voice_player.stop()
     # Dialogue changes the baseline; independent transient ducks keep their leases.
@@ -1077,6 +1092,8 @@ func on_key_item_pickup() -> void:
 ## 章节转场（main_level._activate_chapter_exit 调用）：BGM 总线 0.5s 淡出；
 ## 新章 _ensure_audio_buses + _load_user_volumes 会复位到用户基准。
 func begin_chapter_transition() -> void:
+    ambient_soundscape.transitioning = true
+    ambient_soundscape.stop()
     _clear_duck_layers()
     _stop_npc_landmarks()
     set_hidden_zone(false)
@@ -1084,6 +1101,7 @@ func begin_chapter_transition() -> void:
 
 
 func cancel_chapter_transition() -> void:
+    ambient_soundscape.transitioning = false
     var transition: Tween = bus_tweens.get("BGM")
     if transition != null and transition.is_valid():
         transition.kill()
@@ -1218,6 +1236,7 @@ func set_low_hp(active: bool) -> void:
 
 ## 玩家死亡：全总线 300Hz 低通（挂 Master）+ duck，1.6s 后自清防跨场景残留。
 func on_player_death() -> void:
+    ambient_soundscape.stop()
     duck(-10.0, 1.2)
     var master_index := AudioServer.get_bus_index("Master")
     if master_index == -1:
@@ -1585,4 +1604,5 @@ func foreground_warning(source: Node2D) -> void:
     if instance != self or not is_inside_tree() or not is_instance_valid(source) or not source.is_inside_tree() or not runtime_player is Node2D or not is_instance_valid(runtime_player):return
     if source.get_world_2d() != runtime_player.get_world_2d() or source.global_position.distance_squared_to(runtime_player.global_position) > 900.0 * 900.0:return
     _stop_npc_landmarks()
+    ambient_soundscape.stop()
     duck(-4.0,0.35,0.04,0.3)

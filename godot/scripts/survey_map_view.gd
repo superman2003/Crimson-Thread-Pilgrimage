@@ -91,6 +91,30 @@ func center_on(point: Vector2, minimum_zoom: float=2.0) -> bool:
     content.position=size*0.5-point*zoom
     clamp_pan()
     return true
+## Fit a public group into the same fixed paper coordinates used by markers.
+## Invalid input must leave camera/navigation state unchanged.
+func frame_bounds(bounds: Rect2, padding: float = 36.0) -> bool:
+    if not is_instance_valid(content) or not is_finite(padding) or padding<0:
+        return false
+    if not bounds.position.is_finite() or not bounds.size.is_finite() or bounds.size.x<=0 or bounds.size.y<=0:
+        return false
+    if not size.is_finite() or not content.size.is_finite() or content.size.x<=0 or content.size.y<=0:
+        return false
+    if not Rect2(Vector2.ZERO,content.size).encloses(bounds):
+        return false
+    var available := size-Vector2.ONE*padding*2
+    if available.x<=0 or available.y<=0:
+        return false
+    var fit := minf(available.x/bounds.size.x,available.y/bounds.size.y)
+    if not is_finite(fit) or fit<=0:
+        return false
+    _cancel_navigation()
+    zoom=clampf(fit,1.0,4.0)
+    content.scale=Vector2.ONE*zoom
+    content.position=size*0.5-bounds.get_center()*zoom
+    clamp_pan()
+    return true
+
 func _gui_input(event: InputEvent) -> void:
     if not navigation_available():_cancel_navigation();return
     if event is InputEventMagnifyGesture:

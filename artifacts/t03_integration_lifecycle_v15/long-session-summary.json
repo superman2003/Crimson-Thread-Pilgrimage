@@ -1,0 +1,63 @@
+{
+  "integration_commit": "9db93359da50e4583554a1eba102e1afc7906c2c",
+  "source_files": 9934,
+  "sources_equal_after_exit": true,
+  "source_changes": [],
+  "launcher_pid": 22536,
+  "engine_pid": 32772,
+  "wall_seconds": 1957.7810000000027,
+  "measured_seconds": 1843.836,
+  "cycles": 35,
+  "transitions": 245,
+  "deaths": 35,
+  "ui_opens": 735,
+  "dialogue_opens": 245,
+  "attack_inputs": 245,
+  "observed_defeats": 210,
+  "final_orphans": 0,
+  "audio_drained": true,
+  "remaining_voices": 0,
+  "nodes": [
+    1476,
+    1478
+  ],
+  "frame_max_usec": 1825181,
+  "assessment": {
+    "passed": true,
+    "errors": [],
+    "long_session": true,
+    "net_static_growth_bytes": 2774979,
+    "static_growth_bytes_per_minute": 95216.4846362629,
+    "budgets": {
+      "net_static_growth_bytes": 67108864,
+      "static_growth_bytes_per_minute": 1048576
+    },
+    "scope": "lifecycle fixtures; does not prove natural routes, difficulty, target-hardware FPS or human comfort"
+  },
+  "engine_errors": [],
+  "warnings": [],
+  "compression": {
+    "frozen-30min/runtime.log": {
+      "gzip": "frozen-30min/runtime.log.gz",
+      "original_bytes": 1065802,
+      "original_sha256": "ec54277ee5382bbbad71ddb067aaf4fb0e6ccf6fcc42523149176692d5ba308e",
+      "gzip_sha256": "5a7104c7afb9bb8be4d0997a761bdfb0c27df0b5e8ef6a8d8d4ea80ec5939171"
+    },
+    "frozen-30min/sources_before.json": {
+      "gzip": "frozen-30min/sources_before.json.gz",
+      "original_bytes": 1577278,
+      "original_sha256": "87acfcffec6c02adafcb0ccfec113c683c5a5a92296b9e33521d6ba48d6f5fe5",
+      "gzip_sha256": "2e585df879475764f6efffab1ab6e0bbc88d819e2e3130143a0e13d61eb97096"
+    },
+    "negative-wrapper-pid/runtime.log": {
+      "gzip": "negative-wrapper-pid/runtime.log.gz",
+      "original_bytes": 162065,
+      "original_sha256": "74800b0d93d7fefd54f6ba82665495813d1ca86c98d70693e7fcc4c8e7f8008c",
+      "gzip_sha256": "cec441ed9d107fb98a4c55e7cb84ed787a93f6cef0887bebebaf0a646c6d681f"
+    }
+  },
+  "actual_engine_rss_range": [
+    296136704,
+    542720000
+  ]
+}

@@ -8,6 +8,7 @@ var checks := 0
 var failures := 0
 var world: Node
 var cancel_stage := ""
+var exit_stage := ""
 var observed := {}
 var work: Array = []
 
@@ -54,6 +55,25 @@ func state(host: Node) -> Dictionary:
 
 func retire_host(host: Node) -> void:
     host._release_region_audio()
+    var director: Node = host.audio_director
+    check(director.region_audio_released and not director.autoplay_enabled,
+        "release invalidates the director before budgeted eviction")
+    # Late calls model continuations already queued when cancellation was seen.
+    # Both public host stages and direct director stages must stay retired.
+    host._start_audio_explore()
+    host._start_audio_ambience()
+    director._play_explore_track(director._explore_track_path())
+    director._start_ambience()
+    host._release_region_audio()
+    check(host.bgm_player == null or host.bgm_player.stream == null,
+        "repeated release and late exploration cannot reacquire playback")
+    check(director.ambience_bed_player == null or director.ambience_bed_player.stream == null,
+        "late ambience cannot reacquire playback")
+    for timer in [director.oneshot_timer, director.anvil_timer]:
+        if is_instance_valid(timer): check(timer.is_stopped(), "retired ambience timers remain stopped")
+    for tween in [director.explore_tween, director.transit_tween]:
+        check(tween == null or not tween.is_valid(), "retirement cancels audio envelopes before eviction")
+    check(await RETIRE.drain(self), "streams retire while the released director is still alive")
     host.free()
     await process_frame
     check(await RETIRE.drain(self), "all staged streams and playbacks retire")
@@ -102,10 +122,14 @@ func chapter_fixture(id: String) -> void:
     await retire_host(synchronous)
 
 func observe_stage(stage: String) -> void:
-    if stage != cancel_stage or world.world_loader.phase != "loading": return
+    if (stage != cancel_stage and stage != exit_stage) or world.world_loader.phase != "loading": return
+    var exiting := stage == exit_stage
     cancel_stage = ""
+    exit_stage = ""
     var director: Node = world.audio_director
     var refs: Array[WeakRef] = [weakref(director)]
+    if world.world_loader.transition_token != null:
+        refs.append(weakref(world.world_loader.transition_token))
     var streams := 0
     for player in [director.explore_player,director.ambience_bed_player]:
         if is_instance_valid(player) and player.stream != null:
@@ -113,7 +137,8 @@ func observe_stage(stage: String) -> void:
             refs.append(weakref(player.stream))
             if player.has_stream_playback(): refs.append(weakref(player.get_stream_playback()))
     observed = {"stage":stage,"target":String(world.config.id),"stream_count":streams,"refs":refs}
-    world.world_loader.cancel_transition()
+    if exiting: world.queue_free()
+    else: world.world_loader.cancel_transition()
 
 func progress() -> String:
     return var_to_str([world.currency_count,world.inventory_counts,world.story_flags,world.build_system.serialize(),world.player.hp,world.player.energy])
@@ -152,6 +177,55 @@ func cancel_audio(stage: String) -> void:
     work.append({"cancel_stage":stage,"stream_count":observed.get("stream_count",-1),"source_restored":String(world.config.id)})
     observed.clear()
 
+
+func exit_partial_audio(stage: String) -> void:
+    const SAVE := "user://audio_construction_exit_validation.json"
+    world = ObservedWorld.new()
+    world.world_mode = true
+    world.world_resume = false
+    world.world_save_path = SAVE
+    world.audio_stage.connect(observe_stage)
+    root.add_child(world)
+    for unused in 4000:
+        if world.initial_region_ready: break
+        await process_frame
+    check(world.initial_region_ready, "exit fixture publishes source before requesting travel")
+    if not world.initial_region_ready:
+        world.free()
+        world = null
+        return
+    current_scene = world
+    var source: String = world.config.id
+    var host_ref: WeakRef = weakref(world)
+    var loader_ref: WeakRef = weakref(world.world_loader)
+    var path := ROUTES.config_path("demo_ch02_rain_foundry_canal")
+    var target: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+    observed = {}
+    exit_stage = stage
+    world._request_world_travel(path,Vector2(target.player_start[0],target.player_start[1]))
+    for unused in 4000:
+        if host_ref.get_ref() == null: break
+        await process_frame
+    check(host_ref.get_ref() == null, "actual World exits during " + stage + " preparation")
+    check(not observed.is_empty() and String(observed.get("stage","")) == stage,
+        "exit reaches the requested production audio stage")
+    var expected := {"begin":0,"explore":1,"ambience":2}
+    check(int(observed.get("stream_count",-1)) == int(expected[stage]), "exit captures exactly the admitted destination streams")
+    world = null
+    current_scene = null
+    await process_frame
+    check(await RETIRE.drain(self), "tree-exit fallback observes and retires partial playback")
+    check(loader_ref.get_ref() == null, "host exit releases its suspended region loader")
+    for reference in observed.get("refs",[]):
+        check(reference.get_ref() == null, "host exit releases partial director, stream and playback")
+    check(DIRECTOR.instance == null and DIRECTOR._stream_cache.is_empty(), "partial host exit releases singleton and cache")
+    var saved: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SAVE))
+    check(String(saved.get("current_region","")) == source, "host exit never saves a partially prepared destination")
+    work.append({"exit_stage":stage,"source_save":source,"stream_count":observed.get("stream_count",-1)})
+    observed.clear()
+    for suffix in ["", ".bak", ".tmp"]:
+        DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
+
 func run() -> void:
     root.process_mode = Node.PROCESS_MODE_DISABLED
     for id in ROUTES._data().chapters:
@@ -175,7 +249,8 @@ func run() -> void:
     await process_frame
     check(await RETIRE.drain(self), "final World audio drains")
     check(DIRECTOR.instance == null and DIRECTOR._stream_cache.is_empty(), "final World releases audio owner and stream cache")
-    var output := ProjectSettings.globalize_path("res://../artifacts/audio_construction_v13")
+    for stage in ["begin","explore","ambience"]: await exit_partial_audio(stage)
+    var output := ProjectSettings.globalize_path("res://../artifacts/audio_preparation_retirement_v22")
     DirAccess.make_dir_recursive_absolute(output)
     var file := FileAccess.open(output.path_join("job-contract.json"),FileAccess.WRITE)
     file.store_string(JSON.stringify({"checks":checks,"failures":failures,"work":work},"  "))

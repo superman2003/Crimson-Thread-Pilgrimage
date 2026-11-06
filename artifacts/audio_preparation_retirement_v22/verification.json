@@ -1,0 +1,368 @@
+{
+  "software-gl": {
+    "passed": true,
+    "suites": 9,
+    "results": [
+      {
+        "suite": "audio_construction",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "753c1522e9035777b36690e0c24a0db0942a6437ffd31cbdbe4825b2a45bb37d"
+      },
+      {
+        "suite": "audio_retirement",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "ac0f4103ad1add47cf3e17c36070cd4541f4982004b4a611059f714ced6d5629"
+      },
+      {
+        "suite": "audio_landmarks",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "0b43eae189822147d62cb7cbfb4f6ade9b304072d538e4f895260a6c715d7f72"
+      },
+      {
+        "suite": "spatial_ambience",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "f83a36bacc04205daee623c1914408eb1ea4df69301c1b3cabbe2c04b5a4bda1"
+      },
+      {
+        "suite": "spatial_ambience_world",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "a87011b7f6b70966729140962c1dd170778fb448b96ec9eae4d29b8b4bdc4f4d"
+      },
+      {
+        "suite": "item_art_prewarm",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "26710590b5c6815c2a673e6c86330e0b472530782c43d94966bea3b02261002d"
+      },
+      {
+        "suite": "world_prepare_budget",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "d03b163df6c6299c3d8beaa313b46d36d7b2be25d4e5df895a6e5ed13e5caee0"
+      },
+      {
+        "suite": "world_save_backup",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "43fb12b1f9ee852bcf747478ad37f9a1467ea38c2dd79cae6b4f1cd9089fcb28"
+      },
+      {
+        "suite": "world_async_loading",
+        "errors": [],
+        "leaks": [],
+        "warnings": [
+          "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+        ],
+        "sha256": "5f816e951adb44b1f96cdfa374277a4dc662af24ec2314f41e04ae977a495af4"
+      }
+    ]
+  },
+  "headless": {
+    "passed": true,
+    "suites": 3,
+    "results": [
+      {
+        "suite": "audio_retirement",
+        "errors": [],
+        "leaks": [],
+        "warnings": [],
+        "sha256": "1b5cfb46776004d86c261fafd89e81a6bce999afb0e695cbc4f8c25b79a77b0b"
+      },
+      {
+        "suite": "world_host",
+        "errors": [],
+        "leaks": [],
+        "warnings": [],
+        "sha256": "b312455a8481b1a99103ed07b94f4a609f3c8149d17d669ca28e1b98f0a95305"
+      },
+      {
+        "suite": "world_startup_budget",
+        "errors": [],
+        "leaks": [],
+        "warnings": [],
+        "sha256": "c20452ac32592992163eb30bcd0897edd8fcd7dbbe853863fefea96916c53c3a"
+      }
+    ]
+  },
+  "lifecycle-smoke": {
+    "runner_passed": false,
+    "assessment": {
+      "passed": false,
+      "errors": [
+        "no resident-memory sample from the actual engine process"
+      ],
+      "long_session": false,
+      "net_static_growth_bytes": 0,
+      "static_growth_bytes_per_minute": null,
+      "budgets": {
+        "net_static_growth_bytes": 67108864,
+        "static_growth_bytes_per_minute": 1048576
+      },
+      "scope": "lifecycle fixtures; does not prove natural routes, difficulty, target-hardware FPS or human comfort"
+    },
+    "engine_exit_code": 0,
+    "engine_errors": [],
+    "source_changes": [],
+    "metrics": {
+      "attack_inputs": 21,
+      "audio_drained": true,
+      "cycles": 3,
+      "deaths": 3,
+      "dialogue_opens": 21,
+      "engine_pid": 13,
+      "failures": [],
+      "final_orphans": 0,
+      "frame_bin_counts": [
+        23,
+        486,
+        3716,
+        1806,
+        278,
+        6,
+        0,
+        1
+      ],
+      "frame_bins_usec": [
+        8000,
+        16667,
+        33334,
+        50000,
+        100000,
+        250000,
+        500000
+      ],
+      "frame_max_usec": 1546649,
+      "frames": 6316,
+      "initial_orphans": 0,
+      "measured_seconds": 54.953,
+      "observed_defeats": 18,
+      "peak_static_memory_bytes": 155307377,
+      "peak_texture_memory_bytes": 1677070501,
+      "remaining_voices": 0,
+      "requested_seconds": 1.0,
+      "samples": [
+        {
+          "cycle": 1,
+          "elapsed_seconds": 0.0,
+          "measured": false,
+          "memory_bytes": 155084726,
+          "music_bookmarks": 6,
+          "node_types": {
+            "AcceptDialog": 2,
+            "AnimatableBody2D": 1,
+            "AnimatedSprite2D": 16,
+            "Area2D": 79,
+            "AudioStreamPlayer": 3,
+            "Button": 118,
+            "Camera2D": 1,
+            "CanvasLayer": 2,
+            "CharacterBody2D": 1,
+            "CheckBox": 1,
+            "CheckButton": 7,
+            "CollisionPolygon2D": 14,
+            "CollisionShape2D": 214,
+            "ColorRect": 9,
+            "ConfirmationDialog": 4,
+            "Control": 28,
+            "GridContainer": 2,
+            "HBoxContainer": 3,
+            "HSlider": 11,
+            "Label": 110,
+            "Line2D": 105,
+            "LineEdit": 2,
+            "Node": 24,
+            "Node2D": 66,
+            "OptionButton": 4,
+            "Panel": 4,
+            "PanelContainer": 1,
+            "Parallax2D": 3,
+            "Polygon2D": 150,
+            "ProgressBar": 3,
+            "RichTextLabel": 2,
+            "ScrollContainer": 4,
+            "Sprite2D": 235,
+            "StaticBody2D": 99,
+            "TextureRect": 25,
+            "Timer": 1,
+            "VBoxContainer": 3,
+            "Window": 1
+          },
+          "nodes": 1476,
+          "orphans": 109,
+          "reading_bookmarks": 6,
+          "region": "demo_ch01_moss_bell_court",
+          "resources": 754,
+          "stream_cache": 17,
+          "texture_bytes": 1677070501,
+          "voices": 0
+        },
+        {
+          "cycle": 2,
+          "elapsed_seconds": 0.0,
+          "measured": false,
+          "memory_bytes": 155214222,
+          "music_bookmarks": 6,
+          "node_types": {
+            "AcceptDialog": 2,
+            "AnimatableBody2D": 1,
+            "AnimatedSprite2D": 16,
+            "Area2D": 79,
+            "AudioStreamPlayer": 3,
+            "Button": 118,
+            "Camera2D": 1,
+            "CanvasLayer": 2,
+            "CharacterBody2D": 1,
+            "CheckBox": 1,
+            "CheckButton": 7,
+            "CollisionPolygon2D": 14,
+            "CollisionShape2D": 214,
+            "ColorRect": 9,
+            "ConfirmationDialog": 4,
+            "Control": 28,
+            "GridContainer": 2,
+            "HBoxContainer": 3,
+            "HSlider": 11,
+            "Label": 110,
+            "Line2D": 105,
+            "LineEdit": 2,
+            "Node": 24,
+            "Node2D": 66,
+            "OptionButton": 4,
+            "Panel": 4,
+            "PanelContainer": 1,
+            "Parallax2D": 3,
+            "Polygon2D": 152,
+            "ProgressBar": 3,
+            "RichTextLabel": 2,
+            "ScrollContainer": 4,
+            "Sprite2D": 235,
+            "StaticBody2D": 99,
+            "TextureRect": 25,
+            "Timer": 1,
+            "VBoxContainer": 3,
+            "Window": 1
+          },
+          "nodes": 1478,
+          "orphans": 109,
+          "reading_bookmarks": 6,
+          "region": "demo_ch01_moss_bell_court",
+          "resources": 754,
+          "stream_cache": 17,
+          "texture_bytes": 1677070501,
+          "voices": 0
+        },
+        {
+          "cycle": 3,
+          "elapsed_seconds": 54.867,
+          "measured": true,
+          "memory_bytes": 155307377,
+          "music_bookmarks": 6,
+          "node_types": {
+            "AcceptDialog": 2,
+            "AnimatableBody2D": 1,
+            "AnimatedSprite2D": 16,
+            "Area2D": 79,
+            "AudioStreamPlayer": 3,
+            "Button": 118,
+            "Camera2D": 1,
+            "CanvasLayer": 2,
+            "CharacterBody2D": 1,
+            "CheckBox": 1,
+            "CheckButton": 7,
+            "CollisionPolygon2D": 14,
+            "CollisionShape2D": 214,
+            "ColorRect": 9,
+            "ConfirmationDialog": 4,
+            "Control": 28,
+            "GridContainer": 2,
+            "HBoxContainer": 3,
+            "HSlider": 11,
+            "Label": 110,
+            "Line2D": 105,
+            "LineEdit": 2,
+            "Node": 24,
+            "Node2D": 66,
+            "OptionButton": 4,
+            "Panel": 4,
+            "PanelContainer": 1,
+            "Parallax2D": 3,
+            "Polygon2D": 150,
+            "ProgressBar": 3,
+            "RichTextLabel": 2,
+            "ScrollContainer": 4,
+            "Sprite2D": 235,
+            "StaticBody2D": 99,
+            "TextureRect": 25,
+            "Timer": 1,
+            "VBoxContainer": 3,
+            "Window": 1
+          },
+          "nodes": 1476,
+          "orphans": 109,
+          "reading_bookmarks": 6,
+          "region": "demo_ch01_moss_bell_court",
+          "resources": 754,
+          "stream_cache": 17,
+          "texture_bytes": 1677070501,
+          "voices": 0
+        }
+      ],
+      "schema": 1,
+      "scope": "lifecycle stress with explicit travel/focus/invulnerability/kill fixtures; not natural gameplay acceptance",
+      "transitions": 21,
+      "ui_opens": 63,
+      "warmup_cycles": 2
+    },
+    "limitation": "/proc is in an outer PID namespace: os.getpid=5 while /proc/self/status Pid=8866, NSpid=8866 5. No resident-memory samples were available for engine namespace PID 13. Rejection retained."
+  },
+  "negative-controls": [
+    {
+      "case": "foreground-frame-wakeup",
+      "expected_rejection": true,
+      "exit_code": 1,
+      "modified_path": "scripts/world_region_loader.gd",
+      "modified_sha256": "8ae2d32e1fe59c4e8c38eb664b7dc8eee9813204ada6808fc61437096711959a",
+      "expected_failure": "host exit releases partial director, stream and playback",
+      "script_errors": 0
+    },
+    {
+      "case": "release-before-eviction",
+      "expected_rejection": true,
+      "exit_code": 1,
+      "modified_path": "scripts/main_level.gd",
+      "modified_sha256": "7b0ca37988c938f53966b7076387bccf3f814160bfbcac86823e48d98f7d3e8d",
+      "expected_failure": "release invalidates the director before budgeted eviction",
+      "script_errors": 0
+    }
+  ],
+  "source_verification": "tested-source.json and raw lifecycle sources_before.json; all recorded changed-source bytes still match after tests"
+}

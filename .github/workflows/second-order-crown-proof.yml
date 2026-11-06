@@ -1,0 +1,33 @@
+name: Alternate crown continuation proof
+
+"on":
+  pull_request:
+    paths:
+      - .github/workflows/second-order-crown-proof.yml
+      - godot/scripts/world_second_order_playback.gd
+      - tools/run_second_order.py
+      - tools/verify_second_order*.py
+      - tools/test_verify_second_order_crown.py
+      - artifacts/t04_second_order/**
+      - artifacts/t04_second_order_greenhouse/**
+      - artifacts/t04_second_order_crown_v18/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Verify original new-save chain and exact native crown archives
+        run: |
+          python3 tools/test_verify_second_order_crown.py
+          python3 tools/verify_second_order_crown.py

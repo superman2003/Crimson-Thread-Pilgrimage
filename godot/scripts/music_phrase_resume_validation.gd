@@ -73,8 +73,15 @@ func run(tree: SceneTree, callback: Callable) -> void:
     world.process_mode=Node.PROCESS_MODE_INHERIT
     check(float(DIRECTOR._explore_resume.get(path,0.0))>=6.9,"MainLevel snapshots the outgoing phrase before retiring its players")
     check(world.audio_director.explore_player.stream==null,"normal World retirement still releases the BGM stream")
-    world.audio_director._play_explore_track(path)
-    check(absf(world.audio_director.explore_player.get_playback_position()-host_phrase)<.25,"actual World can resume after its production retirement boundary")
+    var retired_director: Node = world.audio_director
+    retired_director._play_explore_track(path)
+    check(retired_director.explore_player.stream == null,"retired director cannot restart an outgoing phrase")
+    # A new production preparation owns the resumed phrase after retirement.
+    world._build_audio()
+    world.audio_director.autoplay_enabled = true
+    world._start_audio_explore()
+    check(world.audio_director != retired_director,"fresh audio preparation replaces the retired director")
+    check(is_instance_valid(world.audio_director.explore_player) and absf(world.audio_director.explore_player.get_playback_position()-host_phrase)<.25,"actual World can resume after its production retirement boundary")
     world.queue_free()
     await tree.process_frame
     await tree.process_frame
