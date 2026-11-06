@@ -5,7 +5,7 @@ import json
 import re
 from pathlib import Path
 
-from verify_second_order_crown import verify as verify_preceding_chain
+from verify_second_order_crown import verify as verify_preceding_chain, verify_native_restore
 
 REPO = Path(__file__).resolve().parents[1]
 ROOT = REPO / "artifacts/t04_crown_resonance_return_v19"
@@ -18,6 +18,7 @@ RUNNER = "tools/run_crown_return.py"
 def verify():
     verify_preceding_chain()
     index = json.loads((ROOT / "evidence_index.json").read_text(encoding="utf-8"))
+    assert len(index) == 178, "complete published return archive set is required"
     files = {}
     for row in index:
         assert row["path"] not in files
@@ -43,6 +44,7 @@ def verify():
     folders = meta["accepted_chain"]
     assert len(folders) == 2 and len(set(folders)) == 2
     pids, proofs, frozen = [previous["pid"]], [], None
+    metrics = {"crown_return_resonance": (39, 2651, 1, 1, 0), "crown_resonance_workshop": (18, 1391, 0, 0, 0)}
     for folder, stage in zip(folders, ("crown_return_resonance", "crown_resonance_workshop")):
         result, proof = read(folder + "/result.json"), read(folder + "/checkpoint_proof.json")
         raw = files[folder + "/earned_checkpoint.json"]
@@ -68,6 +70,9 @@ def verify():
         for key in FIELDS:
             assert initial[key] == previous[key], (folder, key)
         assert initial["pid"] == proof["pid"] and proof["damage_enabled"] and proof["deaths"] == 0
+        steps, frames, damage, heals, deaths = metrics[stage]
+        assert (proof["damage_events"], proof["heals"], proof["deaths"]) == (damage, heals, deaths)
+        assert result["completion"] == f"SECOND_ORDER_STAGE stage={stage} steps={steps} physics_frames={frames} damage_events={damage} heals={heals} deaths={deaths} failures=0"
         assert proof["build"] == previous["build"] and proof["checkpoint"] == "save_hidden_upper_respite"
         assert (proof["hp"], proof["max_hp"], proof["energy"], proof["max_energy"]) == (6, 6, 100, 100)
         save = json.loads(raw)
@@ -106,29 +111,38 @@ def verify():
     assert len(re.findall(r'^SECOND_ORDER_ABILITY_EVENT .*"id":"crown_resonance"', log, re.M)) == 1
     for marker in ("CROWN_RETURN_PORTAL ", "CROWN_RETURN_CAGE_CALL_BEFORE ", "CROWN_RETURN_CAGE_CALL_AFTER "):
         assert log.count(marker) == (2 if marker == "CROWN_RETURN_PORTAL " else 1)
+    chain_pids = list(pids)
     restore = meta["accepted_restore"]
-    result = read(restore + "/result.json")
-    initial = read(restore + "/initial.json")
-    assert result["passed"] and result["head"] == meta["implementation_commit"]
-    assert read(restore + "/source_before.json") == read(restore + "/source_after.json") == frozen
-    assert initial["pid"] not in pids and files[restore + "/source_checkpoint.json"] == prior_bytes
-    for key in FIELDS:
-        assert initial[key] == l[key], key
-    assert initial["damage_events"] == initial["heals"] == initial["deaths"] == 0
+    for folder, source in (("native_J_restore01", "source_J"), (restore, folders[-1])):
+        verify_native_restore(files, folder, source, meta["implementation_commit"], frozen, pids, SCRIPT, RUNNER)
     assert "PASS independent production restore physically omits the paid R gate" in files[restore + "/runtime.log"].decode("utf-8")
     negative = "negative_attack_instead_of_R01/"
     result = read(negative + "result.json")
     assert result["exit"] == 1 and not result["passed"] and result["source_unchanged"] and not result["warnings"]
+    assert not result["timed_out"] and not result["launch_error"]
+    assert read(negative + "source_before.json") == read(negative + "source_after.json")
+    assert files[negative + "source_checkpoint.json"] == files[folders[0] + "/earned_checkpoint.json"]
     assert len(result["errors"]) == 1 and "one actual R action pays twenty thread" in result["errors"][0]
     action = read(negative + "resonance_action.json")
     assert (action["energy_before"], action["energy_after"], action["observed_actions"], action["gate_after"]) == (100, 100, 0, False)
     altered = files[negative + "playback.gd.txt"].replace(b"\r\n", b"\n")
     normal = files[folders[1] + "/playback.gd.txt"].replace(b"\r\n", b"\n")
     assert altered == normal.replace(b'Input.action_press("crown_resonance");await process_frame;await _tick(2)', b'Input.action_press("attack");await process_frame;await _tick(2)')
+    attempts = {f"calibration_return{x:02}" for x in range(1, 5)} | {f"calibration_workshop{x:02}" for x in range(1, 3)}
+    assert {name.split("/")[0] for name in files if name.startswith("calibration_")} == attempts
+    passed = {"calibration_return04", "calibration_workshop02"}
+    for folder in attempts:
+        result = read(folder + "/result.json")
+        assert result["passed"] == (folder in passed)
+        assert result["exit"] == (0 if folder in passed else 1)
+        assert read(folder + "/terminal.json")["deaths"] == 0
+        for required in ("runtime.log", "command.json", "lineage.json", "source_checkpoint.json", "source_before.json", "source_after.json", "playback.gd.txt", "runner.py.txt"):
+            assert folder + "/" + required in files
     rejected = read("rejected_sources.json")
     assert len(rejected) == 3 and all(x["rejected_before_engine_launch"] for x in rejected)
-    assert all(x["exit"] == 0 for x in read("npm_results.json"))
-    print(f"PASS {len(index)} return archives; earned J-K-L PIDs {pids}; six normal return rewards; actual R 100->80; workshop +75; independent physical gate restore; ordinary-attack negative")
+    npm = read("npm_results.json")
+    assert len(npm) == 2 and {x["name"] for x in npm} == {"npm_test", "campaign"} and all(x["exit"] == 0 for x in npm)
+    print(f"PASS {len(index)} return archives; earned J-K-L PIDs {chain_pids}; six normal return rewards; actual R 100->80; workshop +75; both clean restores; ordinary-attack negative")
 
 
 if __name__ == "__main__":

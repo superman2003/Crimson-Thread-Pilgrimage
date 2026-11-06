@@ -1,0 +1,34 @@
+name: Earned crown resonance return proof
+
+"on":
+  pull_request:
+    paths:
+      - .github/workflows/crown-return-proof.yml
+      - godot/scripts/world_crown_return_playback.gd
+      - godot/scripts/world_second_order_playback.gd
+      - tools/run_crown_return.py
+      - tools/run_second_order.py
+      - tools/verify_second_order*.py
+      - tools/verify_crown_return_proofs.py
+      - artifacts/t04_second_order/**
+      - artifacts/t04_second_order_greenhouse/**
+      - artifacts/t04_second_order_crown_v18/**
+      - artifacts/t04_crown_resonance_return_v19/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Verify original chain, earned resonance, paid R gate and negative
+        run: python3 tools/verify_crown_return_proofs.py
