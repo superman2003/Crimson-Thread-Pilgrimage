@@ -331,8 +331,13 @@ func run() -> void:
 	var world_action: Label = scene.map_draw_root.get_node_or_null("WorldGate_"+region_id+"_"+action_gate_id)
 	check(world_ability!=null and world_ability.text=="▢" and world_action!=null and world_action.text=="▢","real world atlas reads that region's live ability and action state")
 	preload("res://scripts/map_pin_layout_checks.gd").run(scene, check)
+	var retirement:=preload("res://scripts/audio_retirement.gd")
+	retirement.retire_tree(scene)
 	scene.queue_free()
 	await process_frame
+	preload("res://scripts/audio_director.gd")._stream_cache.clear()
+	preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+	check(await retirement.drain(self),"map fixture releases actual playback before exiting")
 	for suffix in ["", ".tmp", ".bak"]: DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE+suffix))
 	print("SURVEY_MAP_KNOWLEDGE checks=%d failures=%d" % [checks,failures])
 	call_deferred("quit",1 if failures else 0)

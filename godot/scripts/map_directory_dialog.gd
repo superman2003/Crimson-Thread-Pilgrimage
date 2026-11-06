@@ -4,6 +4,8 @@ const INDEX = preload("res://scripts/map_directory.gd")
 var rows: Array = []
 var visible_rows: Array = []
 var locate: Callable
+var frame_group: Callable
+var frame_button: Button
 var search: LineEdit
 var kinds: OptionButton
 var regions: OptionButton
@@ -65,7 +67,11 @@ func _ready() -> void:
     cursor=Label.new();cursor.size_flags_horizontal=Control.SIZE_EXPAND_FILL;cursor.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;navigation.add_child(cursor)
     next_button=Button.new();next_button.text="下一处";navigation.add_child(next_button);next_button.pressed.connect(func():step_selection(1))
     detail=RichTextLabel.new();detail.custom_minimum_size=Vector2(710,110);detail.bbcode_enabled=false;detail.scroll_active=true;detail.focus_mode=Control.FOCUS_ALL;column.add_child(detail)
-    locate_button=Button.new();locate_button.text="在地图中查看此处";column.add_child(locate_button)
+    var actions:=HBoxContainer.new();column.add_child(actions)
+    locate_button=Button.new();locate_button.text="在地图中查看此处";locate_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;actions.add_child(locate_button)
+    frame_button=Button.new();frame_button.text="框取当前筛选";frame_button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;actions.add_child(frame_button)
+    frame_button.tooltip_text="把当前筛选的全部已补绘地点放入视野；可先选择层位、区域或搜索词。不会移动角色或解锁道路。"
+    frame_button.pressed.connect(_frame_filtered)
     locate_button.pressed.connect(_locate_selected)
     list.gui_input.connect(_list_input)
     get_ok_button().text="返回地图"
@@ -75,8 +81,8 @@ func _ready() -> void:
     visibility_changed.connect(func():
         if not visible and is_instance_valid(checklist):checklist.hide();checklist_data={})
 
-func open(records: Array, action: Callable) -> void:
-    rows=records.duplicate(true);locate=action
+func open(records: Array, action: Callable, group_action: Callable = Callable()) -> void:
+    rows=records.duplicate(true);locate=action;frame_group=group_action
     floors.clear()
     regions.clear();regions.add_item("全部已知区域");regions.set_item_metadata(0,"")
     for region in INDEX.regions(rows):
@@ -113,6 +119,7 @@ func _refresh() -> void:
         if String(visible_rows[index].key)==selected_key:selected_index=index;break
     if list.item_count>0:list.select(selected_index);list.ensure_current_is_visible()
     count.text="符合筛选 %d / 已知地点 %d · 仅列已购且已补绘的区域" % [visible_rows.size(),rows.size()]
+    frame_button.disabled=not frame_group.is_valid() or visible_rows.is_empty()
     _selection()
 
 func _selection() -> void:
@@ -131,6 +138,17 @@ func _selection() -> void:
     if selection.is_empty():detail.text="无符合筛选的已补绘地点。清空搜索或切换类型；未购/未补绘地点不会被列出。";return
     var row: Dictionary=visible_rows[selection[0]]
     detail.text="层位："+FLOORS.caption(row)+"\n"+String(row.detail)+"\n仅移动地图视野；不会传送、购买地图或补绘，也不提供玩家定位。"
+
+func _frame_filtered() -> void:
+    if not visible or not frame_group.is_valid():return
+    if visible_rows.is_empty():return
+    var request:={"keys":visible_rows.map(func(row):return row.key)}
+    var result: Variant=frame_group.call(request)
+    if result is Dictionary and result.get("ok",false):
+        hide()
+    elif result is Dictionary:
+        detail.text=String(result.get("reason","当前地图无法框取这些地点。"))
+        detail.scroll_to_line(0)
 
 func _locate_selected() -> void:
     var selection:=list.get_selected_items()
