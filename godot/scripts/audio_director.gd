@@ -56,6 +56,7 @@ const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
 var music_retry_after: Dictionary = {}
 var ambient_soundscape := preload("res://scripts/ambient_soundscape.gd").new()
+var room_ambience_mix: Node
 var landmark_spatial_refresh:=preload("res://scripts/landmark_spatial_refresh.gd").new()
 var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
 var volume_preferences_dirty := false
@@ -556,6 +557,13 @@ func attach_explore_player(player: AudioStreamPlayer) -> void:
 
 func configure_ambience(config: Dictionary, host: Node2D) -> void:
     ambient_soundscape.configure(config,host)
+    if not is_instance_valid(room_ambience_mix):
+        room_ambience_mix = preload("res://scripts/room_ambience_mix.gd").new()
+        room_ambience_mix.name = "RoomAmbienceMix"
+        add_child(room_ambience_mix)
+    room_ambience_mix.configure(config,host)
+    if is_instance_valid(ambience_bed_player):
+        room_ambience_mix.bind_player(ambience_bed_player)
 
 
 func set_chapter(chapter_id: String) -> void:
@@ -958,6 +966,8 @@ func _start_ambience() -> void:
         if ambience_bed_player.stream != bed_stream or not ambience_bed_player.playing:
             ambience_bed_player.stream = bed_stream
             ambience_bed_player.play()
+    if is_instance_valid(room_ambience_mix):
+        room_ambience_mix.bind_player(ambience_bed_player)
     oneshot_variant_count = _probe_oneshot_variant_count()
     if oneshot_timer == null or not is_instance_valid(oneshot_timer):
         oneshot_timer = Timer.new()
@@ -1087,6 +1097,8 @@ func cancel_chapter_transition() -> void:
 func on_room_changed(kind: String) -> void:
     if is_queued_for_deletion() or (is_instance_valid(instance) and instance != self):
         return
+    if is_instance_valid(room_ambience_mix):
+        room_ambience_mix.update_room()
     _update_transit_loop(kind == "transit")
     var delta := float(ROOM_REVERB_WET_DELTA.get(kind, 0.0))
     for bus_name in ["SFX", "Ambience"]:
