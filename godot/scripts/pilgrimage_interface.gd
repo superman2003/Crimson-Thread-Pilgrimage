@@ -695,7 +695,7 @@ func _build_bag() -> void:
     bag_description=RichTextLabel.new()
     bag_description.position=Vector2(738,354)
     bag_description.size=Vector2(330,160)
-    bag_description.add_theme_font_size_override("normal_font_size",17)
+    bag_description.add_theme_font_size_override("normal_font_size",TYPE.ACTION)
     bag_description.add_theme_color_override("default_color",IVORY)
     bag_description.scroll_active=true
     bag.add_child(bag_description)
@@ -1314,6 +1314,9 @@ func _apply_accessibility() -> void:
         feel.set_accessibility(accessibility)
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
     if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
+    # U05: the journal/item reading body follows the reading size too; its
+    # authored 17 stays the size at the default reading baseline.
+    if bag_description!=null:bag_description.add_theme_font_size_override("normal_font_size",preload("res://scripts/journey_window_layout.gd").scaled_font(TYPE.ACTION,accessibility["subtitle_size"]))
     if is_instance_valid(dialog_reading):dialog_reading.refresh()
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())

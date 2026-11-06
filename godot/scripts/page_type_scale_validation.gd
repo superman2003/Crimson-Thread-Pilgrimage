@@ -163,6 +163,18 @@ func run() -> void:
 		check(not seen.is_empty(), "%s page shows text" % page)
 		check(off_scale.is_empty(), "%s page uses only the shared type scale (off: %s)" % [page, off_scale])
 		check(clipped.is_empty(), "%s page text fits its controls (clipped: %s)" % [page, clipped])
+	# The journal/item reading body follows the reading size (U05).
+	var ui: Control = world.ui_shell
+	var body_sizes := {}
+	for reading in [17, 21, 26]:
+		ui.accessibility["subtitle_size"] = reading
+		ui._apply_accessibility()
+		body_sizes[reading] = ui.bag_description.get_theme_font_size("normal_font_size")
+	report["journal_body_reading"] = body_sizes
+	check(body_sizes[21] == TYPE.ACTION, "journal body keeps its authored size at the default reading size (%d)" % body_sizes[21])
+	check(body_sizes[17] < body_sizes[21] and body_sizes[21] < body_sizes[26], "journal body follows the reading size (%s)" % body_sizes)
+	ui.accessibility["subtitle_size"] = 21
+	ui._apply_accessibility()
 	world._close_overlays()
 	await frames(2)
 	world.queue_free()
