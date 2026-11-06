@@ -1,0 +1,28 @@
+{
+  "experiments": [
+    {
+      "mutation": "duplicate-backup",
+      "checks": 111,
+      "failures": 2,
+      "script_errors": 0,
+      "restored_sha256": "08a5b8bebf56b0568d11b34a1152fcc71de376af1e0923f7d4601ea20b179dee",
+      "directory": "final-negative-duplicate-backup"
+    },
+    {
+      "mutation": "copied-byte-guard",
+      "checks": 111,
+      "failures": 2,
+      "script_errors": 0,
+      "restored_sha256": "9784499ea79fb4ce7a3a76b01a5bfbaadc696f285168fa8ac4165ecc48192fb4",
+      "directory": "final-negative-copied-byte-guard"
+    },
+    {
+      "mutation": "duplicate-primary",
+      "checks": 111,
+      "failures": 2,
+      "script_errors": 0,
+      "restored_sha256": "08a5b8bebf56b0568d11b34a1152fcc71de376af1e0923f7d4601ea20b179dee",
+      "directory": "final-negative-duplicate-primary"
+    }
+  ]
+}

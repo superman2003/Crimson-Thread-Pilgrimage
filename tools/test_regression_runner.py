@@ -77,6 +77,7 @@ class CompletionContractTests(unittest.TestCase):
             'hidden_drone',
             'hazard_readability',
             'settings_construction',
+            'world_save_backup',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
