@@ -1,0 +1,24 @@
+{
+  "mutation": "Restore original single-admission settings constructor from main 4242f790",
+  "marker": "SETTINGS_CONSTRUCTION checks=77 failures=1",
+  "exit_code": 1,
+  "max_controls": 82,
+  "work": [
+    {
+      "args": [
+        "_build_settings"
+      ],
+      "controls_added": 82,
+      "job": "_build_interface_step"
+    },
+    {
+      "args": [],
+      "controls_added": 4,
+      "job": "_finish_hud"
+    }
+  ],
+  "script_errors": 0,
+  "source_sha256_before": "f08dcbc9de7816e5c4ceb954babf3f3138461c2516fdf55562203ced6528e45c",
+  "negative_log": "negative-native/settings_construction.log",
+  "source_sha256_restored": "f08dcbc9de7816e5c4ceb954babf3f3138461c2516fdf55562203ced6528e45c"
+}

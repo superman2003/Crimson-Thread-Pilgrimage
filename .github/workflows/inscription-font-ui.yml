@@ -64,10 +64,15 @@ jobs:
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
             --suite global_font --suite ui_redesign --suite ui_world_integration \
-            --suite ui_build_accessibility --suite input_prompt --suite settings_remap \
+            --suite ui_build_accessibility --suite input_prompt --suite settings_remap --suite settings_construction \
             --suite build_slots_ui --suite seal_ui --suite world_map \
             --suite map_player_pins --suite artisan_crafts --suite save_recovery \
             --log-dir "$RUNNER_TEMP/inscription-font-logs"
+      - name: Validate settings construction under the Dummy renderer
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --suite settings_construction \
+            --log-dir "$RUNNER_TEMP/inscription-font-logs/headless-settings"
       - name: Preserve typography validation logs
         if: always()
         uses: actions/upload-artifact@v4

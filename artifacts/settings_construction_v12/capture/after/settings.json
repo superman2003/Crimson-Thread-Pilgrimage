@@ -1,0 +1,1968 @@
+{
+  "fixture": "Paused settings only over a solid clear color; not natural gameplay.",
+  "pixel_sha256": "26db4cff2d14d2af9cec373a1aa1a4c84e9ec5f2632a218a865f21bc726f2f06",
+  "tree": {
+    "children": [
+      {
+        "children": [],
+        "class": "Control",
+        "focus_mode": 0,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          0.0,
+          0.0
+        ],
+        "size": [
+          1010.0,
+          618.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Control",
+        "focus_mode": 0,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          500.0,
+          98.0
+        ],
+        "size": [
+          487.0,
+          280.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Control",
+        "focus_mode": 0,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          22.0,
+          98.0
+        ],
+        "size": [
+          458.0,
+          280.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "TextureRect",
+        "focus_mode": 0,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "name": "InscribedTitle",
+        "position": [
+          26.0,
+          5.0
+        ],
+        "size": [
+          166.0,
+          82.0
+        ],
+        "texture": "res://assets/ui/inscription/v2/settings.png",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "name": "InscriptionSubtitle",
+        "position": [
+          198.0,
+          24.0
+        ],
+        "size": [
+          200.0,
+          28.0
+        ],
+        "text": "声音与无障碍",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 11,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          200.0,
+          58.0
+        ],
+        "size": [
+          380.0,
+          23.0
+        ],
+        "text": "绯线巡礼  /  归途手札",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 17,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          919.0,
+          24.0
+        ],
+        "pressed": false,
+        "size": [
+          62.0,
+          34.0
+        ],
+        "text": "返回",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 15,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "DecorativeMotionToggle",
+        "position": [
+          600.0,
+          20.0
+        ],
+        "pressed": false,
+        "size": [
+          196.0,
+          32.0
+        ],
+        "text": "装饰动态：开启",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": true,
+        "focus_mode": 2,
+        "font_size": 14,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "DecorativeMotionRetry",
+        "position": [
+          802.0,
+          20.0
+        ],
+        "pressed": false,
+        "size": [
+          100.0,
+          32.0
+        ],
+        "text": "重试保存",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 20,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          100.0
+        ],
+        "size": [
+          440.0,
+          30.0
+        ],
+        "text": "声音",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          140.0
+        ],
+        "size": [
+          145.0,
+          30.0
+        ],
+        "text": "▶ 主音量",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          190.0,
+          146.0
+        ],
+        "range": [
+          0.0,
+          100.0,
+          1.0,
+          100.0
+        ],
+        "size": [
+          257.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          183.0
+        ],
+        "size": [
+          145.0,
+          30.0
+        ],
+        "text": "  音乐",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          190.0,
+          189.0
+        ],
+        "range": [
+          0.0,
+          100.0,
+          1.0,
+          100.0
+        ],
+        "size": [
+          257.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          226.0
+        ],
+        "size": [
+          145.0,
+          30.0
+        ],
+        "text": "  音效",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          190.0,
+          232.0
+        ],
+        "range": [
+          0.0,
+          100.0,
+          1.0,
+          100.0
+        ],
+        "size": [
+          257.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          269.0
+        ],
+        "size": [
+          145.0,
+          30.0
+        ],
+        "text": "  环境",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          190.0,
+          275.0
+        ],
+        "range": [
+          0.0,
+          100.0,
+          1.0,
+          100.0
+        ],
+        "size": [
+          257.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "CheckButton",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          34.0,
+          300.0
+        ],
+        "pressed": true,
+        "size": [
+          206.0,
+          35.0
+        ],
+        "text": "NPC声音地标",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 15,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "ControllerComfortButton",
+        "position": [
+          34.0,
+          332.0
+        ],
+        "pressed": false,
+        "size": [
+          200.0,
+          32.0
+        ],
+        "text": "手柄校准 / 舒适预设",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          245.0,
+          298.0
+        ],
+        "pressed": false,
+        "size": [
+          200.0,
+          33.0
+        ],
+        "text": "重试保存当前设置",
+        "visible": false
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          250.0,
+          102.0
+        ],
+        "size": [
+          220.0,
+          24.0
+        ],
+        "text": "",
+        "visible": false
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 20,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          100.0
+        ],
+        "size": [
+          440.0,
+          30.0
+        ],
+        "text": "阅读、画面与手柄",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          136.0
+        ],
+        "size": [
+          176.0,
+          28.0
+        ],
+        "text": "字幕字号  21.0",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          693.0,
+          143.0
+        ],
+        "range": [
+          17.0,
+          26.0,
+          1.0,
+          21.0
+        ],
+        "size": [
+          253.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          170.0
+        ],
+        "size": [
+          176.0,
+          28.0
+        ],
+        "text": "字幕速度  1.0",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          693.0,
+          177.0
+        ],
+        "range": [
+          0.5,
+          2.0,
+          0.25,
+          1.0
+        ],
+        "size": [
+          253.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          204.0
+        ],
+        "size": [
+          176.0,
+          28.0
+        ],
+        "text": "镜头震动  1.0",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          693.0,
+          211.0
+        ],
+        "range": [
+          0.0,
+          1.0,
+          0.25,
+          1.0
+        ],
+        "size": [
+          253.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          238.0
+        ],
+        "size": [
+          176.0,
+          28.0
+        ],
+        "text": "镜头前瞻  1.0",
+        "visible": false
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          693.0,
+          245.0
+        ],
+        "range": [
+          0.0,
+          1.0,
+          0.25,
+          1.0
+        ],
+        "size": [
+          253.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 14,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "CameraObservationButton",
+        "position": [
+          512.0,
+          238.0
+        ],
+        "pressed": false,
+        "size": [
+          176.0,
+          29.0
+        ],
+        "text": "前瞻 / 观察  1.0",
+        "visible": true
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "class": "Label",
+                "focus_mode": 0,
+                "font_size": 18,
+                "minimum": [
+                  630.0,
+                  64.0
+                ],
+                "mouse_filter": 2,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "size": [
+                  630.0,
+                  64.0
+                ],
+                "text": "自动前瞻和静止主动观察可分别控制。独立模式允许关闭自动前瞻后继续观察高处和下方。确认前不改变当前镜头。",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "OptionButton",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 16,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 0,
+                "name": "ObservationMode",
+                "options": [
+                  "跟随前瞻强度（原行为）",
+                  "独立主动观察",
+                  "关闭主动观察"
+                ],
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  36.0,
+                  20.0
+                ],
+                "text": "跟随前瞻强度（原行为）",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Label",
+                "focus_mode": 0,
+                "font_size": 18,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 2,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "size": [
+                  288.0,
+                  27.0
+                ],
+                "text": "持续按住的等待时间：0.15—1.00 秒",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "HSlider",
+                "focus_mode": 2,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "range": [
+                  0.15,
+                  1.0,
+                  0.05,
+                  0.15
+                ],
+                "size": [
+                  20.0,
+                  16.0
+                ],
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Label",
+                "focus_mode": 0,
+                "font_size": 18,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 2,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "size": [
+                  283.0,
+                  27.0
+                ],
+                "text": "观察距离：标准距离的 25%—100%",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "HSlider",
+                "focus_mode": 2,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "range": [
+                  0.25,
+                  1.0,
+                  0.05,
+                  0.25
+                ],
+                "size": [
+                  20.0,
+                  16.0
+                ],
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Label",
+                "focus_mode": 0,
+                "font_size": 18,
+                "minimum": [
+                  630.0,
+                  100.0
+                ],
+                "mouse_filter": 2,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "size": [
+                  630.0,
+                  100.0
+                ],
+                "text": "",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 17,
+                "minimum": [
+                  0.0,
+                  0.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  156.0,
+                  33.0
+                ],
+                "text": "暂存原版观察规则",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Label",
+                "focus_mode": 0,
+                "font_size": 18,
+                "minimum": [
+                  630.0,
+                  65.0
+                ],
+                "mouse_filter": 2,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "size": [
+                  630.0,
+                  65.0
+                ],
+                "text": "",
+                "visible": true
+              }
+            ],
+            "class": "VBoxContainer",
+            "focus_mode": 0,
+            "minimum": [
+              0.0,
+              0.0
+            ],
+            "mouse_filter": 1,
+            "position": [
+              0.0,
+              0.0
+            ],
+            "size": [
+              0.0,
+              0.0
+            ],
+            "visible": true
+          }
+        ],
+        "class": "ConfirmationDialog",
+        "minimum": [
+          680,
+          470
+        ],
+        "name": "CameraObservationWindow",
+        "title": "主动观察镜头",
+        "visible": false
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 16,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          512.0,
+          272.0
+        ],
+        "size": [
+          176.0,
+          28.0
+        ],
+        "text": "手柄力度  1.0",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "HSlider",
+        "focus_mode": 2,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          693.0,
+          279.0
+        ],
+        "range": [
+          0.0,
+          1.0,
+          0.25,
+          1.0
+        ],
+        "size": [
+          253.0,
+          22.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "CheckButton",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          512.0,
+          305.0
+        ],
+        "pressed": true,
+        "size": [
+          206.0,
+          35.0
+        ],
+        "text": "受击闪光",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "CheckButton",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          725.0,
+          305.0
+        ],
+        "pressed": true,
+        "size": [
+          206.0,
+          35.0
+        ],
+        "text": "手柄震动",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "CheckButton",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          512.0,
+          339.0
+        ],
+        "pressed": false,
+        "size": [
+          206.0,
+          35.0
+        ],
+        "text": "探索提示",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "CheckButton",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          725.0,
+          339.0
+        ],
+        "pressed": false,
+        "size": [
+          206.0,
+          35.0
+        ],
+        "text": "导航辅助",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 17,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          384.0
+        ],
+        "size": [
+          740.0,
+          28.0
+        ],
+        "text": "按键重映射 · 选择动作后按键、按钮或推动扳机",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          800.0,
+          381.0
+        ],
+        "pressed": false,
+        "size": [
+          172.0,
+          28.0
+        ],
+        "text": "恢复默认按键",
+        "visible": true
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "跳跃 · Space / 手柄 A",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  231.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "普攻 · 鼠标左键 / J / 手柄 X",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  462.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "治疗 · H / 手柄 LB / 鼠标右键",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  693.0,
+                  0.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "施放技能 · L / 手柄 Y",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  27.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "切换技能 · C / 手柄 L2",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  231.0,
+                  27.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "使用战具 · T / 十字键 ↓",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  462.0,
+                  27.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "切换战具 · G / 手柄 R2",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  693.0,
+                  27.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "冲刺 · Shift / 手柄 B",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  54.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "互动 · F / 手柄 Back",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  231.0,
+                  54.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "左移 · A / Left / 左摇杆 ←",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  462.0,
+                  54.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "右移 · D / Right / 左摇杆 →",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  693.0,
+                  54.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "向上 · W / Up / 左摇杆 ↑",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  81.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "向下 · S / Down / 左摇杆 ↓",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  231.0,
+                  81.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "回声钩索 · K / X / 手柄 RB",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  462.0,
+                  81.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "钟壳格挡 · Q / 十字键 ←",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  693.0,
+                  81.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "灯影相位 · E / 十字键 →",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  108.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "王冠共鸣 · R / 十字键 ↑",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  231.0,
+                  108.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "行囊 · Tab / I / 手柄 Start",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  462.0,
+                  108.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "地图 · M / 手柄 R3",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  693.0,
+                  108.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "设置 · V",
+                "visible": true
+              },
+              {
+                "children": [],
+                "class": "Button",
+                "disabled": false,
+                "focus_mode": 2,
+                "font_size": 12,
+                "minimum": [
+                  224.0,
+                  26.0
+                ],
+                "mouse_filter": 0,
+                "position": [
+                  0.0,
+                  135.0
+                ],
+                "pressed": false,
+                "size": [
+                  225.0,
+                  26.0
+                ],
+                "text": "构筑 · B / 手柄 L3",
+                "visible": true
+              }
+            ],
+            "class": "GridContainer",
+            "focus_mode": 0,
+            "minimum": [
+              0.0,
+              0.0
+            ],
+            "mouse_filter": 1,
+            "position": [
+              0.0,
+              0.0
+            ],
+            "size": [
+              918.0,
+              161.0
+            ],
+            "visible": true
+          }
+        ],
+        "class": "ScrollContainer",
+        "focus_mode": 0,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 1,
+        "name": "RemapScroll",
+        "position": [
+          34.0,
+          414.0
+        ],
+        "size": [
+          938.0,
+          130.0
+        ],
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          34.0,
+          549.0
+        ],
+        "size": [
+          938.0,
+          24.0
+        ],
+        "text": "Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          34.0,
+          573.0
+        ],
+        "pressed": false,
+        "size": [
+          206.0,
+          30.0
+        ],
+        "text": "存档槽 1",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          253.0,
+          573.0
+        ],
+        "pressed": false,
+        "size": [
+          206.0,
+          30.0
+        ],
+        "text": "存档槽 2",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          472.0,
+          573.0
+        ],
+        "pressed": false,
+        "size": [
+          206.0,
+          30.0
+        ],
+        "text": "存档槽 3",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          691.0,
+          573.0
+        ],
+        "pressed": false,
+        "size": [
+          137.0,
+          30.0
+        ],
+        "text": "恢复当前槽备份",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 13,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "position": [
+          838.0,
+          573.0
+        ],
+        "pressed": false,
+        "size": [
+          134.0,
+          30.0
+        ],
+        "text": "浏览旧旅途",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 15,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "AudioOutputDeviceButton",
+        "position": [
+          420.0,
+          60.0
+        ],
+        "pressed": false,
+        "size": [
+          210.0,
+          31.0
+        ],
+        "text": "声音输出设备",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Label",
+        "focus_mode": 0,
+        "font_size": 18,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 2,
+        "position": [
+          0.0,
+          0.0
+        ],
+        "size": [
+          1.0,
+          27.0
+        ],
+        "text": "▶ 主音量 Master  [██████████] 100%\n  音乐 Music  [██████████] 100%\n  音效 SFX  [██████████] 100%\n  环境 Ambience  [██████████] 100%\n\nW/S 选择   A/D 调节   V/Esc 关闭",
+        "visible": false
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 14,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "SettingsProfilesButton",
+        "position": [
+          802.0,
+          100.0
+        ],
+        "pressed": false,
+        "size": [
+          170.0,
+          29.0
+        ],
+        "text": "设置方案管理",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 15,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "DangerCaptionButton",
+        "position": [
+          244.0,
+          332.0
+        ],
+        "pressed": false,
+        "size": [
+          200.0,
+          32.0
+        ],
+        "text": "危险字幕辅助",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 15,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "CreditsReaderButton",
+        "position": [
+          420.0,
+          20.0
+        ],
+        "pressed": false,
+        "size": [
+          160.0,
+          32.0
+        ],
+        "text": "来源与许可",
+        "visible": true
+      },
+      {
+        "children": [],
+        "class": "Button",
+        "disabled": false,
+        "focus_mode": 2,
+        "font_size": 17,
+        "minimum": [
+          0.0,
+          0.0
+        ],
+        "mouse_filter": 0,
+        "name": "JourneyWorkbenchEntry",
+        "position": [
+          650.0,
+          60.0
+        ],
+        "pressed": false,
+        "size": [
+          320.0,
+          33.0
+        ],
+        "text": "旅途工作台",
+        "visible": true
+      }
+    ],
+    "class": "ColorRect",
+    "focus_mode": 0,
+    "minimum": [
+      0.0,
+      0.0
+    ],
+    "mouse_filter": 0,
+    "name": "AudioSettingsOverlay",
+    "position": [
+      135.0,
+      48.0
+    ],
+    "size": [
+      1010.0,
+      618.0
+    ],
+    "visible": true
+  },
+  "viewport": [
+    1280,
+    720
+  ]
+}
