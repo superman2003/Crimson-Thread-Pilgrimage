@@ -67,6 +67,10 @@
 - `settings_remap`、`settings_profiles`、`input_settings_regression`、`save_desk`
 - `expedition_desk`、`shrine_return_world`、`ui_redesign`、`ui_world_integration`、`global_font`、`controller_comfort`
 
+## 对话框内文字截断
+
+页面能打开的对话框此前只检查“整窗在屏内”，没检查窗内单行文字是否超出控件。用同样的测量方法扫描了四个页面的全部对话框：21 个对话框各在阅读字号 17／21／26 下打开，共 63 次，测量 366 个单行控件，没有截断。这项检查已并入 `dialog_viewport_fit`（每个对话框、每档字号一项，共 42 项），防止以后回退。
+
 ## 边界
 
 - 检查四个页面的默认视图、行囊旅记视图和钟龛装备面板。HUD 与页面内弹出的对话框不在范围内。
