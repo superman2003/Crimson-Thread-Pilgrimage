@@ -159,10 +159,15 @@ func world_inventory_binding(original: Dictionary) -> bool:
                 check_texture(child.texture, original.crown_echo_shard, "actual World foreign inventory icon")
     check(found and world.inventory_counts.get("crown_echo_shard", 0) == 1,
         "actual inventory binds the held item icon without consuming the item")
+    var retirement:=preload("res://scripts/audio_retirement.gd")
+    retirement.retire_tree(world)
     world.free()
     current_scene = null
     await process_frame
     await process_frame
+    preload("res://scripts/audio_director.gd")._stream_cache.clear()
+    preload("res://scripts/audio_director.gd")._npc_voice_cache.clear()
+    check(await retirement.drain(self), "World item fixture releases actual playback before exit")
     for suffix in ["", ".bak", ".tmp"]:
         DirAccess.remove_absolute(ProjectSettings.globalize_path(SAVE + suffix))
     return failures == before

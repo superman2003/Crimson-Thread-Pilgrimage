@@ -55,6 +55,7 @@ const USER_VOLUME_BUS := {"master": "Master", "music": "BGM", "sfx": "SFX", "amb
 const SETTINGS_PATH := "user://audio_settings.cfg"
 var settings_path := SETTINGS_PATH
 var music_retry_after: Dictionary = {}
+var ambient_soundscape := preload("res://scripts/ambient_soundscape.gd").new()
 var landmark_spatial_refresh:=preload("res://scripts/landmark_spatial_refresh.gd").new()
 var volume_preferences := preload("res://scripts/audio_volume_preferences.gd").new()
 var volume_preferences_dirty := false
@@ -197,6 +198,7 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+    ambient_soundscape.clear()
     room_reverb_mix.release(self)
     _clear_duck_layers(instance == self)
     _remember_explore_position()
@@ -453,6 +455,7 @@ func engage_shrine(anchor: Vector2) -> void:
 
 func _process(delta: float) -> void:
     _tick_shrine_lullaby()
+    ambient_soundscape.tick(self, runtime_player as Node2D)
     ai_poll_accum += delta
     if ai_poll_accum < COMBAT_POLL_INTERVAL_S:
         return
@@ -551,7 +554,12 @@ func attach_explore_player(player: AudioStreamPlayer) -> void:
     explore_player = player
 
 
+func configure_ambience(config: Dictionary, host: Node2D) -> void:
+    ambient_soundscape.configure(config,host)
+
+
 func set_chapter(chapter_id: String) -> void:
+    ambient_soundscape.clear()
     chapter_short_id = _short_chapter_id(chapter_id)
     _capture_base_reverb()
     if not autoplay_enabled:
@@ -699,6 +707,7 @@ func _fade_explore_resume(seconds: float) -> void:
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
 func enter_combat() -> void:
+    ambient_soundscape.stop()
     _stop_npc_landmarks()
     if boss_active or combat_active:
         return
@@ -783,6 +792,7 @@ func _music_candidate(path: String) -> AudioStream:
     return stream
 
 func start_boss_music(boss_id: String) -> void:
+    ambient_soundscape.stop()
     _stop_npc_landmarks()
     if boss_active and active_boss_id == boss_id \
             and boss_player != null and is_instance_valid(boss_player) and boss_player.playing:
@@ -977,34 +987,17 @@ func _probe_oneshot_variant_count() -> int:
 
 func _on_oneshot_timer() -> void:
     if oneshot_variant_count > 0:
-        var path := "res://assets/audio/ambience/amb_%s_os_%d.ogg" % [chapter_short_id, randi_range(1, oneshot_variant_count)]
-        _play_ambience_oneshot(path, AMBIENCE_ONESHOT_DB)
+        _play_ambience_oneshot(AMBIENCE_ONESHOT_DB)
     oneshot_timer.start(randf_range(ONESHOT_INTERVAL_MIN_S, ONESHOT_INTERVAL_MAX_S))
 
 
 func _on_anvil_timer() -> void:
-    _play_ambience_oneshot("res://assets/audio/ambience/amb_ch02_anvil_far.ogg", ANVIL_FAR_DB)
+    _play_ambience_oneshot(ANVIL_FAR_DB, "anvil")
     anvil_timer.start(randf_range(ANVIL_INTERVAL_MIN_S, ANVIL_INTERVAL_MAX_S))
 
 
-func _play_ambience_oneshot(path: String, volume_db: float) -> void:
-    if not autoplay_enabled:
-        return
-    var voice_ticket := reserve_voice("amb_oneshot", 2, 250, 2)
-    if voice_ticket == 0:
-        return
-    var stream := load_cached(path)
-    if stream == null:
-        release_ticket(voice_ticket)
-        return
-    var player_node := AudioStreamPlayer.new()
-    player_node.name = "AmbienceOneShot"
-    player_node.bus = _bus_or("Ambience", "Master")
-    player_node.stream = stream
-    player_node.volume_db = volume_db
-    add_child(player_node)
-    player_node.finished.connect(Callable(player_node, "queue_free"))
-    start_reserved_voice(voice_ticket,player_node)
+func _play_ambience_oneshot(volume_db: float, family: String = "regional") -> bool:
+    return ambient_soundscape.play_nearby(self,runtime_player as Node2D,volume_db,family)
 
 
 # ---- 混音状态（规格 §5.3/§5.5）----
@@ -1056,6 +1049,7 @@ func on_dialogue(open: bool) -> void:
     if open == dialogue_open:
         return
     dialogue_open = open
+    if open:ambient_soundscape.stop()
     if not open and _npc_voice_player != null and is_instance_valid(_npc_voice_player):
         _npc_voice_player.stop()
     # Dialogue changes the baseline; independent transient ducks keep their leases.
@@ -1071,6 +1065,8 @@ func on_key_item_pickup() -> void:
 ## 章节转场（main_level._activate_chapter_exit 调用）：BGM 总线 0.5s 淡出；
 ## 新章 _ensure_audio_buses + _load_user_volumes 会复位到用户基准。
 func begin_chapter_transition() -> void:
+    ambient_soundscape.transitioning = true
+    ambient_soundscape.stop()
     _clear_duck_layers()
     _stop_npc_landmarks()
     set_hidden_zone(false)
@@ -1078,6 +1074,7 @@ func begin_chapter_transition() -> void:
 
 
 func cancel_chapter_transition() -> void:
+    ambient_soundscape.transitioning = false
     var transition: Tween = bus_tweens.get("BGM")
     if transition != null and transition.is_valid():
         transition.kill()
@@ -1212,6 +1209,7 @@ func set_low_hp(active: bool) -> void:
 
 ## 玩家死亡：全总线 300Hz 低通（挂 Master）+ duck，1.6s 后自清防跨场景残留。
 func on_player_death() -> void:
+    ambient_soundscape.stop()
     duck(-10.0, 1.2)
     var master_index := AudioServer.get_bus_index("Master")
     if master_index == -1:
@@ -1579,4 +1577,5 @@ func foreground_warning(source: Node2D) -> void:
     if instance != self or not is_inside_tree() or not is_instance_valid(source) or not source.is_inside_tree() or not runtime_player is Node2D or not is_instance_valid(runtime_player):return
     if source.get_world_2d() != runtime_player.get_world_2d() or source.global_position.distance_squared_to(runtime_player.global_position) > 900.0 * 900.0:return
     _stop_npc_landmarks()
+    ambient_soundscape.stop()
     duck(-4.0,0.35,0.04,0.3)

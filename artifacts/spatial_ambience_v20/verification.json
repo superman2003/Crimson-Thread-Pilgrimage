@@ -1,0 +1,442 @@
+{
+  "baseline": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+  "scope": "S03 environmental accents; final acceptance remains OPEN",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "gl": "Mesa llvmpipe; Dummy audio; no listening acceptance",
+  "runs": {
+    "gl-final": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=29 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=9 retired=13",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      },
+      "audio_retirement": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_USER_VOLUME checks=37 failures=0",
+          "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+        ]
+      },
+      "world_prepare_budget": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "已返回来路，旅途记录仍在。",
+          "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+        ]
+      },
+      "audio_landmarks": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=18 observed=4 retired=1",
+          "AUDIO_LANDMARKS checks=39 failures=0"
+        ]
+      }
+    },
+    "dummy-final": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=49 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=3 retired=4",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      },
+      "audio_retirement": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_USER_VOLUME checks=37 failures=0",
+          "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+        ]
+      },
+      "world_prepare_budget": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "已返回来路，旅途记录仍在。",
+          "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+        ]
+      },
+      "audio_landmarks": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=14 observed=4 retired=1",
+          "AUDIO_LANDMARKS checks=39 failures=0"
+        ]
+      }
+    },
+    "restored": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=83 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=3 retired=4",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      }
+    }
+  },
+  "negative_controls": {
+    "removed_region_binding": {
+      "failures": 7,
+      "engine_errors": 0
+    },
+    "removed_occlusion_gain": {
+      "failures": 2,
+      "engine_errors": 0
+    },
+    "removed_mute_admission": {
+      "failures": 2,
+      "engine_errors": 0
+    }
+  },
+  "new_suite_checks": {
+    "spatial_ambience": 165,
+    "spatial_ambience_world": 16
+  },
+  "default_suite_count": 215,
+  "logs": {
+    "attempts/component-development-final.log": {
+      "sha256": "d1e687c79c2caac2390f28f14ea347b4d02cd231190af2f34ac558dc4ee03665",
+      "bytes": 177
+    },
+    "attempts/initial-type-check.log": {
+      "sha256": "ca60db78dc520eb14ae17cd131aaf758e2f299107afc11351cd4c68929e4b9f5",
+      "bytes": 678
+    },
+    "attempts/initial-world-fixture.log": {
+      "sha256": "240560a7891e84f92d43915f565b0a601437d4d8b722af3f38b0f1bafdc5112f",
+      "bytes": 603
+    },
+    "attempts/r10-first-ci.log": {
+      "sha256": "c45c644009f86cf2cbb53b46f7826b0b9f9bd99751b2574f8b186017e43637ba",
+      "bytes": 937
+    },
+    "attempts/x11-unavailable.log": {
+      "sha256": "27ecebf54324f4bf8c8a2e179c88666481c23f1067f0dbc264b9429875b7c754",
+      "bytes": 5928
+    },
+    "campaign.log": {
+      "sha256": "8b4b896042b14be0e098184beb55f99a0fcc4b854a732c83bbf7e91cd9ae7fb5",
+      "bytes": 2809
+    },
+    "dummy-final/audio_landmarks.log": {
+      "sha256": "3aba61d461b477264f20091adb5dadc37ad17d2898ef5caaaf6deb6b53078616",
+      "bytes": 174
+    },
+    "dummy-final/audio_retirement.log": {
+      "sha256": "45309d993a7ea0b54ac3e50f894e9796edc05caf7cc50b9761a3412d0c40c73b",
+      "bytes": 986
+    },
+    "dummy-final/spatial_ambience.log": {
+      "sha256": "a89a2fb6c0dfde5921561e975bf40d81e74cca87a505997506552cc0470727cf",
+      "bytes": 177
+    },
+    "dummy-final/spatial_ambience_world.log": {
+      "sha256": "35308e58c16b5148b5bfd79a8855b87526b2b07e45eb52023be341d0ed380e18",
+      "bytes": 323
+    },
+    "dummy-final/world_prepare_budget.log": {
+      "sha256": "2a9606c72c1a041b00774e236f7286afc9fe28e628d5ffa757b34444e3622d65",
+      "bytes": 682
+    },
+    "gl-final/audio_landmarks.log": {
+      "sha256": "6b30bc6da0fab37add47565f22cff813a367680b0d98a83d91bd21079a34e571",
+      "bytes": 476
+    },
+    "gl-final/audio_retirement.log": {
+      "sha256": "f9a0b3924178d85d18c0e7177da47dc09bfe4baf9bef09923aea53ed1355f941",
+      "bytes": 1287
+    },
+    "gl-final/spatial_ambience.log": {
+      "sha256": "a8b4d7665c66b5c08c0dd66ae23c6b0408d314868a4a3e53c33f1b8dd295d666",
+      "bytes": 479
+    },
+    "gl-final/spatial_ambience_world.log": {
+      "sha256": "a87011b7f6b70966729140962c1dd170778fb448b96ec9eae4d29b8b4bdc4f4d",
+      "bytes": 626
+    },
+    "gl-final/world_prepare_budget.log": {
+      "sha256": "a4e95fd3387b9dd7297da2a543ed965635dbb5488379553956b195c4116f38c5",
+      "bytes": 984
+    },
+    "import-summary.log": {
+      "sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "bytes": 252
+    },
+    "integrated-campaign.log": {
+      "sha256": "df053722f71a7f9e04c783804383340dc54a0c2e3687e5f75f8850bfd8855df3",
+      "bytes": 2809
+    },
+    "integrated-dummy/settings_construction.log": {
+      "sha256": "77d6942cce4c2caab054a1bca2bb5c3ac48aab37ba4e58d158f8f5eab99a159a",
+      "bytes": 1028
+    },
+    "integrated-dummy/spatial_ambience.log": {
+      "sha256": "f463405ffe0360bf39de7444365d4268ffd842ea955d98cd5c17e2e850bb4f4e",
+      "bytes": 177
+    },
+    "integrated-dummy/spatial_ambience_world.log": {
+      "sha256": "35308e58c16b5148b5bfd79a8855b87526b2b07e45eb52023be341d0ed380e18",
+      "bytes": 323
+    },
+    "integrated-gl/audio_landmarks.log": {
+      "sha256": "9a4d1412bec64ad18292290347b040d90a0db6d254e960e890caf5a683450935",
+      "bytes": 476
+    },
+    "integrated-gl/audio_retirement.log": {
+      "sha256": "569d37296d2dee43b341e5e21fc617c6a2c0177604cc1a6f0055dcc6ec9e2e1f",
+      "bytes": 1285
+    },
+    "integrated-gl/settings_construction.log": {
+      "sha256": "8b9a5ef8c0bd1c2715f323c290e5f645cae12896ddbf751c2af5798a35d2d827",
+      "bytes": 1332
+    },
+    "integrated-gl/spatial_ambience.log": {
+      "sha256": "5be9b920e756732b15b2cba1d9a847fda98ed52645ded8cc2e53a30f108212d0",
+      "bytes": 479
+    },
+    "integrated-gl/spatial_ambience_world.log": {
+      "sha256": "a87011b7f6b70966729140962c1dd170778fb448b96ec9eae4d29b8b4bdc4f4d",
+      "bytes": 626
+    },
+    "integrated-gl/world_prepare_budget.log": {
+      "sha256": "f11c5c82888ab585e279a02ccf987794bad61bc09b7b1f6e4a48cf9d1b127e90",
+      "bytes": 984
+    },
+    "integrated-npm.log": {
+      "sha256": "52063acd3596a76b0c90e3dbba27b206fd9125e5963f4c62b156f506befb0001",
+      "bytes": 11374
+    },
+    "isolated/r10/import.log": {
+      "sha256": "c840eb473be4d28b4a4dc23a9f540c752b3909e7528966d51024d99f2884ed25",
+      "bytes": 2004
+    },
+    "isolated/r10/native.log": {
+      "sha256": "e0082444ed1b5006bf721360b8c51ca8c4df06afabfbb1579a6519f1ad7ffa28",
+      "bytes": 110
+    },
+    "isolated/reverb/contracts.log": {
+      "sha256": "6b52800800e5181053cb13ee580c6721904282349fd353b5175318a4174a6f0a",
+      "bytes": 146
+    },
+    "isolated/reverb/import.log": {
+      "sha256": "3190e8448e4a04e7e85760630aeaaf4d206adc5628479504096a177cf4e2d78c",
+      "bytes": 2120
+    },
+    "isolated/volume/contracts.log": {
+      "sha256": "4ad33f71f50cecf177193905c49b2d0a5b4c578ca1014c279f9a8cacf1d6d570",
+      "bytes": 152
+    },
+    "isolated/volume/import.log": {
+      "sha256": "3190e8448e4a04e7e85760630aeaaf4d206adc5628479504096a177cf4e2d78c",
+      "bytes": 2120
+    },
+    "item-fixture-exit/baseline-verbose.log": {
+      "sha256": "f1f209fbf842b13b07a2af39ce83d27403aa156af8c2bf1ff94c1995177c1503",
+      "bytes": 72802
+    },
+    "item-fixture-exit/ci-warning-excerpt.log": {
+      "sha256": "e7dde7bbbcd765be040800fbf81ec25b90d5446b7bef731f01f737018a207f57",
+      "bytes": 905
+    },
+    "item-fixture-exit/final-gl/background_texture_contention.log": {
+      "sha256": "862c3e8b3ee14c3a47352cdf4ac73cc79fdd0dd97e29e5585900c56a1520aee8",
+      "bytes": 441
+    },
+    "item-fixture-exit/final-gl/character_art_prewarm.log": {
+      "sha256": "ae65e38c57bc789e7701439ec5ed06dd96e287dba78d5a3dc5a98aa0c90d1040",
+      "bytes": 489
+    },
+    "item-fixture-exit/final-gl/item_art_prewarm.log": {
+      "sha256": "ec40f161e894bde7fed4ada5945f6a842888d5bd3e5657c29d3c6720a5b256a4",
+      "bytes": 72866
+    },
+    "item-fixture-exit/final-gl/texture_request_exit.log": {
+      "sha256": "567cad63f64bdeb449197296d319acaf83d103b95ecaffdce3edf0a60fdd9deb",
+      "bytes": 416
+    },
+    "item-fixture-exit/headless/background_texture_contention.log": {
+      "sha256": "95bd43b2ec28191a874e87f918a2e6d77e3c7c4766012b10eb8aa9587fbb1952",
+      "bytes": 140
+    },
+    "item-fixture-exit/headless/item_art_prewarm.log": {
+      "sha256": "e2198376a16df7dc9dce20e1fad21f809dccf4aae6dd2be83c4067f0ab5ceff3",
+      "bytes": 70847
+    },
+    "item-fixture-exit/headless/texture_request_exit.log": {
+      "sha256": "440f17f4b1811dd9c72902fb987700a75544c7c0fe5bca44e6de51cb4055aefc",
+      "bytes": 114
+    },
+    "item-fixture-exit/negative/held-playback.log": {
+      "sha256": "4992c49bdda2e3dac9990c55f9913ee19edf810bd9c5cbd2d2cb643cce906726",
+      "bytes": 73452
+    },
+    "item-fixture-exit/restored-gl/item_art_prewarm.log": {
+      "sha256": "0392abf4b36d7b3f1ad9cebed236ba2dfe87d72cfb904d802b17981c0ea34600",
+      "bytes": 72866
+    },
+    "item-fixture-exit/runner.log": {
+      "sha256": "cfc5275d455dee1fac8d81234298424d224fe841ee023b0293ac1edf2c621598",
+      "bytes": 4041
+    },
+    "npm-test.log": {
+      "sha256": "ba8cc58e27878fea80cea722db37c7ace7aed18166d97e175c2621c5cd829572",
+      "bytes": 11374
+    },
+    "restored/spatial_ambience.log": {
+      "sha256": "ac2eb12707800b3063f06e2c46f0a569baedc753226c7497b39655fc7106519e",
+      "bytes": 177
+    },
+    "restored/spatial_ambience_world.log": {
+      "sha256": "35308e58c16b5148b5bfd79a8855b87526b2b07e45eb52023be341d0ed380e18",
+      "bytes": 323
+    },
+    "reverse-binding.log": {
+      "sha256": "729748aeaa44d1087796648f482fa498ef515d0cf349e6ce1c5a528e58c37e1e",
+      "bytes": 849
+    },
+    "reverse-gain.log": {
+      "sha256": "c03fd7e8414ccc2ba6121b283c614b4689e33064926cf4795f23c77cc09a8388",
+      "bytes": 300
+    },
+    "reverse-mute.log": {
+      "sha256": "6f8421a1090ad3148c8d14e9d12e782a5547c17918d906d79c62a6a8e54256ff",
+      "bytes": 285
+    },
+    "runner.log": {
+      "sha256": "613933ecb98141f76c546e877f3af306b9f67c2dfbbd4002dffa64ece23d1c53",
+      "bytes": 4041
+    }
+  },
+  "limits": [
+    "explicitly placed and paused World fixture",
+    "no natural six-region completion",
+    "no physical listening or controller review",
+    "no local full default run",
+    "no final distribution build"
+  ],
+  "command_exit_codes": {
+    "npm_test": 0,
+    "campaign": 0,
+    "runner_35_tests": 0,
+    "ledger_validate": 0,
+    "dummy_five_suites": 0,
+    "gl_five_suites": 0,
+    "restored_two_suites": 0,
+    "occlusion_reverse": 1,
+    "mute_reverse": 1,
+    "binding_reverse": 1
+  },
+  "initial_source_sha256": {
+    "godot/scripts/audio_director.gd": "ebb41043aef2679de7d6ba92aadd13ba5e7f096f293ca884f9325e022e64651c",
+    "godot/scripts/main_level.gd": "59521728227121b6726c9813dfe200dc0ee3a71f752e75459037443ae58fe321",
+    "godot/scripts/ambient_soundscape.gd": "c0da7d24f3865839e7e7241f4586e3ee403216fc848f8ebdc6ea0a0951dffede",
+    "godot/scripts/spatial_ambience_voice.gd": "02cc78d43172f3d5535450feb8b71b458dc99da3eb9c6ed9cedab400a720fc3e",
+    "godot/scripts/spatial_ambience_validation.gd": "5fc5039563920d3db2b1b33ecbd7dbc0100e3a1afa6e8f0291977ccd03157261",
+    "godot/scripts/spatial_ambience_world_validation.gd": "6eee8a87ec89e525317650bada431055d2e67bda890ac9a4ae73f1c4fb5600b0",
+    "godot/data/audio_visual_manifest.json": "bca71e0f27e8e9df3ea3b907e19f59fc2ec1978b56ce77790319d86fec869b1c",
+    "tools/run_godot_regressions.py": "027bce5140708ac0a45332821828e24a00e3734d0baab45d738f39ad0babb44c",
+    "tools/godot_suite_success_markers.json": "4f428decb11e43a87310d2c7d7026b48015d7510d59e742c24cb06778606569c"
+  },
+  "integration": {
+    "main": "2ceea261b137ebb87a59bde99776900310eb35d2",
+    "included_user_merges": [
+      540,
+      543
+    ],
+    "source_sha256": {
+      "godot/scripts/audio_director.gd": "ebb41043aef2679de7d6ba92aadd13ba5e7f096f293ca884f9325e022e64651c",
+      "godot/scripts/main_level.gd": "59521728227121b6726c9813dfe200dc0ee3a71f752e75459037443ae58fe321",
+      "godot/scripts/ambient_soundscape.gd": "c0da7d24f3865839e7e7241f4586e3ee403216fc848f8ebdc6ea0a0951dffede",
+      "godot/scripts/spatial_ambience_voice.gd": "02cc78d43172f3d5535450feb8b71b458dc99da3eb9c6ed9cedab400a720fc3e",
+      "godot/scripts/spatial_ambience_validation.gd": "5fc5039563920d3db2b1b33ecbd7dbc0100e3a1afa6e8f0291977ccd03157261",
+      "godot/scripts/spatial_ambience_world_validation.gd": "6eee8a87ec89e525317650bada431055d2e67bda890ac9a4ae73f1c4fb5600b0",
+      "godot/data/audio_visual_manifest.json": "bca71e0f27e8e9df3ea3b907e19f59fc2ec1978b56ce77790319d86fec869b1c",
+      "tools/run_godot_regressions.py": "c24a2a94fbcb2a6bd300f50f333b4475f66fe11d90c57fec405bcc3c55cc2f8f",
+      "tools/godot_suite_success_markers.json": "1dd8b15fd49a92cf70ffe0532f2c067bdbec274c3bea8e588e4257854c88f5d5",
+      "godot/scripts/pilgrimage_interface.gd": "704610c565408a160107c27f80658fbcba59b35d5d0c4b6ea02fc47bdb0bc8ac",
+      "godot/scripts/settings_construction_validation.gd": "b11f4ab2aa1ff8fd1f64c7e25bdc25b4f7c56d43a8e4135ba1db34f833cf045c",
+      "tools/run_reliability_98fd8e2f_r10.py": "c56f9d5be401cf9ae32835d3098c81fdc00313e6ff4fcb1c4f82304c2d90b32c",
+      "tools/run_audio_volume_save_contract.py": "62479f222e0e07219c905151aece7a73b8ba79688d5671ec797c1c9f4eecfa86",
+      "tools/run_room_reverb_contract.py": "fdad3e50ac41572318c8892472e4b7373784994445163755cec01e98b5466bfb"
+    },
+    "gl_suites": 6,
+    "dummy_suites": 3,
+    "isolated_checks": {
+      "r10": 11,
+      "volume": 103,
+      "reverb": 182
+    },
+    "npm_exit": 0,
+    "campaign_exit": 0,
+    "initial_ci_failure": {
+      "run_id": 42198559575,
+      "head": "92c9a45f827dd4dde31bc7a4ecc51d582e9ad611",
+      "cause": "R10 static staging omitted new director preload dependencies; three staging lists now include both scripts"
+    }
+  },
+  "item_fixture_exit": {
+    "source_sha256": {
+      "godot/scripts/item_art_prewarm_validation.gd": "2efd25e8d11ccaefa0aa576c008e63ba185570e20fcdf2d4d9210dc137a51ee6",
+      "tools/run_godot_regressions.py": "6f1c3e0eb8e5059dcbe8e995d797b657e2075d02ab144f7d840d1b83e51e77f9"
+    },
+    "ci_warning_run": 42200158081,
+    "baseline_single_local_run_reproduced_warning": false,
+    "new_check_count": 244,
+    "gl_positive_suites": 4,
+    "headless_positive_suites": 3,
+    "held_real_playback_negative": {
+      "exit": 1,
+      "failed_checks": 1,
+      "pending_playbacks": 1,
+      "pending_streams": 1,
+      "script_errors": 0
+    },
+    "restored_gl_item_check_count": 244,
+    "limits": "Does not identify the sole cause of the historical intermittent ObjectDB warning; strict guard retained."
+  }
+}

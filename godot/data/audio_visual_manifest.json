@@ -1431,7 +1431,7 @@
     "voice_manager": "res://scripts/audio_director.gd::request_voice (static; same-key min-interval/max-voices plus 24-voice global pool, P0(0)>P1(1)>P2(2) preemption; player/enemy scripts lazy-load it and fail open when absent)"
   },
   "ambience_zones": {
-    "zones_note": "One synthesized bed loop per chapter on the Ambience bus plus sparse randomized one-shots. All beds and one-shots are project-generated CC0 (tools/generate_ambience_pack.py) and wired: AudioDirector.set_chapter starts the chapter bed and schedules amb_chNN_os_1..8 every 45-120 s at -6 dB (audio_director.gd::_start_ambience/_on_oneshot_timer); ch02 additionally schedules amb_ch02_anvil_far every 30-75 s at -8 dB (_on_anvil_timer). Spec one-shot interval 8-25 s was widened to 45-120 s to keep the beds sparse under the current mix.",
+    "zones_note": "One synthesized diffuse bed loop per chapter on Ambience. Sparse accents retain 45-120 s scheduling, but now select nearby authored room origins and their material-specific variants in ambient_soundscape.gd; ch02 far-anvil retains 30-75 s scheduling at its furnace origin. AudioStreamPlayer2D uses a 900 px hearing radius, terrain attenuation and a separate 2400 Hz occlusion bus sent to Ambience. Background accents yield to dialogue, danger, combat, Boss, shrine, menus and transitions. The diffuse bed remains non-positional. Existing generated CC0 clips are unchanged; audible mix and broader source coverage remain to be reviewed.",
     "ch01_moss_bell_court": {
       "bus": "Ambience",
       "bed": {
