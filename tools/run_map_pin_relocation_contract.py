@@ -10,7 +10,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ["atlas_route_cue.gd", "background_resource_job.gd", "cartography_runtime.gd", "hand_drawn_assets.gd", "hand_drawn_map_room.gd", "map_pin_relocation_validation.gd", "map_player_pins.gd", "map_player_pins_runtime.gd", "map_room_context.gd", "map_room_navigation.gd", "pilgrimage_cartography.gd", "survey_map_knowledge.gd", "survey_map_surface.gd", "world_atlas.gd", "world_collision_geometry.gd", "world_coordinates.gd", "world_passage.gd", "world_platform_body.gd", "world_rock_material.gd", "world_routes.gd", "world_state.gd", "world_wayfinding.gd"]
+SCRIPTS = ["atlas_route_cue.gd", "ui_type_scale.gd", "background_resource_job.gd", "cartography_runtime.gd", "hand_drawn_assets.gd", "hand_drawn_map_room.gd", "map_pin_relocation_validation.gd", "map_player_pins.gd", "map_player_pins_runtime.gd", "map_room_context.gd", "map_room_navigation.gd", "pilgrimage_cartography.gd", "survey_map_knowledge.gd", "survey_map_surface.gd", "world_atlas.gd", "world_collision_geometry.gd", "world_coordinates.gd", "world_passage.gd", "world_platform_body.gd", "world_rock_material.gd", "world_routes.gd", "world_state.gd", "world_wayfinding.gd"]
 MARKER = re.compile("^MAP_PIN_RELOCATION checks=[1-9][0-9]* failures=0$", re.M)
 SCRIPTS += ["authored_control_hints.gd", "input_prompt_bindings.gd"]
 
