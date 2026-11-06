@@ -188,6 +188,8 @@ var ai_poll_accum := 0.0
 var combat_calm_time := 0.0
 var shrine_anchor := Vector2.ZERO
 var shrine_engaged := false
+# A retired preparation must never reacquire playback before eviction completes.
+var region_audio_released := false
 
 
 func _ready() -> void:
@@ -197,30 +199,45 @@ func _ready() -> void:
     _load_user_volumes()
 
 
-func _exit_tree() -> void:
-    ambient_soundscape.clear()
-    room_reverb_mix.release(self)
-    _clear_duck_layers(instance == self)
+## Called while the host still owns its children, including its external BGM.
+## Idempotent for partial preparation, rollback and the later tree-exit callback.
+func release_region_audio() -> void:
+    if region_audio_released:
+        return
     _remember_explore_position()
-    if _explore_owners.get(_explore_path, 0) == get_instance_id():
-        _explore_owners.erase(_explore_path)
-    # Stop local envelopes before retirement. Global mix belongs to the latest
-    # director; a queued old scene must never strip a new scene's death/HP filter.
+    region_audio_released = true
+    autoplay_enabled = false
+    set_process(false)
+    ambient_soundscape.clear()
+    for timer in [oneshot_timer, anvil_timer]:
+        if is_instance_valid(timer):
+            timer.stop()
     for tween in [duck_tween, combat_tween, lullaby_tween, explore_tween, boss_tween, transit_tween, hidden_drone_tween, low_hp_tween, death_tween]:
         if tween != null and tween.is_valid():
             tween.kill()
     for tween in bus_tweens.values() + reverb_tweens.values():
         if tween != null and tween.is_valid():
             tween.kill()
+    # The exploration player is owned by Main rather than this director.
+    # Capture it explicitly; tree exit runs children before their parent.
     for voice in [explore_player, combat_player, boss_player, lullaby_player, stinger_player, transit_player, hidden_drone_player, ambience_bed_player, _npc_voice_player]:
-        if voice != null and is_instance_valid(voice):
+        if is_instance_valid(voice):
+            preload("res://scripts/audio_retirement.gd").watch_player(voice)
             voice.stop()
             voice.stream = null
+
+
+func _exit_tree() -> void:
+    release_region_audio()
+    room_reverb_mix.release(self)
+    _clear_duck_layers(instance == self)
+    if _explore_owners.get(_explore_path, 0) == get_instance_id():
+        _explore_owners.erase(_explore_path)
     if instance != null and instance != self:
         return
     if instance == self:
         instance = null
-    # 总线是全局状态：摘除死亡/濒死滤波，避免跨章节残留（音量复位由 main_level 兜底）。
+    # Global filters belong to the newest director during scene handoff.
     _clear_death_lowpass()
     if low_hp_active:
         set_low_hp(false)
@@ -559,13 +576,19 @@ func configure_ambience(config: Dictionary, host: Node2D) -> void:
 
 
 func set_chapter(chapter_id: String) -> void:
-    ambient_soundscape.clear()
-    chapter_short_id = _short_chapter_id(chapter_id)
-    _capture_base_reverb()
+    prepare_chapter(chapter_id)
     if not autoplay_enabled:
         return
     _play_explore_track(_explore_track_path())
     _start_ambience()
+
+
+## World preparation admits exploration and ambience on separate budgeted jobs.
+## Direct callers retain the synchronous set_chapter entry above.
+func prepare_chapter(chapter_id: String) -> void:
+    ambient_soundscape.clear()
+    chapter_short_id = _short_chapter_id(chapter_id)
+    _capture_base_reverb()
 
 
 func _chapter_slug() -> String:
@@ -600,6 +623,8 @@ func _boss_track_path(boss_id: String, phase: int) -> String:
 
 
 func _play_explore_track(path: String) -> void:
+    if region_audio_released:
+        return
     var stream := load_cached(path, true)
     if stream == null:
         return
@@ -947,6 +972,8 @@ func play_stinger(key: String) -> void:
 # ---- 环境床与稀疏 one-shot（规格 §4.6）----
 
 func _start_ambience() -> void:
+    if region_audio_released:
+        return
     var bed_stream := load_cached(_ambience_bed_path(), true)
     if bed_stream != null:
         if ambience_bed_player == null or not is_instance_valid(ambience_bed_player):

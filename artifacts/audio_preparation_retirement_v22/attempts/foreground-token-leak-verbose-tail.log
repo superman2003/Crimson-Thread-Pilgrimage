@@ -1,0 +1,40 @@
+Loading resource: res://.godot/imported/survey_paper.svg-897b136dc5e1ba7216a5820d71bff493.ctex
+盐风口暂不可通。沿下庭排水钟管去雨渠，也可先探索庭内捷径。  M 地图 / Tab 世界图 · F9 新旅途。
+AUDIO_RETIREMENT pending=0 elapsed_msec=12 observed=50 retired=100
+AUDIO_CONSTRUCTION checks=227 failures=0
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+     at: cleanup (core/object/object.cpp:2641)
+Leaked instance: GDScriptNativeClass:9223372052323369856 - Reference count: 1
+Leaked instance: GDScript:9223372184913708652 - Reference count: 3
+Leaked instance: GDScriptFunctionState:9223373356684806108 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223373171112020458 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223372984817814322 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223373130460826433 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223372944216951944 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223373171900550680 - Reference count: 1
+Leaked instance: RefCounted:9223373130158837360 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223373357473338530 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223372985606346179 - Reference count: 1
+Leaked instance: RefCounted:9223372943914964486 - Reference count: 1
+Leaked instance: GDScriptFunctionState:9223373316033615399 - Reference count: 1
+Leaked instance: RefCounted:9223373315731625560 - Reference count: 1
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+ERROR: 1 resources still in use at exit.
+   at: clear (core/io/resource.cpp:805)
+Resource still in use: res://scripts/world_transition_token.gd (GDScript)
+Orphan StringName: cancel (static: 0, total: 1)
+Orphan StringName: serial (static: 0, total: 6)
+Orphan StringName: process_frame (static: 1, total: 4)
+Orphan StringName: finished (static: 0, total: 6)
+Orphan StringName: cancelled (static: 0, total: 6)
+Orphan StringName: _evict_budgeted (static: 0, total: 3)
+Orphan StringName: replace_region_async (static: 0, total: 3)
+Orphan StringName: succeeded (static: 0, total: 6)
+Orphan StringName: "scripts/world_transition_token.gd" (static: 0, total: 1)
+Orphan StringName: _construct_budgeted (static: 0, total: 3)
+Orphan StringName: RefCounted (static: 1, total: 2)
+Orphan StringName: completed (static: 2, total: 13)
+StringName: 12 unclaimed string names at exit.

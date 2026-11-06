@@ -1,0 +1,20 @@
+[
+  {
+    "case": "foreground-frame-wakeup",
+    "expected_rejection": true,
+    "exit_code": 1,
+    "modified_path": "scripts/world_region_loader.gd",
+    "modified_sha256": "8ae2d32e1fe59c4e8c38eb664b7dc8eee9813204ada6808fc61437096711959a",
+    "expected_failure": "host exit releases partial director, stream and playback",
+    "script_errors": 0
+  },
+  {
+    "case": "release-before-eviction",
+    "expected_rejection": true,
+    "exit_code": 1,
+    "modified_path": "scripts/main_level.gd",
+    "modified_sha256": "7b0ca37988c938f53966b7076387bccf3f814160bfbcac86823e48d98f7d3e8d",
+    "expected_failure": "release invalidates the director before budgeted eviction",
+    "script_errors": 0
+  }
+]

@@ -24,7 +24,7 @@ DEFAULT_SUITES = (
     'permanent_capacity player_contact_art player_ability_art player_dash_art player_hook_art player_hurt_art player_movement_art player_heal_art player_guard_art player_upgrade_regression build_system world_upgrade world_workshop_group_one world_workshop_group_two world_ability_acquisition upgrade_integration save_product '
     'ui_build_accessibility ui_world_integration ui_redesign global_font ui_text_order settings_construction '
     'seal_system seal_combat seal_ui combat_input_events seal_acceptance seal_acquisition seal_presentation seal_identity world_prepare_budget world_save_candidate map_player_pins world_preflight_budget world_config_background world_catalog_background world_startup_config_background world_neighbor_config world_resume_regression world_interaction_safety player_state_cleanup input_settings_regression input_prompt player_action_buffer player_motion_continuity player_layered_idle player_idle_motion npc_dialogue_motion player_melee_feedback camera_focus room_camera_stability first_court_experience rain_foundry_experience salt_archive_experience greenhouse_experience obsidian_experience obsidian_road_clearance obsidian_dock_clearance crown_rain_slot crown_vault_door player_action_sfx_sync fragile_gate_crack hidden_drone '
-    'world_startup_budget world_variant_copy world_save_backup interaction_reach survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush death_cache_placement g02_respawn rest_point_safety '
+    'world_startup_budget world_variant_copy audio_construction world_save_backup interaction_reach survey_map_knowledge survey_room_segments ch06_workshop_experience silent_crown_experience optional_challenges world_death_cache_flush death_cache_placement g02_respawn rest_point_safety '
     'melee_recovery spike_pogo combat_resource_cycle build_slots build_transaction_runtime enemy_encounter_roles enemy_ai_behavior enemy_tactical_roles build_slots_ui narrative_outcomes skill_branches artisan_crafts tool_practice shrine_exit_probe shrine_exit_routes hidden_routes save_recovery ending_aftermath settings_remap scene_history quiet_sole_traps wish_reward_atomic legacy_travel_rewards map_group_framing'
 ).split()
 NARRATIVE_SUITES = ['tests/verify_world_narrative', 'tests/verify_narrative_ui', 'tests/verify_narrative_progression', 'tests/verify_narrative_runtime']
@@ -157,6 +157,11 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
             # Color must not hide fatal engine diagnostics or a valid marker.
             plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)
+            if suite == 'audio_construction':
+                errors.extend(message for message in [
+                    'ObjectDB instances leaked', 'resources still in use',
+                    'Leaked instance:', 'without its completion',
+                ] if message in plain)
             completed = re.search(marker, plain, re.MULTILINE) is not None
             if result.returncode != 0 or errors or not completed:
                 failures.append(f'{suite}: exit={result.returncode} engine_errors={len(errors)} completion_marker={completed}')
