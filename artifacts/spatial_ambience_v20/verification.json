@@ -275,6 +275,54 @@
       "sha256": "3190e8448e4a04e7e85760630aeaaf4d206adc5628479504096a177cf4e2d78c",
       "bytes": 2120
     },
+    "item-fixture-exit/baseline-verbose.log": {
+      "sha256": "f1f209fbf842b13b07a2af39ce83d27403aa156af8c2bf1ff94c1995177c1503",
+      "bytes": 72802
+    },
+    "item-fixture-exit/ci-warning-excerpt.log": {
+      "sha256": "e7dde7bbbcd765be040800fbf81ec25b90d5446b7bef731f01f737018a207f57",
+      "bytes": 905
+    },
+    "item-fixture-exit/final-gl/background_texture_contention.log": {
+      "sha256": "862c3e8b3ee14c3a47352cdf4ac73cc79fdd0dd97e29e5585900c56a1520aee8",
+      "bytes": 441
+    },
+    "item-fixture-exit/final-gl/character_art_prewarm.log": {
+      "sha256": "ae65e38c57bc789e7701439ec5ed06dd96e287dba78d5a3dc5a98aa0c90d1040",
+      "bytes": 489
+    },
+    "item-fixture-exit/final-gl/item_art_prewarm.log": {
+      "sha256": "ec40f161e894bde7fed4ada5945f6a842888d5bd3e5657c29d3c6720a5b256a4",
+      "bytes": 72866
+    },
+    "item-fixture-exit/final-gl/texture_request_exit.log": {
+      "sha256": "567cad63f64bdeb449197296d319acaf83d103b95ecaffdce3edf0a60fdd9deb",
+      "bytes": 416
+    },
+    "item-fixture-exit/headless/background_texture_contention.log": {
+      "sha256": "95bd43b2ec28191a874e87f918a2e6d77e3c7c4766012b10eb8aa9587fbb1952",
+      "bytes": 140
+    },
+    "item-fixture-exit/headless/item_art_prewarm.log": {
+      "sha256": "e2198376a16df7dc9dce20e1fad21f809dccf4aae6dd2be83c4067f0ab5ceff3",
+      "bytes": 70847
+    },
+    "item-fixture-exit/headless/texture_request_exit.log": {
+      "sha256": "440f17f4b1811dd9c72902fb987700a75544c7c0fe5bca44e6de51cb4055aefc",
+      "bytes": 114
+    },
+    "item-fixture-exit/negative/held-playback.log": {
+      "sha256": "4992c49bdda2e3dac9990c55f9913ee19edf810bd9c5cbd2d2cb643cce906726",
+      "bytes": 73452
+    },
+    "item-fixture-exit/restored-gl/item_art_prewarm.log": {
+      "sha256": "0392abf4b36d7b3f1ad9cebed236ba2dfe87d72cfb904d802b17981c0ea34600",
+      "bytes": 72866
+    },
+    "item-fixture-exit/runner.log": {
+      "sha256": "cfc5275d455dee1fac8d81234298424d224fe841ee023b0293ac1edf2c621598",
+      "bytes": 4041
+    },
     "npm-test.log": {
       "sha256": "ba8cc58e27878fea80cea722db37c7ace7aed18166d97e175c2621c5cd829572",
       "bytes": 11374
@@ -370,5 +418,25 @@
       "head": "92c9a45f827dd4dde31bc7a4ecc51d582e9ad611",
       "cause": "R10 static staging omitted new director preload dependencies; three staging lists now include both scripts"
     }
+  },
+  "item_fixture_exit": {
+    "source_sha256": {
+      "godot/scripts/item_art_prewarm_validation.gd": "2efd25e8d11ccaefa0aa576c008e63ba185570e20fcdf2d4d9210dc137a51ee6",
+      "tools/run_godot_regressions.py": "6f1c3e0eb8e5059dcbe8e995d797b657e2075d02ab144f7d840d1b83e51e77f9"
+    },
+    "ci_warning_run": 42200158081,
+    "baseline_single_local_run_reproduced_warning": false,
+    "new_check_count": 244,
+    "gl_positive_suites": 4,
+    "headless_positive_suites": 3,
+    "held_real_playback_negative": {
+      "exit": 1,
+      "failed_checks": 1,
+      "pending_playbacks": 1,
+      "pending_streams": 1,
+      "script_errors": 0
+    },
+    "restored_gl_item_check_count": 244,
+    "limits": "Does not identify the sole cause of the historical intermittent ObjectDB warning; strict guard retained."
   }
 }
