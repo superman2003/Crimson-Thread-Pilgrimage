@@ -1,0 +1,218 @@
+{
+  "fixture": "Unchanged world_async_loading 504-check fixture; one sequential six-region sample per variant, Windows native GL. CPU jobs only, not natural FPS or total loading speed.",
+  "samples": [
+    {
+      "role": "before",
+      "base": "4242f790eb43b684b9e86e970075350abbec13c9",
+      "log": "baseline-native/world_async_loading.log",
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "settings_jobs_ms": {
+            "_build_settings": 10.918
+          },
+          "max_settings_job_ms": 10.918,
+          "max_commit_batch_ms": 35.343
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "settings_jobs_ms": {
+            "_build_settings": 12.416
+          },
+          "max_settings_job_ms": 12.416,
+          "max_commit_batch_ms": 12.432
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "settings_jobs_ms": {
+            "_build_settings": 12.344
+          },
+          "max_settings_job_ms": 12.344,
+          "max_commit_batch_ms": 12.357
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "settings_jobs_ms": {
+            "_build_settings": 11.861
+          },
+          "max_settings_job_ms": 11.861,
+          "max_commit_batch_ms": 11.877
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "settings_jobs_ms": {
+            "_build_settings": 10.075
+          },
+          "max_settings_job_ms": 10.075,
+          "max_commit_batch_ms": 10.089
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "settings_jobs_ms": {
+            "_build_settings": 11.189
+          },
+          "max_settings_job_ms": 11.189,
+          "max_commit_batch_ms": 11.203
+        }
+      ]
+    },
+    {
+      "role": "after-isolated",
+      "base": "4242f790eb43b684b9e86e970075350abbec13c9",
+      "log": "first-native/world_async_loading.log",
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.732,
+            "_build_settings_accessibility": 4.606,
+            "_build_settings_audio": 0.876,
+            "_build_settings_controls": 3.132,
+            "_finish_settings": 2.259
+          },
+          "max_settings_job_ms": 4.606,
+          "max_commit_batch_ms": 35.511
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.972,
+            "_build_settings_accessibility": 5.381,
+            "_build_settings_audio": 1.073,
+            "_build_settings_controls": 3.762,
+            "_finish_settings": 3.021
+          },
+          "max_settings_job_ms": 5.381,
+          "max_commit_batch_ms": 9.03
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.521,
+            "_build_settings_accessibility": 4.848,
+            "_build_settings_audio": 1.373,
+            "_build_settings_controls": 3.867,
+            "_finish_settings": 2.594
+          },
+          "max_settings_job_ms": 4.848,
+          "max_commit_batch_ms": 8.124
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.491,
+            "_build_settings_accessibility": 4.087,
+            "_build_settings_audio": 1.856,
+            "_build_settings_controls": 3.389,
+            "_finish_settings": 2.508
+          },
+          "max_settings_job_ms": 4.087,
+          "max_commit_batch_ms": 13.049
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.863,
+            "_build_settings_accessibility": 3.717,
+            "_build_settings_audio": 0.893,
+            "_build_settings_controls": 3.415,
+            "_finish_settings": 1.985
+          },
+          "max_settings_job_ms": 3.717,
+          "max_commit_batch_ms": 8.085
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.748,
+            "_build_settings_accessibility": 4.383,
+            "_build_settings_audio": 1.178,
+            "_build_settings_controls": 3.291,
+            "_finish_settings": 2.194
+          },
+          "max_settings_job_ms": 4.383,
+          "max_commit_batch_ms": 8.019
+        }
+      ]
+    },
+    {
+      "role": "after-main",
+      "base": "35987a418c9135c1b154c6a1030417cbe9faa7ec",
+      "log": "final-native/world_async_loading.log",
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "settings_jobs_ms": {
+            "_begin_settings": 2.09,
+            "_build_settings_accessibility": 3.882,
+            "_build_settings_audio": 1.912,
+            "_build_settings_controls": 4.712,
+            "_finish_settings": 2.509
+          },
+          "max_settings_job_ms": 4.712,
+          "max_commit_batch_ms": 39.266
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.394,
+            "_build_settings_accessibility": 4.698,
+            "_build_settings_audio": 0.924,
+            "_build_settings_controls": 2.964,
+            "_finish_settings": 1.852
+          },
+          "max_settings_job_ms": 4.698,
+          "max_commit_batch_ms": 11.843
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.871,
+            "_build_settings_accessibility": 4.101,
+            "_build_settings_audio": 1.416,
+            "_build_settings_controls": 5.978,
+            "_finish_settings": 2.31
+          },
+          "max_settings_job_ms": 5.978,
+          "max_commit_batch_ms": 11.661
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.526,
+            "_build_settings_accessibility": 5.008,
+            "_build_settings_audio": 1.938,
+            "_build_settings_controls": 2.917,
+            "_finish_settings": 1.964
+          },
+          "max_settings_job_ms": 5.008,
+          "max_commit_batch_ms": 7.458
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.459,
+            "_build_settings_accessibility": 3.351,
+            "_build_settings_audio": 0.922,
+            "_build_settings_controls": 4.398,
+            "_finish_settings": 3.305
+          },
+          "max_settings_job_ms": 4.398,
+          "max_commit_batch_ms": 6.661
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "settings_jobs_ms": {
+            "_begin_settings": 1.145,
+            "_build_settings_accessibility": 3.457,
+            "_build_settings_audio": 0.88,
+            "_build_settings_controls": 3.945,
+            "_finish_settings": 1.997
+          },
+          "max_settings_job_ms": 3.945,
+          "max_commit_batch_ms": 8.832
+        }
+      ]
+    }
+  ]
+}

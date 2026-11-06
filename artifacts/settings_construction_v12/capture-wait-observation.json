@@ -1,0 +1,12 @@
+{
+  "previous_attempt": "capture-wait-timeout/settings_construction_capture.log",
+  "accepted_previous": false,
+  "previous_timeout_seconds": 240,
+  "observation": "Paused offscreen native capture did not complete while awaiting frame_post_draw. The owned engine process was observed live until the unchanged helper deadline retired its process tree.",
+  "change": "Use one explicit RenderingServer.force_draw(false) on the main thread instead of waiting for an automatic post-draw signal.",
+  "documentation": "https://docs.godotengine.org/en/4.6/classes/class_renderingserver.html#class-renderingserver-method-force-draw",
+  "explicit_native_log": "capture-explicit-native/settings_construction_capture.log",
+  "pixels_match_original": true,
+  "tree_matches_original": true,
+  "pixel_sha256": "26db4cff2d14d2af9cec373a1aa1a4c84e9ec5f2632a218a865f21bc726f2f06"
+}
