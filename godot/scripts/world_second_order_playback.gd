@@ -18,6 +18,7 @@ var order_spear_approach := false
 var order_spear_cast := false
 var order_spear_cast_frame := -100
 var order_camp_guard_approach := false
+var order_crown_defeats: Array[String] = []
 var order_camp_guard_cast := false
 func _run() -> void:
     for arg in OS.get_cmdline_user_args():
@@ -27,9 +28,9 @@ func _run() -> void:
         if arg.begins_with("--input-sha="):order_input_sha = arg.trim_prefix("--input-sha=")
         if arg.begins_with("--input-proof="):order_input_proof = arg.trim_prefix("--input-proof=")
     order_save = "user://second_order_%d.json" % OS.get_process_id()
-    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"],"explicit bounded fresh-start stage")
+    _check(order_stage in ["probe","first_lamp","canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower","crown_map","crown_west","crown_upper"],"explicit bounded fresh-start stage")
     _check(not FileAccess.file_exists(order_save),"private new-game save does not exist")
-    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower"]
+    var continuing := order_stage in ["canal_aqueduct","archive_obsidian_camp","camp_restore","camp_prepare","greenhouse_entry","earned_restore","greenhouse_heart","root_crown_lower","crown_map","crown_west","crown_upper"]
     if continuing:
         var raw := FileAccess.get_file_as_bytes(order_input)
         var hash := HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
@@ -45,6 +46,8 @@ func _run() -> void:
     await preload("res://scripts/world_ready_validation_helper.gd").wait_for(scene)
     current_scene = scene
     scene.player.ability_action.connect(order_ability_observed)
+    if order_stage.begins_with("crown_"):
+        for actor in get_nodes_in_group("enemy"):actor.died.connect(order_crown_defeated)
     await _tick(15)
     var initial := snapshot()
     print("SECOND_ORDER_INITIAL "+JSON.stringify(initial))
@@ -60,6 +63,9 @@ func _run() -> void:
         elif order_stage == "greenhouse_entry":await greenhouse_entry()
         elif order_stage == "greenhouse_heart":await greenhouse_heart()
         elif order_stage == "root_crown_lower":await root_crown_lower()
+        elif order_stage == "crown_map":await crown_map()
+        elif order_stage == "crown_west":await crown_west()
+        elif order_stage == "crown_upper":await crown_upper()
         elif order_stage=="earned_restore":
             _check(same_json(scene.story_flags,parent_proof.flags) and scene.player.max_hp==int(parent_proof.max_hp) and scene.player.max_energy==int(parent_proof.max_energy),"independent production World restores exact earned flags and resource limits")
         else:
@@ -254,12 +260,19 @@ func order_leap(target: Vector2,second_frame: int,label: String) -> bool:
                 contacts.append({"body":str(collision.get_collider().get_path()),"point":str(collision.get_position()),"normal":str(collision.get_normal())})
             print("SECOND_ORDER_GAP_CONTACT "+JSON.stringify({"frame":frame,"position":str(scene.player.position),"velocity":str(scene.player.velocity),"jump":Input.is_action_pressed("jump"),"wall":scene.player.is_on_wall(),"floor":scene.player.is_on_floor(),"air_available":scene.player.air_jump_available,"contacts":contacts}))
         if frame%50==49:print("SECOND_ORDER_LEAP pending ",label," ",scene.player.position," velocity=",scene.player.velocity," hp=",scene.player.hp)
+        if label=="authored obsidian banner foothold" and frame%10==0:
+            var contacts: Array=[]
+            for index in scene.player.get_slide_collision_count():
+                var hit: KinematicCollision2D=scene.player.get_slide_collision(index)
+                contacts.append({"body":str(hit.get_collider().get_path()),"normal":str(hit.get_normal())})
+            print("SECOND_ORDER_CROWN_BANNER "+JSON.stringify({"frame":frame,"position":str(scene.player.position),"velocity":str(scene.player.velocity),"attack":scene.player.attack_timer,"floor":scene.player.is_on_floor(),"wall":scene.player.is_on_wall(),"air_jump":scene.player.air_jump_available,"jump":Input.is_action_pressed("jump"),"contacts":contacts}))
         if scene.player.hp<=0:break
     _release();_check(false,"actual jump blocked: "+label+" at "+str(scene.player.position));return false
 func export_checkpoint(origin: String) -> void:
     var raw:=FileAccess.get_file_as_bytes(order_save)
     var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(raw)
     var proof:=snapshot();proof["save_sha256"]=hash.finish().hex_encode();proof["save_bytes"]=raw.size();proof["origin"]=origin
+    if order_stage.begins_with("crown_"):proof["observed_enemy_defeats"]=order_crown_defeats.duplicate()
     proof["source_save_sha256"]=order_input_sha
     proof["source_pid"]=int(parent_proof.get("pid",-1))
     print("SECOND_ORDER_EARNED "+JSON.stringify(proof))
@@ -324,6 +337,7 @@ func write_json(name: String,data: Dictionary) -> void:
     var file:=FileAccess.open(order_output.path_join(name),FileAccess.WRITE);file.store_string(JSON.stringify(data,"  "));file.close()
 func finish_order() -> void:
     _release()
+    if order_stage.begins_with("crown_"):_check(deaths==0,"bounded crown continuation survives its own attempt")
     if is_instance_valid(scene):
         if not order_output.is_empty():write_json("terminal.json",snapshot())
         RETIREMENT.retire_tree(root)
@@ -599,7 +613,7 @@ func order_vault_hunter() -> bool:
     _check(false,"actual downstrike vault duel did not finish")
     return false
 
-func order_crown_flyer(spawn_id: String) -> bool:
+func order_crown_flyer(spawn_id: String,hold_x: float=NAN) -> bool:
     steps+=1
     _release()
     combat_enabled=false
@@ -613,7 +627,11 @@ func order_crown_flyer(spawn_id: String) -> bool:
             _release();Input.action_release("aim_up");await order_settled_recover();print("CROWN_FLYER_DEFEATED ",spawn_id);return true
         var p: CharacterBody2D=scene.player
         var dx: float=foe.position.x-p.position.x
-        _axis(signf(dx) if absf(dx)>80 or p.facing!=signi(dx) else 0)
+        if is_finite(hold_x):
+            var hold_dx: float=hold_x-p.position.x
+            _axis(signf(hold_dx) if absf(hold_dx)>8 else (signf(dx) if p.facing!=signi(dx) else 0))
+        else:
+            _axis(signf(dx) if absf(dx)>80 or p.facing!=signi(dx) else 0)
         if foe.position.y<p.position.y-75 and p.is_on_floor() and p.hurt_timer<=0 and p.attack_timer<=0 and frame-jumped_at>80:
             Input.action_press("jump");jumped_at=frame;doubled=false;await process_frame
         if frame-jumped_at==17:Input.action_release("jump");await process_frame
@@ -670,3 +688,282 @@ func root_crown_lower() -> void:
     if not await order_precise_interact("save_ch06_lower_loop",2570):return
     _check(scene.active_save_point_id=="save_ch06_lower_loop" and scene.player.hp==scene.player.max_hp,"first actual second-order C6 lower-loop shrine rest")
     if failures==0:export_checkpoint("own fresh C1-C2-C3-C5-C4 thorn -> original phase prerequisite root pipe -> actual C6 lower ring and lever -> normal lower-loop rest")
+
+func crown_map() -> void:
+    var original := snapshot()
+    _check(String(scene.config.id)=="demo_ch06_silent_crown_core" and scene.active_save_point_id=="save_ch06_lower_loop", "own second-order G resumes at the actual lower-loop shrine")
+    _check(scene.currency_count==154 and not JOURNAL.owned(scene.story_flags,String(scene.config.id)), "G keeps earned 154 wallet and has not bought C6 map")
+    _check(not scene.player.debug_invulnerable and not SHOP_RUNTIME.shows_position(scene) and not SHOP_RUNTIME.owns_tool(scene,"compass"), "second-order survey retains damage and no position aid")
+    if failures>0:return
+    if not await order_leap(Vector2(2220,3040),999,"normal drop across the authored clapper to the map keeper"):return
+    if not await order_walk_only(Vector2(2220,3040)):return
+    await _world_interact()
+    var dialog: ConfirmationDialog=scene.get_node("MapPurchaseDialog")
+    _check(dialog.visible and not dialog.get_ok_button().disabled,"actual F opens affordable C6 map quote")
+    if failures>0:return
+    print("SECOND_ORDER_CROWN_DIALOG "+JSON.stringify({"dialog":dialog.dialog_text,"title":dialog.title}))
+    await order_capture("second_order_crown_quote_observed",dialog)
+    var expression:=RegEx.new();expression.compile("本区底图：([0-9]+)枚")
+    var matched:=expression.search(dialog.dialog_text)
+    _check(matched!=null,"real sixth-map dialog exposes its price")
+    if failures>0:return
+    var price:=int(matched.get_string(1))
+    _check(price==55,"existing authored sixth map costs 55")
+    expression.compile("当前([0-9]+)枚 → 购买后([0-9]+)枚")
+    matched=expression.search(dialog.dialog_text)
+    _check(matched!=null and int(matched.get_string(1))==int(original.wallet) and int(matched.get_string(2))==int(original.wallet)-price,"visible transaction shows the actual before and after wallet")
+    if failures>0:return
+    print("SECOND_ORDER_CROWN_MAP_QUOTE "+JSON.stringify({"wallet":scene.currency_count,"price":price,"dialog":dialog.dialog_text}))
+    await order_capture("second_order_crown_map_quote",dialog)
+    for attempt in 16:
+        if dialog.get_ok_button().has_focus():break
+        await _key(KEY_TAB,dialog)
+    _check(dialog.get_ok_button().has_focus(),"actual Tab moves from default cancel to explicit map confirmation")
+    if failures>0:return
+    await _key(KEY_ENTER,dialog);await _tick(4)
+    _check(JOURNAL.owned(scene.story_flags,String(scene.config.id)) and scene.currency_count==int(original.wallet)-price,"actual Enter pays exactly the visible C6 quote from its own wallet")
+    _check(same_json(scene.inventory_counts,original.inventory) and same_json(scene.build_system.serialize(),original.build),"map purchase grants no inventory, ability or build change")
+    if dialog.visible:await _key(KEY_ESCAPE,dialog);await _tick(4)
+    if failures>0:return
+    if not await order_walk_only(Vector2(2270,3040)):return
+    if not await order_leap(Vector2(2570,2900),35,"real return jump to the lower-loop shrine after payment"):return
+    if not await order_precise_interact("save_ch06_lower_loop",2570):return
+    var chart: Dictionary=JOURNAL.region(scene.story_flags,String(scene.config.id))
+    _check(scene.active_save_point_id=="save_ch06_lower_loop" and chart.pending.is_empty() and not chart.charted.is_empty(),"normal F rest charts the genuinely purchased C6 map")
+    _check(scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy and not scene.player.debug_invulnerable,"only the original shrine restores HP and thread")
+    _check(not int(scene.inventory_counts.get("crown_resonance",0))>0 and not int(scene.inventory_counts.get("testimony_06",0))>0,"map purchase does not forge resonance or upper testimony")
+    print("SECOND_ORDER_CROWN_MAP_CHART "+JSON.stringify({"wallet":scene.currency_count,"charted":chart.charted,"pending":chart.pending}))
+    if failures==0:export_checkpoint("own second-order G -> normal clapper crossing -> real keeper F quote and Enter pays 55 -> original lower-loop F rest")
+
+func order_crown_defeated(id: String,_boss: bool,kind: String) -> void:
+    order_crown_defeats.append(id)
+    print("SECOND_ORDER_CROWN_ENEMY_DEFEATED "+JSON.stringify({"id":id,"kind":kind,"frame":frames,"wallet":scene.currency_count}))
+
+func crown_west() -> void:
+    _check(scene.active_save_point_id=="save_ch06_lower_loop" and JOURNAL.owned(scene.story_flags,String(scene.config.id)),"continues its own paid C6 map at the lower shrine")
+    _check(not scene.player.bell_guard_unlocked and not scene.player.dash_unlocked,"alternate path has no pre-granted guard or dash")
+    if failures>0:return
+    if not await order_walk_only(Vector2(2490,2900)):return
+    if not await order_leap(Vector2(2260,2794),24,"original first west stair below the overhead slab"):return
+    if not await order_walk_only(Vector2(2150,2794)):return
+    if not await order_crown_side_up(Vector2(2290,2578),2115):return
+    if not await order_clear():return
+    if not await order_leap(Vector2(2500,2470),20,"original western stair to the right upper step"):return
+    if not await order_walk_only(Vector2(2455,2470)):return
+    if not await order_leap(Vector2(2160,2360),20,"original western high walk"):return
+    if not await order_clear():return
+    if not await order_crown_flyer("E13",2160):return
+    if not await order_walk_only(Vector2(2005,2360)):return
+    if not await order_leap(Vector2(1750,2252),20,"actual ascent into the obsidian echo"):return
+    if not await order_clear():return
+    if not await order_walk_only(Vector2(1585,2252)):return
+    if not await order_crown_combat_leap(Vector2(1390,2140),"authored obsidian banner foothold","E12"):return
+    if not await order_clear():return
+    if not await order_walk_only(Vector2(1430,2140)):return
+    if not await order_crown_narrow_step():return
+    if not await order_walk_only(Vector2(1540,2030)):return
+    await order_settled_recover()
+    if not await order_leap(Vector2(1260,1916),20,"actual jump over the salt false floor before fighting"):return
+    if not await order_crown_salt_punish():return
+    if not await order_clear():return
+    if not await order_crown_vertical(Vector2(1430,1700)):return
+    if not await order_crown_flyer("E10"):return
+    if not await order_walk_only(Vector2(1495,1700)):return
+    if not await order_leap(Vector2(1770,1590),20,"original salt-to-moss echo ascent"):return
+    if not await order_clear():return
+    if not await order_leap(Vector2(1965,1400),20,"actual jump to the hidden moss light"):return
+    if not await order_precise_interact("save_hidden_upper_respite",1965):return
+    _check(scene.world_collected_ids.get("col_branch_echo_moss",false) and scene.player.hp==scene.player.max_hp,"hidden moss reward and shrine are earned by actual movement and F")
+    _check(not scene.player.debug_invulnerable and not SHOP_RUNTIME.shows_position(scene),"damage and no position aid remain enabled throughout the west ring")
+    var expected: Dictionary=parent_proof.inventory.duplicate(true)
+    expected.crown_echo_shard=int(expected.crown_echo_shard)+11
+    _check(scene.currency_count==int(parent_proof.wallet)+78 and same_json(scene.inventory_counts,expected),"six actual west kills, original elite bonus and hidden reward reconcile with the paid source")
+    _check(order_crown_defeats==["E07","E13","E08","E12","E09","E10"],"the independent west PID observes each actual enemy death once")
+    if failures==0:export_checkpoint("own paid H checkpoint -> actual west stair, fights, double jumps and hidden upper moss shrine")
+
+func crown_upper() -> void:
+    _check(scene.active_save_point_id=="save_hidden_upper_respite" and int(scene.inventory_counts.get("testimony_06",0))==0,"own western route restores at the hidden moss shrine before the sixth testimony")
+    _check(not scene.player.bell_guard_unlocked and not scene.player.dash_unlocked and not int(scene.inventory_counts.get("crown_resonance",0))>0,"upper route inherits only the abilities actually earned on this alternate order")
+    if failures>0:return
+    if not await order_leap(Vector2(2124,1496),999,"normal descent onto the authored free crown cage"):return
+    if not await order_crown_cage():return
+    if not await order_walk_only(Vector2(2508,700)):return
+    if not await order_precise_interact("col_testimony_06",2508):return
+    _check(scene.inventory_counts.get("testimony_06",0)==1,"actual F collects the sixth testimony on the original crown summit")
+    if failures>0:return
+    if not await order_walk_only(Vector2(2124,700)):return
+    if not await order_crown_cage(false):return
+    for point in [Vector2(2280,1496),Vector2(2350,2578)]:
+        if not await order_walk_only(point):return
+    # Production restore resets the ordinary guards. Fight the actual returning
+    # shadow rather than assuming the previous PID's death list persists.
+    if not await order_crown_flyer("E07",2350):return
+    for point in [Vector2(2098,2784),Vector2(2250,2794),Vector2(2375,3040),Vector2(2270,3040)]:
+        if not await order_walk_only(point):return
+    if not await order_leap(Vector2(2575,2900),35,"actual return jump after earning the summit testimony"):return
+    if not await order_precise_interact("save_ch06_lower_loop",2570):return
+    if not await order_walk_only(Vector2(3000,3060)):return
+    if not await order_clear():return
+    if not await order_walk_only(Vector2(2690,3106)):return
+    if not await order_precise_interact("save_late_runback",2690):return
+    var expected: Dictionary=parent_proof.inventory.duplicate(true)
+    expected.testimony_06=1;expected.crown_echo_shard=int(expected.crown_echo_shard)+2
+    _check(scene.active_save_point_id=="save_late_runback" and scene.player.hp==scene.player.max_hp and scene.player.energy==scene.player.max_energy,"normal front shrine rest is earned outside the full Boss fight")
+    _check(scene.currency_count==int(parent_proof.wallet)+16 and same_json(scene.inventory_counts,expected) and same_json(scene.build_system.serialize(),parent_proof.build),"upper testimony and two actual returning guards are the only earned inventory and wallet changes")
+    _check(order_crown_defeats==["E07","E14"] and not scene.boss_spawned and not int(scene.inventory_counts.get("crown_resonance",0))>0,"returning shadow and front guard are defeated; resonance and final Boss remain unearned")
+    _check(not scene.player.debug_invulnerable and not SHOP_RUNTIME.shows_position(scene),"damage and absence of position aid remain unchanged at the front shrine")
+    if failures==0:export_checkpoint("own west-ring shrine -> normal F cage both directions -> actual summit testimony F -> real lower and front shrine rests after the front guard")
+
+func order_crown_cage(up: bool=true) -> bool:
+    steps+=1;_release();await _tick(5)
+    var lift: Node2D=null
+    for candidate in scene.cave_lifts:
+        if String(candidate.name)=="ch06_cave_lift":lift=candidate
+    _check(lift!=null and absf(scene.player.position.x-lift.x)<61 and absf(scene.player.position.y-(lift.bottom_y if up else lift.top_y))<8,"normal input stands on the authored crown cage")
+    if lift==null or failures>0:return false
+    _check(scene.interaction_target()==null,"actual F is available for the original cage fallback")
+    if failures>0:return false
+    print("SECOND_ORDER_CROWN_CAGE_BEFORE ",JSON.stringify({"up":up,"player":str(scene.player.position),"basket":str(lift.basket.position),"moving":lift.moving}))
+    await _world_interact()
+    for frame in 240:
+        await _tick()
+        if not lift.moving and absf(lift.basket.position.y-(lift.top_y if up else lift.bottom_y))<1:
+            _check(absf(scene.player.position.y-(lift.top_y if up else lift.bottom_y))<8,"normal F carries the actual rider to the original opposite dock")
+            print("SECOND_ORDER_CROWN_CAGE_AFTER ",JSON.stringify({"up":up,"player":str(scene.player.position),"basket":str(lift.basket.position),"moving":lift.moving}))
+            return failures==0
+    _check(false,"normal F crown cage did not reach the opposite dock");return false
+
+func order_crown_side_up(target: Vector2, outside: float) -> bool:
+    steps+=1;_release();await process_frame;await process_frame;_axis(-1)
+    Input.action_press("jump");await process_frame
+    for frame in 100:
+        _axis(-1)
+        await _tick()
+        if scene.player.position.x<outside:break
+    _axis(0)
+    for rise in 40:
+        if scene.player.velocity.y>-70:break
+        await _tick()
+    Input.action_release("jump");await _tick(3)
+    _check(scene.player.air_jump_available,"earned side ascent still has its real second jump")
+    Input.action_press("jump");await process_frame
+    var cleared:=false
+    var cast_at:=-100
+    for frame in 200:
+        if scene.player.position.y<target.y-5:cleared=true
+        _axis(1 if cleared and scene.player.position.x<target.x-8 else 0)
+        if frames-cast_at>=2:Input.action_release("skill_1")
+        for foe in get_nodes_in_group("enemy"):
+            if not is_instance_valid(foe) or foe.spawn_id!="E07" or foe.hp<=0:continue
+            if absf(foe.position.x-scene.player.position.x)<170 and absf(foe.position.y-scene.player.position.y)<100 and scene.player._can_start_action() and scene.player.skill_cooldown<=0 and scene.player.energy>=25:
+                Input.action_press("skill_1");cast_at=frames
+                print("SECOND_ORDER_CROWN_STAIR_REAL_CLEAVE ",scene.player.position," foe=",foe.position," energy=",scene.player.energy)
+        await _tick()
+        if frame%24==0:print("SECOND_ORDER_CROWN_SIDE ",JSON.stringify({"frame":frame,"position":str(scene.player.position),"floor":scene.player.is_on_floor(),"velocity":str(scene.player.velocity),"hp":scene.player.hp,"cleared":cleared}))
+        if frame==24:Input.action_release("jump")
+        if scene.player.is_on_floor() and absf(scene.player.position.x-target.x)<20 and absf(scene.player.position.y-target.y)<8:
+            _release();Input.action_release("skill_1");print("CROWN_SIDE_ASCENT reached ",scene.player.position);return true
+        if scene.player.position.x>target.x-10:_axis(0)
+    _release();Input.action_release("skill_1");_check(false,"normal outside second jump blocked at "+str(scene.player.position));return false
+
+func order_crown_narrow_step() -> bool:
+    steps+=1;_release();await process_frame;await process_frame
+    _axis(1);Input.action_press("jump");await process_frame
+    var second:=false
+    var first_released:=false
+    for frame in 240:
+        var p: CharacterBody2D=scene.player
+        _axis(1 if p.position.x<1590 else 0)
+        if not first_released and p.velocity.y>=0:
+            Input.action_release("jump");first_released=true;await process_frame
+        if first_released and not second and p.position.x>1497 and p.position.x<1503 and p.air_jump_available and not p.is_on_wall():
+            Input.action_press("jump");second=true;print("CROWN_OBSIDIAN_SECOND ",p.position);await process_frame
+        if second and p.velocity.y>=0:Input.action_release("jump")
+        await _tick()
+        if p.is_on_floor() and absf(p.position.x-1600)<20 and absf(p.position.y-2030)<8:
+            _release();print("CROWN_OBSIDIAN_STEP reached ",p.position);return true
+        if frame%12==0:print("CROWN_OBSIDIAN_STEP ",JSON.stringify({"frame":frame,"p":str(p.position),"v":str(p.velocity),"second":second,"wall":p.is_on_wall()}))
+    _release();_check(false,"normal obsidian outflow step blocked at "+str(scene.player.position));return false
+
+func order_crown_vertical(target: Vector2) -> bool:
+    steps+=1;_release();var cast_at := -100
+    await process_frame;await process_frame
+    Input.action_press("jump");await process_frame
+    for rise in 45:
+        await _tick()
+        if scene.player.velocity.y>-70:break
+    Input.action_release("jump");await _tick(3)
+    Input.action_press("jump");await process_frame
+    for frame in 220:
+        var p: CharacterBody2D=scene.player
+        if frames-cast_at>=2:Input.action_release("skill_1")
+        _axis(signf(target.x-p.position.x) if absf(target.x-p.position.x)>8 else 0)
+        if frame==35:Input.action_release("jump")
+        for foe in get_nodes_in_group("enemy"):
+            if not is_instance_valid(foe) or foe.spawn_id!="E10" or foe.hp<=0:continue
+            if absf(foe.position.x-p.position.x)<145 and absf(foe.position.y-p.position.y)<115 and p.attack_timer<=0 and p.hurt_timer<=0:
+                if p.skill_cooldown<=0 and p.energy>=25:
+                    Input.action_press("skill_1");cast_at=frames;print("CROWN_ASCENDING_REAL_CLEAVE ",p.position," foe=",foe.position);await process_frame
+                elif frames%12==0:
+                    Input.action_press("attack");attack_pressed_frame=frames
+        await _tick()
+        if p.is_on_floor() and absf(target.x-p.position.x)<20 and absf(target.y-p.position.y)<8:
+            _release();Input.action_release("skill_1");print("CROWN_VERTICAL_DOUBLE reached ",p.position);return true
+    _release();Input.action_release("skill_1");_check(false,"actual vertical double-up blocked at "+str(scene.player.position));return false
+
+func order_crown_salt_punish() -> bool:
+    steps+=1;_release();combat_enabled=false
+    var cast_at:=-100
+    for frame in 360:
+        var foe: Node2D=null
+        for actor in get_nodes_in_group("enemy"):
+            if is_instance_valid(actor) and actor.spawn_id=="E09" and actor.hp>0:foe=actor;break
+        if foe==null:
+            _release();Input.action_release("skill_1");print("SECOND_ORDER_CROWN_SALT_DEFEATED");return true
+        var p: CharacterBody2D=scene.player
+        var kind: String=String(foe.active_attack.get("type",""))
+        var punish: bool=(foe.state=="windup" and kind!="guard" and foe.state_timer>0.25) or foe.state=="recover" or foe.state=="patrol"
+        var facing:=signi(foe.position.x-p.position.x)
+        _axis(facing if p.facing!=facing else 0)
+        if frames-cast_at>=2:Input.action_release("skill_1")
+        if punish and absf(foe.position.x-p.position.x)<150 and p._can_start_action():
+            if p.skill_cooldown<=0 and p.energy>=25:
+                Input.action_press("skill_1");cast_at=frames;await process_frame
+            elif frames%20==0:
+                Input.action_press("attack");attack_pressed_frame=frames
+        if frame%20==0:print("SECOND_ORDER_CROWN_SALT ",JSON.stringify({"frame":frame,"player":str(p.position),"hp":p.hp,"energy":p.energy,"foe":str(foe.position),"foe_hp":foe.hp,"state":foe.state,"kind":kind}))
+        await _tick()
+        if p.hp<=0:break
+    _release();Input.action_release("skill_1");_check(false,"actual salt edge punish did not finish");return false
+
+func order_crown_combat_leap(target: Vector2,label: String,foe_id: String) -> bool:
+    steps+=1;_release();await _tick(3)
+    for settle in 120:
+        if scene.player.is_on_floor() and scene.player._can_start_action():break
+        await _tick()
+    Input.action_press("jump");await process_frame
+    var cast_at:=-100
+    var defeated:=false
+    for frame in 180:
+        var p: CharacterBody2D=scene.player
+        var foe: Node2D=null
+        for candidate in get_nodes_in_group("enemy"):
+            if is_instance_valid(candidate) and candidate.spawn_id==foe_id and candidate.hp>0:foe=candidate;break
+        if foe==null:defeated=true;break
+        _axis(signf(target.x-p.position.x) if absf(target.x-p.position.x)>8 and p.attack_timer<=0 else 0)
+        if frames-cast_at>=2:Input.action_release("skill_1")
+        if foe!=null and absf(foe.position.x-p.position.x)<175 and absf(foe.position.y-p.position.y)<110 and p._can_start_action() and p.skill_cooldown<=0 and p.energy>=25 and frames-cast_at>12:
+            Input.action_press("skill_1");cast_at=frames
+            print("SECOND_ORDER_CROWN_TRANSIT_CLEAVE ",foe_id," player=",p.position," foe=",foe.position," energy=",p.energy)
+        await _tick()
+        if p.hp<=0:break
+    _release();Input.action_release("skill_1")
+    _check(defeated,"real transit cleave defeated "+foe_id)
+    if not defeated:return false
+    # Air-cleave has its own recovery. Regroup on the actual camp platform
+    # before beginning a fresh jump, rather than pressing jump into its wall.
+    for settle in 120:
+        if scene.player._can_start_action():break
+        await _tick()
+    if not await order_walk_only(Vector2(1585,2252)):return false
+    return await order_leap(target,20,label)
