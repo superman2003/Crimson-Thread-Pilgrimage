@@ -923,6 +923,7 @@ func _finish_region_spawn() -> void:
 
 
 func _bind_region_audio() -> void:
+    audio_director.configure_ambience(config, self)
     audio_director.bind_runtime(player, func() -> Array: return get_tree().get_nodes_in_group("enemy"))
 
 

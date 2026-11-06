@@ -1,0 +1,265 @@
+{
+  "baseline": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+  "scope": "S03 environmental accents; final acceptance remains OPEN",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "gl": "Mesa llvmpipe; Dummy audio; no listening acceptance",
+  "runs": {
+    "gl-final": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=29 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=9 retired=13",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      },
+      "audio_retirement": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_USER_VOLUME checks=37 failures=0",
+          "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+        ]
+      },
+      "world_prepare_budget": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "已返回来路，旅途记录仍在。",
+          "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+        ]
+      },
+      "audio_landmarks": {
+        "expected_display_capability_warnings": 1,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=18 observed=4 retired=1",
+          "AUDIO_LANDMARKS checks=39 failures=0"
+        ]
+      }
+    },
+    "dummy-final": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=49 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=3 retired=4",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      },
+      "audio_retirement": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_USER_VOLUME checks=37 failures=0",
+          "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+        ]
+      },
+      "world_prepare_budget": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "已返回来路，旅途记录仍在。",
+          "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown"
+        ]
+      },
+      "audio_landmarks": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=14 observed=4 retired=1",
+          "AUDIO_LANDMARKS checks=39 failures=0"
+        ]
+      }
+    },
+    "restored": {
+      "spatial_ambience": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=83 observed=17 retired=0",
+          "SPATIAL_AMBIENCE checks=165 failures=0"
+        ]
+      },
+      "spatial_ambience_world": {
+        "expected_display_capability_warnings": 0,
+        "engine_errors": 0,
+        "resource_warnings": 0,
+        "tail": [
+          "AUDIO_RETIREMENT pending=0 elapsed_msec=0 observed=3 retired=4",
+          "SPATIAL_AMBIENCE_WORLD checks=16 failures=0"
+        ]
+      }
+    }
+  },
+  "negative_controls": {
+    "removed_region_binding": {
+      "failures": 7,
+      "engine_errors": 0
+    },
+    "removed_occlusion_gain": {
+      "failures": 2,
+      "engine_errors": 0
+    },
+    "removed_mute_admission": {
+      "failures": 2,
+      "engine_errors": 0
+    }
+  },
+  "new_suite_checks": {
+    "spatial_ambience": 165,
+    "spatial_ambience_world": 16
+  },
+  "default_suite_count": 214,
+  "source_sha256": {
+    "godot/scripts/audio_director.gd": "ebb41043aef2679de7d6ba92aadd13ba5e7f096f293ca884f9325e022e64651c",
+    "godot/scripts/main_level.gd": "59521728227121b6726c9813dfe200dc0ee3a71f752e75459037443ae58fe321",
+    "godot/scripts/ambient_soundscape.gd": "c0da7d24f3865839e7e7241f4586e3ee403216fc848f8ebdc6ea0a0951dffede",
+    "godot/scripts/spatial_ambience_voice.gd": "02cc78d43172f3d5535450feb8b71b458dc99da3eb9c6ed9cedab400a720fc3e",
+    "godot/scripts/spatial_ambience_validation.gd": "5fc5039563920d3db2b1b33ecbd7dbc0100e3a1afa6e8f0291977ccd03157261",
+    "godot/scripts/spatial_ambience_world_validation.gd": "6eee8a87ec89e525317650bada431055d2e67bda890ac9a4ae73f1c4fb5600b0",
+    "godot/data/audio_visual_manifest.json": "bca71e0f27e8e9df3ea3b907e19f59fc2ec1978b56ce77790319d86fec869b1c",
+    "tools/run_godot_regressions.py": "027bce5140708ac0a45332821828e24a00e3734d0baab45d738f39ad0babb44c",
+    "tools/godot_suite_success_markers.json": "4f428decb11e43a87310d2c7d7026b48015d7510d59e742c24cb06778606569c"
+  },
+  "logs": {
+    "attempts/component-development-final.log": {
+      "sha256": "d1e687c79c2caac2390f28f14ea347b4d02cd231190af2f34ac558dc4ee03665",
+      "bytes": 177
+    },
+    "attempts/initial-type-check.log": {
+      "sha256": "ca60db78dc520eb14ae17cd131aaf758e2f299107afc11351cd4c68929e4b9f5",
+      "bytes": 678
+    },
+    "attempts/initial-world-fixture.log": {
+      "sha256": "240560a7891e84f92d43915f565b0a601437d4d8b722af3f38b0f1bafdc5112f",
+      "bytes": 603
+    },
+    "attempts/x11-unavailable.log": {
+      "sha256": "27ecebf54324f4bf8c8a2e179c88666481c23f1067f0dbc264b9429875b7c754",
+      "bytes": 5928
+    },
+    "campaign.log": {
+      "sha256": "8b4b896042b14be0e098184beb55f99a0fcc4b854a732c83bbf7e91cd9ae7fb5",
+      "bytes": 2809
+    },
+    "dummy-final/audio_landmarks.log": {
+      "sha256": "3aba61d461b477264f20091adb5dadc37ad17d2898ef5caaaf6deb6b53078616",
+      "bytes": 174
+    },
+    "dummy-final/audio_retirement.log": {
+      "sha256": "45309d993a7ea0b54ac3e50f894e9796edc05caf7cc50b9761a3412d0c40c73b",
+      "bytes": 986
+    },
+    "dummy-final/spatial_ambience.log": {
+      "sha256": "a89a2fb6c0dfde5921561e975bf40d81e74cca87a505997506552cc0470727cf",
+      "bytes": 177
+    },
+    "dummy-final/spatial_ambience_world.log": {
+      "sha256": "35308e58c16b5148b5bfd79a8855b87526b2b07e45eb52023be341d0ed380e18",
+      "bytes": 323
+    },
+    "dummy-final/world_prepare_budget.log": {
+      "sha256": "2a9606c72c1a041b00774e236f7286afc9fe28e628d5ffa757b34444e3622d65",
+      "bytes": 682
+    },
+    "gl-final/audio_landmarks.log": {
+      "sha256": "6b30bc6da0fab37add47565f22cff813a367680b0d98a83d91bd21079a34e571",
+      "bytes": 476
+    },
+    "gl-final/audio_retirement.log": {
+      "sha256": "f9a0b3924178d85d18c0e7177da47dc09bfe4baf9bef09923aea53ed1355f941",
+      "bytes": 1287
+    },
+    "gl-final/spatial_ambience.log": {
+      "sha256": "a8b4d7665c66b5c08c0dd66ae23c6b0408d314868a4a3e53c33f1b8dd295d666",
+      "bytes": 479
+    },
+    "gl-final/spatial_ambience_world.log": {
+      "sha256": "a87011b7f6b70966729140962c1dd170778fb448b96ec9eae4d29b8b4bdc4f4d",
+      "bytes": 626
+    },
+    "gl-final/world_prepare_budget.log": {
+      "sha256": "a4e95fd3387b9dd7297da2a543ed965635dbb5488379553956b195c4116f38c5",
+      "bytes": 984
+    },
+    "import-summary.log": {
+      "sha256": "8464fce2c44098dbcc0c6f92ef13fd8afd8d34522eed0aa0b81041b728295db5",
+      "bytes": 252
+    },
+    "npm-test.log": {
+      "sha256": "ba8cc58e27878fea80cea722db37c7ace7aed18166d97e175c2621c5cd829572",
+      "bytes": 11374
+    },
+    "restored/spatial_ambience.log": {
+      "sha256": "ac2eb12707800b3063f06e2c46f0a569baedc753226c7497b39655fc7106519e",
+      "bytes": 177
+    },
+    "restored/spatial_ambience_world.log": {
+      "sha256": "35308e58c16b5148b5bfd79a8855b87526b2b07e45eb52023be341d0ed380e18",
+      "bytes": 323
+    },
+    "reverse-binding.log": {
+      "sha256": "729748aeaa44d1087796648f482fa498ef515d0cf349e6ce1c5a528e58c37e1e",
+      "bytes": 849
+    },
+    "reverse-gain.log": {
+      "sha256": "c03fd7e8414ccc2ba6121b283c614b4689e33064926cf4795f23c77cc09a8388",
+      "bytes": 300
+    },
+    "reverse-mute.log": {
+      "sha256": "6f8421a1090ad3148c8d14e9d12e782a5547c17918d906d79c62a6a8e54256ff",
+      "bytes": 285
+    },
+    "runner.log": {
+      "sha256": "613933ecb98141f76c546e877f3af306b9f67c2dfbbd4002dffa64ece23d1c53",
+      "bytes": 4041
+    }
+  },
+  "limits": [
+    "explicitly placed and paused World fixture",
+    "no natural six-region completion",
+    "no physical listening or controller review",
+    "no local full default run",
+    "no final distribution build"
+  ],
+  "command_exit_codes": {
+    "npm_test": 0,
+    "campaign": 0,
+    "runner_35_tests": 0,
+    "ledger_validate": 0,
+    "dummy_five_suites": 0,
+    "gl_five_suites": 0,
+    "restored_two_suites": 0,
+    "occlusion_reverse": 1,
+    "mute_reverse": 1,
+    "binding_reverse": 1
+  }
+}
