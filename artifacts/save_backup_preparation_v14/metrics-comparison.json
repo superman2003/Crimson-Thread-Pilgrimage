@@ -1,0 +1,236 @@
+{
+  "fixture": "Unchanged six-region 504-check fixture. Alternating before/after, two fresh processes per variant, no concurrent local test or import jobs. CPU publication only; not natural FPS or total loading speed.",
+  "base": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+  "samples": [
+    {
+      "role": "before",
+      "round": 1,
+      "source_base": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+      "directory": "main-before-1-native",
+      "wall_seconds": 40.21487331390381,
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "publish_ms": 17.976,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "publish_ms": 23.675,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "publish_ms": 16.517,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "publish_ms": 22.724,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "publish_ms": 28.731,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "publish_ms": 17.017,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        }
+      ]
+    },
+    {
+      "role": "after",
+      "round": 1,
+      "source_commit": "f04df829260da0d7eeb6a944bfbd89fbb86efa45",
+      "directory": "main-after-1-native",
+      "wall_seconds": 36.92417812347412,
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "publish_ms": 11.911,
+          "backup_main_ms": 2.471,
+          "backup_already_verified": false,
+          "backup_attempts": [
+            {
+              "copied": true,
+              "installed": true,
+              "ok": true,
+              "reason": "verified source backed up",
+              "retiring_frames": 0,
+              "role": "target",
+              "wait_frames": 3,
+              "wall_usec": 16760,
+              "worker_is_main": false,
+              "worker_usec": 10227
+            }
+          ]
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "publish_ms": 22.249,
+          "backup_main_ms": 2.45,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "publish_ms": 19.224,
+          "backup_main_ms": 2.776,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "publish_ms": 31.984,
+          "backup_main_ms": 5.247,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "publish_ms": 14.015,
+          "backup_main_ms": 2.676,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "publish_ms": 9.442,
+          "backup_main_ms": 1.875,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        }
+      ]
+    },
+    {
+      "role": "before",
+      "round": 2,
+      "source_base": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+      "directory": "main-before-2-native",
+      "wall_seconds": 39.96747040748596,
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "publish_ms": 24.42,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "publish_ms": 31.571,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "publish_ms": 17.713,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "publish_ms": 16.698,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "publish_ms": 17.829,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "publish_ms": 18.098,
+          "backup_main_ms": 0.0,
+          "backup_already_verified": null,
+          "backup_attempts": []
+        }
+      ]
+    },
+    {
+      "role": "after",
+      "round": 2,
+      "source_commit": "f04df829260da0d7eeb6a944bfbd89fbb86efa45",
+      "directory": "main-after-2-native",
+      "wall_seconds": 34.57720732688904,
+      "regions": [
+        {
+          "region": "demo_ch01_moss_bell_court",
+          "publish_ms": 7.047,
+          "backup_main_ms": 1.549,
+          "backup_already_verified": false,
+          "backup_attempts": [
+            {
+              "copied": true,
+              "installed": true,
+              "ok": true,
+              "reason": "verified source backed up",
+              "retiring_frames": 0,
+              "role": "target",
+              "wait_frames": 2,
+              "wall_usec": 11087,
+              "worker_is_main": false,
+              "worker_usec": 8347
+            }
+          ]
+        },
+        {
+          "region": "demo_ch02_rain_foundry_canal",
+          "publish_ms": 10.428,
+          "backup_main_ms": 1.746,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch03_saltwhite_archive",
+          "publish_ms": 13.742,
+          "backup_main_ms": 1.958,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch04_broken_string_greenhouse",
+          "publish_ms": 9.524,
+          "backup_main_ms": 1.892,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch05_obsidian_pilgrim_road",
+          "publish_ms": 10.009,
+          "backup_main_ms": 1.707,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        },
+        {
+          "region": "demo_ch06_silent_crown_core",
+          "publish_ms": 17.749,
+          "backup_main_ms": 3.191,
+          "backup_already_verified": true,
+          "backup_attempts": []
+        }
+      ]
+    }
+  ]
+}

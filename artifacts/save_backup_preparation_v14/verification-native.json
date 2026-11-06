@@ -1,0 +1,191 @@
+{
+  "runtime_commit": "f04df829260da0d7eeb6a944bfbd89fbb86efa45",
+  "results": [
+    {
+      "suite": "world_save_backup",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD_SAVE_BACKUP checks=111 failures=0 cancelled_target_unpublished=true exited_target_unpublished=true",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_save_backup_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/world_save_backup.log",
+      "sha256": "1c65f8eab5f2d04d38896b894eaaf5b5c31814ea0c0e532e7cc98a569d9dbfbf",
+      "warnings": []
+    },
+    {
+      "suite": "world_save_candidate",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD SAVE CANDIDATE PASS checks=103",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_save_candidate_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/world_save_candidate.log",
+      "sha256": "1cab651d05e7942c1babb89da42b077b8b888899c3c3593dd961255e0666fc8c",
+      "warnings": []
+    },
+    {
+      "suite": "save_recovery",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "SAVE_RECOVERY checks=35 failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/save_recovery_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/save_recovery.log",
+      "sha256": "8d4a80b5770f8d1e6eb2338fbc8df6e4ec01986d83d837203a557d22f0324d29",
+      "warnings": []
+    },
+    {
+      "suite": "world_state",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD STATE PASS: roundtrip, three regions, restart, backup, damaged and invalid saves",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_state_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/world_state.log",
+      "sha256": "5f9ff253052716388d8d51af695fade80d3a60db5594e5b9e25883f8f3330180",
+      "warnings": []
+    },
+    {
+      "suite": "world_prepare_budget",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD PREPARE BUDGET PASS: 174 checks; cache continuity, bounded preparation, parity, cancellation, rollback, and teardown",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_prepare_budget_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/world_prepare_budget.log",
+      "sha256": "b51e3fbc3ec902bfc2e7e9155dd9e029940a5621bb9fbb99f1671ce4ec4fcb60",
+      "warnings": []
+    },
+    {
+      "suite": "item_art_prewarm",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "ITEM_ART_PREWARM checks=243 failures=0 regions=6 sync_loads=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/item_art_prewarm_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/item_art_prewarm.log",
+      "sha256": "abad409dba1919e5f3c96076650bbfb01d94b8db3e3eb76ce0086fe27835a3a6",
+      "warnings": []
+    },
+    {
+      "suite": "ui_text_order",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "UI_TEXT_ORDER checks=18 failures=0",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/ui_text_order_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/release-native/ui_text_order.log",
+      "sha256": "a0bc4a1777582577cb474e62f7e2cc2c1ee2e675de8330fbefc103e9655a0b0b",
+      "warnings": []
+    },
+    {
+      "suite": "world_async_loading",
+      "passed": true,
+      "exit_code": 0,
+      "errors": [],
+      "marker": "WORLD ASYNC LOADING PASS: 504 checks; six-region geometry/UI parity, commit budgets, reward/save isolation, rollback and teardown",
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_async_loading_validation.gd"
+      ],
+      "log": "artifacts/save_backup_preparation_v14/main-after-2-native/world_async_loading.log",
+      "sha256": "e636dfcb77a631574e3f6c9eef640140afec3a9514e36cc744a8512aa26d2f75",
+      "warnings": [
+        "WARNING: ObjectDB instances leaked at exit (run with --verbose for details)."
+      ]
+    }
+  ]
+}

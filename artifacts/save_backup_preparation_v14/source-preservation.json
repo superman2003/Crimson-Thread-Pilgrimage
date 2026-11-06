@@ -1,0 +1,51 @@
+{
+  "base": "9ed0d6191d7bbedcabdb0cee52733321c8463e4f",
+  "frozen_runtime_commit": "f04df829260da0d7eeb6a944bfbd89fbb86efa45",
+  "unchanged_files": {
+    "godot/scripts/main_level.gd": "8087dd41000e074824787d90d37741c8e2a0c4c0138a78fa900b1fcdcab679a8",
+    "godot/scripts/player_controller.gd": "7fba4901dbdf5c7cb46ff6f319092adb0efd3c466dddeb637e6b27e1a949d178",
+    "godot/scripts/pilgrimage_interface.gd": "1e1e28dd121ebeada22c90f88b26076468529de7673944b2068b9ca3391c5db7",
+    "godot/scripts/npc_dialogue_motion.gd": "ada9a4da5d3e47a24cf63e9a0728313d02324af770b14dda5e486bb4f118c063",
+    "godot/scripts/character_art_warm_job.gd": "6e16e8545fd6ddd0fbb14bcb1ae263994517d9457e68d860d57d9bf138b213fd",
+    "godot/scripts/hand_drawn_assets.gd": "c4706b3ecf35696fe74bcdbe61643d013e7735e6eecc9265f75ef9c76cc29d9c",
+    "godot/scripts/world_coordinates.gd": "0ec8f71abfe02b83f71ddd67770b6e2f47acabd8201fe45f7d13ef9765bb53ad",
+    "godot/data/world_layout.json": "051bc6d5af19bd574147bd8d73b0c5a1896b08b872b810dd522e12261c32f583",
+    "godot/data/world_routes.json": "81e00d164ccbaa3e9784f964fbc377a83ae10b68eda4f393372bbba4c7ee80fc"
+  },
+  "runtime_functions": {
+    "world_state.gd": {
+      "existing": 32,
+      "changed": [
+        "_remember_source",
+        "reset",
+        "restore_backup",
+        "write_candidate"
+      ],
+      "added": [
+        "_backup_matches",
+        "_files_identical",
+        "_install_candidate",
+        "_remember_verified",
+        "_restore_backup_locked",
+        "_write_candidate_locked",
+        "backup_source_hash"
+      ],
+      "sha256": "08a5b8bebf56b0568d11b34a1152fcc71de376af1e0923f7d4601ea20b179dee"
+    },
+    "world_region_loader.gd": {
+      "existing": 54,
+      "changed": [
+        "_finish_budgeted",
+        "shutdown"
+      ],
+      "added": [
+        "_warm_arrival_save_backup"
+      ],
+      "sha256": "5187b0457d4b2e87ca61f3c0b422e99a73d848f8694faafa2fc78211895b36dd"
+    }
+  },
+  "format_version": 3,
+  "validation_and_migration_functions_unchanged": true,
+  "recovery_algorithm_body_unchanged": true,
+  "default_suites": 213
+}

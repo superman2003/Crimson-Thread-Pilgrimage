@@ -30,6 +30,7 @@ jobs:
       - name: Check out exact source and hydrate runtime assets
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: false
       - name: Hydrate only runtime LFS assets
         run: |

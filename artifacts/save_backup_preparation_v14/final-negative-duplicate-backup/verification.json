@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "suite": "world_save_backup",
+      "passed": false,
+      "exit_code": 1,
+      "errors": [
+        "\nERROR: Failed to open 'C:/Users/ADMINI~1/AppData/Local/Temp/hero-motion-v8-ethdtr3z/world_save_backup/Godot/app_userdata/\u7eef\u7ebf\u5de1\u793c - \u4e92\u8054\u4e16\u754c/world_save_backup_validation_ordinary.json.bak.pending'.",
+        "ERROR: target write reuses the verified backup despite an obstructed duplicate-copy path",
+        "ERROR: target installation retains the exact prior source backup"
+      ],
+      "marker": null,
+      "command": [
+        "C:/Users/Administrator/AppData/Local/Temp/ctp-godot-4.6.1/Godot_v4.6.1-stable_win64_console.exe",
+        "--path",
+        "C:\\Users\\Administrator\\.codex\\worktrees\\arrival-budget-v11\\Crimson-Thread-Pilgrimage\\godot",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--position",
+        "-20000,-20000",
+        "--script",
+        "res://scripts/world_save_backup_validation.gd"
+      ]
+    }
+  ]
+}
