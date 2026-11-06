@@ -1,6 +1,6 @@
 extends SceneTree
 ## S02 action sync: each player action sound starts on the frame its action
-## happens (strike, second jump, block, heal settle, heal break), on a real
+## happens (strike, second jump, block, heal settle, heal break, phase entry), on a real
 ## floor with the production Player and real InputMap actions.
 class ProbePlayer extends "res://scripts/player_controller.gd":
     var played: Array[Dictionary] = []
@@ -18,7 +18,7 @@ var failures: Array[String] = []
 var player: ProbePlayer
 var fixture: Node2D
 var report := {}
-const ACTIONS := ["move_left", "move_right", "jump", "attack", "heal", "bell_guard", "dash"]
+const ACTIONS := ["move_left", "move_right", "jump", "attack", "heal", "bell_guard", "dash", "lantern_phase"]
 
 func _initialize() -> void:
     call_deferred("_run")
@@ -114,6 +114,7 @@ func _run() -> void:
     var front := player.global_position + Vector2(80, 0)
     player.take_damage(1, front)
     _check(_sounds("guard_perfect").size() == 1 and _sounds("guard_block").is_empty(), "perfect guard rings once on the block frame")
+    _check(_sounds("ch03_beat_guard_ring").is_empty(), "outside the salt archive a perfect guard has no archive ring")
     await _frames(70)
     player.energy = player.max_energy
     await _tap("bell_guard", 1)
@@ -122,6 +123,34 @@ func _run() -> void:
     player.take_damage(1, front)
     _check(player.hp == hp_before and _sounds("guard_block").size() == 1, "late guard still blocks with the clamp sound")
     _check(_sounds("hurt").is_empty(), "blocked hits never play the hurt sound")
+    _check(_sounds("ch03_beat_guard_ring").is_empty(), "a late guard never plays the archive ring")
+
+    # Salt archive (salt footsteps): the perfect guard also rings the bell shell.
+    await _reset()
+    player.footstep_material = "salt"
+    await _tap("bell_guard", 1)
+    player.take_damage(1, player.global_position + Vector2(80, 0))
+    var ring := _sounds("ch03_beat_guard_ring")
+    _check(_sounds("guard_perfect").size() == 1 and ring.size() == 1, "salt archive perfect guard layers the bell shell ring once")
+    player.footstep_material = "moss"
+    await _frames(70)
+
+    # Lantern phase: entering the phase plays the wick intake once per entry.
+    await _reset()
+    player.lantern_phase_unlocked = true
+    Input.action_press("lantern_phase")
+    await _frames(2)
+    _check(player.is_phasing() and _sounds("phase_enter").size() == 1, "entering the lantern phase plays the wick intake")
+    await _frames(20)
+    _check(_sounds("phase_enter").size() == 1, "holding the phase does not replay the entry sound")
+    Input.action_release("lantern_phase")
+    await _frames(4)
+    _check(not player.is_phasing(), "releasing ends the phase")
+    Input.action_press("lantern_phase")
+    await _frames(2)
+    _check(_sounds("phase_enter").size() == 2, "entering again plays it again")
+    Input.action_release("lantern_phase")
+    await _frames(4)
 
     await _reset()
     player.hp = player.max_hp - 1

@@ -185,7 +185,11 @@ const SFX := {
     # 材质条件由 main_level 写入的 footstep_material 判定（copper=ch2、fiber=ch4）。
     "ch02_beat_wall_grip_drip": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
     "ch02_beat_echo_hook": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg",
-    "ch04_beat_thorn_downstrike": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg"
+    "ch04_beat_thorn_downstrike": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg",
+    # 灯影相位进入（manifest ch05_beat_01 灯芯吸入声）：各区通用，此前进入相位无声。
+    "phase_enter": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_01_audio.ogg",
+    # ch3 beat `bell_guard`（manifest ch03_beat_02）：盐白书库（salt 主题）完美格挡叠钟壳回流声。
+    "ch03_beat_guard_ring": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_02_audio.ogg"
 }
 
 ## AudioDirector 声部契约（并行实现于 scripts/audio_director.gd）：脚本缺席时放行，
@@ -1248,6 +1252,7 @@ func _update_phase(delta: float) -> void:
         _sync_phase_gates()
         ability_action.emit("lantern_phase", global_position, Vector2(facing, 0))
         ABILITY_ART.phase_enter(self)
+        _play_sfx("phase_enter", -8.0)
 
 
 func _sync_phase_gates() -> void:
@@ -2170,6 +2175,8 @@ func take_damage(amount: int, source_position: Vector2 = global_position, blocka
         guard_timer = 0.0
         hurt_timer = 0.12
         _play_sfx("guard_perfect" if perfect else "guard_block", -5.0, 1.0, "player_guard", 0)
+        if perfect and footstep_material == "salt":
+            _play_sfx("ch03_beat_guard_ring", -10.0)
         GUARD_ART.blocked(self, perfect)
         combat_observed.emit({"kind":"guard","perfect":perfect})
         return false
