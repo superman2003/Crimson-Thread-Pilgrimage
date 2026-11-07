@@ -180,14 +180,19 @@ func _run() -> void:
     ui.family_selector_buttons[1].pressed.emit()
     _check(ui.build_family=="travel_accessory" and ui.build_grid.get_child_count()==1,"Travel accessory selector shows only its own family options")
     ui.build_tabs[2].pressed.emit()
-    _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].disabled,"Locked typed tool slot is visible and cannot receive equipment")
+    _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].text.contains("🔒") and ui.build_slot_buttons[1].focus_mode==Control.FOCUS_ALL and not ui.build_slot_buttons[1].disabled,"Locked typed tool slot is visible and stays focusable for controllers")
     _check(ui.build_slot_buttons[1].text.contains("休眠") and ui.build_slot_buttons[1].tooltip_text.contains("未激活：槽位未解锁"),"Stored equipment in a locked slot is explicitly labeled dormant")
     _check(ui.build_slot_buttons[1].tooltip_text.contains("需要唤醒「赤契」的契印机制：苔钟庭学徒重新缀合被带回的名字。"),"A slot locked by the seal mechanism says which seal quest opens it")
     _check(not ui.build_slot_buttons[0].tooltip_text.contains("需要唤醒"),"An open slot carries no unlock condition")
-    ui.build_assign_slot=1
-    ui._show_build_detail(_option("mine","线雷","tool"))
-    _check(ui.build_detail.text.contains("该槽位尚未解锁") and ui.build_detail.text.contains("◇ 需要唤醒「赤契」的契印机制"),"The detail panel names the locked target slot's unlock condition")
-    ui.build_assign_slot=0
+    # Selecting the locked slot (as a controller would) shows its condition and
+    # leaves every catalog option unable to equip into it.
+    ui.build_slot_buttons[1].pressed.emit()
+    _check(ui.build_assign_slot==1 and ui.build_detail.text.contains("该槽位尚未解锁") and ui.build_detail.text.contains("◇ 需要唤醒「赤契」的契印机制"),"Selecting a locked slot shows its unlock condition in the detail panel")
+    var equippable:=0
+    for child in ui.build_grid.get_children():
+        if child is Button and not child.disabled:equippable+=1
+    _check(ui.build_grid.get_child_count()>0 and equippable==0,"No catalog option can be equipped into the selected locked slot")
+    ui.build_slot_buttons[0].pressed.emit()
     ui.build_slot_buttons[0].grab_focus()
     _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[0] and ui.build_slot_buttons[0].focus_mode==Control.FOCUS_ALL,"Typed slot selector participates in keyboard/controller focus navigation")
     ui._refresh_tactical_cards(ui._build_snapshot(),runtime.build_system.state,runtime.build_system)

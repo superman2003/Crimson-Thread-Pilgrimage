@@ -1783,11 +1783,16 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         else:label+=" · 空"
         button.text=("▶ " if index==build_assign_slot else "○ ")+label
         button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-        button.disabled=not bool(slot.get("unlocked",true))
+        # A locked slot stays focusable so a controller can select it and read
+        # its unlock condition in the detail panel; every catalog option is
+        # disabled while it is the target, so nothing can be equipped into it.
+        var locked:=not bool(slot.get("unlocked",true))
+        button.disabled=false
+        button.modulate=Color(1,1,1,0.72) if locked else Color.WHITE
         var compatible_ids: Array=slot.get("compatible",[])
         var compatible_names:=_family_option_names(snapshot,family_id,compatible_ids)
         var tooltip:=label+"\n"
-        if button.disabled:
+        if locked:
             tooltip+="此槽位尚未解锁"
             for hint in _slot_unlock_hints(snapshot,slot):tooltip+="\n◇ "+hint
             if not dormant_reason.is_empty():tooltip+="\n休眠装备："+String(equipped.get("name",equipped_id))+"\n未激活："+dormant_reason
