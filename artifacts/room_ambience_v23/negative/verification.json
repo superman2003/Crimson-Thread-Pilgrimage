@@ -1,0 +1,26 @@
+[
+  {
+    "case": "room-callback",
+    "expected_rejection": true,
+    "exit_code": 1,
+    "expected_failure": "actual room callback selects authored exposure",
+    "script_errors": 0,
+    "modified_sha256": "998ae4dccb024a91941cc33d3807e69ac0ff65c4cc7ca1fdbb846fbe50cedc1f"
+  },
+  {
+    "case": "bus-retirement",
+    "expected_rejection": true,
+    "exit_code": 1,
+    "expected_failure": "retired room bus is removed rather than accumulating",
+    "script_errors": 0,
+    "modified_sha256": "9320afdb6c4f3b9876091571a7bf896790c4f9069de5ec0358782dd0bcf7a220"
+  },
+  {
+    "case": "gain-treatment",
+    "expected_rejection": true,
+    "exit_code": 1,
+    "expected_failure": "shelter attenuates six decibels",
+    "script_errors": 0,
+    "modified_sha256": "f4a2ff067de6873ddb03568de5ddb06f3acb77ed7e6dfbda8539272717c91306"
+  }
+]

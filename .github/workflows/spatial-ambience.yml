@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/spatial-ambience.yml'
+      - 'godot/scripts/room_ambience*.gd'
       - 'godot/scripts/ambient_soundscape.gd'
       - 'godot/scripts/spatial_ambience*.gd'
       - 'godot/scripts/audio_director.gd'
@@ -51,11 +52,12 @@ jobs:
       - name: Exercise actual playback, terrain and World publication
         run: |
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
-            --software-gl --suite spatial_ambience --suite spatial_ambience_world \
+            --software-gl --suite room_ambience --suite room_ambience_world \
+            --suite spatial_ambience --suite spatial_ambience_world \
             --suite audio_landmarks --suite audio_retirement --suite world_prepare_budget \
             --log-dir "$RUNNER_TEMP/ambience-logs/gl"
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
-            --suite spatial_ambience --log-dir "$RUNNER_TEMP/ambience-logs/dummy"
+            --suite room_ambience --suite room_ambience_world --suite spatial_ambience --log-dir "$RUNNER_TEMP/ambience-logs/dummy"
       - name: Validate isolated director dependency copies
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
@@ -68,7 +70,7 @@ jobs:
           import os, re
           from pathlib import Path
           logs = Path(os.environ['RUNNER_TEMP']) / 'ambience-logs'
-          for path in [logs/'gl/spatial_ambience.log', logs/'gl/spatial_ambience_world.log', logs/'dummy/spatial_ambience.log']:
+          for path in [logs/'gl/room_ambience.log', logs/'gl/room_ambience_world.log', logs/'dummy/room_ambience.log', logs/'dummy/room_ambience_world.log', logs/'gl/spatial_ambience.log', logs/'gl/spatial_ambience_world.log', logs/'dummy/spatial_ambience.log']:
               text = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', path.read_text())
               assert not re.search(r'^\s*(?:ERROR:|SCRIPT ERROR:)', text, re.M), path
               warnings = re.findall(r'^\s*WARNING:.*$', text, re.M)
