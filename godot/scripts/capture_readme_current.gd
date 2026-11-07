@@ -3,6 +3,9 @@ extends SceneTree
 ## Graphical engine: --script res://scripts/capture_readme_current.gd -- --capture-output=DIR
 var destination := ""
 var world: Node
+## A fixed 1280x720 render target: a desktop window can be clamped narrower
+## than 1280 by the window manager, which would rescale every capture.
+var stage: SubViewport
 
 func _initialize() -> void:
     for argument in OS.get_cmdline_user_args():
@@ -18,7 +21,7 @@ func shot(filename: String) -> void:
     world.ui_shell.toast.text = ""
     await frames(5)
     await RenderingServer.frame_post_draw
-    var result := root.get_texture().get_image().save_png(destination.path_join(filename + ".png"))
+    var result := stage.get_texture().get_image().save_png(destination.path_join(filename + ".png"))
     if result != OK:
         push_error("Cannot save World screenshot: " + filename)
         quit(1)
@@ -29,20 +32,43 @@ func capture() -> void:
         quit(1)
         return
     DirAccess.make_dir_recursive_absolute(destination)
-    root.size = Vector2i(1280, 720)
+    stage = SubViewport.new()
+    stage.size = Vector2i(1280, 720)
+    stage.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+    stage.gui_embed_subwindows = true
+    root.add_child(stage)
     world = load("res://scenes/World.tscn").instantiate()
     world.world_resume = false
     world.world_save_path = "user://readme_current_showcase.json"
-    root.add_child(world)
-    current_scene = world
-    await preload("res://scripts/world_ready_validation_helper.gd").wait_for(world)
+    stage.add_child(world)
+    # Software GL with the render loop needs longer than the suites' 15 s.
+    var deadline := Time.get_ticks_msec() + 180000
+    while not world.initial_region_ready and Time.get_ticks_msec() < deadline:
+        await process_frame
+    if not world.initial_region_ready:
+        push_error("World did not publish its first region")
+        quit(1)
+        return
     await frames(35)
     var initial_position: Vector2 = world.player.global_position
     # Showcase-only acquisition state; actual events are tested separately.
+    var build: RefCounted = world.build_system
     for table in ["crests", "skills", "tools", "passives"]:
-        for item in world.build_system.catalog[table].values():
-            world.story_flags[String(item.unlock_flag)] = true
+        for item in build.catalog[table].values():
+            var flag := String(item.get("unlock_flag", ""))
+            if not flag.is_empty():
+                world.story_flags[flag] = true
+    for crest in build.catalog.crests.values():
+        world.story_flags[String(crest.get("mechanism_flag", ""))] = true
     world._sync_player_build()
+    # Relic-only unlocks are granted to the showcase build directly.
+    for table in ["crests", "skills", "tools", "passives"]:
+        for id in build.catalog[table]:
+            if not build.state["unlocked_" + table].has(id):
+                build.state["unlocked_" + table].append(id)
+    for id in build.catalog.crests:
+        if not build.state.mechanisms.has(id):
+            build.state.mechanisms.append(id)
     world.build_system.select_skill("cleave", 0)
     world.build_system.select_skill("needle", 1)
     world.build_system.select_tool("shard", 0)
