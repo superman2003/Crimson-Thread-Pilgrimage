@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -72,16 +73,49 @@ def walk_implemented_in(value: Any, pointer: str = "$") -> Iterable[tuple[str, s
             yield from walk_implemented_in(child, f"{pointer}[{index}]")
 
 
+def resolve_script_ref(pointer: str, field: str, ref: str) -> str:
+    """ref 约定形如 "res://scripts/xxx.gd::name (note)"：脚本必须存在，且声明了 name
+    （func/const/var/class），返回脚本文本。"""
+    assert_true(ref.startswith("res://"), f"{pointer} {field} must start with res://: {ref}")
+    script_ref, _, rest = ref.partition("::")
+    script = res_to_path(script_ref)
+    assert_true(script.exists(), f"{pointer} {field} script missing: {script_ref}")
+    text = script.read_text(encoding="utf-8")
+    name = re.match(r"[A-Za-z_]\w*", rest)
+    if name:
+        assert_true(
+            re.search(rf"(?m)^\s*(static\s+)?(func|const|var|class)\s+{name.group(0)}\b", text),
+            f"{pointer} {field} names {name.group(0)}, which {script_ref} does not declare",
+        )
+    return text
+
+
 def validate_implemented_in(pointer: str, implemented_in: str) -> None:
-    """implemented_in 约定形如 "res://scripts/xxx.gd::func (note)"，脚本文件必须存在。"""
+    resolve_script_ref(pointer, "implemented_in", implemented_in)
+
+
+def runtime_source_text() -> str:
+    """游戏运行时会加载的脚本与场景（不含 *validation* 校验脚本）。"""
+    parts = []
+    for folder, pattern in (("scripts", "*.gd"), ("scenes", "*.tscn")):
+        for path in sorted((ROOT / "godot" / folder).rglob(pattern)):
+            if "validation" not in path.name:
+                parts.append(path.read_text(encoding="utf-8"))
+    return "\n".join(parts)
+
+
+def validate_asset_ready_unreferenced(pointer: str, entry: dict[str, Any], runtime: str) -> None:
+    """asset_ready 表示还没有运行时触发点：运行时代码一旦引用它的文件，就该改成
+    wired 并写 implemented_in。只登记在预留表里、尚无调用方的写 reserved_in。"""
+    path = str(entry.get("path", ""))
+    if "reserved_in" in entry:
+        text = resolve_script_ref(pointer, "reserved_in", str(entry["reserved_in"]))
+        assert_true(path in text, f"{pointer} reserved_in script does not hold {path}")
+        return
     assert_true(
-        implemented_in.startswith("res://"),
-        f"{pointer} implemented_in must start with res://: {implemented_in}",
-    )
-    script_ref = implemented_in.split("::", 1)[0]
-    assert_true(
-        res_to_path(script_ref).exists(),
-        f"{pointer} implemented_in script missing: {script_ref}",
+        path not in runtime,
+        f"{pointer} {entry.get('key')} is asset_ready but runtime code already uses {path}; "
+        "mark it wired with implemented_in (or reserved_in for a table with no caller yet)",
     )
 
 
@@ -170,8 +204,12 @@ def main() -> None:
     validate_chapter_beats(manifest, campaign)
 
     counts = {"local": 0, "wired": 0, "asset_ready": 0, "future": 0}
+    runtime = runtime_source_text()
     for pointer, entry in walk_audio_entries(manifest):
-        counts[validate_audio_entry(pointer, entry)] += 1
+        kind = validate_audio_entry(pointer, entry)
+        counts[kind] += 1
+        if kind == "asset_ready":
+            validate_asset_ready_unreferenced(pointer, entry, runtime)
 
     implemented_count = 0
     for pointer, implemented_in in walk_implemented_in(manifest):
