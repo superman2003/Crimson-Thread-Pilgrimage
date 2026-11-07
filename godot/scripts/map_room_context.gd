@@ -14,7 +14,8 @@ static func setup(level: Node) -> void:
         caption.clip_text=true
         caption.add_theme_font_size_override("font_size",TYPE.CAPTION)
         level.map_panel.add_child(caption)
-    caption.text="悬停／方向键选择房间：查看上下层邻室；邻接不表示道路已开放。"
+    caption.text="选择房间查看邻室"
+    caption.tooltip_text="悬停／方向键选择房间：查看上下层邻室；邻接不表示道路已开放。"
 
 static func bind_room(level: Node, outline: Control, config: Dictionary, region: String, room: String) -> void:
     var description:=KNOWLEDGE.room_context(config,level.story_flags,region,room)
