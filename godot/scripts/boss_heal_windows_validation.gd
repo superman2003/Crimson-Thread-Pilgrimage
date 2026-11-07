@@ -4,8 +4,9 @@ extends "res://scripts/boss_move_matrix_validation.gd"
 ## Player standing at the arena front. The Player starts a heal whenever the
 ## Boss is not mid-strike and no attack of its own is within 300px. A heal
 ## counts as completed only when HP actually rises; a hit during the channel
-## interrupts it under the seal's own rule. Each phase and seal must complete
-## at least one heal, and each seal at least half of its attempts overall. The
+## interrupts it under the seal's own rule, which is checked on every live
+## interruption (energy kept and reservation cleared). Each phase and seal must
+## complete at least one heal, and each seal at least half of its attempts. The
 ## first half covers the court, canal and archive arenas.
 const BUILD := preload("res://scripts/build_system.gd")
 const SEALS := ["crimson", "bell", "salt"]
@@ -22,7 +23,7 @@ func _marker() -> String:
 
 func _run() -> void:
     for seal in SEALS:
-        totals[seal] = {"started": 0, "completed": 0}
+        totals[seal] = {"started": 0, "completed": 0, "interrupted": 0}
     for path: String in _chapters():
         var entry: Dictionary = await _heal_chapter(path)
         if not entry.is_empty():
@@ -31,6 +32,13 @@ func _run() -> void:
         var row: Dictionary = totals[seal]
         var rate := float(row.completed) / maxf(1.0, float(row.started))
         _check(rate >= MIN_RATE, "%s heals complete in %d/%d live windows (%.0f%%)" % [seal, row.completed, row.started, rate * 100.0])
+    var interrupted_total := 0
+    for seal in SEALS:
+        interrupted_total += int(totals[seal].interrupted)
+    # Each live interruption is settled against the seal's rule above; at least
+    # one must happen so that check is not vacuous (seal_identity covers each
+    # seal's rule directly).
+    _check(interrupted_total >= 1, "live hits interrupt heals (%d), so the settlement check ran" % interrupted_total)
     await _frames(10)
     _check(await RETIRE.drain(self, 3000), "chapter audio is released before exit")
     var director := preload("res://scripts/audio_director.gd")
@@ -92,8 +100,10 @@ func _heal_chapter(path: String) -> Dictionary:
             rows.append(row)
             totals[seal].started += row.started
             totals[seal].completed += row.completed
+            totals[seal].interrupted += row.interrupted
             _check(row.completed >= 1, "%s phase %d: %s completes a heal in a live window (%d/%d)" % [boss.kind, phase, seal, row.completed, row.started])
             _check(row.wrong_amount == 0, "%s phase %d: %s completed heals restore exactly the seal's amount" % [boss.kind, phase, seal])
+            _check(row.wrong_settlement == 0, "%s phase %d: %s live interruptions keep exactly the seal's loss and clear the reservation (%d wrong)" % [boss.kind, phase, seal, row.wrong_settlement])
     var entry := {"kind": String(boss.kind), "chapter": path.get_file(), "rows": rows}
     RETIRE.retire_tree(scene)
     scene.queue_free()
@@ -126,27 +136,32 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
     var wrong_amount := 0
     var channel_hp := -1
     var rest_until := 0
-    var last_state := ""
+    var channel_cost := 0
+    var channel_ratio := 0.0
+    var wrong_settlement := 0
     for frame in SECONDS * 60:
         _end_hitstop()
         boss.contact_timer = 999.0
         if player.heal_timer <= 0.0 and player.hp < 8:
             player.hp = 12
-        if boss.state == "windup" and last_state != "windup" and player.heal_timer <= 0.0:
+        # Undo knockback drift only while the Boss is between moves, before its
+        # next windup snapshots the target, so its aim follows the real stand.
+        if not boss.state in ["windup", "active"] and player.heal_timer <= 0.0 and player.hurt_timer <= 0.0 and absf(player.global_position.x - stand.x) > 24.0:
             player.global_position = stand
             player.velocity = Vector2.ZERO
             # Let the Player land first: a grounded heal started mid-drop would
             # end on the fall, not on the Boss.
             rest_until = maxi(rest_until, frame + 12)
-        last_state = boss.state
-        if boss.state != "active" and frame >= rest_until and player.heal_timer <= 0.0 and player.is_on_floor() and _threats_near(boss, player) == 0:
+        var time_left := SECONDS * 60 - frame
+        # Hit recovery and the heal cooldown keep their production timing.
+        if boss.state != "active" and frame >= rest_until and time_left > int(ceil(player.heal_duration * 60.0)) + 2 and player.heal_timer <= 0.0 and player.is_on_floor() and _threats_near(boss, player) == 0:
             player.energy = player.max_energy
-            player.heal_cooldown = 0.0
-            player.hurt_timer = 0.0
             player.hp = mini(player.hp, player.max_hp - 3)
             if player._try_heal():
                 started += 1
                 channel_hp = player.hp
+                channel_cost = player.heal_reserved_cost
+                channel_ratio = player.heal_reserved_loss_ratio
         await physics_frame
         physics_frames += 1
         if channel_hp >= 0 and player.heal_timer <= 0.0:
@@ -156,6 +171,12 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
                     wrong_amount += 1
             elif player.hp < channel_hp:
                 interrupted += 1
+                # The seal's own rule: the hit keeps cost * loss ratio, refunds
+                # the rest and clears the reservation.
+                var loss := int(ceil(channel_cost * channel_ratio))
+                var expected := mini(player.max_energy, player.max_energy - loss + player.energy_on_damage)
+                if player.energy != expected or player.heal_reserved_cost != 0:
+                    wrong_settlement += 1
             channel_hp = -1
             rest_until = frame + 30
     # A channel still running when time is up was neither completed nor broken.
@@ -164,7 +185,7 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
     _release_inputs()
     _reset_boss(boss, home, {"phase": phase})
     boss.ai_commands = []
-    return {"started": started, "completed": completed, "interrupted": interrupted, "wrong_amount": wrong_amount, "heal_duration": player.heal_duration}
+    return {"started": started, "completed": completed, "interrupted": interrupted, "wrong_amount": wrong_amount, "wrong_settlement": wrong_settlement, "heal_duration": player.heal_duration}
 
 
 func _threats_near(boss: Node2D, player: Node2D) -> int:
