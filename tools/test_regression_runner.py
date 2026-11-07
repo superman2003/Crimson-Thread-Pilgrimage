@@ -95,6 +95,7 @@ class CompletionContractTests(unittest.TestCase):
             'combat_input_events',
             'page_type_scale',
             'enemy_hurtbox_fit',
+            'ending_doors_beat',
             'region_beat_layers',
             'boss_heal_windows',
             'boss_heal_windows_late',
