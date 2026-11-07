@@ -71,6 +71,7 @@
   "enemy_move_matrix_mid": "^ENEMY_MOVE_MATRIX_MID_PASS kinds=12 moves=25 checks=\\d+$",
   "enemy_move_matrix_late": "^ENEMY_MOVE_MATRIX_LATE_PASS kinds=15 moves=33 checks=\\d+$",
   "combat": "^COMBAT_VALIDATION_PASS player_hits=true hook_hits=true skill_L=true heal_RMB=true interact_F=true ai_profiles=5 enemy_ai_damage=true enemy_reads_commands=true$",
+  "page_type_scale": "^PAGE_TYPE_SCALE_PASS checks=\\d+$",
   "combat_input_events": "^COMBAT_INPUT_EVENTS_PASS cases=32 checks=\\d+$",
   "player_action_sfx_sync": "^PLAYER_ACTION_SFX_SYNC_PASS checks=\\d+$",
   "fragile_gate_crack": "^FRAGILE_GATE_CRACK_PASS checks=\\d+$",
@@ -220,5 +221,6 @@
   "room_ambience": "^ROOM_AMBIENCE checks=[1-9][0-9]* failures=0 rooms=24$",
   "room_ambience_world": "^ROOM_AMBIENCE_WORLD checks=[1-9][0-9]* failures=0 regions=6$",
   "boss_heal_windows": "^BOSS_HEAL_WINDOWS_PASS bosses=3 checks=\\d+$",
-  "boss_heal_windows_late": "^BOSS_HEAL_WINDOWS_LATE_PASS bosses=3 checks=\\d+$"
+  "boss_heal_windows_late": "^BOSS_HEAL_WINDOWS_LATE_PASS bosses=3 checks=\\d+$",
+  "enemy_projectile_launch": "^ENEMY_PROJECTILE_LAUNCH_PASS checks=\\d+$"
 }

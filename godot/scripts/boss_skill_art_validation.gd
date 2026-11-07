@@ -10,8 +10,11 @@ var failures := 0
 class Arena extends Node2D:
     var chapter_terrain: Node
     var wall_distance := -1.0
+    ## The wall stands wall_distance ahead of this muzzle only; the launch check
+    ## from the actor's body to a far-away fixture muzzle must not meet it.
+    var wall_from := Vector2.INF
     func _rock_ray_hit(start: Vector2, finish: Vector2) -> Dictionary:
-        return {"position":start+start.direction_to(finish)*wall_distance,"authored_rock":true} if wall_distance >= 0 else {}
+        return {"position":start+start.direction_to(finish)*wall_distance,"authored_rock":true} if wall_distance >= 0 and (not wall_from.is_finite() or start.distance_to(wall_from) < 0.5) else {}
 
 class PausedTarget extends CharacterBody2D:
     var ui_input_locked := true
@@ -103,12 +106,14 @@ func run() -> void:
                 await process_frame
             if command.type == "beam":
                 arena.wall_distance = 7
+                arena.wall_from = Vector2(100,100)
                 var effect: Node2D = actor._effect("beam",Vector2(100,100),Vector2.RIGHT,command,.5,.4)
                 effect.set_physics_process(false)
                 check(is_equal_approx(effect.length,7), cid + " retains obstruction-clipped warning length")
                 check(effect._hits_player(Vector2(103,100)) and not effect._hits_player(Vector2(108,100)), cid + " retains clipped collision")
                 actor._cancel_attack_effects()
                 arena.wall_distance = -1
+                arena.wall_from = Vector2.INF
                 await process_frame
         actor.phase_pause = .9
         ART.spawn_phase(actor)

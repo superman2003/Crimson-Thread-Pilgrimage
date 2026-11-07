@@ -3,7 +3,7 @@
 import argparse, os, re, shutil, subprocess, tempfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
-DEPS = ['scripts/decorative_motion.gd', 'scripts/decorative_motion_settings.gd', 'scripts/ending_aftermath_scene.gd', 'scripts/scene_history_prop.gd', 'scripts/journey_desk_store.gd', 'scripts/decorative_motion_validation.gd']
+DEPS = ['scripts/ui_type_scale.gd', 'scripts/decorative_motion.gd', 'scripts/decorative_motion_settings.gd', 'scripts/ending_aftermath_scene.gd', 'scripts/scene_history_prop.gd', 'scripts/journey_desk_store.gd', 'scripts/decorative_motion_validation.gd']
 MARKER = '^DECORATIVE_MOTION checks=[1-9][0-9]* failures=0$'
 
 def main():

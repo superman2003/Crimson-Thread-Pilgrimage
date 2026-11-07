@@ -1,5 +1,6 @@
 extends RefCounted
 ## Map-owned controls persist across redraws; markers follow the map transform.
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PINS := preload("res://scripts/map_player_pins.gd")
 const ATLAS := preload("res://scripts/world_atlas.gd")
 const COORD := preload("res://scripts/world_coordinates.gd")
@@ -33,12 +34,13 @@ static func setup(level: Node) -> void:
     list.position = Vector2(248, 0)
     list.size = Vector2(150, 34)
     list.clip_text = true
+    list.add_theme_font_size_override("font_size", TYPE.CONTROL)
     list.focus_mode = Control.FOCUS_ALL
     toolbar.add_child(list)
     var locate_button: Button = level.ui_shell._button(toolbar,"查看图钉",Vector2(404,0),Vector2(76,34),func():
         _dispatch(host_ref,toolbar_ref,view_ref,"locate"))
     locate_button.name="PinLocate"
-    locate_button.add_theme_font_size_override("font_size",13)
+    locate_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     locate_button.tooltip_text="把已知图钉移到视野内；跨区图钉使用世界图，不移动角色。"
     var delete_button: Button = level.ui_shell._button(toolbar, "删除图钉", Vector2(486, 0), Vector2(92, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "delete"))
@@ -47,7 +49,7 @@ static func setup(level: Node) -> void:
     var edit_button: Button = level.ui_shell._button(toolbar, "编辑图钉", Vector2(584, 0), Vector2(84, 34), func():
         _dispatch(host_ref, toolbar_ref, view_ref, "edit"))
     edit_button.name = "PinEdit"
-    edit_button.add_theme_font_size_override("font_size", 13)
+    edit_button.add_theme_font_size_override("font_size", TYPE.CONTROL)
     edit_button.tooltip_text = "给已知图钉命名、更改类型，或移至已定位的当前位置。"
     list.item_selected.connect(func(_index: int):
         _dispatch(host_ref, toolbar_ref, view_ref, "selection"))
@@ -313,7 +315,7 @@ static func _text_width(label: Label) -> float:
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.
 static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs: Dictionary) -> void:
-    var labels: Array[String] = ["图钉 %d / %d · 请选择" % [known.size(), PINS.LIMIT]]
+    var labels: Array[String] = ["图钉 %d / %d" % [known.size(), PINS.LIMIT]]
     # Reserve zero for the prompt; stored pin IDs are always positive.
     var ids: Array[int] = [0]
     for record in known:

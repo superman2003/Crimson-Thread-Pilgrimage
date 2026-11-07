@@ -1,4 +1,5 @@
 extends AcceptDialog
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const FIND:=preload("res://scripts/journal_literal_find.gd")
 var host_ref: WeakRef
 var launcher: Button
@@ -22,7 +23,7 @@ static func install(ui: Control) -> void:
     var dialog:=new();dialog.name="JournalDocumentFind";dialog.host_ref=weakref(ui)
     ui.bag.add_child(dialog);ui.register_text_entry_window(dialog)
     dialog.launcher=Button.new();dialog.launcher.text="本条查找";dialog.launcher.name="JournalFindButton"
-    dialog.launcher.add_theme_font_size_override("font_size",13);dialog.launcher.custom_minimum_size=Vector2(72,30)
+    dialog.launcher.add_theme_font_size_override("font_size",TYPE.CONTROL);dialog.launcher.custom_minimum_size=Vector2(72,30)
     dialog.launcher.tooltip_text="只查找当前选中记录的已公开正文；与左侧跨记录筛选分开。"
     ui.journal_tools.add_child(dialog.launcher);dialog.launcher.pressed.connect(dialog.open)
     ui.journal_tools.visibility_changed.connect(dialog.refresh_launcher)

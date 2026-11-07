@@ -1,4 +1,5 @@
 extends RefCounted
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const GROUP = preload("res://scripts/map_group_framing.gd")
 const COORD = preload("res://scripts/world_coordinates.gd")
 const INDEX = preload("res://scripts/map_directory.gd")
@@ -15,7 +16,7 @@ static func setup(level: Node) -> void:
         var owner: Variant=host.get_ref();var map: Variant=panel.get_ref()
         if _owns(owner,map):open(owner))
     button.name="MapDirectoryButton"
-    button.add_theme_font_size_override("font_size",13)
+    button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     button.tooltip_text="搜索已购且已补绘的房间、能力门、危险、捷径和自定义图钉；只改变视野。"
     var status: Label=level.map_panel.get_node_or_null("PlayerPinStatus")
     if status!=null:status.size.x=965;status.clip_text=true
