@@ -19,6 +19,9 @@
 *.ttf filter=lfs diff=lfs merge=lfs -text
 *.otf filter=lfs diff=lfs merge=lfs -text
 
+# Small, self-contained grounded-run source and fallback cels are reviewable blobs.
+godot/assets/sprites/player/grounded_run_v1/**/*.png -filter -diff -merge -text
+
 # Small procedural basic-attack sheets are stored as complete, reviewable blobs.
 godot/assets/vfx/player_basic_attack/**/*.png -filter -diff -merge -text
 

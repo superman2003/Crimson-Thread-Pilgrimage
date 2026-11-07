@@ -271,9 +271,13 @@ const IDLE_FOOT_CENTER_X := [186.223262, 187.667973, 186.765838, 185.263814]
 var idle_foot_centers: Array = IDLE_FOOT_CENTER_X.duplicate()
 var grounded_pose_foot_centers: Dictionary = {}
 var use_layered_idle := true
-# Preserve the authored nominal cadence (285 px/s, four poses at 12 fps), but
-# advance it from collision-resolved ground travel rather than a wall clock.
-const RUN_CYCLE_DISTANCE := 95.0
+# The gait owns the world stride; collision-resolved travel advances both the
+# continuous planted-foot rig and its fallback/export pose sequence.
+const RUN_GAIT := preload("res://scripts/grounded_run_cycle.gd")
+const RUN_CYCLE_DISTANCE := RUN_GAIT.CYCLE_DISTANCE
+const GROUNDED_RUN := preload("res://scripts/grounded_run_presentation.gd")
+var grounded_run: Node2D
+var use_grounded_run := false
 const GROUND_MOTION_EPSILON := 1.0
 const CAMERA_FOCUS := preload("res://scripts/camera_focus.gd")
 var camera_focus := CAMERA_FOCUS.new()
@@ -453,6 +457,11 @@ func _ready() -> void:
     flash_material = ShaderMaterial.new()
     flash_material.shader = HIT_FLASH_SHADER
     sprite.material = flash_material
+    if use_grounded_run:
+        grounded_run = GROUNDED_RUN.new()
+        if not grounded_run.attach(sprite):
+            grounded_run.free()
+            grounded_run = null
     if use_layered_idle:
         layered_idle = LAYERED_IDLE.new()
         if not layered_idle.attach(sprite):
@@ -1734,6 +1743,10 @@ func _sync_sprite_pose_anchor() -> void:
             sprite.offset.x = correction * (-1.0 if sprite.flip_h else 1.0)
     if is_instance_valid(layered_idle):
         layered_idle.sync_pose()
+    if is_instance_valid(grounded_run):
+        var floor_normal := get_floor_normal() if is_on_floor() else Vector2.UP
+        var slope := -floor_normal.x / minf(floor_normal.y, -0.01)
+        grounded_run.sync(run_cycle_phase, slope * (-1.0 if sprite.flip_h else 1.0))
 
 
 func _update_animation(_input_axis: float) -> void:
@@ -2376,6 +2389,8 @@ func reset_camera_after_arrival() -> void:
         camera.offset = Vector2.ZERO
         camera.rotation = 0.0
         camera.reset_smoothing()
+    reset_physics_interpolation()
+    if camera != null:
         camera.force_update_scroll()
 
 
@@ -2438,6 +2453,7 @@ func _load_sprite_frames() -> void:
     use_layered_idle = String(data.get("idle_presentation", "layered")) != "full_body"
     idle_foot_centers = data.get("idle_foot_center_x", IDLE_FOOT_CENTER_X).duplicate()
     grounded_pose_foot_centers = data.get("grounded_pose_foot_center_x", {}).duplicate(true)
+    use_grounded_run = String(data.get("run_presentation", "")) == "grounded_v1"
 
     if data.has("frames"):
         sprite.sprite_frames = _load_generated_hero_frames(data)

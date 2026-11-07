@@ -109,12 +109,14 @@ class CompletionContractTests(unittest.TestCase):
             'settings_construction',
             'world_save_backup',
             'map_group_framing',
+            'grounded_run',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
         # reject a missing base suite, an unknown addition or invalid completion.
         self.assertEqual(len(all_suites), 182 + len(set(all_suites) & combat_additions))
         self.assertIn("shrine_return_world", DEFAULT_SUITES)
+        self.assertIn("grounded_run", DEFAULT_SUITES)
         self.assertIn("legacy_travel_rewards", DEFAULT_SUITES)
         self.assertIn("application_close", DEFAULT_SUITES)
         self.assertIn("quiet_sole_traps", DEFAULT_SUITES)

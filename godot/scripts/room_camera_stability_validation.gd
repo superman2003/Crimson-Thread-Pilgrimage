@@ -24,7 +24,9 @@ func _frames(count: int = 1) -> void:
 func _run() -> void:
     root.size = Vector2i(1280, 720)
     var body := Node2D.new()
+    body.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
     var camera := Camera2D.new()
+    camera.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
     camera.zoom = Vector2(1.25, 1.25)
     camera.position_smoothing_enabled = true
     camera.position_smoothing_speed = 6.0
@@ -39,6 +41,7 @@ func _run() -> void:
     body.queue_free()
     await _frames()
     if "--player" in OS.get_cmdline_user_args():
+        await _horizontal_integration()
         await _player_integration()
         await _vertical_interruption_integration()
     for label in failures:
@@ -69,10 +72,8 @@ func _follow_rules(focus: RefCounted, camera: Camera2D, body: Node2D) -> void:
             _check(drift < 0.001 and absf(camera.global_position.y - 1445) < 0.001, "Short/full jump keeps world Y at %d Hz, speed %.0f" % [rate, jump_speed])
             _check(height > 25 if jump_speed < 500 else height > 130, "Jump fixture includes a real vertical excursion at %d Hz" % rate)
         focus.reset_follow(Vector2(2000, 1500))
-        var previous_x := camera.position.x
         var actual_y := _step(focus, camera, body, Vector2(2050, 1500), Vector2(350, 0), true, delta)
-        var expected_x := lerpf(previous_x, 63.0, 1.0 - exp(-delta * 5.0))
-        _check(absf(camera.position.x - expected_x) < 0.001 and absf(actual_y - 1445) < 0.001, "Horizontal response stays unchanged at %d Hz" % rate)
+        _check(camera.position.x >= 0 and absf(actual_y - 1445) < 0.001, "Horizontal tracking preserves stable vertical framing at %d Hz" % rate)
     focus.reset_follow(Vector2(2000, 1500))
     for y in [1500.5, 1499.5, 1501.0, 1500.0]:
         _step(focus, camera, body, Vector2(2000, y), Vector2.ZERO, true, 1.0 / 60)
@@ -168,6 +169,12 @@ func _floor(stage: Node2D, y: float, one_way: bool = false, width: float = 8000.
     stage.add_child(body)
     return body
 
+
+func _visible_point(player: CharacterBody2D) -> Vector2:
+    # RenderingServer interpolates the body and camera together. Measure the
+    # visible body, not its next physics position against the interpolated view.
+    return player.global_position - player.get_position_delta() * (1.0 - Engine.get_physics_interpolation_fraction())
+
 func _player_integration() -> void:
     var stage := Node2D.new()
     root.add_child(stage)
@@ -223,7 +230,7 @@ func _player_integration() -> void:
     for tick in 65:
         await _frames()
         min_center = minf(min_center, camera.get_screen_center_position().y)
-        head_margin = minf(head_margin, player.global_position.y - 84 - camera.get_screen_center_position().y + 288)
+        head_margin = minf(head_margin, _visible_point(player).y - 84 - camera.get_screen_center_position().y + 288)
     Input.action_release("jump")
     metrics["double_jump_camera_rise"] = 1445.0 - min_center
     metrics["double_jump_min_head_margin"] = head_margin
@@ -238,8 +245,8 @@ func _player_integration() -> void:
     for tick in 160:
         await _frames()
         var center := camera.get_screen_center_position()
-        feet_margin = minf(feet_margin, center.y + 288 - player.global_position.y)
-        head_margin = minf(head_margin, player.global_position.y - 84 - center.y + 288)
+        feet_margin = minf(feet_margin, center.y + 288 - _visible_point(player).y)
+        head_margin = minf(head_margin, _visible_point(player).y - 84 - center.y + 288)
         max_speed = maxf(max_speed, player.velocity.y)
     metrics["shaft_fall_min_feet_margin"] = feet_margin
     metrics["shaft_fall_min_head_margin"] = head_margin
@@ -257,6 +264,67 @@ func _player_integration() -> void:
     _check(camera.position == Vector2(0, -55) and player.camera_focus.follow_center_y == 4445 and player.camera_focus.follow_observation == 0, "Actual respawn resets the stored baseline and observation")
     for action in ["jump", "move_right", "aim_up"]:
         Input.action_release(action)
+    stage.queue_free()
+    await _frames(3)
+
+
+func _horizontal_integration() -> void:
+    var stage := Node2D.new()
+    root.add_child(stage)
+    _floor(stage, 1500)
+    var player = load("res://scenes/Player.tscn").instantiate()
+    stage.add_child(player)
+    player.feel = null
+    player.configure_camera_focus(Rect2(0, 0, 8000, 6000))
+    player.configure_room_camera([
+        {"id": "entry", "layout_rect": [0, 1000, 900, 1000], "camera_bounds": [0, 1000, 900, 900]},
+        {"id": "hall", "layout_rect": [900, 1000, 900, 1000], "camera_bounds": [900, 1000, 900, 900]}
+    ])
+    player.respawn_at(Vector2(200, 1500))
+    await _frames(40)
+    var camera: Camera2D = player.get_node("Camera2D")
+    _check(absf(camera.get_screen_center_position().x - _visible_point(player).x) < 2, "Starting near the world edge centers the player inside a room narrower than the viewport")
+    var start_x := camera.get_screen_center_position().x
+    Input.action_press("move_right")
+    await _frames(5)
+    _check(camera.get_screen_center_position().x > start_x + 3, "Visible camera starts following before reaching the room edge")
+    var max_error := 0.0
+    var max_step := 0.0
+    var previous := camera.get_screen_center_position().x
+    for tick in 190:
+        await _frames()
+        var center := camera.get_screen_center_position().x
+        max_error = maxf(max_error, absf(center - _visible_point(player).x))
+        max_step = maxf(max_step, absf(center - previous))
+        previous = center
+    Input.action_release("move_right")
+    metrics["horizontal_room_max_center_error"] = max_error
+    metrics["horizontal_room_max_frame_step"] = max_step
+    _check(player.room_camera.current.get("id") == "hall", "Live movement crosses an authored doorway")
+    _check(max_error < 24 and max_step < 24, "Player remains near horizontal center without a doorway camera jump")
+    Input.action_press("move_left")
+    max_error = 0.0
+    for tick in 75:
+        await _frames()
+        max_error = maxf(max_error, absf(camera.get_screen_center_position().x - _visible_point(player).x))
+    Input.action_release("move_left")
+    _check(max_error < 24, "Reversing direction keeps horizontal centering")
+    player.set_meta("accessibility", {"camera_lookahead": 0.0})
+    Input.action_press("move_right")
+    await _frames(25)
+    _check(absf(camera.get_screen_center_position().x - _visible_point(player).x) < 24, "Disabling optional lookahead preserves core horizontal centering")
+    Input.action_press("dash")
+    max_error = 0.0
+    for tick in 30:
+        await _frames()
+        max_error = maxf(max_error, absf(camera.get_screen_center_position().x - _visible_point(player).x))
+    Input.action_release("dash")
+    Input.action_release("move_right")
+    metrics["horizontal_dash_max_center_error"] = max_error
+    _check(max_error < 60, "Dash and its stop retain horizontal visibility")
+    player.respawn_at(Vector2(7800, 1500))
+    await _frames(5)
+    _check(absf(camera.get_screen_center_position().x - _visible_point(player).x) < 2, "Arrival near the far world edge also centers the player")
     stage.queue_free()
     await _frames(3)
 
@@ -297,8 +365,8 @@ func _vertical_interruption_integration() -> void:
         if player.wall_sliding and player.is_on_wall():
             slide_frames += 1
         var center := camera.get_screen_center_position()
-        head_margin = minf(head_margin, player.global_position.y - 84 - center.y + 288)
-        feet_margin = minf(feet_margin, center.y + 288 - player.global_position.y)
+        head_margin = minf(head_margin, _visible_point(player).y - 84 - center.y + 288)
+        feet_margin = minf(feet_margin, center.y + 288 - _visible_point(player).y)
     Input.action_release("move_right")
     metrics["wall_slide_entry_peak_speed"] = peak_speed
     metrics["wall_slide_actual_frames"] = slide_frames
@@ -325,8 +393,8 @@ func _vertical_interruption_integration() -> void:
         if player.dash_timer > 0.0 and absf(player.velocity.y) < 0.1:
             stopped_frames += 1
         var center := camera.get_screen_center_position()
-        head_margin = minf(head_margin, player.global_position.y - 84 - center.y + 288)
-        feet_margin = minf(feet_margin, center.y + 288 - player.global_position.y)
+        head_margin = minf(head_margin, _visible_point(player).y - 84 - center.y + 288)
+        feet_margin = minf(feet_margin, center.y + 288 - _visible_point(player).y)
     Input.action_release("dash")
     metrics["air_stop_entry_peak_speed"] = peak_speed
     metrics["air_stop_actual_frames"] = stopped_frames

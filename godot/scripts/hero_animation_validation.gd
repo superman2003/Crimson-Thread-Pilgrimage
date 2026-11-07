@@ -52,7 +52,8 @@ func run() -> void:
         for index in sprite.sprite_frames.get_frame_count(anim):
             var cel := sprite.sprite_frames.get_frame_texture(anim,index)
             check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v9/frames/"+anim+"_"),anim+" loads its versioned authored body cel")
-    check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored run poses loaded")
+    check(sprite.sprite_frames.get_frame_count("run")==24,"24 grounded-run fallback cels loaded")
+    check(player.grounded_run != null,"grounded running uses the continuous planted-foot rig")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
     for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
         var anim := String(data[0])

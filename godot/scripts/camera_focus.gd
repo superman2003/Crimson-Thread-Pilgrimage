@@ -5,10 +5,12 @@ const LOOK_DISTANCE := 150.0
 const NEUTRAL_HEIGHT := 55.0
 const FLOOR_REBASE_DISTANCE := 12.0
 const OFFSET_RESPONSE := 5.0
+const FOLLOW_RESPONSE := 6.0
 # World-space center, separate from the Camera2D's inherited player transform.
 # A jump inside the safe band must not move this target at all.
 var follow_ready := false
 var follow_center_y := 0.0
+var follow_smoothed_y := 0.0
 var follow_floor_y := 0.0
 var follow_observation := 0.0
 var follow_was_airborne := false
@@ -34,15 +36,16 @@ func configure(camera: Camera2D, bounds: Rect2) -> bool:
     clear_look()
     follow_ready = false
     region_bounds = bounds
+    camera.drag_horizontal_enabled = false
     apply_limits(camera)
     return true
 
-func push_lock(id: String, bounds: Rect2, priority: int = 0, prevent_up: bool = false, prevent_down: bool = false) -> bool:
+func push_lock(id: String, bounds: Rect2, priority: int = 0, prevent_up: bool = false, prevent_down: bool = false, follow_horizontal: bool = false) -> bool:
     if id.is_empty() or not _valid_bounds(bounds):
         return false
     if _valid_bounds(region_bounds) and not region_bounds.intersects(bounds):
         return false
-    locks[id] = {"bounds": bounds, "priority": priority, "prevent_up": prevent_up, "prevent_down": prevent_down}
+    locks[id] = {"bounds": bounds, "priority": priority, "prevent_up": prevent_up, "prevent_down": prevent_down, "follow_horizontal": follow_horizontal}
     var selected := _select_lock()
     if (look_direction < 0 and bool(selected.get("prevent_up", false))) or (look_direction > 0 and bool(selected.get("prevent_down", false))):
         clear_look()
@@ -81,6 +84,9 @@ func effective_bounds(camera: Camera2D, selected: Dictionary) -> Rect2:
     var origin := bounds.get_center() - size * 0.5
     origin.x = clampf(origin.x, region_bounds.position.x, region_bounds.end.x - size.x)
     origin.y = clampf(origin.y, region_bounds.position.y, region_bounds.end.y - size.y)
+    if selected.is_empty() or bool(selected.get("follow_horizontal", false)):
+        origin.x = region_bounds.position.x - view_size.x * 0.5
+        size.x = region_bounds.size.x + view_size.x
     return Rect2(origin, size)
 
 func apply_limits(camera: Camera2D) -> Dictionary:
@@ -126,6 +132,7 @@ func reset_follow(point: Vector2) -> void:
     # this baseline and the existing eased room limits, without resetting scroll.
     follow_ready = true
     follow_center_y = point.y - NEUTRAL_HEIGHT
+    follow_smoothed_y = follow_center_y
     follow_floor_y = point.y
     follow_observation = 0.0
     follow_was_airborne = false
@@ -145,7 +152,8 @@ func follow_position(camera: Camera2D, point: Vector2, motion: Vector2, grounded
     if not follow_ready:
         reset_follow(point)
     var weight := 1.0 - exp(-maxf(delta, 0.0) * OFFSET_RESPONSE)
-    var horizontal := lerpf(camera.position.x if is_finite(camera.position.x) else 0.0, clampf(motion.x * 0.18, -90.0, 90.0) * strength, weight)
+    var lag_x := maxf(0.0, 1.0 / maxf(camera.position_smoothing_speed, 0.01) - delta) if camera.position_smoothing_enabled else 0.0
+    var horizontal := motion.x * lag_x
     follow_observation = lerpf(follow_observation, observation, weight)
     if grounded:
         # Reframe a new platform layer, but ignore tiny floor-contact corrections.
@@ -165,7 +173,7 @@ func follow_position(camera: Camera2D, point: Vector2, motion: Vector2, grounded
         # after leaving the safe band, compensate its lag so a fast shaft fall
         # reveals the landing route instead of letting the feet leave the view.
         # This safety follow remains active when optional lookahead is disabled.
-        var lag := 1.0 / maxf(camera.position_smoothing_speed, 0.01) if camera.position_smoothing_enabled else 0.0
+        var lag := 1.0 / maxf(camera.position_smoothing_speed, 0.01) if camera.position_smoothing_enabled else 1.0 / FOLLOW_RESPONSE
         if motion.y < 0.0 and point.y < follow_center_y - upper_band:
             follow_vertical_direction = -1
             follow_vertical_travel = true
@@ -183,6 +191,14 @@ func follow_position(camera: Camera2D, point: Vector2, motion: Vector2, grounded
             follow_center_y = point.y - lower_band + motion.y * lag
     follow_was_airborne = not grounded
     # Compensate inherited Y immediately; lerping this local offset would feed
-    # the jump back into the camera. X/observation retain the existing response.
+    # the jump back into the camera. Observation retains its eased response.
     # Authored room/Boss bounds and FeelKit offsets remain Camera2D-owned.
-    return Vector2(horizontal, follow_center_y + follow_observation - point.y)
+    var target_y := follow_center_y + follow_observation
+    if not camera.position_smoothing_enabled:
+        # The production camera and body share render interpolation. Smooth Y
+        # once here; native Camera2D smoothing can update on transform changes.
+        follow_smoothed_y = lerpf(follow_smoothed_y, follow_center_y, 1.0 - exp(-delta * FOLLOW_RESPONSE))
+        var half_height := camera.get_viewport_rect().size.y / maxf(absf(camera.zoom.y), 0.01) * 0.5
+        follow_smoothed_y = clampf(follow_smoothed_y, point.y - maxf(24.0, half_height - 80.0), point.y + maxf(0.0, half_height - 116.0))
+        target_y = clampf(follow_smoothed_y + follow_observation, point.y - maxf(24.0, half_height - 80.0), point.y + maxf(0.0, half_height - 116.0))
+    return Vector2(horizontal, target_y - point.y)

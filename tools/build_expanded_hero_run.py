@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Package eight authored run cels with one fixed scale and the existing rig.
+"""Canonical entry point for the continuous grounded run's fallback asset pack.
 
-Only crop/resize/pad generated source pixels; no interpolated or painted poses.
-The original four run PNGs remain available for provenance and comparison.
+The original v4 pack remains reproducible through build_legacy for comparison.
 """
 from pathlib import Path
 from hashlib import sha256
@@ -15,6 +14,10 @@ ROOT=Path(__file__).resolve().parents[1]
 FOLDER=ROOT/'godot/assets/sprites/player/generated_hero_motion_v4'
 
 def build(check=False):
+    from build_grounded_run import build as build_grounded
+    return build_grounded(check)
+
+def build_legacy(check=False):
     record=json.loads((FOLDER/'run_generation.json').read_text())
     sheet=Image.open(FOLDER/record['sheet']).convert('RGBA')
     reference=Image.open(FOLDER/record['reference']).convert('RGBA')
