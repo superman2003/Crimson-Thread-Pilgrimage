@@ -1471,7 +1471,7 @@ func _build_build_panel() -> void:
     build_panel.add_child(build_art)
     build_art_caption=_label(build_panel,"以线缝名，借势出针。",Vector2(278,508),Vector2(332,28),18,GOLD)
     build_art_caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    build_summary=_label(build_panel,"",Vector2(34,101),Vector2(1030,26),16,GOLD)
+    build_summary=_label(build_panel,"",Vector2(34,101),Vector2(860,26),16,GOLD)
     # Keep the six established pages while exposing both accessory families
     # through an explicit selector inside the 铭饰 page.
     var categories: Array[String]=["契印","技能","战具","铭饰","强化","构筑"]

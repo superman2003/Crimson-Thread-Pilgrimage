@@ -69,8 +69,8 @@ func _refresh_practice_caption() -> void:
     var skill_id:=String(get_meta("practice_skill_id",""))
     var progress: Dictionary=level.get_skill_practice_progress(skill_id)
     var text:=String(label.get_meta("base_text",""))+"\n"
-    if not progress.known:text+="先取得并装备这门线术。"
-    elif progress.completed:text+="已练熟 · 可找工匠选择校习方向。"
-    elif progress.pending_save:text+="练习达标，记录待写入；再次有效施放重试。"
-    else:text+="本次练习 %d / %d；独立有效施放，同次多段只计一次。" % [int(progress.count),int(progress.required)]
+    if not progress.known:text+="未装备"
+    elif progress.completed:text+="已练熟 · 找工匠选方向"
+    elif progress.pending_save:text+="记录待写入 · 再施放一次"
+    else:text+="%d / %d" % [int(progress.count),int(progress.required)]
     if label.text!=text:label.text=text

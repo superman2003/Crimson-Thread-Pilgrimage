@@ -63,8 +63,8 @@ static func setup(level: Node) -> void:
     status.add_theme_font_size_override("font_size", 12)
     status.add_theme_color_override("font_color", Color("e7ad7f"))
     level.map_panel.add_child(status)
-    status.text = "右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
-    status.tooltip_text=status.text
+    status.text = "右键标记图钉"
+    status.tooltip_text="右键标记已补绘房间 · 上方按钮支持键盘/手柄 · 最多12个"
 
 ## Weak captures matter before the guard: Godot reports an engine error when
 ## invoking a lambda whose captured Node was freed, even if it checks liveness.
@@ -133,7 +133,6 @@ static func refresh(level: Node) -> void:
     toolbar.get_node("PinLocate").disabled = list.get_selected_id() <= 0
     toolbar.get_node("PinEdit").disabled = level.world_save_blocked or list.get_selected_id() <= 0
     level.survey_map_view.tooltip_text = "右键：在已购且已补绘房间放置所选类型图钉 · 左键拖动 / WASD / 左摇杆 平移 · 滚轮 / PgUp/PgDn / RB/LB 缩放 · Home / Y 复位"
-    level.map_text.text += "    右键标记 · 上方按钮支持手柄"
 
 ## Crowded edge labels may need to exceed the preferred drift. Thin leaders
 ## preserve the actual per-pin locations without moving the map or saved pins.

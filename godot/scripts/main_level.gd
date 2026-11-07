@@ -3731,8 +3731,11 @@ func _spawn_seal_practice_targets() -> void:
         add_child(target)
         var label := Label.new()
         label.name="PracticeCaption"
-        label.position = Vector2(-120, -175)
-        label.size = Vector2(240, 130)
+        # Short title over its own rack; the tool puppet's caption sits lower,
+        # so neighbouring racks never stack their captions.
+        label.position = Vector2(-80, -175)
+        label.size = Vector2(160, 44)
+        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
@@ -3779,8 +3782,9 @@ func _spawn_tool_practice_targets() -> void:
             target.set_platform_movement_bounds(float(bounds[0]), float(bounds[1]))
         add_child(target)
         var label := Label.new()
-        label.position = Vector2(-120, -150)
-        label.size = Vector2(240, 100)
+        label.position = Vector2(-80, -118)
+        label.size = Vector2(160, 22)
+        label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
         label.add_theme_font_override("font", load("res://assets/fonts/GlobalTypeface.otf"))
         label.add_theme_font_size_override("font_size", 13)
