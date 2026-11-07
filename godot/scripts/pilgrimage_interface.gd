@@ -1,5 +1,6 @@
 extends Control
 
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const PROMPT_BINDINGS := preload("res://scripts/input_prompt_bindings.gd")
 const ART := preload("res://scripts/hand_drawn_assets.gd")
 const DIALOG_FOCUS := preload("res://scripts/dialog_focus_bridge.gd")
@@ -638,7 +639,7 @@ func _build_bag() -> void:
             bag_scroll.scroll_vertical=0
             refresh_inventory())
         filter_button.custom_minimum_size=Vector2(filter_width,28)
-        filter_button.add_theme_font_size_override("font_size",13)
+        filter_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
         journal_filter_buttons[filter_id]=filter_button
     journal_tools=HBoxContainer.new()
     journal_tools.position=Vector2(34,222)
@@ -649,24 +650,24 @@ func _build_bag() -> void:
     # costs several ms each (see the 10-21 UI rebuild report).
     journal_search=LineEdit.new()
     journal_search.custom_minimum_size=Vector2(236,30)
-    journal_search.add_theme_font_size_override("font_size",13)
+    journal_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_search)
     journal_search.placeholder_text="搜索已知记录 · Ctrl+F"
     journal_search.tooltip_text="只搜索已知标题和正文。空格分词；双引号或中文引号查短语；-词语 排除匹配。"
     journal_search.max_length=80
     journal_search.text_changed.connect(func(_value: String):journal_selection=0;refresh_inventory())
     journal_unread=CheckButton.new()
-    journal_unread.add_theme_font_size_override("font_size",13)
+    journal_unread.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_unread)
     journal_unread.text="仅未读"
     journal_unread.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_stars=CheckButton.new()
-    journal_stars.add_theme_font_size_override("font_size",13)
+    journal_stars.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_tools.add_child(journal_stars)
     journal_stars.text="仅收藏"
     journal_stars.toggled.connect(func(_value: bool):journal_selection=0;refresh_inventory())
     journal_sort=OptionButton.new()
-    journal_sort.add_theme_font_size_override("font_size",13)
+    journal_sort.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_sort.custom_minimum_size=Vector2(127,30)
     journal_tools.add_child(journal_sort)
     journal_sort.add_item("旅途顺序")
@@ -689,12 +690,12 @@ func _build_bag() -> void:
     bag_icon=_icon(bag,null,Vector2(834,166),Vector2(95,95))
     bag_name=_label(bag,"",Vector2(734,273),Vector2(342,34),23)
     bag_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    bag_category_label=_label(bag,"",Vector2(734,314),Vector2(342,26),15,GOLD)
+    bag_category_label=_label(bag,"",Vector2(734,314),Vector2(342,26),TYPE.BODY,GOLD)
     bag_category_label.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     bag_description=RichTextLabel.new()
     bag_description.position=Vector2(738,354)
     bag_description.size=Vector2(330,160)
-    bag_description.add_theme_font_size_override("normal_font_size",17)
+    bag_description.add_theme_font_size_override("normal_font_size",TYPE.ACTION)
     bag_description.add_theme_color_override("default_color",IVORY)
     bag_description.scroll_active=true
     bag.add_child(bag_description)
@@ -702,12 +703,12 @@ func _build_bag() -> void:
     bag_pin=_button(bag,"钉在旅记",Vector2(738,533),Vector2(330,35),_pin_item)
     journal_mark_button=_button(bag,"标为已读",Vector2(738,571),Vector2(160,27),_toggle_journal_read)
     journal_star_button=_button(bag,"收藏记录",Vector2(908,571),Vector2(160,27),_toggle_journal_star)
-    journal_mark_button.add_theme_font_size_override("font_size",13)
-    journal_star_button.add_theme_font_size_override("font_size",13)
+    journal_mark_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    journal_star_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button=_button(bag,"筛选结果标已读",Vector2(562,571),Vector2(166,27),_open_journal_batch)
-    journal_batch_button.add_theme_font_size_override("font_size",13)
+    journal_batch_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     journal_batch_button.tooltip_text="确认后，将当前筛选中最多256条已知记录标为已读；不推进任务。"
-    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),15,MUTED)
+    _label(bag,"W/S 查看  ·  点击分类与物品  ·  Esc 返回",Vector2(34,552),Vector2(520,30),TYPE.CAPTION,MUTED)
     legacy_bag_text=_label(bag,"",Vector2.ZERO,Vector2.ZERO)
     preload("res://scripts/resource_purpose_dialog.gd").setup(self)
     preload("res://scripts/journal_mark_desk.gd").install(self)
@@ -776,7 +777,7 @@ func append_inventory_item(item_id: String) -> void:
     var count: int=level.currency_count if item_id=="currency" else int(level.inventory_counts.get(item_id,0))
     var name_label:=_label(button,level._item_display_name(item_id),Vector2(4,70),Vector2(87,22),12)
     name_label.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _label(button,str(count),Vector2(59,48),Vector2(30,23),13,GOLD)
+    _label(button,str(count),Vector2(59,48),Vector2(30,23),TYPE.CAPTION,GOLD)
 
 func finish_inventory_refresh() -> void:
     var selected := inventory_build_selection
@@ -1035,13 +1036,13 @@ func _build_settings_audio() -> void:
         settings_sliders[key]=slider
     _accessibility_toggle("npc_landmarks","NPC声音地标",Vector2(34,300))
     var comfort_button:=_button(settings,"手柄校准 / 舒适预设",Vector2(34,332),Vector2(200,32),_open_controller_comfort)
-    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",15)
+    comfort_button.name="ControllerComfortButton";comfort_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     # Row 332 to the right of the comfort button belongs to the danger-caption
     # desk; the retry sits beside the NPC toggle, its notice by the section title.
     settings_save_retry=_button(settings,"重试保存当前设置",Vector2(245,298),Vector2(200,32),_retry_accessibility_save)
-    settings_save_retry.add_theme_font_size_override("font_size",13)
+    settings_save_retry.add_theme_font_size_override("font_size",TYPE.CONTROL)
     settings_save_retry.tooltip_text="保存本次已生效的设置与按键；不重置输入、音量或旅途资源。"
-    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),13,GOLD)
+    settings_save_notice=_label(settings,"",Vector2(250,102),Vector2(220,24),TYPE.CAPTION,GOLD)
     settings_save_notice.clip_text=true
     _refresh_settings_save_notice()
 
@@ -1061,7 +1062,7 @@ func _build_settings_accessibility() -> void:
 func _build_settings_controls() -> void:
     _label(settings,"按键重映射 · 选择动作后按键、按钮或推动扳机",Vector2(34,384),Vector2(740,28),17,GOLD)
     reset_bindings_button=_button(settings,"恢复默认按键",Vector2(800,381),Vector2(172,28),_reset_bindings)
-    reset_bindings_button.add_theme_font_size_override("font_size",13)
+    reset_bindings_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     remap_scroll=ScrollContainer.new()
     remap_scroll.name="RemapScroll"
     remap_scroll.position=Vector2(34,414)
@@ -1082,7 +1083,7 @@ func _build_settings_controls() -> void:
         button.size_flags_horizontal=Control.SIZE_EXPAND_FILL
         button.add_theme_font_size_override("font_size",12)
         remap_buttons[action_id]=button
-    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),13,MUTED)
+    remap_status=_label(settings,"Esc 取消重映射；方向键 / 手柄十字键选择，确认键操作。",Vector2(34,549),Vector2(938,24),TYPE.CAPTION,MUTED)
     if not binding_recovery_notice.is_empty():remap_status.text=binding_recovery_notice
     remap_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 
@@ -1090,11 +1091,11 @@ func _finish_settings() -> void:
     for slot_index in 3:
         var slot:=slot_index+1
         save_slot_buttons[slot]=_button(settings,"存档槽 %d" % slot,Vector2(34+slot_index*219,573),Vector2(206,30),func():_select_save_slot(slot))
-        save_slot_buttons[slot].add_theme_font_size_override("font_size",13)
+        save_slot_buttons[slot].add_theme_font_size_override("font_size",TYPE.CONTROL)
         save_slot_buttons[slot].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",13)
+    _button(settings,"恢复当前槽备份",Vector2(691,573),Vector2(137,30),_restore_save_backup).add_theme_font_size_override("font_size",TYPE.CONTROL)
     journey_history_button=_button(settings,"浏览旧旅途",Vector2(838,573),Vector2(134,30),_show_journey_history)
-    journey_history_button.add_theme_font_size_override("font_size",13)
+    journey_history_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     preload("res://scripts/audio_output_dialog.gd").install(self)
     legacy_settings=_label(settings,"",Vector2.ZERO,Vector2.ZERO)
     legacy_settings.visible=false
@@ -1313,6 +1314,9 @@ func _apply_accessibility() -> void:
         feel.set_accessibility(accessibility)
     if dialogue_body!=null:dialogue_body.add_theme_font_size_override("font_size",int(accessibility["subtitle_size"]))
     if build_detail!=null:build_detail.add_theme_font_size_override("normal_font_size",int(accessibility["subtitle_size"]))
+    # U05: the journal/item reading body follows the reading size too; its
+    # authored 17 stays the size at the default reading baseline.
+    if bag_description!=null:bag_description.add_theme_font_size_override("normal_font_size",preload("res://scripts/journey_window_layout.gd").scaled_font(TYPE.ACTION,accessibility["subtitle_size"]))
     if is_instance_valid(dialog_reading):dialog_reading.refresh()
     if level!=null and is_instance_valid(level.player):
         level.player.set_meta("accessibility",accessibility.duplicate())
@@ -1496,7 +1500,7 @@ func _build_build_panel() -> void:
     equipment_search.position=Vector2(34,180)
     equipment_search.size=Vector2(340,28)
     equipment_search.max_length=equipment_filter.QUERY_LIMIT
-    equipment_search.add_theme_font_size_override("font_size",13)
+    equipment_search.add_theme_font_size_override("font_size",TYPE.CONTROL)
     equipment_search.placeholder_text="搜索此类已知装备"
     equipment_search.clear_button_enabled=true
     equipment_search.tooltip_text="按装备名称搜索。搜索与筛选不会执行装备操作或消耗资源。"
@@ -1504,7 +1508,7 @@ func _build_build_panel() -> void:
     equipment_compatible=CheckBox.new()
     equipment_compatible.position=Vector2(384,180)
     equipment_compatible.size=Vector2(225,28)
-    equipment_compatible.add_theme_font_size_override("font_size",13)
+    equipment_compatible.add_theme_font_size_override("font_size",TYPE.CONTROL)
     equipment_compatible.text="仅可装入此槽"
     equipment_compatible.tooltip_text="只显示已解锁且兼容当前所选槽位的装备。"
     build_panel.add_child(equipment_compatible)
@@ -1528,7 +1532,7 @@ func _build_build_panel() -> void:
         var family_id:=_build_family_for_page()
         if family_id.is_empty():return
         _perform_build_action("equip_family_slot","",{"family":family_id,"slot":build_assign_slot}))
-    clear_family_slot_button.add_theme_font_size_override("font_size",13)
+    clear_family_slot_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     build_emblem=_icon(build_panel,null,Vector2(645,290),Vector2(48,48))
     build_heading=_label(build_panel,"",Vector2(710,290),Vector2(350,45),23,GOLD)
     build_detail.position=Vector2(646,340)
@@ -1539,11 +1543,11 @@ func _build_build_panel() -> void:
     build_panel.add_child(build_detail)
     resupply_preview_button=_button(build_panel,"查看补给报价",Vector2(640,535),Vector2(200,30),_preview_tool_resupply)
     resupply_confirm_button=_button(build_panel,"确认购买补给",Vector2(850,535),Vector2(220,30),_confirm_tool_resupply)
-    resupply_preview_button.add_theme_font_size_override("font_size",13)
-    resupply_confirm_button.add_theme_font_size_override("font_size",13)
+    resupply_preview_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
+    resupply_confirm_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     resupply_confirm_button.disabled=true
     resupply_planner_button=_button(build_panel,"按需与优先补给",Vector2(640,570),Vector2(430,26),_open_resupply_planner)
-    resupply_planner_button.add_theme_font_size_override("font_size",13)
+    resupply_planner_button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     craft_cart_button=_button(build_panel,"多件制作清单",Vector2(640,535),Vector2(430,30),_open_craft_cart)
     craft_cart_button.add_theme_font_size_override("font_size",14)
     _label(build_panel,"点击 / 确认键执行  ·  方向键 / 手柄十字键选择  ·  Esc 返回",Vector2(34,572),Vector2(590,18),11,MUTED)

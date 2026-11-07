@@ -1,4 +1,5 @@
 extends RefCounted
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const NETWORK:=preload("res://scripts/shrine_return_network.gd")
 const BUTTON:="ShrineReturnButton"
 const WINDOW:="ShrineReturnWindow"
@@ -10,7 +11,7 @@ static func setup(level: Node) -> void:
     var panel: WeakRef=weakref(level.map_panel)
     var button: Button=level.ui_shell._button(level.map_panel,"钟龛回访",Vector2(710,550),Vector2(134,32),func():open(host,panel))
     button.name=BUTTON
-    button.add_theme_font_size_override("font_size",13)
+    button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     button.size=Vector2(134,32)
     button.tooltip_text="查看各区最近安坐的钟龛；先在当前钟龛安坐，再沿已开放钟路返回。"
 

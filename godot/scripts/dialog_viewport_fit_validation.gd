@@ -33,6 +33,26 @@ func launchers(node: Node, out: Array) -> Array:
 		launchers(child, out)
 	return out
 
+## Single-line labels and buttons whose text is wider than the control.
+func clipped_text(node: Node, out: Array) -> Array:
+	for child in node.get_children():
+		if child is Window or (child is CanvasItem and not child.is_visible_in_tree()):
+			continue
+		if (child is Label or child is Button) and not String(child.text).strip_edges().is_empty() \
+				and not String(child.text).contains("\n") and not (child is Label and child.autowrap_mode != TextServer.AUTOWRAP_OFF):
+			var size: int = child.get_theme_font_size("font_size")
+			var width: float = child.get_theme_font("font").get_string_size(String(child.text), HORIZONTAL_ALIGNMENT_LEFT, -1, size).x
+			if child is Button:
+				var style: StyleBox = child.get_theme_stylebox("normal")
+				if style != null:
+					width += style.get_margin(SIDE_LEFT) + style.get_margin(SIDE_RIGHT)
+				if child.icon != null:
+					width += child.icon.get_width()
+			if width > child.size.x + 1.0:
+				out.append("%s '%s'" % [child.get_class(), String(child.text).left(20)])
+		clipped_text(child, out)
+	return out
+
 ## Largest font among the dialog's visible text, as the body a player reads.
 func text_size(node: Node) -> int:
 	var largest := 0
@@ -92,6 +112,8 @@ func sweep(reading: int) -> void:
 					var rect := Rect2(Vector2(window.position), Vector2(window.size))
 					var label := "reading %d %s dialog '%s'" % [reading, page, String(launcher.text)]
 					text_sizes["%s:%s|%d" % [page, String(launcher.text), reading]] = text_size(window)
+					var cut := clipped_text(window, [])
+					check(cut.is_empty(), label + " shows its single-line texts whole (cut: %s)" % [cut])
 					check(screen.encloses(rect), label + " fits the screen (%s in %s)" % [rect, screen])
 					var inside := Rect2(Vector2.ZERO, Vector2(window.size))
 					for button in window.get_ok_button().get_parent().get_children(true):

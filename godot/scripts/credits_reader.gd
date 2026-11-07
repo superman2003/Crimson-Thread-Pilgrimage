@@ -1,4 +1,5 @@
 extends Node
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 ## Read-only native reader; closing the settings owner also closes this window.
 var ui: Control
 var model:=preload("res://scripts/credits_catalog.gd").new()
@@ -27,7 +28,7 @@ func setup(shell: Control) -> void:
     var subtitle:=ui.settings.get_node_or_null("InscriptionSubtitle") as Label
     if subtitle!=null:subtitle.size.x=200
     launcher=ui._button(ui.settings,"来源与许可",Vector2(420,20),Vector2(160,32),open)
-    launcher.name="CreditsReaderButton";launcher.add_theme_font_size_override("font_size",15)
+    launcher.name="CreditsReaderButton";launcher.add_theme_font_size_override("font_size",TYPE.CONTROL)
     launcher.tooltip_text="在游戏内阅读发行包附带的项目与第三方来源文件。"
 
 func _build() -> void:

@@ -1,4 +1,5 @@
 extends Node
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const DIRECTORY := preload("res://scripts/map_directory_runtime.gd")
 const PLAN := preload("res://scripts/expedition_plan.gd")
 const JOURNAL := preload("res://scripts/pilgrimage_cartography.gd")
@@ -31,7 +32,7 @@ func setup(shell: Control) -> void:
     ui=shell
     plan.configure(String(ui.level.world_save_path))
     var button: Button=ui._button(ui.level.map_panel,"多站行程",Vector2(860,585),Vector2(134,32),open)
-    button.name="ExpeditionDeskButton";button.add_theme_font_size_override("font_size",13)
+    button.name="ExpeditionDeskButton";button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     hud=ui._label(ui,"",Vector2(895,260),Vector2(355,76),14,ui.GOLD)
     hud.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;hud.clip_text=true
     preload("res://scripts/map_control_layout.gd").apply(ui.level)

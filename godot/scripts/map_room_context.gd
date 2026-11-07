@@ -1,5 +1,6 @@
 extends RefCounted
 ## One fixed caption for mouse hover and controller/keyboard room focus.
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const KNOWLEDGE := preload("res://scripts/survey_map_knowledge.gd")
 
 static func setup(level: Node) -> void:
@@ -11,7 +12,7 @@ static func setup(level: Node) -> void:
         caption.size=Vector2(1108,20)
         caption.mouse_filter=Control.MOUSE_FILTER_IGNORE
         caption.clip_text=true
-        caption.add_theme_font_size_override("font_size",13)
+        caption.add_theme_font_size_override("font_size",TYPE.CAPTION)
         level.map_panel.add_child(caption)
     caption.text="悬停／方向键选择房间：查看上下层邻室；邻接不表示道路已开放。"
 

@@ -1,6 +1,7 @@
 extends RefCounted
 ## Logical 1280x720 UI layout. Window scaling remains the shell's responsibility.
 ## Keep the clipped map canvas separate from controls and readable explanations.
+const TYPE := preload("res://scripts/ui_type_scale.gd")
 const VIEW := Rect2(34,78,1108,462)
 const TOOLBAR := Rect2(34,550,668,34)
 const DIRECTORY := Rect2(1008,550,134,32)
@@ -50,7 +51,7 @@ static func apply(level: Node) -> void:
     var parent: WeakRef=weakref(panel)
     var button: Button=level.ui_shell._button(panel,"地图说明",HELP.position,HELP.size,func():open_help(host,parent))
     button.name=HELP_BUTTON
-    button.add_theme_font_size_override("font_size",13)
+    button.add_theme_font_size_override("font_size",TYPE.CONTROL)
     button.tooltip_text="完整阅读当前地图的路线/危险说明和图钉提示；支持键盘和手柄焦点。"
 
 static func owns(host: WeakRef, parent: WeakRef) -> bool:
