@@ -248,7 +248,8 @@ const SFX := {
     "ch02_beat_water_hammer": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
     "ch03_beat_contract_break": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg",
     "ch05_beat_silent_order": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg",
-    "ch06_beat_crown_resonance": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg"
+    "ch06_beat_crown_resonance": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg",
+    "ch03_beat_delayed_shadow": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg"
 }
 ## Boss 四件套（roar/phase_shift/atk_light/atk_heavy）按 boss kind → 章节短号取合成包音源。
 const BOSS_SFX_CHAPTER := {
@@ -2557,6 +2558,10 @@ func _play_attack_sfx(phase: String) -> void:
             _play_sfx("ch02_beat_water_hammer", -8.0)
     else:
         _play_sfx("enemy_attack", -10.0)
+        # Beat `delayed_shadow`（manifest ch03_beat_01）：迟影复写玩家动作的回声一击
+        # 叠玻璃摩擦与低音翻页声；只认这一招，瞬移不叠。
+        if kind == "delayed_shadow" and String(active_attack.get("id", "")) == "shadow_echo":
+            _play_sfx("ch03_beat_delayed_shadow", -9.0)
 
 
 ## 招式分档：优先读攻击条目 telegraph_tier（lethal/heavy 即重档），否则按 damage>=2 判定

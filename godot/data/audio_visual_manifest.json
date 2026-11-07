@@ -2942,12 +2942,13 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_01_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "玻璃摩擦声和低音翻页声。",
               "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "delayed shadow echo strike (shadow_echo) only; its blink keeps the ordinary attack sound",
+              "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx"
             }
           ]
         },
@@ -3099,12 +3100,13 @@
           "audio": [
             {
               "key": "ch04_broken_string_greenhouse_beat_03_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "断弦拨片声和轻微石屑落地声。",
               "path": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "string greenhouse theme: layered on the thorn downstrike floor break",
+              "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate"
             }
           ]
         }
