@@ -18,8 +18,11 @@ var failures := 0
 class Arena extends Node2D:
     var chapter_terrain: Node
     var wall_distance := -1.0
+    ## The wall stands wall_distance ahead of this muzzle only; the launch check
+    ## from the actor's body to a far-away fixture muzzle must not meet it.
+    var wall_from := Vector2.INF
     func _rock_ray_hit(start: Vector2, finish: Vector2) -> Dictionary:
-        return {"position":start+start.direction_to(finish)*wall_distance,"authored_rock":true} if wall_distance >= 0 else {}
+        return {"position":start+start.direction_to(finish)*wall_distance,"authored_rock":true} if wall_distance >= 0 and (not wall_from.is_finite() or start.distance_to(wall_from) < 0.5) else {}
 
 class PausedTarget extends CharacterBody2D:
     var ui_input_locked := true
@@ -180,6 +183,7 @@ func run() -> void:
                 await process_frame
             if command.type=="beam":
                 arena.wall_distance = 7
+                arena.wall_from = Vector2(100,100)
                 var clipped: Node2D = actor._effect("beam",Vector2(100,100),Vector2.RIGHT,command,.5,.4)
                 clipped.set_physics_process(false)
                 check(is_equal_approx(clipped.length,7),cid + " wall truncates warning channel to seven pixels")
@@ -187,6 +191,7 @@ func run() -> void:
                 check(not ART.hazard_entry(clipped).is_empty(),cid + " tiny clipped channel retains its authored warning")
                 actor._cancel_attack_effects()
                 arena.wall_distance = -1
+                arena.wall_from = Vector2.INF
                 await process_frame
         check(SHARED_ART.synchronous_texture_loads==calls_before,kind + " no texture is synchronously loaded on attack/release")
         var reset_command: Dictionary = catalogue[kind].attacks[0]
@@ -316,6 +321,7 @@ func verify_secondary_hazards(arena: Arena, catalogue: Dictionary, registry: Dic
     var pipe:=setup_actor(arena,"pipe_thrower",catalogue.pipe_thrower,Vector2(400,300))
     command=catalogue.pipe_thrower.attacks[0]
     arena.wall_distance=4
+    arena.wall_from=Vector2(400,200)
     var shot:Node2D=pipe._effect("projectile",Vector2(400,200),Vector2.RIGHT*200,command,0,2)
     shot.set_physics_process(false)
     shot._physics_process(.05)
@@ -325,6 +331,7 @@ func verify_secondary_hazards(arena: Arena, catalogue: Dictionary, registry: Dic
     check(active_family(shot)=="slag","mortar impact continues to use authored slag active material")
     if pipe.minor_skill_texture!=null:verify_cels(pipe.minor_skill_texture.get_image(),registry.get("extras",{}).get("pipe_impact",{}).get("warning",{}),"mortar impact warning")
     arena.wall_distance=-1
+    arena.wall_from=Vector2.INF
     pipe._cancel_attack_effects()
     RETIREMENT.retire_tree(pipe)
     pipe.queue_free()
