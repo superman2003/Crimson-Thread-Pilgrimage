@@ -1695,6 +1695,22 @@ func _family_slots(snapshot: Dictionary, family_id: String) -> Array:
     var row:=_family_row(snapshot,family_id)
     return row.get("slots",[]) if row.get("slots",[]) is Array else []
 
+## U02: what still opens a locked slot — the crest's own mechanism (its seal
+## quest) and/or an artisan-made part — so a locked slot never reads as final.
+func _slot_unlock_hints(snapshot: Dictionary, slot: Dictionary) -> Array[String]:
+    var hints: Array[String]=[]
+    var mechanism:=String(slot.get("requires_mechanism",""))
+    if not mechanism.is_empty():
+        for crest in snapshot.get("crests",[]):
+            if crest is Dictionary and String(crest.get("id",""))==mechanism and not bool(crest.get("mechanism_unlocked",false)):
+                hints.append("需要唤醒「%s」的契印机制：%s" % [String(crest.get("name",mechanism)),String(crest.get("source","完成该契印的委托"))])
+    if not bool(slot.get("part_ready",true)):
+        var part_entry: Dictionary={}
+        for recipe in snapshot.get("recipes",[]):
+            if recipe is Dictionary and String(recipe.get("id",""))==String(slot.get("part_recipe","")):part_entry=recipe
+        hints.append("需要工匠制作「%s」（%s）。" % [String(part_entry.get("name","承力扣")),String(part_entry.get("artisan_name","工匠"))])
+    return hints
+
 func _slot_dormancy_reason(slot: Dictionary, item_id: String) -> String:
     if item_id.is_empty():return ""
     if not bool(slot.get("unlocked",true)):return "槽位未解锁"
@@ -1771,12 +1787,18 @@ func _ensure_family_slot_buttons(snapshot: Dictionary, family_id: String, slots:
         else:label+=" · 空"
         button.text=("▶ " if index==build_assign_slot else "○ ")+label
         button.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-        button.disabled=not bool(slot.get("unlocked",true))
+        # A locked slot stays focusable so a controller can select it and read
+        # its unlock condition in the detail panel; every catalog option is
+        # disabled while it is the target, so nothing can be equipped into it.
+        var locked:=not bool(slot.get("unlocked",true))
+        button.disabled=false
+        button.modulate=Color(1,1,1,0.72) if locked else Color.WHITE
         var compatible_ids: Array=slot.get("compatible",[])
         var compatible_names:=_family_option_names(snapshot,family_id,compatible_ids)
         var tooltip:=label+"\n"
-        if button.disabled:
+        if locked:
             tooltip+="此槽位尚未解锁"
+            for hint in _slot_unlock_hints(snapshot,slot):tooltip+="\n◇ "+hint
             if not dormant_reason.is_empty():tooltip+="\n休眠装备："+String(equipped.get("name",equipped_id))+"\n未激活："+dormant_reason
         else:
             tooltip+="当前装备："+(String(equipped.get("name",equipped_id)) if not equipped_id.is_empty() else "空")
@@ -2018,6 +2040,9 @@ func refresh_build() -> void:
         if entries.is_empty():
             build_heading.text="没有匹配装备"
             build_detail.text=String(filtered.empty_reason)
+            # A locked target slot still names what opens it, filter or not.
+            if not selected_slot.is_empty() and not bool(selected_slot.get("unlocked",true)):
+                for hint in _slot_unlock_hints(snapshot,selected_slot):build_detail.text+="\n◇ "+hint
             build_emblem.texture=null
     if entries.is_empty() and (equipment_search==null or not equipment_search.visible):build_detail.text="此页暂无可用条目。"
     var first: Button
@@ -2291,11 +2316,7 @@ func _show_build_detail(entry: Dictionary) -> void:
             lines.append("当前装备：%s" % String(current_entry.get("name",equipped_id if not equipped_id.is_empty() else "空")))
             if not bool(target_slot.get("unlocked",false)):
                 lines.append("该槽位尚未解锁，无法装备。")
-                if not bool(target_slot.get("part_ready",true)):
-                    var part_entry: Dictionary={}
-                    for recipe in snapshot.get("recipes",[]):
-                        if String(recipe.get("id",""))==String(target_slot.get("part_recipe","")):part_entry=recipe
-                    lines.append("◇ 需要工匠制作「%s」（%s）。" % [String(part_entry.get("name","承力扣")),String(part_entry.get("artisan_name","工匠"))])
+                for hint in _slot_unlock_hints(snapshot,target_slot):lines.append("◇ "+hint)
             var compatible: Array=target_slot.get("compatible",[])
             if not compatible.is_empty():lines.append("兼容条目："+"、".join(_family_option_names(snapshot,family_id,compatible)))
             if not compatible.is_empty() and not compatible.has(String(entry.get("id",""))):

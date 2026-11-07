@@ -56,7 +56,7 @@ func run() -> void:
     ui.build_category="战具"
     ui.refresh_build()
     check(ui.build_grid.get_child_count()==4,"Four finite-use tools have actual UI entries")
-    check(ui.build_slot_buttons.size()==2 and not ui.build_slot_buttons[0].disabled and not ui.build_slot_buttons[1].disabled,"Bell mechanism unlocks two compatible equipment locations")
+    check(ui.build_slot_buttons.size()==2 and not ui.build_slot_buttons[0].text.contains("🔒") and not ui.build_slot_buttons[1].text.contains("🔒"),"Bell mechanism unlocks two compatible equipment locations")
     check(click_id(ui,"fog"),"First tool slot accepts a catalog-compatible fog tool by actual button")
     ui.build_slot_buttons[1].pressed.emit()
     click_id(ui,"mine")
