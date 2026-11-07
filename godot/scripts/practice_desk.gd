@@ -23,7 +23,8 @@ static func install(shell: Control) -> void:
 
 func setup(shell: Control) -> void:
     ui=shell;curriculum.configure(String(ui.level.world_save_path))
-    var button: Button=ui._button(ui.build_panel,"分阶段训练课程",Vector2(450,103),Vector2(175,30),open)
+    # Right end of the summary row: the summary text runs from the left edge.
+    var button: Button=ui._button(ui.build_panel,"分阶段训练课程",Vector2(901,99),Vector2(175,30),open)
     button.name="PracticeDeskButton";button.add_theme_font_size_override("font_size",14)
     hud=ui._label(ui,"",Vector2(372,155),Vector2(510,60),14,ui.GOLD)
     hud.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;hud.clip_text=true
