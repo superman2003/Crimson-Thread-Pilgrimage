@@ -181,6 +181,8 @@ const SFX := {
     "guard_perfect": "res://assets/audio/sfx/generated/player_guard_perfect.ogg",
     "bind_tighten": "res://assets/audio/sfx/generated/player_bind_tighten.ogg",
     "bind_interrupt": "res://assets/audio/sfx/generated/player_bind_interrupt.ogg",
+    # 疗伤引导循环：整段引导都在响，音高随进度上扬，完成或打断即停。
+    "bind_channel": "res://assets/audio/sfx/generated/player_bind_channel.ogg",
     # 章节 beat 叠层（audio_visual_manifest chapter beats，ch2 雨铸运河 / ch4 断弦温室）：
     # 材质条件由 main_level 写入的 footstep_material 判定（copper=ch2、fiber=ch4）。
     "ch02_beat_wall_grip_drip": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
@@ -404,6 +406,10 @@ var grapple_recovery_timer := 0.0
 const GRAPPLE_RECOVERY_TIME := 0.10
 var grapple_line: Line2D = null
 var wall_slide_audio: AudioStreamPlayer2D = null
+## Heal channel loop (bind_channel): the whole channel is voiced, whatever the
+## seal's heal time, and the pitch rises with its progress.
+var bind_channel_audio: AudioStreamPlayer2D
+const BIND_CHANNEL_PITCH := Vector2(0.92, 1.12)
 ## 由 main_level 按章节 art theme 写入（moss/copper/salt/fiber/obsidian）。
 var footstep_material: String = "moss"
 ## Foot contacts crossed by the run cycle since the last footstep update.
@@ -1088,6 +1094,7 @@ func _try_heal() -> bool:
     HEAL_ART.start(self)
     _seal_present("heal", "prepare")
     heal_voice = _play_sfx_voice("heal", -5.0)
+    _start_bind_channel()
     _play(&"heal")
     heal_state_changed.emit("started")
     return heal_reservation_generation == reservation_generation and heal_timer > 0.0
@@ -1100,7 +1107,11 @@ func _update_heal(delta: float) -> void:
         _interrupt_heal()
         return
     heal_timer = maxf(0.0, heal_timer - delta)
+    if is_instance_valid(bind_channel_audio) and bind_channel_audio.playing:
+        var progress := 1.0 - heal_timer / maxf(heal_duration, 0.01)
+        bind_channel_audio.pitch_scale = lerpf(BIND_CHANNEL_PITCH.x, BIND_CHANNEL_PITCH.y, clampf(progress, 0.0, 1.0))
     if heal_timer <= 0.0:
+        _stop_bind_channel()
         heal_reservation_generation += 1
         var completed_generation:=heal_reservation_generation
         heal_reserved_cost = 0
@@ -1117,6 +1128,7 @@ func _update_heal(delta: float) -> void:
 
 
 func _interrupt_heal() -> void:
+    _stop_bind_channel()
     if heal_timer > 0.0:
         var settled:=preload("res://scripts/heal_refund_account.gd").settlement(
             heal_reserved_cost,heal_reserved_practice,heal_reserved_loss_ratio,
@@ -2016,6 +2028,38 @@ func _start_wall_slide_loop() -> void:
         wall_slide_audio.stream = stream
     if not wall_slide_audio.playing:
         _start_voice(voice_ticket,wall_slide_audio,true)
+
+
+func _start_bind_channel() -> void:
+    if not _should_play_sfx():
+        return
+    var voice_ticket := _request_voice("player_bind_channel", 1, 40, 1)
+    if voice_ticket == 0:
+        return
+    if bind_channel_audio == null or not is_instance_valid(bind_channel_audio):
+        bind_channel_audio = AudioStreamPlayer2D.new()
+        bind_channel_audio.name = "SfxLoop_bind_channel"
+        bind_channel_audio.bus = _sfx_bus_name()
+        bind_channel_audio.volume_db = -12.0
+        bind_channel_audio.max_distance = 900.0
+        add_child(bind_channel_audio)
+    if bind_channel_audio.stream == null:
+        # Region retirement releases streams while the persistent player survives.
+        var stream := _load_sfx_stream("bind_channel", true)
+        if stream == null:
+            _release_voice(voice_ticket)
+            return
+        bind_channel_audio.stream = stream
+    bind_channel_audio.pitch_scale = BIND_CHANNEL_PITCH.x
+    if bind_channel_audio.playing:
+        _release_voice(voice_ticket)
+        return
+    _start_voice(voice_ticket,bind_channel_audio,true)
+
+
+func _stop_bind_channel() -> void:
+    if bind_channel_audio != null and is_instance_valid(bind_channel_audio) and bind_channel_audio.playing:
+        bind_channel_audio.stop()
 
 
 func _stop_wall_slide_loop() -> void:
