@@ -1159,36 +1159,39 @@
       "family": "bell",
       "bus": "UI",
       "priority": "P1",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/ui_ability_unlock.ogg",
       "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "ability-unlock jingle on the D-A-B(b) crimson-thread motif",
-      "wiring_note": "no runtime trigger yet: ability-gate unlocks currently voice the env_gate_* family (main_level.gd::_unlock_ability_gate)"
+      "wiring_note": "permanent ability pickups layer this jingle on the pickup sound",
+      "implemented_in": "res://scripts/main_level.gd::_on_collectible_body_entered"
     },
     "ui_pickup_key_item": {
       "key": "ui_pickup_key_item",
       "family": "bell",
       "bus": "UI",
       "priority": "P1",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/ui_pickup_key_item.ogg",
       "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "key-item pickup jingle",
-      "wiring_note": "no runtime trigger yet: key-item pickups currently use ui_pickup layers plus AudioDirector.on_key_item_pickup music duck"
+      "wiring_note": "key item / lore pickups",
+      "implemented_in": "res://scripts/main_level.gd::_announce_lore_pickup"
     },
     "ui_testimony_complete": {
       "key": "ui_testimony_complete",
       "family": "bell",
       "bus": "UI",
       "priority": "P1",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/ui_testimony_complete.ogg",
       "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "testimony-chain completion jingle",
-      "wiring_note": "no runtime trigger yet: testimony completion has no dedicated audio hook in main_level"
+      "wiring_note": "once, when the sixth testimony completes the chain",
+      "implemented_in": "res://scripts/main_level.gd::_refresh_testimony_chain_flag"
     },
     "ui_door_open": {
       "key": "ui_door_open",
@@ -1310,12 +1313,13 @@
       "family": "bell",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/env_gate_guardbreak.ogg",
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "guard-break gate: bell shell crack plus wax seal split",
-      "wiring_note": "mapped in GATE_UNLOCK_SFX (bell_guard) but no chapter data declares bell_guard gates yet"
+      "wiring_note": "GATE_UNLOCK_SFX bell_guard; three world_routes action gates require bell_guard",
+      "implemented_in": "res://scripts/main_level.gd::_unlock_ability_gate"
     },
     "env_gate_shadow": {
       "key": "env_gate_shadow",
@@ -2347,48 +2351,52 @@
       {
         "key": "ending_a_rebell",
         "kind": "ending_full_track",
-        "status": "asset_ready",
+        "status": "wired",
         "path": "res://assets/audio/bgm/generated/ending_a_rebell.ogg",
         "loop": false,
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "ending A full cadence track (~50 s)",
-        "wiring_note": "play_stinger(\"ending_a\") key reserved in AudioDirector; the ending gate still plays the story_ending_a_rebell.ogg stinger, no caller for the full track yet"
+        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       },
       {
         "key": "ending_b_severance",
         "kind": "ending_full_track",
-        "status": "asset_ready",
+        "status": "wired",
         "path": "res://assets/audio/bgm/generated/ending_b_severance.ogg",
         "loop": false,
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "ending B full cadence track (~48 s)",
-        "wiring_note": "play_stinger(\"ending_b\") key reserved; no runtime caller yet"
+        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       },
       {
         "key": "ending_c_reweave",
         "kind": "ending_full_track",
-        "status": "asset_ready",
+        "status": "wired",
         "path": "res://assets/audio/bgm/generated/ending_c_reweave.ogg",
         "loop": false,
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "ending C full cadence track (~58 s)",
-        "wiring_note": "play_stinger(\"ending_c\") key reserved; no runtime caller yet"
+        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       }
     ],
     "bellway": [
       {
         "key": "bellway_transit_loop",
         "kind": "bellway_loop",
-        "status": "asset_ready",
+        "status": "wired",
         "path": "res://assets/audio/bgm/generated/bellway_transit_loop.ogg",
         "loop": true,
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "bellway transit 3/8 allegro loop",
-        "wiring_note": "bellway transit ride sequence not implemented; no runtime caller yet"
+        "wiring_note": "loops at -10 dB while the player is in a transit room, 1 s fade out on leaving",
+        "implemented_in": "res://scripts/audio_director.gd::_update_transit_loop"
       },
       {
         "key": "bellway_depart_jingle",
@@ -2399,7 +2407,8 @@
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "bellway departure jingle (2.8 s)",
-        "wiring_note": "play_stinger(\"bellway_depart\") key reserved; bellway travel flow not implemented yet"
+        "wiring_note": "play_stinger(\"bellway_depart\") key reserved; bellway travel flow not implemented yet",
+        "reserved_in": "res://scripts/audio_director.gd::STINGER_TRACKS"
       },
       {
         "key": "bellway_arrive_jingle",
@@ -2410,7 +2419,8 @@
         "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
         "license": "project-generated (CC0)",
         "description": "bellway arrival jingle (2.8 s)",
-        "wiring_note": "play_stinger(\"bellway_arrive\") key reserved; bellway travel flow not implemented yet"
+        "wiring_note": "play_stinger(\"bellway_arrive\") key reserved; bellway travel flow not implemented yet",
+        "reserved_in": "res://scripts/audio_director.gd::STINGER_TRACKS"
       }
     ],
     "hidden_black_tide_drone": {
@@ -2817,12 +2827,13 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_01_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "低频吸附声加轻微水滴尾音。",
               "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_01_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet; the wall_grip attach moment is already voiced by player_wall_grip_attach"
+              "wiring_note": "copper footsteps: water drip 0.15 s after the wall grip attach",
+              "implemented_in": "res://scripts/player_controller.gd::_update_wall_slide_audio"
             }
           ]
         },
@@ -2838,12 +2849,13 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_02_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "钩环金属声后接一拍水声回响。",
               "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_02_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "copper footsteps: echo after the hook latch confirm",
+              "implemented_in": "res://scripts/player_controller.gd::_apply_attack_hits"
             }
           ]
         },
@@ -2859,12 +2871,13 @@
           "audio": [
             {
               "key": "ch02_rain_foundry_canal_beat_03_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "heavy_hit 本地 OGG 与 CC0 水浪候选叠加。",
               "path": "res://assets/audio/sfx/generated/ch02_rain_foundry_canal_beat_03_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "sunken hammer smith water hammer landing",
+              "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx"
             }
           ]
         }
@@ -2950,12 +2963,13 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_02_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "短促钟壳响和能量回流声。",
               "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_02_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "salt footsteps: layered on the perfect guard sound",
+              "implemented_in": "res://scripts/player_controller.gd::take_damage"
             }
           ]
         },
@@ -2971,12 +2985,13 @@
           "audio": [
             {
               "key": "ch03_saltwhite_archive_beat_03_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "纸页撕裂声与低频钟声。",
               "path": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "salt contract judge death",
+              "implemented_in": "res://scripts/enemy_actor.gd::_begin_death_dissolve"
             }
           ]
         }
@@ -3041,12 +3056,13 @@
           "audio": [
             {
               "key": "ch04_broken_string_greenhouse_beat_01_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "短促木裂声加下劈重击本地 OGG。",
               "path": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_01_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "fiber footsteps: layered on the downstrike bounce",
+              "implemented_in": "res://scripts/player_controller.gd::_apply_downslash_bounce"
             }
           ]
         },
@@ -3153,12 +3169,13 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_01_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "低频灯芯吸入声和短促相位噪音。",
               "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_01_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "every region: lantern phase entry (the phase had no entry sound before)",
+              "implemented_in": "res://scripts/player_controller.gd::_update_phase"
             }
           ]
         },
@@ -3174,12 +3191,13 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_02_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "无声前摇后接一次低频压缩声。",
               "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "obsidian enemy family attack layer",
+              "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx"
             }
           ]
         },
@@ -3288,12 +3306,13 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_02_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "低频脉冲、线弦拨动声和短暂停顿。",
               "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "crown core phase change",
+              "implemented_in": "res://scripts/enemy_actor.gd::take_hit"
             }
           ]
         },
