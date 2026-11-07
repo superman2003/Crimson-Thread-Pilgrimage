@@ -101,12 +101,12 @@ func _run() -> void:
     runtime.build_system=MockBuild.new()
     runtime.build_system.snapshot={
         "at_workstation":true,"crest":"crimson","skill":"cleave","tool":"shard","currency":120,
-        "slots_used":1,"slots_total":3,"loadouts":[],"crests":[{"id":"crimson","name":"赤契","unlocked":true,"selected":true}],"recipes":[],
+        "slots_used":1,"slots_total":3,"loadouts":[],"crests":[{"id":"crimson","name":"赤契","unlocked":true,"selected":true,"mechanism_unlocked":false,"source":"苔钟庭学徒重新缀合被带回的名字。"}],"recipes":[],
         "skills":[_option("cleave","裂斩","thread_skill"),_option("needle","丝针","thread_skill")],
         "tools":[_option("shard","碎片","tool"),_option("mine","线雷","tool")],
         "passive_options":[_option("stride","疾行铭饰","combat_accessory",1),_option("mender","愈线铭饰","combat_accessory",2),_option("wayfinder","引路铭饰","travel_accessory",1)],
         "slot_layout":{
-            "tool":[_slot("tool_0","tool",0,["shard","mine"],true,"shard"),_slot("tool_1","tool",1,["mine"],false,"mine")],
+            "tool":[_slot("tool_0","tool",0,["shard","mine"],true,"shard"),_slot("tool_1","tool",1,["mine"],false,"mine").merged({"requires_mechanism":"crimson"})],
             "combat_accessory":[_slot("combat_accessory_0","combat_accessory",0,["stride","mender"],true,"stride"),_slot("combat_accessory_1","combat_accessory",1,["stride","mender"],true,""),_slot("combat_accessory_2","combat_accessory",2,["stride","mender"],true,"")],
             "travel_accessory":[_slot("travel_accessory_0","travel_accessory",0,["wayfinder"],true,"")],
             "thread_skill":[_slot("thread_skill_0","thread_skill",0,["cleave","needle"],true,"cleave"),_slot("thread_skill_1","thread_skill",1,["cleave"],true,"")]
@@ -182,6 +182,12 @@ func _run() -> void:
     ui.build_tabs[2].pressed.emit()
     _check(ui.build_slot_buttons.size()==2 and ui.build_slot_buttons[1].disabled,"Locked typed tool slot is visible and cannot receive equipment")
     _check(ui.build_slot_buttons[1].text.contains("休眠") and ui.build_slot_buttons[1].tooltip_text.contains("未激活：槽位未解锁"),"Stored equipment in a locked slot is explicitly labeled dormant")
+    _check(ui.build_slot_buttons[1].tooltip_text.contains("需要唤醒「赤契」的契印机制：苔钟庭学徒重新缀合被带回的名字。"),"A slot locked by the seal mechanism says which seal quest opens it")
+    _check(not ui.build_slot_buttons[0].tooltip_text.contains("需要唤醒"),"An open slot carries no unlock condition")
+    ui.build_assign_slot=1
+    ui._show_build_detail(_option("mine","线雷","tool"))
+    _check(ui.build_detail.text.contains("该槽位尚未解锁") and ui.build_detail.text.contains("◇ 需要唤醒「赤契」的契印机制"),"The detail panel names the locked target slot's unlock condition")
+    ui.build_assign_slot=0
     ui.build_slot_buttons[0].grab_focus()
     _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[0] and ui.build_slot_buttons[0].focus_mode==Control.FOCUS_ALL,"Typed slot selector participates in keyboard/controller focus navigation")
     ui._refresh_tactical_cards(ui._build_snapshot(),runtime.build_system.state,runtime.build_system)
