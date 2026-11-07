@@ -143,10 +143,24 @@ func capture() -> void:
     paused = true
     await shot("skill_action")
     paused = false
+    # One gameplay view per region, at its authored start.
+    var routes := preload("res://scripts/world_routes.gd")
+    var regions := ["demo_ch01_moss_bell_court", "demo_ch02_rain_foundry_canal", "demo_ch03_saltwhite_archive",
+        "demo_ch04_broken_string_greenhouse", "demo_ch05_obsidian_pilgrim_road", "demo_ch06_silent_crown_core"]
+    for region_id in regions:
+        var path := routes.config_path(region_id)
+        var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(path))
+        var start := Vector2(float(config.player_start[0]), float(config.player_start[1]))
+        world._close_overlays()
+        await world._travel_world_async(path, start)
+        world.player.debug_invulnerable = true
+        world.player.get_node("Camera2D").reset_smoothing()
+        await frames(90)
+        await shot("region_" + region_id.trim_prefix("demo_"))
     world.queue_free()
     world = null
     # Let deferred frees, render commands and retiring audio complete before exit.
     await frames(10)
     await create_timer(0.5).timeout
-    print("README_CURRENT_CAPTURE_PASS screenshots=14 isolated_showcase_progress=true")
+    print("README_CURRENT_CAPTURE_PASS screenshots=20 isolated_showcase_progress=true")
     quit()

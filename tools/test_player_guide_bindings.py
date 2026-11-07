@@ -17,7 +17,7 @@ KEY_TEXT = {'KEY_LEFT': '左右方向键', 'KEY_RIGHT': '左右方向键', 'KEY_
             'MOUSE_BUTTON_LEFT': '鼠标左键', 'MOUSE_BUTTON_RIGHT': '鼠标右键'}
 JOY_TEXT = {'JOY_BUTTON_A': 'A', 'JOY_BUTTON_B': 'B', 'JOY_BUTTON_X': 'X', 'JOY_BUTTON_Y': 'Y',
             'JOY_BUTTON_LEFT_SHOULDER': 'LB', 'JOY_BUTTON_RIGHT_SHOULDER': 'RB',
-            'JOY_AXIS_TRIGGER_LEFT': 'LT', 'JOY_AXIS_TRIGGER_RIGHT': 'RT',
+            'JOY_AXIS_TRIGGER_LEFT': 'L2', 'JOY_AXIS_TRIGGER_RIGHT': 'R2',
             'JOY_BUTTON_DPAD_LEFT': '十字键 ←', 'JOY_BUTTON_DPAD_RIGHT': '十字键 →',
             'JOY_BUTTON_DPAD_UP': '十字键 ↑', 'JOY_BUTTON_DPAD_DOWN': '十字键 ↓',
             'JOY_BUTTON_START': 'Start', 'JOY_BUTTON_BACK': 'Back',
