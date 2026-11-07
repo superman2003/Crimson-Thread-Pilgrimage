@@ -18,7 +18,8 @@ def main():
     audited_paths = {f"res://assets/sprites/player/generated_hero_v3/frames/{entry['action']}_{entry['frame']:02d}.png" for entry in audit}
     assert len(audited_paths) == len(audit) == 80
     original_run = {path for path in audited_paths if '/run_' in path}
-    expanded_run = {f'res://assets/sprites/player/generated_hero_motion_v4/runtime_run/run_{index:02d}.png' for index in range(8)}
+    expanded_run = {f'res://assets/sprites/player/grounded_run_v1/frames/run_{index:02d}.png' for index in range(24)}
+    assert manifest.get('run_presentation') == 'grounded_v1'
     supplement_counts = {'run_attack': 6, 'skill_melee': 4, 'skill_wave': 4, 'item_use': 4, 'jump_loop': 2, 'fall': 2,
         'attack_1': 6, 'up_attack': 6, 'ground_down_attack': 6, 'down_attack': 6, 'air_attack': 6, 'air_up_attack': 6}
     assert set(supplement_counts) == set(SUPPLEMENT_SHEETS)
