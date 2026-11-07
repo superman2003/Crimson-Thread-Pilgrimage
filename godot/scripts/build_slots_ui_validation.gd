@@ -192,6 +192,15 @@ func _run() -> void:
     for child in ui.build_grid.get_children():
         if child is Button and not child.disabled:equippable+=1
     _check(ui.build_grid.get_child_count()>0 and equippable==0,"No catalog option can be equipped into the selected locked slot")
+    # With "only compatible" on, the empty result still names the unlock condition.
+    if ui.equipment_compatible!=null and ui.equipment_search!=null and ui.equipment_search.visible:
+        ui.equipment_compatible.button_pressed=true
+        ui.refresh_build()
+        _check(ui.build_heading.text=="没有匹配装备" and ui.build_detail.text.contains("◇ 需要唤醒「赤契」的契印机制"),"Compatibility filtering keeps the locked slot's unlock condition")
+        ui.equipment_compatible.button_pressed=false
+        ui.refresh_build()
+    else:
+        _check(false,"Tool page exposes the compatibility filter")
     ui.build_slot_buttons[0].pressed.emit()
     ui.build_slot_buttons[0].grab_focus()
     _check(ui.get_viewport().gui_get_focus_owner()==ui.build_slot_buttons[0] and ui.build_slot_buttons[0].focus_mode==Control.FOCUS_ALL,"Typed slot selector participates in keyboard/controller focus navigation")

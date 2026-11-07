@@ -2036,6 +2036,9 @@ func refresh_build() -> void:
         if entries.is_empty():
             build_heading.text="没有匹配装备"
             build_detail.text=String(filtered.empty_reason)
+            # A locked target slot still names what opens it, filter or not.
+            if not selected_slot.is_empty() and not bool(selected_slot.get("unlocked",true)):
+                for hint in _slot_unlock_hints(snapshot,selected_slot):build_detail.text+="\n◇ "+hint
             build_emblem.texture=null
     if entries.is_empty() and (equipment_search==null or not equipment_search.visible):build_detail.text="此页暂无可用条目。"
     var first: Button
