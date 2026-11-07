@@ -266,3 +266,7 @@ artifacts/boss_motion_v6/first_capture.log whitespace=cr-at-eol,-blank-at-eof
 # Native NPC conversation review captures.
 artifacts/npc_dialogue_motion_v10/*.jpg -filter -diff -merge -text
 artifacts/settings_construction_v12/**/*.png -filter -diff -merge -text
+
+# Retained AI music masters and game-ready loops ship directly with the PR.
+godot/assets/audio/bgm/ai_generated/*.ogg -filter -diff -merge -text
+art_requests/ai_music_v1/**/*.mp3 -filter -diff -merge -text

@@ -2,7 +2,7 @@
 ## - 静态声部管理：同 key 最小间隔 / 同 key 并发上限 / 全局 24 声部，P0(0)>P1(1)>P2(2) 抢占。
 ## - 静态流缓存：load_cached 按 "path|looped" 键缓存解码流（负缓存 + 告警一次），
 ##   全项目音频加载统一走它，重复播放零磁盘 IO。
-## - 章节音乐组：探索循环（ch01 沿用既有 bgm_ch01 ogg）+ 战斗层叠加 + Boss 曲
+## - 章节音乐组：Music v2.5 探索与独立战斗曲切换 + Boss 曲
 ##   （终 Boss 三乐章切换）+ 钟龛摇篮曲 + 钟道站厅循环层，环境床与稀疏 one-shot 调度。
 ## - 运行时状态机（bind_runtime 注入 player/敌群）：战斗层轮询、摇篮曲距离、Boss 相位
 ##   由本节点 _process 自驱，main_level 只负责一行 bind。
@@ -105,6 +105,14 @@ const CHAPTER_SLUGS := {
 }
 const LEGACY_EXPLORE_CH01 := "res://assets/audio/bgm/ch01_cave_loop.ogg"
 const LEGACY_BOSS_CH01 := "res://assets/audio/bgm/boss_rust_crown_loop.ogg"
+const MUSIC_ROOT := "res://assets/audio/bgm/ai_generated/"
+const APPROVED_EXPLORE_TRACKS := {
+    "ch01": MUSIC_ROOT + "ch01_moss_explore_trial01_loop.ogg",
+    "ch04": MUSIC_ROOT + "ch04_greenhouse_explore_trial01_loop.ogg"
+}
+const APPROVED_BOSS_TRACKS := {
+    "rust_crown_guardian": MUSIC_ROOT + "ch01_moss_boss_trial01_loop.ogg"
+}
 ## Boss kind → 章节 slug（rust_crown_guardian 沿用既有 boss_rust_crown_loop）。
 const BOSS_CHAPTER_SLUG := {
     "sunken_hammer_smith": "ch02_rain_foundry_canal",
@@ -113,21 +121,25 @@ const BOSS_CHAPTER_SLUG := {
     "silent_pilgrim_commander": "ch05_obsidian_pilgrim_road"
 }
 const FINAL_BOSS_ID := "silent_crown_core"
+## The current runtime shares one actor for the sixth guardian and the final
+## Crown. Its roll-call cue announces the encounter before the quiet movement.
+const CROWN_ENTRANCE := MUSIC_ROOT + "ch06_silent_crown_core_boss_loop.ogg"
+const CROWN_ENTRANCE_SECONDS := 8.0
 const FINAL_BOSS_MOVEMENTS := [
-    "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg",
-    "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg",
-    "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg"
+    MUSIC_ROOT + "boss_final_silent_crown_mvt1.ogg",
+    MUSIC_ROOT + "boss_final_silent_crown_mvt2.ogg",
+    MUSIC_ROOT + "boss_final_silent_crown_mvt3.ogg"
 ]
 const STINGER_TRACKS := {
-    "bellway_depart": "res://assets/audio/bgm/generated/bellway_depart_jingle.ogg",
-    "bellway_arrive": "res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg",
-    "ending_a": "res://assets/audio/bgm/generated/ending_a_rebell.ogg",
-    "ending_b": "res://assets/audio/bgm/generated/ending_b_severance.ogg",
-    "ending_c": "res://assets/audio/bgm/generated/ending_c_reweave.ogg"
+    "bellway_depart": MUSIC_ROOT + "bellway_depart_jingle.ogg",
+    "bellway_arrive": MUSIC_ROOT + "bellway_arrive_jingle.ogg",
+    "ending_a": MUSIC_ROOT + "ending_a_rebell.ogg",
+    "ending_b": MUSIC_ROOT + "ending_b_severance.ogg",
+    "ending_c": MUSIC_ROOT + "ending_c_reweave.ogg"
 }
 ## 钟道站厅音乐层（transit 房低音量循环，on_room_changed 驱动）。
-const BELLWAY_TRANSIT_LOOP := "res://assets/audio/bgm/generated/bellway_transit_loop.ogg"
-const HIDDEN_DRONE := "res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg"
+const BELLWAY_TRANSIT_LOOP := MUSIC_ROOT + "bellway_transit_loop.ogg"
+const HIDDEN_DRONE := MUSIC_ROOT + "hidden_black_tide_drone.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
 ## Session-only phrase positions. Values are seconds/instance IDs, never streams.
@@ -149,6 +161,7 @@ var stinger_player: AudioStreamPlayer
 var transit_player: AudioStreamPlayer
 var hidden_drone_player: AudioStreamPlayer
 var hidden_zone := false
+var in_transit_room := false
 var ambience_bed_player: AudioStreamPlayer
 var oneshot_timer: Timer
 var anvil_timer: Timer
@@ -604,17 +617,20 @@ func _chapter_slug() -> String:
 
 
 func _explore_track_path() -> String:
-    if chapter_short_id == "ch01":
-        return LEGACY_EXPLORE_CH01
-    return "res://assets/audio/bgm/generated/%s_explore_loop.ogg" % _chapter_slug()
+    if APPROVED_EXPLORE_TRACKS.has(chapter_short_id):
+        return String(APPROVED_EXPLORE_TRACKS[chapter_short_id])
+    return MUSIC_ROOT + "%s_explore_loop.ogg" % _chapter_slug()
 
 
 func _combat_layer_path() -> String:
-    return "res://assets/audio/bgm/generated/%s_combat_layer.ogg" % _chapter_slug()
+    # Section 2.7: ordinary combat in the silent city removes music entirely.
+    if chapter_short_id == "ch06":
+        return ""
+    return MUSIC_ROOT + "%s_combat_layer.ogg" % _chapter_slug()
 
 
 func _lullaby_path() -> String:
-    return "res://assets/audio/bgm/generated/%s_shrine_lullaby.ogg" % _chapter_slug()
+    return MUSIC_ROOT + "%s_shrine_lullaby.ogg" % _chapter_slug()
 
 
 func _ambience_bed_path() -> String:
@@ -622,12 +638,14 @@ func _ambience_bed_path() -> String:
 
 
 func _boss_track_path(boss_id: String, phase: int) -> String:
+    if APPROVED_BOSS_TRACKS.has(boss_id):
+        return String(APPROVED_BOSS_TRACKS[boss_id])
     if boss_id == FINAL_BOSS_ID:
         return String(FINAL_BOSS_MOVEMENTS[clampi(phase, 1, 3) - 1])
     var slug := String(BOSS_CHAPTER_SLUG.get(boss_id, ""))
     if slug.is_empty():
         return LEGACY_BOSS_CH01
-    return "res://assets/audio/bgm/generated/%s_boss_loop.ogg" % slug
+    return MUSIC_ROOT + "%s_boss_loop.ogg" % slug
 
 
 func _play_explore_track(path: String) -> void:
@@ -736,6 +754,12 @@ func _fade_explore_resume(seconds: float) -> void:
     explore_tween = create_tween()
     explore_tween.tween_property(explore_player, "volume_db", EXPLORE_DB, seconds)
 
+func _resume_region_music(seconds: float) -> void:
+    if in_transit_room:
+        _update_transit_loop(true)
+    else:
+        _fade_explore_resume(seconds)
+
 
 # ---- 探索/战斗音乐层（规格 §2.2）----
 
@@ -745,13 +769,23 @@ func enter_combat() -> void:
     if boss_active or combat_active:
         return
     combat_active = true
+    _update_transit_loop(false)
     if lullaby_active:
         stop_lullaby()
     if not autoplay_enabled:
         return
-    var stream := load_cached(_combat_layer_path(), true)
+    var path := _combat_layer_path()
+    if path.is_empty():
+        if combat_tween != null and combat_tween.is_valid():combat_tween.kill()
+        if is_instance_valid(combat_player):combat_player.stop()
+        _fade_explore_to_pause(0.8)
+        return
+    var stream := load_cached(path, true)
     if stream == null:
         return
+    # These are independent compositions, so the encounter cue replaces the
+    # exploration mix instead of claiming sample/phrase synchronization.
+    _fade_explore_to_pause(0.8)
     if combat_player == null or not is_instance_valid(combat_player):
         combat_player = AudioStreamPlayer.new()
         combat_player.name = "MusicCombatLayer"
@@ -760,13 +794,13 @@ func enter_combat() -> void:
         add_child(combat_player)
     if combat_tween != null and combat_tween.is_valid():
         combat_tween.kill()
-    if combat_player.playing:
+    if combat_player.playing and combat_player.stream == stream:
         # 离战淡出中复进战：取消淡出直接回满（流走缓存无 IO，防抽泵）。
         combat_player.volume_db = COMBAT_LAYER_DB
         return
     combat_player.stream = stream
     combat_player.volume_db = SILENT_DB
-    combat_player.play(preload("res://scripts/music_layer_phase.gd").start_position(explore_player, stream))
+    combat_player.play()
     if is_inside_tree():
         combat_tween = create_tween()
         combat_tween.tween_property(combat_player, "volume_db", COMBAT_LAYER_DB, 0.8)
@@ -778,6 +812,8 @@ func exit_combat() -> void:
     if not combat_active:
         return
     combat_active = false
+    if autoplay_enabled and not boss_active and not lullaby_active:
+        _resume_region_music(2.5)
     if combat_player == null or not is_instance_valid(combat_player) or not combat_player.playing:
         return
     if combat_tween != null and combat_tween.is_valid():
@@ -832,9 +868,10 @@ func start_boss_music(boss_id: String) -> void:
         return
     var stream: AudioStream
     if autoplay_enabled:
-        stream=_music_candidate(_boss_track_path(boss_id,1))
+        stream=_music_candidate(CROWN_ENTRANCE if boss_id == FINAL_BOSS_ID else _boss_track_path(boss_id,1))
         if stream==null:return
     boss_active = true
+    _update_transit_loop(false)
     active_boss_id = boss_id
     boss_phase = 1
     _fade_out_combat_layer()
@@ -857,6 +894,17 @@ func start_boss_music(boss_id: String) -> void:
     boss_player.volume_db = BOSS_DB
     boss_player.stream = stream
     boss_player.play()
+    if boss_id == FINAL_BOSS_ID and is_inside_tree():
+        boss_tween = create_tween()
+        boss_tween.tween_interval(CROWN_ENTRANCE_SECONDS)
+        boss_tween.tween_callback(_finish_crown_entrance)
+
+func _finish_crown_entrance() -> void:
+    if not boss_active or active_boss_id != FINAL_BOSS_ID or boss_phase != 1 or not is_instance_valid(boss_player):return
+    var stream := _music_candidate(_boss_track_path(FINAL_BOSS_ID,1))
+    if stream != null:
+        boss_player.stream = stream
+        boss_player.play()
 
 
 func set_boss_phase(p: int) -> void:
@@ -868,6 +916,7 @@ func set_boss_phase(p: int) -> void:
     if not is_instance_valid(boss_player):return
     var stream := _music_candidate(_boss_track_path(active_boss_id,next_phase))
     if stream==null:return
+    _kill_boss_tween()
     boss_player.stream=stream
     boss_player.play()
     boss_phase=next_phase
@@ -890,7 +939,7 @@ func stop_boss_music() -> void:
             _finish_boss_stop()
     if autoplay_enabled and not lullaby_active:
         # 探索曲从 -12dB 1.2s 淡入恢复。
-        _fade_explore_resume(BOSS_EXIT_EXPLORE_FADE_S)
+        _resume_region_music(BOSS_EXIT_EXPLORE_FADE_S)
 
 
 func _kill_boss_tween() -> void:
@@ -918,6 +967,7 @@ func start_lullaby() -> void:
         if stream==null:return
     _fade_out_combat_layer()
     lullaby_active = true
+    _update_transit_loop(false)
     if not autoplay_enabled:
         return
     if lullaby_player == null or not is_instance_valid(lullaby_player):
@@ -952,13 +1002,13 @@ func stop_lullaby() -> void:
             lullaby_tween.tween_callback(lullaby_player.stop)
         else:
             lullaby_player.stop()
-    if autoplay_enabled and not boss_active:
+    if autoplay_enabled and not boss_active and not combat_active:
         # 退出对称交叉淡化：探索曲 0.8s 淡入恢复。
-        _fade_explore_resume(LULLABY_EXPLORE_FADE_S)
+        _resume_region_music(LULLABY_EXPLORE_FADE_S)
 
 
 ## 音乐性 stinger，走 MusicStinger 子总线。触发点约定：
-## - "bellway_depart"/"bellway_arrive"：钟道启程/到站演出（预留接线）。
+## - "bellway_depart"/"bellway_arrive"：钟龛回访启程/成功到站。
 ## - "ending_a"/"ending_b"/"ending_c"：main_level._activate_ending_gate 抉择确认后
 ##   紧随短 stinger 播三结局全曲。
 func play_stinger(key: String) -> void:
@@ -1126,7 +1176,11 @@ func on_room_changed(kind: String) -> void:
         return
     if is_instance_valid(room_ambience_mix):
         room_ambience_mix.update_room()
-    _update_transit_loop(kind == "transit")
+    var leaving_transit := in_transit_room and kind != "transit"
+    in_transit_room = kind == "transit"
+    _update_transit_loop(in_transit_room and not combat_active and not boss_active and not lullaby_active)
+    if leaving_transit and not combat_active and not boss_active and not lullaby_active:
+        _fade_explore_resume(TRANSIT_LOOP_FADE_OUT_S)
     var delta := float(ROOM_REVERB_WET_DELTA.get(kind, 0.0))
     for bus_name in ["SFX", "Ambience"]:
         var reverb := _bus_reverb(String(bus_name))
@@ -1143,12 +1197,13 @@ func on_room_changed(kind: String) -> void:
 ## 循环，离开 transit 房 1s 淡出。
 func _update_transit_loop(in_transit: bool) -> void:
     if in_transit:
-        if not autoplay_enabled:
+        if not autoplay_enabled or combat_active or boss_active or lullaby_active:
             return
         if transit_tween != null and transit_tween.is_valid():
             transit_tween.kill()
         if transit_player != null and is_instance_valid(transit_player) and transit_player.playing:
             transit_player.volume_db = TRANSIT_LOOP_DB
+            _fade_explore_to_pause(0.8)
             return
         var stream := load_cached(BELLWAY_TRANSIT_LOOP, true)
         if stream == null:
@@ -1161,6 +1216,7 @@ func _update_transit_loop(in_transit: bool) -> void:
         transit_player.stream = stream
         transit_player.volume_db = TRANSIT_LOOP_DB
         transit_player.play()
+        _fade_explore_to_pause(0.8)
         return
     if transit_player == null or not is_instance_valid(transit_player) or not transit_player.playing:
         return

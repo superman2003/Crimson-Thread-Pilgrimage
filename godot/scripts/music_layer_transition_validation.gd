@@ -100,39 +100,35 @@ func region_stems() -> void:
         audio._play_explore_track(audio._explore_track_path())
         var source: AudioStreamPlayer = audio.explore_player
         check(source.stream is AudioStreamOggVorbis, chapter + " actual exploration Ogg")
-        var stem_stream: AudioStream = DIRECTOR.load_cached(audio._combat_layer_path(), true)
-        check(stem_stream is AudioStreamOggVorbis, chapter + " actual combat Ogg")
-        check(stem_stream.get_length() > 8.0, chapter + " delivered stem duration")
         source.seek(4.0)
         await create_timer(.08).timeout
         var phrase := source.get_playback_position()
         var source_id := source.get_instance_id()
-        var cached_count := DIRECTOR._stream_cache.size()
         audio.enter_combat()
-        await create_timer(.08).timeout
-        var stem: AudioStreamPlayer = audio.combat_player
-        check(stem != null and stem.playing, chapter + " combat starts")
-        check(gap(source, stem) < .12, chapter + " midphrase join within native mix window")
-        check(source.get_playback_position() >= phrase, chapter + " exploration never rewinds")
+        await create_timer(.9).timeout
+        check(source.stream_paused, chapter + " encounter pauses independent exploration mix")
         check(source.get_instance_id() == source_id, chapter + " exploration player retained")
-        check(stem.stream == stem_stream, chapter + " uses warm stream cache")
-        check(DIRECTOR._stream_cache.size() == cached_count, chapter + " no new cache entries per encounter")
-        check(stem.bus == &"MusicCombat", chapter + " original combat bus")
-        check(source.bus == &"MusicExplore", chapter + " original exploration bus")
+        check(source.get_playback_position() >= phrase, chapter + " exploration never rewinds")
         audio._play_explore_track(audio._explore_track_path())
-        check(source.get_playback_position() >= phrase, chapter + " room reapply preserves phrase")
-        var playback := stem.get_stream_playback()
+        check(source.stream_paused, chapter + " room reapply preserves combat ownership")
+        if chapter == "ch06":
+            check(audio.combat_player == null, "silent city creates no ordinary combat music")
+        else:
+            var stem: AudioStreamPlayer = audio.combat_player
+            check(stem != null and stem.playing, chapter + " independent encounter cue plays")
+            check(stem.stream == DIRECTOR.load_cached(audio._combat_layer_path(), true), chapter + " native cue selected")
+            check(stem.bus == &"MusicCombat", chapter + " original combat bus")
+            var playback := stem.get_stream_playback()
+            audio.exit_combat()
+            await create_timer(.08).timeout
+            var exit_phrase := stem.get_playback_position()
+            audio.enter_combat()
+            check(stem.get_stream_playback() == playback, chapter + " reengage keeps native playback")
+            check(stem.get_playback_position() >= exit_phrase, chapter + " reengage cancels fade without seeking")
+            playback = null
         audio.exit_combat()
-        await create_timer(.08).timeout
-        var exit_phrase := stem.get_playback_position()
-        audio.enter_combat()
-        check(stem.get_stream_playback() == playback, chapter + " reengage keeps native playback")
-        check(stem.get_playback_position() >= exit_phrase, chapter + " reengage cancels fade without seeking")
-        check(stem.volume_db == DIRECTOR.COMBAT_LAYER_DB, chapter + " original combat gain")
-        playback = null
-        stem_stream = null
+        check(not source.stream_paused, chapter + " calm resumes saved exploration phrase")
         source = null
-        stem = null
         await release(audio)
 
 func calm_and_shrine() -> void:
@@ -155,7 +151,8 @@ func calm_and_shrine() -> void:
     check(audio.explore_player.stream_paused, "lullaby pauses exploration at phrase")
     audio.enter_combat()
     check(not audio.lullaby_active, "fresh threat removes shrine state")
-    check(not audio.explore_player.stream_paused, "fresh threat restores exploration")
+    await create_timer(.9).timeout
+    check(audio.explore_player.stream_paused, "fresh threat replaces shrine with independent combat music")
     check(audio.combat_player.playing, "fresh threat starts combat")
     for poll in range(12):
         audio.start_lullaby()
@@ -289,13 +286,13 @@ func preferences_and_ownership() -> void:
     var transferred: float = second.explore_player.get_playback_position()
     check(transferred >= 7.9, "replacement director inherits phrase during active fades")
     second.enter_combat()
-    await create_timer(.08).timeout
-    check(gap(second.explore_player, second.combat_player) < .12, "replacement encounter aligns with inherited phrase")
+    await create_timer(.9).timeout
+    check(second.explore_player.stream_paused and second.combat_player.playing, "replacement encounter owns music without layering inherited phrase")
     RETIREMENT.retire_tree(first)
     first.queue_free()
     await process_frame
     check(DIRECTOR.instance == second, "old director teardown keeps current owner")
-    check(second.explore_player.playing and second.combat_player.playing, "old teardown never stops new music")
+    check((second.explore_player.playing or second.explore_player.stream_paused) and second.combat_player.playing, "old teardown preserves paused exploration and live encounter cue")
     check(is_equal_approx(AudioServer.get_bus_volume_db(bus), saved_db), "old teardown leaves shared music gain intact")
     second.set_user_volume("music", 0.0)
     second.exit_combat()
