@@ -40,6 +40,11 @@ const GROUND_ART := preload("res://scripts/ground_hazard_art.gd")
 const PROJECTILE_ART := preload("res://scripts/projectile_art.gd")
 
 var travelled := 0.0
+## Where a shot or beam leaves its owner's body. A muzzle that ends up inside
+## a wall the owner stands against (rays ignore the shape they start in) is
+## moved back onto the wall: a shot impacts there, a beam has no reach.
+var launch_anchor := Vector2.INF
+var muzzle_blocked := false
 var impact_pool := false
 var cancelled := false
 var owner_required := false
@@ -49,6 +54,13 @@ func _ready() -> void:
     add_to_group("hostile_attack")
     VISUAL_POLICY.place_danger(self)
     if effect_kind == "beam" and beam_max_length < 0: beam_max_length = length
+    if effect_kind in ["projectile", "beam"] and launch_anchor.is_finite():
+        var blocked := _launch_blocked(launch_anchor, global_position)
+        launch_anchor = Vector2.INF
+        if not blocked.is_empty():
+            global_position = blocked.position
+            muzzle_blocked = true
+            if effect_kind == "beam": length = 0.0
 
 func _physics_process(delta: float) -> void:
     if cancelled or is_queued_for_deletion() or (owner_required and not is_instance_valid(owner_actor)):
@@ -82,6 +94,9 @@ func _physics_process(delta: float) -> void:
     if age < arm_delay:
         queue_redraw()
         return
+    if effect_kind == "projectile" and muzzle_blocked:
+        _terrain_impact({"position": global_position})
+        return
     var previous := global_position
     var terrain_hit: Dictionary={}
     if effect_kind == "projectile" or effect_kind == "wave":
@@ -114,11 +129,7 @@ func _physics_process(delta: float) -> void:
     if effect_kind=="projectile":
         if _resolve_swept_projectile(target,previous,global_position,terrain_hit):return
         if not terrain_hit.is_empty():
-            if impact_pool:
-                global_position=terrain_hit.position-Vector2(0,5)
-                effect_kind="pool";velocity=Vector2.ZERO;gravity=0.0;radius=32.0;age=0.0;arm_delay=.55;duration=1.4
-                queue_redraw();return
-            _finish_impact(terrain_hit.position);return
+            _terrain_impact(terrain_hit);return
         queue_redraw();return
     if reflected:
         for actor in get_tree().get_nodes_in_group("enemy"):
@@ -317,6 +328,34 @@ func _draw_terrain_boundary() -> void:
             draw_polyline(marker,dark,3,true)
             draw_polyline(marker,pale,1,true)
 
+func _terrain_impact(hit: Dictionary) -> void:
+    if impact_pool:
+        global_position=hit.position-Vector2(0,5)
+        effect_kind="pool";velocity=Vector2.ZERO;gravity=0.0;radius=32.0;age=0.0;arm_delay=.55;duration=1.4
+        queue_redraw();return
+    _finish_impact(hit.position)
+
+## Solid terrain between the owner's body and the muzzle, if any.
+func _launch_blocked(from: Vector2, to: Vector2) -> Dictionary:
+    if from.distance_squared_to(to) < 0.01:
+        return {}
+    var level := get_parent()
+    if level.has_method("_ensure_collision_segment"): level._ensure_collision_segment(from, to)
+    var query := PhysicsRayQueryParameters2D.create(from, to, 1)
+    query.collide_with_areas = false
+    var exclude := player_bodies(get_tree())
+    if owner_actor is CollisionObject2D: exclude.append(owner_actor.get_rid())
+    query.exclude = exclude
+    var wall := get_world_2d().direct_space_state.intersect_ray(query)
+    if level.has_method("_rock_ray_hit"):
+        var rock: Dictionary = level._rock_ray_hit(from, to)
+        if not rock.is_empty() and (wall.is_empty() or from.distance_squared_to(rock.position) < from.distance_squared_to(wall.position)): wall = rock
+    if wall.is_empty() or from.distance_to(wall.position) > from.distance_to(to) + 0.01:
+        return {}
+    if bool(wall.get("authored_rock",false)) or bool(wall.get("authored_static",false)) or wall.get("collider") is StaticBody2D:
+        return wall
+    return {}
+
 func _resolve_swept_projectile(target: Node2D,start: Vector2,finish: Vector2,wall: Dictionary) -> bool:
     var limit:=SWEEP.fraction(start,finish,wall.position) if not wall.is_empty() else INF
     if reflected:
@@ -423,6 +462,8 @@ func _advance_beam(delta: float, target: Node2D) -> void:
         length = 0
         cancel()
         return
+    if muzzle_blocked:
+        length = 0.0
     var next_age := age + delta
     var active_seconds := maxf(0.0, minf(next_age, duration) - maxf(age, arm_delay))
     age = minf(next_age, duration)

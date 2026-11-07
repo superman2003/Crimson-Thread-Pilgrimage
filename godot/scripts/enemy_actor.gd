@@ -127,6 +127,8 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.position=point
     effect.velocity=vel
     effect.heading=vel.normalized() if vel.length()>0 else Vector2(attack_direction,0)
+    if effect_kind in ["projectile","beam"]:
+        effect.launch_anchor=body_center()
     effect.arm_delay=warning
     effect.duration=warning+lifetime
     effect.radius=float(command.get("radius",11))
@@ -2120,6 +2122,14 @@ func _on_body_entered(body: Node) -> void:
     if body.has_method("take_damage"):
         contact_timer = 0.65
         body.take_damage(damage, global_position, false)
+
+
+## Centre of the physical body, which never overlaps the terrain it touches.
+func body_center() -> Vector2:
+    for child in get_children():
+        if child is CollisionShape2D:
+            return child.global_position
+    return global_position
 
 
 func _build_shape() -> void:

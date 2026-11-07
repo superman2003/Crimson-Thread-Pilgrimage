@@ -201,12 +201,15 @@ func _collision(tree: SceneTree) -> void:
     await tree.physics_frame;await tree.process_frame
     for direction in [1.0,-1.0]:
         var origin:=Vector2(400 if direction>0 else 600,400)
+        # The muzzle leaves the actor's own body (launch check), as in play.
+        enemy.position=origin
         var beam: Node2D=enemy._effect("beam",origin,Vector2(direction,0),{"skin":"erase","radius":18,"beam_length":455},1,.36)
         beam.set_physics_process(false)
         _check(absf(beam.length-95)<.01,"solid wall clips real beam before art layout in direction "+str(direction))
         var endpoint: Vector2=beam.global_position+beam.heading*beam.length
         _check(absf(endpoint.x-(495 if direction>0 else 505))<.01,"art endpoint shares exact collision ray hit")
         beam.cancel()
+    enemy.position=Vector2(400,300)
     var diagonal: Node2D=enemy._effect("beam",Vector2(400,300),Vector2(1,1),{"skin":"gate","beam_length":720},1,.4)
     diagonal.set_physics_process(false)
     _check(absf(diagonal.length-95*sqrt(2))<.01,"diagonal beam clips by ray distance rather than horizontal projection")
