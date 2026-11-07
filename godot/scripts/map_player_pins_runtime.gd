@@ -315,7 +315,7 @@ static func _text_width(label: Label) -> float:
 ## Main redraws the map every frame. Clearing an unchanged OptionButton also
 ## clears its open PopupMenu's uncommitted keyboard/controller focus.
 static func _refresh_list(list: OptionButton, known: Array[Dictionary], configs: Dictionary) -> void:
-    var labels: Array[String] = ["图钉 %d / %d · 请选择" % [known.size(), PINS.LIMIT]]
+    var labels: Array[String] = ["图钉 %d / %d" % [known.size(), PINS.LIMIT]]
     # Reserve zero for the prompt; stored pin IDs are always positive.
     var ids: Array[int] = [0]
     for record in known:

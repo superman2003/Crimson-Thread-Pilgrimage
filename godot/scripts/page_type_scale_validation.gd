@@ -60,6 +60,10 @@ func overflows(control: Control) -> bool:
 		padding = style.get_margin(SIDE_LEFT) + style.get_margin(SIDE_RIGHT) if style != null else 0.0
 		if control.icon != null:
 			padding += control.icon.get_width()
+		# An OptionButton also draws its dropdown arrow inside the same box.
+		if control is OptionButton:
+			var arrow: Texture2D = control.get_theme_icon("arrow")
+			padding += (arrow.get_width() if arrow != null else 0.0) + control.get_theme_constant("arrow_margin")
 	return width + padding > control.size.x + 1.0
 
 func audit(name: String, page_root: Node) -> void:
@@ -163,6 +167,17 @@ func run() -> void:
 		check(not seen.is_empty(), "%s page shows text" % page)
 		check(off_scale.is_empty(), "%s page uses only the shared type scale (off: %s)" % [page, off_scale])
 		check(clipped.is_empty(), "%s page text fits its controls (clipped: %s)" % [page, clipped])
+	# The map pin selector's prompt at its widest count, arrow included.
+	await open_page("map")
+	var pin_list := world.find_child("PinList", true, false) as OptionButton
+	check(pin_list != null and pin_list.item_count > 0, "map pin selector is built")
+	if pin_list != null and pin_list.item_count > 0:
+		var limit: int = preload("res://scripts/map_player_pins.gd").LIMIT
+		var prompt := pin_list.get_item_text(0)
+		pin_list.set_item_text(0, "图钉 %d / %d" % [limit, limit])
+		pin_list.select(0)
+		check(not overflows(pin_list), "a full pin selector prompt fits beside its arrow (%s)" % describe(pin_list))
+		pin_list.set_item_text(0, prompt)
 	# The journal/item reading body follows the reading size (U05).
 	var ui: Control = world.ui_shell
 	var body_sizes := {}
