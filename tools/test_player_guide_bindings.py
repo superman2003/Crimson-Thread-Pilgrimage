@@ -1,7 +1,8 @@
 """T05: the release README (docs/RELEASE_PLAYER_GUIDE.md) lists the real default
 bindings. Defaults are read from the scripts that register them; each action's
-keyboard/mouse keys must appear on the guide line that names the action, and
-each gamepad button next to its action on the gamepad line. A changed default
+keyboard/mouse keys must appear in the guide clause (split at ，；。（）) that
+names the action, and each gamepad button or stick in the gamepad clause that
+names it, so swapping two keys within one bullet also fails. A changed default
 that is not reflected in the guide (or in EXPECT below) fails."""
 import re
 import sys
@@ -20,17 +21,19 @@ JOY_TEXT = {'JOY_BUTTON_A': 'A', 'JOY_BUTTON_B': 'B', 'JOY_BUTTON_X': 'X', 'JOY_
             'JOY_BUTTON_DPAD_LEFT': '十字键 ←', 'JOY_BUTTON_DPAD_RIGHT': '十字键 →',
             'JOY_BUTTON_DPAD_UP': '十字键 ↑', 'JOY_BUTTON_DPAD_DOWN': '十字键 ↓',
             'JOY_BUTTON_START': 'Start', 'JOY_BUTTON_BACK': 'Back',
-            'JOY_BUTTON_LEFT_STICK': 'L3', 'JOY_BUTTON_RIGHT_STICK': 'R3'}
+            'JOY_BUTTON_LEFT_STICK': 'L3', 'JOY_BUTTON_RIGHT_STICK': 'R3',
+            'JOY_AXIS_LEFT_X': '左摇杆', 'JOY_AXIS_LEFT_Y': '左摇杆'}
+CLAUSE = re.compile(r'[，；。（）]')
 # action: (label on its keyboard line, label after its button on the gamepad line)
 EXPECT = {
-    'move_left': ('移动', None), 'move_right': ('移动', None),
-    'aim_up': ('上下瞄准', None), 'aim_down': ('上下瞄准', None),
+    'move_left': ('移动', '移动'), 'move_right': ('移动', '移动'),
+    'aim_up': ('上下瞄准', '瞄准'), 'aim_down': ('上下瞄准', '瞄准'),
     'jump': ('跳跃', '跳跃'), 'dash': ('冲刺', '冲刺'),
     'attack': ('攻击', '攻击'), 'heal': ('疗伤', '疗伤'),
     'interact': ('交互', '交互'), 'inventory': ('行囊', '行囊'), 'map': ('地图', '地图'),
     'build_menu': ('构筑', '构筑'), 'audio_settings': ('设置', None), 'close_overlay': ('关闭界面', '关闭界面'),
-    'skill_1': ('施放', '技能'), 'skill_cycle': ('切换', '切换技能'),
-    'tool_cast': ('使用', '使用战具'), 'tool_cycle': ('切换', '切换战具'),
+    'skill_1': ('施放', '技能'), 'skill_cycle': ('切换技能', '切换技能'),
+    'tool_cast': ('使用', '使用战具'), 'tool_cycle': ('切换战具', '切换战具'),
     'hook': ('钩索', '钩索'),
     'bell_guard': ('钟壳格挡', '钟壳格挡'), 'lantern_phase': ('灯影相位', '灯影相位'), 'crown_resonance': ('王冠共鸣', '王冠共鸣'),
 }
@@ -45,6 +48,8 @@ def defaults():
         for token in re.findall(r'(?:KEY|MOUSE_BUTTON)_\w+', body):
             add(keys, action, token)
     for action, token in re.findall(r'_bind_joy\("(\w+)", (JOY_BUTTON_\w+)\)', player):
+        add(joys, action, token)
+    for action, token in re.findall(r'_bind_joy_axis\("(\w+)", (JOY_AXIS_\w+),', player):
         add(joys, action, token)
     level = (SCRIPTS / 'main_level.gd').read_text(encoding='utf-8')
     for action, key, joy in re.findall(r'"(\w+)": \[(KEY_\w+), (JOY_\w+)\]', level):
@@ -66,6 +71,17 @@ def key_text(token):
     return KEY_TEXT.get(token, token.removeprefix('KEY_'))
 
 
+def has_token(clause, token):
+    # Latin key names must stand alone: "E" is not the E of "Esc".
+    if token.isascii():
+        return re.search(rf'(?<![A-Za-z0-9]){re.escape(token)}(?![A-Za-z0-9])', clause) is not None
+    return token in clause
+
+
+def clauses(line):
+    return [part for part in CLAUSE.split(line) if part.strip()]
+
+
 def main():
     failures = []
     keys, joys = defaults()
@@ -77,17 +93,20 @@ def main():
     for action in sorted(set(keys) | set(joys)):
         if action not in EXPECT:
             failures.append(f'{action} has a default binding the guide test does not know; add it to the guide and EXPECT')
+    board_clauses = [part for line in board for part in clauses(line)]
+    pad_clauses = clauses(pad)
     for action, (label, pad_label) in EXPECT.items():
         wanted = sorted({key_text(t) for t in keys.get(action, set())})
         if not wanted:
             failures.append(f'{action}: no default keyboard/mouse binding found in the scripts')
-        elif not any(label in line and all(token in line for token in wanted) for line in board):
-            failures.append(f'{action}: no guide line names "{label}" with its default keys {wanted}')
+        elif not any(label in part and all(has_token(part, token) for token in wanted) for part in board_clauses):
+            failures.append(f'{action}: no guide clause names "{label}" with its default keys {wanted}')
         for token in sorted(joys.get(action, set())):
+            text = JOY_TEXT.get(token, token)
             if pad_label is None:
                 failures.append(f'{action}: gamepad default {token} needs a gamepad label in EXPECT')
-            elif f'{JOY_TEXT.get(token, token)} {pad_label}' not in pad and not re.search(rf'{re.escape(JOY_TEXT.get(token, token))} [^，；。]*{re.escape(pad_label)}', pad):
-                failures.append(f'{action}: gamepad line lacks "{JOY_TEXT.get(token, token)} {pad_label}"')
+            elif not any(pad_label in part and has_token(part, text) for part in pad_clauses):
+                failures.append(f'{action}: no gamepad clause names "{pad_label}" with "{text}"')
     if 'F9' not in section:
         failures.append('the guide no longer warns that F9 opens a new journey')
     for line in failures:
