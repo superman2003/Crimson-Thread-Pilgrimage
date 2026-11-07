@@ -3215,13 +3215,14 @@
           "audio": [
             {
               "key": "ch05_obsidian_pilgrim_road_beat_03_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "低频步伐循环和旗杆震动声。",
               "path": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_03_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
               "loop": true,
-              "wiring_note": "synthesized loop-capable beat layer (parade footfalls), no runtime trigger yet"
+              "wiring_note": "pilgrim commander charge (vault) windup; stopped by _stop_parade_layer when the windup ends, is interrupted or the commander retires",
+              "implemented_in": "res://scripts/enemy_actor.gd::_play_attack_sfx"
             }
           ]
         }

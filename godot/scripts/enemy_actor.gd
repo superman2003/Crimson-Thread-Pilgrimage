@@ -249,7 +249,8 @@ const SFX := {
     "ch03_beat_contract_break": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_03_audio.ogg",
     "ch05_beat_silent_order": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_02_audio.ogg",
     "ch06_beat_crown_resonance": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_02_audio.ogg",
-    "ch03_beat_delayed_shadow": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg"
+    "ch03_beat_delayed_shadow": "res://assets/audio/sfx/generated/ch03_saltwhite_archive_beat_01_audio.ogg",
+    "ch05_beat_parade": "res://assets/audio/sfx/generated/ch05_obsidian_pilgrim_road_beat_03_audio.ogg"
 }
 ## Boss 四件套（roar/phase_shift/atk_light/atk_heavy）按 boss kind → 章节短号取合成包音源。
 const BOSS_SFX_CHAPTER := {
@@ -328,6 +329,8 @@ var cooldowns: Dictionary = {}
 var active_attack: Dictionary = {}
 var state := "patrol"
 var attack_desire: float = 0.0
+## The commander's parade footfalls under its charge windup; cut when it ends.
+var parade_voice: Node = null
 var last_player_command := "none"
 var last_ai_decision := "patrol"
 var last_attack_id := ""
@@ -441,6 +444,9 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+    # An interrupted or retired charge never leaves its footfalls running.
+    if parade_voice != null and state != "windup":
+        _stop_parade_layer()
     if dying or is_queued_for_deletion():
         return
     if not world_residency_active():
@@ -1831,6 +1837,7 @@ func _update_windup(delta: float) -> void:
     _advance_pose_loop()
     if state_timer <= 0.0:
         state = "active"
+        _stop_parade_layer()
         state_timer = float(active_attack.get("active", 0.16))
         _pose_sprite("active", active_attack)
         _play_attack_sfx("active")
@@ -2537,6 +2544,13 @@ func _play_sfx(audio_key: String, volume_db: float = -6.0, pitch_scale: float = 
     _start_voice(voice_ticket,player_node)
 
 
+func _stop_parade_layer() -> void:
+    if is_instance_valid(parade_voice) and not parade_voice.is_queued_for_deletion():
+        parade_voice.stop()
+        parade_voice.queue_free()
+    parade_voice = null
+
+
 func _play_attack_sfx(phase: String) -> void:
     if phase == "windup":
         if is_boss:
@@ -2545,6 +2559,14 @@ func _play_attack_sfx(phase: String) -> void:
         else:
             # 普通敌前摇=windup_light 低配版：升调 + 压量，与 Boss 档拉开距离。
             _play_sfx("enemy_windup", -13.0, 1.22, 0)
+        # ch5 beat `parade_charge`（manifest ch05_beat_03）：巡礼指挥官冲锋（vault）前摇
+        # 叠低频步伐循环，前摇一结束（出招、被打断或倒下）即停。
+        if kind == "silent_pilgrim_commander" and String(active_attack.get("type", "")) == "vault":
+            _stop_parade_layer()
+            _play_sfx("ch05_beat_parade", -9.0)
+            var last := get_child(get_child_count() - 1) if get_child_count() > 0 else null
+            if last is AudioStreamPlayer2D and String(last.name).begins_with("Sfx_ch05_beat_parade"):
+                parade_voice = last
         # ch5 beat `silent_order`（manifest ch05_beat_02）：黑曜巡礼道（obsidian 材质族）
         # 敌方前摇附一段低频压迫声（军令低鸣叠层）。
         if death_sfx_key == "death_obsidian":
