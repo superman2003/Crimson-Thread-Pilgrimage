@@ -507,13 +507,14 @@
       "family": "thread",
       "bus": "SFX",
       "priority": "P0",
-      "status": "asset_ready",
+      "status": "wired",
       "path": "res://assets/audio/sfx/generated/player_bind_channel.ogg",
       "loop": true,
       "recorded_source": "Crimson Thread synthesized SFX pack (tools/generate_sfx_pack.py, deterministic offline render)",
       "license": "project-generated (CC0)",
       "description": "heal channel spinning-wheel loop with slow pitch rise",
-      "wiring_note": "four-stage bind heal channel not implemented yet (seamless loop)"
+      "wiring_note": "loops under the whole heal channel with pitch rising 0.92->1.12 by progress; stopped on settle and on interrupt (_stop_bind_channel)",
+      "implemented_in": "res://scripts/player_controller.gd::_start_bind_channel"
     },
     "player_bind_tighten": {
       "key": "player_bind_tighten",
