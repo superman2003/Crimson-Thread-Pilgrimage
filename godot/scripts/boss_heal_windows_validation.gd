@@ -167,7 +167,9 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
         if channel_hp >= 0 and player.heal_timer <= 0.0:
             if player.hp > channel_hp:
                 completed += 1
-                if player.hp != channel_hp + player.heal_amount:
+                # A hit landing on the completing frame is a fair race: the
+                # amount is only checked when no hit arrived with it.
+                if player.hp != channel_hp + player.heal_amount and player.hurt_timer <= 0.0:
                     wrong_amount += 1
             elif player.hp < channel_hp:
                 interrupted += 1
