@@ -1,6 +1,7 @@
 extends SceneTree
 ## S02 action sync: each player action sound starts on the frame its action
-## happens (strike, second jump, block, heal settle, heal break, phase entry), on a real
+## happens (strike, second jump, block, heal settle, heal break, phase entry)
+## and the heal channel loop lasts exactly the channel, on a real
 ## floor with the production Player and real InputMap actions.
 class ProbePlayer extends "res://scripts/player_controller.gd":
     var played: Array[Dictionary] = []
@@ -156,7 +157,13 @@ func _run() -> void:
     player.hp = player.max_hp - 1
     await _tap("heal", 1)
     _check(player.heal_timer > 0.0, "heal channel starts on a real floor")
-    await _frames(int(ceil(player.heal_duration * 60.0)) + 10)
+    var loop: AudioStreamPlayer2D = player.bind_channel_audio
+    _check(is_instance_valid(loop) and loop.playing, "the bind channel loop runs under the channel")
+    var start_pitch := loop.pitch_scale if is_instance_valid(loop) else 0.0
+    await _frames(int(player.heal_duration * 30.0))
+    _check(is_instance_valid(loop) and loop.playing and loop.pitch_scale > start_pitch + 0.03, "the loop pitch rises with the channel (%.2f -> %.2f)" % [start_pitch, loop.pitch_scale if is_instance_valid(loop) else 0.0])
+    await _frames(int(ceil(player.heal_duration * 30.0)) + 10)
+    _check(is_instance_valid(loop) and not loop.playing, "the loop stops when the heal settles")
     var settle := _sounds("bind_tighten")
     _check(player.hp == player.max_hp and settle.size() == 1, "completed heal plays the tighten once")
     if settle.size() == 1:
@@ -174,6 +181,7 @@ func _run() -> void:
     _check(_sounds("bind_interrupt").size() == 1 and _sounds("bind_tighten").is_empty(), "a hit during the channel plays the snap, not the tighten")
     var cut: bool = channel.size() == 1 and (not is_instance_valid(channel[0].voice) or not channel[0].voice.playing)
     _check(cut, "interrupted heal cuts its channel sound instead of ringing on")
+    _check(is_instance_valid(player.bind_channel_audio) and not player.bind_channel_audio.playing, "an interrupted heal stops the bind channel loop")
 
     _release()
     fixture.queue_free()
