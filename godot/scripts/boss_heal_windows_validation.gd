@@ -135,6 +135,9 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
         if boss.state == "windup" and last_state != "windup" and player.heal_timer <= 0.0:
             player.global_position = stand
             player.velocity = Vector2.ZERO
+            # Let the Player land first: a grounded heal started mid-drop would
+            # end on the fall, not on the Boss.
+            rest_until = maxi(rest_until, frame + 12)
         last_state = boss.state
         if boss.state != "active" and frame >= rest_until and player.heal_timer <= 0.0 and player.is_on_floor() and _threats_near(boss, player) == 0:
             player.energy = player.max_energy
@@ -155,6 +158,9 @@ func _live_heals(boss: Node2D, player: CharacterBody2D, commands: Array, home: V
                 interrupted += 1
             channel_hp = -1
             rest_until = frame + 30
+    # A channel still running when time is up was neither completed nor broken.
+    if channel_hp >= 0:
+        started -= 1
     _release_inputs()
     _reset_boss(boss, home, {"phase": phase})
     boss.ai_commands = []
