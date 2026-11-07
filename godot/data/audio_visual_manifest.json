@@ -3328,12 +3328,13 @@
           "audio": [
             {
               "key": "ch06_silent_crown_core_beat_03_audio",
-              "status": "asset_ready",
+              "status": "wired",
               "description": "重鸣为钟声，断冠为断弦，真结局为绯线和声。",
               "path": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_03_audio.ogg",
               "recorded_source": "Crimson Thread synthesized ambience & combat pack (tools/generate_ambience_pack.py, deterministic offline render)",
               "license": "project-generated (CC0)",
-              "wiring_note": "synthesized beat layer, no runtime trigger yet (beat set-piece hook pending)"
+              "wiring_note": "once at the final Boss defeat when the three ending doors appear; a revisit restores the doors silently",
+              "implemented_in": "res://scripts/main_level.gd::_spawn_ending_gates"
             }
           ]
         }

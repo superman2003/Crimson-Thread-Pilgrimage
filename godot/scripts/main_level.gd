@@ -393,6 +393,8 @@ const AUDIO := {
     "ui_ability_unlock": "res://assets/audio/sfx/generated/ui_ability_unlock.ogg",
     "ui_pickup_key_item": "res://assets/audio/sfx/generated/ui_pickup_key_item.ogg",
     "ui_testimony_complete": "res://assets/audio/sfx/generated/ui_testimony_complete.ogg",
+    # ch6 beat `ending_doors`（manifest ch06_beat_03）：最终 Boss 倒下、三色结局门现形时一次。
+    "ch06_beat_ending_doors": "res://assets/audio/sfx/generated/ch06_silent_crown_core_beat_03_audio.ogg",
     # Kenney CC0 三包（Interface Sounds / RPG Audio；音频规格 §4.5 UI 与系统）。
     "ui_inventory_open": "res://assets/audio/sfx/kenney/interface/open_001.ogg",
     "ui_inventory_close": "res://assets/audio/sfx/kenney/interface/close_001.ogg",
@@ -6831,13 +6833,17 @@ func _ending_gate_entries() -> Array:
     return entries
 
 
-func _spawn_ending_gates() -> void:
+## announce: the doors appear at the final defeat (the ending-doors beat plays
+## once); reloading a completed region restores them silently.
+func _spawn_ending_gates(announce: bool = false) -> void:
     if ending_gates_spawned:
         return
     var entries := _ending_gate_entries()
     if entries.is_empty():
         return
     ending_gates_spawned = true
+    if announce:
+        _play_sfx("ch06_beat_ending_doors", -6.0)
     var anchor := Vector2(world_width * 0.5, world_height * 0.5)
     if boss_actor != null and is_instance_valid(boss_actor):
         anchor = boss_actor.global_position
@@ -7367,7 +7373,7 @@ func _on_enemy_died(spawn_id: String, is_boss: bool, kind: String) -> void:
         if player != null:
             player.gain_energy(30)
         _open_post_boss_route()
-        _spawn_ending_gates()
+        _spawn_ending_gates(true)
         _toast(String(config.get("completion_toast", "Demo complete: " + boss_name + " defeated.")))
         var transition: Dictionary = config.get("chapter_transition", {})
         if not transition.is_empty():
