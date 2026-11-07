@@ -2,13 +2,63 @@
 
 本仓库维护 Godot 原生游戏，工程入口为 `godot/project.godot`，主场景为 `godot/scenes/World.tscn`。
 
-## 升级进度（2026-10-24 开工快照）
+## 升级进度（2026-11-07）
 
 ![46 项最终验收与当前子项证据](docs/gallery/upgrade_progress.svg)
 
-[进度图说明与下一批范围](docs/gallery/20261024_upgrade_progress.md) · [任务台账](docs/UPGRADE_TASK_LEDGER.md)（新增记录写在 [docs/ledger/](docs/ledger/README.md)）· [最终验收清单](docs/UPGRADE_COMPLETION_CHECKLIST.md)
+进度图按[最终验收清单](docs/UPGRADE_COMPLETION_CHECKLIST.md)的“最终验收”勾选框统计：46 项都还没有整项关闭，不代表尚未开发。各项已取得的实现与自动验证写在[任务台账](docs/UPGRADE_TASK_LEDGER.md)里（新增记录在 [docs/ledger/](docs/ledger/README.md)）。能用代码验证的部分已大体完成，剩下的主要是：
 
-## 当前版本实机画面（2026-10-15）
+- 人工实机试玩（T04）；
+- 美术统一；
+- 几项待定的设计决定。
+
+[进度图说明](docs/gallery/20261024_upgrade_progress.md) · [升级进度](docs/UPGRADE_PROGRESS.md)
+
+## 当前版本实机画面（2026-11-07）
+
+以下图片在 main `1b6cf34` 加上画面文字精简第一批（#565）后，重新运行 Godot 4.6.1 / `World.tscn` 截取，1280 × 720。截图使用隔离的展示存档，装备、材料和进度由夹具授予；用于展示当前界面，不代表自然流程获得或六区带伤通关。
+
+![2026-11-07 World 场景与 HUD](artifacts/readme_current_20261107/world_hud.webp)
+
+![2026-11-07 分类行囊](artifacts/readme_current_20261107/inventory.webp)
+
+![2026-11-07 契印与构筑](artifacts/readme_current_20261107/seal.webp)
+
+![2026-11-07 旅记](artifacts/readme_current_20261107/journal.webp)
+
+![2026-11-07 区域地图](artifacts/readme_current_20261107/map.webp)
+
+![2026-11-07 能力练习工房](artifacts/readme_current_20261107/practice.webp)
+
+[查看本次全部 20 张实机界面、与 10-15 的差异和复现方式](docs/gallery/20261107_current_main.md)
+
+## 怪物素材与完整地图（2026-11-07 重新渲染）
+
+40 种小怪与 6 位 Boss 的当前素材在下方直接展示；[完整图册](docs/gallery/20261011_current_assets.md)提供各章高清地图、小怪分章图册、实机画面，以及全部 46 类敌人的原始动画图集链接。
+
+地图总览由当前章节配置按世界坐标比例生成，展示完整布局及关键对象位置，属于布局图。表中“实机”是 2026-11-07 在各区起点截取的画面。
+
+![40 种小怪素材总览](artifacts/current_gallery/monsters_all.jpg)
+
+![6 位 Boss 素材总览](artifacts/current_gallery/bosses_all.jpg)
+
+![六章完整地图布局总览](artifacts/current_gallery/map_overview.jpg)
+
+| 章节 | 完整地图 | 小怪图册 | 实机画面 |
+| --- | --- | --- | --- |
+| 第 1 章 · 苔钟庭 | [查看全图](artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch01_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch01_moss_bell_court.webp) |
+| 第 2 章 · 铸雨渠 | [查看全图](artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch02_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch02_rain_foundry_canal.webp) |
+| 第 3 章 · 盐白书库 | [查看全图](artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch03_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch03_saltwhite_archive.webp) |
+| 第 4 章 · 断弦温室 | [查看全图](artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch04_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch04_broken_string_greenhouse.webp) |
+| 第 5 章 · 黑曜巡礼道 | [查看全图](artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch05_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch05_obsidian_pilgrim_road.webp) |
+| 第 6 章 · 无声王冠 | [查看全图](artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg) | [8 种小怪](artifacts/current_gallery/ch06_enemies.jpg) | [实机](artifacts/readme_current_20261107/region_ch06_silent_crown_core.webp) |
+
+<details>
+<summary>历史升级记录与旧版截图（2026-10-11～15）</summary>
+
+以下为各批次当时的实现和验收记录，图片不作为当前版本预览。
+
+## 上一版实机画面（2026-10-15）
 
 以下图片重新运行 **main `03b4919` 的 Godot 4.6.1 / World.tscn** 截取，展示当前 HUD、分类行囊、四类装备槽、付费战具补给与地图。此前首页仍引用 10 月 11 日的静态截图，现在以本次实机取样替换。后续未合入的 PR 不计入这组图片。
 
@@ -23,11 +73,6 @@
 ![2026-10-15 当前区域地图](artifacts/readme_current_20261015/map.webp)
 
 [查看本次全部 14 张实机界面与复现方式](docs/gallery/20261015_current_main.md) · [升级进度](docs/UPGRADE_PROGRESS.md) · [任务台账](docs/UPGRADE_TASK_LEDGER.md)
-
-<details>
-<summary>历史升级记录与旧版截图（2026-10-11～15）</summary>
-
-以下为各批次当时的实现和验收记录，图片不作为当前版本预览。
 
 ## 第二份续接：战斗、构筑与剧情（2026-10-15，本批子项已验收）
 
@@ -147,27 +192,6 @@ PR #29 在固定世界坐标旅册之上，补齐邻区敌人、NPC、钟龛和�
 | 第 5 章 | [实机画面](artifacts/cave_exploration/ch05_cave.jpg) | [升降笼](artifacts/cave_exploration/ch05_lift.jpg) |
 | 第 6 章 | [实机画面](artifacts/cave_exploration/ch06_cave.jpg) | [升降笼](artifacts/cave_exploration/ch06_lift.jpg) |
 
-## 怪物素材与完整地图
-
-40 种小怪与 6 位 Boss 的当前素材在下方直接展示；[完整图册](docs/gallery/20261011_current_assets.md)提供各章高清地图、小怪分章图册、实机画面，以及全部 46 类敌人的原始动画图集链接。
-
-地图总览由当前章节配置按世界坐标比例生成，展示完整布局及关键对象位置，属于布局图。实机画面见下方预览及完整图册。
-
-![40 种小怪素材总览](artifacts/current_gallery/monsters_all.jpg)
-
-![6 位 Boss 素材总览](artifacts/current_gallery/bosses_all.jpg)
-
-![六章完整地图布局总览](artifacts/current_gallery/map_overview.jpg)
-
-| 章节 | 完整地图 | 小怪图册 | 实机画面 |
-| --- | --- | --- | --- |
-| 第 1 章 · 苔钟庭 | [查看全图](artifacts/current_gallery/demo_ch01_moss_bell_court_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch01_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png) |
-| 第 2 章 · 铸雨渠 | [查看全图](artifacts/current_gallery/demo_ch02_rain_foundry_canal_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch02_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch02_rain_foundry_canal.png) |
-| 第 3 章 · 盐白档案馆 | [查看全图](artifacts/current_gallery/demo_ch03_saltwhite_archive_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch03_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch03_saltwhite_archive.png) |
-| 第 4 章 · 断弦温室 | [查看全图](artifacts/current_gallery/demo_ch04_broken_string_greenhouse_full_map.jpg) | [6 种小怪](artifacts/current_gallery/ch04_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch04_broken_string_greenhouse.png) |
-| 第 5 章 · 黑曜巡礼路 | [查看全图](artifacts/current_gallery/demo_ch05_obsidian_pilgrim_road_full_map.jpg) | [7 种小怪](artifacts/current_gallery/ch05_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch05_obsidian_pilgrim_road.png) |
-| 第 6 章 · 无声王冠 | [查看全图](artifacts/current_gallery/demo_ch06_silent_crown_core_full_map.jpg) | [8 种小怪](artifacts/current_gallery/ch06_enemies.jpg) | [截图](artifacts/pilgrimage_overhaul/demo_ch06_silent_crown_core.png) |
-
 ## 预览
 
 2026-10-11 改版：[第一章实机画面](artifacts/pilgrimage_overhaul/demo_ch01_moss_bell_court.png)、[分类背包](artifacts/pilgrimage_overhaul/inventory.png)、[NPC对话](artifacts/pilgrimage_overhaul/dialogue.png)。[六章截图目录](artifacts/pilgrimage_overhaul)。本轮包含46类敌人的104个招式、六章手绘地图与连续地形，详见[改版记录与验证](docs/release/20261011_pilgrimage_overhaul.md)。
@@ -216,8 +240,6 @@ godot --headless --path godot --script res://scripts/pilgrimage_review_regressio
 godot --headless --path godot --script res://scripts/pilgrimage_overhaul_validation.gd
 
 python tools\validate_chapter_files.py
-python tools\validate_open_asset_policy.py
-python tools\validate_itch_enemy_assets.py
 python tools\render_current_gallery.py
 ```
 
