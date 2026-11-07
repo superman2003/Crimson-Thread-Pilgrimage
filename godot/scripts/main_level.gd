@@ -393,6 +393,9 @@ const AUDIO := {
     "ui_ability_unlock": "res://assets/audio/sfx/generated/ui_ability_unlock.ogg",
     "ui_pickup_key_item": "res://assets/audio/sfx/generated/ui_pickup_key_item.ogg",
     "ui_testimony_complete": "res://assets/audio/sfx/generated/ui_testimony_complete.ogg",
+    # ch4 beat `string_bridge_break`（manifest ch04_beat_03）：断弦温室里下劈击碎地面时
+    # 在碎裂声上叠断弦拨片与石屑落地。
+    "ch04_beat_string_break": "res://assets/audio/sfx/generated/ch04_broken_string_greenhouse_beat_03_audio.ogg",
     # Kenney CC0 三包（Interface Sounds / RPG Audio；音频规格 §4.5 UI 与系统）。
     "ui_inventory_open": "res://assets/audio/sfx/kenney/interface/open_001.ogg",
     "ui_inventory_close": "res://assets/audio/sfx/kenney/interface/close_001.ogg",
@@ -6523,6 +6526,8 @@ func _unlock_ability_gate(gate_id: String, unlock_sfx_key: String = "") -> void:
     # 能力门开启音（音频规格 §4.5 ui_gate_unlock）：按门族播对应家族音。
     if not unlock_sfx_key.is_empty():
         _play_sfx(unlock_sfx_key, -7.0)
+        if unlock_sfx_key == "gate_downstrike" and _art_theme_id() == "string_greenhouse":
+            _play_sfx("ch04_beat_string_break", -9.0)
 
 
 func _on_interactable_entered(body: Node, area: Area2D) -> void:
