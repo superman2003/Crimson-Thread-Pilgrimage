@@ -15,7 +15,9 @@ OUTPUT = Path('godot/data/credits')
 
 
 def build(root: Path) -> dict[Path, bytes]:
-    documents = notice_files(root)
+    # pathlib ordering is case-insensitive on Windows and case-sensitive on
+    # Linux. The shipped index must have identical bytes on both platforms.
+    documents = sorted(notice_files(root), key=lambda path: path.relative_to(root).as_posix())
     if not documents or len(documents) > MAX_ENTRIES:
         raise ValueError('release notice count outside supported range')
     result: dict[Path, bytes] = {}
