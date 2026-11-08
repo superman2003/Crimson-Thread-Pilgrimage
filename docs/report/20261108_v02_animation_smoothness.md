@@ -8,13 +8,14 @@
 “不顺”来自三层问题，按影响和成本排序：
 
 1. **引擎层**：物理 60 帧更新，但没开物理插值。在 120/144Hz 显示器上，主角、敌人和镜头的位置每两三帧才变一次，整体发抖。这一项不用画任何图，改设置加少量代码就能解决，**应该最先做**。
-2. **节奏层**：敌人每个阶段的帧被均匀拉伸，去填战斗数据规定的时长。恢复阶段的中位数只有 8fps，最慢 3.5fps；而且 80 个蓄力/飞行循环里有 78 个只有 2 帧。这不是帧数不够，是**帧时间分配不对**。不画新图，改成“关键姿势停顿”就能明显改善。
+2. **节奏层**：敌人每个阶段的帧被均匀拉伸，去填战斗数据规定的时长。恢复阶段的中位数只有 8fps，最慢 3.2fps；而且 96 个蓄力/飞行循环里有 94 个只有 2 帧。这不是帧数不够，是**帧时间分配不对**。不画新图，改成“关键姿势停顿”就能明显改善。
 3. **美术层**：素材是逐帧生成的图。相邻两帧不是“同一个角色动了一点”，而是“重新画了一遍”：轮廓、道具、甲片每帧都变（“沸腾”），四肢在关键帧之间直接跳到新位置，中间没有过渡。丝之歌顺滑的根本原因在这一层：手绘逐帧，同一套造型。这一层只能靠重画或补中间帧，成本最高。
 
 ## 怎么测的
 
 ```bash
-python3 tools/audit_animation_smoothness.py                 # 摘要
+python3 -m pip install -r tools/requirements-animation-audit.txt   # Pillow、NumPy，比较帧图时需要
+python3 tools/audit_animation_smoothness.py                 # 摘要（--no-images 只算时间，不需要上面两个库）
 python3 tools/audit_animation_smoothness.py --json out.json # 逐条数据
 python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例的逐帧排列图
 ```
@@ -23,7 +24,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 - 主角 `generated_hero_v3/manifest.json`；
 - 敌人 `original_creatures/*/motion_manifest.json`；
-- 战斗时长 `original_creature_combat.json`。
+- 战斗时长 `original_creature_combat.json`，以及六章关卡里通过 `encounter_profile` 覆盖攻击时长的遭遇（`enemy_actor.configure` 把它合并在物种数据之后，所以这些位置的敌人实际按覆盖后的时长出招）。
 
 它按 `enemy_actor.gd` 的规则还原每个攻击阶段实际播放的动画和有效帧率：
 
@@ -60,22 +61,24 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 ### C. 敌人
 
-**1）帧时间被均匀拉伸**（46 种敌人，含 6 个 Boss；114 条普通/精英指令）
+**1）帧时间被均匀拉伸**（46 种敌人含 6 个 Boss 的 114 条普通/精英指令，加上 8 处关卡遭遇覆盖的 16 条，共 130 条）
 
 | 阶段 | 有效 fps 中位数 | 最低 | 低于 8fps 的条数 |
 |---|---|---|---|
-| 蓄力 windup | 9.5 | 6.1 | 24 |
-| 出手 active | 16.7 | 5.7 | 4 |
-| 恢复 recover | **8.0** | **3.5** | **27** |
+| 蓄力 windup | 9.5 | 6.1 | 26 |
+| 出手 active | 16.7 | 5.7 | 5 |
+| 恢复 recover | **8.0** | **3.2** | **43** |
 
-- 最慢的例子：`pilgrim_chariot` 冲撞、`falling_clapper` 下砸，都是 4 帧恢复撑 1.15 秒，每帧停 0.29 秒；`corridor_heavy`、`erasure_bailiff` 精英横扫也是 4 帧撑 1.1 秒。
-- 4 帧均匀播放 1 秒，玩家看到的是“幻灯片”。如果同样 4 帧改成“第 1 帧停 0.7 秒，后 3 帧 0.15 秒快速收回”，看起来就是“砸完喘一口气再起身”。
+- 关卡遭遇普遍把收招拉得更长，所以更慢：第一章第一只苔虫（`demo_ch01` E01）的 `larva_curl` 4 帧撑 1.25 秒，只有 3.2fps；第四章 E11 的 `cage_pounce`、第五章 E07/E13 也只有 3.3fps。
+- 物种数据里最慢的：`pilgrim_chariot` 冲撞、`falling_clapper` 下砸，都是 4 帧恢复撑 1.15 秒，每帧停 0.29 秒；`corridor_heavy`、`erasure_bailiff` 精英横扫也是 4 帧撑 1.1 秒。
+- 4 帧均匀播放 1 秒，玩家看到的是“幻灯片”。如果同样 4 帧改成“第 1 帧停 0.7 秒，后 3 帧各 0.1 秒快速收回”（总长仍是 1 秒），看起来就是“砸完喘一口气再起身”。
 
 **2）2 帧循环**
 
-- 阶段时长超过 `POSE_LOOP_LEAD + 0.12` 秒时，会在主动画后接 `_charge` / `_travel` 循环。80 个这样的循环里有 **78 个只有 2 帧**，其中 14 个要循环 0.5 秒以上。另有 20 条 Boss 恢复先播 `_bridge`，再把共用的 `recover` 拉伸播放一次直到结束，这部分有效帧率中位数 19.4fps、最低 12fps，不是问题。
+- 阶段时长超过 `POSE_LOOP_LEAD + 0.12` 秒时，会在主动画后接 `_charge` / `_travel` 循环。96 个这样的循环里有 **94 个只有 2 帧**，其中 15 个要循环 0.5 秒以上。另有 20 条 Boss 恢复先播 `_bridge`，再把共用的 `recover` 拉伸播放一次直到结束，这部分有效帧率中位数 19.4fps、最低 12fps，不是问题。
 - 例子：`bailiff_erase` 蓄力 0.68 秒，`chariot_elite_drift` 飞行 0.6 秒，以及 `crossbow_burst` 和两条精英蓄力。
 - 两张图来回切，读起来像“闪烁”，不像“蓄力”。
+- 主动画最后一帧接到循环或过渡第一帧的那一下也会跳：96 处衔接的轮廓变化中位数 0.36，有 18 处超过 0.5，例如 `root_cage_hunter` 的 `cage_pounce` 接飞行循环 0.71、`obsidian_spearman` 精英突刺接飞行循环 0.68。
 
 **3）帧间变化：沸腾和跳帧**
 
@@ -108,11 +111,11 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 - Team Cherry 在 Photoshop 里逐帧手绘每一帧动画，导出 PNG 后接入引擎（[Game Informer：The Making of Hollow Knight](https://www.gameinformer.com/2018/10/16/the-making-of-hollow-knight)，[Team Cherry：Introducing Hollow Knight](https://www.teamcherry.com.au/introducing-hollow-knight)）。丝之歌延续了同一手绘风格。
 - 玩家对照发现，大黄蜂的不少基础动作和后跳与《恶魔城：月下夜想曲》的阿鲁卡多高度相似（[80.lv](https://80.lv/articles/fans-spot-character-animations-similarities-in-hollow-knight-silksong-castlevania)、[VidaExtra](https://www.vidaextra.com/aventura-plataformas/silksong-le-ha-calcado-animaciones-a-castlevania-literalmente-eso-se-siente-rebien-a-mandos)）。也就是说，它的动作参考的是一套成熟的、按手感打磨过的动作时序，而不是凭感觉排帧。
-- 评测普遍认为大黄蜂的移动比初代小骑士更顺、更灵（[Gfinity](https://www.gfinityesports.com/article/silksong-why-hornet-feels-better-to-play-than-the-knight)）。社区按官方精灵图逐帧还原动画时，每帧大约用 80–120ms（[OpenCritic 报道](https://opencritic.com/news/15793/hollow-knight-silksong-fans-turn-new-sprite-sheet-into-hornet-animations-frame-by-frame)）。官方没有公布帧率。
+- 评测普遍认为大黄蜂的移动比初代小骑士更顺、更灵（[Gfinity](https://www.gfinityesports.com/article/silksong-why-hornet-feels-better-to-play-than-the-knight)）。有玩家把官方公开的精灵图逐帧排成动画（[OpenCritic 报道](https://opencritic.com/news/15793/hollow-knight-silksong-fans-turn-new-sprite-sheet-into-hornet-animations-frame-by-frame)），这类还原每帧大约用 80–120ms。官方没有公布游戏里的实际帧率，这个数字只是爱好者的排法，不能当作游戏实际帧率。
 
 由此可以得出的要点：
 
-- **帧率本身不高。** 80–120ms 一帧，约等于 8–12fps，和我们敌人的中位数差不多。顺滑感不是靠“更多帧”，而是靠**同一造型的稳定线条**加上**不均匀的帧时间**：预备动作停住、出手一两帧带拖影、收招慢慢回。我们恰好在这两点上都反着来：线条每帧重画，时间均匀拉伸。
+- **问题不只是帧数。** 实际帧率要从游戏录像里逐帧测，这次没有做，所以不拿它和我们的数字直接比。但从同一套原画用 80–120ms 一帧排出来就已经顺这一点看，顺滑感主要不是靠“更多帧”，而是靠**同一造型的稳定线条**加上**不均匀的帧时间**：预备动作停住、出手一两帧带拖影、收招慢慢回。我们恰好在这两点上都反着来：线条每帧重画，时间均匀拉伸。
 - **一套造型，一个“演员”。** 手绘时每一帧都在同一个角色模型上改动，所以帧间变化集中在真正在动的部位。我们的生成图每帧独立生成，不动的部分也在变。
 - **按手感排的时序。** 先定“几帧预备、几帧打击、几帧收招、各停多久”，再画图。我们是先有均匀的帧，再被战斗时长拉伸。
 
@@ -136,11 +139,11 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
        - 恢复：第 1 帧（打击后的姿势）停住，其余帧快速收回；
        - 出手：保持现状。
      - 实现上可以在加载时为每个阶段动画写 SpriteFrames 的逐帧 `duration`，或在 `_physics_process` 按进度手动选帧（主角攻击已经这么做了）。
-   - 收益：27 条“恢复低于 8fps”和 24 条“蓄力低于 8fps”都会从“慢放幻灯片”变成“停顿加动作”。不改战斗时长，玩家能读到的出招节奏不变。
+   - 收益：43 条“恢复低于 8fps”和 26 条“蓄力低于 8fps”都会从“慢放幻灯片”变成“停顿加动作”。不改战斗时长，玩家能读到的出招节奏不变。
    - 验收：工具里加一个“最长单帧停留”和“非停顿帧的有效 fps”指标，非停顿帧不低于 10fps。
 3. **2 帧循环换成“停住加程序抖动”**
    - 改动：蓄力循环期间停在蓄力最后一帧，用代码加 ±1px、约 30Hz 的震颤和 1–2% 的缩放呼吸，配合已有的预警特效逐渐变亮。飞行循环保留两帧，但在两帧之间加位移拉伸（沿速度方向拉长 3–5%）。
-   - 收益：消除 78 个 2 帧循环的闪烁感。
+   - 收益：消除 94 个 2 帧循环的闪烁感。
 4. **走路播放速度跟随移动速度**
    - 改动：`walk` 的 `speed_scale` 按实际水平速度与该生物标称速度之比设置（限制在 0.6–1.4），减少滑步。主角跑步已经按距离驱动，可以照搬思路。
 
@@ -179,12 +182,14 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 ```
 HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=19 held_loops=['jump_loop', 'fall']
-ENEMY windup phases=114 effective_fps median=9.5 min=6.1 below_8=24
-ENEMY active phases=114 effective_fps median=16.7 min=5.7 below_8=4
-ENEMY recover phases=114 effective_fps median=8.0 min=3.5 below_8=27
-ENEMY loops=80 two_frame=78 two_frame_over_0.5s=14
+ENEMY sources species=46 encounter_overrides=8 phase_rows=390
+ENEMY windup phases=130 effective_fps median=9.5 min=6.1 below_8=26
+ENEMY active phases=130 effective_fps median=16.7 min=5.7 below_8=5
+ENEMY recover phases=130 effective_fps median=8.0 min=3.2 below_8=43
+ENEMY loops=96 two_frame=94 two_frame_over_0.5s=15
 ENEMY bridge_recoveries=20 stretched_recover_fps median=19.4 min=12.0 below_8=0
 ENEMY frame_change cycles=504 median idle=0.27 walk=0.34 windup=0.30 active=0.37 recover=0.31 shift_2px_reference=0.09 jumpy_over_0.5=107
+ENEMY handoff_seams=96 change median=0.36 max=0.71 jumpy_over_0.5=18
 ```
 
 其他参考：[Godot：物理插值简介](https://docs.godotengine.org/en/stable/tutorials/physics/interpolation/physics_interpolation_introduction.html)。

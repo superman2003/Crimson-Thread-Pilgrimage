@@ -7,17 +7,21 @@ Reads the runtime animation data the game actually loads and prints:
   timing (manifest fps, gameplay timers, or distance for run); fps and
   duration are reported only where the manifest fps is what plays
   (godot/assets/sprites/player/generated_hero_v3/manifest.json);
-- enemies: for every ordinary/elite command of every creature, the frames the
+- enemies: for every ordinary/elite command of every creature, plus the spawns
+  whose encounter_profile overrides attack timings, the frames the
   phase plays and the effective rate after enemy_actor._fit_animation_duration
   stretches them over the command's windup/active/recover time, plus the
-  phases that end in a short hold loop (POSE_LOOP_LEAD in enemy_actor.gd);
+  phases that end in a short hold loop (POSE_LOOP_LEAD in enemy_actor.gd), and
+  the cut from each main animation into its loop or bridge;
 - frame-to-frame change: how much of the silhouette differs between
   consecutive frames (1 - overlap / union of the alpha masks). Very small
   changes read as sliding or a frozen pose; very large ones as a jump (a limb
   or prop popping to a new place with nothing in between).
 
-It never fails; it records a baseline so art and engine changes can be
-compared. --sheets DIR also writes contact sheets of the worst cases.
+It does not judge pass or fail; it records a baseline so art and engine
+changes can be compared. --sheets DIR also writes contact sheets of the worst
+cases. The frame comparison needs Pillow and NumPy
+(tools/requirements-animation-audit.txt); --no-images skips it.
 """
 import argparse
 import functools
@@ -79,15 +83,29 @@ def creature_manifest(kind):
     return None
 
 
-def enemy_phases():
+def command_sources():
+    """(kind, source, commands): each species profile, then every spawn whose
+    encounter_profile replaces its attacks (enemy_actor.configure merges it
+    over the species profile, so those spawns run the encounter timings)."""
     combat = json.loads(COMBAT.read_text(encoding='utf-8'))
-    rows = []
     for kind, profile in combat.items():
+        yield kind, 'species', profile.get('attacks', []) + profile.get('elite', {}).get('attacks', [])
+    for path in sorted((GODOT / 'data').glob('demo_ch0*.json')):
+        level = json.loads(path.read_text(encoding='utf-8'))
+        for spawn in level.get('enemy_spawns', []):
+            encounter = spawn.get('encounter_profile', {})
+            if isinstance(encounter, dict) and encounter.get('attacks'):
+                yield spawn.get('kind', ''), '%s/%s' % (path.stem, spawn.get('id', '')), encounter['attacks']
+
+
+def enemy_phases():
+    rows = []
+    for kind, source, commands in command_sources():
         manifest = creature_manifest(kind)
         if manifest is None:
             continue
         anims = animations(manifest)
-        for command in profile.get('attacks', []) + profile.get('elite', {}).get('attacks', []):
+        for command in commands:
             for phase in ('windup', 'active', 'recover'):
                 name, loop = phase_animation(anims, command, phase)
                 anim = find(anims, name)
@@ -98,7 +116,7 @@ def enemy_phases():
                 handoff = bool(loop) and find(anims, loop) is not None and duration > LOOP_LEAD[phase] + 0.12
                 main = LOOP_LEAD[phase] if handoff else duration
                 follow_frames = len(find(anims, loop).get('frames', [])) if handoff else 0
-                row = {'kind': kind, 'command': command.get('id', ''), 'phase': phase, 'animation': name,
+                row = {'kind': kind, 'source': source, 'command': command.get('id', ''), 'phase': phase, 'animation': name,
                        'frames': frames, 'seconds': round(main, 3), 'effective_fps': round(frames / max(0.01, main), 1),
                        'loop': '', 'loop_frames': 0, 'loop_seconds': 0.0, 'bridge_to': '', 'bridge_fps': 0.0}
                 if handoff and loop == 'recover':
@@ -182,6 +200,20 @@ def frame_changes(phases):
     return rows
 
 
+def handoff_seams(phases):
+    """Main animation's last frame against the follow-up's first frame, the
+    cut the runtime shows when a long phase hands over to its loop or bridge."""
+    pairs = {(r['kind'], r['animation'], r['loop'] or r['bridge_to']) for r in phases if r['loop'] or r['bridge_to']}
+    rows = []
+    for kind, main, follow in sorted(pairs):
+        manifest = creature_manifest(kind)
+        anims = animations(manifest)
+        last = frame_images(manifest, {'frames': find(anims, main)['frames'][-1:]})[0]
+        first = frame_images(manifest, {'frames': find(anims, follow)['frames'][:1]})[0]
+        rows.append({'kind': kind, 'from': main, 'to': follow, 'change': round(change(mask(last), mask(first)), 3)})
+    return rows
+
+
 # player_controller._update_animation: these poses pause the sprite and pick
 # frames from gameplay timers (_pose_progress / _update_attack_pose), and run
 # from distance travelled; only the rest play at the manifest fps.
@@ -226,12 +258,15 @@ def write_sheets(directory, changes):
         sheet.convert('RGB').save(directory / f"{row['kind']}_{row['animation']}.png")
 
 
-def summary(hero, phases, changes):
+def summary(hero, phases, changes, seams):
     manifest = json.loads(HERO.read_text(encoding='utf-8'))
     distinct = len({frame for anim in manifest['animations'] for frame in anim.get('frames', [])})
     lines = ['HERO actions=%d frame_refs=%d distinct_images=%d timer_driven=%d held_loops=%s' % (
         len(hero), sum(r['frames'] for r in hero), distinct, sum(1 for r in hero if r['driver'] == 'gameplay_timer'),
         [r['animation'] for r in hero if r['loop'] and r['frames'] <= 2])]
+    lines.append('ENEMY sources species=%d encounter_overrides=%d phase_rows=%d' % (
+        len({r['kind'] for r in phases if r['source'] == 'species'}),
+        len({r['source'] for r in phases if r['source'] != 'species'}), len(phases)))
     for phase in ('windup', 'active', 'recover'):
         values = [r['effective_fps'] for r in phases if r['phase'] == phase]
         lines.append('ENEMY %s phases=%d effective_fps median=%.1f min=%.1f below_%d=%d' % (
@@ -250,6 +285,10 @@ def summary(hero, phases, changes):
         lines.append('ENEMY frame_change cycles=%d median %s shift_2px_reference=%.2f jumpy_over_%.1f=%d' % (
             len(changes), medians, statistics.median(r['shift_2px'] for r in changes), JUMP,
             sum(1 for r in changes if r['max_change'] > JUMP)))
+    if seams:
+        values = [r['change'] for r in seams]
+        lines.append('ENEMY handoff_seams=%d change median=%.2f max=%.2f jumpy_over_%.1f=%d' % (
+            len(values), statistics.median(values), max(values), JUMP, sum(1 for v in values if v > JUMP)))
     return lines
 
 
@@ -259,12 +298,22 @@ def main():
     parser.add_argument('--no-images', action='store_true', help='skip the pixel comparison (no Pillow needed)')
     parser.add_argument('--sheets', type=Path, help='write contact sheets of the stillest walks and jumpiest cycles here')
     args = parser.parse_args()
+    if not args.no_images:
+        try:
+            import numpy  # noqa: F401
+            import PIL  # noqa: F401
+        except ImportError as error:
+            print('audit_animation_smoothness: the frame comparison needs Pillow and NumPy (%s).\n'
+                  '  python3 -m pip install -r tools/requirements-animation-audit.txt\n'
+                  'or pass --no-images for the timing figures only.' % error, file=sys.stderr)
+            return 2
     hero, phases = hero_rows(), enemy_phases()
     changes = [] if args.no_images else frame_changes(phases)
-    for line in summary(hero, phases, changes):
+    seams = [] if args.no_images else handoff_seams(phases)
+    for line in summary(hero, phases, changes, seams):
         print(line)
     if args.json:
-        args.json.write_text(json.dumps({'hero': hero, 'enemy_phases': phases, 'frame_changes': changes},
+        args.json.write_text(json.dumps({'hero': hero, 'enemy_phases': phases, 'frame_changes': changes, 'handoff_seams': seams},
                                         ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if args.sheets and changes:
         write_sheets(args.sheets, changes)
