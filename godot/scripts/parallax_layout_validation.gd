@@ -134,6 +134,8 @@ func verify_sweep(level: Node, art: Node2D, id: String, tile: Vector2) -> void:
 			for gy in 7:
 				camera.global_position = low + (high - low) * Vector2(gx / 12.0, gy / 6.0)
 				camera.reset_smoothing()
+				# Each sample is an intentional cut, not travel between waypoints.
+				camera.reset_physics_interpolation()
 				camera.force_update_scroll()
 				await process_frame
 				var centre: Vector2 = level.to_local(camera.get_screen_center_position())
@@ -159,6 +161,9 @@ func verify_sweep(level: Node, art: Node2D, id: String, tile: Vector2) -> void:
 	root.size = VIEWS[0]
 	camera.top_level = saved[0]; camera.global_position = saved[1]; camera.position_smoothing_enabled = saved[2]
 	camera.limit_left = saved[3]; camera.limit_top = saved[4]; camera.limit_right = saved[5]; camera.limit_bottom = saved[6]
+	camera.reset_smoothing()
+	camera.reset_physics_interpolation()
+	camera.force_update_scroll()
 	level.set_process(true)
 	level.player.set_physics_process(true)
 	await frames(2)
