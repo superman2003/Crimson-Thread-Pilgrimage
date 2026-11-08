@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "key": "bellway_depart_jingle",
+  "model": "elevenlabs/music-v2.5",
+  "provider": "vercel_ai_gateway",
+  "submitted_at": "2026-11-07T16:01:59.007083+00:00",
+  "status": "generated_pending_listening",
+  "request": {
+    "text": "Compose original music for Crimson Thread Pilgrimage, a dark fairytale underground action-adventure. Natural acoustic instruments, expressive phrasing, clear voicing, transparent mix with space for gameplay sound effects. No imitation of existing music or named artists, no chiptune, EDM drops, trailer braams or mastering distortion. Shared original Silent Toll motif: D4 down to A3 then up to B-flat3, then a rest; leave it unresolved except in endings A and C. Crimson Thread countertheme: D4 leap to B-flat4, then A4 G4 F4 E4, in plucked timbres. A single short ascending bright bell-and-harp departure gesture D5-A5-B5 with a tiny rising mechanical swell. Compact clean game jingle, no introduction and no extra repeat. Strictly instrumental; NO vocals, humming, choir, lyrics, speech or narration. This is a complete one-shot cue: finish deliberately and let the last resonance decay within the duration. ",
+    "outputFormat": "mp3",
+    "providerOptions": {
+      "elevenlabs": {
+        "musicLengthMs": 4000,
+        "forceInstrumental": true
+      }
+    }
+  },
+  "response_ids": {
+    "x-vercel-id": "hnd1::syd1::wv4c4-1794067320545-d5fa5cc2d2fb"
+  },
+  "sha256": "d0185c9c3f13995c343c0db5dbbcd766393d4add1ce7b2579413381e56836212",
+  "bytes": 96592,
+  "completed_at": "2026-11-07T16:02:03.583461+00:00",
+  "warnings": [],
+  "error": "Decoded duration differs from request by more than two seconds",
+  "verification": {
+    "duration_seconds": 6.03425,
+    "codec": "mp3",
+    "sample_rate": 44100,
+    "channels": 2,
+    "decoded": true
+  },
+  "duration_edit_required": true,
+  "inspection_resolution": "Decoded master is valid; retain full master and trim/fade a four-second listening candidate offline. No second generation."
+}

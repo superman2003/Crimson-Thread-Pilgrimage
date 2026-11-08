@@ -72,6 +72,9 @@ def main():
         marker = r'^MUSIC_LAYER_TRANSITIONS checks=[1-9][0-9]* failures=0$'
         good = invoke(base + ['--script', 'res://scripts/music_layer_transition_validation.gd'], env,
                       args.log_dir / 'contracts.log', marker)
+        if good:
+            good = invoke(base + ['--script', 'res://scripts/ai_music_pack_validation.gd'], env,
+                          args.log_dir / 'ai-music-pack.log', r'^AI_MUSIC_PACK checks=[1-9][0-9]* failures=0$')
         return 0 if good else 1
 
 if __name__ == '__main__':

@@ -2239,10 +2239,10 @@
   },
   "mix_states": {
     "combat": {
-      "combat_layer": "chNN_<slug>_combat_layer.ogg stacked on the MusicCombat bus, 0.8 s in / 2.5 s out, suppressed during boss fights",
+      "combat_layer": "Independent encounter music on MusicCombat replaces paused exploration; 0.8 s in / 2.5 s out. CH06 ordinary combat is silent.",
       "Ambience": -6,
-      "ambience_note": "spec target; the current implementation stacks the combat stem only, the -6 dB ambience offset is not applied yet",
-      "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (0.25 s enemy-AI poll in main_level.gd::_update_audio_director_state, 2 s cooldown)"
+      "ambience_note": "Music switches between independent exploration and encounter cues; the optional -6 dB ambience offset is not applied.",
+      "implemented_in": "res://scripts/audio_director.gd::enter_combat (0.25 s enemy-AI polling, four-second calm window)"
     },
     "boss": {
       "Ambience": -12,
@@ -2291,27 +2291,13 @@
     }
   },
   "global_music": {
-    "note": "cross-chapter music from tools/generate_music_pack.py; wired entries run through AudioDirector, asset_ready entries have reserved play_stinger keys or pending mechanics",
+    "note": "Music v2.5 pack: six exploration cues, five independent encounter cues, six guardians, three Crown movements, six shrine lullabies, three endings, transit, two travel jingles and hidden drone. CH06 ordinary combat is silent.",
     "music_pack_summary": {
-      "generator": "tools/generate_music_pack.py",
-      "license": "project-generated (CC0)",
-      "format": "44.1 kHz mono synthesis -> OGG (ffmpeg -q:a 5); loops on integer-bar grids with equal-power crossfaded seams; deterministic per-file seeds, idempotent",
-      "wired_events": [
-        "ch02..ch06_<slug>_explore_loop (5, AudioDirector.set_chapter; ch01 keeps the Bread Adventure cave loop)",
-        "ch01..ch06_<slug>_combat_layer (6, enter_combat/exit_combat)",
-        "ch02..ch06_<slug>_boss_loop (5, start_boss_music; ch01 rust_crown_guardian keeps boss_rust_crown_loop.ogg)",
-        "boss_final_silent_crown_mvt1/2/3 (set_boss_phase)",
-        "ch01..ch06_<slug>_shrine_lullaby (6, start_lullaby/stop_lullaby)"
-      ],
-      "asset_ready_events": [
-        "ending_a_rebell",
-        "ending_b_severance",
-        "ending_c_reweave",
-        "bellway_transit_loop",
-        "bellway_depart_jingle",
-        "bellway_arrive_jingle",
-        "hidden_black_tide_drone"
-      ]
+      "generator": "tools/build_game_music_pack.py",
+      "license": "AI-generated output; distinct from retained CC0 synthesized fallback assets",
+      "format": "48 kHz stereo Vorbis; constant-gain category loudness and edited loop crossfades",
+      "runtime_tracks": 33,
+      "intentional_silence": 1
     },
     "boss_final_silent_crown": {
       "implemented_in": "res://scripts/audio_director.gd::set_boss_phase (hp thresholds 2/3 and 1/3 polled by main_level.gd::_update_boss_music_phase)",
@@ -2320,31 +2306,34 @@
           "key": "boss_final_silent_crown_mvt1",
           "kind": "boss_final_movement",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt1.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/boss_final_silent_crown_mvt1.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "final boss movement 1"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/boss_final_silent_crown_mvt1.mp3.receipt.json",
+          "description": "缄鸣三章 · 无声",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "boss_final_silent_crown_mvt2",
           "kind": "boss_final_movement",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt2.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/boss_final_silent_crown_mvt2.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "final boss movement 2"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/boss_final_silent_crown_mvt2.mp3.receipt.json",
+          "description": "缄鸣三章 · 万声",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "boss_final_silent_crown_mvt3",
           "kind": "boss_final_movement",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/boss_final_silent_crown_mvt3.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/boss_final_silent_crown_mvt3.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "final boss movement 3"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/boss_final_silent_crown_mvt3.mp3.receipt.json",
+          "description": "缄鸣三章 · 抉择",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         }
       ]
     },
@@ -2353,36 +2342,33 @@
         "key": "ending_a_rebell",
         "kind": "ending_full_track",
         "status": "wired",
-        "path": "res://assets/audio/bgm/generated/ending_a_rebell.ogg",
+        "path": "res://assets/audio/bgm/ai_generated/ending_a_rebell.ogg",
         "loop": false,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "ending A full cadence track (~50 s)",
-        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ending_a_rebell.mp3.receipt.json",
+        "description": "结局 A · 重鸣",
         "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       },
       {
         "key": "ending_b_severance",
         "kind": "ending_full_track",
         "status": "wired",
-        "path": "res://assets/audio/bgm/generated/ending_b_severance.ogg",
+        "path": "res://assets/audio/bgm/ai_generated/ending_b_severance.ogg",
         "loop": false,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "ending B full cadence track (~48 s)",
-        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ending_b_severance.mp3.receipt.json",
+        "description": "结局 B · 断冠",
         "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       },
       {
         "key": "ending_c_reweave",
         "kind": "ending_full_track",
         "status": "wired",
-        "path": "res://assets/audio/bgm/generated/ending_c_reweave.ogg",
+        "path": "res://assets/audio/bgm/ai_generated/ending_c_reweave.ogg",
         "loop": false,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "ending C full cadence track (~58 s)",
-        "wiring_note": "main_level.gd::_activate_ending_gate plays the short stinger, then this full track",
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ending_c_reweave.mp3.receipt.json",
+        "description": "结局 C · 绯线重织",
         "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       }
     ],
@@ -2391,51 +2377,49 @@
         "key": "bellway_transit_loop",
         "kind": "bellway_loop",
         "status": "wired",
-        "path": "res://assets/audio/bgm/generated/bellway_transit_loop.ogg",
+        "path": "res://assets/audio/bgm/ai_generated/bellway_transit_loop.ogg",
         "loop": true,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "bellway transit 3/8 allegro loop",
-        "wiring_note": "loops at -10 dB while the player is in a transit room, 1 s fade out on leaving",
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/bellway_transit_loop.mp3.receipt.json",
+        "description": "钟骨长梯 · 轻铃行旅",
         "implemented_in": "res://scripts/audio_director.gd::_update_transit_loop"
       },
       {
         "key": "bellway_depart_jingle",
         "kind": "bellway_jingle",
-        "status": "asset_ready",
-        "path": "res://assets/audio/bgm/generated/bellway_depart_jingle.ogg",
+        "status": "wired",
+        "path": "res://assets/audio/bgm/ai_generated/bellway_depart_jingle.ogg",
         "loop": false,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "bellway departure jingle (2.8 s)",
-        "wiring_note": "play_stinger(\"bellway_depart\") key reserved; bellway travel flow not implemented yet",
-        "reserved_in": "res://scripts/audio_director.gd::STINGER_TRACKS"
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/bellway_depart_jingle.mp3.receipt.json",
+        "description": "钟骨长梯 · 出发",
+        "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       },
       {
         "key": "bellway_arrive_jingle",
         "kind": "bellway_jingle",
-        "status": "asset_ready",
-        "path": "res://assets/audio/bgm/generated/bellway_arrive_jingle.ogg",
+        "status": "wired",
+        "path": "res://assets/audio/bgm/ai_generated/bellway_arrive_jingle.ogg",
         "loop": false,
-        "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-        "license": "project-generated (CC0)",
-        "description": "bellway arrival jingle (2.8 s)",
-        "wiring_note": "play_stinger(\"bellway_arrive\") key reserved; bellway travel flow not implemented yet",
-        "reserved_in": "res://scripts/audio_director.gd::STINGER_TRACKS"
+        "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+        "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/bellway_arrive_jingle.mp3.receipt.json",
+        "description": "钟骨长梯 · 到站",
+        "implemented_in": "res://scripts/audio_director.gd::play_stinger"
       }
     ],
     "hidden_black_tide_drone": {
       "key": "hidden_black_tide_drone",
       "kind": "drone_loop",
       "status": "wired",
-      "path": "res://assets/audio/bgm/generated/hidden_black_tide_drone.ogg",
+      "path": "res://assets/audio/bgm/ai_generated/hidden_black_tide_drone.ogg",
       "loop": true,
-      "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-      "license": "project-generated (CC0)",
-      "description": "hidden black-tide generative low drone",
-      "implemented_in": "res://scripts/audio_director.gd::set_hidden_zone (main_level.gd::_update_room_visit via _is_hidden_room)",
+      "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+      "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/hidden_black_tide_drone.mp3.receipt.json",
+      "description": "深井黑潮 · 水下低语",
+      "implemented_in": "res://scripts/audio_director.gd::set_hidden_zone",
       "note": "Ambience bus at -12 dB, 1.5 s in / 1.2 s out while the player is in a hidden_route_plan room; never restarts while staying hidden; region transitions stop it"
-    }
+    },
+    "ai_music_manifest": "res://assets/audio/bgm/ai_generated/music_pack.json"
   },
   "runtime_events": {
     "player_attack": {
@@ -2674,39 +2658,46 @@
       "music": [
         {
           "key": "ch01_cave_loop",
-          "status": "local_audio",
-          "path": "res://assets/audio/bgm/ch01_cave_loop.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0",
-          "note": "ch01 keeps the Bread Adventure cave loop by design (AudioDirector.set_chapter ch01 branch); loop now via stream.loop, manual finished-replay removed"
+          "status": "wired",
+          "path": "res://assets/audio/bgm/ai_generated/ch01_moss_explore_trial01_loop.ogg",
+          "recorded_source": "elevenlabs/music/v2.5 via fal.ai",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/trial_batch_20261107.json",
+          "note": "ch01 keeps the Bread Adventure cave loop by design (AudioDirector.set_chapter ch01 branch); loop now via stream.loop, manual finished-replay removed",
+          "loop": true,
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path",
+          "description": "苔钟庭 · 旧钟下的微光"
         },
         {
           "key": "ch01_boss_loop",
-          "status": "local_audio",
-          "path": "res://assets/audio/bgm/boss_rust_crown_loop.ogg",
-          "recorded_source": "Bread Adventure",
-          "license": "Apache-2.0",
-          "note": "rust_crown_guardian keeps boss_rust_crown_loop.ogg in AudioDirector.start_boss_music"
+          "status": "wired",
+          "path": "res://assets/audio/bgm/ai_generated/ch01_moss_boss_trial01_loop.ogg",
+          "recorded_source": "elevenlabs/music/v2.5 via fal.ai",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/trial_batch_20261107.json",
+          "note": "rust_crown_guardian keeps boss_rust_crown_loop.ogg in AudioDirector.start_boss_music",
+          "loop": true,
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music",
+          "description": "苔钟守母 · 铜钟与针锋"
         },
         {
           "key": "ch01_moss_bell_court_combat_layer",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_combat_layer.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch01_moss_bell_court_combat_layer.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "苔钟庭 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch01_moss_bell_court_combat_layer.mp3.receipt.json",
+          "description": "苔钟庭 · 战斗层候选",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat",
+          "note": "Independent encounter cue replaces paused exploration; no sustained layering or synchronization claim."
         },
         {
           "key": "ch01_moss_bell_court_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch01_moss_bell_court_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch01_moss_bell_court_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "苔钟庭 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch01_moss_bell_court_shrine_lullaby.mp3.receipt.json",
+          "description": "苔钟庭 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [
@@ -2777,42 +2768,43 @@
         {
           "key": "ch02_rain_foundry_canal_explore_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_explore_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch02_rain_foundry_canal_explore_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "铸雨渠 exploration ambience",
-          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch02_rain_foundry_canal_explore_loop.mp3.receipt.json",
+          "description": "铸雨渠 · 探索",
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path"
         },
         {
           "key": "ch02_rain_foundry_canal_combat_layer",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_combat_layer.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch02_rain_foundry_canal_combat_layer.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "铸雨渠 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch02_rain_foundry_canal_combat_layer.mp3.receipt.json",
+          "description": "铸雨渠 · 战斗层候选",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat",
+          "note": "Independent encounter cue replaces paused exploration; no sustained layering or synchronization claim."
         },
         {
           "key": "ch02_rain_foundry_canal_boss_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_boss_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch02_rain_foundry_canal_boss_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "铸雨渠 boss loop",
-          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch02_rain_foundry_canal_boss_loop_replacement_20261108.mp3.receipt.json",
+          "description": "绯线执剪者 · 双剪断誓",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "ch02_rain_foundry_canal_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch02_rain_foundry_canal_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch02_rain_foundry_canal_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "铸雨渠 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch02_rain_foundry_canal_shrine_lullaby.mp3.receipt.json",
+          "description": "铸雨渠 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [
@@ -2892,42 +2884,43 @@
         {
           "key": "ch03_saltwhite_archive_explore_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_explore_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch03_saltwhite_archive_explore_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "盐白书库 exploration ambience",
-          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch03_saltwhite_archive_explore_loop.mp3.receipt.json",
+          "description": "盐白书库 · 探索",
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path"
         },
         {
           "key": "ch03_saltwhite_archive_combat_layer",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_combat_layer.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch03_saltwhite_archive_combat_layer.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "盐白书库 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch03_saltwhite_archive_combat_layer.mp3.receipt.json",
+          "description": "盐白书库 · 战斗层候选",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat",
+          "note": "Independent encounter cue replaces paused exploration; no sustained layering or synchronization claim."
         },
         {
           "key": "ch03_saltwhite_archive_boss_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_boss_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch03_saltwhite_archive_boss_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "盐白书库 boss loop",
-          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch03_saltwhite_archive_boss_loop.mp3.receipt.json",
+          "description": "灰冠螳将 · 复写的军役",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "ch03_saltwhite_archive_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch03_saltwhite_archive_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch03_saltwhite_archive_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "盐白书库 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch03_saltwhite_archive_shrine_lullaby.mp3.receipt.json",
+          "description": "盐白书库 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [
@@ -3007,42 +3000,43 @@
         {
           "key": "ch04_broken_string_greenhouse_explore_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_explore_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch04_greenhouse_explore_trial01_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "断弦温室 exploration ambience",
-          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+          "recorded_source": "elevenlabs/music/v2.5 via fal.ai",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/trial_batch_20261107.json",
+          "description": "断弦温室 · 藤影与残弦",
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path"
         },
         {
           "key": "ch04_broken_string_greenhouse_combat_layer",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_combat_layer.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch04_broken_string_greenhouse_combat_layer.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "断弦温室 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch04_broken_string_greenhouse_combat_layer.mp3.receipt.json",
+          "description": "断弦温室 · 战斗层候选",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat",
+          "note": "Independent encounter cue replaces paused exploration; no sustained layering or synchronization claim."
         },
         {
           "key": "ch04_broken_string_greenhouse_boss_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_boss_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch04_broken_string_greenhouse_boss_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "断弦温室 boss loop",
-          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch04_broken_string_greenhouse_boss_loop.mp3.receipt.json",
+          "description": "铜根主教 · 根上帕萨卡利亚",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "ch04_broken_string_greenhouse_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch04_broken_string_greenhouse_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "断弦温室 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch04_broken_string_greenhouse_shrine_lullaby.mp3.receipt.json",
+          "description": "断弦温室 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [
@@ -3121,42 +3115,43 @@
         {
           "key": "ch05_obsidian_pilgrim_road_explore_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_explore_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch05_obsidian_pilgrim_road_explore_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "黑曜巡礼道 exploration ambience",
-          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch05_obsidian_pilgrim_road_explore_loop.mp3.receipt.json",
+          "description": "黑曜巡礼道 · 探索",
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path"
         },
         {
           "key": "ch05_obsidian_pilgrim_road_combat_layer",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_combat_layer.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch05_obsidian_pilgrim_road_combat_layer.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "黑曜巡礼道 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch05_obsidian_pilgrim_road_combat_layer.mp3.receipt.json",
+          "description": "黑曜巡礼道 · 战斗层候选",
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat",
+          "note": "Independent encounter cue replaces paused exploration; no sustained layering or synchronization claim."
         },
         {
           "key": "ch05_obsidian_pilgrim_road_boss_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_boss_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch05_obsidian_pilgrim_road_boss_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "黑曜巡礼道 boss loop",
-          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch05_obsidian_pilgrim_road_boss_loop.mp3.receipt.json",
+          "description": "镜池新娘 · 破镜圆舞曲",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music"
         },
         {
           "key": "ch05_obsidian_pilgrim_road_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch05_obsidian_pilgrim_road_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "黑曜巡礼道 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch05_obsidian_pilgrim_road_shrine_lullaby.mp3.receipt.json",
+          "description": "黑曜巡礼道 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [
@@ -3237,43 +3232,44 @@
         {
           "key": "ch06_silent_crown_core_explore_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_explore_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch06_silent_crown_core_explore_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "无声王冠 exploration ambience",
-          "implemented_in": "res://scripts/audio_director.gd::set_chapter"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch06_silent_crown_core_explore_loop.mp3.receipt.json",
+          "description": "无声王冠 · 探索",
+          "implemented_in": "res://scripts/audio_director.gd::_explore_track_path"
         },
         {
           "key": "ch06_silent_crown_core_combat_layer",
-          "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_combat_layer.ogg",
-          "loop": true,
+          "status": "intentional_silence",
+          "path": "",
+          "loop": false,
           "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
           "license": "project-generated (CC0)",
           "description": "无声王冠 combat layer stem (same tempo as explore loop)",
-          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)"
+          "implemented_in": "res://scripts/audio_director.gd::enter_combat/exit_combat (polled by main_level.gd::_update_audio_director_state)",
+          "note": "Spec section 2.7: ordinary encounters remove music entirely."
         },
         {
           "key": "ch06_silent_crown_core_boss_loop",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_boss_loop.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch06_silent_crown_core_boss_loop.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "无声王冠 boss loop",
-          "implemented_in": "res://scripts/audio_director.gd::start_boss_music (from main_level.gd::_spawn_boss)",
-          "note": "regular ch06 boss loop; the final boss silent_crown_core uses the three-movement set in global_music.boss_final_silent_crown instead"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch06_silent_crown_core_boss_loop.mp3.receipt.json",
+          "description": "百钥看门人 · 六城点名",
+          "implemented_in": "res://scripts/audio_director.gd::start_boss_music",
+          "note": "Eight-second roll-call entrance of the shared sixth-guardian/final-Crown runtime actor, followed by movement I; phase II/III can interrupt it."
         },
         {
           "key": "ch06_silent_crown_core_shrine_lullaby",
           "status": "wired",
-          "path": "res://assets/audio/bgm/generated/ch06_silent_crown_core_shrine_lullaby.ogg",
+          "path": "res://assets/audio/bgm/ai_generated/ch06_silent_crown_core_shrine_lullaby.ogg",
           "loop": true,
-          "recorded_source": "Crimson Thread synthesized music pack (tools/generate_music_pack.py, deterministic offline synthesis, ffmpeg OGG encode)",
-          "license": "project-generated (CC0)",
-          "description": "无声王冠 shrine lullaby (D-A-B natural motif)",
-          "implemented_in": "res://scripts/audio_director.gd::start_lullaby (from main_level.gd::_activate_save_point; auto-stop when walking >150 px away)"
+          "recorded_source": "elevenlabs/music-v2.5 via Vercel AI Gateway",
+          "license": "AI-generated output; original generation provenance retained in art_requests/ai_music_v1/vercel_pack_20261107/incoming/ch06_silent_crown_core_shrine_lullaby.mp3.receipt.json",
+          "description": "无声王冠 · 龛中眠",
+          "implemented_in": "res://scripts/audio_director.gd::start_lullaby"
         }
       ],
       "beats": [

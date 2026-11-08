@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "date": "2026-11-07",
+  "status": "approved_and_wired",
+  "provider": "elevenlabs/music/v2.5 via fal.ai",
+  "generation_receipt": "art_requests/ai_music_v1/trial_batch_20261107.json",
+  "loop_edit": {
+    "overlap_seconds": 3.0,
+    "curve": "equal-power",
+    "target_lufs": -18,
+    "target_dbtp": -2
+  },
+  "mix_policy": "CH01/CH04 full mixes continue through ordinary combat without the unrelated old stems. Boss and shrine transitions retain their existing envelopes.",
+  "entries": [
+    {
+      "id": "ch01_moss_explore_trial01",
+      "title": "苔钟庭 · 旧钟下的微光",
+      "role": "exploration",
+      "source": "art_requests/ai_music_v1/incoming/ch01_moss_explore_trial01.mp3",
+      "source_sha256": "e0e54f093b683df6cdf31b141149ab5c962138f774bb5a2fc99ee54c4e351d82",
+      "runtime": "res://assets/audio/bgm/ai_generated/ch01_moss_explore_trial01_loop.ogg",
+      "sha256": "04afdf49ae9e27d8459e9c6fe792ddadd240da195d4aba8f121bb8dfb3ca883a",
+      "duration_seconds": 117.024,
+      "gain_db": -5.550000000000001,
+      "integrated_lufs": -17.96,
+      "true_peak_dbtp": -6.39
+    },
+    {
+      "id": "ch04_greenhouse_explore_trial01",
+      "title": "断弦温室 · 藤影与残弦",
+      "role": "exploration",
+      "source": "art_requests/ai_music_v1/incoming/ch04_greenhouse_explore_trial01.mp3",
+      "source_sha256": "b98ab20fd709140259eef3f75ac631b4363ca8362569d3ff5d4ac780a222dd93",
+      "runtime": "res://assets/audio/bgm/ai_generated/ch04_greenhouse_explore_trial01_loop.ogg",
+      "sha256": "608df69ef674dfc7122e0b483af8da5b2a0ed2445c698c7488c4a3a8f328d950",
+      "duration_seconds": 117.024,
+      "gain_db": -0.48,
+      "integrated_lufs": -18.5,
+      "true_peak_dbtp": -1.98
+    },
+    {
+      "id": "ch01_moss_boss_trial01",
+      "title": "苔钟守母 · 铜钟与针锋",
+      "role": "boss_battle",
+      "source": "art_requests/ai_music_v1/incoming/ch01_moss_boss_trial01.mp3",
+      "source_sha256": "861b670a40545fe1e6462c20d51c33cd3c6e5f66985ffff37a70569e972cdeab",
+      "runtime": "res://assets/audio/bgm/ai_generated/ch01_moss_boss_trial01_loop.ogg",
+      "sha256": "9f6ee54392e0942cfcdc46091f0a80045caf38bcdfd1492279d61a5f0d7186d3",
+      "duration_seconds": 117.024,
+      "gain_db": -4.57,
+      "integrated_lufs": -18.01,
+      "true_peak_dbtp": -4.61
+    }
+  ]
+}

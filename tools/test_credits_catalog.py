@@ -4,6 +4,7 @@ from pathlib import Path
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from build_credits_catalog import build, synchronize, OUTPUT, MAX_DOCUMENT
 
 
@@ -35,6 +36,19 @@ class CreditsCatalogTests(unittest.TestCase):
         self.assertGreaterEqual(len(errors), 2)
         synchronize(self.root, False)
         self.assertEqual(synchronize(self.root, True), [])
+
+    def test_windows_and_linux_notice_order_generate_identical_bytes(self):
+        for name in ['godot/assets/NOTICE.md', 'godot/assets/audio/License.txt']:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text('Retained original terms\n', encoding='utf-8')
+        documents = [self.root / name for name in ['LICENSE', 'THIRD_PARTY_NOTICES.md',
+                     'godot/assets/NOTICE.md', 'godot/assets/audio/License.txt']]
+        with patch('build_credits_catalog.notice_files', return_value=sorted(documents, key=lambda p: str(p).casefold())):
+            windows = build(self.root)
+        with patch('build_credits_catalog.notice_files', return_value=sorted(documents, key=lambda p: p.as_posix())):
+            linux = build(self.root)
+        self.assertEqual(windows, linux)
 
     def test_runtime_notices_included_but_development_notices_excluded(self):
         for folder in ['assets/fonts', 'addons/Plugin', 'tools', '.godot']:
