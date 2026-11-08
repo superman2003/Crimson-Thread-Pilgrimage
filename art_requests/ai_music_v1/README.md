@@ -1,4 +1,4 @@
-# Approved music trial — implemented 2026-11-07
+# Music v2.5 — fully integrated 2026-11-08
 
 ## Full runtime pack
 
@@ -6,7 +6,7 @@ The user requested full integration and a PR on 2026-11-08. All 30 new cues
 are generated, including the explicitly authorized replacement for the one
 ambiguous disconnected Boss request; the original receipt is retained.
 Together with three existing approved cues, 33 audio files cover 34 roles.
-CH06 ordinary combat intentionally removes music per specification ?2.7.
+CH06 ordinary combat intentionally removes music per specification section 2.7.
 
 The runtime [music_pack.json](../../godot/assets/audio/bgm/ai_generated/music_pack.json)
 records every path, loop flag, duration, source/target hash and generation receipt.
