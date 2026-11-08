@@ -3,17 +3,15 @@ extends Node2D
 ## available for ghosts/export; ordinary grounded running uses the actual phase.
 const GAIT := preload("res://scripts/grounded_run_cycle.gd")
 const FOLDER := "res://assets/sprites/player/grounded_run_v1/"
-const BODY := "res://assets/sprites/player/generated_hero_motion_v4/runtime_run/run_00.png"
-const MASK := preload("res://shaders/presentation_mask.gdshader")
 const PART_SHADER := preload("res://shaders/grounded_run_part.gdshader")
 var source_sprite: AnimatedSprite2D
 var composition: Node2D
 var body: Sprite2D
+var upper_frames: Array[Texture2D] = []
 var legs: Array[Dictionary] = []
 var pose: Dictionary = {}
 var active := false
 var _saved_material: Material
-var _saved_use_parent := false
 var _materials: Array[ShaderMaterial] = []
 
 static func image_texture(path: String) -> Texture2D:
@@ -31,9 +29,13 @@ func setup() -> bool:
     if composition != null:
         return true
     var atlas := image_texture(FOLDER + "source/rig_parts.png")
-    var body_texture := image_texture(BODY)
-    if atlas == null or body_texture == null:
+    if atlas == null:
         return false
+    for index in 16:
+        var frame := image_texture(FOLDER + "upper/upper_%02d.png" % index)
+        if frame == null:
+            return false
+        upper_frames.append(frame)
     var regions: Array = JSON.parse_string(FileAccess.get_file_as_string(FOLDER + "source/part_regions.json")).regions
     composition = Node2D.new()
     composition.position = Vector2(-192, -192)
@@ -41,12 +43,13 @@ func setup() -> bool:
     legs.append(_make_leg(atlas, regions, false))
     legs.append(_make_leg(atlas, regions, true))
     body = Sprite2D.new()
-    body.texture = body_texture
+    body.texture = upper_frames[0]
     body.centered = false
     body.z_index = 20
     var material := ShaderMaterial.new()
     material.shader = PART_SHADER
     material.set_shader_parameter("upper_body", true)
+    material.set_shader_parameter("drawn_upper", true)
     body.material = material
     _materials.append(material)
     composition.add_child(body)
@@ -56,7 +59,9 @@ func attach(target: AnimatedSprite2D) -> bool:
     if source_sprite != null or not setup():
         return false
     source_sprite = target
-    target.add_child(self)
+    # Keep the original AnimatedSprite2D free of overlays. This sibling adopts
+    # its exact transform only while running; idle/action ownership stays clear.
+    target.get_parent().add_child(self)
     visible = false
     return true
 
@@ -102,7 +107,8 @@ func _make_leg(atlas: Texture2D, regions: Array, near: bool) -> Dictionary:
 
 func apply_pose(phase: float, art_scale: float = 0.66, slope: float = 0.0) -> void:
     pose = GAIT.sample(phase, art_scale, slope)
-    body.position = Vector2(0, -9) + (pose.hip - GAIT.HIP)
+    body.texture = upper_frames[posmod(int(floor(phase * 16.0)), 16)]
+    body.position = pose.hip - GAIT.HIP
     for leg in legs:
         var points: Dictionary = pose.near if leg.near else pose.far
         var thigh: Sprite2D = leg.thigh
@@ -122,23 +128,33 @@ func sync(phase: float, slope: float = 0.0) -> void:
         return
     if source_sprite.animation != &"run":
         if active:
-            source_sprite.material = _saved_material
-            source_sprite.use_parent_material = _saved_use_parent
+            if _saved_material is ShaderMaterial:
+                _saved_material.set_shader_parameter("hide_source", false)
         active = false
         visible = false
         return
     if not active:
         _saved_material = source_sprite.material
-        _saved_use_parent = source_sprite.use_parent_material
-        var mask := ShaderMaterial.new()
-        mask.shader = MASK
-        source_sprite.material = mask
-        source_sprite.use_parent_material = false
+    if _saved_material is ShaderMaterial:
+        _saved_material.set_shader_parameter("hide_source", true)
     active = true
     visible = true
-    scale = Vector2(-1 if source_sprite.flip_h else 1, -1 if source_sprite.flip_v else 1)
-    position = source_sprite.offset
+    transform = source_sprite.transform
+    scale *= Vector2(-1 if source_sprite.flip_h else 1, -1 if source_sprite.flip_v else 1)
+    position += source_sprite.transform.basis_xform(source_sprite.offset)
+    modulate = source_sprite.modulate
     apply_pose(phase, absf(source_sprite.scale.x), slope)
+    _sync_materials()
+
+func _process(_delta: float) -> void:
+    if active:
+        _sync_materials()
+
+func _exit_tree() -> void:
+    if _saved_material is ShaderMaterial:
+        _saved_material.set_shader_parameter("hide_source", false)
+
+func _sync_materials() -> void:
     for material in _materials:
         if _saved_material is ShaderMaterial:
             for key in ["presentation_alpha", "flash_amount", "flash_color"]:

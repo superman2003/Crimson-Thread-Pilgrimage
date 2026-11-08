@@ -1,5 +1,6 @@
 shader_type canvas_item;
 uniform bool upper_body = false;
+uniform bool drawn_upper = false;
 uniform bool clean_caps = false;
 uniform vec4 region = vec4(0.0, 0.0, 1.0, 1.0);
 uniform float phase = 0.0;
@@ -9,7 +10,7 @@ uniform float flash_amount = 0.0;
 uniform vec4 flash_color : source_color = vec4(1.0);
 void fragment() {
     vec2 uv = UV;
-    if (upper_body) {
+    if (upper_body && !drawn_upper) {
         float cloth = 1.0 - smoothstep(166.0, 190.0, UV.x * 384.0);
         uv.y += sin(phase * 6.2831853 + UV.x * 24.0) * cloth * 0.002;
     }
@@ -24,7 +25,7 @@ void fragment() {
             tex.rgb = texture(TEXTURE, region.xy + vec2(cell.x, sample_y) * region.zw).rgb;
         }
     }
-    if (upper_body) {
+    if (upper_body && !drawn_upper) {
         vec2 p = uv * 384.0;
         // Follow the tunic hem around the pelvis instead of a rectangular cut.
         float hem = p.x < 174.0 ? 253.0 : (p.x < 185.0 ? 246.0 : (p.x < 205.0 ? 243.0 : 241.0));

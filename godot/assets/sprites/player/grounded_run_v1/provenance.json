@@ -8,9 +8,13 @@
   "upper_body_reference": "res://assets/sprites/player/generated_hero_motion_v4/runtime_run/run_00.png",
   "production_renderer": "res://scripts/grounded_run_presentation.gd",
   "gait": "res://scripts/grounded_run_cycle.gd",
-  "cycle_distance_world": 95,
-  "stance_fraction": 0.38,
+  "cycle_distance_world": 125,
+  "stance_fraction": 0.34,
   "display_scale": 0.66,
   "baked_fallback_frames": 24,
-  "continuous_phase": true
+  "continuous_phase": true,
+  "upper_body_keyframes": 16,
+  "upper_body_recipe": "upper_body_generation.json",
+  "weight_transfer_keys": "impact -> compression -> passing -> push -> toe-off -> flight -> descent",
+  "foot_contact": "heel -> flat sole -> toe; each contact point is pinned to world travel"
 }
