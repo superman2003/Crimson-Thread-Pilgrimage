@@ -12,7 +12,8 @@ SUITES=['hero_animation','grounded_run','player_motion_continuity','player_idle_
         'character_art_prewarm','player_basic_attack_vfx','player_melee_feedback',
         'player_hook_art','player_dash_art','player_hurt_art','player_heal_art',
         'player_guard_art','player_ability_art','player_contact_art','seal_combat',
-        'combat_visual_budget','ability_movement','camera_focus','room_camera_stability']
+        'combat_visual_budget','ability_movement','camera_focus','room_camera_stability',
+        'audio_construction','audio_retirement','ai_music_pack']
 CLOCKED={'grounded_run','player_motion_continuity','player_idle_motion','character_art_prewarm',
          'player_basic_attack_vfx','player_melee_feedback','player_contact_art','ability_movement',
          'camera_focus','room_camera_stability'}

@@ -450,14 +450,18 @@ static func _wav_frame_count(wav: AudioStreamWAV) -> int:
     return wav.data.size() / (bytes_per_sample * channels)
 
 
-## 音频加载沿用直读惯例（无 .import，headless 安全）。仅供 load_cached 内部使用。
+## Source projects keep direct decoding. Exports may only retain an imported
+## remap: load that without the shared Resource cache, so looped/non-looped
+## callers still own different mutable stream flags.
 static func _load_stream(path: String) -> AudioStream:
-    if path.is_empty() or not FileAccess.file_exists(path):
+    if path.is_empty() or (not path.ends_with(".ogg") and not path.ends_with(".wav")):
         return null
-    if path.ends_with(".ogg"):
-        return AudioStreamOggVorbis.load_from_file(path)
-    if path.ends_with(".wav"):
+    if FileAccess.file_exists(path):
+        if path.ends_with(".ogg"):
+            return AudioStreamOggVorbis.load_from_file(path)
         return AudioStreamWAV.load_from_file(path)
+    if ResourceLoader.exists(path, "AudioStream"):
+        return ResourceLoader.load(path, "AudioStream", ResourceLoader.CACHE_MODE_IGNORE) as AudioStream
     return null
 
 

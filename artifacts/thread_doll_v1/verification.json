@@ -6,7 +6,8 @@
     "godot/scripts/thread_doll_run_cycle.gd": "97413ac3facc84d69aa2b6aec50208e4804713827e470afe3e82e59c7bebb595",
     "godot/scripts/thread_doll_run_presentation.gd": "d77094906ee577d8552bb3bef84ce51f96c69f6f88cba841594359303a0df8cc",
     "godot/assets/sprites/player/thread_doll_v1/manifest.json": "0a359d28c4b64518635f1b0d8bc48a471f87a132095d6d85d9269760e386dcad",
-    "tools/build_thread_doll.py": "0ef63f3c14128c356de7b1e789b71e67bd0d10955642cedae04e7674d55583d5"
+    "tools/build_thread_doll.py": "0ef63f3c14128c356de7b1e789b71e67bd0d10955642cedae04e7674d55583d5",
+    "godot/scripts/audio_director.gd": "b47b2b5090aa6c156a24fab0a4690d70bb409f8ec3f379c48ff661bc07781a65"
   },
   "results": [
     {
@@ -103,8 +104,24 @@
       "suite": "character_art_prewarm",
       "passed": true,
       "marker": "CHARACTER_ART_PREWARM checks=862 failures=0 sync_loads=0"
+    },
+    {
+      "suite": "audio_construction",
+      "passed": true,
+      "marker": "AUDIO_CONSTRUCTION checks=252 failures=0"
+    },
+    {
+      "suite": "audio_retirement",
+      "passed": true,
+      "marker": "AUDIO RETIREMENT PASS: WAV/UI and Ogg BGM/ambience/UI playback/cache retirement, failures=0"
+    },
+    {
+      "suite": "ai_music_pack",
+      "passed": true,
+      "marker": "AI_MUSIC_PACK checks=200 failures=0"
     }
   ],
   "pack_probe": "THREAD_DOLL_PACK actions=32 retired_human_assets=0 failures=0",
+  "pack_world_probe": "THREAD_DOLL_PACK_WORLD ready=true actions=32 audio=true failures=0",
   "capture": "480 gameplay frames at fixed 60Hz; 516 manual gallery frames, encoded at24fps for inspection; not a frame-time benchmark"
 }
