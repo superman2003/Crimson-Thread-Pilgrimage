@@ -49,7 +49,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 |---|---|---|---|
 | idle | 8 | 按 5fps 播放 | 每帧 0.2 秒，呼吸动作有颗粒感 |
 | run | 8 | 按移动距离驱动 | 步幅和速度已经对上，问题不在节奏 |
-| attack_1 / air_attack / down_attack 等攻击 | 6 | 按攻击计时选帧 | `_update_attack_pose` 暂停播放、按前摇/判定/收招进度选帧，各 2 帧；普通攻击整段约 0.34–0.48 秒，随攻速变化。manifest 里写的 fps 运行时不用 |
+| attack_1 / air_attack / down_attack 等攻击、技能与王冠共鸣 | 6 | 按攻击计时选帧 | `_update_attack_pose` 暂停播放、按前摇/判定/收招进度选帧，各 2 帧；普通攻击整段约 0.34–0.48 秒，随攻速变化。manifest 里写的 fps 运行时不用 |
 | jump_start / land | 4 | 起跳按 36fps；落地按 0.14 秒计时选帧 | 起跳和落地已经有过渡 |
 | jump_loop / fall | **2** | 按 8fps 播放 | 空中只在两张图之间来回切 |
 | 转身 | 无 | — | `sprite.flip_h` 当帧翻转 |
@@ -181,7 +181,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 ## 附：工具输出（基线）
 
 ```
-HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=19 held_loops=['jump_loop', 'fall']
+HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=20 held_loops=['jump_loop', 'fall']
 ENEMY sources species=46 encounter_overrides=8 phase_rows=390
 ENEMY windup phases=130 effective_fps median=9.5 min=6.1 below_8=26
 ENEMY active phases=130 effective_fps median=16.7 min=5.7 below_8=5

@@ -217,7 +217,7 @@ def handoff_seams(phases):
 # player_controller._update_animation: these poses pause the sprite and pick
 # frames from gameplay timers (_pose_progress / _update_attack_pose), and run
 # from distance travelled; only the rest play at the manifest fps.
-HERO_TIMER_DRIVEN = {'heal', 'guard', 'hook_throw', 'dash', 'land', 'item_use', 'skill_wave', 'skill_control',
+HERO_TIMER_DRIVEN = {'heal', 'guard', 'hook_throw', 'dash', 'land', 'item_use', 'resonance', 'skill_wave', 'skill_control',
                      'skill_melee', 'skill_projectile', 'skill_defense', 'attack_1', 'attack_2', 'air_attack',
                      'down_attack', 'ground_down_attack', 'up_attack', 'air_up_attack', 'run_attack'}
 
