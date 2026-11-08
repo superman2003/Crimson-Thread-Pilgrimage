@@ -3,7 +3,9 @@
 
 Reads the runtime animation data the game actually loads and prints:
 
-- hero: frames, distinct images, fps and duration per action
+- hero: frames per action, distinct images, and what drives each action's
+  timing (manifest fps, gameplay timers, or distance for run); fps and
+  duration are reported only where the manifest fps is what plays
   (godot/assets/sprites/player/generated_hero_v3/manifest.json);
 - enemies: for every ordinary/elite command of every creature, the frames the
   phase plays and the effective rate after enemy_actor._fit_animation_duration
@@ -180,14 +182,29 @@ def frame_changes(phases):
     return rows
 
 
+# player_controller._update_animation: these poses pause the sprite and pick
+# frames from gameplay timers (_pose_progress / _update_attack_pose), and run
+# from distance travelled; only the rest play at the manifest fps.
+HERO_TIMER_DRIVEN = {'heal', 'guard', 'hook_throw', 'dash', 'land', 'item_use', 'skill_wave', 'skill_control',
+                     'skill_melee', 'skill_projectile', 'skill_defense', 'attack_1', 'attack_2', 'air_attack',
+                     'down_attack', 'ground_down_attack', 'up_attack', 'air_up_attack', 'run_attack'}
+
+
 def hero_rows():
     manifest = json.loads(HERO.read_text(encoding='utf-8'))
     rows = []
     for anim in manifest['animations']:
         frames = anim.get('frames', [])
+        name = anim['name']
+        driver = 'gameplay_timer' if name in HERO_TIMER_DRIVEN else ('distance' if name == 'run' else 'manifest_fps')
         fps = float(anim.get('fps', 8))
-        rows.append({'animation': anim['name'], 'frames': len(frames), 'distinct': len(set(frames)),
-                     'fps': fps, 'seconds': round(len(frames) / fps, 2), 'loop': bool(anim.get('loop', False))})
+        row = {'animation': name, 'frames': len(frames), 'driver': driver, 'loop': bool(anim.get('loop', False))}
+        if driver == 'manifest_fps':
+            row.update(fps=fps, seconds=round(len(frames) / fps, 2))
+        else:
+            # Authored metadata only: runtime timing comes from the driver.
+            row.update(authored_fps=fps)
+        rows.append(row)
     return rows
 
 
@@ -212,8 +229,8 @@ def write_sheets(directory, changes):
 def summary(hero, phases, changes):
     manifest = json.loads(HERO.read_text(encoding='utf-8'))
     distinct = len({frame for anim in manifest['animations'] for frame in anim.get('frames', [])})
-    lines = ['HERO actions=%d frame_refs=%d distinct_images=%d held_loops=%s' % (
-        len(hero), sum(r['frames'] for r in hero), distinct,
+    lines = ['HERO actions=%d frame_refs=%d distinct_images=%d timer_driven=%d held_loops=%s' % (
+        len(hero), sum(r['frames'] for r in hero), distinct, sum(1 for r in hero if r['driver'] == 'gameplay_timer'),
         [r['animation'] for r in hero if r['loop'] and r['frames'] <= 2])]
     for phase in ('windup', 'active', 'recover'):
         values = [r['effective_fps'] for r in phases if r['phase'] == phase]

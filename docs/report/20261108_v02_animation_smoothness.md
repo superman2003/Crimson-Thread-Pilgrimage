@@ -44,13 +44,13 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 ### B. 主角
 
-| 动作 | 帧数 | fps | 说明 |
+| 动作 | 帧数 | 计时方式 | 说明 |
 |---|---|---|---|
-| idle | 8 | 5 | 每帧 0.2 秒，呼吸动作有颗粒感 |
+| idle | 8 | 按 5fps 播放 | 每帧 0.2 秒，呼吸动作有颗粒感 |
 | run | 8 | 按移动距离驱动 | 步幅和速度已经对上，问题不在节奏 |
-| attack_1 / air_attack / down_attack | 6 | 10 | 进度由战斗逻辑驱动（`_update_attack_pose`） |
-| jump_start / land | 4 | 36 / 29 | 起跳和落地已经有过渡 |
-| jump_loop / fall | **2** | 8 | 空中只在两张图之间来回切 |
+| attack_1 / air_attack / down_attack 等攻击 | 6 | 按攻击计时选帧 | `_update_attack_pose` 暂停播放、按前摇/判定/收招进度选帧，各 2 帧；普通攻击整段约 0.34–0.48 秒，随攻速变化。manifest 里写的 fps 运行时不用 |
+| jump_start / land | 4 | 起跳按 36fps；落地按 0.14 秒计时选帧 | 起跳和落地已经有过渡 |
+| jump_loop / fall | **2** | 按 8fps 播放 | 空中只在两张图之间来回切 |
 | 转身 | 无 | — | `sprite.flip_h` 当帧翻转 |
 
 - 共 31 个动作、162 个帧引用、154 张不同的图（`jump_start` 与 `land` 复用了 `jump` 与 `landing` 的图）。
@@ -60,7 +60,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 ### C. 敌人
 
-**1）帧时间被均匀拉伸**（40 种生物，114 条普通/精英指令）
+**1）帧时间被均匀拉伸**（46 种敌人，含 6 个 Boss；114 条普通/精英指令）
 
 | 阶段 | 有效 fps 中位数 | 最低 | 低于 8fps 的条数 |
 |---|---|---|---|
@@ -178,7 +178,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 ## 附：工具输出（基线）
 
 ```
-HERO actions=31 frame_refs=162 distinct_images=154 held_loops=['jump_loop', 'fall']
+HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=19 held_loops=['jump_loop', 'fall']
 ENEMY windup phases=114 effective_fps median=9.5 min=6.1 below_8=24
 ENEMY active phases=114 effective_fps median=16.7 min=5.7 below_8=4
 ENEMY recover phases=114 effective_fps median=8.0 min=3.5 below_8=27
