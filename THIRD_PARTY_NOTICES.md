@@ -68,3 +68,7 @@ See `docs/decision/20260616162014251_不可再分发素材包清单与开源边�
 - Mossy Cavern: https://maaot.itch.io/mossy-cavern
 - Abyss Bug Sprite Pack: https://arhimed122.itch.io/abyss-bug-sprite-pack
 - Forest Monsters 2D Pixel Art: https://monopixelart.itch.io/forest-monsters-pixel-art
+
+## Music v2.5 game score (2026-11-08)
+
+33 AI-generated music cues are installed under `godot/assets/audio/bgm/ai_generated/`. The three original approved tracks retain their ElevenLabs Music v2.5 via fal.ai receipts; the remaining 30 retain ElevenLabs Music v2.5 via Vercel AI Gateway receipts. Source MP3s, prompts, response IDs, source/output SHA-256 and processing records are in `art_requests/ai_music_v1/` and the runtime `music_pack.json`. These outputs are not relabelled as the project's synthesized CC0 assets. Provider usage is subject to the applicable ElevenLabs/Vercel terms. No API credential is distributed with game assets.

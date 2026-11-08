@@ -146,3 +146,19 @@ static func dispatch(reference: WeakRef, packet: Dictionary) -> void:
     if token==null:
         level.world_portal_request_pending=false
         level._toast("钟路尚未准备好，请重新核对。")
+        return
+    _travel_cue(level,"bellway_depart")
+    if token.has_signal("completed"):
+        if token.finished:
+            _arrival_cue(reference,token)
+        else:
+            token.completed.connect(_arrival_cue.bind(reference,token),CONNECT_ONE_SHOT)
+
+static func _travel_cue(level: Node, key: String) -> void:
+    var audio: Variant=level.get("audio_director")
+    if is_instance_valid(audio):audio.play_stinger(key)
+
+static func _arrival_cue(reference: WeakRef, token: RefCounted) -> void:
+    var level: Variant=reference.get_ref()
+    if not token.succeeded or token.cancelled or not is_instance_valid(level) or level.is_queued_for_deletion() or not level.is_inside_tree():return
+    _travel_cue(level,"bellway_arrive")

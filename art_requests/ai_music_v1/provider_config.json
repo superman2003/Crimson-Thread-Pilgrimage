@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "preferred_provider": "vercel_ai_gateway",
+  "model": "elevenlabs/music-v2.5",
+  "endpoint": "https://ai-gateway.vercel.sh/v4/ai/speech-model",
+  "api_key_environment": "AI_GATEWAY_API_KEY",
+  "local_environment_file": ".env.local",
+  "default_duration_seconds": 115,
+  "force_instrumental": true,
+  "existing_approved_tracks": "Keep the existing three approved tracks and their original fal.ai provenance. This preference applies to new generations.",
+  "documentation": "https://vercel.com/docs/ai-gateway/modalities/text-to-speech#generate-music-and-sound-effects-with-elevenlabs",
+  "request_policy": "Single request per explicit invocation; never automatically resubmit a timed-out generation."
+}

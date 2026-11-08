@@ -42,3 +42,10 @@ tools/build_mossy_platform_runtime.py
 tools/build_itch_enemy_assets.py
 tools/build_itch_player_assets.py
 output/audio_preview/music_wav_build/
+
+# Local AI music preparation cache and account-level billing snapshots.
+.env.local
+art_requests/ai_music_v1/vercel_pack_20261107/candidates/
+art_requests/ai_music_v1/vercel_pack_20261107/billing_snapshot.json
+art_requests/ai_music_v1/vercel_pack_20261107/last_run.json
+output/music_integration/
