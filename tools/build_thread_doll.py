@@ -245,7 +245,7 @@ def build(check=False):
     outputs[OUT/'manifest.json'] = (json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode()
     outputs[OUT/'blade_anchors.json'] = (json.dumps({'source_size':[384,384],'animations':anchors},indent=2)+'\n').encode()
     outputs[OUT/'registration.json'] = (json.dumps({'schema':'thread-doll-registration-v1','authored_cels':len(unique),
-        'per_sheet_fixed_scale':scales,'source_manifest_sha256':sha256((SOURCE/'generation_manifest.json').read_bytes()).hexdigest(),
+        'per_sheet_fixed_scale':scales,'source_manifest_sha256':sha256((SOURCE/'generation_manifest.json').read_text(encoding='utf-8').encode('utf-8')).hexdigest(),
         'animations':registrations},indent=2)+'\n').encode()
     for path, content in outputs.items():
         if check:

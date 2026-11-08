@@ -38,7 +38,7 @@ def main():
         parser.error('Godot executable missing')
     dependencies = (
         'assets/fonts/GlobalTypeface.otf',
-        'assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json',
+        'assets/sprites/player/thread_doll_v1/blade_anchors.json',
         'assets/vfx/player_contact/player_contact.png',
         'assets/ui/inscription/v2/folio.png',
         'assets/ui/inscription/v2/needle_seal.svg',
@@ -52,10 +52,10 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-w05-return-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'data', 'shaders', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals'):
+        for directory in ('scripts', 'data', 'shaders', 'assets/sprites/player/thread_doll_v1', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         shutil.copytree(ROOT / 'godot/scenes', project / 'scenes')
-        anchors = Path('assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json')
+        anchors = Path('assets/sprites/player/thread_doll_v1/blade_anchors.json')
         (project / anchors).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / 'godot' / anchors, project / anchors)
         (project / 'project.godot').write_text(
