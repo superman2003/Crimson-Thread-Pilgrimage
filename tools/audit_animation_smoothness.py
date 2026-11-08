@@ -93,13 +93,19 @@ def enemy_phases():
                     continue
                 duration = float(command.get(phase, 0.3))
                 frames = len(anim.get('frames', []))
-                looped = bool(loop) and find(anims, loop) is not None and duration > LOOP_LEAD[phase] + 0.12
-                main = LOOP_LEAD[phase] if looped else duration
-                loop_frames = len(find(anims, loop).get('frames', [])) if looped else 0
-                rows.append({'kind': kind, 'command': command.get('id', ''), 'phase': phase, 'animation': name,
-                             'frames': frames, 'seconds': round(main, 3), 'effective_fps': round(frames / max(0.01, main), 1),
-                             'loop': loop if looped else '', 'loop_frames': loop_frames,
-                             'loop_seconds': round(duration - main, 3) if looped else 0.0})
+                handoff = bool(loop) and find(anims, loop) is not None and duration > LOOP_LEAD[phase] + 0.12
+                main = LOOP_LEAD[phase] if handoff else duration
+                follow_frames = len(find(anims, loop).get('frames', [])) if handoff else 0
+                row = {'kind': kind, 'command': command.get('id', ''), 'phase': phase, 'animation': name,
+                       'frames': frames, 'seconds': round(main, 3), 'effective_fps': round(frames / max(0.01, main), 1),
+                       'loop': '', 'loop_frames': 0, 'loop_seconds': 0.0, 'bridge_to': '', 'bridge_fps': 0.0}
+                if handoff and loop == 'recover':
+                    # A *_bridge hands over to the shared recovery, which plays once
+                    # stretched to the deadline (pose_loop_fit), not as a loop.
+                    row.update(bridge_to=loop, bridge_fps=round(follow_frames / max(0.01, duration - main), 1))
+                elif handoff:
+                    row.update(loop=loop, loop_frames=follow_frames, loop_seconds=round(duration - main, 3))
+                rows.append(row)
     return rows
 
 
@@ -137,25 +143,38 @@ def change(a, b):
     return 0.0 if union == 0 else 1.0 - float((a & b).sum()) / float(union)
 
 
-def frame_changes(names=('idle', 'walk', 'windup', 'attack', 'recover')):
+def frame_changes(phases):
+    """idle, walk and every animation an attack phase actually plays."""
+    played = {}
+    for row in phases:
+        roles = played.setdefault(row['kind'], {})
+        roles.setdefault(row['animation'], row['phase'])
+        for follow in (row['loop'], row['bridge_to']):
+            if follow:
+                roles.setdefault(follow, row['phase'])
     rows = []
     for path in sorted(CREATURES.iterdir()):
         manifest = creature_manifest(path.name)
         if manifest is None:
             continue
         anims = animations(manifest)
-        for name in names:
+        names = {'idle': 'idle', 'walk': 'walk'}
+        for name, role in played.get(path.name, {}).items():
+            names.setdefault(name, role)
+        for name, role in names.items():
             anim = find(anims, name)
             if not anim or len(anim.get('frames', [])) < 2:
                 continue
             images = [mask(im) for im in frame_images(manifest, anim)]
             steps = [change(images[i - 1], images[i]) for i in range(1, len(images))]
+            if anim.get('loop', False):
+                steps.append(change(images[-1], images[0]))
             # Reference: the first frame against itself moved 2px sideways, the
             # change a perfectly held pose would show from a small step.
             shifted = images[0].copy()
             shifted[:, 2:] = images[0][:, :-2]
             shifted[:, :2] = False
-            rows.append({'kind': path.name, 'animation': name, 'frames': len(images),
+            rows.append({'kind': path.name, 'animation': name, 'role': role, 'frames': len(images),
                          'mean_change': round(statistics.mean(steps), 3), 'max_change': round(max(steps), 3),
                          'shift_2px': round(change(images[0], shifted), 3)})
     return rows
@@ -175,7 +194,7 @@ def hero_rows():
 def write_sheets(directory, changes):
     from PIL import Image
     directory.mkdir(parents=True, exist_ok=True)
-    walks = [r for r in changes if r['animation'] == 'walk']
+    walks = [r for r in changes if r['role'] == 'walk']
     picks = sorted(walks, key=lambda r: r['mean_change'])[:3] + sorted(changes, key=lambda r: -r['max_change'])[:3]
     for row in picks:
         manifest = creature_manifest(row['kind'])
@@ -191,8 +210,10 @@ def write_sheets(directory, changes):
 
 
 def summary(hero, phases, changes):
-    lines = ['HERO actions=%d frames=%d distinct=%d held_loops=%s' % (
-        len(hero), sum(r['frames'] for r in hero), sum(r['distinct'] for r in hero),
+    manifest = json.loads(HERO.read_text(encoding='utf-8'))
+    distinct = len({frame for anim in manifest['animations'] for frame in anim.get('frames', [])})
+    lines = ['HERO actions=%d frame_refs=%d distinct_images=%d held_loops=%s' % (
+        len(hero), sum(r['frames'] for r in hero), distinct,
         [r['animation'] for r in hero if r['loop'] and r['frames'] <= 2])]
     for phase in ('windup', 'active', 'recover'):
         values = [r['effective_fps'] for r in phases if r['phase'] == phase]
@@ -202,9 +223,13 @@ def summary(hero, phases, changes):
     lines.append('ENEMY loops=%d two_frame=%d two_frame_over_0.5s=%d' % (
         len(loops), sum(1 for r in loops if r['loop_frames'] <= 2),
         sum(1 for r in loops if r['loop_frames'] <= 2 and r['loop_seconds'] > 0.5)))
+    bridges = [r['bridge_fps'] for r in phases if r['bridge_to']]
+    if bridges:
+        lines.append('ENEMY bridge_recoveries=%d stretched_recover_fps median=%.1f min=%.1f below_%d=%d' % (
+            len(bridges), statistics.median(bridges), min(bridges), LOW_FPS, sum(1 for v in bridges if v < LOW_FPS)))
     if changes:
-        medians = ' '.join('%s=%.2f' % (name, statistics.median(r['mean_change'] for r in changes if r['animation'] == name))
-                           for name in ('idle', 'walk', 'windup', 'attack', 'recover'))
+        medians = ' '.join('%s=%.2f' % (role, statistics.median(r['mean_change'] for r in changes if r['role'] == role))
+                           for role in ('idle', 'walk', 'windup', 'active', 'recover'))
         lines.append('ENEMY frame_change cycles=%d median %s shift_2px_reference=%.2f jumpy_over_%.1f=%d' % (
             len(changes), medians, statistics.median(r['shift_2px'] for r in changes), JUMP,
             sum(1 for r in changes if r['max_change'] > JUMP)))
@@ -218,7 +243,7 @@ def main():
     parser.add_argument('--sheets', type=Path, help='write contact sheets of the stillest walks and jumpiest cycles here')
     args = parser.parse_args()
     hero, phases = hero_rows(), enemy_phases()
-    changes = [] if args.no_images else frame_changes()
+    changes = [] if args.no_images else frame_changes(phases)
     for line in summary(hero, phases, changes):
         print(line)
     if args.json:

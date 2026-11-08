@@ -8,7 +8,7 @@
 “不顺”来自三层问题，按影响和成本排序：
 
 1. **引擎层**：物理 60 帧更新，但没开物理插值。在 120/144Hz 显示器上，主角、敌人和镜头的位置每两三帧才变一次，整体发抖。这一项不用画任何图，改设置加少量代码就能解决，**应该最先做**。
-2. **节奏层**：敌人每个阶段的帧被均匀拉伸，去填战斗数据规定的时长。恢复阶段的中位数只有 8fps，最慢 3.5fps；而且 100 个蓄力/飞行循环里有 78 个只有 2 帧。这不是帧数不够，是**帧时间分配不对**。不画新图，改成“关键姿势停顿”就能明显改善。
+2. **节奏层**：敌人每个阶段的帧被均匀拉伸，去填战斗数据规定的时长。恢复阶段的中位数只有 8fps，最慢 3.5fps；而且 80 个蓄力/飞行循环里有 78 个只有 2 帧。这不是帧数不够，是**帧时间分配不对**。不画新图，改成“关键姿势停顿”就能明显改善。
 3. **美术层**：素材是逐帧生成的图。相邻两帧不是“同一个角色动了一点”，而是“重新画了一遍”：轮廓、道具、甲片每帧都变（“沸腾”），四肢在关键帧之间直接跳到新位置，中间没有过渡。丝之歌顺滑的根本原因在这一层：手绘逐帧，同一套造型。这一层只能靠重画或补中间帧，成本最高。
 
 ## 怎么测的
@@ -31,7 +31,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 - `_fit_animation_duration` 把整段动画拉伸到阶段时长，即 `speed_scale = 帧数 / (fps × 时长)`；
 - `POSE_LOOP_LEAD` 决定阶段很长时，先在 0.42 / 0.2 / 0.18 秒内播完主动画，再接循环动画。
 
-“帧间变化”的算法是相邻两帧的透明度轮廓按 1 − 交集 / 并集计算。作为参照，同一帧整体右移 2 像素，这个值中位数是 0.09。
+“帧间变化”的范围是每种敌人的 idle、walk，以及攻击阶段实际会播放的全部动画（含按指令专门画的动画、循环和过渡），循环动画也算上末帧回到首帧那一步。算法是相邻两帧的透明度轮廓按 1 − 交集 / 并集计算。作为参照，同一帧整体右移 2 像素，这个值中位数是 0.09。
 
 ## 发现
 
@@ -53,7 +53,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 | jump_loop / fall | **2** | 8 | 空中只在两张图之间来回切 |
 | 转身 | 无 | — | `sprite.flip_h` 当帧翻转 |
 
-- 共 31 个动作 162 帧，每帧都是不同的图，没有重复帧。
+- 共 31 个动作、162 个帧引用、154 张不同的图（`jump_start` 与 `land` 复用了 `jump` 与 `landing` 的图）。
 - 问题主要在**帧与帧之间**：攻击时剑的角度一帧一跳，没有拖影帧（smear），也没有中间角度（下图第二行）。跳跃时身体高度变化 13%，看起来像角色在“缩放”，而不是在“收腿”。
 
 ![主角：跑步（上）、攻击（中）、空中（下）](../../artifacts/animation_smoothness_20261108/hero_run_attack_jump.webp)
@@ -73,7 +73,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 **2）2 帧循环**
 
-- 阶段时长超过 `POSE_LOOP_LEAD + 0.12` 秒时，会在主动画后接 `_charge` / `_travel` 循环。100 个这样的循环里有 **78 个只有 2 帧**，其中 14 个要循环 0.5 秒以上。
+- 阶段时长超过 `POSE_LOOP_LEAD + 0.12` 秒时，会在主动画后接 `_charge` / `_travel` 循环。80 个这样的循环里有 **78 个只有 2 帧**，其中 14 个要循环 0.5 秒以上。另有 20 条 Boss 恢复先播 `_bridge`，再把共用的 `recover` 拉伸播放一次直到结束，这部分有效帧率中位数 19.4fps、最低 12fps，不是问题。
 - 例子：`bailiff_erase` 蓄力 0.68 秒，`chariot_elite_drift` 飞行 0.6 秒，以及 `crossbow_burst` 和两条精英蓄力。
 - 两张图来回切，读起来像“闪烁”，不像“蓄力”。
 
@@ -83,13 +83,13 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 |---|---|---|
 | idle | 0.27 | 0.09 |
 | walk | 0.34 | 0.09 |
-| windup | 0.38 | 0.09 |
-| attack | 0.43 | 0.09 |
-| recover | 0.35 | 0.09 |
+| windup | 0.30 | 0.09 |
+| active | 0.37 | 0.09 |
+| recover | 0.31 | 0.09 |
 
 - **待机变化是右移 2px 的 3 倍。** 只是“呼吸”，轮廓却每帧都在重画，这就是“沸腾”。
 - **走路只比待机多一点。** 腿脚的位移被淹没在重画噪声里。例如 `moss_larva`：下图 8 帧走路，腿几乎没动，铃壳和苔藓每帧形状不同。由于 `enemy_actor` 对 idle/walk 固定 `speed_scale = 1.0`，播放速度不随移动速度变化，所以还会“滑步”。
-- 230 段动画里有 **66 段**相邻两帧之间的轮廓变化超过一半，属于“跳帧”。例如：
+- 504 段动画里有 **107 段**存在相邻两帧轮廓变化超过一半的情况，属于“跳帧”。按指令专门画的动画（如 `gear_guard`、`larva_snap`）比通用的 `windup`/`attack`/`recover` 稳一些：中位数 0.30 对 0.36，跳帧 33/237 对 50/175。例如：
   - `gear_sentinel` 攻击：盾和齿轮时有时无，长矛长度变化，最大 0.75；
   - `index_scribe` 蓄力：笔从身后直接跳到头顶，最大 0.79；
   - `bell_mote` 走路：最大 0.80。
@@ -178,12 +178,13 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 ## 附：工具输出（基线）
 
 ```
-HERO actions=31 frames=162 distinct=162 held_loops=['jump_loop', 'fall']
+HERO actions=31 frame_refs=162 distinct_images=154 held_loops=['jump_loop', 'fall']
 ENEMY windup phases=114 effective_fps median=9.5 min=6.1 below_8=24
 ENEMY active phases=114 effective_fps median=16.7 min=5.7 below_8=4
 ENEMY recover phases=114 effective_fps median=8.0 min=3.5 below_8=27
-ENEMY loops=100 two_frame=78 two_frame_over_0.5s=14
-ENEMY frame_change cycles=230 median idle=0.27 walk=0.34 windup=0.38 attack=0.43 recover=0.35 shift_2px_reference=0.09 jumpy_over_0.5=66
+ENEMY loops=80 two_frame=78 two_frame_over_0.5s=14
+ENEMY bridge_recoveries=20 stretched_recover_fps median=19.4 min=12.0 below_8=0
+ENEMY frame_change cycles=504 median idle=0.27 walk=0.34 windup=0.30 active=0.37 recover=0.31 shift_2px_reference=0.09 jumpy_over_0.5=107
 ```
 
 其他参考：[Godot：物理插值简介](https://docs.godotengine.org/en/stable/tutorials/physics/interpolation/physics_interpolation_introduction.html)。
