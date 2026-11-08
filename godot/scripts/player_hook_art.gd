@@ -49,7 +49,7 @@ class HookVisual extends Node2D:
         var player:Node=owner_ref.get_ref()
         if not is_instance_valid(player):return
         if kind=="latch":cel(2,frame,Rect2(-36,-36,72,72));return
-        var origin:=Vector2(0,-42)
+        var origin:Vector2=player.thread_origin_offset()
         var tip:Vector2=to_local(player.grapple_anchor.global_position) if kind=="traversal" and is_instance_valid(player.grapple_anchor) else Vector2(150*direction,-38)
         var offset:=tip-origin;var distance:=offset.length();var angle:=offset.angle();var count:=clampi(int(ceil(distance/32)),1,16)
         draw_set_transform(origin,angle)

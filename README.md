@@ -2,6 +2,14 @@
 
 本仓库维护 Godot 原生游戏，工程入口为 `godot/project.godot`，主场景为 `godot/scenes/World.tscn`。
 
+## 默认主角：缄 · 缠线小偶（2026-11-08）
+
+主角已全面替换为旧契约布与绯线组成的小偶，32 个状态覆盖跑跳、方向攻击、技能、受击与死亡，短足跑动保持支撑脚点和身体起伏。胸口线结承载回响，治疗缝补自身，钩索从线结放出；移动与战斗规则保留。
+
+![缠线小偶第一章原生实机](artifacts/thread_doll_v1/gameplay.png)
+
+[第一章实机录像](artifacts/thread_doll_v1/gameplay-review.mp4) · [32 状态动作预览](artifacts/thread_doll_v1/actions-review.mp4) · [实装与验证](docs/THREAD_DOLL_PROTAGONIST.md)。以下 11 月 7 日的界面图保留为当时版本记录，其中的人形主角不代表当前外观。
+
 ## 升级进度（2026-11-07）
 
 ![46 项最终验收与当前子项证据](docs/gallery/upgrade_progress.svg)

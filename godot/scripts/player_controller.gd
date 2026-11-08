@@ -262,7 +262,7 @@ const FOOTSTEP_MATERIAL_REMAP := {"fiber": "glass", "copper": "wet"}
 ## 脚步压低音量（规格要求约 -14dB），避免盖过攻击/能力等动作音。
 const FOOTSTEP_VOLUME_DB := -14.0
 ## 步距（像素）：跑速 285 时约 3.2 步/秒，与 10fps 四帧 run 循环观感一致。
-const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest.json"
+const PLAYER_MANIFEST := "res://assets/sprites/player/thread_doll_v1/manifest.json"
 # Runtime registration of the existing four idle poses, in source-texture pixels.
 # Midpoint of the two opaque boot soles (y=276..281), not cape/weapon bounds.
 # The source poses change their stance slightly; this removes the whole-body
@@ -270,14 +270,19 @@ const PLAYER_MANIFEST := "res://assets/sprites/player/generated_hero_v3/manifest
 const IDLE_FOOT_CENTER_X := [186.223262, 187.667973, 186.765838, 185.263814]
 var idle_foot_centers: Array = IDLE_FOOT_CENTER_X.duplicate()
 var grounded_pose_foot_centers: Dictionary = {}
-var use_layered_idle := true
+var pose_thread_anchors: Dictionary = {}
+var use_layered_idle := false
 # The gait owns the world stride; collision-resolved travel advances both the
 # continuous planted-foot rig and its fallback/export pose sequence.
-const RUN_GAIT := preload("res://scripts/grounded_run_cycle.gd")
+const RUN_GAIT := preload("res://scripts/thread_doll_run_cycle.gd")
 const RUN_CYCLE_DISTANCE := RUN_GAIT.CYCLE_DISTANCE
-const GROUNDED_RUN := preload("res://scripts/grounded_run_presentation.gd")
+const GROUNDED_RUN := preload("res://scripts/thread_doll_run_presentation.gd")
 var grounded_run: Node2D
 var use_grounded_run := false
+const GROUND_TURN_DURATION := .12
+var ground_turn_time := 0.0
+var ground_turn_from := 1
+var last_ground_direction := 0
 const GROUND_MOTION_EPSILON := 1.0
 const CAMERA_FOCUS := preload("res://scripts/camera_focus.gd")
 var camera_focus := CAMERA_FOCUS.new()
@@ -296,7 +301,6 @@ const GUARD_ART := preload("res://scripts/player_guard_art.gd")
 const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 const MELEE_FEEDBACK := preload("res://scripts/player_melee_feedback.gd")
 const HAZARD_POGO := preload("res://scripts/hazard_pogo.gd")
-const LAYERED_IDLE := preload("res://scripts/player_layered_idle.gd")
 var layered_idle: Node2D
 
 ## 绯线视觉语言色值（docs/spec/20260726160500000 §1.2）
@@ -462,11 +466,6 @@ func _ready() -> void:
         if not grounded_run.attach(sprite):
             grounded_run.free()
             grounded_run = null
-    if use_layered_idle:
-        layered_idle = LAYERED_IDLE.new()
-        if not layered_idle.attach(sprite):
-            layered_idle.free()
-            layered_idle = null
     build_baseline = {"max_hp": max_hp, "max_energy": max_energy, "speed": speed,
         "energy_per_hit": energy_per_hit, "heal_energy_cost": heal_energy_cost,
         "heal_amount": heal_amount, "heal_duration": heal_duration}
@@ -483,6 +482,8 @@ func _physics_process(delta: float) -> void:
     if get_parent().has_method("_world_collision_ready") and not get_parent()._world_collision_ready():
         return
     if ui_input_locked:
+        ground_turn_time = 0.0
+        last_ground_direction = 0
         _interrupt_heal()
         _stop_phase()
         if flash_material != null and not bool(_accessibility().get("flash_enabled", true)):
@@ -732,7 +733,17 @@ func _update_grapple(delta: float) -> void:
         return
     velocity = offset.normalized() * minf(grapple_speed, maxf(0.0, offset.length() - 30.0) / delta)
     if is_instance_valid(grapple_line):
-        grapple_line.points = PackedVector2Array([Vector2(0.0, -42.0), to_local(grapple_anchor.global_position)])
+        grapple_line.points = PackedVector2Array([thread_origin_offset(), to_local(grapple_anchor.global_position)])
+
+## Cosmetic origin follows the painted knot; reach/obstruction rays keep their
+## existing gameplay origin and cannot gain range from a drawing's hand motion.
+func thread_origin_offset() -> Vector2:
+    var anchors: Array = pose_thread_anchors.get(String(sprite.animation), [])
+    if anchors.is_empty(): return Vector2(0,-42)
+    var point: Array = anchors[clampi(sprite.frame,0,anchors.size()-1)]
+    var local := Vector2(float(point[0]),float(point[1])) - Vector2(192,192)
+    if sprite.flip_h: local.x = -local.x
+    return to_local(sprite.to_global(local + sprite.offset))
 
 
 func _stop_grapple(recover: bool = false) -> void:
@@ -782,6 +793,8 @@ func _reset_traversal_state() -> void:
     ground_motion_x = 0.0
     ground_motion_speed = 0.0
     run_cycle_phase = 0.0
+    ground_turn_time = 0.0
+    last_ground_direction = 0
     wall_sliding = false
     if is_instance_valid(attack_shape):
         attack_shape.set_deferred("disabled", true)
@@ -1699,9 +1712,12 @@ func _apply_thread_balance(next_energy: int, next_practice: int) -> void:
 
 
 func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO) -> void:
+    ground_turn_time = maxf(0.0, ground_turn_time - delta)
     ground_motion_x = 0.0
     ground_motion_speed = 0.0
     if not is_on_floor() or delta <= 0.0:
+        ground_turn_time = 0.0
+        last_ground_direction = 0
         return
     # get_position_delta excludes teleports/room handoffs before move_and_slide.
     # Subtract carrier travel so standing on a lift does not make the legs run.
@@ -1711,6 +1727,11 @@ func _update_ground_motion(delta: float, platform_motion: Vector2 = Vector2.ZERO
         ground_motion_x = 0.0
         ground_motion_speed = 0.0
         return
+    var travel_direction := signi(ground_motion_x)
+    if last_ground_direction != 0 and travel_direction != last_ground_direction and ground_motion_speed < speed * .6 and _can_start_action() and _has_pose(&"turn"):
+        ground_turn_from = last_ground_direction
+        ground_turn_time = GROUND_TURN_DURATION
+    last_ground_direction = travel_direction
     # The run pose is driven by this phase; its two foot contacts are poses 0
     # (left) and the half cycle (right). Count crossings for the footstep sound.
     var half_cycles := run_cycle_phase * 2.0 + absf(ground_motion_x) / RUN_CYCLE_DISTANCE * 2.0
@@ -1751,6 +1772,8 @@ func _sync_sprite_pose_anchor() -> void:
 
 func _update_animation(_input_axis: float) -> void:
     sprite.flip_h = facing < 0
+    if not is_on_floor() or not _can_start_action():
+        ground_turn_time = 0.0
     if hurt_timer > 0.0:
         _play(&"hurt")
     elif heal_timer > 0.0:
@@ -1774,7 +1797,14 @@ func _update_animation(_input_axis: float) -> void:
     elif not is_on_floor():
         if velocity.y < 0.0 and sprite.animation == &"jump_start" and sprite.is_playing():
             return # Preserve takeoff instead of replacing it on the same tick.
-        _play(&"jump_loop" if velocity.y < 0.0 else &"fall")
+        var air_pose: StringName = &"jump_loop" if velocity.y < 0.0 else &"fall"
+        if sprite.animation != air_pose:
+            _play(air_pose, true)
+        # The four authored air cels settle into their terminal pose. Replaying
+        # the first tuck/extension on every loop creates a visible knee snap.
+    elif ground_turn_time > 0.0:
+        _pose_progress(&"turn", 1.0 - ground_turn_time / GROUND_TURN_DURATION)
+        sprite.flip_h = ground_turn_from < 0
     elif ground_motion_speed > GROUND_MOTION_EPSILON:
         _pose_ground_run()
     elif land_timer > 0.0:
@@ -2450,10 +2480,11 @@ func _load_sprite_frames() -> void:
         push_error("Invalid lumen animation manifest.")
         return
 
-    use_layered_idle = String(data.get("idle_presentation", "layered")) != "full_body"
+    use_layered_idle = false
     idle_foot_centers = data.get("idle_foot_center_x", IDLE_FOOT_CENTER_X).duplicate()
     grounded_pose_foot_centers = data.get("grounded_pose_foot_center_x", {}).duplicate(true)
-    use_grounded_run = String(data.get("run_presentation", "")) == "grounded_v1"
+    pose_thread_anchors = data.get("thread_origin_px", {}).duplicate(true)
+    use_grounded_run = String(data.get("run_presentation", "")) == "thread_doll_v1"
 
     if data.has("frames"):
         sprite.sprite_frames = _load_generated_hero_frames(data)
@@ -2465,6 +2496,7 @@ func _load_sprite_frames() -> void:
     var position_value: Array = data.get("sprite_position", [0, -50])
     sprite.position = Vector2(float(position_value[0]), float(position_value[1]))
     var frames := SpriteFrames.new()
+    frames.remove_animation("default")
     for anim in data.get("animations", []):
         var anim_name: StringName = StringName(anim.get("name", "idle"))
         if not frames.has_animation(anim_name):

@@ -14,10 +14,30 @@ func run() -> void:
     player.set_physics_process(false)
     await process_frame
     var sprite: AnimatedSprite2D = player.sprite
+    check(player.PLAYER_MANIFEST == "res://assets/sprites/player/thread_doll_v1/manifest.json", "default Player selects the cloth-thread body")
+    var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(player.PLAYER_MANIFEST))
+    check(is_equal_approx(player.RUN_CYCLE_DISTANCE,float(manifest.run_cycle_distance)), "running feet, footsteps and authored fallback use the same world stride")
+    var expected_actions := ["idle","run","jump","landing","attack_1","air_attack","attack_2","down_attack","dash","wall_slide","hook_throw","phase","heal","skill_projectile","skill_control","skill_defense","hurt","death","guard","resonance","jump_start","jump_loop","fall","land","skill_melee","skill_wave","item_use","run_attack","up_attack","ground_down_attack","air_up_attack","turn"]
+    check(sprite.sprite_frames.get_animation_names().size() == expected_actions.size(), "all 32 production actions are present without an empty default fallback")
+    for action in expected_actions:
+        check(sprite.sprite_frames.has_animation(action), action + " is available on the new body")
+        for index in sprite.sprite_frames.get_frame_count(action):
+            check(sprite.sprite_frames.get_frame_texture(action,index).resource_path.begins_with("res://assets/sprites/player/thread_doll_v1/frames/"), action + " never falls back to human artwork")
+        check(player.pose_thread_anchors.get(action,[]).size() == sprite.sprite_frames.get_frame_count(action), action + " has a painted-knot attachment for every frame")
+    for facing in [-1,1]:
+        player.facing = facing
+        sprite.flip_h = facing < 0
+        player._pose_progress(&"hook_throw", .5)
+        var point: Array = player.pose_thread_anchors.hook_throw[3]
+        var local := Vector2(float(point[0])-192,float(point[1])-192)
+        if facing < 0: local.x = -local.x
+        check(player.thread_origin_offset().is_equal_approx(player.to_local(sprite.to_global(local))), "grapple ribbon follows the current painted knot in both facings")
+    player.facing = 1
+    sprite.flip_h = false
     # New drawings retain each original clock; aliases share authored cels.
     var motion_v7 := {"jump":[4,0.4], "jump_start":[4,2.0/18.0],
         "landing":[4,0.4], "land":[4,3.0/22.0], "dash":[6,0.4],
-        "hurt":[6,0.4], "death":[8,0.4]}
+        "hurt":[6,0.4], "death":[6,0.4]}
     var authored: Dictionary = {}
     for anim in motion_v7:
         var spec: Array = motion_v7[anim]
@@ -26,12 +46,12 @@ func run() -> void:
         check(is_equal_approx(float(spec[0])/sprite.sprite_frames.get_animation_speed(anim),float(spec[1])),anim+" preserves its original playback length")
         for index in sprite.sprite_frames.get_frame_count(anim):
             var cel := sprite.sprite_frames.get_frame_texture(anim,index)
-            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v7/frames/"),anim+" uses versioned new artwork")
+            check(cel!=null and cel.resource_path.contains("/thread_doll_v1/frames/"),anim+" uses versioned new artwork")
             check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" has complete padded imported pixels")
             if cel!=null: authored[cel.resource_path] = true
-    check(authored.size()==28,"aliases share exactly twenty-eight distinct newly drawn cels")
-    var motion_v8 := {"guard":6, "heal":6, "hook_throw":4, "wall_slide":4, "phase":4,
-        "resonance":6, "skill_projectile":6, "skill_control":6, "skill_defense":4}
+    check(authored.size()==26,"aliases share exactly twenty-six distinct newly drawn cels")
+    var motion_v8 := {"guard":6, "heal":6, "hook_throw":6, "wall_slide":4, "phase":4,
+        "resonance":6, "skill_projectile":6, "skill_control":6, "skill_defense":6}
     var ability_cels: Dictionary = {}
     for anim in motion_v8:
         var count := int(motion_v8[anim])
@@ -40,10 +60,10 @@ func run() -> void:
         check(is_equal_approx(count/sprite.sprite_frames.get_animation_speed(anim),0.4),anim+" preserves original nominal clock")
         for index in sprite.sprite_frames.get_frame_count(anim):
             var cel := sprite.sprite_frames.get_frame_texture(anim,index)
-            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v8/frames/"+anim+"_"),anim+" uses its own versioned artwork")
+            check(cel!=null and cel.resource_path.contains("/thread_doll_v1/frames/"+anim+"_"),anim+" uses its own versioned artwork")
             check(cel!=null and cel.get_size()==Vector2(384,384) and cel.get_image().get_used_rect().has_area(),anim+" imports complete padded pixels")
             if cel!=null: ability_cels[cel.resource_path] = true
-    check(ability_cels.size()==46,"nine ability families use forty-six distinct new cels")
+    check(ability_cels.size()==50,"nine ability families use fifty distinct new cels")
     for anim in ["idle","attack_2"]:
         var count := 8 if anim=="idle" else 6
         check(sprite.sprite_frames.get_frame_count(anim)==count,anim+" uses all complete-body new drawings")
@@ -51,16 +71,27 @@ func run() -> void:
         check(sprite.sprite_frames.get_animation_loop(anim)==(anim=="idle"),anim+" retains its intended loop behavior")
         for index in sprite.sprite_frames.get_frame_count(anim):
             var cel := sprite.sprite_frames.get_frame_texture(anim,index)
-            check(cel!=null and cel.resource_path.contains("/generated_hero_motion_v9/frames/"+anim+"_"),anim+" loads its versioned authored body cel")
-    check(sprite.sprite_frames.get_frame_count("run")==24,"24 grounded-run fallback cels loaded")
+            check(cel!=null and cel.resource_path.contains("/thread_doll_v1/frames/"+anim+"_"),anim+" loads its versioned authored body cel")
+    check(sprite.sprite_frames.get_frame_count("run")==8,"eight authored short-foot run cels loaded")
     check(player.grounded_run != null,"grounded running uses the continuous planted-foot rig")
     check(sprite.sprite_frames.get_frame_texture("run",0).get_size()==Vector2(384,384),"padded runtime frames loaded")
-    for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["jump_loop",2],["fall",2],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
+    for data in [["run_attack",6],["skill_melee",4],["skill_wave",4],["item_use",4],["attack_1",6],["up_attack",6],["ground_down_attack",6],["down_attack",6],["air_attack",6],["air_up_attack",6]]:
         var anim := String(data[0])
         check(sprite.sprite_frames.has_animation(anim) and sprite.sprite_frames.get_frame_count(anim)==int(data[1]),anim+" has its authored cels")
         for index in sprite.sprite_frames.get_frame_count(anim):
             var texture := sprite.sprite_frames.get_frame_texture(anim,index)
-            check(texture.get_size()==Vector2(384,384) and texture.resource_path.contains("/runtime_supplement/"+anim+"_"),anim+" uses its own supplement cel "+str(index))
+            check(texture.get_size()==Vector2(384,384) and texture.resource_path.contains("/thread_doll_v1/frames/"+anim+"_"),anim+" uses its own supplement cel "+str(index))
+    for anim in ["jump_loop", "fall", "turn"]:
+        check(sprite.sprite_frames.get_frame_count(anim) == 4 and not sprite.sprite_frames.get_animation_loop(anim), anim + " uses four authored settling cels")
+        for index in 4:
+            check(sprite.sprite_frames.get_frame_texture(anim, index).resource_path.contains("/thread_doll_v1/frames/"), anim + " uses versioned new artwork")
+    player.velocity = Vector2(0, 100)
+    player._update_animation(0)
+    check(sprite.animation == &"fall" and sprite.frame == 0, "descent begins with its first authored cel")
+    await create_timer(.3).timeout
+    check(sprite.frame == 3 and not sprite.is_playing(), "descent settles on its final pose")
+    player._update_animation(0)
+    check(sprite.frame == 3 and not sprite.is_playing(), "long falls never restart the leg extension")
     check(sprite.sprite_frames.get_frame_texture("skill_melee",0)!=sprite.sprite_frames.get_frame_texture("attack_2",0),"heavy slash no longer borrows attack_2")
     player.current_attack=&"attack_1"
     player.current_attack_direction=Vector2.RIGHT
@@ -124,10 +155,10 @@ func run() -> void:
     player.grapple_timer=player.grapple_timeout-0.12
     for tick in 5:
         player._update_animation(0)
-        check(sprite.frame==2 and not sprite.is_playing(),"pull pose never loops back to throwing")
+        check(sprite.frame==3 and not sprite.is_playing(),"pull pose never loops back to throwing")
     player._stop_grapple(true)
     player._update_animation(0)
-    check(sprite.frame==3,"successful arrival displays recovery")
+    check(sprite.frame==4,"successful arrival displays recovery")
     player._stop_grapple()
     check(player.grapple_recovery_timer==0,"cancel clears recovery pose")
     player.velocity=Vector2(0,-100)

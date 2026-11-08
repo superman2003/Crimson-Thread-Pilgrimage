@@ -54,6 +54,7 @@ func run() -> void:
     await _check_live_playback(stage)
     _check_attack_specific_poses(stage)
     _check_production_attack_cels(stage)
+    await _check_phase_pacing(stage)
     await _check_boss_recovery_bridges(stage)
     await _check_v5_runtime_sources(stage)
     _check_recovery_hitch(stage)
@@ -62,6 +63,86 @@ func run() -> void:
     check(characters == 71, "all 46 creatures and 25 NPCs visited")
     print("EXPANDED_CHARACTER_MOTION checks=%d failures=%d characters=%d poses=%d" % [checks,failures,characters,poses])
     quit(0 if failures == 0 else 1)
+
+func _check_phase_pacing(stage: Node2D) -> void:
+    var designs: Dictionary = ART.manifest("res://data/original_creature_designs.json")
+    var combat: Dictionary = ART.manifest("res://data/original_creature_combat.json")
+    var commands := 0
+    var held_charges := 0
+    for design: Dictionary in designs.designs:
+        var enemy = ENEMY.new()
+        var kind := String(design.kind)
+        enemy.configure({"id":"pacing_" + kind, "kind":kind, "hp":20, "elite":combat.get(kind, {}).get("elite") is Dictionary}, "", bool(design.boss))
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+        check(enemy.physics_interpolation_mode == Node.PHYSICS_INTERPOLATION_MODE_ON, kind + " interpolates between physics ticks")
+        for command: Dictionary in enemy.ai_commands:
+            commands += 1
+            for phase: String in ["windup", "active", "recover"]:
+                enemy.state = phase
+                enemy.state_timer = float(command[phase])
+                var point: Vector2 = enemy.global_position
+                enemy._pose_sprite(phase, command)
+                var sprite: AnimatedSprite2D = enemy.animated_sprite
+                var frames: SpriteFrames = sprite.sprite_frames
+                var count := frames.get_frame_count(sprite.animation)
+                var rate := frames.get_animation_speed(sprite.animation) * sprite.speed_scale
+                var segment: float = float(command[phase]) - enemy.pose_loop_at if not enemy.pose_loop_animation.is_empty() else float(command[phase])
+                var seconds := 0.0
+                for index in count:
+                    var cel_seconds := frames.get_frame_duration(sprite.animation, index) / rate
+                    seconds += cel_seconds
+                    if (phase == "windup" and index < count - 1) or (phase == "recover" and index > 0):
+                        check(cel_seconds <= 1.0 / 12.0 + .00001, kind + "/" + String(command.id) + " moving cel is at least 12fps")
+                check(absf(seconds - segment) < .0001, kind + "/" + String(command.id) + "/" + phase + " retains the exact phase duration")
+                check(enemy.global_position == point and is_equal_approx(enemy.state_timer, float(command[phase])), kind + " presentation leaves position and combat deadline unchanged")
+                if phase == "windup" and not enemy.pose_loop_animation.is_empty():
+                    var loop := enemy._resolve_directional_animation(enemy.pose_loop_animation)
+                    if frames.get_frame_count(loop) <= 2:
+                        var final_cel := frames.get_frame_texture(sprite.animation, count - 1)
+                        enemy.state_timer = enemy.pose_loop_at
+                        enemy._advance_pose_loop()
+                        check(enemy.pose_holding_charge and not sprite.is_playing() and frames.get_frame_texture(sprite.animation, sprite.frame) == final_cel, kind + " holds the same final windup cel")
+                        held_charges += 1
+        enemy.queue_free()
+        await process_frame
+    var a = ENEMY.new()
+    var b = ENEMY.new()
+    for enemy in [a, b]:
+        enemy.configure({"id":"pacing_isolation", "kind":"moss_larva", "hp":20}, "")
+        stage.add_child(enemy)
+        enemy.set_physics_process(false)
+    var shared: SpriteFrames = b.animated_sprite.sprite_frames
+    a._pose_sprite("recover", {"id":"generic", "recover":1.4})
+    check(a.animated_sprite.sprite_frames != shared and b.animated_sprite.sprite_frames == shared, "phase timing is owned by each actor")
+    check(a.animated_sprite.sprite_frames.get_frame_duration("recover", 0) > 1.0, "slow recovery holds its first cel")
+    for index in shared.get_frame_count("recover"):
+        check(is_equal_approx(shared.get_frame_duration("recover", index), 1.0), "actor A never changes actor B or the shared art cache")
+    a.state = "patrol"
+    a._pose_sprite("walk")
+    var point: Vector2 = a.global_position
+    a._update_animation_motion(.1, point - Vector2(a.speed * .05, 0), "patrol")
+    check(is_equal_approx(a.animated_sprite.speed_scale, .6), "slow walking clamps cadence to .6")
+    a._update_animation_motion(.1, point - Vector2(a.speed * .2, 0), "patrol")
+    check(is_equal_approx(a.animated_sprite.speed_scale, 1.4), "fast walking clamps cadence to 1.4")
+    a._update_animation_motion(.1, point, "patrol")
+    check(not a.animated_sprite.is_playing(), "blocked walking pauses its feet")
+    a._update_animation_motion(.1, point - Vector2(a.speed * .1, 0), "patrol")
+    check(a.animated_sprite.is_playing() and is_equal_approx(a.animated_sprite.speed_scale, 1.0), "walking resumes at its actual travel cadence")
+    a.state = "recover"
+    a.active_attack = {"type":"lunge"}
+    a._update_animation_motion(.025, point, "active")
+    a._update_animation_motion(.025, point, "recover")
+    check(a.sprite.scale.x > a.sprite_base_scale.x and a.global_position == point, "impact feedback changes only the sprite")
+    var foot := Vector2(0, 40)
+    var local_foot: Vector2 = (foot - a.sprite_base_position) / a.sprite_base_scale
+    check((a.sprite.position + local_foot * a.sprite.scale).distance_to(foot) < .001, "impact pulse preserves the grounded foot pivot")
+    a._pose_sprite("hurt")
+    check(a.pose_feedback_time == 0 and a.sprite.scale == a.sprite_base_scale, "interrupt clears impact feedback")
+    a.queue_free()
+    b.queue_free()
+    check(commands == 114 and held_charges > 0, "all 114 creature commands have actual runtime timing coverage")
+    print("ENEMY_PHASE_PACING commands=%d held_charges=%d" % [commands, held_charges])
 func _check_v6_registration() -> void:
     var bosses := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
     var total := 0
@@ -172,7 +253,7 @@ func _check_attack_specific_poses(stage: Node2D) -> void:
     enemy._update_windup(0.3)
     check(sprite.animation == &"probe_curl_windup", "charge loop waits until the one-shot wind-up was shown")
     enemy._update_windup(0.2)
-    check(sprite.animation == &"probe_curl_charge" and sprite.is_playing() and enemy.pose_loop_animation.is_empty(), "held wind-up continues as its charge loop")
+    check(sprite.animation == &"probe_curl_windup" and not sprite.is_playing() and sprite.frame == 1 and enemy.pose_holding_charge and enemy.pose_loop_animation.is_empty(), "held two-cel charge keeps the final wind-up drawing")
     enemy._pose_sprite("active", command)
     check(sprite.animation == &"probe_curl" and enemy.pose_loop_animation == "probe_curl_travel", "travelling strike schedules its travel loop")
     enemy._pose_sprite("recover", command)

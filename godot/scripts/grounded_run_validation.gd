@@ -1,5 +1,5 @@
 extends SceneTree
-const GAIT := preload("res://scripts/grounded_run_cycle.gd")
+const GAIT := preload("res://scripts/thread_doll_run_cycle.gd")
 var checks := 0
 var failures: Array[String] = []
 var max_slip := 0.0
@@ -22,8 +22,8 @@ func _geometry() -> void:
         if not pose.near.planted and not pose.far.planted:
             if index % 120 >= 98 and index % 120 <= 104:
                 flight_clearance = minf(flight_clearance, GAIT.SOLE_Y - maxf(pose.near.sole.y, pose.far.sole.y))
-    check(low - high > 9.0, "load compression and airborne rise are not visibly distinct")
-    check(flight_clearance > 7.0, "flight apex has no visible clearance under both feet")
+    check(low - high > 4.0, "load compression and airborne rise are not visibly distinct")
+    check(flight_clearance > 2.0, "flight apex has no visible clearance under both feet")
     for art_scale in [0.55, 0.66, 0.8]:
         for slope in [-.3, 0.0, .3]:
             for index in 240:
@@ -67,7 +67,7 @@ func _live_player() -> void:
     var player = load("res://scenes/Player.tscn").instantiate()
     stage.add_child(player)
     player.feel = null
-    check(is_equal_approx(player.sprite.sprite_frames.get_animation_speed(&"run"), 24.0 * 285.0 / GAIT.CYCLE_DISTANCE), "fallback cadence differs from the live gait's world stride")
+    check(is_equal_approx(player.sprite.sprite_frames.get_animation_speed(&"run"), 8.0 * 285.0 / GAIT.CYCLE_DISTANCE), "fallback cadence differs from the live gait's world stride")
     player.configure_camera_focus(Rect2(-1000, -1000, 12000, 4000))
     for move_speed in [285.0, 165.3, 340.0]:
         for direction in [-1, 1]:
@@ -108,8 +108,8 @@ func _live_player() -> void:
             Input.action_release(action)
             await frames(20)
             check(contacts >= 3, "live test did not include both feet and repeated contacts")
-            check(upper_poses.size() == 16, "production running does not display all newly drawn upper-body poses")
-            check(body_low - body_high > 8.0, "actual player has no visible weight transfer")
+            check(upper_poses.size() == 8, "production running does not display all newly drawn upper-body poses")
+            check(body_low - body_high > 4.0, "actual player has no visible weight transfer")
             check(not player.grounded_run.active and player.sprite.material == player.flash_material, "idle does not restore the original player presentation")
     Input.action_press("move_right")
     await frames(12)

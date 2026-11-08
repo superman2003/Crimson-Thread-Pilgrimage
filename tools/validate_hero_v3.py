@@ -8,6 +8,8 @@ from build_hero_motion_v7 import build as validate_motion_v7, COUNTS as MOTION_V
 from build_hero_motion_v8 import build as validate_motion_v8, COUNTS as MOTION_V8_COUNTS
 from build_hero_motion_v9 import build as validate_motion_v9, COUNTS as MOTION_V9_COUNTS
 
+from build_thread_doll import build as validate_thread_doll
+
 ROOT = Path(__file__).resolve().parents[1]
 PACK = ROOT / 'godot/assets/sprites/player/generated_hero_v3'
 
@@ -46,6 +48,7 @@ def main():
     validate_motion_v7(check=True)
     validate_motion_v8(check=True)
     validate_motion_v9(check=True)
+    validate_thread_doll(check=True)
     assert not any(entry['output_clipped'] for entry in audit)
     assert not any(entry['opaque_source_canvas_edge'] for entry in audit)
     assert not any(entry['ambiguous_connected_pose'] for entry in audit)

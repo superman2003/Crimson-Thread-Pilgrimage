@@ -405,6 +405,16 @@ var pose_loop_at := 0.0
 ## A follow-up that is not a loop (a bridge's shared recovery) is fitted to the
 ## time left in the state instead of playing at its own speed.
 var pose_loop_fit := 0.0
+const POSE_TIMING := preload("res://scripts/enemy_animation_timing.gd")
+var pose_loop_role := ""
+var pose_holding_charge := false
+var pose_travel_stretch := false
+var pose_visual_clock := 0.0
+var pose_owned_frames: SpriteFrames
+var pose_source_frames: SpriteFrames
+var pose_feedback_time := 0.0
+var pose_feedback_duration := 0.10
+var pose_feedback_was_active := false
 var flash_materials: Array = []
 var knockback_velocity := 0.0
 var dying := false
@@ -432,6 +442,7 @@ func prepare_presentation() -> void:
     presentation_prepared = true
 
 func _ready() -> void:
+    physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_ON
     add_to_group("enemy")
     if locomotion == "flight":
         global_position.y -= hover_height
@@ -441,9 +452,18 @@ func _ready() -> void:
     monitorable = true
     body_entered.connect(_on_body_entered)
     prepare_presentation()
+    reset_physics_interpolation()
 
 
 func _physics_process(delta: float) -> void:
+    var previous_position := global_position
+    var previous_state := state
+    _step_enemy(delta)
+    if dying or is_queued_for_deletion() or combat_visuals_paused or not world_residency_active():
+        return
+    _update_animation_motion(delta, previous_position, previous_state)
+
+func _step_enemy(delta: float) -> void:
     # An interrupted or retired charge never leaves its footfalls running.
     if parade_voice != null and state != "windup":
         _stop_parade_layer()
@@ -495,6 +515,47 @@ func _physics_process(delta: float) -> void:
         _update_patrol_or_aggro(delta, target)
     if not dying and not is_queued_for_deletion():
         _update_locomotion(delta,target)
+
+
+func _update_animation_motion(delta: float, previous_position: Vector2, previous_state: String) -> void:
+    if not original_visual or sprite == null or animated_sprite == null or not is_finite(delta) or delta <= 0:
+        return
+    pose_visual_clock += delta
+    var motion := global_position - previous_position
+    var animation := String(animated_sprite.animation).trim_suffix("_left").trim_suffix("_right")
+    if animation in ["walk", "move"] and state == "patrol":
+        var rate := motion.length() / delta if locomotion == "flight" else absf(motion.x) / delta
+        if rate < .1 and locomotion != "flight":
+            animated_sprite.pause()
+        else:
+            animated_sprite.speed_scale = clampf(rate / maxf(speed, .01), .6, 1.4)
+            if not animated_sprite.is_playing(): animated_sprite.play()
+    var settings: Dictionary = {}
+    var player := get_tree().get_first_node_in_group("player")
+    if player != null:
+        settings = player.get_meta("accessibility", {})
+    var strength := 0.0 if bool(settings.get("reduced_motion", false)) else clampf(float(settings.get("camera_shake", 1.0)), 0, 1)
+    var ratio := Vector2.ONE
+    var offset := Vector2.ZERO
+    if pose_holding_charge and state == "windup":
+        var breath := .01 * sin(pose_visual_clock * TAU * 2.0) * strength
+        ratio = Vector2(1.0 + breath, 1.0 - breath)
+        offset.x = (.65 if int(pose_visual_clock * 30.0) % 2 == 0 else -.65) * strength
+    elif pose_travel_stretch and state == "active" and motion.length_squared() > .01:
+        ratio = Vector2(1.04, .98) if absf(motion.x) >= absf(motion.y) else Vector2(.98, 1.04)
+        ratio = Vector2.ONE.lerp(ratio, strength)
+    if previous_state == "active" and state == "recover" and String(active_attack.get("type", "")) in ["vault", "dive", "lunge", "aoe"]:
+        pose_feedback_time = pose_feedback_duration
+    if pose_feedback_time > 0:
+        var pulse := sin(PI * (1.0 - pose_feedback_time / pose_feedback_duration)) * .07 * strength
+        ratio *= Vector2(1.0 + pulse, 1.0 - pulse)
+        pose_feedback_time = maxf(0, pose_feedback_time - delta)
+    var changed := not ratio.is_equal_approx(Vector2.ONE) or not offset.is_zero_approx()
+    if changed or pose_feedback_was_active:
+        var pivot := Vector2.ZERO if locomotion == "flight" else Vector2(0, 40)
+        sprite.position = pivot + (sprite_base_position - pivot) * ratio + offset
+        sprite.scale = sprite_base_scale * ratio
+    pose_feedback_was_active = changed
 
 
 func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, profile: Dictionary = {}) -> void:
@@ -899,6 +960,7 @@ func reset_for_respawn() -> void:
     knockback_velocity = 0.0
     _set_flash_amount(0.0)
     global_position = spawn_position
+    reset_physics_interpolation()
     direction = 1
     attack_direction = 1
     attack_has_hit = false
@@ -1521,6 +1583,7 @@ func _return_to_spawn(delta: float) -> void:
     var dx := spawn_position.x - global_position.x
     if absf(dx) <= 5.0:
         global_position = spawn_position
+        reset_physics_interpolation()
         direction = 1
         _set_sprite_flip(false)
         _set_enemy_animation("idle")
@@ -2292,14 +2355,38 @@ func _set_enemy_animation(animation_name: String, restart: bool = false) -> void
     if restart:
         animated_sprite.stop()
     if animated_sprite.animation != next_animation or restart:
+        pose_holding_charge = false
+        pose_travel_stretch = false
+        pose_feedback_time = 0.0
+        if pose_feedback_was_active:
+            sprite.position = sprite_base_position
+            sprite.scale = sprite_base_scale
+            pose_feedback_was_active = false
         animated_sprite.play(next_animation)
+    elif not animated_sprite.is_playing() and not pose_holding_charge:
+        animated_sprite.play(next_animation)
+    if is_inside_tree() and not Engine.is_in_physics_frame():
+        reset_physics_interpolation()
 
 
-func _fit_animation_duration(duration: float) -> void:
+func _fit_animation_duration(duration: float, phase: String = "") -> void:
     if animated_sprite == null or animated_sprite.sprite_frames == null:
         return
     var frames := animated_sprite.sprite_frames
     var animation_name := animated_sprite.animation
+    if phase in ["windup", "recover"]:
+        if animated_sprite.sprite_frames != pose_owned_frames:
+            pose_source_frames = animated_sprite.sprite_frames
+            pose_owned_frames = pose_source_frames.duplicate(false) as SpriteFrames
+            animated_sprite.sprite_frames = pose_owned_frames
+            animated_sprite.play(animation_name)
+        frames = pose_owned_frames
+        var weights := POSE_TIMING.weights(frames.get_frame_count(animation_name), duration, phase, frames.get_animation_speed(animation_name))
+        for index in weights.size():
+            frames.set_frame(animation_name, index, pose_source_frames.get_frame_texture(animation_name, index), weights[index])
+    elif frames == pose_owned_frames and pose_source_frames != null:
+        for index in frames.get_frame_count(animation_name):
+            frames.set_frame(animation_name, index, pose_source_frames.get_frame_texture(animation_name, index), pose_source_frames.get_frame_duration(animation_name, index))
     animated_sprite.speed_scale = frames.get_frame_count(animation_name) / maxf(0.01, frames.get_animation_speed(animation_name) * duration)
 
 
@@ -2327,18 +2414,27 @@ func _advance_pose_loop() -> void:
         return
     var loop_name := pose_loop_animation
     pose_loop_animation = ""
+    if pose_loop_role == "windup" and animated_sprite != null:
+        var resolved := _resolve_directional_animation(loop_name)
+        if animated_sprite.sprite_frames.get_frame_count(resolved) <= 2:
+            # Keep exactly the final wind-up drawing, not a different pair of
+            # independently drawn charge silhouettes flashing back and forth.
+            animated_sprite.pause()
+            animated_sprite.set_frame_and_progress(animated_sprite.sprite_frames.get_frame_count(animated_sprite.animation) - 1, 1.0)
+            pose_holding_charge = true
+            return
     _set_enemy_animation(loop_name, true)
     if animated_sprite != null:
         animated_sprite.speed_scale = 1.0
         if pose_loop_fit > 0.0:
-            _fit_animation_duration(pose_loop_fit)
+            _fit_animation_duration(pose_loop_fit, "recover")
             # Seek past time already spent beyond the bridge boundary. The
             # shared recovery must still finish at the gameplay deadline.
             var frames := animated_sprite.sprite_frames
-            var count := frames.get_frame_count(animated_sprite.animation)
-            var cursor := maxf(0.0, pose_loop_at - state_timer) * count / pose_loop_fit
-            var index := mini(int(cursor), count - 1)
-            animated_sprite.set_frame_and_progress(index, minf(cursor - index, 1.0))
+            var cursor := POSE_TIMING.cursor(frames, animated_sprite.animation, animated_sprite.speed_scale, maxf(0.0, pose_loop_at - state_timer))
+            animated_sprite.set_frame_and_progress(int(cursor.x), cursor.y)
+        elif pose_loop_role == "active":
+            pose_travel_stretch = animated_sprite.sprite_frames.get_frame_count(animated_sprite.animation) <= 2
 
 
 func _has_enemy_animation(animation_name: String) -> bool:
@@ -2387,6 +2483,11 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
     if sprite == null:
         return
     if original_visual:
+        pose_holding_charge = false
+        pose_travel_stretch = false
+        pose_feedback_time = 0.0
+        pose_loop_role = pose_name
+        pose_visual_clock = 0.0
         sprite.position=sprite_base_position
         sprite.scale=sprite_base_scale
         sprite.rotation=0
@@ -2419,12 +2520,12 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
                 var duration := float(command.get(pose_name, .3))
                 var lead := float(POSE_LOOP_LEAD.get(pose_name, 0.0))
                 if not loop_name.is_empty() and _has_enemy_animation(loop_name) and duration > lead + 0.12:
-                    _fit_animation_duration(lead)
+                    _fit_animation_duration(lead, pose_name)
                     pose_loop_animation = loop_name
                     pose_loop_at = duration - lead
                     pose_loop_fit = duration - lead if loop_name == "recover" else 0.0
                 else:
-                    _fit_animation_duration(duration)
+                    _fit_animation_duration(duration, pose_name)
         return
     _apply_sprite_region("attack" if pose_name == "windup" or pose_name == "active" else pose_name)
     var attack_type := String(command.get("type", "melee"))
