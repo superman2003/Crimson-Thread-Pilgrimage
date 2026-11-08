@@ -140,7 +140,11 @@ func _pixels(tree: SceneTree,enemy) -> void:
     _check(DisplayServer.get_name()!="headless","real GL required for segmented beam validation")
     if DisplayServer.get_name()=="headless":return
     var view:=SubViewport.new();view.size=Vector2i(1024,1024);view.render_target_update_mode=SubViewport.UPDATE_ALWAYS;tree.root.add_child(view)
-    var stage:=Node2D.new();view.add_child(stage)
+    # These snapshots teleport the beam and oracle between poses outside a
+    # physics tick. Compare their exact requested pose, not a blended old one.
+    var stage:=Node2D.new()
+    stage.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
+    view.add_child(stage)
     var background:=Polygon2D.new();background.polygon=PackedVector2Array([Vector2.ZERO,Vector2(1024,0),Vector2(1024,1024),Vector2(0,1024)]);stage.add_child(background)
     var reference:=Reference.new();stage.add_child(reference)
     for index in range(4):
