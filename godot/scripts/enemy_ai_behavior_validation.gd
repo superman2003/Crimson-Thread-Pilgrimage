@@ -52,6 +52,18 @@ func run() -> void:
     check(moth._attack_candidate_score(dust, target) > moth._attack_candidate_score(dive, target), "airborne player draws the anti-air fan")
     target.position = Vector2(400, 300)
     var larva := spawn("moss_larva", "ai_larva", 330)
+    # Use the production Player's fields: cooldown is recovery after a heal,
+    # while heal_timer owns the actual channel, including interrupted heals.
+    var healing_player:=preload("res://scripts/player_controller.gd").new()
+    healing_player.heal_timer=.8;healing_player.heal_cooldown=0.0
+    check(larva._read_player_command(healing_player)=="heal","AI recognises the real healing channel before cooldown begins")
+    healing_player.heal_timer=0.0;healing_player.heal_cooldown=.4
+    check(larva._read_player_command(healing_player)=="idle","a completed heal's cooldown is not another channel")
+    healing_player.heal_cooldown=.3
+    check(larva._read_player_command(healing_player)=="idle","an interrupted heal's cooldown is not channeling")
+    healing_player.velocity=Vector2(-250,0)
+    check(larva._read_player_command(healing_player).begins_with("run_"),"heal cooldown cannot mask the player's actual movement")
+    healing_player.free()
     larva.last_player_command = "heal"
     check(larva._attack_candidate_score(command(larva, "larva_curl"), target) > larva._attack_candidate_score(command(larva, "larva_snap"), target), "healing player is punished by the lunge")
     var spearman := spawn("obsidian_spearman", "ai_spear", 300)

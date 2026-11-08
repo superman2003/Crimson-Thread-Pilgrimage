@@ -1,0 +1,3316 @@
+{
+  "kind": "pilgrim_chariot",
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-e7ede7d4-3c08-44fc-99a0-fdec6de77239.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character:  CRITICAL: each sprite is SMALL within its cell: total character width INCLUDING weapon maximum 50% of cell width. Large empty gutters keep swords and dead bodies separated. a low broad crab shaped armored pilgrim with two heavy stone wheel shells and rust red hanging banners",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/pilgrim_chariot/atlas.png",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-e7ede7d4-3c08-44fc-99a0-fdec6de77239.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          193,
+          190
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          195,
+          0,
+          186,
+          186
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          383,
+          0,
+          181,
+          189
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          566,
+          0,
+          191,
+          186
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          759,
+          0,
+          197,
+          181
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          958,
+          0,
+          199,
+          183
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1159,
+          0,
+          201,
+          184
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1362,
+          0,
+          192,
+          181
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1556,
+          0,
+          210,
+          184
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1768,
+          0,
+          195,
+          183
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1965,
+          0,
+          200,
+          184
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2167,
+          0,
+          195,
+          182
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2364,
+          0,
+          193,
+          181
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          42,
+          84,
+          170,
+          162
+        ],
+        "component_seeds": [
+          [
+            113,
+            186
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 76.179487,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          290,
+          81,
+          192,
+          165
+        ],
+        "component_seeds": [
+          [
+            343,
+            174
+          ]
+        ],
+        "scale": 1.165605,
+        "anchor_x": 88.564663,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2559,
+          0,
+          222,
+          184
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          545,
+          84,
+          194,
+          162
+        ],
+        "component_seeds": [
+          [
+            652,
+            173
+          ]
+        ],
+        "scale": 1.194805,
+        "anchor_x": 84.956522,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          800,
+          79,
+          189,
+          167
+        ],
+        "component_seeds": [
+          [
+            847,
+            167
+          ]
+        ],
+        "scale": 1.157233,
+        "anchor_x": 80.358696,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2783,
+          0,
+          217,
+          184
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1054,
+          81,
+          194,
+          165
+        ],
+        "component_seeds": [
+          [
+            1098,
+            168
+          ]
+        ],
+        "scale": 1.171975,
+        "anchor_x": 90.0,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1323,
+          80,
+          167,
+          166
+        ],
+        "component_seeds": [
+          [
+            1416,
+            185
+          ]
+        ],
+        "scale": 1.164557,
+        "anchor_x": 77.869565,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3002,
+          0,
+          185,
+          184
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          44,
+          337,
+          166,
+          164
+        ],
+        "component_seeds": [
+          [
+            167,
+            441
+          ]
+        ],
+        "scale": 1.175214,
+        "anchor_x": 78.792727,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          287,
+          339,
+          193,
+          162
+        ],
+        "component_seeds": [
+          [
+            311,
+            441
+          ]
+        ],
+        "scale": 1.186147,
+        "anchor_x": 85.934307,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3189,
+          0,
+          220,
+          182
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          541,
+          338,
+          195,
+          163
+        ],
+        "component_seeds": [
+          [
+            671,
+            440
+          ]
+        ],
+        "scale": 1.165591,
+        "anchor_x": 84.715867,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          790,
+          341,
+          210,
+          160
+        ],
+        "component_seeds": [
+          [
+            874,
+            437
+          ]
+        ],
+        "scale": 1.179825,
+        "anchor_x": 93.237918,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3411,
+          0,
+          236,
+          178
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1046,
+          342,
+          209,
+          159
+        ],
+        "component_seeds": [
+          [
+            1206,
+            438
+          ]
+        ],
+        "scale": 1.178808,
+        "anchor_x": 94.655431,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1317,
+          342,
+          184,
+          159
+        ],
+        "component_seeds": [
+          [
+            1385,
+            442
+          ]
+        ],
+        "scale": 1.178808,
+        "anchor_x": 89.524345,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3649,
+          0,
+          210,
+          178
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          34,
+          601,
+          186,
+          157
+        ],
+        "component_seeds": [
+          [
+            188,
+            697
+          ]
+        ],
+        "scale": 1.194631,
+        "anchor_x": 94.417603,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          294,
+          599,
+          174,
+          158
+        ],
+        "component_seeds": [
+          [
+            328,
+            698
+          ]
+        ],
+        "scale": 1.186667,
+        "anchor_x": 88.550562,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3861,
+          0,
+          194,
+          178
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          554,
+          598,
+          172,
+          159
+        ],
+        "component_seeds": [
+          [
+            590,
+            698
+          ]
+        ],
+        "scale": 1.200883,
+        "anchor_x": 84.882353,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          793,
+          590,
+          199,
+          167
+        ],
+        "component_seeds": [
+          [
+            837,
+            687
+          ]
+        ],
+        "scale": 1.161426,
+        "anchor_x": 92.453069,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          192,
+          223,
+          188
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1052,
+          590,
+          196,
+          167
+        ],
+        "component_seeds": [
+          [
+            1223,
+            686
+          ]
+        ],
+        "scale": 1.184486,
+        "anchor_x": 85.125664,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1318,
+          591,
+          177,
+          166
+        ],
+        "component_seeds": [
+          [
+            1359,
+            694
+          ]
+        ],
+        "scale": 1.194093,
+        "anchor_x": 82.558304,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          225,
+          192,
+          196,
+          189
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          39,
+          849,
+          175,
+          164
+        ],
+        "component_seeds": [
+          [
+            188,
+            950
+          ]
+        ],
+        "scale": 1.207265,
+        "anchor_x": 82.104425,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          295,
+          849,
+          176,
+          164
+        ],
+        "component_seeds": [
+          [
+            432,
+            950
+          ]
+        ],
+        "scale": 1.202991,
+        "anchor_x": 84.216696,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          423,
+          192,
+          194,
+          187
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          550,
+          848,
+          176,
+          165
+        ],
+        "component_seeds": [
+          [
+            679,
+            950
+          ]
+        ],
+        "scale": 1.18896,
+        "anchor_x": 88.728571,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          807,
+          848,
+          175,
+          165
+        ],
+        "component_seeds": [
+          [
+            954,
+            951
+          ]
+        ],
+        "scale": 1.186837,
+        "anchor_x": 89.110912,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          619,
+          192,
+          193,
+          186
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1061,
+          848,
+          178,
+          165
+        ],
+        "component_seeds": [
+          [
+            1161,
+            951
+          ]
+        ],
+        "scale": 1.193206,
+        "anchor_x": 88.983986,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "region": [
+          1321,
+          845,
+          174,
+          168
+        ],
+        "component_seeds": [
+          [
+            1385,
+            950
+          ]
+        ],
+        "scale": 1.179167,
+        "anchor_x": 82.565371,
+        "grade": {
+          "saturation": 1.0055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          814,
+          192,
+          203,
+          181
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1019,
+          192,
+          205,
+          181
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1226,
+          192,
+          198,
+          165
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1426,
+          192,
+          203,
+          165
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1631,
+          192,
+          214,
+          176
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1847,
+          192,
+          211,
+          154
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2060,
+          192,
+          214,
+          143
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2276,
+          192,
+          200,
+          120
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ],
+    "chariot_caltrops_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2478,
+          192,
+          204,
+          180
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          37,
+          85,
+          179,
+          160
+        ],
+        "component_seeds": [
+          [
+            157,
+            183
+          ]
+        ],
+        "scale": 1.184211,
+        "anchor_x": 74.777778,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          286,
+          86,
+          195,
+          159
+        ],
+        "component_seeds": [
+          [
+            399,
+            174
+          ]
+        ],
+        "scale": 1.192053,
+        "anchor_x": 89.805556,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2684,
+          192,
+          225,
+          180
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          544,
+          85,
+          196,
+          160
+        ],
+        "component_seeds": [
+          [
+            680,
+            174
+          ]
+        ],
+        "scale": 1.208333,
+        "anchor_x": 88.862069,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          805,
+          63,
+          181,
+          182
+        ],
+        "component_seeds": [
+          [
+            909,
+            176
+          ]
+        ],
+        "scale": 1.076628,
+        "anchor_x": 80.355872,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2911,
+          192,
+          203,
+          191
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1060,
+          68,
+          181,
+          177
+        ],
+        "component_seeds": [
+          [
+            1179,
+            175
+          ]
+        ],
+        "scale": 1.108481,
+        "anchor_x": 81.489324,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1319,
+          83,
+          177,
+          162
+        ],
+        "component_seeds": [
+          [
+            1364,
+            180
+          ]
+        ],
+        "scale": 1.192641,
+        "anchor_x": 72.807623,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3116,
+          192,
+          199,
+          180
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          35,
+          337,
+          181,
+          164
+        ],
+        "component_seeds": [
+          [
+            170,
+            434
+          ]
+        ],
+        "scale": 1.141026,
+        "anchor_x": 75.617978,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          284,
+          342,
+          200,
+          159
+        ],
+        "component_seeds": [
+          [
+            426,
+            430
+          ]
+        ],
+        "scale": 1.165563,
+        "anchor_x": 85.710227,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      }
+    ],
+    "chariot_caltrops": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3317,
+          192,
+          222,
+          174
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          544,
+          344,
+          196,
+          157
+        ],
+        "component_seeds": [
+          [
+            613,
+            431
+          ]
+        ],
+        "scale": 1.17226,
+        "anchor_x": 82.450382,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          793,
+          344,
+          203,
+          157
+        ],
+        "component_seeds": [
+          [
+            973,
+            436
+          ]
+        ],
+        "scale": 1.176734,
+        "anchor_x": 82.184411,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3541,
+          192,
+          236,
+          176
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1048,
+          344,
+          204,
+          157
+        ],
+        "component_seeds": [
+          [
+            1207,
+            436
+          ]
+        ],
+        "scale": 1.17226,
+        "anchor_x": 82.166031,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1292,
+          355,
+          231,
+          147
+        ],
+        "component_seeds": [
+          [
+            1409,
+            438
+          ]
+        ],
+        "scale": 1.247002,
+        "anchor_x": 93.723077,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3779,
+          192,
+          272,
+          172
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          11,
+          610,
+          230,
+          147
+        ],
+        "component_seeds": [
+          [
+            147,
+            692
+          ]
+        ],
+        "scale": 1.235012,
+        "anchor_x": 92.951456,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          271,
+          606,
+          224,
+          151
+        ],
+        "component_seeds": [
+          [
+            362,
+            691
+          ]
+        ],
+        "scale": 1.198135,
+        "anchor_x": 87.826848,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          385,
+          247,
+          171
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          532,
+          605,
+          216,
+          152
+        ],
+        "component_seeds": [
+          [
+            649,
+            691
+          ]
+        ],
+        "scale": 1.208333,
+        "anchor_x": 82.862069,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          791,
+          596,
+          205,
+          161
+        ],
+        "component_seeds": [
+          [
+            929,
+            686
+          ]
+        ],
+        "scale": 1.156863,
+        "anchor_x": 83.677966,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      }
+    ],
+    "chariot_caltrops_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          249,
+          385,
+          227,
+          180
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1050,
+          596,
+          201,
+          161
+        ],
+        "component_seeds": [
+          [
+            1179,
+            686
+          ]
+        ],
+        "scale": 1.178649,
+        "anchor_x": 81.757856,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1306,
+          597,
+          203,
+          160
+        ],
+        "component_seeds": [
+          [
+            1372,
+            687
+          ]
+        ],
+        "scale": 1.188596,
+        "anchor_x": 82.793358,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          478,
+          385,
+          227,
+          181
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          25,
+          853,
+          202,
+          160
+        ],
+        "component_seeds": [
+          [
+            153,
+            942
+          ]
+        ],
+        "scale": 1.182018,
+        "anchor_x": 83.769944,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          279,
+          855,
+          205,
+          158
+        ],
+        "component_seeds": [
+          [
+            369,
+            941
+          ]
+        ],
+        "scale": 1.188889,
+        "anchor_x": 90.794393,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          707,
+          385,
+          234,
+          177
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          534,
+          855,
+          208,
+          158
+        ],
+        "component_seeds": [
+          [
+            592,
+            941
+          ]
+        ],
+        "scale": 1.173333,
+        "anchor_x": 91.738636,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          799,
+          858,
+          192,
+          155
+        ],
+        "component_seeds": [
+          [
+            844,
+            952
+          ]
+        ],
+        "scale": 1.190476,
+        "anchor_x": 81.8,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          943,
+          385,
+          211,
+          174
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1055,
+          858,
+          191,
+          155
+        ],
+        "component_seeds": [
+          [
+            1184,
+            952
+          ]
+        ],
+        "scale": 1.219955,
+        "anchor_x": 79.355019,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "region": [
+          1323,
+          848,
+          174,
+          165
+        ],
+        "component_seeds": [
+          [
+            1358,
+            951
+          ]
+        ],
+        "scale": 1.176221,
+        "anchor_x": 73.615523,
+        "grade": {
+          "saturation": 0.9519,
+          "rgb": [
+            0.8721,
+            0.8671,
+            0.85
+          ]
+        }
+      }
+    ],
+    "chariot_caltrops_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1156,
+          385,
+          217,
+          182
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1375,
+          385,
+          210,
+          180
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1587,
+          385,
+          180,
+          165
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1769,
+          385,
+          196,
+          167
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      }
+    ],
+    "travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1967,
+          385,
+          221,
+          159
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2190,
+          385,
+          201,
+          159
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      }
+    ],
+    "chariot_elite_drift_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2393,
+          385,
+          214,
+          179
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          34,
+          86,
+          187,
+          158
+        ],
+        "component_seeds": [
+          [
+            161,
+            184
+          ]
+        ],
+        "scale": 1.148889,
+        "anchor_x": 80.357834,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          273,
+          102,
+          222,
+          142
+        ],
+        "component_seeds": [
+          [
+            417,
+            186
+          ]
+        ],
+        "scale": 1.236318,
+        "anchor_x": 97.416499,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2609,
+          385,
+          248,
+          159
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          526,
+          101,
+          223,
+          142
+        ],
+        "component_seeds": [
+          [
+            622,
+            185
+          ]
+        ],
+        "scale": 1.18408,
+        "anchor_x": 99.214286,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          783,
+          105,
+          223,
+          139
+        ],
+        "component_seeds": [
+          [
+            996,
+            184
+          ]
+        ],
+        "scale": 1.208651,
+        "anchor_x": 98.587368,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2859,
+          385,
+          241,
+          158
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1038,
+          103,
+          220,
+          141
+        ],
+        "component_seeds": [
+          [
+            1122,
+            185
+          ]
+        ],
+        "scale": 1.135338,
+        "anchor_x": 99.596026,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1291,
+          122,
+          228,
+          122
+        ],
+        "component_seeds": [
+          [
+            1373,
+            193
+          ]
+        ],
+        "scale": 1.263158,
+        "anchor_x": 92.041667,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3102,
+          385,
+          257,
+          137
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          14,
+          379,
+          225,
+          121
+        ],
+        "component_seeds": [
+          [
+            77,
+            450
+          ]
+        ],
+        "scale": 1.277286,
+        "anchor_x": 89.82448,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          269,
+          360,
+          219,
+          140
+        ],
+        "component_seeds": [
+          [
+            439,
+            438
+          ]
+        ],
+        "scale": 1.14899,
+        "anchor_x": 97.068132,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      }
+    ],
+    "chariot_elite_drift": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3361,
+          385,
+          256,
+          159
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          528,
+          360,
+          214,
+          140
+        ],
+        "component_seeds": [
+          [
+            722,
+            438
+          ]
+        ],
+        "scale": 1.239899,
+        "anchor_x": 94.160896,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          797,
+          347,
+          199,
+          153
+        ],
+        "component_seeds": [
+          [
+            854,
+            431
+          ]
+        ],
+        "scale": 1.16092,
+        "anchor_x": 89.831683,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3619,
+          385,
+          235,
+          173
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1051,
+          341,
+          198,
+          160
+        ],
+        "component_seeds": [
+          [
+            1241,
+            429
+          ]
+        ],
+        "scale": 1.140351,
+        "anchor_x": 91.030769,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1311,
+          346,
+          191,
+          153
+        ],
+        "component_seeds": [
+          [
+            1451,
+            435
+          ]
+        ],
+        "scale": 1.197701,
+        "anchor_x": 88.547025,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3856,
+          385,
+          221,
+          174
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          29,
+          602,
+          194,
+          154
+        ],
+        "component_seeds": [
+          [
+            188,
+            690
+          ]
+        ],
+        "scale": 1.194064,
+        "anchor_x": 90.533461,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          288,
+          601,
+          191,
+          155
+        ],
+        "component_seeds": [
+          [
+            320,
+            690
+          ]
+        ],
+        "scale": 1.188209,
+        "anchor_x": 95.230916,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          569,
+          217,
+          175
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          544,
+          602,
+          191,
+          154
+        ],
+        "component_seeds": [
+          [
+            651,
+            691
+          ]
+        ],
+        "scale": 1.178082,
+        "anchor_x": 95.189922,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          788,
+          611,
+          217,
+          145
+        ],
+        "component_seeds": [
+          [
+            844,
+            693
+          ]
+        ],
+        "scale": 1.233577,
+        "anchor_x": 108.676529,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      }
+    ],
+    "chariot_elite_drift_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          219,
+          569,
+          241,
+          166
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1041,
+          612,
+          219,
+          144
+        ],
+        "component_seeds": [
+          [
+            1164,
+            692
+          ]
+        ],
+        "scale": 1.242647,
+        "anchor_x": 110.976331,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1305,
+          604,
+          197,
+          153
+        ],
+        "component_seeds": [
+          [
+            1416,
+            688
+          ]
+        ],
+        "scale": 1.186207,
+        "anchor_x": 94.784884,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          462,
+          569,
+          217,
+          175
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          29,
+          860,
+          194,
+          151
+        ],
+        "component_seeds": [
+          [
+            66,
+            944
+          ]
+        ],
+        "scale": 1.214452,
+        "anchor_x": 92.882917,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          278,
+          863,
+          210,
+          149
+        ],
+        "component_seeds": [
+          [
+            409,
+            949
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 92.909091,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          681,
+          569,
+          236,
+          171
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          530,
+          863,
+          217,
+          148
+        ],
+        "component_seeds": [
+          [
+            667,
+            949
+          ]
+        ],
+        "scale": 1.230952,
+        "anchor_x": 96.938104,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          797,
+          858,
+          196,
+          154
+        ],
+        "component_seeds": [
+          [
+            906,
+            951
+          ]
+        ],
+        "scale": 1.189498,
+        "anchor_x": 85.796545,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          919,
+          569,
+          217,
+          175
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1047,
+          858,
+          202,
+          154
+        ],
+        "component_seeds": [
+          [
+            1103,
+            950
+          ]
+        ],
+        "scale": 1.232877,
+        "anchor_x": 91.403704,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "region": [
+          1315,
+          846,
+          184,
+          166
+        ],
+        "component_seeds": [
+          [
+            1370,
+            948
+          ]
+        ],
+        "scale": 1.170886,
+        "anchor_x": 83.590991,
+        "grade": {
+          "saturation": 0.9351,
+          "rgb": [
+            0.9195,
+            0.91,
+            0.8851
+          ]
+        }
+      }
+    ],
+    "chariot_elite_drift_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1138,
+          569,
+          228,
+          152
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1368,
+          569,
+          236,
+          153
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      }
+    ],
+    "chariot_elite_drift_travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1606,
+          569,
+          262,
+          156
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1870,
+          569,
+          252,
+          159
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      28,
+      27,
+      193,
+      191
+    ],
+    [
+      256,
+      32,
+      186,
+      186
+    ],
+    [
+      476,
+      28,
+      181,
+      190
+    ],
+    [
+      679,
+      30,
+      191,
+      186
+    ],
+    [
+      24,
+      245,
+      197,
+      182
+    ],
+    [
+      238,
+      243,
+      199,
+      183
+    ],
+    [
+      453,
+      242,
+      201,
+      184
+    ],
+    [
+      675,
+      246,
+      192,
+      181
+    ],
+    [
+      25,
+      455,
+      210,
+      184
+    ],
+    [
+      240,
+      456,
+      195,
+      183
+    ],
+    [
+      452,
+      455,
+      200,
+      184
+    ],
+    [
+      674,
+      455,
+      195,
+      183
+    ],
+    [
+      19,
+      679,
+      193,
+      181
+    ],
+    [
+      236,
+      677,
+      222,
+      184
+    ],
+    [
+      462,
+      677,
+      217,
+      184
+    ],
+    [
+      685,
+      676,
+      185,
+      185
+    ],
+    [
+      20,
+      890,
+      220,
+      182
+    ],
+    [
+      227,
+      894,
+      236,
+      178
+    ],
+    [
+      452,
+      894,
+      210,
+      178
+    ],
+    [
+      675,
+      894,
+      194,
+      178
+    ],
+    [
+      17,
+      1104,
+      223,
+      188
+    ],
+    [
+      244,
+      1102,
+      196,
+      190
+    ],
+    [
+      461,
+      1105,
+      194,
+      187
+    ],
+    [
+      673,
+      1105,
+      193,
+      187
+    ],
+    [
+      22,
+      1331,
+      203,
+      181
+    ],
+    [
+      241,
+      1331,
+      205,
+      181
+    ],
+    [
+      451,
+      1347,
+      198,
+      165
+    ],
+    [
+      670,
+      1347,
+      203,
+      165
+    ],
+    [
+      14,
+      1542,
+      214,
+      176
+    ],
+    [
+      236,
+      1564,
+      211,
+      154
+    ],
+    [
+      449,
+      1572,
+      215,
+      143
+    ],
+    [
+      672,
+      1594,
+      200,
+      120
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 32,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.5870967741935483,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "4 columns and 8 rows; actual reviewed count recorded per animation",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            28,
+            27,
+            193,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            256,
+            32,
+            186,
+            186
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            476,
+            28,
+            181,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            679,
+            30,
+            191,
+            186
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            24,
+            245,
+            197,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            238,
+            243,
+            199,
+            183
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            453,
+            242,
+            201,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            675,
+            246,
+            192,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            455,
+            210,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            240,
+            456,
+            195,
+            183
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            452,
+            455,
+            200,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            674,
+            455,
+            195,
+            183
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            19,
+            679,
+            193,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            236,
+            677,
+            222,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            462,
+            677,
+            217,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            685,
+            676,
+            185,
+            185
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            890,
+            220,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            227,
+            894,
+            236,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            452,
+            894,
+            210,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            675,
+            894,
+            194,
+            178
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            17,
+            1104,
+            223,
+            188
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            1102,
+            196,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            461,
+            1105,
+            194,
+            187
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            673,
+            1105,
+            193,
+            187
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            22,
+            1331,
+            203,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            241,
+            1331,
+            205,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            451,
+            1347,
+            198,
+            165
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            670,
+            1347,
+            203,
+            165
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            14,
+            1542,
+            214,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            236,
+            1564,
+            211,
+            154
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            449,
+            1572,
+            215,
+            143
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            672,
+            1594,
+            200,
+            120
+          ]
+        }
+      ]
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/pilgrim_chariot.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "chariot_caltrops_windup",
+      "chariot_caltrops",
+      "chariot_caltrops_recover",
+      "chariot_caltrops_charge",
+      "charge",
+      "travel",
+      "chariot_elite_drift_windup",
+      "chariot_elite_drift",
+      "chariot_elite_drift_recover",
+      "chariot_elite_drift_charge",
+      "chariot_elite_drift_travel"
+    ],
+    "sheets": [
+      {
+        "image": "chariot_caltrops.png",
+        "image_sha256": "116a9116fc5430da0526da28ecc99b221b0838cda185296ffb37fa8c14430e6c",
+        "role": "new",
+        "attack": "chariot_caltrops",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8809,
+        "anchors": [
+          95.0,
+          120.0,
+          103.0,
+          94.0,
+          110.0,
+          109.0,
+          123.0,
+          108.0,
+          105.0,
+          106.0,
+          115.0,
+          102.0,
+          108.0,
+          99.0
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8821,
+          "last_recover_ratio": 0.8796
+        }
+      },
+      {
+        "image": "chariot_charge_loops.png",
+        "image_sha256": "375764e106a2183a500497038bb782daae174f07231997ac0a26366efceff600",
+        "role": "keep",
+        "attack": "chariot_charge",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.4326,
+        "anchors": [
+          223.3,
+          251.3,
+          241.8,
+          243.8
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.4398,
+            0.4138,
+            0.4286,
+            0.449
+          ]
+        }
+      },
+      {
+        "image": "chariot_elite_drift.png",
+        "image_sha256": "48e3a9a1ee4097e8f176eb6cbd01c2577ac782f806c80c9c702f276a0394045d",
+        "role": "elite",
+        "attack": "chariot_elite_drift",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.8685,
+        "anchors": [
+          106.9,
+          127.9,
+          123.9,
+          115.9,
+          126.9,
+          127.9,
+          120.9,
+          128.9,
+          140.9,
+          120.9,
+          120.9,
+          109.9,
+          118.9,
+          122.9,
+          127.9,
+          120.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8687,
+          "last_recover_ratio": 0.8683
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "pilgrim_chariot__attack",
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__attack.png",
+        "sha256": "75af3e178d95997f5977c6722045abfc6954e5d620b7216238f8c2307c48e1e6",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/pilgrim_chariot__attack.png"
+      },
+      {
+        "id": "pilgrim_chariot__chariot_caltrops",
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_caltrops.png",
+        "sha256": "8d5af21475c6152a4d15706dd7eba9a4e27a03200dd02a818766ba226108f0ae",
+        "new_drawings": 24,
+        "animations": [
+          "chariot_caltrops_windup",
+          "chariot_caltrops",
+          "chariot_caltrops_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/pilgrim_chariot__chariot_caltrops.png"
+      },
+      {
+        "id": "pilgrim_chariot__chariot_elite_drift",
+        "source": "art_requests/combat_motion_v7/incoming/pilgrim_chariot__chariot_elite_drift.png",
+        "sha256": "98d114c85dd7edae13bd39ad62ebc6f0baa0986776535d3ebf407ee695e6020b",
+        "new_drawings": 24,
+        "animations": [
+          "chariot_elite_drift_windup",
+          "chariot_elite_drift",
+          "chariot_elite_drift_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/pilgrim_chariot__chariot_elite_drift.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

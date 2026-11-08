@@ -9,6 +9,18 @@ var characters := 0
 var poses := 0
 class Stage extends Node2D:
     var chapter_terrain: Node = null
+class LegacyEnemy extends "res://scripts/enemy_actor.gd":
+    ## Exercise the retained v6 routing separately from the richer live layer.
+    func configure(data: Dictionary,sprite_path: String,boss_flag: bool=false,profile: Dictionary={}) -> void:
+        super.configure(data,sprite_path,boss_flag,profile)
+        var path:="res://assets/sprites/original_creatures/"+kind+"/motion_manifest.json"
+        var old: Dictionary=preload("res://scripts/hand_drawn_assets.gd").manifest(path)
+        asset_path=path;visual_scale=float(old.visual_scale)
+        visual_offset=Vector2(float(old.visual_offset[0]),float(old.visual_offset[1]))
+        authored_combat_sequences=[]
+        if is_boss:
+            ai_profile=preload("res://scripts/hand_drawn_assets.gd").manifest("res://data/original_creature_combat.json").get(kind,{}).duplicate(true)
+            ai_commands=ai_profile.get("attacks",[]).duplicate(true)
 func _initialize() -> void: call_deferred("run")
 func check(ok: bool, label: String) -> void:
     checks += 1
@@ -21,7 +33,7 @@ func run() -> void:
     var designs: Dictionary = ART.manifest("res://data/original_creature_designs.json")
     for design in designs.designs:
         var kind := String(design.kind)
-        var path := "res://assets/sprites/original_creatures/" + kind + "/motion_manifest.json"
+        var path := ART.character_manifest("original_creatures",kind)
         check(FileAccess.file_exists(path), kind + " expanded resource exists")
         if not FileAccess.file_exists(path): continue
         var enemy = ENEMY.new()
@@ -109,7 +121,7 @@ func _check_frames(frames: SpriteFrames, manifest: Dictionary, id: String) -> vo
     for animation in manifest.animations:
         var name := String(animation.name)
         check(frames.get_frame_count(name) == animation.frames.size(), id+"/"+name+" every reviewed pose loads")
-        var looping := name in ["idle","walk","talk","charge","travel"] or name.ends_with("_charge") or name.ends_with("_travel")
+        var looping := name in ["idle","walk","talk","charge","travel","backstep"] or name.ends_with("_charge") or name.ends_with("_travel")
         check(frames.get_animation_loop(name) == looping, id+"/"+name+" loop mode")
         for index in animation.frames.size():
             var texture := frames.get_frame_texture(name,index)
@@ -185,7 +197,7 @@ func _check_attack_specific_poses(stage: Node2D) -> void:
     check(enemy.pose_loop_animation.is_empty(), "recoil cancels a pending charge loop")
     var other := {"id":"larva_curl","animation":"attack","windup":0.9,"active":0.24,"recover":0.5}
     enemy._pose_sprite("windup", other)
-    check(sprite.animation == &"windup" and enemy.pose_loop_animation == "charge", "kept attack holds the species wind-up with its own charge loop")
+    check(sprite.animation == &"windup" and enemy.pose_loop_animation == ("" if "windup" in enemy.authored_combat_sequences else "charge"), "kept attack uses the complete authored wind-up or retained charge fallback")
     enemy._pose_sprite("active", other)
     check(sprite.animation == &"attack" and enemy.pose_loop_animation.is_empty(), "kept attack keeps the species strike")
     enemy.queue_free()
@@ -227,7 +239,7 @@ func _check_boss_recovery_bridges(stage: Node2D) -> void:
     var settle := {"broken_string_gardener": ["heavy", "phase"]}
     var bridged := 0
     for kind in ["broken_string_gardener","rust_crown_guardian","saltwhite_contract_judge","sunken_hammer_smith","silent_crown_core","silent_pilgrim_commander"]:
-        var enemy = ENEMY.new()
+        var enemy = LegacyEnemy.new()
         enemy.configure({"id":"bridge_"+kind,"kind":kind,"hp":20}, "", true)
         stage.add_child(enemy)
         enemy.set_physics_process(false)
@@ -245,12 +257,14 @@ func _check_boss_recovery_bridges(stage: Node2D) -> void:
             enemy._pose_sprite("recover", command)
             check(sprite.animation == StringName(bridge) and sprite.frame == 0, label+" recovery opens on its bridge")
             check(enemy.pose_loop_animation == after, label+" bridge hands over to "+after)
-            enemy._update_recover(0.12)
+            var handover: float=float(command.get("recover",0.5))-float(enemy.pose_loop_at)
+            check(handover>0.0 and handover<float(command.get("recover",0.5)),label+" bridge gets a bounded share of the original window")
+            enemy._update_recover(handover*.6)
             check(sprite.animation == StringName(bridge), label+" bridge is shown before the hand-over")
-            enemy._update_recover(0.08)
+            enemy._update_recover(handover*.4+.001)
             check(sprite.animation == StringName(after) and enemy.pose_loop_animation.is_empty(), label+" continues as "+after)
             if after == "recover":
-                var remaining := float(command.get("recover", 0.5)) - 0.18
+                var remaining := float(command.get("recover", 0.5)) - handover
                 var expected := sprite.sprite_frames.get_frame_count("recover") / (sprite.sprite_frames.get_animation_speed("recover") * remaining)
                 check(absf(sprite.speed_scale - expected) < 0.001, label+" shared recovery fills the remaining time")
             enemy._pose_sprite("idle")
@@ -266,7 +280,7 @@ func _check_v5_runtime_sources(stage: Node2D) -> void:
     var ids := bosses + ["ash_banner_imp", "echo_contract_scribe", "wax_lancer", "delayed_shadow", "pipe_thrower", "npc_blind_bell_knight", "npc_deserter_flagbearer"]
     for id: String in ids:
         var npc := id.begins_with("npc_")
-        var path := ART.character_manifest("original_npcs" if npc else "original_creatures", id)
+        var path := ART.character_manifest("original_npcs",id) if npc else "res://assets/sprites/original_creatures/"+id+"/motion_manifest.json"
         var record: Dictionary = ART.manifest(path.get_base_dir() + "/motion_generation.json")
         var actor: Node2D
         var sprite: AnimatedSprite2D
@@ -275,13 +289,13 @@ func _check_v5_runtime_sources(stage: Node2D) -> void:
             stage.add_child(actor)
             sprite = actor.get_node("FriendlyFamilySprite") as AnimatedSprite2D
         else:
-            actor = ENEMY.new()
+            actor = LegacyEnemy.new()
             actor.configure({"id": "v5_" + id, "kind": id, "hp": 20}, "", id in bosses)
             stage.add_child(actor)
             actor.set_physics_process(false)
             sprite = actor.animated_sprite
-            check(actor.asset_path == path, id + " v5 production manifest selected")
-        check(sprite.sprite_frames == ART.frames(path), id + " v5 factory uses reviewed motion frames")
+            check(actor.asset_path == path, id + " retained v5 manifest selected")
+        check(sprite.sprite_frames == ART.frames(path), id + " retained v5 factory uses reviewed motion frames")
         for animation: String in record.get("runtime_frames", {}):
             var entries: Array = record.runtime_frames[animation]
             for index in entries.size():
@@ -297,28 +311,31 @@ func _check_v5_runtime_sources(stage: Node2D) -> void:
         actor.queue_free()
         await process_frame
     level.free()
-    check(delivered.size() == 32 and source_frames == 67, "all 32 PR138 sheets / 67 cels reach production actors")
+    check(delivered.size() == 32 and source_frames == 67, "all 32 PR138 sheets / 67 cels remain available in the retained fallback")
     print("CHARACTER_MOTION_V5 sources=%d frames=%d" % [delivered.size(), source_frames])
 
 func _check_recovery_hitch(stage: Node2D) -> void:
-    var enemy = ENEMY.new()
+    var enemy = LegacyEnemy.new()
     enemy.configure({"id": "v5_hitch", "kind": "sunken_hammer_smith", "hp": 20}, "", true)
     stage.add_child(enemy)
     enemy.set_physics_process(false)
     var sprite: AnimatedSprite2D = enemy.animated_sprite
     var command := {"id": "boss_shears_close", "animation": "heavy", "recover": 0.8}
-    for overshoot: float in [0.0, 0.10, 0.35, 0.60]:
+    for fraction: float in [0.0,0.16,0.56,0.94]:
         enemy.state = "recover"
         enemy.state_timer = 0.8
         enemy._pose_sprite("recover", command)
-        enemy._update_recover(0.18 + overshoot)
+        var handover: float=0.8-float(enemy.pose_loop_at)
+        var remaining:=0.8-handover
+        var overshoot:=fraction*remaining
+        enemy._update_recover(handover+overshoot)
         var count := sprite.sprite_frames.get_frame_count("recover")
-        var expected := overshoot * count / 0.62
+        var expected := overshoot * count / remaining
         check(sprite.animation == &"recover", "hitch still selects shared recovery")
         check(absf(sprite.frame + sprite.frame_progress - expected) < 0.001, "hitch preserves elapsed recovery animation at %.2fs" % overshoot)
-        check(absf(enemy.state_timer - (0.62 - overshoot)) < 0.001, "hitch keeps the original punishment window")
+        check(absf(enemy.state_timer - (remaining - overshoot)) < 0.001, "hitch keeps the original punishment window")
         enemy._update_recover(enemy.state_timer + 0.001)
-        check(enemy.state == "patrol" and sprite.animation == &"idle", "hitch recovery ends on schedule")
+        check(enemy.state == "patrol" and sprite.animation in [&"idle",&"walk"], "hitch recovery hands back to locomotion on schedule")
     enemy._pose_sprite("recover", command)
     enemy._pose_sprite("hurt")
     check(enemy.pose_loop_animation.is_empty(), "recoil cancels pending v5 bridge follow-up")

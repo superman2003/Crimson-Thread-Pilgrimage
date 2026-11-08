@@ -177,20 +177,15 @@ func _pixels(tree: SceneTree,enemy) -> void:
                 var image := view.get_texture().get_image()
                 for index in range(5):
                     var point: Vector2i = Vector2i(nodes[index].position)
-                    # Eruption interior avoids the four collision corner markers.
-                    # Wave interior avoids its circular safety rim, while extending
-                    # below the collision center to inspect floor registration.
+                    # Compare the authored material directly, including pixels
+                    # where geometric range rims used to cover the artwork.
                     var offset := Vector2i(-6,-1) if index < 3 else Vector2i(-14,-82)
                     var size := Vector2i(12,19) if index < 3 else Vector2i(28,84)
                     var actual := image.get_region(Rect2i(point+offset,size))
                     var expected := image.get_region(Rect2i(point+Vector2i(120,0)+offset,size))
                     var a := actual.get_data();var b := expected.get_data();var max_error := 0
-                    # Mask circle-rim pixels; the source oracle paints only art.
                     for y in range(size.y):
                         for x in range(size.x):
-                            var local := Vector2(offset+Vector2i(x,y))+Vector2(.5,.5)
-                            if index < 3 and absf(local.length()-radii[index]) < 3.5: continue
-                            if index >= 3 and slot < 2 and (absf(local.length()-radii[index]) < 4.5 or absf(local.y) < 4): continue
                             for channel in range(4):
                                 var at := (y*size.x+x)*4+channel
                                 max_error=maxi(max_error,absi(int(a[at])-int(b[at])))
@@ -203,7 +198,7 @@ func _pixels(tree: SceneTree,enemy) -> void:
                                 var pixel := image.get_pixelv(point+boundary+Vector2i(bx,by))
                                 var source_pixel := image.get_pixelv(point+Vector2i(120,0)+boundary+Vector2i(bx,by))
                                 separation += int(absf(pixel.r-source_pixel.r)*255+absf(pixel.g-source_pixel.g)*255+absf(pixel.b-source_pixel.b)*255)
-                        _check(separation > 100, ART.FAMILIES[index]+" keeps stable collision boundary outside painted silhouette")
+                        _check(separation <= 27, ART.FAMILIES[index]+" uses authored pixels without an extra geometric collision rim")
                     if (index < 3 and slot in [2,3,4,5]) or (index >= 3 and slot in [2,3]): distinct[index][a.hex_encode().sha256_text()]=true
                 for mark in fades: mark.queue_free()
                 await tree.process_frame

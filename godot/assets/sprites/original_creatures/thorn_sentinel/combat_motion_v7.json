@@ -1,0 +1,2433 @@
+{
+  "kind": "thorn_sentinel",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-066c8022-c6db-47b6-a2e9-224bcfa48576.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Production 2D hand-painted sprite animation sheet of reference character thorn_sentinel. Preserve exact original character design, proportions, palette and fine ink outlines: beetle guard, ivory horned mask, bark and thorn armor, green leaf shield, serrated red-brown sword. Reference is identity/style only. PORTRAIT sheet with exactly FOUR columns and EIGHT rows, exactly 32 full body sprites, on TRUE TRANSPARENT alpha background, no scenery, no text, labels or grid. Rows in precise order: ROW1 four IDLE breathing poses; ROW2 walk cycle poses 1-4; ROW3 walk cycle poses 5-8; ROW4 four WINDUP anticipation poses; ROW5 four ATTACK strike/follow-through poses; ROW6 four RECOVERY returning to ready; ROW7 four HURT recoil poses; ROW8 four DEATH poses stagger, buckle, collapse, settled. Maintain consistent scale and horizontal registration, feet baseline within every equal cell. Make sprites SMALLER to leave generous safety margin; every full body and COMPLETE antenna, weapon and appendage occupies at most 65% cell width/72% height even during attack. No weapon or limb crosses a cell border, no neighbor overlap. All living frames face RIGHT, orthographic side view. shield braces and serrated blade lifts then slashes. Distinct intentional anatomical poses: real joint rotation, alternating foot contacts, body weight shift and secondary motion. Never simple translated or rotated duplicates.",
+  "qa": {
+    "dimensions": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          37,
+          27,
+          163,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            69,
+            147
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          252,
+          27,
+          161,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            287,
+            148
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          468,
+          27,
+          164,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            521,
+            146
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          687,
+          27,
+          168,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            721,
+            146
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          26,
+          249,
+          180,
+          198
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            67,
+            368
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          246,
+          249,
+          192,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            370,
+            367
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          454,
+          257,
+          194,
+          190
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            524,
+            367
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          672,
+          253,
+          197,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            772,
+            368
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          26,
+          475,
+          207,
+          195
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            151,
+            591
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          250,
+          474,
+          197,
+          196
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            328,
+            593
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          467,
+          477,
+          199,
+          193
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            559,
+            592
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          689,
+          474,
+          188,
+          195
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            773,
+            591
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          26,
+          702,
+          170,
+          193
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            124,
+            817
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          247,
+          708,
+          164,
+          187
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            306,
+            819
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          459,
+          689,
+          177,
+          206
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            578,
+            814
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          675,
+          702,
+          178,
+          193
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            717,
+            817
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          22,
+          923,
+          216,
+          176
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            169,
+            1027
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          232,
+          939,
+          229,
+          160
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            291,
+            1026
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          463,
+          933,
+          422,
+          166
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            607,
+            1029
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          26,
+          1127,
+          167,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            158,
+            1240
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          245,
+          1127,
+          192,
+          193
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            341,
+            1243
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          467,
+          1126,
+          186,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            486,
+            1240
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          687,
+          1133,
+          166,
+          187
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            742,
+            1244
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          39,
+          1348,
+          182,
+          183
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            168,
+            1452
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          261,
+          1341,
+          175,
+          190
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            301,
+            1455
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          477,
+          1354,
+          170,
+          177
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            546,
+            1451
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          685,
+          1351,
+          183,
+          180
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            789,
+            1459
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          0
+        ],
+        "region": [
+          37,
+          1559,
+          184,
+          178
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            88,
+            1660
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          1
+        ],
+        "region": [
+          253,
+          1572,
+          194,
+          164
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            340,
+            1668
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          2
+        ],
+        "region": [
+          460,
+          1594,
+          193,
+          141
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            573,
+            1682
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          3
+        ],
+        "region": [
+          657,
+          1645,
+          214,
+          92
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            809,
+            1698
+          ]
+        ]
+      }
+    ],
+    "status": "reviewed",
+    "frames": 32,
+    "retained_original_poses": "Complete original connected silhouettes, uniform per-source scale based on original and new idle character proportions. Source pixels remain unchanged.",
+    "horizontal_registration": "Fixed four-column cell body origin retained; complete source silhouette and per-source scale preserved.",
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          163,
+          199
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          165,
+          0,
+          161,
+          199
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          328,
+          0,
+          164,
+          199
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          494,
+          0,
+          168,
+          199
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          664,
+          0,
+          180,
+          198
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          846,
+          0,
+          192,
+          199
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1040,
+          0,
+          193,
+          190
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1235,
+          0,
+          197,
+          194
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1434,
+          0,
+          207,
+          195
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1643,
+          0,
+          197,
+          196
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1842,
+          0,
+          198,
+          193
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2042,
+          0,
+          188,
+          195
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2232,
+          0,
+          170,
+          193
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          53,
+          75,
+          150,
+          172
+        ],
+        "component_seeds": [
+          [
+            72,
+            176
+          ]
+        ],
+        "scale": 1.164634,
+        "anchor_x": 78.696335,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          308,
+          80,
+          149,
+          166
+        ],
+        "component_seeds": [
+          [
+            372,
+            177
+          ]
+        ],
+        "scale": 1.196203,
+        "anchor_x": 75.312169,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2404,
+          0,
+          164,
+          187
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          561,
+          78,
+          150,
+          169
+        ],
+        "component_seeds": [
+          [
+            650,
+            176
+          ]
+        ],
+        "scale": 1.200828,
+        "anchor_x": 82.77931,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          814,
+          73,
+          160,
+          174
+        ],
+        "component_seeds": [
+          [
+            951,
+            171
+          ]
+        ],
+        "scale": 1.202811,
+        "anchor_x": 87.891486,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2570,
+          0,
+          177,
+          206
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1072,
+          63,
+          159,
+          183
+        ],
+        "component_seeds": [
+          [
+            1188,
+            170
+          ]
+        ],
+        "scale": 1.152381,
+        "anchor_x": 88.157025,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1324,
+          68,
+          168,
+          178
+        ],
+        "component_seeds": [
+          [
+            1399,
+            174
+          ]
+        ],
+        "scale": 1.160784,
+        "anchor_x": 95.297297,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2749,
+          0,
+          178,
+          193
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          44,
+          324,
+          168,
+          178
+        ],
+        "component_seeds": [
+          [
+            195,
+            429
+          ]
+        ],
+        "scale": 1.101961,
+        "anchor_x": 91.395018,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          284,
+          345,
+          199,
+          157
+        ],
+        "component_seeds": [
+          [
+            311,
+            437
+          ]
+        ],
+        "scale": 1.219239,
+        "anchor_x": 89.625688,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2929,
+          0,
+          216,
+          176
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          541,
+          345,
+          195,
+          157
+        ],
+        "component_seeds": [
+          [
+            686,
+            436
+          ]
+        ],
+        "scale": 1.145414,
+        "anchor_x": 86.179688,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          792,
+          353,
+          206,
+          150
+        ],
+        "component_seeds": [
+          [
+            828,
+            435
+          ]
+        ],
+        "scale": 1.164319,
+        "anchor_x": 90.137097,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3147,
+          0,
+          229,
+          160
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1050,
+          355,
+          211,
+          148
+        ],
+        "component_seeds": [
+          [
+            1177,
+            437
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 92.585859,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1293,
+          358,
+          231,
+          145
+        ],
+        "component_seeds": [
+          [
+            1347,
+            438
+          ]
+        ],
+        "scale": 1.240876,
+        "anchor_x": 89.313725,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3378,
+          0,
+          292,
+          176
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          12,
+          613,
+          231,
+          146
+        ],
+        "component_seeds": [
+          [
+            99,
+            694
+          ]
+        ],
+        "scale": 1.263285,
+        "anchor_x": 84.292543,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          273,
+          609,
+          223,
+          150
+        ],
+        "component_seeds": [
+          [
+            332,
+            699
+          ]
+        ],
+        "scale": 1.223005,
+        "anchor_x": 78.099808,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3672,
+          0,
+          275,
+          173
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          529,
+          609,
+          219,
+          150
+        ],
+        "component_seeds": [
+          [
+            662,
+            698
+          ]
+        ],
+        "scale": 1.267606,
+        "anchor_x": 77.274074,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          812,
+          584,
+          155,
+          175
+        ],
+        "component_seeds": [
+          [
+            927,
+            684
+          ]
+        ],
+        "scale": 1.11976,
+        "anchor_x": 79.199643,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          208,
+          167,
+          194
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1071,
+          584,
+          152,
+          175
+        ],
+        "component_seeds": [
+          [
+            1151,
+            685
+          ]
+        ],
+        "scale": 1.159681,
+        "anchor_x": 80.802065,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1325,
+          584,
+          164,
+          174
+        ],
+        "component_seeds": [
+          [
+            1418,
+            688
+          ]
+        ],
+        "scale": 1.164659,
+        "anchor_x": 81.268966,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          169,
+          208,
+          192,
+          193
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          42,
+          843,
+          166,
+          171
+        ],
+        "component_seeds": [
+          [
+            96,
+            945
+          ]
+        ],
+        "scale": 1.186094,
+        "anchor_x": 81.32069,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          295,
+          843,
+          163,
+          171
+        ],
+        "component_seeds": [
+          [
+            363,
+            943
+          ]
+        ],
+        "scale": 1.188139,
+        "anchor_x": 83.777969,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          363,
+          208,
+          186,
+          194
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          551,
+          843,
+          163,
+          171
+        ],
+        "component_seeds": [
+          [
+            670,
+            943
+          ]
+        ],
+        "scale": 1.175869,
+        "anchor_x": 86.212174,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          815,
+          846,
+          150,
+          168
+        ],
+        "component_seeds": [
+          [
+            835,
+            945
+          ]
+        ],
+        "scale": 1.183333,
+        "anchor_x": 81.366197,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          551,
+          208,
+          166,
+          187
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1073,
+          846,
+          149,
+          168
+        ],
+        "component_seeds": [
+          [
+            1147,
+            945
+          ]
+        ],
+        "scale": 1.19375,
+        "anchor_x": 80.415358,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "region": [
+          1334,
+          842,
+          144,
+          172
+        ],
+        "component_seeds": [
+          [
+            1396,
+            944
+          ]
+        ],
+        "scale": 1.189024,
+        "anchor_x": 72.309402,
+        "grade": {
+          "saturation": 0.9901,
+          "rgb": [
+            0.9023,
+            0.8998,
+            0.8863
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          719,
+          208,
+          182,
+          183
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          903,
+          208,
+          175,
+          190
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1080,
+          208,
+          170,
+          177
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1252,
+          208,
+          183,
+          180
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1437,
+          208,
+          184,
+          178
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1623,
+          208,
+          194,
+          164
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1819,
+          208,
+          193,
+          141
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2014,
+          208,
+          214,
+          92
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      }
+    ],
+    "thorn_ring_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2230,
+          208,
+          183,
+          162
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          42,
+          110,
+          168,
+          136
+        ],
+        "component_seeds": [
+          [
+            83,
+            190
+          ]
+        ],
+        "scale": 1.346354,
+        "anchor_x": 89.54352,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          297,
+          81,
+          167,
+          165
+        ],
+        "component_seeds": [
+          [
+            346,
+            179
+          ]
+        ],
+        "scale": 1.163482,
+        "anchor_x": 81.843066,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2415,
+          208,
+          198,
+          193
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          552,
+          81,
+          168,
+          165
+        ],
+        "component_seeds": [
+          [
+            599,
+            179
+          ]
+        ],
+        "scale": 1.252654,
+        "anchor_x": 84.210169,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          813,
+          71,
+          162,
+          175
+        ],
+        "component_seeds": [
+          [
+            912,
+            179
+          ]
+        ],
+        "scale": 1.199601,
+        "anchor_x": 84.998336,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2615,
+          208,
+          183,
+          204
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1068,
+          70,
+          163,
+          176
+        ],
+        "component_seeds": [
+          [
+            1118,
+            179
+          ]
+        ],
+        "scale": 1.218254,
+        "anchor_x": 86.074919,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1322,
+          66,
+          166,
+          180
+        ],
+        "component_seeds": [
+          [
+            1417,
+            177
+          ]
+        ],
+        "scale": 1.193798,
+        "anchor_x": 86.974026,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2800,
+          208,
+          191,
+          206
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          44,
+          321,
+          162,
+          181
+        ],
+        "component_seeds": [
+          [
+            75,
+            432
+          ]
+        ],
+        "scale": 1.175337,
+        "anchor_x": 83.895082,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          278,
+          325,
+          204,
+          177
+        ],
+        "component_seeds": [
+          [
+            383,
+            428
+          ]
+        ],
+        "scale": 1.187377,
+        "anchor_x": 83.946844,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      }
+    ],
+    "thorn_ring": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2993,
+          208,
+          237,
+          198
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          535,
+          327,
+          206,
+          175
+        ],
+        "component_seeds": [
+          [
+            642,
+            428
+          ]
+        ],
+        "scale": 1.209581,
+        "anchor_x": 82.039604,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          794,
+          318,
+          201,
+          184
+        ],
+        "component_seeds": [
+          [
+            935,
+            423
+          ]
+        ],
+        "scale": 1.170455,
+        "anchor_x": 81.873786,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3232,
+          208,
+          223,
+          210
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1049,
+          317,
+          203,
+          184
+        ],
+        "component_seeds": [
+          [
+            1063,
+            423
+          ]
+        ],
+        "scale": 1.191288,
+        "anchor_x": 80.963434,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1306,
+          318,
+          201,
+          184
+        ],
+        "component_seeds": [
+          [
+            1377,
+            426
+          ]
+        ],
+        "scale": 1.189394,
+        "anchor_x": 87.955414,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3457,
+          208,
+          227,
+          209
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          29,
+          575,
+          196,
+          183
+        ],
+        "component_seeds": [
+          [
+            106,
+            681
+          ]
+        ],
+        "scale": 1.184762,
+        "anchor_x": 83.654341,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          286,
+          580,
+          190,
+          178
+        ],
+        "component_seeds": [
+          [
+            375,
+            685
+          ]
+        ],
+        "scale": 1.209804,
+        "anchor_x": 81.489465,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3686,
+          208,
+          216,
+          204
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          542,
+          579,
+          191,
+          179
+        ],
+        "component_seeds": [
+          [
+            612,
+            686
+          ]
+        ],
+        "scale": 1.138402,
+        "anchor_x": 83.143836,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          800,
+          606,
+          178,
+          152
+        ],
+        "component_seeds": [
+          [
+            829,
+            694
+          ]
+        ],
+        "scale": 1.287037,
+        "anchor_x": 92.079137,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      }
+    ],
+    "thorn_ring_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          420,
+          204,
+          176
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1056,
+          605,
+          177,
+          153
+        ],
+        "component_seeds": [
+          [
+            1129,
+            694
+          ]
+        ],
+        "scale": 1.218391,
+        "anchor_x": 92.075472,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1320,
+          603,
+          171,
+          155
+        ],
+        "component_seeds": [
+          [
+            1466,
+            695
+          ]
+        ],
+        "scale": 1.206349,
+        "anchor_x": 87.026316,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          206,
+          420,
+          196,
+          178
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          41,
+          857,
+          169,
+          157
+        ],
+        "component_seeds": [
+          [
+            125,
+            950
+          ]
+        ],
+        "scale": 1.190157,
+        "anchor_x": 84.958647,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          296,
+          855,
+          172,
+          159
+        ],
+        "component_seeds": [
+          [
+            406,
+            950
+          ]
+        ],
+        "scale": 1.169978,
+        "anchor_x": 87.871698,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          404,
+          420,
+          194,
+          176
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          552,
+          853,
+          172,
+          161
+        ],
+        "component_seeds": [
+          [
+            561,
+            950
+          ]
+        ],
+        "scale": 1.145969,
+        "anchor_x": 87.764259,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          810,
+          856,
+          165,
+          157
+        ],
+        "component_seeds": [
+          [
+            914,
+            950
+          ]
+        ],
+        "scale": 1.17226,
+        "anchor_x": 86.881679,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          600,
+          420,
+          178,
+          174
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1067,
+          856,
+          164,
+          158
+        ],
+        "component_seeds": [
+          [
+            1176,
+            950
+          ]
+        ],
+        "scale": 1.215556,
+        "anchor_x": 83.870201,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "region": [
+          1333,
+          837,
+          148,
+          177
+        ],
+        "component_seeds": [
+          [
+            1432,
+            943
+          ]
+        ],
+        "scale": 1.128205,
+        "anchor_x": 72.954545,
+        "grade": {
+          "saturation": 1.1134,
+          "rgb": [
+            0.85,
+            0.8562,
+            0.85
+          ]
+        }
+      }
+    ],
+    "thorn_ring_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          780,
+          420,
+          202,
+          209
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          984,
+          420,
+          207,
+          214
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/thorn_sentinel.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "thorn_ring_windup",
+      "thorn_ring",
+      "thorn_ring_recover",
+      "thorn_ring_charge"
+    ],
+    "sheets": [
+      {
+        "image": "thorn_ring.png",
+        "image_sha256": "834f1a03c2b7e27703b5f3b001e00ae3c660aff11f66728fc439671b094c1d97",
+        "role": "new",
+        "attack": "thorn_ring",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 1.0133,
+        "anchors": [
+          95.8,
+          94.8,
+          95.8,
+          95.8,
+          90.8,
+          86.8,
+          95.8,
+          89.8,
+          98.8,
+          94.8,
+          96.8,
+          90.8,
+          103.8,
+          104.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 1.027,
+          "last_recover_ratio": 0.9999
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "thorn_sentinel__attack",
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__attack.png",
+        "sha256": "b94163101c497366d8c235aa2b93e2405dc72dfec6a2de602cd5f0a87159fc1e",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/thorn_sentinel__attack.png"
+      },
+      {
+        "id": "thorn_sentinel__thorn_ring",
+        "source": "art_requests/combat_motion_v7/incoming/thorn_sentinel__thorn_ring.png",
+        "sha256": "c4f08bb602459b41c8cd37d333a3102da697106f34a9f496b0da22c25015a23b",
+        "new_drawings": 24,
+        "animations": [
+          "thorn_ring_windup",
+          "thorn_ring",
+          "thorn_ring_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/thorn_sentinel__thorn_ring.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

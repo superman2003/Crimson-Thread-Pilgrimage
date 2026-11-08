@@ -73,9 +73,9 @@ def shelf_pack(sizes, max_width):
         width = max(width, x - 2)
     return placements, (width, y + shelf)
 
-def build(folder: Path, check=False):
+def build(folder: Path, check=False, record_name="motion_generation.json", output_name="motion_manifest.json", atlas_name="motion_runtime.png"):
     source = read(folder / "manifest.json")
-    record = read(folder / "motion_generation.json")
+    record = read(folder / record_name)
     runtime = record.get("runtime_frames", {})
     npc = folder.parent.name == "original_npcs"
     minimums = MIN_NPC if npc else MIN_CREATURE
@@ -139,7 +139,9 @@ def build(folder: Path, check=False):
             # The reviewer must provide a complete silhouette, with at least one
             # clear pixel along every cut. Reject hard clipping rather than hide it.
             alpha = np.asarray(cell)[:,:,3]
-            if any((edge > 24).any() for edge in (alpha[0], alpha[-1], alpha[:,0], alpha[:,-1])):
+            # A versioned layer can reuse already reviewed packed runtime cels;
+            # those rectangles are intentionally alpha-tight, unlike new cuts.
+            if not entry.get("packed_runtime") and any((edge > 24).any() for edge in (alpha[0], alpha[-1], alpha[:,0], alpha[:,-1])):
                 raise ValueError(f"{folder.name}/{name}: content touches reviewed region edge {entry['region']}")
             bx,by,ex,ey = box
             cropped = cell.crop(box)
@@ -179,11 +181,11 @@ def build(folder: Path, check=False):
         atlas = Image.new("RGBA", size)
         for pose, (x, y) in zip(poses, placements):
             atlas.alpha_composite(pose["image"], (x,y))
-            pose["sheet"] = "motion_runtime.png"
+            pose["sheet"] = atlas_name
             pose["region"] = [x,y,pose["image"].width,pose["image"].height]
         buffer = BytesIO()
         atlas.save(buffer,format="PNG")
-        path = folder/"motion_runtime.png"
+        path = folder/atlas_name
         if check:
             if not path.exists() or Image.open(path).mode != "RGBA" or not np.array_equal(np.asarray(Image.open(path)),np.asarray(atlas)):
                 raise ValueError(f"{folder.name}: normalized atlas differs; rebuild")
@@ -211,9 +213,11 @@ def build(folder: Path, check=False):
             fps = len(entries) * float(old["fps"]) / len(old["frames"])
         animations.append({"name":name,"fps":fps,"loop":looping(name),"frames":frames})
     output = {k:v for k,v in source.items() if k not in ("animations","attack_integrity","atlas_size")}
-    output.update({"source":"imagegen authored expanded poses; reviewed atlas regions; no interpolation", "version":2,"canvas":canvas,"visual_scale":scale,"visual_offset":offset,"animations":animations,"generation_record":"motion_generation.json"})
+    output.update({"source":"imagegen authored expanded poses; reviewed atlas regions; no interpolation", "version":2,"canvas":canvas,"visual_scale":scale,"visual_offset":offset,"animations":animations,"generation_record":record_name})
+    if record.get("combat_motion_v7"):
+        output["authored_combat_sequences"]=sorted({name for item in record["combat_motion_v7"]["sources"] for name in item["animations"]})
     encoded=json.dumps(output,ensure_ascii=False,indent=2)+"\n"
-    dest=folder/"motion_manifest.json"
+    dest=folder/output_name
     if check:
         if not dest.exists() or dest.read_text(encoding="utf-8")!=encoded:
             raise ValueError(f"{folder.name}: motion manifest differs; rebuild")

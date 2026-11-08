@@ -1,0 +1,1484 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "spore_bellmaker",
+  "canvas": [
+    334,
+    244
+  ],
+  "display_height": 96,
+  "visual_scale": 0.6193548387096774,
+  "visual_offset": [
+    0,
+    -13.238030560271646
+  ],
+  "motion": "stationary",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            163,
+            155
+          ],
+          "margin": [
+            100,
+            81,
+            171,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            165,
+            0,
+            165,
+            149
+          ],
+          "margin": [
+            104,
+            87,
+            169,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            332,
+            0,
+            152,
+            154
+          ],
+          "margin": [
+            119,
+            82,
+            182,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            486,
+            0,
+            173,
+            150
+          ],
+          "margin": [
+            86,
+            86,
+            161,
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            661,
+            0,
+            164,
+            148
+          ],
+          "margin": [
+            100,
+            88,
+            170,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            827,
+            0,
+            182,
+            151
+          ],
+          "margin": [
+            78,
+            85,
+            152,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1011,
+            0,
+            187,
+            144
+          ],
+          "margin": [
+            65,
+            92,
+            147,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1200,
+            0,
+            186,
+            147
+          ],
+          "margin": [
+            67,
+            89,
+            148,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1388,
+            0,
+            192,
+            148
+          ],
+          "margin": [
+            78,
+            88,
+            142,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1582,
+            0,
+            182,
+            139
+          ],
+          "margin": [
+            79,
+            97,
+            152,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1766,
+            0,
+            186,
+            146
+          ],
+          "margin": [
+            80,
+            90,
+            148,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1954,
+            0,
+            205,
+            140
+          ],
+          "margin": [
+            72,
+            96,
+            129,
+            104
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2161,
+            0,
+            190,
+            139
+          ],
+          "margin": [
+            76,
+            97,
+            144,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2353,
+            0,
+            210,
+            154
+          ],
+          "margin": [
+            62,
+            82,
+            124,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2565,
+            0,
+            184,
+            161
+          ],
+          "margin": [
+            85,
+            75,
+            150,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2751,
+            0,
+            186,
+            162
+          ],
+          "margin": [
+            86,
+            74,
+            148,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2939,
+            0,
+            194,
+            171
+          ],
+          "margin": [
+            83,
+            65,
+            140,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3135,
+            0,
+            192,
+            173
+          ],
+          "margin": [
+            72,
+            63,
+            142,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3329,
+            0,
+            198,
+            169
+          ],
+          "margin": [
+            73,
+            67,
+            136,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3529,
+            0,
+            196,
+            174
+          ],
+          "margin": [
+            68,
+            62,
+            138,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3727,
+            0,
+            190,
+            171
+          ],
+          "margin": [
+            81,
+            65,
+            144,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            0,
+            176,
+            178,
+            162
+          ],
+          "margin": [
+            86,
+            74,
+            156,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            180,
+            176,
+            184,
+            164
+          ],
+          "margin": [
+            73,
+            72,
+            150,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            366,
+            176,
+            257,
+            159
+          ],
+          "margin": [
+            40,
+            77,
+            77,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            625,
+            176,
+            235,
+            146
+          ],
+          "margin": [
+            51,
+            90,
+            99,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            862,
+            176,
+            240,
+            146
+          ],
+          "margin": [
+            38,
+            90,
+            94,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1104,
+            176,
+            292,
+            139
+          ],
+          "margin": [
+            14,
+            97,
+            42,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1398,
+            176,
+            271,
+            126
+          ],
+          "margin": [
+            31,
+            110,
+            63,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1671,
+            176,
+            277,
+            133
+          ],
+          "margin": [
+            24,
+            103,
+            57,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1950,
+            176,
+            262,
+            134
+          ],
+          "margin": [
+            40,
+            102,
+            72,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2214,
+            176,
+            252,
+            128
+          ],
+          "margin": [
+            56,
+            108,
+            82,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2468,
+            176,
+            262,
+            138
+          ],
+          "margin": [
+            40,
+            98,
+            72,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2732,
+            176,
+            227,
+            143
+          ],
+          "margin": [
+            50,
+            93,
+            107,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2961,
+            176,
+            235,
+            140
+          ],
+          "margin": [
+            48,
+            96,
+            99,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3198,
+            176,
+            239,
+            148
+          ],
+          "margin": [
+            50,
+            88,
+            95,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3439,
+            176,
+            197,
+            148
+          ],
+          "margin": [
+            66,
+            88,
+            137,
+            96
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3638,
+            176,
+            193,
+            141
+          ],
+          "margin": [
+            86,
+            95,
+            141,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3833,
+            176,
+            193,
+            145
+          ],
+          "margin": [
+            80,
+            91,
+            141,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            0,
+            342,
+            194,
+            144
+          ],
+          "margin": [
+            85,
+            92,
+            140,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            196,
+            342,
+            194,
+            135
+          ],
+          "margin": [
+            93,
+            101,
+            140,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            392,
+            342,
+            196,
+            144
+          ],
+          "margin": [
+            90,
+            92,
+            138,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            590,
+            342,
+            193,
+            148
+          ],
+          "margin": [
+            80,
+            88,
+            141,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            785,
+            342,
+            188,
+            144
+          ],
+          "margin": [
+            89,
+            92,
+            146,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            975,
+            342,
+            200,
+            153
+          ],
+          "margin": [
+            76,
+            83,
+            134,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1177,
+            342,
+            172,
+            153
+          ],
+          "margin": [
+            96,
+            83,
+            162,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1351,
+            342,
+            153,
+            149
+          ],
+          "margin": [
+            111,
+            87,
+            181,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1506,
+            342,
+            164,
+            157
+          ],
+          "margin": [
+            95,
+            79,
+            170,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1672,
+            342,
+            171,
+            159
+          ],
+          "margin": [
+            97,
+            77,
+            163,
+            85
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1845,
+            342,
+            176,
+            121
+          ],
+          "margin": [
+            95,
+            115,
+            158,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2023,
+            342,
+            190,
+            136
+          ],
+          "margin": [
+            68,
+            100,
+            144,
+            108
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2215,
+            342,
+            236,
+            110
+          ],
+          "margin": [
+            53,
+            126,
+            98,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2453,
+            342,
+            244,
+            102
+          ],
+          "margin": [
+            48,
+            134,
+            90,
+            142
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2699,
+            342,
+            270,
+            92
+          ],
+          "margin": [
+            29,
+            144,
+            64,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2971,
+            342,
+            294,
+            82
+          ],
+          "margin": [
+            32,
+            154,
+            40,
+            162
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bell_fungus_windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3267,
+            342,
+            175,
+            149
+          ],
+          "margin": [
+            94,
+            87,
+            159,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3444,
+            342,
+            202,
+            167
+          ],
+          "margin": [
+            81,
+            69,
+            132,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3648,
+            342,
+            185,
+            176
+          ],
+          "margin": [
+            83,
+            60,
+            149,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3835,
+            342,
+            194,
+            182
+          ],
+          "margin": [
+            80,
+            54,
+            140,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            0,
+            526,
+            203,
+            198
+          ],
+          "margin": [
+            72,
+            38,
+            131,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            205,
+            526,
+            164,
+            207
+          ],
+          "margin": [
+            78,
+            29,
+            170,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            371,
+            526,
+            168,
+            210
+          ],
+          "margin": [
+            79,
+            26,
+            166,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            541,
+            526,
+            172,
+            223
+          ],
+          "margin": [
+            73,
+            13,
+            162,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            715,
+            526,
+            144,
+            228
+          ],
+          "margin": [
+            91,
+            8,
+            190,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            861,
+            526,
+            161,
+            227
+          ],
+          "margin": [
+            91,
+            9,
+            173,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1024,
+            526,
+            128,
+            205
+          ],
+          "margin": [
+            102,
+            31,
+            206,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1154,
+            526,
+            245,
+            180
+          ],
+          "margin": [
+            58,
+            56,
+            89,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bell_fungus",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1401,
+            526,
+            206,
+            144
+          ],
+          "margin": [
+            78,
+            92,
+            128,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1609,
+            526,
+            212,
+            152
+          ],
+          "margin": [
+            73,
+            84,
+            122,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1823,
+            526,
+            194,
+            153
+          ],
+          "margin": [
+            65,
+            83,
+            140,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2019,
+            526,
+            194,
+            147
+          ],
+          "margin": [
+            63,
+            89,
+            140,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2215,
+            526,
+            193,
+            154
+          ],
+          "margin": [
+            66,
+            82,
+            141,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2410,
+            526,
+            208,
+            155
+          ],
+          "margin": [
+            61,
+            81,
+            126,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2620,
+            526,
+            215,
+            149
+          ],
+          "margin": [
+            61,
+            87,
+            119,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2837,
+            526,
+            208,
+            159
+          ],
+          "margin": [
+            62,
+            77,
+            126,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3047,
+            526,
+            197,
+            161
+          ],
+          "margin": [
+            63,
+            75,
+            137,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3246,
+            526,
+            202,
+            158
+          ],
+          "margin": [
+            60,
+            78,
+            132,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3450,
+            526,
+            207,
+            172
+          ],
+          "margin": [
+            60,
+            64,
+            127,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3659,
+            526,
+            188,
+            178
+          ],
+          "margin": [
+            79,
+            58,
+            146,
+            66
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bell_fungus_recover",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            3849,
+            526,
+            197,
+            179
+          ],
+          "margin": [
+            76,
+            57,
+            137,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            0,
+            756,
+            192,
+            186
+          ],
+          "margin": [
+            78,
+            50,
+            142,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            194,
+            756,
+            197,
+            186
+          ],
+          "margin": [
+            77,
+            50,
+            137,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            393,
+            756,
+            203,
+            179
+          ],
+          "margin": [
+            73,
+            57,
+            131,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            598,
+            756,
+            203,
+            190
+          ],
+          "margin": [
+            72,
+            46,
+            131,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            803,
+            756,
+            181,
+            196
+          ],
+          "margin": [
+            82,
+            40,
+            153,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            986,
+            756,
+            183,
+            195
+          ],
+          "margin": [
+            82,
+            41,
+            151,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1171,
+            756,
+            172,
+            186
+          ],
+          "margin": [
+            85,
+            50,
+            162,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1345,
+            756,
+            202,
+            171
+          ],
+          "margin": [
+            80,
+            65,
+            132,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1549,
+            756,
+            176,
+            149
+          ],
+          "margin": [
+            94,
+            87,
+            158,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1727,
+            756,
+            192,
+            158
+          ],
+          "margin": [
+            81,
+            78,
+            142,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            1921,
+            756,
+            183,
+            160
+          ],
+          "margin": [
+            85,
+            76,
+            151,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2106,
+            756,
+            180,
+            149
+          ],
+          "margin": [
+            81,
+            87,
+            154,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/spore_bellmaker/combat_motion_v7.png",
+          "region": [
+            2288,
+            756,
+            177,
+            148
+          ],
+          "margin": [
+            79,
+            88,
+            157,
+            96
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "combat_motion_v7.json",
+  "authored_combat_sequences": [
+    "attack",
+    "bell_fungus",
+    "bell_fungus_recover",
+    "bell_fungus_windup",
+    "recover",
+    "windup"
+  ]
+}

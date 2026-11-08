@@ -1,0 +1,2576 @@
+{
+  "kind": "spore_bellmaker",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-36f87eab-8838-4512-9739-921b695acaeb.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Production sprite sheet expanding reference character spore_bellmaker; keep EXACT original silhouette identity, anatomy, colors, ink outlines and hand-painted 2D style: ochre mushroom-spore hood, ivory mask, teal wing cloak, crooked wooden staff and little brass bell. Reference image shows existing poses, use it to preserve design. Transparent background true alpha. No labels, grid, text, background. Create SEVEN separate horizontal strips with large vertical gutters, exactly these counts LEFT TO RIGHT: strip1 FOUR idle breathing poses; strip2 EIGHT walk/flight cycle poses; strip3 FOUR windup anticipation poses; strip4 SIX attack poses; strip5 SIX recover-to-ready poses; strip6 FOUR hurt recoil poses; strip7 FOUR death poses from stagger to collapse and settled. 36 separate sprites total. Strips have differing counts intentionally. Within each strip positions evenly spaced with generous empty gutters. Sprite height at most 70% of strip height, width at most 65% of the narrowest 8-pose strip cell. Same scale for ALL sprites in all strips. All living poses face RIGHT orthographic side-view. Entire limbs, antennae, weapons/wings fit inside own space and do not overlap neighboring poses or strips. raises staff then thrusts/shakes bell forward. Pose progression is articulated, meaningful joint changes and cloth/wing follow-through, never simple stamped copies shifted/rotated. Fixed foot/hover baseline within each strip.",
+  "qa": {
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          317,
+          5,
+          163,
+          155
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            397,
+            82
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          577,
+          12,
+          165,
+          149
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            588,
+            85
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          848,
+          7,
+          152,
+          154
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            858,
+            84
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          1071,
+          11,
+          173,
+          150
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1124,
+            87
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          29,
+          169,
+          164,
+          148
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            124,
+            242
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          195,
+          166,
+          182,
+          151
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            277,
+            242
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          370,
+          173,
+          187,
+          144
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            422,
+            238
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          560,
+          170,
+          186,
+          147
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            622,
+            243
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          4
+        ],
+        "region": [
+          759,
+          169,
+          192,
+          148
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            814,
+            240
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          5
+        ],
+        "region": [
+          948,
+          178,
+          182,
+          139
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            1092,
+            243
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          6
+        ],
+        "region": [
+          1137,
+          170,
+          186,
+          146
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            1179,
+            243
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          7
+        ],
+        "region": [
+          1317,
+          177,
+          205,
+          140
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            1422,
+            247
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          261,
+          344,
+          190,
+          139
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            387,
+            422
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          543,
+          321,
+          186,
+          162
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            601,
+            417
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          802,
+          314,
+          198,
+          169
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            855,
+            419
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          1087,
+          321,
+          178,
+          162
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1137,
+            418
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          12,
+          473,
+          235,
+          146
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            61,
+            541
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          247,
+          494,
+          264,
+          127
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            364,
+            553
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          504,
+          496,
+          271,
+          126
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            584,
+            558
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          785,
+          493,
+          252,
+          128
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            913,
+            552
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          4
+        ],
+        "region": [
+          1047,
+          495,
+          236,
+          125
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1278,
+            548
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          5
+        ],
+        "region": [
+          1289,
+          480,
+          235,
+          140
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1347,
+            542
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          47,
+          628,
+          193,
+          141
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            179,
+            695
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          279,
+          635,
+          228,
+          134
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            417,
+            700
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          550,
+          635,
+          194,
+          135
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            632,
+            697
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          794,
+          627,
+          188,
+          144
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            860,
+            701
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          4
+        ],
+        "region": [
+          1066,
+          631,
+          154,
+          139
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1089,
+            699
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          5
+        ],
+        "region": [
+          1312,
+          623,
+          153,
+          149
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1333,
+            698
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          126,
+          766,
+          200,
+          137
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            239,
+            834
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          504,
+          782,
+          176,
+          121
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            616,
+            854
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          829,
+          769,
+          190,
+          136
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            959,
+            854
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          1164,
+          809,
+          233,
+          100
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1226,
+            868
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          110,
+          911,
+          236,
+          110
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            148,
+            974
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          457,
+          916,
+          244,
+          102
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            680,
+            975
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          790,
+          929,
+          270,
+          92
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            893,
+            985
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          1145,
+          940,
+          294,
+          82
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            1403,
+            990
+          ]
+        ]
+      }
+    ],
+    "status": "reviewed",
+    "frames": 34,
+    "rejected_hurt_pose": "Terminal collapsed pose excluded from nonlethal hurt sequence; complete death progression retained separately.",
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "registration_origins_by_source_row": [
+      [
+        384,
+        640,
+        896,
+        1152
+      ],
+      [
+        96,
+        284,
+        472,
+        660,
+        848,
+        1036,
+        1224,
+        1412
+      ],
+      [
+        352,
+        624,
+        896,
+        1168
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        376,
+        624,
+        872,
+        1120,
+        1368
+      ],
+      [
+        224,
+        576,
+        928,
+        1280
+      ],
+      [
+        224,
+        576,
+        928,
+        1280
+      ]
+    ],
+    "horizontal_registration": "Explicit authored strip/cell body origins; central strips and variable row counts measured independently. Anchor does not follow weapon or wing bounding-box expansion. Natural pose lean/lunge relative to fixed origin preserved; flying roles do not use feet.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          163,
+          155
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          165,
+          0,
+          165,
+          149
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          332,
+          0,
+          152,
+          154
+        ],
+        "anchor_x": 48.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          486,
+          0,
+          173,
+          150
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          661,
+          0,
+          164,
+          148
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          827,
+          0,
+          182,
+          151
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1011,
+          0,
+          187,
+          144
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1200,
+          0,
+          186,
+          147
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1388,
+          0,
+          192,
+          148
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1582,
+          0,
+          182,
+          139
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1766,
+          0,
+          186,
+          146
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1954,
+          0,
+          205,
+          140
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2161,
+          0,
+          190,
+          139
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          45,
+          126,
+          165,
+          121
+        ],
+        "component_seeds": [
+          [
+            106,
+            193
+          ]
+        ],
+        "scale": 1.297935,
+        "anchor_x": 82.688636,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          301,
+          103,
+          165,
+          144
+        ],
+        "component_seeds": [
+          [
+            385,
+            186
+          ]
+        ],
+        "scale": 1.134804,
+        "anchor_x": 73.237581,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2353,
+          0,
+          186,
+          162
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          558,
+          101,
+          165,
+          146
+        ],
+        "component_seeds": [
+          [
+            648,
+            185
+          ]
+        ],
+        "scale": 1.190821,
+        "anchor_x": 71.640974,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          805,
+          92,
+          173,
+          155
+        ],
+        "component_seeds": [
+          [
+            849,
+            188
+          ]
+        ],
+        "scale": 1.133787,
+        "anchor_x": 85.826,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2541,
+          0,
+          198,
+          169
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1064,
+          95,
+          172,
+          152
+        ],
+        "component_seeds": [
+          [
+            1166,
+            188
+          ]
+        ],
+        "scale": 1.157407,
+        "anchor_x": 86.968,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1327,
+          106,
+          156,
+          141
+        ],
+        "component_seeds": [
+          [
+            1411,
+            188
+          ]
+        ],
+        "scale": 1.235589,
+        "anchor_x": 70.539554,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2741,
+          0,
+          178,
+          162
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          46,
+          361,
+          159,
+          142
+        ],
+        "component_seeds": [
+          [
+            165,
+            444
+          ]
+        ],
+        "scale": 1.169154,
+        "anchor_x": 81.259574,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          275,
+          376,
+          204,
+          127
+        ],
+        "component_seeds": [
+          [
+            334,
+            433
+          ]
+        ],
+        "scale": 1.271709,
+        "anchor_x": 100.823789,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2921,
+          0,
+          235,
+          146
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          530,
+          376,
+          207,
+          127
+        ],
+        "component_seeds": [
+          [
+            593,
+            434
+          ]
+        ],
+        "scale": 1.170868,
+        "anchor_x": 111.476077,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          780,
+          394,
+          223,
+          108
+        ],
+        "component_seeds": [
+          [
+            979,
+            446
+          ]
+        ],
+        "scale": 1.326667,
+        "anchor_x": 117.366834,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3424,
+          0,
+          271,
+          126
+        ],
+        "anchor_x": 136.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1034,
+          394,
+          224,
+          109
+        ],
+        "component_seeds": [
+          [
+            1130,
+            446
+          ]
+        ],
+        "scale": 1.254125,
+        "anchor_x": 114.871053,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1298,
+          386,
+          225,
+          116
+        ],
+        "component_seeds": [
+          [
+            1341,
+            442
+          ]
+        ],
+        "scale": 1.179012,
+        "anchor_x": 108.853403,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3697,
+          0,
+          252,
+          128
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          19,
+          643,
+          217,
+          116
+        ],
+        "component_seeds": [
+          [
+            225,
+            697
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 105.636364,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          276,
+          633,
+          201,
+          127
+        ],
+        "component_seeds": [
+          [
+            418,
+            689
+          ]
+        ],
+        "scale": 1.142857,
+        "anchor_x": 103.291667,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          238,
+          171,
+          235,
+          140
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          533,
+          634,
+          201,
+          125
+        ],
+        "component_seeds": [
+          [
+            625,
+            689
+          ]
+        ],
+        "scale": 1.19943,
+        "anchor_x": 98.952494,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          806,
+          632,
+          170,
+          127
+        ],
+        "component_seeds": [
+          [
+            941,
+            693
+          ]
+        ],
+        "scale": 1.182073,
+        "anchor_x": 86.331754,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          475,
+          171,
+          193,
+          141
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1065,
+          632,
+          168,
+          127
+        ],
+        "component_seeds": [
+          [
+            1176,
+            692
+          ]
+        ],
+        "scale": 1.168067,
+        "anchor_x": 75.860911,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1321,
+          634,
+          169,
+          125
+        ],
+        "component_seeds": [
+          [
+            1470,
+            692
+          ]
+        ],
+        "scale": 1.17094,
+        "anchor_x": 71.29927,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          900,
+          171,
+          194,
+          135
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          41,
+          890,
+          171,
+          126
+        ],
+        "component_seeds": [
+          [
+            62,
+            949
+          ]
+        ],
+        "scale": 1.169492,
+        "anchor_x": 66.729469,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          298,
+          888,
+          167,
+          128
+        ],
+        "component_seeds": [
+          [
+            355,
+            952
+          ]
+        ],
+        "scale": 1.175,
+        "anchor_x": 74.77305,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1096,
+          171,
+          188,
+          144
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          554,
+          887,
+          168,
+          129
+        ],
+        "component_seeds": [
+          [
+            679,
+            951
+          ]
+        ],
+        "scale": 1.203857,
+        "anchor_x": 76.24714,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          817,
+          885,
+          147,
+          131
+        ],
+        "component_seeds": [
+          [
+            885,
+            951
+          ]
+        ],
+        "scale": 1.197832,
+        "anchor_x": 60.434389,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1442,
+          171,
+          153,
+          149
+        ],
+        "anchor_x": 56.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1079,
+          882,
+          139,
+          134
+        ],
+        "component_seeds": [
+          [
+            1185,
+            949
+          ]
+        ],
+        "scale": 1.198413,
+        "anchor_x": 61.0,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "region": [
+          1336,
+          879,
+          146,
+          137
+        ],
+        "component_seeds": [
+          [
+            1349,
+            945
+          ]
+        ],
+        "scale": 1.186047,
+        "anchor_x": 60.372549,
+        "grade": {
+          "saturation": 1.0687,
+          "rgb": [
+            0.8634,
+            0.8589,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1597,
+          171,
+          176,
+          121
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1775,
+          171,
+          190,
+          136
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1967,
+          171,
+          236,
+          110
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2205,
+          171,
+          244,
+          102
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2451,
+          171,
+          270,
+          92
+        ],
+        "anchor_x": 138.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2723,
+          171,
+          294,
+          82
+        ],
+        "anchor_x": 135.0,
+        "packed_runtime": true
+      }
+    ],
+    "bell_fungus_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3019,
+          171,
+          175,
+          149
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          45,
+          111,
+          165,
+          137
+        ],
+        "component_seeds": [
+          [
+            156,
+            180
+          ]
+        ],
+        "scale": 1.24031,
+        "anchor_x": 70.0,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          298,
+          78,
+          177,
+          170
+        ],
+        "component_seeds": [
+          [
+            401,
+            170
+          ]
+        ],
+        "scale": 1.055556,
+        "anchor_x": 81.0,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3196,
+          171,
+          194,
+          182
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          553,
+          74,
+          178,
+          174
+        ],
+        "component_seeds": [
+          [
+            587,
+            170
+          ]
+        ],
+        "scale": 1.15261,
+        "anchor_x": 83.289199,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          816,
+          53,
+          155,
+          195
+        ],
+        "component_seeds": [
+          [
+            929,
+            170
+          ]
+        ],
+        "scale": 1.073084,
+        "anchor_x": 83.621262,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3392,
+          171,
+          168,
+          210
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1076,
+          53,
+          151,
+          195
+        ],
+        "component_seeds": [
+          [
+            1186,
+            169
+          ]
+        ],
+        "scale": 1.153298,
+        "anchor_x": 82.578053,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1333,
+          35,
+          135,
+          213
+        ],
+        "component_seeds": [
+          [
+            1388,
+            162
+          ]
+        ],
+        "scale": 1.079675,
+        "anchor_x": 71.308735,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3562,
+          171,
+          161,
+          227
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          54,
+          292,
+          133,
+          212
+        ],
+        "component_seeds": [
+          [
+            175,
+            417
+          ]
+        ],
+        "scale": 0.977124,
+        "anchor_x": 67.341137,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          290,
+          365,
+          189,
+          139
+        ],
+        "component_seeds": [
+          [
+            349,
+            433
+          ]
+        ],
+        "scale": 1.310433,
+        "anchor_x": 84.508738,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      }
+    ],
+    "bell_fungus": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3725,
+          171,
+          206,
+          144
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          547,
+          367,
+          191,
+          137
+        ],
+        "component_seeds": [
+          [
+            635,
+            434
+          ]
+        ],
+        "scale": 1.124031,
+        "anchor_x": 84.593103,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          808,
+          363,
+          179,
+          141
+        ],
+        "component_seeds": [
+          [
+            855,
+            439
+          ]
+        ],
+        "scale": 1.097744,
+        "anchor_x": 94.303653,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          400,
+          194,
+          147
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1066,
+          363,
+          176,
+          141
+        ],
+        "component_seeds": [
+          [
+            1099,
+            439
+          ]
+        ],
+        "scale": 1.110276,
+        "anchor_x": 92.300226,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1311,
+          360,
+          193,
+          144
+        ],
+        "component_seeds": [
+          [
+            1352,
+            440
+          ]
+        ],
+        "scale": 1.090686,
+        "anchor_x": 98.611236,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          196,
+          400,
+          215,
+          149
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          31,
+          613,
+          192,
+          147
+        ],
+        "component_seeds": [
+          [
+            164,
+            694
+          ]
+        ],
+        "scale": 1.093525,
+        "anchor_x": 96.914474,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          292,
+          607,
+          187,
+          153
+        ],
+        "component_seeds": [
+          [
+            427,
+            695
+          ]
+        ],
+        "scale": 1.068966,
+        "anchor_x": 97.935484,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          413,
+          400,
+          202,
+          158
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          547,
+          604,
+          188,
+          156
+        ],
+        "component_seeds": [
+          [
+            632,
+            694
+          ]
+        ],
+        "scale": 1.114865,
+        "anchor_x": 96.89697,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          804,
+          590,
+          180,
+          170
+        ],
+        "component_seeds": [
+          [
+            853,
+            684
+          ]
+        ],
+        "scale": 1.061728,
+        "anchor_x": 83.94186,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      }
+    ],
+    "bell_fungus_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          617,
+          400,
+          197,
+          179
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1064,
+          587,
+          180,
+          173
+        ],
+        "component_seeds": [
+          [
+            1104,
+            684
+          ]
+        ],
+        "scale": 1.084848,
+        "anchor_x": 82.614525,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1321,
+          589,
+          181,
+          171
+        ],
+        "component_seeds": [
+          [
+            1396,
+            682
+          ]
+        ],
+        "scale": 1.09816,
+        "anchor_x": 83.303538,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          816,
+          400,
+          203,
+          179
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          38,
+          844,
+          183,
+          172
+        ],
+        "component_seeds": [
+          [
+            119,
+            938
+          ]
+        ],
+        "scale": 1.123984,
+        "anchor_x": 85.296564,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          300,
+          831,
+          171,
+          185
+        ],
+        "component_seeds": [
+          [
+            340,
+            937
+          ]
+        ],
+        "scale": 1.071563,
+        "anchor_x": 80.622144,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1021,
+          400,
+          183,
+          195
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          555,
+          830,
+          172,
+          186
+        ],
+        "component_seeds": [
+          [
+            582,
+            937
+          ]
+        ],
+        "scale": 1.009363,
+        "anchor_x": 81.990724,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          810,
+          870,
+          172,
+          146
+        ],
+        "component_seeds": [
+          [
+            872,
+            946
+          ]
+        ],
+        "scale": 1.190821,
+        "anchor_x": 73.839757,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1206,
+          400,
+          176,
+          149
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1067,
+          876,
+          172,
+          140
+        ],
+        "component_seeds": [
+          [
+            1114,
+            947
+          ]
+        ],
+        "scale": 1.143939,
+        "anchor_x": 76.913907,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "region": [
+          1324,
+          871,
+          168,
+          145
+        ],
+        "component_seeds": [
+          [
+            1364,
+            943
+          ]
+        ],
+        "scale": 1.116788,
+        "anchor_x": 75.074074,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.8687,
+            0.8742,
+            0.85
+          ]
+        }
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1384,
+          400,
+          180,
+          149
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1566,
+          400,
+          177,
+          148
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/spore_bellmaker.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "bell_fungus_windup",
+      "bell_fungus",
+      "bell_fungus_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "bell_fungus.png",
+        "image_sha256": "b72a8f0b3d0ebef501a1edef5ab0de0e8bb6bbd645a12082b670cc533e6bb7a0",
+        "role": "new",
+        "attack": "bell_fungus",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6973,
+        "anchors": [
+          106.1,
+          126.1,
+          127.1,
+          111.1,
+          128.1,
+          150.1,
+          154.1,
+          154.1,
+          131.1,
+          136.1,
+          123.1,
+          106.1
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7003,
+          "last_recover_ratio": 0.6944
+        }
+      },
+      {
+        "image": "bell_spores_loops.png",
+        "image_sha256": "ec408b4fb63ae95769ec635f55a64c45077ae497d77297978817e175635cdf19",
+        "role": "keep",
+        "attack": "bell_spores",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.282,
+        "anchors": [
+          306.6,
+          311.6
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.2802,
+            0.2838
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "spore_bellmaker__attack",
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__attack.png",
+        "sha256": "7481dd7930983886b6973148eac8d94372867ed84042d48bf064bab3e9d04bd2",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/spore_bellmaker__attack.png"
+      },
+      {
+        "id": "spore_bellmaker__bell_fungus",
+        "source": "art_requests/combat_motion_v7/incoming/spore_bellmaker__bell_fungus.png",
+        "sha256": "54c42871e66b0587ab28034598eb28f69df408a9eac61465c8fad430ee8972b0",
+        "new_drawings": 24,
+        "animations": [
+          "bell_fungus_windup",
+          "bell_fungus",
+          "bell_fungus_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/spore_bellmaker__bell_fungus.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

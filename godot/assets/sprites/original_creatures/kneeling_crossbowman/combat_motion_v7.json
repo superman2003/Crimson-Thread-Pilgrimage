@@ -1,0 +1,2428 @@
+{
+  "kind": "kneeling_crossbowman",
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-3b8dc8ca-9c62-43ca-8f1e-199b9dd2f9c6.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character: a crouching locust soldier in dark basalt armor with a carved bone crossbow and wine red hood",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/kneeling_crossbowman/atlas.png",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-3b8dc8ca-9c62-43ca-8f1e-199b9dd2f9c6.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          203,
+          200
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          205,
+          0,
+          196,
+          200
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          403,
+          0,
+          198,
+          196
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          603,
+          0,
+          200,
+          196
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          805,
+          0,
+          207,
+          200
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1014,
+          0,
+          205,
+          196
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1221,
+          0,
+          212,
+          195
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1435,
+          0,
+          191,
+          192
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1628,
+          0,
+          204,
+          201
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1834,
+          0,
+          203,
+          201
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2039,
+          0,
+          210,
+          198
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2251,
+          0,
+          196,
+          201
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2449,
+          0,
+          210,
+          194
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          36,
+          71,
+          186,
+          174
+        ],
+        "component_seeds": [
+          [
+            110,
+            176
+          ]
+        ],
+        "scale": 1.188755,
+        "anchor_x": 85.101351,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          295,
+          66,
+          180,
+          180
+        ],
+        "component_seeds": [
+          [
+            443,
+            173
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 80.857143,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2661,
+          0,
+          194,
+          204
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          546,
+          66,
+          185,
+          180
+        ],
+        "component_seeds": [
+          [
+            585,
+            172
+          ]
+        ],
+        "scale": 1.176357,
+        "anchor_x": 89.665568,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          799,
+          68,
+          194,
+          178
+        ],
+        "component_seeds": [
+          [
+            916,
+            158
+          ]
+        ],
+        "scale": 1.180392,
+        "anchor_x": 87.352159,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2857,
+          0,
+          215,
+          199
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1057,
+          66,
+          192,
+          179
+        ],
+        "component_seeds": [
+          [
+            1082,
+            158
+          ]
+        ],
+        "scale": 1.179337,
+        "anchor_x": 89.304132,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1326,
+          68,
+          172,
+          178
+        ],
+        "component_seeds": [
+          [
+            1412,
+            168
+          ]
+        ],
+        "scale": 1.201961,
+        "anchor_x": 90.672104,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3074,
+          0,
+          192,
+          207
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          43,
+          324,
+          173,
+          178
+        ],
+        "component_seeds": [
+          [
+            198,
+            424
+          ]
+        ],
+        "scale": 1.207843,
+        "anchor_x": 87.996753,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          277,
+          325,
+          223,
+          177
+        ],
+        "component_seeds": [
+          [
+            337,
+            411
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 90.93617,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3268,
+          0,
+          254,
+          202
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          532,
+          328,
+          221,
+          174
+        ],
+        "component_seeds": [
+          [
+            660,
+            408
+          ]
+        ],
+        "scale": 1.206827,
+        "anchor_x": 89.399334,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          781,
+          326,
+          226,
+          176
+        ],
+        "component_seeds": [
+          [
+            894,
+            413
+          ]
+        ],
+        "scale": 1.18254,
+        "anchor_x": 91.697987,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3524,
+          0,
+          245,
+          197
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1042,
+          327,
+          223,
+          175
+        ],
+        "component_seeds": [
+          [
+            1176,
+            413
+          ]
+        ],
+        "scale": 1.179641,
+        "anchor_x": 93.478849,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1320,
+          331,
+          178,
+          171
+        ],
+        "component_seeds": [
+          [
+            1352,
+            424
+          ]
+        ],
+        "scale": 1.208589,
+        "anchor_x": 90.79357,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3771,
+          0,
+          191,
+          197
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          40,
+          585,
+          175,
+          172
+        ],
+        "component_seeds": [
+          [
+            74,
+            681
+          ]
+        ],
+        "scale": 1.158537,
+        "anchor_x": 92.863158,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          297,
+          599,
+          175,
+          159
+        ],
+        "component_seeds": [
+          [
+            422,
+            689
+          ]
+        ],
+        "scale": 1.211921,
+        "anchor_x": 93.650273,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          209,
+          200,
+          176
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          549,
+          598,
+          181,
+          160
+        ],
+        "component_seeds": [
+          [
+            615,
+            687
+          ]
+        ],
+        "scale": 1.22807,
+        "anchor_x": 92.828571,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          801,
+          575,
+          185,
+          182
+        ],
+        "component_seeds": [
+          [
+            880,
+            680
+          ]
+        ],
+        "scale": 1.1341,
+        "anchor_x": 94.652027,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          202,
+          209,
+          199,
+          208
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1056,
+          574,
+          186,
+          183
+        ],
+        "component_seeds": [
+          [
+            1086,
+            681
+          ]
+        ],
+        "scale": 1.169524,
+        "anchor_x": 89.604235,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1319,
+          582,
+          177,
+          176
+        ],
+        "component_seeds": [
+          [
+            1395,
+            682
+          ]
+        ],
+        "scale": 1.198413,
+        "anchor_x": 87.536424,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          403,
+          209,
+          193,
+          198
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          42,
+          840,
+          174,
+          173
+        ],
+        "component_seeds": [
+          [
+            168,
+            938
+          ]
+        ],
+        "scale": 1.183838,
+        "anchor_x": 83.766212,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          286,
+          850,
+          186,
+          163
+        ],
+        "component_seeds": [
+          [
+            326,
+            944
+          ]
+        ],
+        "scale": 1.243011,
+        "anchor_x": 88.077855,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          598,
+          209,
+          205,
+          190
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          543,
+          849,
+          183,
+          164
+        ],
+        "component_seeds": [
+          [
+            627,
+            944
+          ]
+        ],
+        "scale": 1.211538,
+        "anchor_x": 91.222222,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          801,
+          849,
+          182,
+          164
+        ],
+        "component_seeds": [
+          [
+            932,
+            947
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 88.851064,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          805,
+          209,
+          201,
+          187
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1059,
+          849,
+          181,
+          164
+        ],
+        "component_seeds": [
+          [
+            1223,
+            947
+          ]
+        ],
+        "scale": 1.226496,
+        "anchor_x": 90.641115,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "region": [
+          1313,
+          840,
+          183,
+          173
+        ],
+        "component_seeds": [
+          [
+            1415,
+            943
+          ]
+        ],
+        "scale": 1.185859,
+        "anchor_x": 88.71891,
+        "grade": {
+          "saturation": 1.0885,
+          "rgb": [
+            0.85,
+            0.8611,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1008,
+          209,
+          182,
+          204
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1192,
+          209,
+          190,
+          200
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1384,
+          209,
+          204,
+          193
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1590,
+          209,
+          194,
+          156
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1786,
+          209,
+          188,
+          186
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1976,
+          209,
+          197,
+          154
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2175,
+          209,
+          233,
+          105
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2410,
+          209,
+          211,
+          83
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2623,
+          209,
+          256,
+          174
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2881,
+          209,
+          252,
+          166
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      }
+    ],
+    "crossbow_low_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3135,
+          209,
+          206,
+          184
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          40,
+          82,
+          175,
+          165
+        ],
+        "component_seeds": [
+          [
+            126,
+            180
+          ]
+        ],
+        "scale": 1.163482,
+        "anchor_x": 98.578467,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          298,
+          96,
+          165,
+          151
+        ],
+        "component_seeds": [
+          [
+            365,
+            195
+          ]
+        ],
+        "scale": 1.268065,
+        "anchor_x": 93.365809,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3343,
+          209,
+          191,
+          180
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          551,
+          94,
+          171,
+          153
+        ],
+        "component_seeds": [
+          [
+            575,
+            195
+          ]
+        ],
+        "scale": 1.241379,
+        "anchor_x": 96.685185,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          807,
+          92,
+          172,
+          155
+        ],
+        "component_seeds": [
+          [
+            882,
+            192
+          ]
+        ],
+        "scale": 1.22449,
+        "anchor_x": 91.994444,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3536,
+          209,
+          196,
+          180
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1060,
+          92,
+          175,
+          155
+        ],
+        "component_seeds": [
+          [
+            1190,
+            191
+          ]
+        ],
+        "scale": 1.165533,
+        "anchor_x": 94.431907,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1311,
+          113,
+          191,
+          134
+        ],
+        "component_seeds": [
+          [
+            1415,
+            199
+          ]
+        ],
+        "scale": 1.291005,
+        "anchor_x": 97.098361,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3734,
+          209,
+          208,
+          154
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          31,
+          370,
+          192,
+          133
+        ],
+        "component_seeds": [
+          [
+            198,
+            452
+          ]
+        ],
+        "scale": 1.322667,
+        "anchor_x": 95.772177,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          280,
+          340,
+          204,
+          163
+        ],
+        "component_seeds": [
+          [
+            327,
+            433
+          ]
+        ],
+        "scale": 1.139785,
+        "anchor_x": 101.924528,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "crossbow_low": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          419,
+          222,
+          188
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          540,
+          339,
+          199,
+          164
+        ],
+        "component_seeds": [
+          [
+            587,
+            431
+          ]
+        ],
+        "scale": 1.188034,
+        "anchor_x": 98.244604,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          798,
+          341,
+          185,
+          162
+        ],
+        "component_seeds": [
+          [
+            894,
+            432
+          ]
+        ],
+        "scale": 1.186147,
+        "anchor_x": 91.967153,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          224,
+          419,
+          208,
+          180
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1056,
+          344,
+          182,
+          159
+        ],
+        "component_seeds": [
+          [
+            1134,
+            431
+          ]
+        ],
+        "scale": 1.19426,
+        "anchor_x": 90.953789,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1317,
+          346,
+          172,
+          157
+        ],
+        "component_seeds": [
+          [
+            1412,
+            446
+          ]
+        ],
+        "scale": 1.212528,
+        "anchor_x": 92.199262,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          434,
+          419,
+          195,
+          181
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          36,
+          603,
+          177,
+          156
+        ],
+        "component_seeds": [
+          [
+            64,
+            702
+          ]
+        ],
+        "scale": 1.173423,
+        "anchor_x": 93.840691,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          291,
+          618,
+          179,
+          141
+        ],
+        "component_seeds": [
+          [
+            365,
+            709
+          ]
+        ],
+        "scale": 1.250627,
+        "anchor_x": 94.931864,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          419,
+          192,
+          159
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          552,
+          624,
+          175,
+          135
+        ],
+        "component_seeds": [
+          [
+            635,
+            709
+          ]
+        ],
+        "scale": 1.286089,
+        "anchor_x": 89.85102,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          800,
+          609,
+          182,
+          150
+        ],
+        "component_seeds": [
+          [
+            819,
+            702
+          ]
+        ],
+        "scale": 1.180751,
+        "anchor_x": 103.823062,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "crossbow_low_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          825,
+          419,
+          197,
+          172
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1058,
+          609,
+          181,
+          150
+        ],
+        "component_seeds": [
+          [
+            1078,
+            701
+          ]
+        ],
+        "scale": 1.230047,
+        "anchor_x": 104.167939,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1318,
+          602,
+          177,
+          157
+        ],
+        "component_seeds": [
+          [
+            1450,
+            694
+          ]
+        ],
+        "scale": 1.190157,
+        "anchor_x": 99.960526,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1024,
+          419,
+          195,
+          180
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          35,
+          858,
+          178,
+          156
+        ],
+        "component_seeds": [
+          [
+            161,
+            949
+          ]
+        ],
+        "scale": 1.234234,
+        "anchor_x": 100.890511,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          291,
+          849,
+          178,
+          165
+        ],
+        "component_seeds": [
+          [
+            327,
+            941
+          ]
+        ],
+        "scale": 1.180467,
+        "anchor_x": 104.258993,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1221,
+          419,
+          195,
+          188
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          544,
+          848,
+          185,
+          166
+        ],
+        "component_seeds": [
+          [
+            550,
+            941
+          ]
+        ],
+        "scale": 1.187764,
+        "anchor_x": 104.525755,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          807,
+          851,
+          173,
+          163
+        ],
+        "component_seeds": [
+          [
+            937,
+            951
+          ]
+        ],
+        "scale": 1.208602,
+        "anchor_x": 96.482206,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1418,
+          419,
+          193,
+          187
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1065,
+          849,
+          171,
+          165
+        ],
+        "component_seeds": [
+          [
+            1112,
+            951
+          ]
+        ],
+        "scale": 1.218684,
+        "anchor_x": 93.914634,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "region": [
+          1316,
+          841,
+          175,
+          173
+        ],
+        "component_seeds": [
+          [
+            1421,
+            944
+          ]
+        ],
+        "scale": 1.185859,
+        "anchor_x": 85.405451,
+        "grade": {
+          "saturation": 1.0849,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "crossbow_low_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1613,
+          419,
+          206,
+          156
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1821,
+          419,
+          207,
+          159
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      15,
+      17,
+      204,
+      200
+    ],
+    [
+      231,
+      16,
+      196,
+      201
+    ],
+    [
+      454,
+      22,
+      198,
+      196
+    ],
+    [
+      676,
+      21,
+      201,
+      197
+    ],
+    [
+      11,
+      237,
+      207,
+      200
+    ],
+    [
+      235,
+      240,
+      205,
+      198
+    ],
+    [
+      457,
+      241,
+      212,
+      197
+    ],
+    [
+      690,
+      246,
+      191,
+      192
+    ],
+    [
+      18,
+      458,
+      206,
+      201
+    ],
+    [
+      234,
+      458,
+      203,
+      201
+    ],
+    [
+      457,
+      461,
+      212,
+      198
+    ],
+    [
+      685,
+      459,
+      196,
+      201
+    ],
+    [
+      12,
+      688,
+      210,
+      194
+    ],
+    [
+      246,
+      677,
+      195,
+      204
+    ],
+    [
+      452,
+      683,
+      216,
+      199
+    ],
+    [
+      675,
+      675,
+      192,
+      207
+    ],
+    [
+      13,
+      897,
+      255,
+      202
+    ],
+    [
+      236,
+      899,
+      245,
+      198
+    ],
+    [
+      455,
+      904,
+      191,
+      197
+    ],
+    [
+      669,
+      928,
+      200,
+      176
+    ],
+    [
+      18,
+      1115,
+      199,
+      208
+    ],
+    [
+      244,
+      1124,
+      193,
+      200
+    ],
+    [
+      460,
+      1136,
+      206,
+      190
+    ],
+    [
+      678,
+      1143,
+      202,
+      187
+    ],
+    [
+      17,
+      1342,
+      183,
+      205
+    ],
+    [
+      253,
+      1350,
+      191,
+      200
+    ],
+    [
+      458,
+      1354,
+      204,
+      193
+    ],
+    [
+      679,
+      1391,
+      194,
+      156
+    ],
+    [
+      15,
+      1563,
+      188,
+      186
+    ],
+    [
+      233,
+      1595,
+      197,
+      154
+    ],
+    [
+      436,
+      1640,
+      233,
+      105
+    ],
+    [
+      672,
+      1660,
+      211,
+      84
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 32,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.6637931034482759,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "4 columns and 8 rows; actual reviewed count recorded per animation",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            15,
+            17,
+            204,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            231,
+            16,
+            196,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            454,
+            22,
+            198,
+            196
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            676,
+            21,
+            201,
+            197
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            11,
+            237,
+            207,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            235,
+            240,
+            205,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            457,
+            241,
+            212,
+            197
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            690,
+            246,
+            191,
+            192
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            18,
+            458,
+            206,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            234,
+            458,
+            203,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            457,
+            461,
+            212,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            685,
+            459,
+            196,
+            201
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            12,
+            688,
+            210,
+            194
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            246,
+            677,
+            195,
+            204
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            452,
+            683,
+            216,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            675,
+            675,
+            192,
+            207
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            13,
+            897,
+            255,
+            202
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            236,
+            899,
+            245,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            455,
+            904,
+            191,
+            197
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            669,
+            928,
+            200,
+            176
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            18,
+            1115,
+            199,
+            208
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            1124,
+            193,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            460,
+            1136,
+            206,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            678,
+            1143,
+            202,
+            187
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            17,
+            1342,
+            183,
+            205
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            253,
+            1350,
+            191,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            458,
+            1354,
+            204,
+            193
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            679,
+            1391,
+            194,
+            156
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            15,
+            1563,
+            188,
+            186
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            233,
+            1595,
+            197,
+            154
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            436,
+            1640,
+            233,
+            105
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            672,
+            1660,
+            211,
+            84
+          ]
+        }
+      ]
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/kneeling_crossbowman.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "crossbow_low_windup",
+      "crossbow_low",
+      "crossbow_low_recover",
+      "crossbow_low_charge"
+    ],
+    "sheets": [
+      {
+        "image": "crossbow_burst_loops.png",
+        "image_sha256": "0dd29d47d6318c42d8cb296d834bf91aa727cce530ed36b9bcbb2a13326398b3",
+        "role": "keep",
+        "attack": "crossbow_burst",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3194,
+        "anchors": [
+          364.0,
+          350.0
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3207,
+            0.3181
+          ]
+        }
+      },
+      {
+        "image": "crossbow_low.png",
+        "image_sha256": "929bc9803428f893ff4ca718cf50608a877c6c26b39feb9f525d0c4e5f00c17d",
+        "role": "new",
+        "attack": "crossbow_low",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7245,
+        "anchors": [
+          163.6,
+          148.6,
+          140.6,
+          143.6,
+          151.6,
+          136.6,
+          137.6,
+          135.6,
+          151.6,
+          150.6,
+          153.6,
+          145.6,
+          146.6,
+          149.6
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7207,
+          "last_recover_ratio": 0.7284
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "kneeling_crossbowman__attack",
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__attack.png",
+        "sha256": "e53c72a5d92cbb6d7bd7f037e4db7edb9e88d3fc5d375cfde4a0bb56b6470865",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/kneeling_crossbowman__attack.png"
+      },
+      {
+        "id": "kneeling_crossbowman__crossbow_low",
+        "source": "art_requests/combat_motion_v7/incoming/kneeling_crossbowman__crossbow_low.png",
+        "sha256": "5f8574b34879dda5eabf74fbc509d85102ed689daea45cde5bc3beb5c0973360",
+        "new_drawings": 24,
+        "animations": [
+          "crossbow_low_windup",
+          "crossbow_low",
+          "crossbow_low_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/kneeling_crossbowman__crossbow_low.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

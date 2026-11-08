@@ -1,0 +1,5854 @@
+{
+  "kind": "saltwhite_contract_judge",
+  "generator": "built-in image_gen",
+  "sources": [
+    {
+      "sheet": "motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Ash Crowned Mantis Warlord from reference, chalk grey layered chitin over charcoal slender body, jagged ash crown, amber eye, two curved forearm blades, faded crimson sash and trailing red cape strips. Exactly 6x6 grid of 36 separate sprites. Each whole figure only 70% of cell width, transparent gutters all sides large enough for extended blade, no overlap. Reading row-major: row1 first4 idle breathing, last2 begin eight-step walk; row2 remaining six walk frames alternating leg contacts and passing; row3 first4 four windup lifts paired blades up and back, last2 begin forward slash; row4 first4 remaining slash/followthrough, last2 begin recovery; row5 first4 finish recovery easing blades to guard, last2 start hurt recoil; row6 first2 finish hurt then last4 progressive death standing stagger, kneel, falling, collapsed. Ensure all four death poses distinct, never merely shrink character. Face right, same proportions, real joint bending and weapon angles. COMPLETE blades entirely within their own cells. Transparent empty background.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-95ad750d-258b-4028-9496-0aab3c1f7d60.png",
+      "sha256": "13c6578d774541efd61e974a7d1653229702972b6e62d3857cfe473330e9367a"
+    },
+    {
+      "sheet": "special_motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Ash Crowned Mantis Warlord same references, grey chitin crown and layered armor, charcoal body, curved paired forearm blades, crimson waist sash and cape strips. 24 sprites arranged FOUR COLUMNS by SIX ROWS on tall canvas. Each character 65% cell width and 70% cell height with generous transparent surrounding. Each row is a smooth four-pose progression: row1 heavy_windup raising forearm blades above crown, coiling knees; row2 heavy downward double blade slam and finishing crouch then rise; row3 cast_windup crossing blades at chest, widening and pointing right; row4 cast forward sweeping blade gesture, trailing crimson sash follows arc, ending guard; row5 phase_windup low crouch bending knees and pulling arms in, then rising; row6 phase four forward cross-slash attack poses, diagonally extended paired blades, recovery. SAME scale, all face right, full weapons inside cells, no detached effects, no words, no drawn background, transparent alpha.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-817aa4a2-b0d3-46ba-90b2-6ac968da302c.png",
+      "sha256": "6877c843209b1655140e7b3ca18c404e2a884876f7d13f555c14b5c6bbe37455"
+    },
+    {
+      "sheet": "motion_repair.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character Ash Crowned Mantis Warlord exactly reference: sharp grey chalk chitin jagged crown, charcoal insect body, large curved silver-ivory forearm blades, layered grey plates and faded crimson sash/long red cape strips. Exactly 4 columns by 4 rows, 16 complete separate sprites on square alpha canvas. Huge clear gutters, whole body plus extended blades only half cell width to keep every pose separate. Row1 four heavy attack poses: paired blades raised high, downward sweep, low impact, rising end. Row2 four cast poses: crossed forearms at chest, uncrossing one blade and raising other, arms sweep right at shoulder height, withdraw to ritual guard. Row3 four phase attack poses: crouch with crossed blades, launch into forward sweeping cut, maximum forward double-blade extended slash, withdraw blades while torso recovers. Row4 four death poses: backward standing stagger, knee/head bowed, body falls to side, fully collapsed rightward with full blades. Every sprite complete no clipping, same scale all16, facing right side view, ink and painterly 2D style. No particles, no background, shadows, floor, labels, grid lines.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-e933bbc4-57a5-486e-9faa-77e151999c64.png",
+      "sha256": "6643d3031e3e2f0125cddf3b7b20158dd7675933b648d5291ad4893337a55076"
+    }
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          211,
+          182
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          213,
+          0,
+          202,
+          167
+        ],
+        "anchor_x": 89.603825,
+        "packed_runtime": true,
+        "scale": 1.095808,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          417,
+          0,
+          195,
+          184
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          614,
+          0,
+          198,
+          162
+        ],
+        "anchor_x": 73.065217,
+        "packed_runtime": true,
+        "scale": 1.135802,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          814,
+          0,
+          208,
+          184
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1024,
+          0,
+          210,
+          154
+        ],
+        "anchor_x": 89.203252,
+        "packed_runtime": true,
+        "scale": 1.198052,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1236,
+          0,
+          198,
+          185
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1436,
+          0,
+          208,
+          160
+        ],
+        "anchor_x": 88.610354,
+        "packed_runtime": true,
+        "scale": 1.146875,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1646,
+          0,
+          208,
+          181
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1856,
+          0,
+          196,
+          159
+        ],
+        "anchor_x": 73.307692,
+        "packed_runtime": true,
+        "scale": 1.144654,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2054,
+          0,
+          222,
+          183
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2278,
+          0,
+          224,
+          160
+        ],
+        "anchor_x": 99.872576,
+        "packed_runtime": true,
+        "scale": 1.128125,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2504,
+          0,
+          229,
+          178
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2735,
+          0,
+          213,
+          160
+        ],
+        "anchor_x": 111.28169,
+        "packed_runtime": true,
+        "scale": 1.109375,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2950,
+          0,
+          222,
+          177
+        ],
+        "anchor_x": 140.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3174,
+          0,
+          213,
+          163
+        ],
+        "anchor_x": 142.742297,
+        "packed_runtime": true,
+        "scale": 1.095092,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 8,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3389,
+          0,
+          224,
+          180
+        ],
+        "anchor_x": 168.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3615,
+          0,
+          205,
+          164
+        ],
+        "anchor_x": 135.044944,
+        "packed_runtime": true,
+        "scale": 1.085366,
+        "_v7_loop_alignment": {
+          "from": 8,
+          "to": 10,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3822,
+          0,
+          235,
+          176
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          187,
+          220,
+          164
+        ],
+        "anchor_x": 107.152542,
+        "packed_runtime": true,
+        "scale": 1.079268,
+        "_v7_loop_alignment": {
+          "from": 10,
+          "to": 12,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          222,
+          187,
+          218,
+          178
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          442,
+          187,
+          213,
+          163
+        ],
+        "anchor_x": 82.717514,
+        "packed_runtime": true,
+        "scale": 1.08589,
+        "_v7_loop_alignment": {
+          "from": 12,
+          "to": 14,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          187,
+          215,
+          176
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          874,
+          187,
+          206,
+          161
+        ],
+        "anchor_x": 72.254902,
+        "packed_runtime": true,
+        "scale": 1.108696,
+        "_v7_loop_alignment": {
+          "from": 14,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1082,
+          187,
+          225,
+          175
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          30,
+          94,
+          195,
+          153
+        ],
+        "component_seeds": [
+          [
+            208,
+            185
+          ]
+        ],
+        "scale": 1.209195,
+        "anchor_x": 64.136882,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          279,
+          96,
+          206,
+          151
+        ],
+        "component_seeds": [
+          [
+            384,
+            189
+          ]
+        ],
+        "scale": 1.228438,
+        "anchor_x": 64.212524,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1507,
+          187,
+          229,
+          176
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          533,
+          93,
+          207,
+          154
+        ],
+        "component_seeds": [
+          [
+            694,
+            190
+          ]
+        ],
+        "scale": 1.203196,
+        "anchor_x": 68.660342,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          793,
+          91,
+          203,
+          156
+        ],
+        "component_seeds": [
+          [
+            904,
+            182
+          ]
+        ],
+        "scale": 1.184685,
+        "anchor_x": 61.920152,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1951,
+          187,
+          222,
+          175
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1048,
+          90,
+          203,
+          157
+        ],
+        "component_seeds": [
+          [
+            1176,
+            181
+          ]
+        ],
+        "scale": 1.181208,
+        "anchor_x": 62.92803,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1298,
+          93,
+          196,
+          154
+        ],
+        "component_seeds": [
+          [
+            1402,
+            182
+          ]
+        ],
+        "scale": 1.212329,
+        "anchor_x": 77.156309,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2393,
+          187,
+          207,
+          178
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          35,
+          350,
+          182,
+          153
+        ],
+        "component_seeds": [
+          [
+            150,
+            437
+          ]
+        ],
+        "scale": 1.101149,
+        "anchor_x": 72.544885,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          277,
+          387,
+          204,
+          118
+        ],
+        "component_seeds": [
+          [
+            309,
+            458
+          ]
+        ],
+        "scale": 1.284848,
+        "anchor_x": 94.915094,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2602,
+          187,
+          220,
+          123
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          535,
+          386,
+          199,
+          119
+        ],
+        "component_seeds": [
+          [
+            647,
+            458
+          ]
+        ],
+        "scale": 1.123123,
+        "anchor_x": 106.438503,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          773,
+          387,
+          235,
+          115
+        ],
+        "component_seeds": [
+          [
+            850,
+            453
+          ]
+        ],
+        "scale": 1.180685,
+        "anchor_x": 107.693931,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3050,
+          187,
+          268,
+          128
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1027,
+          387,
+          238,
+          115
+        ],
+        "component_seeds": [
+          [
+            1109,
+            454
+          ]
+        ],
+        "scale": 1.193146,
+        "anchor_x": 110.83812,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1282,
+          412,
+          243,
+          90
+        ],
+        "component_seeds": [
+          [
+            1343,
+            460
+          ]
+        ],
+        "scale": 1.552846,
+        "anchor_x": 103.136126,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3606,
+          187,
+          338,
+          127
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          6,
+          669,
+          239,
+          89
+        ],
+        "component_seeds": [
+          [
+            122,
+            715
+          ]
+        ],
+        "scale": 1.613169,
+        "anchor_x": 100.966837,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          290,
+          636,
+          193,
+          123
+        ],
+        "component_seeds": [
+          [
+            395,
+            711
+          ]
+        ],
+        "scale": 1.168116,
+        "anchor_x": 116.275434,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          213,
+          367,
+          206,
+          138
+        ],
+        "anchor_x": 140.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          538,
+          636,
+          191,
+          123
+        ],
+        "component_seeds": [
+          [
+            646,
+            711
+          ]
+        ],
+        "scale": 1.263768,
+        "anchor_x": 111.472477,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          795,
+          612,
+          199,
+          147
+        ],
+        "component_seeds": [
+          [
+            952,
+            698
+          ]
+        ],
+        "scale": 1.098321,
+        "anchor_x": 77.665939,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          367,
+          224,
+          160
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1054,
+          612,
+          196,
+          147
+        ],
+        "component_seeds": [
+          [
+            1220,
+            699
+          ]
+        ],
+        "scale": 1.143885,
+        "anchor_x": 58.1174,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1318,
+          612,
+          176,
+          147
+        ],
+        "component_seeds": [
+          [
+            1416,
+            695
+          ]
+        ],
+        "scale": 1.136691,
+        "anchor_x": 49.464135,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1259,
+          367,
+          195,
+          157
+        ],
+        "anchor_x": 52.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          41,
+          869,
+          175,
+          146
+        ],
+        "component_seeds": [
+          [
+            141,
+            950
+          ]
+        ],
+        "scale": 1.161836,
+        "anchor_x": 56.744283,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          289,
+          867,
+          190,
+          148
+        ],
+        "component_seeds": [
+          [
+            424,
+            956
+          ]
+        ],
+        "scale": 1.169048,
+        "anchor_x": 83.751527,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1645,
+          367,
+          211,
+          167
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          549,
+          867,
+          182,
+          148
+        ],
+        "component_seeds": [
+          [
+            671,
+            956
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 77.787879,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          797,
+          867,
+          194,
+          148
+        ],
+        "component_seeds": [
+          [
+            909,
+            953
+          ]
+        ],
+        "scale": 1.164286,
+        "anchor_x": 70.503067,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2716,
+          367,
+          218,
+          161
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1051,
+          867,
+          195,
+          148
+        ],
+        "component_seeds": [
+          [
+            1186,
+            953
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 64.722222,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "region": [
+          1309,
+          852,
+          196,
+          163
+        ],
+        "component_seeds": [
+          [
+            1430,
+            958
+          ]
+        ],
+        "scale": 1.129032,
+        "anchor_x": 81.32381,
+        "grade": {
+          "saturation": 0.987,
+          "rgb": [
+            0.9377,
+            0.9482,
+            0.9387
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2936,
+          367,
+          226,
+          166
+        ],
+        "anchor_x": 218.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3164,
+          367,
+          235,
+          165
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3401,
+          367,
+          226,
+          135
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3629,
+          367,
+          197,
+          135
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3828,
+          367,
+          208,
+          138
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          536,
+          246,
+          114
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          248,
+          536,
+          248,
+          78
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          498,
+          536,
+          243,
+          62
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          743,
+          536,
+          189,
+          193
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          51,
+          80,
+          161,
+          166
+        ],
+        "component_seeds": [
+          [
+            120,
+            184
+          ]
+        ],
+        "scale": 1.223629,
+        "anchor_x": 55.948276,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          303,
+          76,
+          165,
+          170
+        ],
+        "component_seeds": [
+          [
+            421,
+            183
+          ]
+        ],
+        "scale": 1.195473,
+        "anchor_x": 59.444062,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1122,
+          536,
+          186,
+          194
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          559,
+          75,
+          165,
+          171
+        ],
+        "component_seeds": [
+          [
+            632,
+            183
+          ]
+        ],
+        "scale": 1.216769,
+        "anchor_x": 67.357983,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          818,
+          61,
+          157,
+          185
+        ],
+        "component_seeds": [
+          [
+            861,
+            165
+          ]
+        ],
+        "scale": 1.145009,
+        "anchor_x": 56.330592,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1508,
+          536,
+          177,
+          207
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1073,
+          62,
+          158,
+          184
+        ],
+        "component_seeds": [
+          [
+            1129,
+            165
+          ]
+        ],
+        "scale": 1.164773,
+        "anchor_x": 55.964228,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1325,
+          73,
+          168,
+          173
+        ],
+        "component_seeds": [
+          [
+            1390,
+            182
+          ]
+        ],
+        "scale": 1.230303,
+        "anchor_x": 68.344828,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1867,
+          536,
+          197,
+          201
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          42,
+          329,
+          171,
+          174
+        ],
+        "component_seeds": [
+          [
+            173,
+            438
+          ]
+        ],
+        "scale": 1.200803,
+        "anchor_x": 64.076923,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          294,
+          332,
+          182,
+          171
+        ],
+        "component_seeds": [
+          [
+            428,
+            429
+          ]
+        ],
+        "scale": 1.212679,
+        "anchor_x": 63.640809,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      }
+    ],
+    "heavy": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2066,
+          536,
+          214,
+          196
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          548,
+          331,
+          184,
+          172
+        ],
+        "component_seeds": [
+          [
+            630,
+            430
+          ]
+        ],
+        "scale": 1.203252,
+        "anchor_x": 60.662162,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          795,
+          326,
+          209,
+          177
+        ],
+        "component_seeds": [
+          [
+            872,
+            434
+          ]
+        ],
+        "scale": 1.175542,
+        "anchor_x": 67.75,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2517,
+          536,
+          239,
+          200
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1049,
+          326,
+          217,
+          177
+        ],
+        "component_seeds": [
+          [
+            1242,
+            433
+          ]
+        ],
+        "scale": 1.051282,
+        "anchor_x": 84.414634,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1295,
+          384,
+          228,
+          118
+        ],
+        "component_seeds": [
+          [
+            1447,
+            457
+          ]
+        ],
+        "scale": 1.412121,
+        "anchor_x": 111.751073,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3014,
+          536,
+          260,
+          133
+        ],
+        "anchor_x": 150.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          14,
+          639,
+          231,
+          119
+        ],
+        "component_seeds": [
+          [
+            131,
+            713
+          ]
+        ],
+        "scale": 1.372372,
+        "anchor_x": 113.842451,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          287,
+          589,
+          191,
+          169
+        ],
+        "component_seeds": [
+          [
+            428,
+            688
+          ]
+        ],
+        "scale": 1.066253,
+        "anchor_x": 78.928155,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3482,
+          536,
+          212,
+          191
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          546,
+          585,
+          192,
+          174
+        ],
+        "component_seeds": [
+          [
+            641,
+            686
+          ]
+        ],
+        "scale": 1.088353,
+        "anchor_x": 59.734317,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          784,
+          617,
+          205,
+          142
+        ],
+        "component_seeds": [
+          [
+            834,
+            697
+          ]
+        ],
+        "scale": 1.271144,
+        "anchor_x": 74.598826,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      }
+    ],
+    "cast_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3696,
+          536,
+          174,
+          182
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          47,
+          85,
+          156,
+          161
+        ],
+        "component_seeds": [
+          [
+            88,
+            184
+          ]
+        ],
+        "scale": 1.185185,
+        "anchor_x": 68.03125,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          296,
+          87,
+          171,
+          159
+        ],
+        "component_seeds": [
+          [
+            412,
+            180
+          ]
+        ],
+        "scale": 1.196468,
+        "anchor_x": 72.512915,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          745,
+          187,
+          180
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          551,
+          86,
+          172,
+          160
+        ],
+        "component_seeds": [
+          [
+            610,
+            181
+          ]
+        ],
+        "scale": 1.186404,
+        "anchor_x": 75.480591,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          776,
+          90,
+          228,
+          156
+        ],
+        "component_seeds": [
+          [
+            847,
+            181
+          ]
+        ],
+        "scale": 1.220721,
+        "anchor_x": 77.619926,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          375,
+          745,
+          265,
+          181
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1032,
+          91,
+          230,
+          155
+        ],
+        "component_seeds": [
+          [
+            1117,
+            182
+          ]
+        ],
+        "scale": 1.23356,
+        "anchor_x": 79.380515,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1325,
+          89,
+          165,
+          157
+        ],
+        "component_seeds": [
+          [
+            1378,
+            183
+          ]
+        ],
+        "scale": 1.219239,
+        "anchor_x": 81.07156,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          933,
+          745,
+          183,
+          182
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          43,
+          344,
+          168,
+          158
+        ],
+        "component_seeds": [
+          [
+            114,
+            438
+          ]
+        ],
+        "scale": 1.208889,
+        "anchor_x": 76.386029,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          301,
+          345,
+          167,
+          157
+        ],
+        "component_seeds": [
+          [
+            375,
+            442
+          ]
+        ],
+        "scale": 1.212528,
+        "anchor_x": 65.983395,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      }
+    ],
+    "cast": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1118,
+          745,
+          195,
+          180
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          549,
+          345,
+          174,
+          157
+        ],
+        "component_seeds": [
+          [
+            700,
+            442
+          ]
+        ],
+        "scale": 1.208054,
+        "anchor_x": 59.474074,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          788,
+          344,
+          207,
+          158
+        ],
+        "component_seeds": [
+          [
+            911,
+            440
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 76.277778,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1525,
+          745,
+          230,
+          180
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1047,
+          343,
+          202,
+          159
+        ],
+        "component_seeds": [
+          [
+            1174,
+            440
+          ]
+        ],
+        "scale": 1.172185,
+        "anchor_x": 67.629002,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1292,
+          376,
+          228,
+          127
+        ],
+        "component_seeds": [
+          [
+            1336,
+            450
+          ]
+        ],
+        "scale": 1.462185,
+        "anchor_x": 50.260536,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2042,
+          745,
+          313,
+          171
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          11,
+          632,
+          226,
+          126
+        ],
+        "component_seeds": [
+          [
+            85,
+            705
+          ]
+        ],
+        "scale": 1.468927,
+        "anchor_x": 52.869231,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          288,
+          605,
+          190,
+          153
+        ],
+        "component_seeds": [
+          [
+            424,
+            697
+          ]
+        ],
+        "scale": 1.211494,
+        "anchor_x": 62.104364,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2559,
+          745,
+          203,
+          178
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          550,
+          602,
+          179,
+          156
+        ],
+        "component_seeds": [
+          [
+            643,
+            697
+          ]
+        ],
+        "scale": 1.162162,
+        "anchor_x": 55.844961,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          796,
+          618,
+          191,
+          141
+        ],
+        "component_seeds": [
+          [
+            899,
+            699
+          ]
+        ],
+        "scale": 1.24812,
+        "anchor_x": 63.678715,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      }
+    ],
+    "phase_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2764,
+          745,
+          190,
+          118
+        ],
+        "anchor_x": 135.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          45,
+          138,
+          174,
+          108
+        ],
+        "component_seeds": [
+          [
+            87,
+            204
+          ]
+        ],
+        "scale": 1.333333,
+        "anchor_x": 94.5,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          298,
+          100,
+          173,
+          148
+        ],
+        "component_seeds": [
+          [
+            417,
+            188
+          ]
+        ],
+        "scale": 1.061905,
+        "anchor_x": 79.421525,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3157,
+          745,
+          193,
+          164
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          554,
+          99,
+          175,
+          148
+        ],
+        "component_seeds": [
+          [
+            701,
+            187
+          ]
+        ],
+        "scale": 1.188095,
+        "anchor_x": 60.246493,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          814,
+          91,
+          167,
+          156
+        ],
+        "component_seeds": [
+          [
+            912,
+            179
+          ]
+        ],
+        "scale": 1.13964,
+        "anchor_x": 50.731225,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3546,
+          745,
+          189,
+          171
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1069,
+          90,
+          168,
+          156
+        ],
+        "component_seeds": [
+          [
+            1189,
+            178
+          ]
+        ],
+        "scale": 1.191441,
+        "anchor_x": 65.219282,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1325,
+          78,
+          169,
+          168
+        ],
+        "component_seeds": [
+          [
+            1484,
+            175
+          ]
+        ],
+        "scale": 1.135417,
+        "anchor_x": 75.440367,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          946,
+          189,
+          187
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          44,
+          335,
+          170,
+          170
+        ],
+        "component_seeds": [
+          [
+            110,
+            434
+          ]
+        ],
+        "scale": 1.109053,
+        "anchor_x": 89.092764,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          280,
+          354,
+          204,
+          151
+        ],
+        "component_seeds": [
+          [
+            375,
+            452
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 115.617021,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      }
+    ],
+    "phase": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          191,
+          946,
+          230,
+          165
+        ],
+        "anchor_x": 136.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          535,
+          354,
+          208,
+          148
+        ],
+        "component_seeds": [
+          [
+            697,
+            450
+          ]
+        ],
+        "scale": 1.119048,
+        "anchor_x": 118.893617,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          796,
+          368,
+          208,
+          134
+        ],
+        "component_seeds": [
+          [
+            925,
+            453
+          ]
+        ],
+        "scale": 1.177249,
+        "anchor_x": 87.849438,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          607,
+          946,
+          231,
+          140
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1052,
+          369,
+          209,
+          133
+        ],
+        "component_seeds": [
+          [
+            1204,
+            453
+          ]
+        ],
+        "scale": 1.032,
+        "anchor_x": 89.968992,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1295,
+          418,
+          226,
+          84
+        ],
+        "component_seeds": [
+          [
+            1357,
+            460
+          ]
+        ],
+        "scale": 1.552632,
+        "anchor_x": 90.644068,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1051,
+          946,
+          305,
+          107
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          17,
+          675,
+          228,
+          83
+        ],
+        "component_seeds": [
+          [
+            71,
+            715
+          ]
+        ],
+        "scale": 1.431111,
+        "anchor_x": 90.698758,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          280,
+          660,
+          207,
+          101
+        ],
+        "component_seeds": [
+          [
+            427,
+            723
+          ]
+        ],
+        "scale": 1.157706,
+        "anchor_x": 100.863777,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1604,
+          946,
+          233,
+          108
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          539,
+          656,
+          205,
+          105
+        ],
+        "component_seeds": [
+          [
+            656,
+            722
+          ]
+        ],
+        "scale": 1.292096,
+        "anchor_x": 87.164894,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          794,
+          614,
+          191,
+          145
+        ],
+        "component_seeds": [
+          [
+            848,
+            697
+          ]
+        ],
+        "scale": 1.041363,
+        "anchor_x": 74.151869,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      }
+    ],
+    "heavy_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1839,
+          946,
+          241,
+          176
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2082,
+          946,
+          221,
+          169
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2305,
+          946,
+          206,
+          151
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2513,
+          946,
+          209,
+          155
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2724,
+          946,
+          237,
+          175
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2963,
+          946,
+          218,
+          158
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3183,
+          946,
+          196,
+          153
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3381,
+          946,
+          197,
+          150
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      }
+    ],
+    "phase_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3580,
+          946,
+          262,
+          130
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3844,
+          946,
+          211,
+          141
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          1135,
+          209,
+          152
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          211,
+          1135,
+          219,
+          131
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          367,
+          224,
+          160
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1049,
+          618,
+          194,
+          141
+        ],
+        "component_seeds": [
+          [
+            1177,
+            699
+          ]
+        ],
+        "scale": 1.195489,
+        "anchor_x": 65.752621,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1315,
+          624,
+          177,
+          135
+        ],
+        "component_seeds": [
+          [
+            1405,
+            700
+          ]
+        ],
+        "scale": 1.244094,
+        "anchor_x": 56.704641,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1259,
+          367,
+          195,
+          157
+        ],
+        "anchor_x": 52.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          35,
+          873,
+          180,
+          141
+        ],
+        "component_seeds": [
+          [
+            161,
+            954
+          ]
+        ],
+        "scale": 1.205514,
+        "anchor_x": 65.731809,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          289,
+          869,
+          183,
+          145
+        ],
+        "component_seeds": [
+          [
+            332,
+            956
+          ]
+        ],
+        "scale": 1.194647,
+        "anchor_x": 83.142566,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1645,
+          367,
+          211,
+          167
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          542,
+          867,
+          189,
+          147
+        ],
+        "component_seeds": [
+          [
+            621,
+            956
+          ]
+        ],
+        "scale": 1.18705,
+        "anchor_x": 83.939394,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          798,
+          871,
+          195,
+          143
+        ],
+        "component_seeds": [
+          [
+            908,
+            953
+          ]
+        ],
+        "scale": 1.207407,
+        "anchor_x": 69.699387,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2716,
+          367,
+          218,
+          161
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1053,
+          866,
+          193,
+          148
+        ],
+        "component_seeds": [
+          [
+            1200,
+            952
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 63.722222,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "region": [
+          1314,
+          851,
+          191,
+          164
+        ],
+        "component_seeds": [
+          [
+            1426,
+            957
+          ]
+        ],
+        "scale": 1.121795,
+        "anchor_x": 77.074286,
+        "grade": {
+          "saturation": 0.9835,
+          "rgb": [
+            0.8769,
+            0.8755,
+            0.8752
+          ]
+        }
+      }
+    ],
+    "heavy_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          367,
+          224,
+          160
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1041,
+          617,
+          209,
+          142
+        ],
+        "component_seeds": [
+          [
+            1078,
+            697
+          ]
+        ],
+        "scale": 1.186567,
+        "anchor_x": 72.480084,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1309,
+          622,
+          189,
+          137
+        ],
+        "component_seeds": [
+          [
+            1384,
+            697
+          ]
+        ],
+        "scale": 1.224806,
+        "anchor_x": 60.164557,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1259,
+          367,
+          195,
+          157
+        ],
+        "anchor_x": 52.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          33,
+          873,
+          186,
+          142
+        ],
+        "component_seeds": [
+          [
+            81,
+            951
+          ]
+        ],
+        "scale": 1.196517,
+        "anchor_x": 65.534304,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          288,
+          864,
+          193,
+          151
+        ],
+        "component_seeds": [
+          [
+            464,
+            954
+          ]
+        ],
+        "scale": 1.144522,
+        "anchor_x": 88.360489,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1645,
+          367,
+          211,
+          167
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          551,
+          864,
+          185,
+          151
+        ],
+        "component_seeds": [
+          [
+            655,
+            955
+          ]
+        ],
+        "scale": 1.153846,
+        "anchor_x": 79.333333,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          796,
+          865,
+          200,
+          150
+        ],
+        "component_seeds": [
+          [
+            958,
+            951
+          ]
+        ],
+        "scale": 1.147887,
+        "anchor_x": 73.02454,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2716,
+          367,
+          218,
+          161
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1053,
+          865,
+          198,
+          150
+        ],
+        "component_seeds": [
+          [
+            1128,
+            952
+          ]
+        ],
+        "scale": 1.183099,
+        "anchor_x": 66.146825,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "region": [
+          1313,
+          849,
+          192,
+          166
+        ],
+        "component_seeds": [
+          [
+            1424,
+            955
+          ]
+        ],
+        "scale": 1.107595,
+        "anchor_x": 78.575238,
+        "grade": {
+          "saturation": 0.9883,
+          "rgb": [
+            0.9395,
+            0.9456,
+            0.9363
+          ]
+        }
+      }
+    ],
+    "phase_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          367,
+          224,
+          160
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1049,
+          611,
+          193,
+          148
+        ],
+        "component_seeds": [
+          [
+            1206,
+            694
+          ]
+        ],
+        "scale": 1.135714,
+        "anchor_x": 64.844864,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1320,
+          613,
+          172,
+          146
+        ],
+        "component_seeds": [
+          [
+            1377,
+            693
+          ]
+        ],
+        "scale": 1.144928,
+        "anchor_x": 46.734177,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1259,
+          367,
+          195,
+          157
+        ],
+        "anchor_x": 52.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          43,
+          868,
+          170,
+          146
+        ],
+        "component_seeds": [
+          [
+            127,
+            949
+          ]
+        ],
+        "scale": 1.161836,
+        "anchor_x": 54.744283,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          292,
+          863,
+          183,
+          151
+        ],
+        "component_seeds": [
+          [
+            451,
+            953
+          ]
+        ],
+        "scale": 1.144522,
+        "anchor_x": 83.360489,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1645,
+          367,
+          211,
+          167
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          547,
+          864,
+          189,
+          150
+        ],
+        "component_seeds": [
+          [
+            684,
+            955
+          ]
+        ],
+        "scale": 1.161972,
+        "anchor_x": 82.484848,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          799,
+          867,
+          193,
+          147
+        ],
+        "component_seeds": [
+          [
+            877,
+            952
+          ]
+        ],
+        "scale": 1.172662,
+        "anchor_x": 69.742331,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2716,
+          367,
+          218,
+          161
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1058,
+          866,
+          187,
+          148
+        ],
+        "component_seeds": [
+          [
+            1086,
+            953
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 59.722222,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "region": [
+          1314,
+          854,
+          181,
+          160
+        ],
+        "component_seeds": [
+          [
+            1430,
+            956
+          ]
+        ],
+        "scale": 1.151316,
+        "anchor_x": 76.072381,
+        "grade": {
+          "saturation": 1.0234,
+          "rgb": [
+            0.9705,
+            0.9791,
+            0.9601
+          ]
+        }
+      }
+    ]
+  },
+  "qa": {
+    "review": "Source sheets visually reviewed; independent complete alpha components explicitly selected; merged characters and edge-clipped poses excluded. Source atlas and attacks unchanged.",
+    "mechanical_packaging": "Component isolation of authored source pixels, scale normalization and atlas packing; no procedural animation or interpolation."
+  },
+  "slots": {
+    "idle": 4,
+    "walk": 8,
+    "windup": 4,
+    "attack": 4,
+    "recover": 6,
+    "hurt": 4,
+    "death": 4,
+    "heavy_windup": 4,
+    "heavy": 4,
+    "cast_windup": 4,
+    "cast": 4,
+    "phase_windup": 4,
+    "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "E_phase_saltwhite_contract_judge.png",
+        "image_sha256": "ce3a8f0f2f5aa78b1a4fe0a8205ce8f898c8cf9c4083c45861c3ce58b627b3da",
+        "op": "replace_animation",
+        "animation": "phase",
+        "scale": 0.5101,
+        "anchors": [
+          425.0,
+          353.0,
+          324.0,
+          379.0
+        ],
+        "grade": {
+          "saturation": 0.739,
+          "rgb": [
+            0.992,
+            1.001,
+            0.978
+          ]
+        },
+        "calibration": {
+          "method": "median area of replaced cels",
+          "ratio": 0.5101
+        }
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_heavy.png",
+        "image_sha256": "cc6ee8511d8a74aab22810e376b50c1a728a9cd40eb28180ab8ce9cb08ea83be",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.4031,
+        "anchors": [
+          297.7,
+          331.1
+        ],
+        "grade": {
+          "saturation": 0.834,
+          "rgb": [
+            0.987,
+            1.003,
+            0.981
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.4094,
+            "recover[0]": 0.4031
+          }
+        }
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_cast.png",
+        "image_sha256": "35558ac5a23e680fd0d756ab3fcf5722d3a623302caa743cd90b7f4d477b4e1d",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.3957,
+        "anchors": [
+          301.9,
+          304.1
+        ],
+        "grade": {
+          "saturation": 0.897,
+          "rgb": [
+            0.973,
+            1.001,
+            0.991
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.3654,
+            "recover[0]": 0.3957
+          }
+        }
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_phase.png",
+        "image_sha256": "79369004fa88a97b26dcd91f9f29ed0c2ffb62a544c49bffe97644be80762ac9",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.4387,
+        "anchors": [
+          269.1,
+          313.1
+        ],
+        "grade": {
+          "saturation": 0.792,
+          "rgb": [
+            0.972,
+            0.994,
+            0.966
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "recover[0]": 0.4387
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "E_phase_saltwhite_contract_judge.png",
+        "op": "replace_animation",
+        "animation": "phase",
+        "replaced": {
+          "all": [
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                9,
+                603,
+                345,
+                194
+              ],
+              "component_seeds": [
+                [
+                  144,
+                  720
+                ]
+              ],
+              "anchor_x": 165.0,
+              "scale": 0.64
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                365,
+                600,
+                421,
+                203
+              ],
+              "component_seeds": [
+                [
+                  488,
+                  720
+                ]
+              ],
+              "anchor_x": 202.0,
+              "scale": 0.64
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                737,
+                606,
+                530,
+                201
+              ],
+              "component_seeds": [
+                [
+                  1077,
+                  710
+                ]
+              ],
+              "anchor_x": 201.0,
+              "scale": 0.64
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                1192,
+                598,
+                325,
+                218
+              ],
+              "component_seeds": [
+                [
+                  1487,
+                  733
+                ]
+              ],
+              "anchor_x": 221.0,
+              "scale": 0.64
+            }
+          ]
+        }
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_saltwhite_contract_judge_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
+  },
+  "boss_motion_v6": {
+    "tool": "tools/build_boss_motion_v6.py",
+    "baseline_frames": {
+      "idle": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            14,
+            5,
+            215,
+            184
+          ],
+          "component_seeds": [
+            [
+              92,
+              124
+            ]
+          ],
+          "anchor_x": 93.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            296,
+            3,
+            197,
+            186
+          ],
+          "component_seeds": [
+            [
+              417,
+              121
+            ]
+          ],
+          "anchor_x": 84.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            549,
+            3,
+            211,
+            186
+          ],
+          "component_seeds": [
+            [
+              707,
+              121
+            ]
+          ],
+          "anchor_x": 90.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            798,
+            2,
+            200,
+            187
+          ],
+          "component_seeds": [
+            [
+              877,
+              122
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 1
+        }
+      ],
+      "walk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1043,
+            6,
+            210,
+            183
+          ],
+          "component_seeds": [
+            [
+              1178,
+              117
+            ]
+          ],
+          "anchor_x": 73.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1288,
+            4,
+            225,
+            185
+          ],
+          "component_seeds": [
+            [
+              1437,
+              116
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            186,
+            232,
+            180
+          ],
+          "component_seeds": [
+            [
+              117,
+              295
+            ]
+          ],
+          "anchor_x": 94.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            285,
+            188,
+            224,
+            179
+          ],
+          "component_seeds": [
+            [
+              420,
+              298
+            ]
+          ],
+          "anchor_x": 141.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            538,
+            185,
+            226,
+            182
+          ],
+          "component_seeds": [
+            [
+              702,
+              296
+            ]
+          ],
+          "anchor_x": 169.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            793,
+            188,
+            237,
+            178
+          ],
+          "component_seeds": [
+            [
+              836,
+              298
+            ]
+          ],
+          "anchor_x": 130.5,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1049,
+            187,
+            220,
+            180
+          ],
+          "component_seeds": [
+            [
+              1197,
+              292
+            ]
+          ],
+          "anchor_x": 76.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1297,
+            188,
+            217,
+            178
+          ],
+          "component_seeds": [
+            [
+              1400,
+              295
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        }
+      ],
+      "windup": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            27,
+            370,
+            227,
+            178
+          ],
+          "component_seeds": [
+            [
+              243,
+              474
+            ]
+          ],
+          "anchor_x": 69.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            298,
+            370,
+            231,
+            178
+          ],
+          "component_seeds": [
+            [
+              414,
+              482
+            ]
+          ],
+          "anchor_x": 76.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            559,
+            371,
+            224,
+            177
+          ],
+          "component_seeds": [
+            [
+              653,
+              478
+            ]
+          ],
+          "anchor_x": 68.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            797,
+            369,
+            210,
+            180
+          ],
+          "component_seeds": [
+            [
+              925,
+              477
+            ]
+          ],
+          "anchor_x": 71.5,
+          "scale": 1
+        }
+      ],
+      "attack": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            9,
+            603,
+            345,
+            194
+          ],
+          "component_seeds": [
+            [
+              144,
+              720
+            ]
+          ],
+          "anchor_x": 165.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            365,
+            600,
+            421,
+            203
+          ],
+          "component_seeds": [
+            [
+              488,
+              720
+            ]
+          ],
+          "anchor_x": 202.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            737,
+            606,
+            530,
+            201
+          ],
+          "component_seeds": [
+            [
+              1077,
+              710
+            ]
+          ],
+          "anchor_x": 201.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1192,
+            598,
+            325,
+            218
+          ],
+          "component_seeds": [
+            [
+              1487,
+              733
+            ]
+          ],
+          "anchor_x": 221.0,
+          "scale": 0.64
+        }
+      ],
+      "recover": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            848,
+            554,
+            227,
+            162
+          ],
+          "component_seeds": [
+            [
+              1040,
+              649
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1078,
+            553,
+            217,
+            163
+          ],
+          "component_seeds": [
+            [
+              1223,
+              649
+            ]
+          ],
+          "anchor_x": 61.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1319,
+            557,
+            197,
+            159
+          ],
+          "component_seeds": [
+            [
+              1489,
+              647
+            ]
+          ],
+          "anchor_x": 53.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            14,
+            710,
+            213,
+            169
+          ],
+          "component_seeds": [
+            [
+              88,
+              814
+            ]
+          ],
+          "anchor_x": 108.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            271,
+            712,
+            232,
+            167
+          ],
+          "component_seeds": [
+            [
+              425,
+              806
+            ]
+          ],
+          "anchor_x": 69.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            571,
+            716,
+            220,
+            163
+          ],
+          "component_seeds": [
+            [
+              697,
+              809
+            ]
+          ],
+          "anchor_x": 65.0,
+          "scale": 1
+        }
+      ],
+      "hurt": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            816,
+            723,
+            228,
+            168
+          ],
+          "component_seeds": [
+            [
+              992,
+              823
+            ]
+          ],
+          "anchor_x": 219.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1072,
+            720,
+            237,
+            167
+          ],
+          "component_seeds": [
+            [
+              1217,
+              819
+            ]
+          ],
+          "anchor_x": 122.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            875,
+            228,
+            138
+          ],
+          "component_seeds": [
+            [
+              218,
+              960
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            289,
+            875,
+            199,
+            138
+          ],
+          "component_seeds": [
+            [
+              394,
+              964
+            ]
+          ],
+          "anchor_x": 79.0,
+          "scale": 1
+        }
+      ],
+      "death": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            10,
+            796,
+            328,
+            218
+          ],
+          "component_seeds": [
+            [
+              188,
+              920
+            ]
+          ],
+          "anchor_x": 155.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            373,
+            825,
+            386,
+            182
+          ],
+          "component_seeds": [
+            [
+              482,
+              945
+            ]
+          ],
+          "anchor_x": 187.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            759,
+            882,
+            391,
+            124
+          ],
+          "component_seeds": [
+            [
+              843,
+              961
+            ]
+          ],
+          "anchor_x": 200.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1148,
+            910,
+            381,
+            99
+          ],
+          "component_seeds": [
+            [
+              1342,
+              970
+            ]
+          ],
+          "anchor_x": 186.0,
+          "scale": 0.64
+        }
+      ],
+      "heavy_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            14,
+            31,
+            243,
+            246
+          ],
+          "component_seeds": [
+            [
+              120,
+              192
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            272,
+            30,
+            238,
+            248
+          ],
+          "component_seeds": [
+            [
+              374,
+              194
+            ]
+          ],
+          "anchor_x": 95.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            515,
+            13,
+            227,
+            265
+          ],
+          "component_seeds": [
+            [
+              651,
+              170
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            748,
+            21,
+            252,
+            256
+          ],
+          "component_seeds": [
+            [
+              869,
+              189
+            ]
+          ],
+          "anchor_x": 97.0,
+          "scale": 0.79
+        }
+      ],
+      "heavy": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            17,
+            7,
+            338,
+            309
+          ],
+          "component_seeds": [
+            [
+              235,
+              194
+            ]
+          ],
+          "anchor_x": 113.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            382,
+            4,
+            377,
+            314
+          ],
+          "component_seeds": [
+            [
+              602,
+              204
+            ]
+          ],
+          "anchor_x": 119.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            769,
+            110,
+            410,
+            210
+          ],
+          "component_seeds": [
+            [
+              1077,
+              245
+            ]
+          ],
+          "anchor_x": 237.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1178,
+            17,
+            334,
+            301
+          ],
+          "component_seeds": [
+            [
+              1406,
+              200
+            ]
+          ],
+          "anchor_x": 108.0,
+          "scale": 0.64
+        }
+      ],
+      "cast_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            10,
+            541,
+            222,
+            232
+          ],
+          "component_seeds": [
+            [
+              57,
+              683
+            ]
+          ],
+          "anchor_x": 85.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            257,
+            543,
+            239,
+            230
+          ],
+          "component_seeds": [
+            [
+              386,
+              683
+            ]
+          ],
+          "anchor_x": 107.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            501,
+            542,
+            338,
+            231
+          ],
+          "component_seeds": [
+            [
+              550,
+              680
+            ]
+          ],
+          "anchor_x": 104.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            780,
+            541,
+            235,
+            232
+          ],
+          "component_seeds": [
+            [
+              949,
+              682
+            ]
+          ],
+          "anchor_x": 121.0,
+          "scale": 0.79
+        }
+      ],
+      "cast": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            16,
+            318,
+            306,
+            284
+          ],
+          "component_seeds": [
+            [
+              93,
+              495
+            ]
+          ],
+          "anchor_x": 102.5,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            375,
+            319,
+            361,
+            284
+          ],
+          "component_seeds": [
+            [
+              538,
+              498
+            ]
+          ],
+          "anchor_x": 117.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            745,
+            335,
+            493,
+            269
+          ],
+          "component_seeds": [
+            [
+              881,
+              491
+            ]
+          ],
+          "anchor_x": 103.0,
+          "scale": 0.64
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1182,
+            325,
+            320,
+            280
+          ],
+          "component_seeds": [
+            [
+              1360,
+              500
+            ]
+          ],
+          "anchor_x": 104.0,
+          "scale": 0.64
+        }
+      ],
+      "phase_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            11,
+            1103,
+            242,
+            152
+          ],
+          "component_seeds": [
+            [
+              113,
+              1198
+            ]
+          ],
+          "anchor_x": 172.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            256,
+            1044,
+            246,
+            209
+          ],
+          "component_seeds": [
+            [
+              299,
+              1172
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            508,
+            1032,
+            241,
+            221
+          ],
+          "component_seeds": [
+            [
+              627,
+              1161
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            759,
+            1014,
+            241,
+            239
+          ],
+          "component_seeds": [
+            [
+              860,
+              1160
+            ]
+          ],
+          "anchor_x": 122.0,
+          "scale": 0.79
+        }
+      ],
+      "phase": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_saltwhite_contract_judge.png",
+          "region": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              589,
+              144
+            ]
+          ],
+          "scale": 0.5101,
+          "anchor_x": 425.0,
+          "grade": {
+            "saturation": 0.739,
+            "rgb": [
+              0.992,
+              1.001,
+              0.978
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_saltwhite_contract_judge.png",
+          "region": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1016,
+              194
+            ]
+          ],
+          "scale": 0.5101,
+          "anchor_x": 353.0,
+          "grade": {
+            "saturation": 0.739,
+            "rgb": [
+              0.992,
+              1.001,
+              0.978
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_saltwhite_contract_judge.png",
+          "region": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              377,
+              769
+            ]
+          ],
+          "scale": 0.5101,
+          "anchor_x": 324.0,
+          "grade": {
+            "saturation": 0.739,
+            "rgb": [
+              0.992,
+              1.001,
+              0.978
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_saltwhite_contract_judge.png",
+          "region": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1167,
+              768
+            ]
+          ],
+          "scale": 0.5101,
+          "anchor_x": 379.0,
+          "grade": {
+            "saturation": 0.739,
+            "rgb": [
+              0.992,
+              1.001,
+              0.978
+            ]
+          }
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_heavy.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              513,
+              497
+            ]
+          ],
+          "scale": 0.4031,
+          "anchor_x": 297.7,
+          "grade": {
+            "saturation": 0.834,
+            "rgb": [
+              0.987,
+              1.003,
+              0.981
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_heavy.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1321,
+              559
+            ]
+          ],
+          "scale": 0.4031,
+          "anchor_x": 331.1,
+          "grade": {
+            "saturation": 0.834,
+            "rgb": [
+              0.987,
+              1.003,
+              0.981
+            ]
+          }
+        }
+      ],
+      "cast_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_cast.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              526,
+              493
+            ]
+          ],
+          "scale": 0.3957,
+          "anchor_x": 301.9,
+          "grade": {
+            "saturation": 0.897,
+            "rgb": [
+              0.973,
+              1.001,
+              0.991
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_cast.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1317,
+              548
+            ]
+          ],
+          "scale": 0.3957,
+          "anchor_x": 304.1,
+          "grade": {
+            "saturation": 0.897,
+            "rgb": [
+              0.973,
+              1.001,
+              0.991
+            ]
+          }
+        }
+      ],
+      "phase_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_phase.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              453,
+              639
+            ]
+          ],
+          "scale": 0.4387,
+          "anchor_x": 269.1,
+          "grade": {
+            "saturation": 0.792,
+            "rgb": [
+              0.972,
+              0.994,
+              0.966
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_saltwhite_contract_judge_phase.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1297,
+              587
+            ]
+          ],
+          "scale": 0.4387,
+          "anchor_x": 313.1,
+          "grade": {
+            "saturation": 0.792,
+            "rgb": [
+              0.972,
+              0.994,
+              0.966
+            ]
+          }
+        }
+      ]
+    },
+    "references": {
+      "idle": [
+        {
+          "area": 14437,
+          "saturation": 0.36500066849976437,
+          "rgb": [
+            116.56400742114683,
+            82.13156408807734,
+            75.35524723722418
+          ],
+          "anchor_offset": 40.5
+        },
+        {
+          "area": 13772,
+          "saturation": 0.3633050780253101,
+          "rgb": [
+            117.7524844197372,
+            83.31455280443748,
+            76.7411150412561
+          ],
+          "anchor_offset": 34.5
+        },
+        {
+          "area": 14353,
+          "saturation": 0.36522051732726624,
+          "rgb": [
+            117.26088763297629,
+            82.03291223403214,
+            75.42993683509503
+          ],
+          "anchor_offset": 35.5
+        },
+        {
+          "area": 14260,
+          "saturation": 0.3609073876027227,
+          "rgb": [
+            118.6540797898509,
+            83.25759317024283,
+            76.68010178951599
+          ],
+          "anchor_offset": 34.5
+        }
+      ],
+      "walk": [
+        {
+          "area": 13636,
+          "saturation": 0.3611772997112367,
+          "rgb": [
+            117.39672500432832,
+            81.37636458151955,
+            75.44758274128333
+          ],
+          "anchor_offset": 48.5
+        },
+        {
+          "area": 14602,
+          "saturation": 0.3720273790859406,
+          "rgb": [
+            118.91229855809823,
+            81.8586089906616,
+            75.72357930448601
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 14436,
+          "saturation": 0.3441083394056314,
+          "rgb": [
+            119.473206786492,
+            85.55803796404265,
+            79.23987905256811
+          ],
+          "anchor_offset": 40.5
+        },
+        {
+          "area": 14545,
+          "saturation": 0.3580813701115313,
+          "rgb": [
+            119.91278435322441,
+            84.09057332325145,
+            77.97431377485735
+          ],
+          "anchor_offset": -13.5
+        },
+        {
+          "area": 14374,
+          "saturation": 0.3558163430085199,
+          "rgb": [
+            120.358508119075,
+            84.33330514207444,
+            78.20762855208629
+          ],
+          "anchor_offset": -36.5
+        },
+        {
+          "area": 15186,
+          "saturation": 0.358723528485746,
+          "rgb": [
+            118.45549402038176,
+            82.53985071032176,
+            76.432699253542
+          ],
+          "anchor_offset": 1.5
+        },
+        {
+          "area": 14050,
+          "saturation": 0.36211902885190944,
+          "rgb": [
+            114.88514090520529,
+            78.62886421860853,
+            72.87472245942772
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 14383,
+          "saturation": 0.35138736160724415,
+          "rgb": [
+            117.59617642126047,
+            81.89065906422152,
+            76.24358544355974
+          ],
+          "anchor_offset": 51.5
+        }
+      ],
+      "windup": [
+        {
+          "area": 15274,
+          "saturation": 0.3552073163309912,
+          "rgb": [
+            117.38397991414566,
+            82.46578116140691,
+            75.7614805215741
+          ],
+          "anchor_offset": 62.5
+        },
+        {
+          "area": 15122,
+          "saturation": 0.3755129598225573,
+          "rgb": [
+            114.63714657133217,
+            76.90542736430747,
+            70.9353266168243
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 15327,
+          "saturation": 0.35549112455375625,
+          "rgb": [
+            117.2308674487213,
+            82.42015800813293,
+            75.72763546404087
+          ],
+          "anchor_offset": 49.5
+        },
+        {
+          "area": 15099,
+          "saturation": 0.36818733789251434,
+          "rgb": [
+            116.23656001298964,
+            79.97011531589341,
+            73.50787721291931
+          ],
+          "anchor_offset": 40.5
+        }
+      ],
+      "attack": [
+        {
+          "area": 12322,
+          "saturation": 0.3497390831229287,
+          "rgb": [
+            114.46603021596101,
+            82.54342385762573,
+            77.00352210583988
+          ],
+          "anchor_offset": 10.5
+        },
+        {
+          "area": 12528,
+          "saturation": 0.3805878680226223,
+          "rgb": [
+            110.68768656716148,
+            74.73507462685755,
+            69.69328358208143
+          ],
+          "anchor_offset": -8.5
+        },
+        {
+          "area": 14906,
+          "saturation": 0.34930103569277243,
+          "rgb": [
+            112.99604681807055,
+            80.63064878690403,
+            75.393302844727
+          ],
+          "anchor_offset": 14.5
+        },
+        {
+          "area": 11670,
+          "saturation": 0.3718840461059543,
+          "rgb": [
+            112.6970970970986,
+            78.13013013012365,
+            72.8778778778711
+          ],
+          "anchor_offset": -19.5
+        }
+      ],
+      "recover": [
+        {
+          "area": 14166,
+          "saturation": 0.3677194754621182,
+          "rgb": [
+            118.87599035479985,
+            81.84240440922572,
+            75.57345849120834
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 14361,
+          "saturation": 0.37065979293952106,
+          "rgb": [
+            121.63004032257604,
+            84.0845094085953,
+            77.80216733870148
+          ],
+          "anchor_offset": 58.5
+        },
+        {
+          "area": 14170,
+          "saturation": 0.3707772519706344,
+          "rgb": [
+            115.24465701481844,
+            77.71957945535263,
+            72.17924853498
+          ],
+          "anchor_offset": 42.5
+        },
+        {
+          "area": 13924,
+          "saturation": 0.38463433951273956,
+          "rgb": [
+            117.97029442691709,
+            79.00771118120608,
+            72.61382754994005
+          ],
+          "anchor_offset": 10.5
+        },
+        {
+          "area": 16056,
+          "saturation": 0.3662108223197408,
+          "rgb": [
+            117.00812583867071,
+            80.61040703741328,
+            74.47763530638662
+          ],
+          "anchor_offset": 47.5
+        },
+        {
+          "area": 15066,
+          "saturation": 0.37844847950439636,
+          "rgb": [
+            116.64728243286582,
+            79.16127466838576,
+            72.81421869944282
+          ],
+          "anchor_offset": 53.5
+        }
+      ],
+      "hurt": [
+        {
+          "area": 14031,
+          "saturation": 0.3611682691032413,
+          "rgb": [
+            114.44645770716804,
+            79.52863890080904,
+            73.34117647058076
+          ],
+          "anchor_offset": -85.5
+        },
+        {
+          "area": 14633,
+          "saturation": 0.36491589797681667,
+          "rgb": [
+            114.37108980827254,
+            80.28943827782682,
+            73.72149344096034
+          ],
+          "anchor_offset": 4.5
+        },
+        {
+          "area": 12908,
+          "saturation": 0.3810361974696015,
+          "rgb": [
+            118.12877282618662,
+            79.33465796195769,
+            73.28706594757548
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 11037,
+          "saturation": 0.37686163510517473,
+          "rgb": [
+            114.07791773492534,
+            77.65823208114638,
+            71.01136996990027
+          ],
+          "anchor_offset": 33.5
+        }
+      ],
+      "death": [
+        {
+          "area": 11683,
+          "saturation": 0.3814265524897889,
+          "rgb": [
+            104.64388236475034,
+            70.56830272005784,
+            65.6215999196971
+          ],
+          "anchor_offset": 7.5
+        },
+        {
+          "area": 11487,
+          "saturation": 0.37928872444492767,
+          "rgb": [
+            107.15677670290354,
+            72.6232173132487,
+            67.57434925700099
+          ],
+          "anchor_offset": 8.5
+        },
+        {
+          "area": 10477,
+          "saturation": 0.3730022371334269,
+          "rgb": [
+            107.19531249999966,
+            73.84086044520252,
+            68.20879708903833
+          ],
+          "anchor_offset": -1.5
+        },
+        {
+          "area": 8447,
+          "saturation": 0.3747652583501158,
+          "rgb": [
+            111.86469569849513,
+            79.23811426288407,
+            72.95219070448825
+          ],
+          "anchor_offset": 2.5
+        }
+      ],
+      "heavy_windup": [
+        {
+          "area": 14463,
+          "saturation": 0.40460667491563435,
+          "rgb": [
+            117.4548217512683,
+            78.17274519466744,
+            71.18358797435994
+          ],
+          "anchor_offset": 48.5
+        },
+        {
+          "area": 14139,
+          "saturation": 0.41433965982404297,
+          "rgb": [
+            112.63562145950878,
+            71.80481506163834,
+            65.83597134287672
+          ],
+          "anchor_offset": 28.5
+        },
+        {
+          "area": 15115,
+          "saturation": 0.39564428353971065,
+          "rgb": [
+            114.22472916835993,
+            76.65007738046083,
+            69.79416795633225
+          ],
+          "anchor_offset": 20.5
+        },
+        {
+          "area": 14796,
+          "saturation": 0.3978809482826468,
+          "rgb": [
+            115.03235152100024,
+            76.43771125059455,
+            69.68606148397508
+          ],
+          "anchor_offset": 35.5
+        }
+      ],
+      "heavy": [
+        {
+          "area": 15900,
+          "saturation": 0.37160254182903946,
+          "rgb": [
+            105.81262773721822,
+            71.94043795619399,
+            67.14474452553458
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 16567,
+          "saturation": 0.33963130292137195,
+          "rgb": [
+            108.09371293000471,
+            77.74726118204046,
+            72.32823948083248
+          ],
+          "anchor_offset": 52.5
+        },
+        {
+          "area": 15497,
+          "saturation": 0.37134806118834496,
+          "rgb": [
+            112.6844375046441,
+            78.22797233994315,
+            73.0102609859374
+          ],
+          "anchor_offset": -16.5
+        },
+        {
+          "area": 16999,
+          "saturation": 0.36261998941423423,
+          "rgb": [
+            107.11685269394079,
+            74.30735841255525,
+            69.22550640759263
+          ],
+          "anchor_offset": 47.5
+        }
+      ],
+      "cast_windup": [
+        {
+          "area": 14369,
+          "saturation": 0.36357705787367245,
+          "rgb": [
+            119.91382522069588,
+            86.5852433789484,
+            78.33668097512393
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 15993,
+          "saturation": 0.38527048230585403,
+          "rgb": [
+            115.99693435022576,
+            79.17593838790846,
+            71.99970091220757
+          ],
+          "anchor_offset": 11.5
+        },
+        {
+          "area": 14234,
+          "saturation": 0.38883994398452465,
+          "rgb": [
+            113.93983834679965,
+            77.26472793933175,
+            70.06591117405995
+          ],
+          "anchor_offset": 19.5
+        },
+        {
+          "area": 15250,
+          "saturation": 0.3957823489633644,
+          "rgb": [
+            113.5800312012436,
+            75.73697347892934,
+            68.96989079562094
+          ],
+          "anchor_offset": 5.5
+        }
+      ],
+      "cast": [
+        {
+          "area": 14799,
+          "saturation": 0.3402920468413898,
+          "rgb": [
+            111.45479704796264,
+            81.61908056579347,
+            75.75576568264248
+          ],
+          "anchor_offset": 43.5
+        },
+        {
+          "area": 15618,
+          "saturation": 0.3596133690067202,
+          "rgb": [
+            109.67442382519401,
+            77.50291828792737,
+            71.96333433102556
+          ],
+          "anchor_offset": 50.5
+        },
+        {
+          "area": 15480,
+          "saturation": 0.36706183157713834,
+          "rgb": [
+            107.20791782258955,
+            74.11629301940997,
+            68.97428207241839
+          ],
+          "anchor_offset": 49.5
+        },
+        {
+          "area": 14324,
+          "saturation": 0.38110117767073864,
+          "rgb": [
+            104.8234481637933,
+            70.01178095546699,
+            65.16013974649566
+          ],
+          "anchor_offset": 48.5
+        }
+      ],
+      "phase_windup": [
+        {
+          "area": 11168,
+          "saturation": 0.3501435842403527,
+          "rgb": [
+            116.5845667040931,
+            86.93059099724012,
+            78.5595590486836
+          ],
+          "anchor_offset": -34.5
+        },
+        {
+          "area": 14560,
+          "saturation": 0.36185430814771785,
+          "rgb": [
+            118.31325784950877,
+            84.21617280975714,
+            76.85449289326878
+          ],
+          "anchor_offset": 46.5
+        },
+        {
+          "area": 15010,
+          "saturation": 0.3716042640223627,
+          "rgb": [
+            116.98629591267073,
+            81.47095848935513,
+            74.59796032187577
+          ],
+          "anchor_offset": 39.5
+        },
+        {
+          "area": 15933,
+          "saturation": 0.39511957527283714,
+          "rgb": [
+            111.81648163325677,
+            73.97727442067361,
+            67.12040831531408
+          ],
+          "anchor_offset": 7.5
+        }
+      ],
+      "phase": [
+        {
+          "area": 12864,
+          "saturation": 0.3559459995808571,
+          "rgb": [
+            111.02004454342713,
+            78.83866369709656,
+            72.40427616925705
+          ],
+          "anchor_offset": -0.5
+        },
+        {
+          "area": 12613,
+          "saturation": 0.3719464139007223,
+          "rgb": [
+            116.74530559646388,
+            80.94707290131895,
+            74.77862665684142
+          ],
+          "anchor_offset": -1.5
+        },
+        {
+          "area": 13137,
+          "saturation": 0.35610371096771354,
+          "rgb": [
+            114.88207464516753,
+            79.6235325039339,
+            73.80120904151974
+          ],
+          "anchor_offset": -0.5
+        },
+        {
+          "area": 11683,
+          "saturation": 0.35742718150818287,
+          "rgb": [
+            116.58528620821816,
+            83.98424894352222,
+            77.50633883979509
+          ],
+          "anchor_offset": -0.5
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "area": 16973,
+          "saturation": 0.352254648302547,
+          "rgb": [
+            113.23548515376059,
+            78.1647667020025,
+            72.7106309649932
+          ],
+          "anchor_offset": 47.5
+        },
+        {
+          "area": 14592,
+          "saturation": 0.35222086989605866,
+          "rgb": [
+            114.49806979616697,
+            79.29385423099777,
+            73.512893761571
+          ],
+          "anchor_offset": 45.5
+        }
+      ],
+      "cast_bridge": [
+        {
+          "area": 17325,
+          "saturation": 0.35448164677990146,
+          "rgb": [
+            112.08483406225399,
+            76.23366349368345,
+            70.90809107279348
+          ],
+          "anchor_offset": 48.5
+        },
+        {
+          "area": 14523,
+          "saturation": 0.3545143275689087,
+          "rgb": [
+            113.63458314280797,
+            76.93926230756665,
+            71.32030178325451
+          ],
+          "anchor_offset": 43.5
+        }
+      ],
+      "phase_bridge": [
+        {
+          "area": 14350,
+          "saturation": 0.3522213371205189,
+          "rgb": [
+            120.16121624831243,
+            84.93665373346454,
+            77.94552221077906
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 14592,
+          "saturation": 0.36913630571713585,
+          "rgb": [
+            119.07271874266507,
+            80.6512628039647,
+            74.65611072014232
+          ],
+          "anchor_offset": 44.5
+        }
+      ]
+    },
+    "sources": [
+      {
+        "image": "saltwhite_contract_judge_combat_01.png",
+        "sha256": "aaca64282a899f42420623ba6197b8c1e53ab06fb2cf0c9229775b420579773f",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "combat_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.821,
+          "rgb": [
+            0.981,
+            0.986,
+            0.965
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_combat_02.png",
+        "sha256": "4f0c9c13d8fe77685c8d8c383b0961cc191f05cd9f6b575f099f77aaf952e79c",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "combat_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.855,
+          "rgb": [
+            1.015,
+            1.021,
+            1.0
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_combat_03.png",
+        "sha256": "29af8487a80e2bb4e8de898f030be584b32e82286d32245e724b901972ff413f",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "combat_03",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            0.984,
+            0.978,
+            0.977
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_combat_04.png",
+        "sha256": "26a4e631a4094ac43fe76a67a57f09294d3367e69b3dd840bfdadf920eebd21e",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "combat_04",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.8,
+          "rgb": [
+            1.041,
+            1.046,
+            1.02
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_recovery_01.png",
+        "sha256": "e023baa69f5c9ecf33214786120443ac884858708961bf39d549d5fcaa3f3933",
+        "prompt_sha256": "d4613a00f34c38729fe386a235096538217251a87f37adc343578b158f5a48ec",
+        "role": "recovery_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.826,
+          "rgb": [
+            1.047,
+            1.062,
+            1.042
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_recovery_02.png",
+        "sha256": "5dbc07cefc74e56d2e2cf9bfa3fc7f0bfe035c206391a8461fd171e985394d5e",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "recovery_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.784,
+          "rgb": [
+            1.03,
+            1.061,
+            1.025
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_locomotion_01.png",
+        "sha256": "a6e37fdd0250f49e9bd56fcb6d7ae74c01021afaef5e1170f4bc902e1c14be7d",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "locomotion_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.931,
+          "rgb": [
+            1.018,
+            1.031,
+            1.018
+          ]
+        }
+      },
+      {
+        "image": "saltwhite_contract_judge_locomotion_02.png",
+        "sha256": "960cbcc73d6682f296a13aa9a7cbda4e000d2e9e1aeced68fd6c02090c8a86b3",
+        "prompt_sha256": "c42e24ac1a36720733a21f322fe2e5490f34f9cfc2ab3f89ae211c014e143344",
+        "role": "locomotion_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.825,
+          "rgb": [
+            1.062,
+            1.071,
+            1.055
+          ]
+        }
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "source_only": [],
+    "runtime_model": "main-bridge-settle",
+    "rig_half_parity": 1
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "saltwhite_contract_judge__attack",
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__attack.png",
+        "sha256": "3b16721cd520d5009de347405e2f8ea685c795940c0184aff1fbbe95e52ba65b",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/saltwhite_contract_judge__attack.png"
+      },
+      {
+        "id": "saltwhite_contract_judge__cast",
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__cast.png",
+        "sha256": "a0dd120e4dbe3fd301bcf50b4539ce3acd5ff355b8ef41b87e4784deb06ee5d2",
+        "new_drawings": 24,
+        "animations": [
+          "cast_windup",
+          "cast",
+          "cast_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/saltwhite_contract_judge__cast.png"
+      },
+      {
+        "id": "saltwhite_contract_judge__heavy",
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__heavy.png",
+        "sha256": "09221a4ca752e12198673dfe536e4864b34338c83524ac96751702a55d687452",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_windup",
+          "heavy",
+          "heavy_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/saltwhite_contract_judge__heavy.png"
+      },
+      {
+        "id": "saltwhite_contract_judge__phase",
+        "source": "art_requests/combat_motion_v7/incoming/saltwhite_contract_judge__phase.png",
+        "sha256": "493ce8c4dfe673d9628b6ed290cd6598ae27b9d41d0155c22926008a41ab1f75",
+        "new_drawings": 24,
+        "animations": [
+          "phase_windup",
+          "phase",
+          "phase_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/saltwhite_contract_judge__phase.png"
+      }
+    ],
+    "new_drawings": 96,
+    "runtime_drawings": 96,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

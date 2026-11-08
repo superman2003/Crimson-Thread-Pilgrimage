@@ -1,0 +1,3324 @@
+{
+  "kind": "root_cage_hunter",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-0941c076-8c39-422d-9485-667dd603b8bc.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Production 2D hand-painted sprite animation sheet of reference character root_cage_hunter. Preserve exact original character design, proportions, palette and fine ink outlines: wooden mantid, green layered leaf armor, ivory beak mask, root cage torso, two scythe forearms. Reference is identity/style only. PORTRAIT sheet with exactly FOUR columns and EIGHT rows, exactly 32 full body sprites, on TRUE TRANSPARENT alpha background, no scenery, no text, labels or grid. Rows in precise order: ROW1 four IDLE breathing poses; ROW2 walk cycle poses 1-4; ROW3 walk cycle poses 5-8; ROW4 four WINDUP anticipation poses; ROW5 four ATTACK strike/follow-through poses; ROW6 four RECOVERY returning to ready; ROW7 four HURT recoil poses; ROW8 four DEATH poses stagger, buckle, collapse, settled. Maintain consistent scale and horizontal registration, feet baseline within every equal cell. Make sprites SMALLER to leave generous safety margin; every full body and COMPLETE antenna, weapon and appendage occupies at most 65% cell width/72% height even during attack. No weapon or limb crosses a cell border, no neighbor overlap. All living frames face RIGHT, orthographic side view. scythe joints arc overhead then slash forward. Distinct intentional anatomical poses: real joint rotation, alternating foot contacts, body weight shift and secondary motion. Never simple translated or rotated duplicates.",
+  "qa": {
+    "dimensions": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          49,
+          56,
+          152,
+          189
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            153,
+            159
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          257,
+          54,
+          162,
+          191
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            414,
+            160
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          473,
+          52,
+          158,
+          193
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            562,
+            159
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          679,
+          51,
+          159,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            738,
+            158
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          43,
+          267,
+          179,
+          187
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            181,
+            367
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          249,
+          271,
+          199,
+          182
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            344,
+            367
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          477,
+          265,
+          171,
+          191
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            518,
+            366
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          674,
+          264,
+          183,
+          189
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            728,
+            364
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          37,
+          478,
+          177,
+          197
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            124,
+            581
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          237,
+          482,
+          195,
+          188
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            336,
+            589
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          473,
+          477,
+          167,
+          197
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            551,
+            576
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          680,
+          476,
+          185,
+          196
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            765,
+            584
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          39,
+          747,
+          183,
+          165
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            107,
+            843
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          265,
+          708,
+          174,
+          200
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            348,
+            809
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          460,
+          684,
+          170,
+          228
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            533,
+            823
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          677,
+          698,
+          178,
+          214
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            746,
+            813
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          22,
+          944,
+          276,
+          181
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            99,
+            1028
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          246,
+          951,
+          230,
+          174
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            329,
+            1044
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          465,
+          943,
+          179,
+          184
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            517,
+            1049
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          652,
+          983,
+          232,
+          143
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            700,
+            1049
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          44,
+          1156,
+          185,
+          187
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            162,
+            1259
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          260,
+          1162,
+          191,
+          182
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            303,
+            1264
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          477,
+          1156,
+          175,
+          191
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            608,
+            1262
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          686,
+          1156,
+          165,
+          191
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            754,
+            1259
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          45,
+          1356,
+          158,
+          203
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            123,
+            1461
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          255,
+          1388,
+          178,
+          169
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            365,
+            1483
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          472,
+          1392,
+          165,
+          168
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            550,
+            1488
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          669,
+          1384,
+          167,
+          176
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            827,
+            1490
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          0
+        ],
+        "region": [
+          34,
+          1578,
+          177,
+          156
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            145,
+            1664
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          1
+        ],
+        "region": [
+          236,
+          1601,
+          186,
+          133
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            403,
+            1686
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          2
+        ],
+        "region": [
+          441,
+          1645,
+          217,
+          100
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            535,
+            1702
+          ]
+        ]
+      },
+      {
+        "index": [
+          7,
+          3
+        ],
+        "region": [
+          663,
+          1652,
+          210,
+          87
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            750,
+            1706
+          ]
+        ]
+      }
+    ],
+    "status": "reviewed",
+    "frames": 32,
+    "horizontal_registration": "Fixed four-column cell body origin retained; complete source silhouette and per-source scale preserved.",
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          152,
+          189
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          154,
+          0,
+          162,
+          191
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          318,
+          0,
+          158,
+          193
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          478,
+          0,
+          159,
+          194
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          639,
+          0,
+          179,
+          187
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          820,
+          0,
+          199,
+          182
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1021,
+          0,
+          171,
+          191
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1194,
+          0,
+          183,
+          189
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1379,
+          0,
+          177,
+          197
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1558,
+          0,
+          195,
+          188
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1755,
+          0,
+          167,
+          197
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1924,
+          0,
+          185,
+          196
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2111,
+          0,
+          183,
+          165
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          46,
+          97,
+          156,
+          150
+        ],
+        "component_seeds": [
+          [
+            102,
+            182
+          ]
+        ],
+        "scale": 1.244131,
+        "anchor_x": 69.173585,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          305,
+          60,
+          156,
+          187
+        ],
+        "component_seeds": [
+          [
+            405,
+            155
+          ]
+        ],
+        "scale": 1.052142,
+        "anchor_x": 56.525664,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2296,
+          0,
+          174,
+          200
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          564,
+          63,
+          157,
+          184
+        ],
+        "component_seeds": [
+          [
+            615,
+            154
+          ]
+        ],
+        "scale": 1.189394,
+        "anchor_x": 66.796178,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          817,
+          40,
+          156,
+          208
+        ],
+        "component_seeds": [
+          [
+            911,
+            162
+          ]
+        ],
+        "scale": 1.093333,
+        "anchor_x": 83.0,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2472,
+          0,
+          170,
+          228
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1073,
+          41,
+          155,
+          206
+        ],
+        "component_seeds": [
+          [
+            1181,
+            164
+          ]
+        ],
+        "scale": 1.127946,
+        "anchor_x": 87.841791,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1328,
+          48,
+          161,
+          200
+        ],
+        "component_seeds": [
+          [
+            1433,
+            153
+          ]
+        ],
+        "scale": 1.138889,
+        "anchor_x": 86.219512,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2644,
+          0,
+          178,
+          214
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          51,
+          308,
+          158,
+          196
+        ],
+        "component_seeds": [
+          [
+            165,
+            410
+          ]
+        ],
+        "scale": 1.079787,
+        "anchor_x": 83.0,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          266,
+          342,
+          233,
+          162
+        ],
+        "component_seeds": [
+          [
+            355,
+            417
+          ]
+        ],
+        "scale": 1.246753,
+        "anchor_x": 82.59375,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2824,
+          0,
+          276,
+          181
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          523,
+          344,
+          235,
+          159
+        ],
+        "component_seeds": [
+          [
+            578,
+            418
+          ]
+        ],
+        "scale": 1.183223,
+        "anchor_x": 78.11194,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          793,
+          339,
+          200,
+          165
+        ],
+        "component_seeds": [
+          [
+            985,
+            430
+          ]
+        ],
+        "scale": 1.123142,
+        "anchor_x": 81.722117,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3102,
+          0,
+          230,
+          174
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1050,
+          338,
+          200,
+          166
+        ],
+        "component_seeds": [
+          [
+            1170,
+            429
+          ]
+        ],
+        "scale": 1.122363,
+        "anchor_x": 86.278195,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1327,
+          336,
+          159,
+          168
+        ],
+        "component_seeds": [
+          [
+            1434,
+            431
+          ]
+        ],
+        "scale": 1.129167,
+        "anchor_x": 74.819188,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3334,
+          0,
+          179,
+          184
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          47,
+          591,
+          160,
+          169
+        ],
+        "component_seeds": [
+          [
+            201,
+            686
+          ]
+        ],
+        "scale": 1.057971,
+        "anchor_x": 90.753425,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          277,
+          627,
+          217,
+          133
+        ],
+        "component_seeds": [
+          [
+            351,
+            687
+          ]
+        ],
+        "scale": 1.253333,
+        "anchor_x": 103.808511,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3515,
+          0,
+          232,
+          143
+        ],
+        "anchor_x": 124.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          536,
+          629,
+          213,
+          131
+        ],
+        "component_seeds": [
+          [
+            627,
+            686
+          ]
+        ],
+        "scale": 1.281843,
+        "anchor_x": 92.782241,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          810,
+          586,
+          169,
+          174
+        ],
+        "component_seeds": [
+          [
+            869,
+            684
+          ]
+        ],
+        "scale": 1.038153,
+        "anchor_x": 82.431335,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3749,
+          0,
+          185,
+          187
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1064,
+          586,
+          168,
+          174
+        ],
+        "component_seeds": [
+          [
+            1191,
+            683
+          ]
+        ],
+        "scale": 1.116466,
+        "anchor_x": 68.190647,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1319,
+          595,
+          172,
+          165
+        ],
+        "component_seeds": [
+          [
+            1360,
+            686
+          ]
+        ],
+        "scale": 1.169851,
+        "anchor_x": 69.758621,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          230,
+          191,
+          182
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          42,
+          851,
+          169,
+          165
+        ],
+        "component_seeds": [
+          [
+            180,
+            942
+          ]
+        ],
+        "scale": 1.178344,
+        "anchor_x": 70.421622,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          301,
+          844,
+          155,
+          172
+        ],
+        "component_seeds": [
+          [
+            363,
+            939
+          ]
+        ],
+        "scale": 1.146341,
+        "anchor_x": 70.914894,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          193,
+          230,
+          175,
+          191
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          560,
+          846,
+          155,
+          170
+        ],
+        "component_seeds": [
+          [
+            622,
+            939
+          ]
+        ],
+        "scale": 1.179012,
+        "anchor_x": 75.062827,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          821,
+          843,
+          148,
+          173
+        ],
+        "component_seeds": [
+          [
+            892,
+            935
+          ]
+        ],
+        "scale": 1.157576,
+        "anchor_x": 75.0,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          370,
+          230,
+          165,
+          191
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1080,
+          843,
+          147,
+          173
+        ],
+        "component_seeds": [
+          [
+            1169,
+            934
+          ]
+        ],
+        "scale": 1.153535,
+        "anchor_x": 73.288967,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "region": [
+          1340,
+          842,
+          140,
+          174
+        ],
+        "component_seeds": [
+          [
+            1415,
+            936
+          ]
+        ],
+        "scale": 1.14257,
+        "anchor_x": 63.456942,
+        "grade": {
+          "saturation": 0.9727,
+          "rgb": [
+            0.85,
+            0.8716,
+            0.8585
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          537,
+          230,
+          158,
+          203
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          697,
+          230,
+          178,
+          169
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          877,
+          230,
+          165,
+          168
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1044,
+          230,
+          167,
+          176
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1213,
+          230,
+          177,
+          156
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1392,
+          230,
+          186,
+          133
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1580,
+          230,
+          217,
+          100
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1799,
+          230,
+          210,
+          87
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      }
+    ],
+    "cage_elite_snare_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2011,
+          230,
+          173,
+          132
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          51,
+          128,
+          158,
+          118
+        ],
+        "component_seeds": [
+          [
+            184,
+            193
+          ]
+        ],
+        "scale": 1.257576,
+        "anchor_x": 82.855422,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          311,
+          110,
+          154,
+          137
+        ],
+        "component_seeds": [
+          [
+            341,
+            182
+          ]
+        ],
+        "scale": 1.121447,
+        "anchor_x": 81.37788,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2186,
+          230,
+          169,
+          151
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          568,
+          109,
+          152,
+          137
+        ],
+        "component_seeds": [
+          [
+            677,
+            181
+          ]
+        ],
+        "scale": 1.219638,
+        "anchor_x": 81.186441,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          828,
+          91,
+          137,
+          156
+        ],
+        "component_seeds": [
+          [
+            885,
+            172
+          ]
+        ],
+        "scale": 1.105856,
+        "anchor_x": 73.10998,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2357,
+          230,
+          152,
+          170
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1086,
+          92,
+          135,
+          154
+        ],
+        "component_seeds": [
+          [
+            1160,
+            171
+          ]
+        ],
+        "scale": 1.189498,
+        "anchor_x": 71.681382,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1334,
+          84,
+          144,
+          163
+        ],
+        "component_seeds": [
+          [
+            1414,
+            166
+          ]
+        ],
+        "scale": 1.144086,
+        "anchor_x": 79.74812,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2511,
+          230,
+          162,
+          181
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          56,
+          339,
+          143,
+          164
+        ],
+        "component_seeds": [
+          [
+            154,
+            421
+          ]
+        ],
+        "scale": 1.096154,
+        "anchor_x": 78.824561,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          289,
+          365,
+          191,
+          137
+        ],
+        "component_seeds": [
+          [
+            330,
+            434
+          ]
+        ],
+        "scale": 1.248062,
+        "anchor_x": 85.602484,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      }
+    ],
+    "cage_elite_snare": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2675,
+          230,
+          216,
+          151
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          546,
+          364,
+          191,
+          138
+        ],
+        "component_seeds": [
+          [
+            663,
+            433
+          ]
+        ],
+        "scale": 1.158974,
+        "anchor_x": 84.725664,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          802,
+          368,
+          192,
+          134
+        ],
+        "component_seeds": [
+          [
+            965,
+            432
+          ]
+        ],
+        "scale": 1.193122,
+        "anchor_x": 83.676275,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2893,
+          230,
+          214,
+          150
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1058,
+          366,
+          193,
+          137
+        ],
+        "component_seeds": [
+          [
+            1135,
+            434
+          ]
+        ],
+        "scale": 1.155039,
+        "anchor_x": 86.020134,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1316,
+          370,
+          188,
+          133
+        ],
+        "component_seeds": [
+          [
+            1415,
+            439
+          ]
+        ],
+        "scale": 1.184,
+        "anchor_x": 89.252252,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3109,
+          230,
+          214,
+          147
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          35,
+          624,
+          188,
+          135
+        ],
+        "component_seeds": [
+          [
+            127,
+            696
+          ]
+        ],
+        "scale": 1.091864,
+        "anchor_x": 89.442308,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          306,
+          648,
+          160,
+          111
+        ],
+        "component_seeds": [
+          [
+            390,
+            713
+          ]
+        ],
+        "scale": 1.265372,
+        "anchor_x": 85.84399,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3325,
+          230,
+          174,
+          122
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          561,
+          650,
+          160,
+          109
+        ],
+        "component_seeds": [
+          [
+            667,
+            713
+          ]
+        ],
+        "scale": 1.29703,
+        "anchor_x": 86.798982,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          814,
+          627,
+          165,
+          132
+        ],
+        "component_seeds": [
+          [
+            956,
+            698
+          ]
+        ],
+        "scale": 1.129032,
+        "anchor_x": 84.361905,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      }
+    ],
+    "cage_elite_snare_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3501,
+          230,
+          183,
+          149
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1072,
+          625,
+          163,
+          135
+        ],
+        "component_seeds": [
+          [
+            1139,
+            697
+          ]
+        ],
+        "scale": 1.170604,
+        "anchor_x": 83.278027,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1331,
+          622,
+          159,
+          137
+        ],
+        "component_seeds": [
+          [
+            1478,
+            697
+          ]
+        ],
+        "scale": 1.149871,
+        "anchor_x": 84.029213,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3686,
+          230,
+          169,
+          148
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          51,
+          878,
+          156,
+          137
+        ],
+        "component_seeds": [
+          [
+            181,
+            954
+          ]
+        ],
+        "scale": 1.144703,
+        "anchor_x": 83.747178,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          307,
+          878,
+          157,
+          137
+        ],
+        "component_seeds": [
+          [
+            435,
+            956
+          ]
+        ],
+        "scale": 1.142119,
+        "anchor_x": 84.751131,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3857,
+          230,
+          173,
+          147
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          563,
+          880,
+          159,
+          135
+        ],
+        "component_seeds": [
+          [
+            601,
+            958
+          ]
+        ],
+        "scale": 1.154856,
+        "anchor_x": 86.020455,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          816,
+          886,
+          158,
+          129
+        ],
+        "component_seeds": [
+          [
+            910,
+            962
+          ]
+        ],
+        "scale": 1.209366,
+        "anchor_x": 88.205011,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          435,
+          173,
+          146
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1075,
+          884,
+          154,
+          131
+        ],
+        "component_seeds": [
+          [
+            1135,
+            962
+          ]
+        ],
+        "scale": 1.303523,
+        "anchor_x": 83.209979,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "region": [
+          1339,
+          850,
+          140,
+          165
+        ],
+        "component_seeds": [
+          [
+            1440,
+            938
+          ]
+        ],
+        "scale": 1.112527,
+        "anchor_x": 64.108779,
+        "grade": {
+          "saturation": 1.0731,
+          "rgb": [
+            0.8521,
+            0.8954,
+            0.9155
+          ]
+        }
+      }
+    ],
+    "cage_elite_snare_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          175,
+          435,
+          179,
+          154
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          356,
+          435,
+          169,
+          162
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          527,
+          435,
+          182,
+          193
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          711,
+          435,
+          188,
+          190
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      }
+    ],
+    "cage_pounce_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          901,
+          435,
+          197,
+          114
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          41,
+          142,
+          172,
+          106
+        ],
+        "component_seeds": [
+          [
+            69,
+            207
+          ]
+        ],
+        "scale": 1.214286,
+        "anchor_x": 100.470588,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          297,
+          128,
+          173,
+          120
+        ],
+        "component_seeds": [
+          [
+            332,
+            201
+          ]
+        ],
+        "scale": 1.107143,
+        "anchor_x": 98.709677,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1100,
+          435,
+          187,
+          129
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          554,
+          128,
+          174,
+          120
+        ],
+        "component_seeds": [
+          [
+            655,
+            201
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 97.262626,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          812,
+          117,
+          171,
+          131
+        ],
+        "component_seeds": [
+          [
+            872,
+            193
+          ]
+        ],
+        "scale": 1.097561,
+        "anchor_x": 95.125926,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1289,
+          435,
+          186,
+          138
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1070,
+          115,
+          169,
+          133
+        ],
+        "component_seeds": [
+          [
+            1146,
+            191
+          ]
+        ],
+        "scale": 1.181333,
+        "anchor_x": 93.975169,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1320,
+          92,
+          183,
+          157
+        ],
+        "component_seeds": [
+          [
+            1371,
+            178
+          ]
+        ],
+        "scale": 1.055928,
+        "anchor_x": 99.525424,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1477,
+          435,
+          202,
+          167
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          40,
+          350,
+          182,
+          154
+        ],
+        "component_seeds": [
+          [
+            107,
+            432
+          ]
+        ],
+        "scale": 1.184932,
+        "anchor_x": 98.250482,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          291,
+          335,
+          187,
+          167
+        ],
+        "component_seeds": [
+          [
+            380,
+            411
+          ]
+        ],
+        "scale": 1.125786,
+        "anchor_x": 98.072626,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      }
+    ],
+    "cage_pounce": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1681,
+          435,
+          218,
+          185
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          548,
+          334,
+          183,
+          168
+        ],
+        "component_seeds": [
+          [
+            626,
+            411
+          ]
+        ],
+        "scale": 1.154167,
+        "anchor_x": 95.732852,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          807,
+          331,
+          176,
+          169
+        ],
+        "component_seeds": [
+          [
+            922,
+            408
+          ]
+        ],
+        "scale": 1.144928,
+        "anchor_x": 90.746835,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1901,
+          435,
+          194,
+          184
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1063,
+          329,
+          178,
+          171
+        ],
+        "component_seeds": [
+          [
+            1150,
+            408
+          ]
+        ],
+        "scale": 1.08589,
+        "anchor_x": 91.148776,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1338,
+          352,
+          143,
+          148
+        ],
+        "component_seeds": [
+          [
+            1396,
+            426
+          ]
+        ],
+        "scale": 1.214286,
+        "anchor_x": 76.196078,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2097,
+          435,
+          169,
+          163
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          55,
+          606,
+          144,
+          146
+        ],
+        "component_seeds": [
+          [
+            150,
+            677
+          ]
+        ],
+        "scale": 1.241546,
+        "anchor_x": 77.416342,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          291,
+          588,
+          183,
+          169
+        ],
+        "component_seeds": [
+          [
+            313,
+            677
+          ]
+        ],
+        "scale": 1.115942,
+        "anchor_x": 99.688312,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2268,
+          435,
+          198,
+          188
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          548,
+          588,
+          183,
+          169
+        ],
+        "component_seeds": [
+          [
+            590,
+            677
+          ]
+        ],
+        "scale": 1.035197,
+        "anchor_x": 99.576,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          808,
+          642,
+          175,
+          118
+        ],
+        "component_seeds": [
+          [
+            880,
+            714
+          ]
+        ],
+        "scale": 1.321212,
+        "anchor_x": 97.766055,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      }
+    ],
+    "cage_pounce_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2468,
+          435,
+          191,
+          124
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1062,
+          643,
+          180,
+          117
+        ],
+        "component_seeds": [
+          [
+            1149,
+            714
+          ]
+        ],
+        "scale": 1.180428,
+        "anchor_x": 99.976684,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1320,
+          632,
+          182,
+          128
+        ],
+        "component_seeds": [
+          [
+            1471,
+            706
+          ]
+        ],
+        "scale": 1.111111,
+        "anchor_x": 98.4,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2661,
+          435,
+          198,
+          138
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          40,
+          887,
+          182,
+          127
+        ],
+        "component_seeds": [
+          [
+            81,
+            961
+          ]
+        ],
+        "scale": 1.221289,
+        "anchor_x": 98.729358,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          297,
+          866,
+          177,
+          148
+        ],
+        "component_seeds": [
+          [
+            406,
+            941
+          ]
+        ],
+        "scale": 1.090476,
+        "anchor_x": 86.362445,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2861,
+          435,
+          201,
+          160
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          554,
+          865,
+          177,
+          149
+        ],
+        "component_seeds": [
+          [
+            646,
+            941
+          ]
+        ],
+        "scale": 1.170213,
+        "anchor_x": 86.848485,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          815,
+          852,
+          163,
+          163
+        ],
+        "component_seeds": [
+          [
+            850,
+            941
+          ]
+        ],
+        "scale": 1.096774,
+        "anchor_x": 85.431373,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3064,
+          435,
+          175,
+          175
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1074,
+          852,
+          161,
+          163
+        ],
+        "component_seeds": [
+          [
+            1207,
+            940
+          ]
+        ],
+        "scale": 1.15914,
+        "anchor_x": 79.411874,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "region": [
+          1340,
+          842,
+          143,
+          173
+        ],
+        "component_seeds": [
+          [
+            1460,
+            935
+          ]
+        ],
+        "scale": 1.117172,
+        "anchor_x": 65.83906,
+        "grade": {
+          "saturation": 1.1285,
+          "rgb": [
+            0.85,
+            0.8791,
+            0.8635
+          ]
+        }
+      }
+    ],
+    "cage_pounce_travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3241,
+          435,
+          214,
+          182
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3457,
+          435,
+          199,
+          195
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/root_cage_hunter.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "cage_elite_snare_windup",
+      "cage_elite_snare",
+      "cage_elite_snare_recover",
+      "cage_elite_snare_charge",
+      "charge",
+      "cage_pounce_windup",
+      "cage_pounce",
+      "cage_pounce_recover",
+      "cage_pounce_travel"
+    ],
+    "sheets": [
+      {
+        "image": "cage_elite_snare.png",
+        "image_sha256": "7d35aff7314ce81f5884854f1dc9a66295fe88a6cb91369acd6d06f7967d4e85",
+        "role": "elite",
+        "attack": "cage_elite_snare",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7117,
+        "anchors": [
+          128.0,
+          130.0,
+          112.0,
+          123.0,
+          132.0,
+          129.0,
+          136.0,
+          135.0,
+          130.0,
+          129.0,
+          135.0,
+          134.0,
+          129.0,
+          122.0
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7311,
+          "last_recover_ratio": 0.6929
+        }
+      },
+      {
+        "image": "cage_net_loops.png",
+        "image_sha256": "c5d12be7622ecd2ae207c2ca99a62714a0d57aa4a924e2a0479c345ed62cea83",
+        "role": "keep",
+        "attack": "cage_net",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3007,
+        "anchors": [
+          367.1,
+          319.1
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3081,
+            0.2935
+          ]
+        }
+      },
+      {
+        "image": "cage_pounce.png",
+        "image_sha256": "57057f0a340fd1059dd5e9c283dd8d812dcf9937306c66f8a96e3bd9f820f023",
+        "role": "new",
+        "attack": "cage_pounce",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.7658,
+        "anchors": [
+          147.8,
+          141.8,
+          136.8,
+          141.8,
+          148.8,
+          128.8,
+          115.8,
+          140.8,
+          143.8,
+          142.8,
+          125.8,
+          115.8,
+          142.8,
+          130.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7757,
+          "last_recover_ratio": 0.756
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "root_cage_hunter__attack",
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__attack.png",
+        "sha256": "368aa9185a5ccac307e39b7632b2018853b94b90ba5bb2584ee6cf02fb16d175",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/root_cage_hunter__attack.png"
+      },
+      {
+        "id": "root_cage_hunter__cage_elite_snare",
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_elite_snare.png",
+        "sha256": "83ab205d9423ea86ea6e1b8080afe6965a62d1c6e152af04b26461aa007e8664",
+        "new_drawings": 24,
+        "animations": [
+          "cage_elite_snare_windup",
+          "cage_elite_snare",
+          "cage_elite_snare_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/root_cage_hunter__cage_elite_snare.png"
+      },
+      {
+        "id": "root_cage_hunter__cage_pounce",
+        "source": "art_requests/combat_motion_v7/incoming/root_cage_hunter__cage_pounce.png",
+        "sha256": "e8191becd646293afdc5b3c1808ea027dc604b4d17cd40c5763d9f148fbb401f",
+        "new_drawings": 24,
+        "animations": [
+          "cage_pounce_windup",
+          "cage_pounce",
+          "cage_pounce_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/root_cage_hunter__cage_pounce.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}
