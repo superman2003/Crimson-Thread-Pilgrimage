@@ -275,6 +275,14 @@ func verify_contact_attacks(arena: Arena, catalogue: Dictionary, registry: Dicti
                     check(actor.global_position!=start,cid + " body movement supplies the attack travel")
                 for effect in actor.owned_attack_effects:
                     check(effect.effect_kind=="pool" and bool(command.get("trail",false)),cid + " only an explicitly authored ground trail may accompany a contact strike")
+                if actor.active_attack.has("combo_beats"):
+                    var fraction: float=actor.attack_elapsed/float(actor.active_attack.active)
+                    var beat: Dictionary=preload("res://scripts/boss_combat_style.gd").combo_stage(actor.active_attack,fraction)
+                    if not bool(beat.contact):
+                        actor._update_active(0)
+                        check(target.hits==0,cid+" inter-beat recovery is not a damaging strike")
+                        actor._update_active(maxf(0,(float(beat.end)+.01-fraction)*float(actor.active_attack.active)))
+                        freeze_effects(actor)
                 var strike: Rect2 = actor.contact_attack_rect(command)
                 target.global_position = strike.get_center()+Vector2(0,40)
                 actor._update_active(0)

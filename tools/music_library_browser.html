@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>绯线巡礼 · 音乐试听清单</title>
+<style>
+:root{color-scheme:dark;--bg:#10191b;--panel:#182426;--line:#334345;--text:#e3eae7;--muted:#a8bab4;--accent:#d9bd82}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,"Microsoft YaHei",sans-serif}
+main{max-width:1400px;margin:auto;padding:28px}h1{margin:0 0 4px;font-size:28px;font-weight:600;color:var(--accent)}p{margin:0 0 16px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;margin-top:24px}.filters{display:flex;gap:10px;margin-bottom:16px}
+input,select,button{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:8px 12px}button{cursor:pointer}button:hover:not(:disabled){border-color:var(--accent)}button:disabled{opacity:.45;cursor:default}input[type=search]{flex:1;min-width:0}
+table{width:100%;border-collapse:collapse;font-size:15px}th{text-align:left;color:var(--muted);font-weight:400;font-size:13px;padding:8px}td{padding:11px 8px;border-top:1px solid var(--line)}td.num{color:var(--muted);width:36px}td.time{font-variant-numeric:tabular-nums;white-space:nowrap}td.actions{white-space:nowrap;text-align:right}td.actions button{font-size:14px;padding:5px 9px;margin-left:5px}tr.selected{background:#233335}.category{display:block;font-size:12px;color:var(--muted)}
+aside{align-self:start;position:sticky;top:24px;border-top:2px solid var(--accent);padding-top:17px}aside h2{font-size:23px;margin:8px 0 12px;color:var(--accent)}.muted{color:var(--muted);font-size:14px}.description{min-height:64px;margin:12px 0 20px}audio{width:100%;margin:8px 0}.controls{display:flex;gap:8px;margin:12px 0}.controls button{flex:1}.options{display:flex;gap:16px;font-size:14px;color:var(--muted);margin:12px 0}.options input{margin-right:5px}hr{border:0;border-top:1px solid var(--line);margin:24px 0}.game-buttons{display:flex;gap:8px;margin:12px 0}.game-buttons button{flex:1}.primary{background:#d9bd82;color:#142021;border-color:#d9bd82}#status{margin-top:16px;font-size:14px;color:var(--accent)}#count{font-size:13px;color:var(--muted);margin-top:12px}
+@media(max-width:950px){.layout{grid-template-columns:1fr}aside{position:static;grid-row:1}main{padding:18px}.description{min-height:0}.filters{flex-wrap:wrap}.category{font-size:12px}td{padding:10px 5px}}
+.regional{margin-top:22px;border-top:1px solid var(--line);padding-top:16px}.region-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.region-heading h2{font-size:20px;margin:0;color:var(--accent)}.region-list{margin-top:12px}.region-row{display:flex;gap:20px;align-items:center;border-bottom:1px solid var(--line);padding:12px 0}.region-name{min-width:170px;font-size:17px}.region-description{flex:1;font-size:14px;color:var(--muted)}.region-actions{display:flex;gap:8px}.region-actions button{font-size:14px;padding:7px 11px}@media(max-width:950px){.region-row{flex-wrap:wrap;gap:8px}.region-description{flex-basis:55%}.region-actions{flex-wrap:wrap}}
+</style>
+</head>
+<body><main>
+<h1>绯线巡礼 · 音乐试听清单</h1>
+<p>六个区域独立试玩，已接入新的敌人动作衔接与战斗音效。音乐随探索、遇敌、钟龛和 Boss 自动切换。</p>
+<section aria-label="区域试玩" class="regional">
+<div class="region-heading"><h2>区域试玩 · 自动选曲</h2><button id="stop" disabled>结束当前试玩</button></div>
+<div class="muted">“区域试玩”从起点开始；也可直接到钟龛或 Boss。全程正常切歌，一次只开一个游戏窗口。</div>
+<div id="regions" class="region-list"></div>
+</section>
+<details class="regional" id="sfx-section" hidden>
+<summary>战斗音效试听 · 30 条新素材</summary>
+<p class="muted">分别试听蓄力、挥出与真实接触的声音。游戏内还会按距离、遮挡和武器重量混音。</p>
+<div id="sfx-list" class="region-list"></div>
+<div id="sfx-current" class="muted" role="status" aria-live="polite">选择一个变体试听。</div>
+<audio id="sfx-audio" controls preload="none"></audio>
+</details>
+<div class="layout">
+<section aria-label="音乐列表">
+<div class="filters"><input id="search" type="search" placeholder="搜索曲名或章节" aria-label="搜索曲目"><select id="category" aria-label="曲目分类"><option value="">全部分类</option></select></div>
+<table><thead><tr><th>序号</th><th>曲名 / 场景</th><th>时长</th><th style="text-align:right">操作</th></tr></thead><tbody id="rows"></tbody></table>
+<div id="count"></div>
+</section>
+<aside aria-label="播放与试玩">
+<div class="muted">当前曲目</div><h2 id="title">请选择曲目</h2><div id="meta" class="muted"></div>
+<div id="description" class="description muted"></div>
+<audio id="audio" controls preload="none"></audio>
+<div class="controls"><button id="prev">上一首</button><button id="toggle">播放 / 暂停</button><button id="next">下一首</button></div>
+<div class="options"><label><input id="repeat" type="checkbox">单曲循环</label><label><input id="continuous" type="checkbox" checked>播完下一首</label></div>
+<hr>
+<div>试玩设置</div><p class="muted">上方六个区域入口使用独立临时记录，音乐由游戏状态自动切换。</p><div id="game-state" class="muted"></div>
+<label class="muted"><input id="invulnerable" type="checkbox">无敌试玩</label>
+
+<p class="muted">A/D 移动 · 空格跳跃 · J 攻击 · Shift 冲刺<br>F 互动 · V 设置 · F8 结束试玩</p>
+<div id="status" role="status" aria-live="polite">正在读取音乐清单…</div>
+<hr><div class="muted">第六区普通战斗为设计静默；列表不包含额外的“静音曲目”。</div>
+</aside></div></main>
+<script>
+const TOKEN=__LOCAL_TOKEN__;
+const $=id=>document.getElementById(id);
+let tracks=[],regions=[],shown=[],selected=null,state={ready:false,game_running:false};
+const audio=$('audio');audio.volume=.65;
+const sfxAudio=$('sfx-audio');sfxAudio.volume=.85;
+audio.onplay=()=>sfxAudio.pause();sfxAudio.onplay=()=>audio.pause();
+function message(text){$('status').textContent=text;}
+function choose(track,play=false){
+  sfxAudio.pause();
+  selected=track;$('title').textContent=track.title;
+  $('meta').textContent=track.group+' / '+track.region+' / '+track.time;
+  $('description').textContent=track.description;
+  audio.src='/audio/'+track.key+'.ogg';audio.loop=$('repeat').checked;
+  if(play)audio.play().catch(()=>message('请点击播放器的播放键继续试听。'));
+  render();
+}
+function renderSfx(effects){
+  if(!effects.length)return;
+  $('sfx-section').hidden=false;
+  const families=new Map();
+  for(const effect of effects){
+    if(!families.has(effect.family))families.set(effect.family,[]);
+    families.get(effect.family).push(effect);
+  }
+  for(const group of families.values()){
+    const row=document.createElement('div');row.className='region-row';
+    const name=document.createElement('div');name.className='region-name';name.textContent=group[0].title;
+    const actions=document.createElement('div');actions.className='region-actions';
+    for(const effect of group){
+      const button=document.createElement('button');
+      button.textContent='变体 '+effect.id.split('_').at(-1)+' · '+effect.duration_seconds.toFixed(2)+' 秒';
+      button.onclick=()=>{
+        audio.pause();sfxAudio.src='/sfx/'+effect.id+'.ogg';
+        $('sfx-current').textContent=effect.title+' / 变体 '+effect.id.split('_').at(-1);
+        sfxAudio.play().catch(()=>message('请点击音效播放器的播放键继续试听。'));
+      };
+      actions.append(button);
+    }
+    row.append(name,actions);$('sfx-list').append(row);
+  }
+}
+function renderRegions(){
+  $('regions').replaceChildren();
+  for(const region of regions){
+    const row=document.createElement('div');row.className='region-row';
+    const name=document.createElement('div');name.className='region-name';name.textContent=region.name;
+    const description=document.createElement('div');description.className='region-description';
+    description.textContent=region.description+' · '+region.boss;
+    if(region.combat){const hint=document.createElement('div');hint.textContent=region.combat;description.append(hint);}
+    const actions=document.createElement('div');actions.className='region-actions';
+    for(const [entry,label] of [['explore','区域试玩'],['shrine','钟龛起点'],['boss','Boss 起点']]){
+      const button=document.createElement('button');button.textContent=label;
+      if(entry==='explore')button.className='primary';
+      button.dataset.regionTrial=region.id;button.disabled=!state.ready||state.game_running;
+      button.onclick=()=>launchRegion(region.id,entry);actions.append(button);
+    }
+    row.append(name,description,actions);$('regions').append(row);
+  }
+}
+function render(){
+  const query=$('search').value.trim().toLowerCase(),cat=$('category').value;
+  shown=tracks.filter(t=>(!cat||t.category===cat)&&(!query||(t.title+t.region+t.group+t.key).toLowerCase().includes(query)));
+  $('rows').replaceChildren();
+  for(const track of shown){
+    const row=document.createElement('tr');if(selected&&selected.key===track.key)row.className='selected';
+    const num=document.createElement('td');num.className='num';num.textContent=String(track.number).padStart(2,'0');
+    const title=document.createElement('td');title.textContent=track.title;
+    const sub=document.createElement('span');sub.className='category';sub.textContent=track.group+' · '+track.region;title.append(sub);
+    const time=document.createElement('td');time.className='time';time.textContent=track.time;
+    const actions=document.createElement('td');actions.className='actions';
+    const listen=document.createElement('button');listen.textContent='试听';listen.onclick=()=>choose(track,true);actions.append(listen);
+    row.append(num,title,time,actions);$('rows').append(row);
+  }
+  $('count').textContent='显示 '+shown.length+' / 33 首';
+}
+function step(delta){
+  const list=shown.length?shown:tracks;let index=list.findIndex(t=>selected&&t.key===selected.key);
+  choose(list[(index+delta+list.length)%list.length],true);
+}
+async function post(path,body={}){
+  try{
+    const response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Music-Token':TOKEN},body:JSON.stringify(body)});
+    const value=await response.json();message(value.message||'操作完成。');await poll();return value;
+  }catch(e){message('列表已更新，请刷新页面后重试。');}
+}
+async function launchRegion(region,entry){
+  audio.pause();sfxAudio.pause();await post('/api/play_region',{region,entry,invulnerable:$('invulnerable').checked});
+}
+async function poll(){
+  try{
+    const response=await fetch('/api/status',{cache:'no-store'});state=await response.json();
+    $('stop').disabled=!state.game_running;
+    document.querySelectorAll('[data-region-trial]').forEach(button=>button.disabled=!state.ready||state.game_running);
+    $('game-state').textContent=state.game_running?'正在试玩：'+state.game_region+' · 自动选曲':'当前未打开游戏。';
+    if(!state.ready)message('游戏资源正在准备，可以先试听音乐。');
+  }catch(e){message('试听服务已关闭，请重新打开启动文件。');}
+}
+$('search').oninput=render;$('category').onchange=render;
+$('prev').onclick=()=>step(-1);$('next').onclick=()=>step(1);
+$('toggle').onclick=()=>{if(!selected)return;if(audio.paused)audio.play().catch(()=>{});else audio.pause();};
+$('repeat').onchange=()=>audio.loop=$('repeat').checked;
+audio.onended=()=>{if($('continuous').checked)step(1);};
+$('stop').onclick=()=>post('/api/stop');
+(async()=>{
+  const response=await fetch('/api/catalog'),data=await response.json();
+  tracks=data.tracks;regions=data.regions;renderSfx(data.sfx||[]);
+  for(const [value,label] of new Map(tracks.map(t=>[t.category,t.group]))){
+    const option=document.createElement('option');option.value=value;option.textContent=label;$('category').append(option);
+  }
+  renderRegions();choose(tracks[0]);await poll();
+  message('选择一个区域试玩即可自动切歌；单曲试听在下方列表。');setInterval(poll,1500);
+})();
+</script></body></html>

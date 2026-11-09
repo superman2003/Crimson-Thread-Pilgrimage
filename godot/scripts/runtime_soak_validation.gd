@@ -158,6 +158,24 @@ func node_counts(node: Node, counts: Dictionary) -> void:
     counts[kind]=int(counts.get(kind,0))+1
     for child in node.get_children():node_counts(child,counts)
 
+func settle_neighbor_cache() -> void:
+    # Prepared neighbor bodies are intentionally outside the SceneTree. A
+    # wall-clock sleep can sample different build stages on different renderers;
+    # compare the same complete lease, without subtracting any orphan nodes.
+    var deadline := Time.get_ticks_msec()+30000
+    while Time.get_ticks_msec()<deadline:
+        var pref=scene.world_prefetch
+        var ready: bool=pref.config_task.is_empty() and pref.jobs.is_empty() and pref.queue.is_empty() and pref.retiring.is_empty() and pref.gameplay.retiring.is_empty()
+        for id in pref.desired:
+            ready=ready and pref.configs.has(id) and not pref.configs[id].get("raw",{}).is_empty() and pref.entities.has(id) and pref.entities[id].pending.is_empty()
+            ready=ready and pref.gameplay.regions.has(id) and pref.gameplay.regions[id].plan_complete and pref.gameplay.regions[id].art_ready and pref.gameplay.regions[id].pending.is_empty()
+        if ready:
+            await process_frame
+            await process_frame
+            return
+        await process_frame
+    check(false,"neighbor caches complete before same-anchor lifecycle measurement")
+
 func sample() -> void:
     var memory := OS.get_static_memory_usage()
     var textures := int(Performance.get_monitor(Performance.RENDER_TEXTURE_MEM_USED))
@@ -170,7 +188,8 @@ func sample() -> void:
         "region":String(scene.config.id),"memory_bytes":memory,"texture_bytes":textures,
         "nodes":int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),"resources":int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)),
         "orphans":orphans,"voices":live_sfx_count(),"stream_cache":AUDIO._stream_cache.size(),
-        "music_bookmarks":AUDIO._explore_resume.size(),"reading_bookmarks":scene.ui_shell.dialogue_reading._entries.size()}
+        "music_bookmarks":AUDIO._explore_resume.size(),"reading_bookmarks":scene.ui_shell.dialogue_reading._entries.size(),
+        "prefetch":scene.world_prefetch.snapshot()}
     check(AUDIO._explore_resume.size()>=6,"all six outgoing region music phrases were retained")
     if cycle==2:previous_orphans=orphans
     if cycle>2:check(orphans<=previous_orphans,"no accumulating orphan nodes after warmup")
@@ -197,6 +216,7 @@ func run() -> void:
         await kill_and_respawn()
         await visit(REGIONS[0])
         await settle(1.0)
+        await settle_neighbor_cache()
         sample()
         if cycle==2:measured_start=Time.get_ticks_msec()
         if cycle>2 and float(Time.get_ticks_msec()-measured_start)/1000.0>=seconds:break

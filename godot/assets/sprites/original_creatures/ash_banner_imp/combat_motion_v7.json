@@ -1,0 +1,1980 @@
+{
+  "kind": "ash_banner_imp",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create game-ready character sheet matching the referenced ash_banner_imp character: small gray armored beetle imp, ivory horned mask, crimson neck cloth, ragged black banner with crimson edging on spear. Preserve the hand painted dark ink style. The entire square canvas MUST be a mathematically regular 6 by 6 sprite sheet: 6 rows, EACH row EXACTLY SIX figures, total 36 figures. Equal spacing and equal size. No extra poses. Each figure entirely in its own 1/6-width by 1/6-height invisible cell, generous empty transparent padding around each including banner. All face right. Row 1 exactly 6 figures: 4 subtly different idle breathing poses, then walking contact, walking down. Row 2 exactly 6 figures: remaining six walking poses alternating legs. Row 3 exactly 6 figures: four progressive attack windup poses then first two spear attack thrust poses. Row 4 exactly 6 figures: next four spear attack poses then first two returning-to-stance poses. Row 5 exactly 6 figures: four recovery poses then two hurt recoil poses. Row 6 exactly 6 figures: two hurt stagger poses then four death collapse poses ending flat on ground. Keep baseline equal within each cell. Genuine articulated pose changes. EXACTLY SIX FIGURES IN EACH OF SIX ROWS. Transparent alpha only, no background, no labels, no borders, no grid lines, no text.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-ebe66b06-a478-41d1-81ae-1a28d0858a6d.png",
+  "qa": {
+    "layout": "Actual 5 rows × 6 figures; one true joined pair of attacks excluded. Whole figures retained by explicit connected component seeds.",
+    "identity": "Horned ivory mask, grey beetle armor, crimson cloth and black red-edged banner retained.",
+    "motion": "All gait, banner, stance, recoil and collapse poses reviewed.",
+    "retained_original": "One original complete spear strike supplements new attacks; one original neutral stance closes recovery. Both normalized using one0.62 resolution factor.",
+    "rectangular_region_issues": "Resolved by explicit 8-connected component extraction and original-RGBA packing; overlapping true silhouettes excluded.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character ash_banner_imp passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "rejected_outputs": [
+    "exec-ab49c881-8fe6-4004-949a-3e3104a15706.png",
+    "exec-4e613cce-3f93-4069-8e8f-41d94a436209.png"
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          188,
+          217
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          190,
+          0,
+          179,
+          218
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          371,
+          0,
+          184,
+          216
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          557,
+          0,
+          179,
+          216
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          738,
+          0,
+          186,
+          218
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          926,
+          0,
+          189,
+          217
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1117,
+          0,
+          207,
+          215
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1326,
+          0,
+          189,
+          211
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1517,
+          0,
+          184,
+          211
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1703,
+          0,
+          195,
+          213
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1900,
+          0,
+          192,
+          215
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2094,
+          0,
+          177,
+          211
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2273,
+          0,
+          196,
+          207
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          44,
+          64,
+          171,
+          183
+        ],
+        "component_seeds": [
+          [
+            192,
+            164
+          ]
+        ],
+        "scale": 1.024762,
+        "anchor_x": 73.881041,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          269,
+          148,
+          228,
+          99
+        ],
+        "component_seeds": [
+          [
+            370,
+            202
+          ]
+        ],
+        "scale": 1.666667,
+        "anchor_x": 120.6,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2471,
+          0,
+          312,
+          124
+        ],
+        "anchor_x": 161.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          525,
+          149,
+          228,
+          98
+        ],
+        "component_seeds": [
+          [
+            614,
+            202
+          ]
+        ],
+        "scale": 1.37037,
+        "anchor_x": 118.702703,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          781,
+          148,
+          229,
+          97
+        ],
+        "component_seeds": [
+          [
+            940,
+            200
+          ]
+        ],
+        "scale": 1.378277,
+        "anchor_x": 112.554348,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2785,
+          0,
+          299,
+          122
+        ],
+        "anchor_x": 145.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1037,
+          149,
+          228,
+          96
+        ],
+        "component_seeds": [
+          [
+            1128,
+            201
+          ]
+        ],
+        "scale": 1.397727,
+        "anchor_x": 111.02168,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1295,
+          154,
+          229,
+          90
+        ],
+        "component_seeds": [
+          [
+            1426,
+            203
+          ]
+        ],
+        "scale": 1.512195,
+        "anchor_x": 100.672043,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3086,
+          0,
+          330,
+          125
+        ],
+        "anchor_x": 145.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          14,
+          410,
+          228,
+          89
+        ],
+        "component_seeds": [
+          [
+            197,
+            458
+          ]
+        ],
+        "scale": 1.522634,
+        "anchor_x": 104.462162,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          269,
+          397,
+          227,
+          105
+        ],
+        "component_seeds": [
+          [
+            325,
+            455
+          ]
+        ],
+        "scale": 1.254296,
+        "anchor_x": 86.013699,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3418,
+          0,
+          276,
+          120
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          526,
+          397,
+          227,
+          105
+        ],
+        "component_seeds": [
+          [
+            617,
+            453
+          ]
+        ],
+        "scale": 1.329897,
+        "anchor_x": 82.736434,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          786,
+          365,
+          216,
+          137
+        ],
+        "component_seeds": [
+          [
+            898,
+            434
+          ]
+        ],
+        "scale": 1.069767,
+        "anchor_x": 87.108696,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3696,
+          0,
+          245,
+          147
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1039,
+          365,
+          220,
+          137
+        ],
+        "component_seeds": [
+          [
+            1069,
+            435
+          ]
+        ],
+        "scale": 1.191214,
+        "anchor_x": 89.650759,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1301,
+          352,
+          202,
+          149
+        ],
+        "component_seeds": [
+          [
+            1463,
+            425
+          ]
+        ],
+        "scale": 1.137116,
+        "anchor_x": 83.39501,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          220,
+          212,
+          167
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          23,
+          608,
+          199,
+          149
+        ],
+        "component_seeds": [
+          [
+            83,
+            681
+          ]
+        ],
+        "scale": 1.186761,
+        "anchor_x": 87.38247,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          294,
+          608,
+          170,
+          149
+        ],
+        "component_seeds": [
+          [
+            346,
+            685
+          ]
+        ],
+        "scale": 1.189125,
+        "anchor_x": 79.514911,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          214,
+          220,
+          185,
+          168
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          550,
+          610,
+          168,
+          148
+        ],
+        "component_seeds": [
+          [
+            654,
+            685
+          ]
+        ],
+        "scale": 1.335714,
+        "anchor_x": 82.005348,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          779,
+          569,
+          230,
+          189
+        ],
+        "component_seeds": [
+          [
+            934,
+            666
+          ]
+        ],
+        "scale": 1.138122,
+        "anchor_x": 94.485437,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          401,
+          220,
+          273,
+          225
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1039,
+          569,
+          227,
+          189
+        ],
+        "component_seeds": [
+          [
+            1200,
+            666
+          ]
+        ],
+        "scale": 1.232044,
+        "anchor_x": 93.835575,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1315,
+          563,
+          180,
+          195
+        ],
+        "component_seeds": [
+          [
+            1402,
+            670
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 98.871795,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          842,
+          220,
+          199,
+          219
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          38,
+          818,
+          177,
+          195
+        ],
+        "component_seeds": [
+          [
+            94,
+            924
+          ]
+        ],
+        "scale": 1.190731,
+        "anchor_x": 96.88024,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          300,
+          814,
+          168,
+          199
+        ],
+        "component_seeds": [
+          [
+            412,
+            923
+          ]
+        ],
+        "scale": 1.184991,
+        "anchor_x": 78.749632,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1043,
+          220,
+          193,
+          230
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          551,
+          814,
+          174,
+          199
+        ],
+        "component_seeds": [
+          [
+            648,
+            924
+          ]
+        ],
+        "scale": 1.172775,
+        "anchor_x": 83.294643,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          819,
+          827,
+          157,
+          186
+        ],
+        "component_seeds": [
+          [
+            875,
+            927
+          ]
+        ],
+        "scale": 1.224719,
+        "anchor_x": 85.0,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1424,
+          220,
+          182,
+          212
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1077,
+          826,
+          156,
+          187
+        ],
+        "component_seeds": [
+          [
+            1142,
+            930
+          ]
+        ],
+        "scale": 1.193669,
+        "anchor_x": 80.694228,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "region": [
+          1330,
+          824,
+          163,
+          189
+        ],
+        "component_seeds": [
+          [
+            1389,
+            927
+          ]
+        ],
+        "scale": 1.189687,
+        "anchor_x": 73.671827,
+        "grade": {
+          "saturation": 0.9372,
+          "rgb": [
+            0.851,
+            0.8507,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1608,
+          220,
+          194,
+          227
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1804,
+          220,
+          170,
+          219
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1976,
+          220,
+          176,
+          181
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2154,
+          220,
+          200,
+          103
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2356,
+          220,
+          198,
+          87
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2556,
+          220,
+          231,
+          101
+        ],
+        "anchor_x": 135.0,
+        "packed_runtime": true
+      }
+    ],
+    "imp_retreat_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2789,
+          220,
+          181,
+          186
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          47,
+          78,
+          160,
+          169
+        ],
+        "component_seeds": [
+          [
+            165,
+            174
+          ]
+        ],
+        "scale": 1.161491,
+        "anchor_x": 80.529412,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          302,
+          78,
+          158,
+          169
+        ],
+        "component_seeds": [
+          [
+            442,
+            171
+          ]
+        ],
+        "scale": 1.167702,
+        "anchor_x": 78.579787,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2972,
+          220,
+          180,
+          189
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          560,
+          78,
+          157,
+          169
+        ],
+        "component_seeds": [
+          [
+            578,
+            173
+          ]
+        ],
+        "scale": 1.207039,
+        "anchor_x": 75.886792,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          821,
+          63,
+          142,
+          184
+        ],
+        "component_seeds": [
+          [
+            899,
+            166
+          ]
+        ],
+        "scale": 1.13447,
+        "anchor_x": 63.30384,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3154,
+          220,
+          157,
+          205
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1073,
+          64,
+          145,
+          183
+        ],
+        "component_seeds": [
+          [
+            1193,
+            168
+          ],
+          [
+            1156,
+            131
+          ]
+        ],
+        "scale": 1.142857,
+        "anchor_x": 67.083333,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1316,
+          85,
+          174,
+          162
+        ],
+        "component_seeds": [
+          [
+            1484,
+            172
+          ]
+        ],
+        "scale": 1.266234,
+        "anchor_x": 88.786325,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3313,
+          220,
+          188,
+          190
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          44,
+          339,
+          169,
+          163
+        ],
+        "component_seeds": [
+          [
+            100,
+            426
+          ]
+        ],
+        "scale": 1.137634,
+        "anchor_x": 81.744802,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          281,
+          372,
+          199,
+          130
+        ],
+        "component_seeds": [
+          [
+            419,
+            432
+          ]
+        ],
+        "scale": 1.333333,
+        "anchor_x": 71.5,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "imp_retreat": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3503,
+          220,
+          229,
+          149
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          533,
+          372,
+          204,
+          130
+        ],
+        "component_seeds": [
+          [
+            645,
+            434
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 75.857143,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          785,
+          387,
+          216,
+          115
+        ],
+        "component_seeds": [
+          [
+            828,
+            447
+          ]
+        ],
+        "scale": 1.267913,
+        "anchor_x": 78.850123,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3734,
+          220,
+          248,
+          129
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1043,
+          391,
+          215,
+          111
+        ],
+        "component_seeds": [
+          [
+            1186,
+            448
+          ]
+        ],
+        "scale": 1.249191,
+        "anchor_x": 77.727979,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1303,
+          391,
+          210,
+          111
+        ],
+        "component_seeds": [
+          [
+            1454,
+            446
+          ]
+        ],
+        "scale": 1.245955,
+        "anchor_x": 76.438961,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          457,
+          244,
+          128
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          24,
+          644,
+          209,
+          114
+        ],
+        "component_seeds": [
+          [
+            147,
+            701
+          ]
+        ],
+        "scale": 1.179245,
+        "anchor_x": 77.954667,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          283,
+          652,
+          204,
+          107
+        ],
+        "component_seeds": [
+          [
+            326,
+            708
+          ]
+        ],
+        "scale": 1.232323,
+        "anchor_x": 78.614754,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          246,
+          457,
+          234,
+          119
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          537,
+          651,
+          207,
+          107
+        ],
+        "component_seeds": [
+          [
+            584,
+            707
+          ]
+        ],
+        "scale": 1.457912,
+        "anchor_x": 81.91224,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          803,
+          589,
+          176,
+          170
+        ],
+        "component_seeds": [
+          [
+            852,
+            687
+          ]
+        ],
+        "scale": 1.047325,
+        "anchor_x": 85.815324,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "imp_retreat_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          482,
+          457,
+          205,
+          195
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1062,
+          588,
+          168,
+          171
+        ],
+        "component_seeds": [
+          [
+            1122,
+            687
+          ]
+        ],
+        "scale": 1.222904,
+        "anchor_x": 85.005017,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1327,
+          582,
+          160,
+          177
+        ],
+        "component_seeds": [
+          [
+            1355,
+            679
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 77.87234,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          689,
+          457,
+          180,
+          208
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          46,
+          831,
+          160,
+          184
+        ],
+        "component_seeds": [
+          [
+            172,
+            932
+          ]
+        ],
+        "scale": 1.214015,
+        "anchor_x": 78.664587,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          298,
+          828,
+          161,
+          187
+        ],
+        "component_seeds": [
+          [
+            308,
+            932
+          ]
+        ],
+        "scale": 1.225326,
+        "anchor_x": 81.478723,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          871,
+          457,
+          178,
+          225
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          553,
+          828,
+          162,
+          187
+        ],
+        "component_seeds": [
+          [
+            620,
+            932
+          ]
+        ],
+        "scale": 1.238361,
+        "anchor_x": 82.309774,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          807,
+          831,
+          167,
+          184
+        ],
+        "component_seeds": [
+          [
+            842,
+            935
+          ]
+        ],
+        "scale": 1.24053,
+        "anchor_x": 81.326718,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1051,
+          457,
+          186,
+          215
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1066,
+          830,
+          165,
+          185
+        ],
+        "component_seeds": [
+          [
+            1130,
+            935
+          ]
+        ],
+        "scale": 1.218456,
+        "anchor_x": 77.142195,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "region": [
+          1325,
+          829,
+          167,
+          186
+        ],
+        "component_seeds": [
+          [
+            1366,
+            932
+          ]
+        ],
+        "scale": 1.215356,
+        "anchor_x": 76.09245,
+        "grade": {
+          "saturation": 1.052,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/ash_banner_imp.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "imp_retreat_windup",
+      "imp_retreat",
+      "imp_retreat_recover"
+    ],
+    "sheets": [
+      {
+        "image": "imp_retreat.png",
+        "image_sha256": "e7c81aec23711a5d1bf7f69af090eef3c2387718ccba50d271d8aebdce17c064",
+        "role": "new",
+        "attack": "imp_retreat",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7057,
+        "anchors": [
+          126.5,
+          118.5,
+          98.5,
+          127.5,
+          109.5,
+          121.5,
+          124.5,
+          127.5,
+          137.5,
+          122.5,
+          120.5,
+          124.5
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7229,
+          "last_recover_ratio": 0.6889
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "G_ash_banner_imp_attack0.png",
+        "image_sha256": "58c18eb7de7b09e290d4512701e5ba7cc44f2788c6783ca0b085e7216aa537ed",
+        "op": "replace_frames",
+        "animation": "attack",
+        "scale": 0.3454,
+        "anchors": [
+          437.7
+        ],
+        "grade": {
+          "saturation": 0.853,
+          "rgb": [
+            0.928,
+            0.978,
+            0.959
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[0]": 0.3454
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_windup.png",
+        "image_sha256": "fc3ca085b13c66c68b5b2db6bbc4101696f73a6c8a02e41076dce1c4439414f4",
+        "op": "replace_animation",
+        "animation": "windup",
+        "scale": 0.5528,
+        "anchors": [
+          368.8,
+          392.8,
+          376.8,
+          347.8
+        ],
+        "grade": {
+          "saturation": 0.743,
+          "rgb": [
+            0.844,
+            0.85,
+            0.854
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "idle[0]": 0.5528
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_recover.png",
+        "image_sha256": "1431033875c3e5b56eb1c013de84c7ea94bf8530a8a37b4b1d8cbff3b61016b3",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "scale": 0.4572,
+        "anchors": [
+          317.5,
+          406.6
+        ],
+        "grade": {
+          "saturation": 0.849,
+          "rgb": [
+            0.8,
+            0.818,
+            0.807
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "attack[3]": 0.3647,
+            "recover[0]": 0.4572
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "G_ash_banner_imp_attack0.png",
+        "op": "replace_frames",
+        "animation": "attack",
+        "replaced": {
+          "0": {
+            "sheet": "atlas.png",
+            "region": [
+              17,
+              786,
+              418,
+              208
+            ],
+            "component_seeds": [
+              [
+                123,
+                895
+              ]
+            ],
+            "scale": 0.62,
+            "anchor_x": 175.0
+          }
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_windup.png",
+        "op": "replace_animation",
+        "animation": "windup",
+        "replaced": {
+          "all": [
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                18,
+                455,
+                197,
+                226
+              ],
+              "component_seeds": [
+                [
+                  80,
+                  580
+                ]
+              ],
+              "anchor_x": 86.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                250,
+                463,
+                190,
+                218
+              ],
+              "component_seeds": [
+                [
+                  268,
+                  582
+                ]
+              ],
+              "anchor_x": 63.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                445,
+                457,
+                204,
+                224
+              ],
+              "component_seeds": [
+                [
+                  470,
+                  573
+                ]
+              ],
+              "anchor_x": 77.5
+            },
+            {
+              "sheet": "motion_expanded.png",
+              "region": [
+                647,
+                458,
+                173,
+                223
+              ],
+              "component_seeds": [
+                [
+                  763,
+                  576
+                ]
+              ],
+              "anchor_x": 84.5
+            }
+          ]
+        }
+      },
+      {
+        "image": "G_ash_banner_imp_recover.png",
+        "op": "prepend_frames",
+        "animation": "recover",
+        "count": 2
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "ash_banner_imp__attack",
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__attack.png",
+        "sha256": "d55ed9ef08b7fe233d0dfbbd65842a9e1e061b33d5cbdcda27847cf0a46cfa9e",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/ash_banner_imp__attack.png"
+      },
+      {
+        "id": "ash_banner_imp__imp_retreat",
+        "source": "art_requests/combat_motion_v7/incoming/ash_banner_imp__imp_retreat.png",
+        "sha256": "ff19d5c3f07a3f4e24ce09d72ec4922dc0bb225df7cd8861dd7c72610f463733",
+        "new_drawings": 24,
+        "animations": [
+          "imp_retreat_windup",
+          "imp_retreat",
+          "imp_retreat_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/ash_banner_imp__imp_retreat.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

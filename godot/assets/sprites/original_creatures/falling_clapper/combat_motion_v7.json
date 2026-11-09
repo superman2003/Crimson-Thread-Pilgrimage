@@ -1,0 +1,2460 @@
+{
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-8d3fbf5b-9bad-437c-8a44-7f3c0bcf8faa.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character:  Every figure SMALL WITH LARGE GUTTERS. a hovering heavy oval beetle with a bronze bell clapper abdomen, pale shell crown and sharp ivory claw tips",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-8d3fbf5b-9bad-437c-8a44-7f3c0bcf8faa.png",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/falling_clapper/atlas.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          173,
+          166
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          175,
+          0,
+          178,
+          166
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          355,
+          0,
+          178,
+          156
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          535,
+          0,
+          190,
+          167
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          727,
+          0,
+          186,
+          156
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          915,
+          0,
+          191,
+          158
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1108,
+          0,
+          184,
+          175
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1294,
+          0,
+          188,
+          178
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1484,
+          0,
+          188,
+          155
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1674,
+          0,
+          191,
+          190
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1867,
+          0,
+          205,
+          187
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2074,
+          0,
+          168,
+          192
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2244,
+          0,
+          189,
+          194
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          46,
+          76,
+          165,
+          170
+        ],
+        "component_seeds": [
+          [
+            180,
+            166
+          ]
+        ],
+        "scale": 1.187243,
+        "anchor_x": 75.523397,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          298,
+          80,
+          168,
+          165
+        ],
+        "component_seeds": [
+          [
+            384,
+            162
+          ]
+        ],
+        "scale": 1.214437,
+        "anchor_x": 71.648601,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2435,
+          0,
+          182,
+          189
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          556,
+          76,
+          167,
+          168
+        ],
+        "component_seeds": [
+          [
+            627,
+            161
+          ]
+        ],
+        "scale": 1.191667,
+        "anchor_x": 74.888112,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          803,
+          72,
+          182,
+          172
+        ],
+        "component_seeds": [
+          [
+            903,
+            162
+          ]
+        ],
+        "scale": 1.172764,
+        "anchor_x": 72.45234,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2619,
+          0,
+          212,
+          194
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1058,
+          72,
+          184,
+          172
+        ],
+        "component_seeds": [
+          [
+            1150,
+            162
+          ]
+        ],
+        "scale": 1.182927,
+        "anchor_x": 81.254296,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1325,
+          67,
+          156,
+          179
+        ],
+        "component_seeds": [
+          [
+            1360,
+            154
+          ]
+        ],
+        "scale": 1.134503,
+        "anchor_x": 80.582474,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2833,
+          0,
+          169,
+          194
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          48,
+          329,
+          157,
+          171
+        ],
+        "component_seeds": [
+          [
+            177,
+            410
+          ]
+        ],
+        "scale": 1.153374,
+        "anchor_x": 76.179078,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          276,
+          348,
+          218,
+          152
+        ],
+        "component_seeds": [
+          [
+            474,
+            419
+          ]
+        ],
+        "scale": 1.263889,
+        "anchor_x": 77.89011,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3004,
+          0,
+          278,
+          176
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          530,
+          349,
+          219,
+          151
+        ],
+        "component_seeds": [
+          [
+            646,
+            422
+          ]
+        ],
+        "scale": 1.2331,
+        "anchor_x": 68.294896,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          818,
+          347,
+          158,
+          150
+        ],
+        "component_seeds": [
+          [
+            903,
+            426
+          ]
+        ],
+        "scale": 1.244131,
+        "anchor_x": 52.049057,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3284,
+          0,
+          171,
+          177
+        ],
+        "anchor_x": 45.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1072,
+          344,
+          159,
+          156
+        ],
+        "component_seeds": [
+          [
+            1158,
+            426
+          ]
+        ],
+        "scale": 1.153153,
+        "anchor_x": 51.921875,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1316,
+          361,
+          183,
+          132
+        ],
+        "component_seeds": [
+          [
+            1454,
+            421
+          ]
+        ],
+        "scale": 1.325269,
+        "anchor_x": 78.681542,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3457,
+          0,
+          206,
+          158
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          37,
+          616,
+          182,
+          134
+        ],
+        "component_seeds": [
+          [
+            156,
+            677
+          ]
+        ],
+        "scale": 1.351852,
+        "anchor_x": 87.780822,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          303,
+          586,
+          157,
+          169
+        ],
+        "component_seeds": [
+          [
+            391,
+            672
+          ]
+        ],
+        "scale": 1.134576,
+        "anchor_x": 82.762774,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3665,
+          0,
+          159,
+          195
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          563,
+          584,
+          155,
+          171
+        ],
+        "component_seeds": [
+          [
+            612,
+            674
+          ]
+        ],
+        "scale": 1.169734,
+        "anchor_x": 76.854895,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          812,
+          587,
+          170,
+          168
+        ],
+        "component_seeds": [
+          [
+            929,
+            672
+          ]
+        ],
+        "scale": 1.164583,
+        "anchor_x": 78.706619,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3826,
+          0,
+          184,
+          182
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1066,
+          587,
+          173,
+          168
+        ],
+        "component_seeds": [
+          [
+            1195,
+            672
+          ]
+        ],
+        "scale": 1.152083,
+        "anchor_x": 77.898734,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1324,
+          587,
+          173,
+          168
+        ],
+        "component_seeds": [
+          [
+            1415,
+            672
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 80.428571,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          197,
+          188,
+          189
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          44,
+          846,
+          167,
+          163
+        ],
+        "component_seeds": [
+          [
+            110,
+            927
+          ]
+        ],
+        "scale": 1.187097,
+        "anchor_x": 81.822464,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          300,
+          861,
+          165,
+          148
+        ],
+        "component_seeds": [
+          [
+            356,
+            934
+          ]
+        ],
+        "scale": 1.278571,
+        "anchor_x": 87.221601,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          190,
+          197,
+          181,
+          174
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          556,
+          861,
+          165,
+          148
+        ],
+        "component_seeds": [
+          [
+            642,
+            934
+          ]
+        ],
+        "scale": 1.27619,
+        "anchor_x": 90.343284,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          812,
+          848,
+          166,
+          161
+        ],
+        "component_seeds": [
+          [
+            943,
+            926
+          ]
+        ],
+        "scale": 1.198257,
+        "anchor_x": 87.556364,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          373,
+          197,
+          181,
+          188
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1067,
+          846,
+          168,
+          163
+        ],
+        "component_seeds": [
+          [
+            1195,
+            926
+          ]
+        ],
+        "scale": 1.165591,
+        "anchor_x": 88.571956,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "region": [
+          1330,
+          866,
+          160,
+          143
+        ],
+        "component_seeds": [
+          [
+            1399,
+            936
+          ]
+        ],
+        "scale": 1.283951,
+        "anchor_x": 86.365385,
+        "grade": {
+          "saturation": 0.947,
+          "rgb": [
+            0.9754,
+            0.9919,
+            0.9763
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          556,
+          197,
+          194,
+          171
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          752,
+          197,
+          210,
+          176
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          964,
+          197,
+          183,
+          160
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1149,
+          197,
+          180,
+          173
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1331,
+          197,
+          226,
+          168
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1559,
+          197,
+          178,
+          164
+        ],
+        "anchor_x": 58.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1739,
+          197,
+          165,
+          152
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1906,
+          197,
+          217,
+          118
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2125,
+          197,
+          164,
+          210
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2291,
+          197,
+          166,
+          208
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      }
+    ],
+    "travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2459,
+          197,
+          141,
+          198
+        ],
+        "anchor_x": 46.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2602,
+          197,
+          129,
+          199
+        ],
+        "anchor_x": 34.0,
+        "packed_runtime": true
+      }
+    ],
+    "clapper_wave_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2733,
+          197,
+          177,
+          159
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          47,
+          103,
+          162,
+          142
+        ],
+        "component_seeds": [
+          [
+            140,
+            178
+          ]
+        ],
+        "scale": 1.126866,
+        "anchor_x": 71.112583,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          304,
+          125,
+          161,
+          120
+        ],
+        "component_seeds": [
+          [
+            390,
+            187
+          ]
+        ],
+        "scale": 1.276786,
+        "anchor_x": 68.216783,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2912,
+          197,
+          182,
+          135
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          560,
+          124,
+          160,
+          120
+        ],
+        "component_seeds": [
+          [
+            670,
+            186
+          ]
+        ],
+        "scale": 1.291667,
+        "anchor_x": 68.225806,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          816,
+          98,
+          161,
+          147
+        ],
+        "component_seeds": [
+          [
+            851,
+            177
+          ]
+        ],
+        "scale": 1.110312,
+        "anchor_x": 71.099352,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3096,
+          197,
+          176,
+          164
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1073,
+          96,
+          160,
+          148
+        ],
+        "component_seeds": [
+          [
+            1142,
+            176
+          ]
+        ],
+        "scale": 1.214286,
+        "anchor_x": 69.901961,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1336,
+          83,
+          147,
+          159
+        ],
+        "component_seeds": [
+          [
+            1417,
+            166
+          ]
+        ],
+        "scale": 1.165563,
+        "anchor_x": 65.570076,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3274,
+          197,
+          164,
+          182
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          54,
+          338,
+          148,
+          160
+        ],
+        "component_seeds": [
+          [
+            102,
+            422
+          ]
+        ],
+        "scale": 1.120614,
+        "anchor_x": 67.215264,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          303,
+          368,
+          156,
+          131
+        ],
+        "component_seeds": [
+          [
+            338,
+            438
+          ]
+        ],
+        "scale": 1.289973,
+        "anchor_x": 66.44958,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      }
+    ],
+    "clapper_wave": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3440,
+          197,
+          177,
+          147
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          560,
+          372,
+          157,
+          128
+        ],
+        "component_seeds": [
+          [
+            609,
+            439
+          ]
+        ],
+        "scale": 1.277778,
+        "anchor_x": 65.434783,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          814,
+          352,
+          162,
+          147
+        ],
+        "component_seeds": [
+          [
+            928,
+            425
+          ]
+        ],
+        "scale": 1.148681,
+        "anchor_x": 75.258873,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3619,
+          197,
+          182,
+          166
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1071,
+          352,
+          162,
+          147
+        ],
+        "component_seeds": [
+          [
+            1171,
+            425
+          ]
+        ],
+        "scale": 1.131894,
+        "anchor_x": 75.527542,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1322,
+          375,
+          172,
+          123
+        ],
+        "component_seeds": [
+          [
+            1418,
+            439
+          ]
+        ],
+        "scale": 1.292754,
+        "anchor_x": 78.96861,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3803,
+          197,
+          197,
+          140
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          39,
+          631,
+          177,
+          122
+        ],
+        "component_seeds": [
+          [
+            63,
+            694
+          ]
+        ],
+        "scale": 1.260234,
+        "anchor_x": 81.941995,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          294,
+          620,
+          174,
+          134
+        ],
+        "component_seeds": [
+          [
+            379,
+            685
+          ]
+        ],
+        "scale": 1.169312,
+        "anchor_x": 91.574661,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          409,
+          193,
+          151
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          552,
+          617,
+          175,
+          137
+        ],
+        "component_seeds": [
+          [
+            667,
+            685
+          ]
+        ],
+        "scale": 1.183463,
+        "anchor_x": 91.310044,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          816,
+          615,
+          160,
+          139
+        ],
+        "component_seeds": [
+          [
+            839,
+            683
+          ]
+        ],
+        "scale": 1.178117,
+        "anchor_x": 71.302376,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      }
+    ],
+    "clapper_wave_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          195,
+          409,
+          180,
+          156
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1068,
+          616,
+          164,
+          138
+        ],
+        "component_seeds": [
+          [
+            1081,
+            683
+          ]
+        ],
+        "scale": 1.176923,
+        "anchor_x": 74.300654,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1326,
+          625,
+          165,
+          127
+        ],
+        "component_seeds": [
+          [
+            1362,
+            687
+          ]
+        ],
+        "scale": 1.260504,
+        "anchor_x": 76.413333,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          377,
+          409,
+          184,
+          147
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          45,
+          883,
+          163,
+          126
+        ],
+        "component_seeds": [
+          [
+            117,
+            942
+          ]
+        ],
+        "scale": 1.251412,
+        "anchor_x": 77.401806,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          300,
+          882,
+          159,
+          127
+        ],
+        "component_seeds": [
+          [
+            427,
+            942
+          ]
+        ],
+        "scale": 1.246499,
+        "anchor_x": 76.395506,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          563,
+          409,
+          173,
+          149
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          559,
+          882,
+          160,
+          127
+        ],
+        "component_seeds": [
+          [
+            598,
+            943
+          ]
+        ],
+        "scale": 1.252101,
+        "anchor_x": 76.668904,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          821,
+          882,
+          149,
+          126
+        ],
+        "component_seeds": [
+          [
+            866,
+            942
+          ]
+        ],
+        "scale": 1.262712,
+        "anchor_x": 71.944072,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          738,
+          409,
+          162,
+          149
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1077,
+          880,
+          151,
+          127
+        ],
+        "component_seeds": [
+          [
+            1164,
+            940
+          ]
+        ],
+        "scale": 1.29972,
+        "anchor_x": 69.922414,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "region": [
+          1325,
+          866,
+          166,
+          142
+        ],
+        "component_seeds": [
+          [
+            1441,
+            936
+          ]
+        ],
+        "scale": 1.196517,
+        "anchor_x": 89.149688,
+        "grade": {
+          "saturation": 1.0247,
+          "rgb": [
+            0.9447,
+            0.966,
+            0.943
+          ]
+        }
+      }
+    ],
+    "clapper_wave_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          902,
+          409,
+          172,
+          156
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1076,
+          409,
+          186,
+          165
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      21,
+      31,
+      174,
+      167
+    ],
+    [
+      241,
+      30,
+      179,
+      168
+    ],
+    [
+      452,
+      41,
+      178,
+      157
+    ],
+    [
+      668,
+      30,
+      190,
+      168
+    ],
+    [
+      21,
+      250,
+      186,
+      157
+    ],
+    [
+      235,
+      248,
+      191,
+      159
+    ],
+    [
+      461,
+      231,
+      185,
+      175
+    ],
+    [
+      671,
+      230,
+      188,
+      178
+    ],
+    [
+      29,
+      465,
+      188,
+      156
+    ],
+    [
+      244,
+      441,
+      191,
+      190
+    ],
+    [
+      464,
+      443,
+      205,
+      188
+    ],
+    [
+      692,
+      439,
+      169,
+      192
+    ],
+    [
+      23,
+      672,
+      189,
+      194
+    ],
+    [
+      259,
+      675,
+      182,
+      189
+    ],
+    [
+      466,
+      673,
+      212,
+      194
+    ],
+    [
+      689,
+      672,
+      169,
+      194
+    ],
+    [
+      24,
+      901,
+      278,
+      176
+    ],
+    [
+      288,
+      900,
+      171,
+      177
+    ],
+    [
+      468,
+      923,
+      206,
+      158
+    ],
+    [
+      695,
+      886,
+      159,
+      195
+    ],
+    [
+      28,
+      1117,
+      185,
+      182
+    ],
+    [
+      244,
+      1111,
+      188,
+      189
+    ],
+    [
+      462,
+      1124,
+      181,
+      175
+    ],
+    [
+      672,
+      1110,
+      181,
+      189
+    ],
+    [
+      22,
+      1339,
+      194,
+      171
+    ],
+    [
+      244,
+      1340,
+      210,
+      176
+    ],
+    [
+      479,
+      1341,
+      183,
+      161
+    ],
+    [
+      688,
+      1338,
+      181,
+      173
+    ],
+    [
+      14,
+      1564,
+      227,
+      168
+    ],
+    [
+      275,
+      1565,
+      178,
+      164
+    ],
+    [
+      469,
+      1577,
+      165,
+      152
+    ],
+    [
+      655,
+      1619,
+      217,
+      118
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 32,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.5915750915750916,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers.",
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "tool": "built-in image_gen",
+    "complete_silhouettes": "Verified source and packaged runtime, including full claws, wings, scarf, shield and sword. All four waterwheel attack sword tips inside source image; no boundary cuts."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            21,
+            31,
+            174,
+            167
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            241,
+            30,
+            179,
+            168
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            452,
+            41,
+            178,
+            157
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            668,
+            30,
+            190,
+            168
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            21,
+            250,
+            186,
+            157
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            235,
+            248,
+            191,
+            159
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            461,
+            231,
+            185,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            671,
+            230,
+            188,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            29,
+            465,
+            188,
+            156
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            441,
+            191,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            464,
+            443,
+            205,
+            188
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            692,
+            439,
+            169,
+            192
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            23,
+            672,
+            189,
+            194
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            259,
+            675,
+            182,
+            189
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            466,
+            673,
+            212,
+            194
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            689,
+            672,
+            169,
+            194
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            24,
+            901,
+            278,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            288,
+            900,
+            171,
+            177
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            468,
+            923,
+            206,
+            158
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            695,
+            886,
+            159,
+            195
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            28,
+            1117,
+            185,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            1111,
+            188,
+            189
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            462,
+            1124,
+            181,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            672,
+            1110,
+            181,
+            189
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            22,
+            1339,
+            194,
+            171
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            1340,
+            210,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            479,
+            1341,
+            183,
+            161
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            688,
+            1338,
+            181,
+            173
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            14,
+            1564,
+            227,
+            168
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            275,
+            1565,
+            178,
+            164
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            469,
+            1577,
+            165,
+            152
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            655,
+            1619,
+            217,
+            118
+          ]
+        }
+      ]
+    }
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/falling_clapper.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "travel",
+      "clapper_wave_windup",
+      "clapper_wave",
+      "clapper_wave_recover",
+      "clapper_wave_charge"
+    ],
+    "sheets": [
+      {
+        "image": "clapper_fall_loops.png",
+        "image_sha256": "e755ce406a049409af7e305e4129867c05d632dc2a2d80b26910cffce56285a7",
+        "role": "keep",
+        "attack": "clapper_fall",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.4444,
+        "anchors": [
+          208.9,
+          207.9,
+          104.9,
+          78.9
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.4425,
+            0.4444,
+            0.4323,
+            0.4588
+          ]
+        }
+      },
+      {
+        "image": "clapper_wave.png",
+        "image_sha256": "8337994a7b83d3561540a1ec56feae56c48b7ae8fc7aef975bd877eb237c5ec0",
+        "role": "new",
+        "attack": "clapper_wave",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.6853,
+        "anchors": [
+          111.2,
+          108.2,
+          112.2,
+          109.2,
+          101.2,
+          122.2,
+          130.2,
+          148.2,
+          117.2,
+          123.2,
+          116.2,
+          114.2,
+          107.2,
+          136.2
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.6699,
+          "last_recover_ratio": 0.701
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "falling_clapper__attack",
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__attack.png",
+        "sha256": "2749dda21853353db727ff9be1be06e90f734784c2323efbaa1cf4c8d0aad113",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/falling_clapper__attack.png"
+      },
+      {
+        "id": "falling_clapper__clapper_wave",
+        "source": "art_requests/combat_motion_v7/incoming/falling_clapper__clapper_wave.png",
+        "sha256": "1c89a62558d0a0af3d102eafb829562590af2de7790c745db375bfb499c36c9a",
+        "new_drawings": 24,
+        "animations": [
+          "clapper_wave_windup",
+          "clapper_wave",
+          "clapper_wave_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/falling_clapper__clapper_wave.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

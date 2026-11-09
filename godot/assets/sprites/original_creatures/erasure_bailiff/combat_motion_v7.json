@@ -1,0 +1,2700 @@
+{
+  "kind": "erasure_bailiff",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent production 2D game sprite sheet expanding SAME heavy ivory shell beetle enforcer in reference: ink-black face with pale eyes, cracked white shell armor, aged paper contract seal, red ragged skirt, gold chain waist, huge broad stone cleaver. Preserve fine ink and painterly muted texture. STRICT FOUR columns by EIGHT rows, 32 COMPLETE full-body figures. All sprites SMALL with generous transparent padding including weapon and antennae, never overlap. Facing right and equal scale. Row1 FOUR idle breathing poses. Row2 FOUR first-half heavy walking strides. Row3 FOUR second-half walking strides. Row4 FOUR windup lifting cleaver over head. Row5 FOUR compact vertical cleaver chop strike/followthrough poses. Row6 FOUR recovery lifting cleaver back to guard poses. Row7 FOUR hurt staggering poses. Row8 FOUR death collapse poses ending prone. Keep cleaver inside each cell, no long horizontal extension. Every pose real articulation rather than duplicates or translation. FOUR figures in EVERY one of EIGHT rows. Actual alpha transparency, no background, grid, shadows, borders, text or labels.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-321545fd-1b77-4aad-a12a-ad7a5ddd6356.png",
+  "qa": {
+    "layout": "Authored sheet reviewed for complete character silhouette and role-specific articulations",
+    "identity": "Original reference design, costume, palette and dark hand-painted contours retained",
+    "motion": "Genuinely articulated idle, gait, windup, attack, recovery, recoil and collapse",
+    "component_isolation": "Explicit full silhouette component seeds preserve source RGBA and exclude neighbor ink",
+    "retained_original": "One complete original death pose at common resolution supplements two isolated new collapse poses.",
+    "rectangular_region_issues": "Resolved by explicit 8-connected component extraction and original-RGBA packing; overlapping true silhouettes excluded.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character erasure_bailiff passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          217,
+          203
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          219,
+          0,
+          219,
+          205
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          440,
+          0,
+          224,
+          205
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          666,
+          0,
+          227,
+          206
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          895,
+          0,
+          236,
+          198
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1133,
+          0,
+          229,
+          187
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1364,
+          0,
+          234,
+          193
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1600,
+          0,
+          232,
+          193
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1834,
+          0,
+          239,
+          192
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2075,
+          0,
+          237,
+          183
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2314,
+          0,
+          242,
+          179
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2558,
+          0,
+          232,
+          184
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2792,
+          0,
+          233,
+          203
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          27,
+          68,
+          199,
+          178
+        ],
+        "component_seeds": [
+          [
+            119,
+            170
+          ]
+        ],
+        "scale": 1.190196,
+        "anchor_x": 86.599671,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          276,
+          70,
+          216,
+          177
+        ],
+        "component_seeds": [
+          [
+            422,
+            172
+          ]
+        ],
+        "scale": 1.193294,
+        "anchor_x": 91.720661,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3027,
+          0,
+          232,
+          201
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          531,
+          69,
+          218,
+          177
+        ],
+        "component_seeds": [
+          [
+            558,
+            172
+          ]
+        ],
+        "scale": 1.211045,
+        "anchor_x": 91.174267,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          806,
+          60,
+          179,
+          187
+        ],
+        "component_seeds": [
+          [
+            851,
+            156
+          ]
+        ],
+        "scale": 1.163873,
+        "anchor_x": 74.4224,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3261,
+          0,
+          203,
+          212
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1062,
+          54,
+          177,
+          193
+        ],
+        "component_seeds": [
+          [
+            1156,
+            154
+          ]
+        ],
+        "scale": 1.14955,
+        "anchor_x": 77.130094,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1319,
+          46,
+          169,
+          201
+        ],
+        "component_seeds": [
+          [
+            1365,
+            152
+          ]
+        ],
+        "scale": 1.105354,
+        "anchor_x": 80.714062,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3466,
+          0,
+          184,
+          214
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          38,
+          302,
+          170,
+          201
+        ],
+        "component_seeds": [
+          [
+            84,
+            409
+          ]
+        ],
+        "scale": 1.08981,
+        "anchor_x": 84.729002,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          291,
+          314,
+          180,
+          189
+        ],
+        "component_seeds": [
+          [
+            400,
+            412
+          ]
+        ],
+        "scale": 1.141805,
+        "anchor_x": 93.714516,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3652,
+          0,
+          197,
+          203
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          545,
+          318,
+          182,
+          185
+        ],
+        "component_seeds": [
+          [
+            657,
+            411
+          ]
+        ],
+        "scale": 1.105461,
+        "anchor_x": 94.221465,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          793,
+          339,
+          206,
+          160
+        ],
+        "component_seeds": [
+          [
+            900,
+            435
+          ]
+        ],
+        "scale": 1.239035,
+        "anchor_x": 91.076106,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3851,
+          0,
+          231,
+          181
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1049,
+          342,
+          206,
+          160
+        ],
+        "component_seeds": [
+          [
+            1159,
+            436
+          ]
+        ],
+        "scale": 1.164474,
+        "anchor_x": 92.286252,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1303,
+          353,
+          213,
+          146
+        ],
+        "component_seeds": [
+          [
+            1418,
+            438
+          ]
+        ],
+        "scale": 1.253623,
+        "anchor_x": 96.127168,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          216,
+          234,
+          169
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          21,
+          611,
+          211,
+          145
+        ],
+        "component_seeds": [
+          [
+            66,
+            694
+          ]
+        ],
+        "scale": 1.175182,
+        "anchor_x": 99.956522,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          280,
+          629,
+          205,
+          128
+        ],
+        "component_seeds": [
+          [
+            359,
+            702
+          ]
+        ],
+        "scale": 1.275,
+        "anchor_x": 95.058824,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          236,
+          216,
+          230,
+          145
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          537,
+          629,
+          206,
+          127
+        ],
+        "component_seeds": [
+          [
+            566,
+            701
+          ]
+        ],
+        "scale": 1.35014,
+        "anchor_x": 93.197095,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          793,
+          589,
+          207,
+          171
+        ],
+        "component_seeds": [
+          [
+            874,
+            690
+          ]
+        ],
+        "scale": 1.0818,
+        "anchor_x": 90.308129,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          468,
+          216,
+          235,
+          192
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1049,
+          590,
+          207,
+          169
+        ],
+        "component_seeds": [
+          [
+            1158,
+            688
+          ]
+        ],
+        "scale": 1.184265,
+        "anchor_x": 87.748252,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1298,
+          587,
+          215,
+          172
+        ],
+        "component_seeds": [
+          [
+            1442,
+            689
+          ]
+        ],
+        "scale": 1.154472,
+        "anchor_x": 88.711268,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          705,
+          216,
+          237,
+          188
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          18,
+          841,
+          213,
+          173
+        ],
+        "component_seeds": [
+          [
+            115,
+            944
+          ]
+        ],
+        "scale": 1.139394,
+        "anchor_x": 91.462766,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          275,
+          845,
+          216,
+          169
+        ],
+        "component_seeds": [
+          [
+            397,
+            947
+          ]
+        ],
+        "scale": 1.167702,
+        "anchor_x": 92.141844,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          944,
+          216,
+          240,
+          188
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          530,
+          846,
+          214,
+          168
+        ],
+        "component_seeds": [
+          [
+            567,
+            948
+          ]
+        ],
+        "scale": 1.14375,
+        "anchor_x": 96.371585,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          792,
+          860,
+          202,
+          154
+        ],
+        "component_seeds": [
+          [
+            881,
+            953
+          ]
+        ],
+        "scale": 1.219178,
+        "anchor_x": 93.382022,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1186,
+          216,
+          227,
+          173
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1049,
+          859,
+          203,
+          155
+        ],
+        "component_seeds": [
+          [
+            1166,
+            953
+          ]
+        ],
+        "scale": 1.244898,
+        "anchor_x": 97.245902,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "region": [
+          1315,
+          838,
+          190,
+          176
+        ],
+        "component_seeds": [
+          [
+            1414,
+            943
+          ]
+        ],
+        "scale": 1.14881,
+        "anchor_x": 92.056995,
+        "grade": {
+          "saturation": 0.972,
+          "rgb": [
+            0.9575,
+            0.9737,
+            0.9645
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1415,
+          216,
+          205,
+          165
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1622,
+          216,
+          232,
+          169
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1856,
+          216,
+          198,
+          151
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2056,
+          216,
+          271,
+          126
+        ],
+        "anchor_x": 151.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2329,
+          216,
+          211,
+          135
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2542,
+          216,
+          240,
+          94
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2784,
+          216,
+          240,
+          117
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3026,
+          216,
+          183,
+          206
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3211,
+          216,
+          200,
+          210
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      }
+    ],
+    "bailiff_elite_sweep_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3413,
+          216,
+          236,
+          183
+        ],
+        "anchor_x": 148.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          25,
+          80,
+          205,
+          164
+        ],
+        "component_seeds": [
+          [
+            137,
+            178
+          ]
+        ],
+        "scale": 1.188034,
+        "anchor_x": 129.467626,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          285,
+          80,
+          197,
+          163
+        ],
+        "component_seeds": [
+          [
+            386,
+            176
+          ]
+        ],
+        "scale": 1.210753,
+        "anchor_x": 122.21492,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3651,
+          216,
+          217,
+          190
+        ],
+        "anchor_x": 134.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          540,
+          80,
+          197,
+          162
+        ],
+        "component_seeds": [
+          [
+            673,
+            177
+          ]
+        ],
+        "scale": 1.244589,
+        "anchor_x": 123.123478,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          793,
+          79,
+          204,
+          162
+        ],
+        "component_seeds": [
+          [
+            920,
+            171
+          ]
+        ],
+        "scale": 1.255411,
+        "anchor_x": 132.275862,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          428,
+          235,
+          195
+        ],
+        "anchor_x": 151.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1049,
+          75,
+          205,
+          167
+        ],
+        "component_seeds": [
+          [
+            1234,
+            170
+          ]
+        ],
+        "scale": 1.232704,
+        "anchor_x": 133.061224,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1318,
+          72,
+          177,
+          170
+        ],
+        "component_seeds": [
+          [
+            1397,
+            171
+          ]
+        ],
+        "scale": 1.216049,
+        "anchor_x": 111.527919,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          237,
+          428,
+          202,
+          198
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          40,
+          328,
+          176,
+          172
+        ],
+        "component_seeds": [
+          [
+            82,
+            426
+          ]
+        ],
+        "scale": 1.164634,
+        "anchor_x": 107.883072,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          276,
+          344,
+          219,
+          157
+        ],
+        "component_seeds": [
+          [
+            394,
+            442
+          ]
+        ],
+        "scale": 1.234899,
+        "anchor_x": 117.496377,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      }
+    ],
+    "bailiff_elite_sweep": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          441,
+          428,
+          252,
+          177
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          532,
+          346,
+          221,
+          155
+        ],
+        "component_seeds": [
+          [
+            647,
+            443
+          ]
+        ],
+        "scale": 1.206349,
+        "anchor_x": 114.986842,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          780,
+          344,
+          227,
+          158
+        ],
+        "component_seeds": [
+          [
+            906,
+            425
+          ]
+        ],
+        "scale": 1.184444,
+        "anchor_x": 145.945591,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          695,
+          428,
+          259,
+          178
+        ],
+        "anchor_x": 166.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1035,
+          345,
+          230,
+          156
+        ],
+        "component_seeds": [
+          [
+            1098,
+            425
+          ]
+        ],
+        "scale": 1.184685,
+        "anchor_x": 145.942966,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1310,
+          348,
+          195,
+          153
+        ],
+        "component_seeds": [
+          [
+            1379,
+            437
+          ]
+        ],
+        "scale": 1.190805,
+        "anchor_x": 109.156371,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          956,
+          428,
+          228,
+          170
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          33,
+          605,
+          195,
+          152
+        ],
+        "component_seeds": [
+          [
+            120,
+            691
+          ]
+        ],
+        "scale": 1.178241,
+        "anchor_x": 106.862475,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          274,
+          608,
+          220,
+          149
+        ],
+        "component_seeds": [
+          [
+            302,
+            698
+          ]
+        ],
+        "scale": 1.200946,
+        "anchor_x": 111.877953,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1186,
+          428,
+          253,
+          169
+        ],
+        "anchor_x": 126.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          532,
+          609,
+          218,
+          148
+        ],
+        "component_seeds": [
+          [
+            567,
+            698
+          ]
+        ],
+        "scale": 1.17381,
+        "anchor_x": 112.482759,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          785,
+          619,
+          225,
+          138
+        ],
+        "component_seeds": [
+          [
+            910,
+            698
+          ]
+        ],
+        "scale": 1.228205,
+        "anchor_x": 112.841336,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      }
+    ],
+    "bailiff_elite_sweep_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1441,
+          428,
+          261,
+          155
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1042,
+          619,
+          224,
+          138
+        ],
+        "component_seeds": [
+          [
+            1089,
+            698
+          ]
+        ],
+        "scale": 1.241026,
+        "anchor_x": 111.429752,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1303,
+          604,
+          212,
+          153
+        ],
+        "component_seeds": [
+          [
+            1324,
+            699
+          ]
+        ],
+        "scale": 1.156322,
+        "anchor_x": 109.125249,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1704,
+          428,
+          244,
+          174
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          24,
+          860,
+          207,
+          153
+        ],
+        "component_seeds": [
+          [
+            170,
+            953
+          ]
+        ],
+        "scale": 1.308046,
+        "anchor_x": 104.231986,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          290,
+          816,
+          186,
+          197
+        ],
+        "component_seeds": [
+          [
+            332,
+            927
+          ]
+        ],
+        "scale": 1.08642,
+        "anchor_x": 99.727273,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1950,
+          428,
+          222,
+          221
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          544,
+          814,
+          190,
+          199
+        ],
+        "component_seeds": [
+          [
+            627,
+            925
+          ]
+        ],
+        "scale": 1.075044,
+        "anchor_x": 100.883117,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          791,
+          859,
+          208,
+          154
+        ],
+        "component_seeds": [
+          [
+            883,
+            955
+          ]
+        ],
+        "scale": 1.299087,
+        "anchor_x": 100.316344,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2174,
+          428,
+          236,
+          174
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1047,
+          859,
+          208,
+          154
+        ],
+        "component_seeds": [
+          [
+            1128,
+            956
+          ]
+        ],
+        "scale": 1.257991,
+        "anchor_x": 99.718693,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "region": [
+          1312,
+          836,
+          192,
+          177
+        ],
+        "component_seeds": [
+          [
+            1416,
+            942
+          ]
+        ],
+        "scale": 1.143984,
+        "anchor_x": 97.986207,
+        "grade": {
+          "saturation": 0.9758,
+          "rgb": [
+            0.972,
+            0.9743,
+            0.9542
+          ]
+        }
+      }
+    ],
+    "bailiff_elite_sweep_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2412,
+          428,
+          238,
+          170
+        ],
+        "anchor_x": 146.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2652,
+          428,
+          234,
+          181
+        ],
+        "anchor_x": 146.0,
+        "packed_runtime": true
+      }
+    ],
+    "bailiff_erase_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2888,
+          428,
+          222,
+          179
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          32,
+          92,
+          192,
+          155
+        ],
+        "component_seeds": [
+          [
+            162,
+            184
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 101.636364,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          288,
+          84,
+          191,
+          162
+        ],
+        "component_seeds": [
+          [
+            399,
+            170
+          ]
+        ],
+        "scale": 1.170996,
+        "anchor_x": 101.802218,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3112,
+          428,
+          226,
+          181
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          545,
+          82,
+          185,
+          164
+        ],
+        "component_seeds": [
+          [
+            656,
+            169
+          ]
+        ],
+        "scale": 1.232906,
+        "anchor_x": 98.329289,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          798,
+          56,
+          183,
+          190
+        ],
+        "component_seeds": [
+          [
+            863,
+            160
+          ]
+        ],
+        "scale": 1.119048,
+        "anchor_x": 101.489362,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3340,
+          428,
+          230,
+          215
+        ],
+        "anchor_x": 120.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1055,
+          53,
+          178,
+          193
+        ],
+        "component_seeds": [
+          [
+            1129,
+            160
+          ]
+        ],
+        "scale": 1.183784,
+        "anchor_x": 99.360731,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1324,
+          35,
+          166,
+          211
+        ],
+        "component_seeds": [
+          [
+            1391,
+            145
+          ]
+        ],
+        "scale": 1.098522,
+        "anchor_x": 90.475336,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3572,
+          428,
+          193,
+          227
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          47,
+          290,
+          165,
+          211
+        ],
+        "component_seeds": [
+          [
+            72,
+            400
+          ]
+        ],
+        "scale": 1.024631,
+        "anchor_x": 89.591346,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          279,
+          341,
+          210,
+          160
+        ],
+        "component_seeds": [
+          [
+            365,
+            430
+          ]
+        ],
+        "scale": 1.243421,
+        "anchor_x": 102.671958,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      }
+    ],
+    "bailiff_erase": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3767,
+          428,
+          247,
+          170
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          533,
+          344,
+          212,
+          157
+        ],
+        "component_seeds": [
+          [
+            591,
+            432
+          ]
+        ],
+        "scale": 1.136465,
+        "anchor_x": 106.251969,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          783,
+          358,
+          223,
+          143
+        ],
+        "component_seeds": [
+          [
+            822,
+            430
+          ]
+        ],
+        "scale": 1.249383,
+        "anchor_x": 110.140316,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          657,
+          271,
+          168
+        ],
+        "anchor_x": 134.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1039,
+          361,
+          224,
+          140
+        ],
+        "component_seeds": [
+          [
+            1111,
+            432
+          ]
+        ],
+        "scale": 1.237374,
+        "anchor_x": 111.277551,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1295,
+          379,
+          227,
+          122
+        ],
+        "component_seeds": [
+          [
+            1443,
+            443
+          ]
+        ],
+        "scale": 1.391813,
+        "anchor_x": 109.453782,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          273,
+          657,
+          288,
+          154
+        ],
+        "anchor_x": 137.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          15,
+          633,
+          227,
+          124
+        ],
+        "component_seeds": [
+          [
+            108,
+            697
+          ]
+        ],
+        "scale": 1.324713,
+        "anchor_x": 112.084599,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          272,
+          621,
+          220,
+          136
+        ],
+        "component_seeds": [
+          [
+            424,
+            692
+          ]
+        ],
+        "scale": 1.197917,
+        "anchor_x": 109.747826,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          563,
+          657,
+          271,
+          153
+        ],
+        "anchor_x": 130.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          529,
+          619,
+          217,
+          138
+        ],
+        "component_seeds": [
+          [
+            622,
+            691
+          ]
+        ],
+        "scale": 1.266667,
+        "anchor_x": 108.684211,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          792,
+          590,
+          202,
+          167
+        ],
+        "component_seeds": [
+          [
+            827,
+            675
+          ]
+        ],
+        "scale": 1.109015,
+        "anchor_x": 99.028355,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      }
+    ],
+    "bailiff_erase_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          836,
+          657,
+          249,
+          188
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1048,
+          591,
+          205,
+          166
+        ],
+        "component_seeds": [
+          [
+            1225,
+            674
+          ]
+        ],
+        "scale": 1.185654,
+        "anchor_x": 98.775801,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1308,
+          591,
+          195,
+          167
+        ],
+        "component_seeds": [
+          [
+            1404,
+            692
+          ]
+        ],
+        "scale": 1.174004,
+        "anchor_x": 100.196429,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1087,
+          657,
+          231,
+          186
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          28,
+          845,
+          199,
+          167
+        ],
+        "component_seeds": [
+          [
+            138,
+            946
+          ]
+        ],
+        "scale": 1.150943,
+        "anchor_x": 100.770492,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          286,
+          857,
+          195,
+          154
+        ],
+        "component_seeds": [
+          [
+            399,
+            948
+          ]
+        ],
+        "scale": 1.232877,
+        "anchor_x": 97.788889,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1320,
+          657,
+          238,
+          177
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          537,
+          858,
+          202,
+          155
+        ],
+        "component_seeds": [
+          [
+            584,
+            950
+          ]
+        ],
+        "scale": 1.219955,
+        "anchor_x": 104.208178,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          795,
+          857,
+          196,
+          156
+        ],
+        "component_seeds": [
+          [
+            836,
+            950
+          ]
+        ],
+        "scale": 1.227477,
+        "anchor_x": 101.392661,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1560,
+          657,
+          225,
+          184
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1052,
+          858,
+          193,
+          156
+        ],
+        "component_seeds": [
+          [
+            1127,
+            950
+          ]
+        ],
+        "scale": 1.286036,
+        "anchor_x": 99.478109,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "region": [
+          1312,
+          843,
+          191,
+          171
+        ],
+        "component_seeds": [
+          [
+            1377,
+            945
+          ]
+        ],
+        "scale": 1.206544,
+        "anchor_x": 95.813559,
+        "grade": {
+          "saturation": 1.0289,
+          "rgb": [
+            0.9549,
+            0.9691,
+            0.9487
+          ]
+        }
+      }
+    ],
+    "bailiff_erase_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1787,
+          657,
+          203,
+          215
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1992,
+          657,
+          220,
+          209
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/erasure_bailiff.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "bailiff_elite_sweep_windup",
+      "bailiff_elite_sweep",
+      "bailiff_elite_sweep_recover",
+      "bailiff_elite_sweep_charge",
+      "bailiff_erase_windup",
+      "bailiff_erase",
+      "bailiff_erase_recover",
+      "bailiff_erase_charge"
+    ],
+    "sheets": [
+      {
+        "image": "bailiff_cleave_loops.png",
+        "image_sha256": "cb4691c60067a6a4d278c1ad5902fec773310906b6452249e04f4e1fdf0fbd8f",
+        "role": "keep",
+        "attack": "bailiff_cleave",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3626,
+        "anchors": [
+          245.4,
+          274.4
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3635,
+            0.3616
+          ]
+        }
+      },
+      {
+        "image": "bailiff_elite_sweep.png",
+        "image_sha256": "14bbebe1098d84614f1eb2c8fead4355a5121ab16fbe5e9e791328b7a15790ad",
+        "role": "elite",
+        "attack": "bailiff_elite_sweep",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 1.0071,
+        "anchors": [
+          148.1,
+          134.1,
+          151.1,
+          122.1,
+          129.1,
+          166.1,
+          123.1,
+          126.1,
+          128.1,
+          123.1,
+          114.1,
+          113.1,
+          146.1,
+          146.1
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 1.0063,
+          "last_recover_ratio": 1.008
+        }
+      },
+      {
+        "image": "bailiff_erase.png",
+        "image_sha256": "c595f3d33f00280bd5b2211659532204de0234982d655353b1c1f6958db72381",
+        "role": "new",
+        "attack": "bailiff_erase",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.917,
+        "anchors": [
+          127.7,
+          131.7,
+          131.7,
+          111.7,
+          130.7,
+          146.7,
+          150.7,
+          142.7,
+          129.7,
+          125.7,
+          130.7,
+          123.7,
+          112.7,
+          125.7
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.9207,
+          "last_recover_ratio": 0.9134
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "erasure_bailiff__attack",
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__attack.png",
+        "sha256": "2b97f3b85abd7b240be765676e988bf4ea96543c1d0c7166147a8b97cb4fadc2",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/erasure_bailiff__attack.png"
+      },
+      {
+        "id": "erasure_bailiff__bailiff_elite_sweep",
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_elite_sweep.png",
+        "sha256": "9e9831fa041ef1c677272c8424602798fec25a15585c3201fe92e58f0be45009",
+        "new_drawings": 24,
+        "animations": [
+          "bailiff_elite_sweep_windup",
+          "bailiff_elite_sweep",
+          "bailiff_elite_sweep_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/erasure_bailiff__bailiff_elite_sweep.png"
+      },
+      {
+        "id": "erasure_bailiff__bailiff_erase",
+        "source": "art_requests/combat_motion_v7/incoming/erasure_bailiff__bailiff_erase.png",
+        "sha256": "872709c94aa75712f61ad03d6f422cd7fb54cb440e2a73d23cab25ddc44daf5b",
+        "new_drawings": 24,
+        "animations": [
+          "bailiff_erase_windup",
+          "bailiff_erase",
+          "bailiff_erase_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/erasure_bailiff__bailiff_erase.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

@@ -1,0 +1,2805 @@
+{
+  "kind": "rain_censer_mote",
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-74b3b05b-822b-4eb4-908e-c2f0b8978d7f.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character:  CRITICAL: each sprite is SMALL within its cell: total character width INCLUDING weapon maximum 50% of cell width. Large empty gutters keep swords and dead bodies separated. a hovering pointed beetle censer with a perforated copper abdomen, smoky blue membranes and hanging chain feelers",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/rain_censer_mote/atlas.png",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-74b3b05b-822b-4eb4-908e-c2f0b8978d7f.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          158,
+          171
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          160,
+          0,
+          160,
+          173
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          322,
+          0,
+          162,
+          176
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          486,
+          0,
+          166,
+          163
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          654,
+          0,
+          168,
+          178
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          824,
+          0,
+          171,
+          190
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          997,
+          0,
+          170,
+          163
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1169,
+          0,
+          172,
+          177
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1343,
+          0,
+          176,
+          190
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1521,
+          0,
+          179,
+          169
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1702,
+          0,
+          171,
+          195
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1875,
+          0,
+          169,
+          180
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2046,
+          0,
+          184,
+          182
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          49,
+          82,
+          159,
+          162
+        ],
+        "component_seeds": [
+          [
+            104,
+            167
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 70.487179,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          299,
+          84,
+          165,
+          161
+        ],
+        "component_seeds": [
+          [
+            397,
+            168
+          ]
+        ],
+        "scale": 1.189542,
+        "anchor_x": 71.554945,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2232,
+          0,
+          188,
+          182
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          554,
+          84,
+          162,
+          161
+        ],
+        "component_seeds": [
+          [
+            669,
+            167
+          ]
+        ],
+        "scale": 1.167756,
+        "anchor_x": 71.863806,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          813,
+          93,
+          161,
+          153
+        ],
+        "component_seeds": [
+          [
+            964,
+            169
+          ]
+        ],
+        "scale": 1.209195,
+        "anchor_x": 74.486692,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2422,
+          0,
+          176,
+          172
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1069,
+          96,
+          163,
+          150
+        ],
+        "component_seeds": [
+          [
+            1225,
+            171
+          ]
+        ],
+        "scale": 1.244131,
+        "anchor_x": 76.516981,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1326,
+          83,
+          164,
+          160
+        ],
+        "component_seeds": [
+          [
+            1348,
+            169
+          ]
+        ],
+        "scale": 1.192982,
+        "anchor_x": 78.926471,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2600,
+          0,
+          184,
+          186
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          41,
+          338,
+          169,
+          162
+        ],
+        "component_seeds": [
+          [
+            60,
+            425
+          ]
+        ],
+        "scale": 1.179654,
+        "anchor_x": 81.326606,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          269,
+          353,
+          225,
+          147
+        ],
+        "component_seeds": [
+          [
+            350,
+            427
+          ]
+        ],
+        "scale": 1.275779,
+        "anchor_x": 73.558271,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2786,
+          0,
+          280,
+          173
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          525,
+          353,
+          230,
+          148
+        ],
+        "component_seeds": [
+          [
+            625,
+            427
+          ]
+        ],
+        "scale": 1.211905,
+        "anchor_x": 69.748527,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          778,
+          360,
+          225,
+          140
+        ],
+        "component_seeds": [
+          [
+            848,
+            430
+          ]
+        ],
+        "scale": 1.260101,
+        "anchor_x": 70.683367,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3068,
+          0,
+          273,
+          163
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1034,
+          359,
+          225,
+          144
+        ],
+        "component_seeds": [
+          [
+            1110,
+            430
+          ]
+        ],
+        "scale": 1.230392,
+        "anchor_x": 72.517928,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1297,
+          345,
+          215,
+          155
+        ],
+        "component_seeds": [
+          [
+            1324,
+            421
+          ]
+        ],
+        "scale": 1.1678,
+        "anchor_x": 76.720388,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3343,
+          0,
+          242,
+          176
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          19,
+          601,
+          208,
+          154
+        ],
+        "component_seeds": [
+          [
+            123,
+            675
+          ]
+        ],
+        "scale": 1.212329,
+        "anchor_x": 80.525424,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          309,
+          594,
+          152,
+          161
+        ],
+        "component_seeds": [
+          [
+            366,
+            677
+          ]
+        ],
+        "scale": 1.163399,
+        "anchor_x": 72.421348,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3587,
+          0,
+          170,
+          179
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          564,
+          595,
+          152,
+          160
+        ],
+        "component_seeds": [
+          [
+            592,
+            677
+          ]
+        ],
+        "scale": 1.203947,
+        "anchor_x": 70.570128,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          810,
+          590,
+          165,
+          164
+        ],
+        "component_seeds": [
+          [
+            917,
+            678
+          ]
+        ],
+        "scale": 1.198718,
+        "anchor_x": 80.604278,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3759,
+          0,
+          172,
+          191
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1068,
+          588,
+          164,
+          166
+        ],
+        "component_seeds": [
+          [
+            1109,
+            678
+          ]
+        ],
+        "scale": 1.200422,
+        "anchor_x": 79.780316,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1323,
+          592,
+          165,
+          166
+        ],
+        "component_seeds": [
+          [
+            1337,
+            680
+          ]
+        ],
+        "scale": 1.191983,
+        "anchor_x": 79.847788,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          197,
+          177,
+          187
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          44,
+          845,
+          165,
+          165
+        ],
+        "component_seeds": [
+          [
+            196,
+            934
+          ]
+        ],
+        "scale": 1.165605,
+        "anchor_x": 79.852459,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          303,
+          854,
+          159,
+          156
+        ],
+        "component_seeds": [
+          [
+            437,
+            935
+          ]
+        ],
+        "scale": 1.209459,
+        "anchor_x": 74.039106,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          179,
+          197,
+          169,
+          175
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          558,
+          854,
+          161,
+          156
+        ],
+        "component_seeds": [
+          [
+            590,
+            936
+          ]
+        ],
+        "scale": 1.157658,
+        "anchor_x": 74.968872,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          814,
+          867,
+          154,
+          142
+        ],
+        "component_seeds": [
+          [
+            940,
+            938
+          ]
+        ],
+        "scale": 1.251244,
+        "anchor_x": 77.335984,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          350,
+          197,
+          165,
+          164
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1071,
+          868,
+          156,
+          141
+        ],
+        "component_seeds": [
+          [
+            1157,
+            938
+          ]
+        ],
+        "scale": 1.250627,
+        "anchor_x": 78.601202,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "region": [
+          1332,
+          861,
+          149,
+          148
+        ],
+        "component_seeds": [
+          [
+            1436,
+            938
+          ]
+        ],
+        "scale": 1.204762,
+        "anchor_x": 74.679842,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.8741,
+            0.9019
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          517,
+          197,
+          181,
+          186
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          700,
+          197,
+          181,
+          180
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          883,
+          197,
+          181,
+          191
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1066,
+          197,
+          175,
+          180
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1243,
+          197,
+          172,
+          159
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1417,
+          197,
+          190,
+          155
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1609,
+          197,
+          174,
+          162
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1785,
+          197,
+          201,
+          132
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      }
+    ],
+    "censer_cloud_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1988,
+          197,
+          190,
+          169
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          14,
+          101,
+          197,
+          172
+        ],
+        "component_seeds": [
+          [
+            187,
+            162
+          ],
+          [
+            35,
+            262
+          ],
+          [
+            18,
+            264
+          ],
+          [
+            22,
+            264
+          ],
+          [
+            41,
+            265
+          ],
+          [
+            65,
+            264
+          ],
+          [
+            61,
+            265
+          ],
+          [
+            90,
+            265
+          ],
+          [
+            55,
+            265
+          ]
+        ],
+        "scale": 1.063008,
+        "anchor_x": 115.076482,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          295,
+          83,
+          172,
+          160
+        ],
+        "component_seeds": [
+          [
+            334,
+            155
+          ]
+        ],
+        "scale": 1.182018,
+        "anchor_x": 87.948052,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2180,
+          197,
+          204,
+          185
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          518,
+          2,
+          204,
+          270
+        ],
+        "component_seeds": [
+          [
+            667,
+            154
+          ],
+          [
+            533,
+            9
+          ],
+          [
+            542,
+            7
+          ],
+          [
+            555,
+            10
+          ],
+          [
+            560,
+            10
+          ],
+          [
+            571,
+            10
+          ],
+          [
+            529,
+            264
+          ],
+          [
+            534,
+            265
+          ],
+          [
+            602,
+            265
+          ],
+          [
+            553,
+            265
+          ],
+          [
+            562,
+            266
+          ],
+          [
+            590,
+            266
+          ],
+          [
+            605,
+            266
+          ]
+        ],
+        "scale": 0.71883,
+        "anchor_x": 123.492035,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          818,
+          73,
+          155,
+          198
+        ],
+        "component_seeds": [
+          [
+            877,
+            151
+          ],
+          [
+            898,
+            265
+          ]
+        ],
+        "scale": 1.008772,
+        "anchor_x": 76.295652,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2386,
+          197,
+          187,
+          195
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1033,
+          4,
+          197,
+          268
+        ],
+        "component_seeds": [
+          [
+            1206,
+            151
+          ],
+          [
+            1050,
+            10
+          ],
+          [
+            1055,
+            10
+          ],
+          [
+            1069,
+            10
+          ],
+          [
+            1045,
+            264
+          ],
+          [
+            1056,
+            264
+          ],
+          [
+            1061,
+            265
+          ],
+          [
+            1076,
+            265
+          ],
+          [
+            1084,
+            265
+          ],
+          [
+            1038,
+            265
+          ],
+          [
+            1103,
+            265
+          ],
+          [
+            1105,
+            266
+          ],
+          [
+            1107,
+            266
+          ],
+          [
+            1111,
+            265
+          ]
+        ],
+        "scale": 0.75,
+        "anchor_x": 118.777778,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1349,
+          70,
+          117,
+          174
+        ],
+        "component_seeds": [
+          [
+            1412,
+            160
+          ]
+        ],
+        "scale": 1.174699,
+        "anchor_x": 58.97265,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2575,
+          197,
+          126,
+          195
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          9,
+          325,
+          178,
+          204
+        ],
+        "component_seeds": [
+          [
+            144,
+            415
+          ],
+          [
+            17,
+            519
+          ],
+          [
+            24,
+            520
+          ],
+          [
+            30,
+            519
+          ],
+          [
+            46,
+            521
+          ],
+          [
+            58,
+            521
+          ],
+          [
+            67,
+            518
+          ],
+          [
+            14,
+            522
+          ],
+          [
+            19,
+            522
+          ],
+          [
+            28,
+            522
+          ],
+          [
+            37,
+            522
+          ],
+          [
+            76,
+            522
+          ],
+          [
+            93,
+            522
+          ],
+          [
+            89,
+            523
+          ]
+        ],
+        "scale": 0.981293,
+        "anchor_x": 120.095321,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          303,
+          339,
+          162,
+          189
+        ],
+        "component_seeds": [
+          [
+            438,
+            414
+          ],
+          [
+            346,
+            521
+          ],
+          [
+            349,
+            520
+          ],
+          [
+            344,
+            521
+          ]
+        ],
+        "scale": 1.047882,
+        "anchor_x": 85.771529,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      }
+    ],
+    "censer_cloud": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2703,
+          197,
+          182,
+          187
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          518,
+          337,
+          201,
+          192
+        ],
+        "component_seeds": [
+          [
+            678,
+            414
+          ],
+          [
+            536,
+            520
+          ],
+          [
+            584,
+            521
+          ],
+          [
+            588,
+            522
+          ],
+          [
+            526,
+            521
+          ],
+          [
+            530,
+            521
+          ],
+          [
+            553,
+            522
+          ],
+          [
+            564,
+            522
+          ],
+          [
+            568,
+            521
+          ],
+          [
+            572,
+            522
+          ],
+          [
+            606,
+            522
+          ]
+        ],
+        "scale": 1.036232,
+        "anchor_x": 125.825175,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          816,
+          328,
+          158,
+          173
+        ],
+        "component_seeds": [
+          [
+            860,
+            412
+          ]
+        ],
+        "scale": 1.177778,
+        "anchor_x": 86.245283,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2887,
+          197,
+          181,
+          199
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1030,
+          329,
+          202,
+          200
+        ],
+        "component_seeds": [
+          [
+            1112,
+            412
+          ],
+          [
+            1092,
+            520
+          ],
+          [
+            1097,
+            519
+          ],
+          [
+            1035,
+            521
+          ],
+          [
+            1068,
+            522
+          ],
+          [
+            1074,
+            522
+          ],
+          [
+            1081,
+            522
+          ],
+          [
+            1109,
+            522
+          ],
+          [
+            1117,
+            522
+          ]
+        ],
+        "scale": 1.022569,
+        "anchor_x": 129.889643,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1335,
+          333,
+          147,
+          169
+        ],
+        "component_seeds": [
+          [
+            1394,
+            414
+          ]
+        ],
+        "scale": 1.20911,
+        "anchor_x": 78.135274,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3070,
+          197,
+          168,
+          194
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          13,
+          589,
+          187,
+          195
+        ],
+        "component_seeds": [
+          [
+            153,
+            669
+          ],
+          [
+            21,
+            777
+          ],
+          [
+            24,
+            777
+          ],
+          [
+            40,
+            776
+          ],
+          [
+            52,
+            777
+          ],
+          [
+            74,
+            777
+          ],
+          [
+            35,
+            777
+          ],
+          [
+            62,
+            777
+          ],
+          [
+            95,
+            777
+          ],
+          [
+            18,
+            777
+          ],
+          [
+            67,
+            777
+          ],
+          [
+            76,
+            778
+          ],
+          [
+            88,
+            777
+          ]
+        ],
+        "scale": 1.008913,
+        "anchor_x": 119.625442,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          296,
+          604,
+          165,
+          153
+        ],
+        "component_seeds": [
+          [
+            340,
+            674
+          ]
+        ],
+        "scale": 1.271264,
+        "anchor_x": 84.40868,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3240,
+          197,
+          182,
+          180
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          518,
+          604,
+          202,
+          181
+        ],
+        "component_seeds": [
+          [
+            639,
+            674
+          ],
+          [
+            523,
+            777
+          ],
+          [
+            543,
+            776
+          ],
+          [
+            545,
+            777
+          ],
+          [
+            575,
+            777
+          ],
+          [
+            584,
+            777
+          ],
+          [
+            606,
+            777
+          ],
+          [
+            611,
+            776
+          ],
+          [
+            555,
+            777
+          ],
+          [
+            603,
+            777
+          ],
+          [
+            550,
+            778
+          ]
+        ],
+        "scale": 1.040462,
+        "anchor_x": 121.164815,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          815,
+          604,
+          159,
+          154
+        ],
+        "component_seeds": [
+          [
+            945,
+            674
+          ]
+        ],
+        "scale": 1.232877,
+        "anchor_x": 77.785185,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      }
+    ],
+    "censer_cloud_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3424,
+          197,
+          178,
+          180
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1030,
+          602,
+          201,
+          183
+        ],
+        "component_seeds": [
+          [
+            1137,
+            674
+          ],
+          [
+            1056,
+            777
+          ],
+          [
+            1035,
+            777
+          ],
+          [
+            1097,
+            777
+          ],
+          [
+            1106,
+            776
+          ],
+          [
+            1121,
+            778
+          ],
+          [
+            1042,
+            777
+          ],
+          [
+            1052,
+            777
+          ],
+          [
+            1073,
+            777
+          ],
+          [
+            1045,
+            778
+          ],
+          [
+            1091,
+            777
+          ],
+          [
+            1110,
+            778
+          ],
+          [
+            1116,
+            778
+          ]
+        ],
+        "scale": 1.013333,
+        "anchor_x": 120.934211,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1313,
+          606,
+          185,
+          150
+        ],
+        "component_seeds": [
+          [
+            1394,
+            674
+          ]
+        ],
+        "scale": 1.230047,
+        "anchor_x": 91.064885,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3604,
+          197,
+          215,
+          172
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          32,
+          863,
+          194,
+          149
+        ],
+        "component_seeds": [
+          [
+            164,
+            930
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 92.818182,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          286,
+          865,
+          193,
+          147
+        ],
+        "component_seeds": [
+          [
+            398,
+            932
+          ]
+        ],
+        "scale": 1.242206,
+        "anchor_x": 90.488417,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3821,
+          197,
+          214,
+          173
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          545,
+          863,
+          190,
+          149
+        ],
+        "component_seeds": [
+          [
+            589,
+            931
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 88.272727,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          803,
+          862,
+          173,
+          150
+        ],
+        "component_seeds": [
+          [
+            952,
+            929
+          ]
+        ],
+        "scale": 1.20892,
+        "anchor_x": 89.308738,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          398,
+          194,
+          171
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1061,
+          865,
+          172,
+          147
+        ],
+        "component_seeds": [
+          [
+            1213,
+            930
+          ]
+        ],
+        "scale": 1.230216,
+        "anchor_x": 86.812865,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "region": [
+          1325,
+          862,
+          157,
+          150
+        ],
+        "component_seeds": [
+          [
+            1422,
+            939
+          ]
+        ],
+        "scale": 1.204225,
+        "anchor_x": 82.339181,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.855
+          ]
+        }
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          196,
+          398,
+          256,
+          198
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          454,
+          398,
+          273,
+          183
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      35,
+      38,
+      158,
+      171
+    ],
+    [
+      252,
+      36,
+      160,
+      173
+    ],
+    [
+      467,
+      31,
+      163,
+      176
+    ],
+    [
+      684,
+      44,
+      166,
+      163
+    ],
+    [
+      32,
+      245,
+      168,
+      178
+    ],
+    [
+      251,
+      229,
+      171,
+      190
+    ],
+    [
+      464,
+      260,
+      170,
+      163
+    ],
+    [
+      686,
+      243,
+      172,
+      177
+    ],
+    [
+      27,
+      460,
+      176,
+      190
+    ],
+    [
+      247,
+      472,
+      179,
+      170
+    ],
+    [
+      466,
+      453,
+      171,
+      195
+    ],
+    [
+      686,
+      464,
+      169,
+      180
+    ],
+    [
+      27,
+      684,
+      184,
+      182
+    ],
+    [
+      255,
+      683,
+      189,
+      182
+    ],
+    [
+      473,
+      691,
+      176,
+      172
+    ],
+    [
+      686,
+      682,
+      184,
+      186
+    ],
+    [
+      24,
+      909,
+      280,
+      173
+    ],
+    [
+      256,
+      909,
+      273,
+      164
+    ],
+    [
+      467,
+      906,
+      242,
+      176
+    ],
+    [
+      692,
+      913,
+      170,
+      179
+    ],
+    [
+      31,
+      1114,
+      172,
+      191
+    ],
+    [
+      248,
+      1125,
+      177,
+      187
+    ],
+    [
+      476,
+      1139,
+      170,
+      175
+    ],
+    [
+      691,
+      1149,
+      166,
+      164
+    ],
+    [
+      25,
+      1349,
+      181,
+      188
+    ],
+    [
+      244,
+      1348,
+      181,
+      180
+    ],
+    [
+      464,
+      1346,
+      181,
+      191
+    ],
+    [
+      680,
+      1357,
+      176,
+      181
+    ],
+    [
+      35,
+      1577,
+      173,
+      159
+    ],
+    [
+      254,
+      1587,
+      190,
+      155
+    ],
+    [
+      468,
+      1581,
+      174,
+      163
+    ],
+    [
+      666,
+      1596,
+      201,
+      132
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 32,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.5372168284789643,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "4 columns and 8 rows; actual reviewed count recorded per animation",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            35,
+            38,
+            158,
+            171
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            252,
+            36,
+            160,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            467,
+            31,
+            163,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            684,
+            44,
+            166,
+            163
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            32,
+            245,
+            168,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            251,
+            229,
+            171,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            464,
+            260,
+            170,
+            163
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            686,
+            243,
+            172,
+            177
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            27,
+            460,
+            176,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            247,
+            472,
+            179,
+            170
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            466,
+            453,
+            171,
+            195
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            686,
+            464,
+            169,
+            180
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            27,
+            684,
+            184,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            255,
+            683,
+            189,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            473,
+            691,
+            176,
+            172
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            686,
+            682,
+            184,
+            186
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            24,
+            909,
+            280,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            256,
+            909,
+            273,
+            164
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            467,
+            906,
+            242,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            692,
+            913,
+            170,
+            179
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            31,
+            1114,
+            172,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            248,
+            1125,
+            177,
+            187
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            476,
+            1139,
+            170,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            691,
+            1149,
+            166,
+            164
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            1349,
+            181,
+            188
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            244,
+            1348,
+            181,
+            180
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            464,
+            1346,
+            181,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            680,
+            1357,
+            176,
+            181
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            35,
+            1577,
+            173,
+            159
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            254,
+            1587,
+            190,
+            155
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            468,
+            1581,
+            174,
+            163
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            666,
+            1596,
+            201,
+            132
+          ]
+        }
+      ]
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/rain_censer_mote.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "censer_cloud_windup",
+      "censer_cloud",
+      "censer_cloud_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "censer_cloud.png",
+        "image_sha256": "73bf14055cafc123a44249657765187bed5aff835c6c2694ca83eb585659ca5e",
+        "role": "new",
+        "attack": "censer_cloud",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6911,
+        "anchors": [
+          138.9,
+          146.9,
+          132.9,
+          91.9,
+          139.9,
+          143.9,
+          128.9,
+          131.9,
+          120.9,
+          146.9,
+          141.9,
+          138.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7,
+          "last_recover_ratio": 0.6824
+        }
+      },
+      {
+        "image": "censer_rain_loops.png",
+        "image_sha256": "6a0bc9dc772ef76d60992d8e23566bd74dea5f257a8bd802720947e1dd3cfe8d",
+        "role": "keep",
+        "attack": "censer_rain",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3889,
+        "anchors": [
+          234.6,
+          256.6
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.388,
+            0.3898
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "rain_censer_mote__attack",
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__attack.png",
+        "sha256": "21065cb3f796696d74ac2c292da4e554aab252fcc18cbca6ae6ab29f32774533",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rain_censer_mote__attack.png"
+      },
+      {
+        "id": "rain_censer_mote__censer_cloud",
+        "source": "art_requests/combat_motion_v7/incoming/rain_censer_mote__censer_cloud.png",
+        "sha256": "955c08f0acd6c603e888799f99d0d1b1de81b53280ba0d12d3644512d0f36cf2",
+        "new_drawings": 24,
+        "animations": [
+          "censer_cloud_windup",
+          "censer_cloud",
+          "censer_cloud_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rain_censer_mote__censer_cloud.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

@@ -1,0 +1,5778 @@
+{
+  "kind": "rust_crown_guardian",
+  "generator": "built-in image_gen",
+  "sources": [
+    {
+      "sheet": "motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Moss Bell Matriarch from references, ivory mantis mask, branched antennae hung bronze bells, moss and tiny white flowers over root robes, large engraved bronze bell torso and TWO long pale root-scythe forearms. Produce exactly 6 columns x 6 rows = 36 sprites, square canvas. Read LEFT TO RIGHT then TOP TO BOTTOM, index 0-35. Slots: 0-3 idle breathing loop with scythe and bell motion; 4-11 eight walking contact/down/passing/up alternating legs, robe drag; 12-15 four deliberate gathering/swing windup, scythes lifted; 16-21 six forward scythe slash progressing shoulder elbow wrist through impact and overshoot; 22-27 six controlled recovery and retraction back to guard; 28-31 four hurt recoil/compression/settle; 32-35 four death stumble, kneel, fall, fully collapsed on right side. Maintain SAME scale throughout; death intentionally low but full body. High-detail production-ready illustration.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-c432fda4-1a6d-4e44-9813-be1b6912d37b.png",
+      "sha256": "78438e2fa68a6fc245a070b0cef88b59a6bc59957eb84f8d8b5dcfd45dca3bc7"
+    },
+    {
+      "sheet": "special_motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Moss Bell Matriarch as reference. Ivory mantis mask, bell-hung branch antennae, great bronze bell torso, flowering moss root robe, two ivory root-scythe forearms. Exactly 4 COLUMNS and 6 ROWS = 24 separate sprites, tall canvas, WIDE TRANSPARENT GUTTERS at least 8% of each cell all around each whole sprite, body smaller to fit both scythes. Six animation sequences, each ROW is one sequence of four in-between poses: row1 HEAVY WINDUP arms gradually lift scythes overhead and knees coil; row2 HEAVY 4 overhead slam progression down through ground contact then rising return, both blades complete; row3 CAST WINDUP left scythe curves inwards and torso inclines, bells shake; row4 CAST fully opens scythe arms, bell torso tilts and ringing pose settles, no separate effects; row5 PHASE WINDUP crouches, moss robe gathers, head inclines then coiled rising; row6 PHASE opens robe root silhouette into imposing full-body stance, scythes extend then settle. All living forms facing RIGHT. Real anatomical articulation across each four-frame sequence, never exact copied poses. No scene, no floor, no shadow, no words or labels. Real fully transparent background.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-cb184d20-c33f-4c90-9cb3-6fb11cbdf935.png",
+      "sha256": "d6d3ee1acbc7da180460c3d5c9ed98b922713c068ed29d615a96f56a9e78010c"
+    },
+    {
+      "sheet": "motion_repair.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character Moss Bell Matriarch exactly reference: ivory mantis mask, branching antennae with hanging tiny bronze bells, engraved bronze bell torso, flowering moss root cloak, paired ivory scythe forearms. SPARSE FOUR columns by FOUR rows =16 complete sprites, square canvas. Each full sprite maximum 55% cell width and height so great transparent gaps remain, no physical touch between cells. Same scale throughout. ROW1 four heavy attack key poses: twin scythes overhead, downward arc, low ground impact crouch, rising followthrough. ROW2 four cast key poses: fold arms toward bell chest, open first arm, open both scythes wide while bell torso leans, settle. ROW3 four phase attack key poses: low root cloak crouch, scythe forward lunge, wide paired slash fully extended, torso recoils. ROW4 four sequential death poses: standing stagger head droops, kneeling body compressed, falling onto right side, fully collapsed root robe with both scythes visible. All right facing complete side view hand drawn sprites on true alpha. No separate effects, background, shadows, text or floor.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-ab24ef90-bbb0-4d9c-8744-aaf9b325d0f0.png",
+      "sha256": "47f87ecd379e751f902b89f55b92deaf217d369b7cb1c90586b456f832266bc7"
+    }
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          210,
+          214
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          212,
+          0,
+          195,
+          204
+        ],
+        "anchor_x": 82.394366,
+        "packed_runtime": true,
+        "scale": 1.044118,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          409,
+          0,
+          200,
+          212
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          611,
+          0,
+          209,
+          200
+        ],
+        "anchor_x": 84.560748,
+        "packed_runtime": true,
+        "scale": 1.07,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          822,
+          0,
+          209,
+          216
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1033,
+          0,
+          227,
+          195
+        ],
+        "anchor_x": 90.376443,
+        "packed_runtime": true,
+        "scale": 1.110256,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1262,
+          0,
+          205,
+          217
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1469,
+          0,
+          224,
+          193
+        ],
+        "anchor_x": 95.206497,
+        "packed_runtime": true,
+        "scale": 1.11658,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1695,
+          0,
+          214,
+          214
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1911,
+          0,
+          234,
+          189
+        ],
+        "anchor_x": 95.195804,
+        "packed_runtime": true,
+        "scale": 1.134921,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2147,
+          0,
+          206,
+          215
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2355,
+          0,
+          238,
+          178
+        ],
+        "anchor_x": 93.503632,
+        "packed_runtime": true,
+        "scale": 1.160112,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2595,
+          0,
+          224,
+          198
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2821,
+          0,
+          210,
+          189
+        ],
+        "anchor_x": 71.210526,
+        "packed_runtime": true,
+        "scale": 1.055556,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3033,
+          0,
+          210,
+          201
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3245,
+          0,
+          224,
+          190
+        ],
+        "anchor_x": 74.532663,
+        "packed_runtime": true,
+        "scale": 1.047368,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 8,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3471,
+          0,
+          228,
+          197
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3701,
+          0,
+          224,
+          188
+        ],
+        "anchor_x": 70.952854,
+        "packed_runtime": true,
+        "scale": 1.071809,
+        "_v7_loop_alignment": {
+          "from": 8,
+          "to": 10,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          219,
+          227,
+          206
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          229,
+          219,
+          224,
+          182
+        ],
+        "anchor_x": 79.395122,
+        "packed_runtime": true,
+        "scale": 1.126374,
+        "_v7_loop_alignment": {
+          "from": 10,
+          "to": 12,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          455,
+          219,
+          227,
+          204
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          684,
+          219,
+          226,
+          183
+        ],
+        "anchor_x": 82.438119,
+        "packed_runtime": true,
+        "scale": 1.103825,
+        "_v7_loop_alignment": {
+          "from": 12,
+          "to": 14,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          912,
+          219,
+          235,
+          200
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1149,
+          219,
+          216,
+          188
+        ],
+        "anchor_x": 85.222222,
+        "packed_runtime": true,
+        "scale": 1.101064,
+        "_v7_loop_alignment": {
+          "from": 14,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1367,
+          219,
+          235,
+          200
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          29,
+          73,
+          193,
+          173
+        ],
+        "component_seeds": [
+          [
+            170,
+            180
+          ]
+        ],
+        "scale": 1.214141,
+        "anchor_x": 71.211314,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          285,
+          69,
+          188,
+          177
+        ],
+        "component_seeds": [
+          [
+            405,
+            173
+          ]
+        ],
+        "scale": 1.187377,
+        "anchor_x": 56.031561,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1840,
+          219,
+          235,
+          201
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          539,
+          69,
+          196,
+          177
+        ],
+        "component_seeds": [
+          [
+            595,
+            173
+          ]
+        ],
+        "scale": 1.191321,
+        "anchor_x": 59.263245,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          799,
+          63,
+          188,
+          183
+        ],
+        "component_seeds": [
+          [
+            919,
+            171
+          ]
+        ],
+        "scale": 1.152381,
+        "anchor_x": 58.553719,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2331,
+          219,
+          227,
+          202
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1054,
+          66,
+          194,
+          180
+        ],
+        "component_seeds": [
+          [
+            1107,
+            171
+          ]
+        ],
+        "scale": 1.178295,
+        "anchor_x": 58.940789,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1316,
+          65,
+          182,
+          181
+        ],
+        "component_seeds": [
+          [
+            1458,
+            175
+          ]
+        ],
+        "scale": 1.175337,
+        "anchor_x": 64.981967,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2788,
+          219,
+          204,
+          204
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          34,
+          324,
+          188,
+          179
+        ],
+        "component_seeds": [
+          [
+            131,
+            432
+          ]
+        ],
+        "scale": 1.087719,
+        "anchor_x": 65.532258,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          284,
+          363,
+          203,
+          137
+        ],
+        "component_seeds": [
+          [
+            338,
+            448
+          ]
+        ],
+        "scale": 1.302326,
+        "anchor_x": 84.565476,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2994,
+          219,
+          228,
+          150
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          541,
+          364,
+          202,
+          137
+        ],
+        "component_seeds": [
+          [
+            735,
+            447
+          ]
+        ],
+        "scale": 1.191214,
+        "anchor_x": 79.182213,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          779,
+          366,
+          241,
+          136
+        ],
+        "component_seeds": [
+          [
+            918,
+            439
+          ]
+        ],
+        "scale": 1.229167,
+        "anchor_x": 64.677966,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3504,
+          219,
+          282,
+          161
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1035,
+          368,
+          236,
+          134
+        ],
+        "component_seeds": [
+          [
+            1171,
+            442
+          ]
+        ],
+        "scale": 1.304233,
+        "anchor_x": 62.640974,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1301,
+          343,
+          217,
+          159
+        ],
+        "component_seeds": [
+          [
+            1357,
+            435
+          ]
+        ],
+        "scale": 1.110375,
+        "anchor_x": 70.170974,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          427,
+          244,
+          171
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          25,
+          598,
+          215,
+          159
+        ],
+        "component_seeds": [
+          [
+            231,
+            689
+          ]
+        ],
+        "scale": 1.152318,
+        "anchor_x": 71.105364,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          302,
+          595,
+          170,
+          162
+        ],
+        "component_seeds": [
+          [
+            456,
+            694
+          ]
+        ],
+        "scale": 1.149351,
+        "anchor_x": 62.037665,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          467,
+          427,
+          188,
+          180
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          556,
+          595,
+          172,
+          162
+        ],
+        "component_seeds": [
+          [
+            694,
+            695
+          ]
+        ],
+        "scale": 1.207792,
+        "anchor_x": 69.193548,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          807,
+          583,
+          175,
+          175
+        ],
+        "component_seeds": [
+          [
+            922,
+            692
+          ]
+        ],
+        "scale": 1.149701,
+        "anchor_x": 71.296875,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          427,
+          200,
+          198
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1062,
+          584,
+          176,
+          174
+        ],
+        "component_seeds": [
+          [
+            1198,
+            692
+          ]
+        ],
+        "scale": 1.190763,
+        "anchor_x": 74.286678,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1319,
+          581,
+          182,
+          177
+        ],
+        "component_seeds": [
+          [
+            1431,
+            696
+          ]
+        ],
+        "scale": 1.167653,
+        "anchor_x": 75.168919,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1525,
+          427,
+          208,
+          197
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          37,
+          839,
+          186,
+          174
+        ],
+        "component_seeds": [
+          [
+            191,
+            953
+          ]
+        ],
+        "scale": 1.184739,
+        "anchor_x": 75.518644,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          292,
+          841,
+          185,
+          173
+        ],
+        "component_seeds": [
+          [
+            355,
+            949
+          ]
+        ],
+        "scale": 1.189899,
+        "anchor_x": 70.103565,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1948,
+          427,
+          214,
+          196
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          551,
+          841,
+          178,
+          173
+        ],
+        "component_seeds": [
+          [
+            654,
+            949
+          ]
+        ],
+        "scale": 1.193939,
+        "anchor_x": 68.659898,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          802,
+          841,
+          185,
+          172
+        ],
+        "component_seeds": [
+          [
+            982,
+            948
+          ]
+        ],
+        "scale": 1.207317,
+        "anchor_x": 71.040404,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3028,
+          427,
+          217,
+          199
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1058,
+          840,
+          185,
+          173
+        ],
+        "component_seeds": [
+          [
+            1201,
+            947
+          ]
+        ],
+        "scale": 1.236364,
+        "anchor_x": 74.72549,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "region": [
+          1320,
+          830,
+          178,
+          183
+        ],
+        "component_seeds": [
+          [
+            1393,
+            945
+          ]
+        ],
+        "scale": 1.194286,
+        "anchor_x": 73.577352,
+        "grade": {
+          "saturation": 1.0073,
+          "rgb": [
+            0.8885,
+            0.9104,
+            0.887
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3247,
+          427,
+          199,
+          171
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3448,
+          427,
+          175,
+          163
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3625,
+          427,
+          202,
+          185
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3829,
+          427,
+          207,
+          146
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          630,
+          233,
+          97
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          235,
+          630,
+          222,
+          77
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          459,
+          630,
+          231,
+          213
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          25,
+          57,
+          203,
+          189
+        ],
+        "component_seeds": [
+          [
+            78,
+            173
+          ]
+        ],
+        "scale": 1.239411,
+        "anchor_x": 71.347697,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          279,
+          26,
+          212,
+          219
+        ],
+        "component_seeds": [
+          [
+            418,
+            155
+          ]
+        ],
+        "scale": 1.116904,
+        "anchor_x": 69.830269,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          958,
+          630,
+          247,
+          247
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          533,
+          25,
+          214,
+          220
+        ],
+        "component_seeds": [
+          [
+            601,
+            156
+          ]
+        ],
+        "scale": 1.172956,
+        "anchor_x": 67.825737,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          785,
+          25,
+          224,
+          220
+        ],
+        "component_seeds": [
+          [
+            961,
+            165
+          ]
+        ],
+        "scale": 1.180818,
+        "anchor_x": 74.316911,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1454,
+          630,
+          255,
+          252
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1041,
+          24,
+          221,
+          221
+        ],
+        "component_seeds": [
+          [
+            1171,
+            165
+          ]
+        ],
+        "scale": 1.200313,
+        "anchor_x": 75.512386,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1309,
+          21,
+          199,
+          224
+        ],
+        "component_seeds": [
+          [
+            1426,
+            151
+          ]
+        ],
+        "scale": 1.200617,
+        "anchor_x": 63.688946,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1969,
+          630,
+          234,
+          263
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          28,
+          277,
+          200,
+          224
+        ],
+        "component_seeds": [
+          [
+            81,
+            406
+          ]
+        ],
+        "scale": 1.192901,
+        "anchor_x": 65.085382,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          291,
+          280,
+          177,
+          222
+        ],
+        "component_seeds": [
+          [
+            370,
+            413
+          ]
+        ],
+        "scale": 1.179128,
+        "anchor_x": 60.051519,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      }
+    ],
+    "heavy": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2205,
+          630,
+          212,
+          247
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          544,
+          282,
+          179,
+          220
+        ],
+        "component_seeds": [
+          [
+            609,
+            416
+          ]
+        ],
+        "scale": 1.091195,
+        "anchor_x": 78.81268,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          789,
+          321,
+          214,
+          181
+        ],
+        "component_seeds": [
+          [
+            855,
+            438
+          ]
+        ],
+        "scale": 1.246628,
+        "anchor_x": 125.326121,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2643,
+          630,
+          235,
+          200
+        ],
+        "anchor_x": 164.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1045,
+          325,
+          215,
+          178
+        ],
+        "component_seeds": [
+          [
+            1147,
+            439
+          ]
+        ],
+        "scale": 1.037255,
+        "anchor_x": 160.136106,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1301,
+          381,
+          214,
+          122
+        ],
+        "component_seeds": [
+          [
+            1484,
+            456
+          ]
+        ],
+        "scale": 1.339181,
+        "anchor_x": 156.606987,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3121,
+          630,
+          235,
+          129
+        ],
+        "anchor_x": 189.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          19,
+          631,
+          216,
+          128
+        ],
+        "component_seeds": [
+          [
+            63,
+            711
+          ]
+        ],
+        "scale": 1.311111,
+        "anchor_x": 140.79661,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          289,
+          562,
+          186,
+          195
+        ],
+        "component_seeds": [
+          [
+            466,
+            676
+          ]
+        ],
+        "scale": 0.99287,
+        "anchor_x": 89.614004,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3548,
+          630,
+          202,
+          214
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          547,
+          562,
+          188,
+          195
+        ],
+        "component_seeds": [
+          [
+            593,
+            676
+          ]
+        ],
+        "scale": 1.115865,
+        "anchor_x": 63.335463,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          806,
+          580,
+          186,
+          177
+        ],
+        "component_seeds": [
+          [
+            901,
+            690
+          ]
+        ],
+        "scale": 1.203156,
+        "anchor_x": 74.84918,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      }
+    ],
+    "cast_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3752,
+          630,
+          236,
+          239
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          20,
+          35,
+          209,
+          211
+        ],
+        "component_seeds": [
+          [
+            175,
+            166
+          ]
+        ],
+        "scale": 1.129721,
+        "anchor_x": 70.21657,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          275,
+          56,
+          214,
+          190
+        ],
+        "component_seeds": [
+          [
+            333,
+            179
+          ]
+        ],
+        "scale": 1.20696,
+        "anchor_x": 82.849772,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          238,
+          895,
+          241,
+          210
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          532,
+          55,
+          212,
+          191
+        ],
+        "component_seeds": [
+          [
+            686,
+            177
+          ]
+        ],
+        "scale": 1.1949,
+        "anchor_x": 80.597561,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          786,
+          35,
+          213,
+          210
+        ],
+        "component_seeds": [
+          [
+            904,
+            162
+          ]
+        ],
+        "scale": 1.125413,
+        "anchor_x": 75.27566,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          732,
+          895,
+          247,
+          236
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1045,
+          34,
+          210,
+          212
+        ],
+        "component_seeds": [
+          [
+            1181,
+            161
+          ]
+        ],
+        "scale": 1.153595,
+        "anchor_x": 71.634561,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1306,
+          37,
+          203,
+          210
+        ],
+        "component_seeds": [
+          [
+            1482,
+            169
+          ]
+        ],
+        "scale": 1.161716,
+        "anchor_x": 73.943182,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1201,
+          895,
+          228,
+          234
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          27,
+          297,
+          201,
+          205
+        ],
+        "component_seeds": [
+          [
+            221,
+            425
+          ]
+        ],
+        "scale": 1.152284,
+        "anchor_x": 77.343612,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          309,
+          310,
+          150,
+          192
+        ],
+        "component_seeds": [
+          [
+            419,
+            430
+          ]
+        ],
+        "scale": 1.195652,
+        "anchor_x": 58.381818,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "cast": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1431,
+          895,
+          166,
+          213
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          562,
+          309,
+          152,
+          192
+        ],
+        "component_seeds": [
+          [
+            678,
+            429
+          ]
+        ],
+        "scale": 1.152174,
+        "anchor_x": 63.490566,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          793,
+          312,
+          207,
+          190
+        ],
+        "component_seeds": [
+          [
+            932,
+            422
+          ]
+        ],
+        "scale": 1.159341,
+        "anchor_x": 70.222749,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1831,
+          895,
+          229,
+          210
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1050,
+          311,
+          208,
+          191
+        ],
+        "component_seeds": [
+          [
+            1141,
+            422
+          ]
+        ],
+        "scale": 1.140255,
+        "anchor_x": 65.704473,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1301,
+          313,
+          217,
+          189
+        ],
+        "component_seeds": [
+          [
+            1352,
+            420
+          ]
+        ],
+        "scale": 1.145488,
+        "anchor_x": 66.424437,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2284,
+          895,
+          247,
+          206
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          21,
+          572,
+          215,
+          186
+        ],
+        "component_seeds": [
+          [
+            140,
+            677
+          ]
+        ],
+        "scale": 1.157303,
+        "anchor_x": 67.268608,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          296,
+          571,
+          172,
+          187
+        ],
+        "component_seeds": [
+          [
+            400,
+            688
+          ]
+        ],
+        "scale": 1.150838,
+        "anchor_x": 65.953074,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2744,
+          895,
+          192,
+          206
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          557,
+          573,
+          170,
+          185
+        ],
+        "component_seeds": [
+          [
+            616,
+            688
+          ]
+        ],
+        "scale": 1.148776,
+        "anchor_x": 68.822951,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          801,
+          581,
+          182,
+          177
+        ],
+        "component_seeds": [
+          [
+            902,
+            694
+          ]
+        ],
+        "scale": 1.187377,
+        "anchor_x": 79.769103,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2938,
+          895,
+          239,
+          176
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          22,
+          99,
+          210,
+          145
+        ],
+        "component_seeds": [
+          [
+            159,
+            191
+          ]
+        ],
+        "scale": 1.326034,
+        "anchor_x": 94.605505,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          279,
+          78,
+          209,
+          166
+        ],
+        "component_seeds": [
+          [
+            382,
+            187
+          ]
+        ],
+        "scale": 1.185654,
+        "anchor_x": 90.793594,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3422,
+          895,
+          245,
+          193
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          535,
+          77,
+          212,
+          167
+        ],
+        "component_seeds": [
+          [
+            720,
+            185
+          ]
+        ],
+        "scale": 1.209644,
+        "anchor_x": 92.310225,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          790,
+          75,
+          207,
+          170
+        ],
+        "component_seeds": [
+          [
+            880,
+            180
+          ]
+        ],
+        "scale": 1.183128,
+        "anchor_x": 88.163478,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          1133,
+          237,
+          191
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1044,
+          72,
+          211,
+          173
+        ],
+        "component_seeds": [
+          [
+            1248,
+            178
+          ]
+        ],
+        "scale": 1.236364,
+        "anchor_x": 86.872549,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1295,
+          46,
+          228,
+          199
+        ],
+        "component_seeds": [
+          [
+            1415,
+            161
+          ]
+        ],
+        "scale": 1.136126,
+        "anchor_x": 84.93702,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          489,
+          1133,
+          254,
+          230
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          16,
+          300,
+          228,
+          202
+        ],
+        "component_seeds": [
+          [
+            127,
+            417
+          ]
+        ],
+        "scale": 0.989691,
+        "anchor_x": 75.763889,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          270,
+          415,
+          232,
+          87
+        ],
+        "component_seeds": [
+          [
+            313,
+            465
+          ]
+        ],
+        "scale": 1.949367,
+        "anchor_x": 77.692641,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      }
+    ],
+    "phase": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          745,
+          1133,
+          326,
+          116
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          526,
+          415,
+          230,
+          87
+        ],
+        "component_seeds": [
+          [
+            568,
+            465
+          ]
+        ],
+        "scale": 1.679325,
+        "anchor_x": 76.798995,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          785,
+          351,
+          224,
+          151
+        ],
+        "component_seeds": [
+          [
+            834,
+            451
+          ]
+        ],
+        "scale": 1.044289,
+        "anchor_x": 36.866071,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1367,
+          1133,
+          268,
+          166
+        ],
+        "anchor_x": 53.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1042,
+          352,
+          222,
+          150
+        ],
+        "component_seeds": [
+          [
+            1154,
+            451
+          ]
+        ],
+        "scale": 1.230047,
+        "anchor_x": 41.958015,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1312,
+          326,
+          189,
+          176
+        ],
+        "component_seeds": [
+          [
+            1439,
+            428
+          ]
+        ],
+        "scale": 1.09127,
+        "anchor_x": 54.069091,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1816,
+          1133,
+          217,
+          192
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          32,
+          582,
+          192,
+          176
+        ],
+        "component_seeds": [
+          [
+            67,
+            683
+          ]
+        ],
+        "scale": 1.059524,
+        "anchor_x": 51.842697,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          271,
+          635,
+          223,
+          124
+        ],
+        "component_seeds": [
+          [
+            313,
+            712
+          ]
+        ],
+        "scale": 1.413793,
+        "anchor_x": 81.642276,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2261,
+          1133,
+          282,
+          150
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          528,
+          636,
+          218,
+          122
+        ],
+        "component_seeds": [
+          [
+            664,
+            712
+          ]
+        ],
+        "scale": 1.45614,
+        "anchor_x": 84.987952,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          802,
+          584,
+          185,
+          174
+        ],
+        "component_seeds": [
+          [
+            870,
+            694
+          ]
+        ],
+        "scale": 1.096386,
+        "anchor_x": 72.380952,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      }
+    ],
+    "heavy_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2545,
+          1133,
+          203,
+          201
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2750,
+          1133,
+          218,
+          193
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2970,
+          1133,
+          182,
+          200
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3154,
+          1133,
+          182,
+          198
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3338,
+          1133,
+          212,
+          192
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3552,
+          1133,
+          224,
+          184
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3778,
+          1133,
+          186,
+          195
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          1365,
+          223,
+          180
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      }
+    ],
+    "phase_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          225,
+          1365,
+          241,
+          173
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          468,
+          1365,
+          195,
+          193
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          665,
+          1365,
+          189,
+          193
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          856,
+          1365,
+          221,
+          172
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          427,
+          200,
+          198
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1061,
+          582,
+          179,
+          177
+        ],
+        "component_seeds": [
+          [
+            1120,
+            695
+          ]
+        ],
+        "scale": 1.169625,
+        "anchor_x": 74.785835,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1315,
+          582,
+          188,
+          177
+        ],
+        "component_seeds": [
+          [
+            1379,
+            699
+          ]
+        ],
+        "scale": 1.167653,
+        "anchor_x": 78.168919,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1525,
+          427,
+          208,
+          197
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          37,
+          841,
+          182,
+          173
+        ],
+        "component_seeds": [
+          [
+            184,
+            954
+          ]
+        ],
+        "scale": 1.191919,
+        "anchor_x": 71.720339,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          290,
+          840,
+          187,
+          174
+        ],
+        "component_seeds": [
+          [
+            444,
+            950
+          ]
+        ],
+        "scale": 1.182731,
+        "anchor_x": 69.898132,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1948,
+          427,
+          214,
+          196
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          544,
+          840,
+          191,
+          174
+        ],
+        "component_seeds": [
+          [
+            603,
+            949
+          ]
+        ],
+        "scale": 1.186747,
+        "anchor_x": 71.451777,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          794,
+          836,
+          191,
+          178
+        ],
+        "component_seeds": [
+          [
+            911,
+            950
+          ]
+        ],
+        "scale": 1.164706,
+        "anchor_x": 73.79798,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3028,
+          427,
+          217,
+          199
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1052,
+          837,
+          192,
+          177
+        ],
+        "component_seeds": [
+          [
+            1103,
+            950
+          ]
+        ],
+        "scale": 1.207101,
+        "anchor_x": 76.96732,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "region": [
+          1310,
+          825,
+          191,
+          188
+        ],
+        "component_seeds": [
+          [
+            1397,
+            946
+          ]
+        ],
+        "scale": 1.161111,
+        "anchor_x": 80.708134,
+        "grade": {
+          "saturation": 1.0229,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          427,
+          200,
+          198
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1061,
+          581,
+          186,
+          176
+        ],
+        "component_seeds": [
+          [
+            1197,
+            690
+          ]
+        ],
+        "scale": 1.176587,
+        "anchor_x": 74.952782,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1312,
+          579,
+          190,
+          178
+        ],
+        "component_seeds": [
+          [
+            1452,
+            697
+          ]
+        ],
+        "scale": 1.160784,
+        "anchor_x": 80.986486,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1525,
+          427,
+          208,
+          197
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          37,
+          836,
+          186,
+          177
+        ],
+        "component_seeds": [
+          [
+            112,
+            953
+          ]
+        ],
+        "scale": 1.163708,
+        "anchor_x": 73.913559,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          288,
+          837,
+          191,
+          177
+        ],
+        "component_seeds": [
+          [
+            348,
+            948
+          ]
+        ],
+        "scale": 1.161736,
+        "anchor_x": 72.281834,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1948,
+          427,
+          214,
+          196
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          541,
+          837,
+          194,
+          177
+        ],
+        "component_seeds": [
+          [
+            648,
+            947
+          ]
+        ],
+        "scale": 1.16568,
+        "anchor_x": 72.827411,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          799,
+          837,
+          193,
+          176
+        ],
+        "component_seeds": [
+          [
+            850,
+            947
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 72.212121,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3028,
+          427,
+          217,
+          199
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1056,
+          836,
+          191,
+          178
+        ],
+        "component_seeds": [
+          [
+            1226,
+            945
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 72.777778,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "region": [
+          1316,
+          828,
+          184,
+          186
+        ],
+        "component_seeds": [
+          [
+            1484,
+            941
+          ]
+        ],
+        "scale": 1.174157,
+        "anchor_x": 74.055821,
+        "grade": {
+          "saturation": 1.0265,
+          "rgb": [
+            0.8826,
+            0.9002,
+            0.8756
+          ]
+        }
+      }
+    ],
+    "phase_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          427,
+          200,
+          198
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1062,
+          583,
+          182,
+          175
+        ],
+        "component_seeds": [
+          [
+            1176,
+            692
+          ]
+        ],
+        "scale": 1.183633,
+        "anchor_x": 72.11973,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1319,
+          584,
+          183,
+          174
+        ],
+        "component_seeds": [
+          [
+            1382,
+            698
+          ]
+        ],
+        "scale": 1.188755,
+        "anchor_x": 72.716216,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1525,
+          427,
+          208,
+          197
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          39,
+          840,
+          183,
+          173
+        ],
+        "component_seeds": [
+          [
+            203,
+            953
+          ]
+        ],
+        "scale": 1.191919,
+        "anchor_x": 69.720339,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          289,
+          844,
+          188,
+          169
+        ],
+        "component_seeds": [
+          [
+            348,
+            950
+          ]
+        ],
+        "scale": 1.219462,
+        "anchor_x": 71.925297,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1948,
+          427,
+          214,
+          196
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          541,
+          845,
+          193,
+          169
+        ],
+        "component_seeds": [
+          [
+            637,
+            950
+          ]
+        ],
+        "scale": 1.223602,
+        "anchor_x": 74.492386,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          798,
+          837,
+          194,
+          176
+        ],
+        "component_seeds": [
+          [
+            876,
+            947
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 72.212121,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3028,
+          427,
+          217,
+          199
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1053,
+          837,
+          195,
+          176
+        ],
+        "component_seeds": [
+          [
+            1184,
+            946
+          ]
+        ],
+        "scale": 1.214286,
+        "anchor_x": 77.156863,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "region": [
+          1315,
+          828,
+          188,
+          185
+        ],
+        "component_seeds": [
+          [
+            1374,
+            942
+          ]
+        ],
+        "scale": 1.180791,
+        "anchor_x": 75.229665,
+        "grade": {
+          "saturation": 1.0257,
+          "rgb": [
+            0.907,
+            0.9291,
+            0.9061
+          ]
+        }
+      }
+    ]
+  },
+  "qa": {
+    "review": "Source sheets visually reviewed; independent complete alpha components explicitly selected; merged characters and edge-clipped poses excluded. Source atlas and attacks unchanged.",
+    "mechanical_packaging": "Component isolation of authored source pixels, scale normalization and atlas packing; no procedural animation or interpolation."
+  },
+  "slots": {
+    "idle": 4,
+    "walk": 8,
+    "windup": 4,
+    "attack": 4,
+    "recover": 6,
+    "hurt": 2,
+    "death": 4,
+    "heavy_windup": 4,
+    "heavy": 4,
+    "cast_windup": 4,
+    "cast": 4,
+    "phase_windup": 4,
+    "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "E_phase_rust_crown_guardian.png",
+        "image_sha256": "accc9a5de2b92ba6603a48c6856f6f757f0967d56c84924e1779af4cfbfd952e",
+        "op": "replace_animation",
+        "animation": "phase",
+        "scale": 0.545,
+        "anchors": [
+          268.4,
+          234.4,
+          300.4,
+          306.4
+        ],
+        "grade": {
+          "saturation": 0.856,
+          "rgb": [
+            1.094,
+            1.072,
+            1.087
+          ]
+        },
+        "calibration": {
+          "method": "median area of replaced cels",
+          "ratio": 0.545
+        }
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_heavy.png",
+        "image_sha256": "b315de7b9307b5f6cc75793814bfb829ebc66f428eb1ba7602ab1dc97ae870b6",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.3405,
+        "anchors": [
+          277.4,
+          326.9
+        ],
+        "grade": {
+          "saturation": 0.85,
+          "rgb": [
+            1.073,
+            1.062,
+            1.026
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.3393,
+            "recover[0]": 0.3405
+          }
+        }
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_cast.png",
+        "image_sha256": "37f3cfa850fcba21d576ee9b2b74db1955aad354c1769343d91981e64ec918ac",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.355,
+        "anchors": [
+          349.9,
+          352.6
+        ],
+        "grade": {
+          "saturation": 0.96,
+          "rgb": [
+            1.042,
+            1.062,
+            1.051
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.3542,
+            "recover[0]": 0.355
+          }
+        }
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_phase.png",
+        "image_sha256": "fbb886c3f4c5afb22695cde60ab1ea01cc463d446cf8b9a9637e2f864bedcb1b",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.4029,
+        "anchors": [
+          330.8,
+          339.8
+        ],
+        "grade": {
+          "saturation": 0.845,
+          "rgb": [
+            1.048,
+            1.002,
+            1.022
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "recover[0]": 0.4029
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "E_phase_rust_crown_guardian.png",
+        "op": "replace_animation",
+        "animation": "phase",
+        "replaced": {
+          "all": [
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                6,
+                757,
+                318,
+                212
+              ],
+              "component_seeds": [
+                [
+                  269,
+                  887
+                ]
+              ],
+              "anchor_x": 132.0,
+              "scale": 0.72
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                313,
+                736,
+                393,
+                226
+              ],
+              "component_seeds": [
+                [
+                  455,
+                  866
+                ]
+              ],
+              "anchor_x": 92.0,
+              "scale": 0.72
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                649,
+                725,
+                341,
+                239
+              ],
+              "component_seeds": [
+                [
+                  832,
+                  864
+                ]
+              ],
+              "anchor_x": 113.0,
+              "scale": 0.72
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                980,
+                715,
+                263,
+                252
+              ],
+              "component_seeds": [
+                [
+                  1174,
+                  875
+                ]
+              ],
+              "anchor_x": 103.0,
+              "scale": 0.72
+            }
+          ]
+        }
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_rust_crown_guardian_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
+  },
+  "boss_motion_v6": {
+    "tool": "tools/build_boss_motion_v6.py",
+    "baseline_frames": {
+      "idle": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            5,
+            21,
+            212,
+            216
+          ],
+          "component_seeds": [
+            [
+              108,
+              159
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            219,
+            20,
+            203,
+            214
+          ],
+          "component_seeds": [
+            [
+              292,
+              156
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            411,
+            15,
+            211,
+            219
+          ],
+          "component_seeds": [
+            [
+              501,
+              156
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            622,
+            16,
+            207,
+            219
+          ],
+          "component_seeds": [
+            [
+              824,
+              155
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 1
+        }
+      ],
+      "walk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            823,
+            17,
+            216,
+            217
+          ],
+          "component_seeds": [
+            [
+              1001,
+              154
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1036,
+            16,
+            208,
+            218
+          ],
+          "component_seeds": [
+            [
+              1158,
+              156
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            7,
+            242,
+            226,
+            200
+          ],
+          "component_seeds": [
+            [
+              83,
+              371
+            ]
+          ],
+          "anchor_x": 76.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            225,
+            238,
+            212,
+            204
+          ],
+          "component_seeds": [
+            [
+              381,
+              369
+            ]
+          ],
+          "anchor_x": 66.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            422,
+            243,
+            230,
+            199
+          ],
+          "component_seeds": [
+            [
+              538,
+              371
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            636,
+            235,
+            229,
+            208
+          ],
+          "component_seeds": [
+            [
+              779,
+              368
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            843,
+            237,
+            230,
+            206
+          ],
+          "component_seeds": [
+            [
+              972,
+              368
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            9,
+            450,
+            237,
+            202
+          ],
+          "component_seeds": [
+            [
+              97,
+              581
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 1
+        }
+      ],
+      "windup": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            9,
+            450,
+            237,
+            202
+          ],
+          "component_seeds": [
+            [
+              97,
+              581
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            222,
+            448,
+            237,
+            203
+          ],
+          "component_seeds": [
+            [
+              354,
+              572
+            ]
+          ],
+          "anchor_x": 75.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            413,
+            448,
+            229,
+            204
+          ],
+          "component_seeds": [
+            [
+              515,
+              572
+            ]
+          ],
+          "anchor_x": 70.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            604,
+            446,
+            206,
+            206
+          ],
+          "component_seeds": [
+            [
+              800,
+              576
+            ]
+          ],
+          "anchor_x": 71.0,
+          "scale": 1
+        }
+      ],
+      "attack": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            6,
+            757,
+            318,
+            212
+          ],
+          "component_seeds": [
+            [
+              269,
+              887
+            ]
+          ],
+          "anchor_x": 132.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            313,
+            736,
+            393,
+            226
+          ],
+          "component_seeds": [
+            [
+              455,
+              866
+            ]
+          ],
+          "anchor_x": 92.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            649,
+            725,
+            341,
+            239
+          ],
+          "component_seeds": [
+            [
+              832,
+              864
+            ]
+          ],
+          "anchor_x": 113.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            980,
+            715,
+            263,
+            252
+          ],
+          "component_seeds": [
+            [
+              1174,
+              875
+            ]
+          ],
+          "anchor_x": 103.0,
+          "scale": 0.72
+        }
+      ],
+      "recover": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1047,
+            658,
+            202,
+            200
+          ],
+          "component_seeds": [
+            [
+              1241,
+              787
+            ]
+          ],
+          "anchor_x": 86.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            4,
+            866,
+            215,
+            199
+          ],
+          "component_seeds": [
+            [
+              131,
+              992
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            205,
+            865,
+            210,
+            199
+          ],
+          "component_seeds": [
+            [
+              341,
+              998
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            409,
+            866,
+            216,
+            198
+          ],
+          "component_seeds": [
+            [
+              480,
+              993
+            ]
+          ],
+          "anchor_x": 78.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            617,
+            862,
+            212,
+            203
+          ],
+          "component_seeds": [
+            [
+              747,
+              992
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            833,
+            864,
+            219,
+            201
+          ],
+          "component_seeds": [
+            [
+              910,
+              994
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 1
+        }
+      ],
+      "hurt": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            4,
+            1060,
+            201,
+            173
+          ],
+          "component_seeds": [
+            [
+              173,
+              1167
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            208,
+            1067,
+            177,
+            165
+          ],
+          "component_seeds": [
+            [
+              329,
+              1168
+            ]
+          ],
+          "anchor_x": 76.0,
+          "scale": 1
+        }
+      ],
+      "death": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            4,
+            973,
+            284,
+            259
+          ],
+          "component_seeds": [
+            [
+              219,
+              1143
+            ]
+          ],
+          "anchor_x": 112.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            312,
+            1028,
+            290,
+            205
+          ],
+          "component_seeds": [
+            [
+              481,
+              1164
+            ]
+          ],
+          "anchor_x": 130.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            610,
+            1093,
+            326,
+            137
+          ],
+          "component_seeds": [
+            [
+              809,
+              1180
+            ]
+          ],
+          "anchor_x": 165.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            938,
+            1121,
+            310,
+            110
+          ],
+          "component_seeds": [
+            [
+              1232,
+              1185
+            ]
+          ],
+          "anchor_x": 148.5,
+          "scale": 0.72
+        }
+      ],
+      "heavy_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            11,
+            63,
+            244,
+            224
+          ],
+          "component_seeds": [
+            [
+              105,
+              204
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            256,
+            28,
+            260,
+            260
+          ],
+          "component_seeds": [
+            [
+              365,
+              186
+            ]
+          ],
+          "anchor_x": 86.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            498,
+            23,
+            268,
+            264
+          ],
+          "component_seeds": [
+            [
+              669,
+              196
+            ]
+          ],
+          "anchor_x": 90.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            758,
+            11,
+            246,
+            276
+          ],
+          "component_seeds": [
+            [
+              816,
+              173
+            ]
+          ],
+          "anchor_x": 85.0,
+          "scale": 0.96
+        }
+      ],
+      "heavy": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            7,
+            20,
+            298,
+            345
+          ],
+          "component_seeds": [
+            [
+              222,
+              238
+            ]
+          ],
+          "anchor_x": 97.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            301,
+            102,
+            329,
+            280
+          ],
+          "component_seeds": [
+            [
+              619,
+              284
+            ]
+          ],
+          "anchor_x": 229.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            629,
+            198,
+            328,
+            181
+          ],
+          "component_seeds": [
+            [
+              699,
+              312
+            ]
+          ],
+          "anchor_x": 263.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            962,
+            68,
+            283,
+            299
+          ],
+          "component_seeds": [
+            [
+              1072,
+              250
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 0.72
+        }
+      ],
+      "cast_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            10,
+            543,
+            249,
+            251
+          ],
+          "component_seeds": [
+            [
+              73,
+              699
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            254,
+            575,
+            253,
+            221
+          ],
+          "component_seeds": [
+            [
+              431,
+              717
+            ]
+          ],
+          "anchor_x": 90.5,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            504,
+            548,
+            259,
+            248
+          ],
+          "component_seeds": [
+            [
+              648,
+              700
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            769,
+            551,
+            240,
+            246
+          ],
+          "component_seeds": [
+            [
+              868,
+              709
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 0.96
+        }
+      ],
+      "cast": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            10,
+            392,
+            234,
+            298
+          ],
+          "component_seeds": [
+            [
+              189,
+              583
+            ]
+          ],
+          "anchor_x": 102.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            302,
+            398,
+            320,
+            293
+          ],
+          "component_seeds": [
+            [
+              503,
+              575
+            ]
+          ],
+          "anchor_x": 101.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            623,
+            402,
+            347,
+            288
+          ],
+          "component_seeds": [
+            [
+              873,
+              571
+            ]
+          ],
+          "anchor_x": 107.0,
+          "scale": 0.72
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            956,
+            402,
+            268,
+            289
+          ],
+          "component_seeds": [
+            [
+              1087,
+              588
+            ]
+          ],
+          "anchor_x": 110.0,
+          "scale": 0.72
+        }
+      ],
+      "phase_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            8,
+            1097,
+            251,
+            185
+          ],
+          "component_seeds": [
+            [
+              151,
+              1218
+            ]
+          ],
+          "anchor_x": 108.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            255,
+            1079,
+            257,
+            203
+          ],
+          "component_seeds": [
+            [
+              353,
+              1216
+            ]
+          ],
+          "anchor_x": 110.5,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            510,
+            1081,
+            249,
+            201
+          ],
+          "component_seeds": [
+            [
+              670,
+              1210
+            ]
+          ],
+          "anchor_x": 103.0,
+          "scale": 0.96
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            742,
+            1039,
+            267,
+            242
+          ],
+          "component_seeds": [
+            [
+              989,
+              1184
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 0.96
+        }
+      ],
+      "phase": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_rust_crown_guardian.png",
+          "region": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              367,
+              256
+            ]
+          ],
+          "scale": 0.545,
+          "anchor_x": 268.4,
+          "grade": {
+            "saturation": 0.856,
+            "rgb": [
+              1.094,
+              1.072,
+              1.087
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_rust_crown_guardian.png",
+          "region": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1045,
+              163
+            ]
+          ],
+          "scale": 0.545,
+          "anchor_x": 234.4,
+          "grade": {
+            "saturation": 0.856,
+            "rgb": [
+              1.094,
+              1.072,
+              1.087
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_rust_crown_guardian.png",
+          "region": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              322,
+              629
+            ]
+          ],
+          "scale": 0.545,
+          "anchor_x": 300.4,
+          "grade": {
+            "saturation": 0.856,
+            "rgb": [
+              1.094,
+              1.072,
+              1.087
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_rust_crown_guardian.png",
+          "region": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1163,
+              704
+            ]
+          ],
+          "scale": 0.545,
+          "anchor_x": 306.4,
+          "grade": {
+            "saturation": 0.856,
+            "rgb": [
+              1.094,
+              1.072,
+              1.087
+            ]
+          }
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_heavy.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              438,
+              346
+            ]
+          ],
+          "scale": 0.3405,
+          "anchor_x": 277.4,
+          "grade": {
+            "saturation": 0.85,
+            "rgb": [
+              1.073,
+              1.062,
+              1.026
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_heavy.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1188,
+              346
+            ]
+          ],
+          "scale": 0.3405,
+          "anchor_x": 326.9,
+          "grade": {
+            "saturation": 0.85,
+            "rgb": [
+              1.073,
+              1.062,
+              1.026
+            ]
+          }
+        }
+      ],
+      "cast_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_cast.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              463,
+              392
+            ]
+          ],
+          "scale": 0.355,
+          "anchor_x": 349.9,
+          "grade": {
+            "saturation": 0.96,
+            "rgb": [
+              1.042,
+              1.062,
+              1.051
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_cast.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1223,
+              386
+            ]
+          ],
+          "scale": 0.355,
+          "anchor_x": 352.6,
+          "grade": {
+            "saturation": 0.96,
+            "rgb": [
+              1.042,
+              1.062,
+              1.051
+            ]
+          }
+        }
+      ],
+      "phase_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_phase.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              419,
+              505
+            ]
+          ],
+          "scale": 0.4029,
+          "anchor_x": 330.8,
+          "grade": {
+            "saturation": 0.845,
+            "rgb": [
+              1.048,
+              1.002,
+              1.022
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_rust_crown_guardian_phase.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1195,
+              454
+            ]
+          ],
+          "scale": 0.4029,
+          "anchor_x": 339.8,
+          "grade": {
+            "saturation": 0.845,
+            "rgb": [
+              1.048,
+              1.002,
+              1.022
+            ]
+          }
+        }
+      ]
+    },
+    "references": {
+      "idle": [
+        {
+          "area": 20073,
+          "saturation": 0.465953202651346,
+          "rgb": [
+            102.91686392239036,
+            88.2811038623456,
+            55.47624271115106
+          ],
+          "anchor_offset": 35.5
+        },
+        {
+          "area": 19952,
+          "saturation": 0.4740405890329684,
+          "rgb": [
+            102.3651610664368,
+            87.92793939041842,
+            54.73865016481796
+          ],
+          "anchor_offset": 33.5
+        },
+        {
+          "area": 20770,
+          "saturation": 0.4703306151973893,
+          "rgb": [
+            102.08301468549331,
+            87.56758104736416,
+            54.617733444158745
+          ],
+          "anchor_offset": 31.5
+        },
+        {
+          "area": 20449,
+          "saturation": 0.4666397366445961,
+          "rgb": [
+            101.7349017841916,
+            87.29087634376705,
+            55.08245623908684
+          ],
+          "anchor_offset": 37.5
+        }
+      ],
+      "walk": [
+        {
+          "area": 20797,
+          "saturation": 0.4577304766311164,
+          "rgb": [
+            102.16889264580097,
+            87.74139194137473,
+            55.87427444349676
+          ],
+          "anchor_offset": 43.5
+        },
+        {
+          "area": 19981,
+          "saturation": 0.4725084621351477,
+          "rgb": [
+            102.42851361506328,
+            87.76839914434406,
+            54.870729028147466
+          ],
+          "anchor_offset": 36.5
+        },
+        {
+          "area": 18731,
+          "saturation": 0.47850116001451887,
+          "rgb": [
+            103.29669156882282,
+            87.87902567642521,
+            54.910603302145525
+          ],
+          "anchor_offset": 51.5
+        },
+        {
+          "area": 18039,
+          "saturation": 0.472925197212203,
+          "rgb": [
+            103.15713441459165,
+            87.86144855209169,
+            55.55722634446816
+          ],
+          "anchor_offset": 52.5
+        },
+        {
+          "area": 18960,
+          "saturation": 0.47156028817743073,
+          "rgb": [
+            104.3310722509062,
+            89.2571410790825,
+            56.449810193533295
+          ],
+          "anchor_offset": 60.5
+        },
+        {
+          "area": 18849,
+          "saturation": 0.46806425160243786,
+          "rgb": [
+            103.48101107425386,
+            88.69930551209225,
+            56.07701933303438
+          ],
+          "anchor_offset": 59.5
+        },
+        {
+          "area": 18765,
+          "saturation": 0.4722769399154401,
+          "rgb": [
+            101.99987420591101,
+            87.68394238629824,
+            54.920246556380185
+          ],
+          "anchor_offset": 57.5
+        },
+        {
+          "area": 19171,
+          "saturation": 0.46815740687405855,
+          "rgb": [
+            102.33536357984929,
+            87.93026724672244,
+            55.236109384703255
+          ],
+          "anchor_offset": 50.5
+        }
+      ],
+      "windup": [
+        {
+          "area": 19171,
+          "saturation": 0.46815740687405855,
+          "rgb": [
+            102.33536357984929,
+            87.93026724672244,
+            55.236109384703255
+          ],
+          "anchor_offset": 50.5
+        },
+        {
+          "area": 20562,
+          "saturation": 0.4682660967041129,
+          "rgb": [
+            107.17874368395337,
+            91.66180523654822,
+            58.25488056958308
+          ],
+          "anchor_offset": 36.5
+        },
+        {
+          "area": 19252,
+          "saturation": 0.4756321944185238,
+          "rgb": [
+            103.69020164023887,
+            88.58118024293873,
+            55.2370352099568
+          ],
+          "anchor_offset": 45.5
+        },
+        {
+          "area": 19138,
+          "saturation": 0.4718888728138787,
+          "rgb": [
+            101.53695972493799,
+            87.2980108054869,
+            54.05519400785145
+          ],
+          "anchor_offset": 41.5
+        }
+      ],
+      "attack": [
+        {
+          "area": 16174,
+          "saturation": 0.4981018019754556,
+          "rgb": [
+            97.02391661311378,
+            84.58649246804485,
+            51.46241165131261
+          ],
+          "anchor_offset": 38.5
+        },
+        {
+          "area": 18367,
+          "saturation": 0.5132339863325116,
+          "rgb": [
+            93.91978609624425,
+            81.52445074414183,
+            47.49739063204018
+          ],
+          "anchor_offset": 54.5
+        },
+        {
+          "area": 20296,
+          "saturation": 0.5038177367634564,
+          "rgb": [
+            96.30989717960372,
+            84.053018553605,
+            49.68298006777309
+          ],
+          "anchor_offset": 46.5
+        },
+        {
+          "area": 16776,
+          "saturation": 0.5000708671721084,
+          "rgb": [
+            95.4245655334642,
+            83.17607145329009,
+            50.363220937473116
+          ],
+          "anchor_offset": 39.5
+        }
+      ],
+      "recover": [
+        {
+          "area": 18376,
+          "saturation": 0.46609623803419215,
+          "rgb": [
+            102.13685283065479,
+            87.48449340888891,
+            55.372158186326494
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 19285,
+          "saturation": 0.46691551275861953,
+          "rgb": [
+            102.82634474326366,
+            88.3113080684453,
+            55.52151589241371
+          ],
+          "anchor_offset": 41.5
+        },
+        {
+          "area": 19324,
+          "saturation": 0.46408839219799813,
+          "rgb": [
+            101.68268369842835,
+            87.32501641495611,
+            55.824210589140975
+          ],
+          "anchor_offset": 39.5
+        },
+        {
+          "area": 19567,
+          "saturation": 0.4695571127786006,
+          "rgb": [
+            100.73211096557687,
+            86.5439933325249,
+            54.36653172996032
+          ],
+          "anchor_offset": 42.5
+        },
+        {
+          "area": 18613,
+          "saturation": 0.46060715501568256,
+          "rgb": [
+            101.55698295597762,
+            87.23880691934485,
+            55.69371661154256
+          ],
+          "anchor_offset": 38.5
+        },
+        {
+          "area": 19846,
+          "saturation": 0.4574766504172868,
+          "rgb": [
+            101.07076109313945,
+            87.06235674403374,
+            55.407346458999044
+          ],
+          "anchor_offset": 41.5
+        }
+      ],
+      "hurt": [
+        {
+          "area": 16987,
+          "saturation": 0.4764516963097637,
+          "rgb": [
+            103.59420095307495,
+            88.88824753338154,
+            55.812873347200075
+          ],
+          "anchor_offset": 39.5
+        },
+        {
+          "area": 14554,
+          "saturation": 0.4804124310708252,
+          "rgb": [
+            107.79823392201902,
+            91.37554148616877,
+            57.92485838053624
+          ],
+          "anchor_offset": 15.5
+        }
+      ],
+      "death": [
+        {
+          "area": 16920,
+          "saturation": 0.490551329332526,
+          "rgb": [
+            96.8650139617151,
+            84.66900497172756,
+            52.14193284750591
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 14152,
+          "saturation": 0.4975961135719329,
+          "rgb": [
+            98.02786924744554,
+            84.35691912296237,
+            51.765721628783126
+          ],
+          "anchor_offset": 24.5
+        },
+        {
+          "area": 12586,
+          "saturation": 0.49827440973773307,
+          "rgb": [
+            93.36225832803748,
+            79.98084778070212,
+            48.603431061086624
+          ],
+          "anchor_offset": 6.5
+        },
+        {
+          "area": 11250,
+          "saturation": 0.5145160858541271,
+          "rgb": [
+            94.95718837116581,
+            81.91686579052187,
+            49.52439267224096
+          ],
+          "anchor_offset": 9.5
+        }
+      ],
+      "heavy_windup": [
+        {
+          "area": 23253,
+          "saturation": 0.47927961845273864,
+          "rgb": [
+            100.55719813472145,
+            87.74799087209321,
+            54.1265006448961
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 25272,
+          "saturation": 0.4864990330464351,
+          "rgb": [
+            100.98558230681834,
+            88.03947368418905,
+            53.18845651361352
+          ],
+          "anchor_offset": 53.5
+        },
+        {
+          "area": 24654,
+          "saturation": 0.4802516972112311,
+          "rgb": [
+            99.30211637704775,
+            85.9987689976579,
+            52.61933620566128
+          ],
+          "anchor_offset": 62.5
+        },
+        {
+          "area": 27204,
+          "saturation": 0.496559180589772,
+          "rgb": [
+            101.68729482742594,
+            88.71932392864531,
+            53.10637920325224
+          ],
+          "anchor_offset": 46.5
+        }
+      ],
+      "heavy": [
+        {
+          "area": 20639,
+          "saturation": 0.4940047827759731,
+          "rgb": [
+            96.28103913628767,
+            84.23245614033407,
+            50.59637876742373
+          ],
+          "anchor_offset": 56.5
+        },
+        {
+          "area": 18470,
+          "saturation": 0.49603717221266386,
+          "rgb": [
+            96.48059138092694,
+            84.41597986787417,
+            50.56854356715451
+          ],
+          "anchor_offset": -22.5
+        },
+        {
+          "area": 15046,
+          "saturation": 0.5051664768325305,
+          "rgb": [
+            97.28163109755499,
+            83.18422256097436,
+            50.281783536582715
+          ],
+          "anchor_offset": -53.5
+        },
+        {
+          "area": 19054,
+          "saturation": 0.5087311185694584,
+          "rgb": [
+            99.15836659501393,
+            86.92950568006016,
+            51.87589806569816
+          ],
+          "anchor_offset": 38.5
+        }
+      ],
+      "cast_windup": [
+        {
+          "area": 24716,
+          "saturation": 0.4914772725447273,
+          "rgb": [
+            101.37353701526344,
+            88.73626321972324,
+            53.45936545239732
+          ],
+          "anchor_offset": 47.5
+        },
+        {
+          "area": 24111,
+          "saturation": 0.48872479717025064,
+          "rgb": [
+            98.93848534672857,
+            86.33538059771769,
+            52.41802882289377
+          ],
+          "anchor_offset": 51.5
+        },
+        {
+          "area": 25869,
+          "saturation": 0.480822583155816,
+          "rgb": [
+            101.07338225482854,
+            89.1696686679808,
+            54.132844118288276
+          ],
+          "anchor_offset": 50.5
+        },
+        {
+          "area": 24369,
+          "saturation": 0.4780305344039925,
+          "rgb": [
+            100.2277970812944,
+            87.99138290477629,
+            53.93398193188524
+          ],
+          "anchor_offset": 57.5
+        }
+      ],
+      "cast": [
+        {
+          "area": 17012,
+          "saturation": 0.4753238016252766,
+          "rgb": [
+            95.2282270348897,
+            83.28816477911334,
+            51.83045234783079
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 19193,
+          "saturation": 0.48203211426740616,
+          "rgb": [
+            95.25794884053047,
+            83.17278269183251,
+            51.05187664355008
+          ],
+          "anchor_offset": 42.5
+        },
+        {
+          "area": 24146,
+          "saturation": 0.5009918237306829,
+          "rgb": [
+            96.48140728070538,
+            85.53422917173744,
+            50.43782066942579
+          ],
+          "anchor_offset": 46.5
+        },
+        {
+          "area": 18872,
+          "saturation": 0.49261020676465794,
+          "rgb": [
+            94.38419750104191,
+            83.14396088608345,
+            49.707249351112445
+          ],
+          "anchor_offset": 37.5
+        }
+      ],
+      "phase_windup": [
+        {
+          "area": 23494,
+          "saturation": 0.48036983403049854,
+          "rgb": [
+            98.15220839138956,
+            85.50290767528408,
+            52.5679819291493
+          ],
+          "anchor_offset": 32.5
+        },
+        {
+          "area": 21709,
+          "saturation": 0.47721666061729734,
+          "rgb": [
+            98.24937343356909,
+            85.25240183791068,
+            52.99968671678434
+          ],
+          "anchor_offset": 39.5
+        },
+        {
+          "area": 24559,
+          "saturation": 0.4865684164773049,
+          "rgb": [
+            94.69023881287225,
+            82.20333874331199,
+            49.26626478088546
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 25253,
+          "saturation": 0.48527483821280365,
+          "rgb": [
+            102.88434237994858,
+            89.29733240545488,
+            55.06434701924071
+          ],
+          "anchor_offset": 60.5
+        }
+      ],
+      "phase": [
+        {
+          "area": 16156,
+          "saturation": 0.479748143464454,
+          "rgb": [
+            101.74316900389283,
+            88.38398149485819,
+            54.176810756102725
+          ],
+          "anchor_offset": 45.5
+        },
+        {
+          "area": 16335,
+          "saturation": 0.4928332063585437,
+          "rgb": [
+            99.03710965866642,
+            86.33318809004327,
+            52.193100944074914
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 21105,
+          "saturation": 0.4947975418812681,
+          "rgb": [
+            93.20474386425703,
+            81.66694119583099,
+            48.55114478668235
+          ],
+          "anchor_offset": 44.5
+        },
+        {
+          "area": 19235,
+          "saturation": 0.48705898577961726,
+          "rgb": [
+            91.7784806453366,
+            80.05675816840763,
+            48.826881782828245
+          ],
+          "anchor_offset": 44.5
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "area": 19538,
+          "saturation": 0.4936769133011425,
+          "rgb": [
+            101.04597957701857,
+            88.46660342613261,
+            54.48261815746115
+          ],
+          "anchor_offset": 38.5
+        },
+        {
+          "area": 18630,
+          "saturation": 0.48826173899920383,
+          "rgb": [
+            100.09870875177943,
+            86.43116212337029,
+            53.270760401713595
+          ],
+          "anchor_offset": 31.5
+        }
+      ],
+      "cast_bridge": [
+        {
+          "area": 19187,
+          "saturation": 0.45943349381111387,
+          "rgb": [
+            98.13811845126683,
+            85.1409200425675,
+            52.96346724939007
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 18711,
+          "saturation": 0.4753915298429779,
+          "rgb": [
+            99.34044860451864,
+            86.42965584154625,
+            52.73380514810042
+          ],
+          "anchor_offset": 30.5
+        }
+      ],
+      "phase_bridge": [
+        {
+          "area": 19000,
+          "saturation": 0.4727543165675138,
+          "rgb": [
+            103.2272831837908,
+            89.19875776395915,
+            55.90326662064933
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 18614,
+          "saturation": 0.4551715934754036,
+          "rgb": [
+            101.4631811060042,
+            86.19039052978178,
+            55.37776359309835
+          ],
+          "anchor_offset": 30.5
+        }
+      ]
+    },
+    "sources": [
+      {
+        "image": "rust_crown_guardian_combat_01.png",
+        "sha256": "18ca1dbccbba26e57a5bf198b17123391ed29c5478da6a49e80b04bd42aaed88",
+        "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+        "role": "combat_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.858,
+          "rgb": [
+            1.103,
+            1.112,
+            1.067
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_combat_02.png",
+        "sha256": "86a95962c282da007e5fce4d9898f10543cb7043f4aba4ddb74248c3f6008f7e",
+        "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+        "role": "combat_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.966,
+          "rgb": [
+            0.989,
+            0.998,
+            0.995
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_combat_03.png",
+        "sha256": "6d6ee3e95b4192f2704b1ec955225ab01ccad8906f13557fa14ac8172aa8638c",
+        "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+        "role": "combat_03",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.887,
+          "rgb": [
+            0.977,
+            0.98,
+            0.973
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_combat_04.png",
+        "sha256": "89d85c2cb9313aefd7d6686d4106a707fd6fde5d94f4d297b97e1f025158e267",
+        "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+        "role": "combat_04",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.903,
+          "rgb": [
+            0.964,
+            0.948,
+            0.946
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_recovery_01.png",
+        "sha256": "5995bf3b80a97e05fc41729df4fe5c93c837bb71ae1faedff8181512b197806e",
+        "prompt_sha256": "de161a7d4a3b5f31f1e13db389fdbca21a5607f5cf46d8a6721948d448e156d9",
+        "role": "recovery_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.98,
+          "rgb": [
+            0.988,
+            0.993,
+            0.97
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_recovery_02.png",
+        "sha256": "c22f8470a7a00cfd211795c4bea5dcd8fe176d77f06f7c74558508b6df2b6f7d",
+        "prompt_sha256": "3e5b77d397b271aa319372b19f49aa82266f3b2d0891b30a1148e76ab6e585e9",
+        "role": "recovery_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.808,
+          "rgb": [
+            1.1,
+            1.07,
+            1.061
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_locomotion_01.png",
+        "sha256": "d5fb76f42f787b701d80f895d4d077bc514fbc14167f318262c1ae69c6777061",
+        "prompt_sha256": "b3b9cdda56d2d10a2886497a9e43642971e41ec45b1af65798bb53c3b27c508a",
+        "role": "locomotion_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.813,
+          "rgb": [
+            1.068,
+            1.079,
+            1.061
+          ]
+        }
+      },
+      {
+        "image": "rust_crown_guardian_locomotion_02.png",
+        "sha256": "4f2804bfffb2da0ca9ac16aef277f860704cc26dfcc17770f004dcf8e9dbda1f",
+        "prompt_sha256": "b3b9cdda56d2d10a2886497a9e43642971e41ec45b1af65798bb53c3b27c508a",
+        "role": "locomotion_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.921,
+          "rgb": [
+            0.998,
+            1.001,
+            0.992
+          ]
+        }
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "source_only": [],
+    "runtime_model": "main-bridge-settle",
+    "rig_half_parity": 0
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "rust_crown_guardian__attack",
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__attack.png",
+        "sha256": "70cf3e5db975e4aa74a2377ea383de15026d9e248a6c3f5a5b59195a8833302c",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_crown_guardian__attack.png"
+      },
+      {
+        "id": "rust_crown_guardian__cast",
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__cast.png",
+        "sha256": "8aeefd2f44e5d6cf02729f5e9aff72ee327a6915645addf1aadc212ff8c56c40",
+        "new_drawings": 24,
+        "animations": [
+          "cast_windup",
+          "cast",
+          "cast_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_crown_guardian__cast.png"
+      },
+      {
+        "id": "rust_crown_guardian__heavy",
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__heavy.png",
+        "sha256": "a01a3c0955306073998a52e01fd60fd42670f93d2e3f7380a3fc45f5bafde113",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_windup",
+          "heavy",
+          "heavy_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_crown_guardian__heavy.png"
+      },
+      {
+        "id": "rust_crown_guardian__phase",
+        "source": "art_requests/combat_motion_v7/incoming/rust_crown_guardian__phase.png",
+        "sha256": "870fc50f4c623535804f4bee93b9efd254e570bd2577b6e45850be13c57e514a",
+        "new_drawings": 24,
+        "animations": [
+          "phase_windup",
+          "phase",
+          "phase_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_crown_guardian__phase.png"
+      }
+    ],
+    "new_drawings": 96,
+    "runtime_drawings": 96,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

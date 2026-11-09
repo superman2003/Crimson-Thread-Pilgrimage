@@ -47,11 +47,23 @@ jobs:
           python3 tools/test_integration_workflow.py
           python3 tools/test_runtime_asset_hydration.py
           npm test
+          python3 tools/test_music_library_server.py
           npm run test:campaign
           python3 -m pip install -r tools/requirements-hero.txt
           python3 tools/test_repack_enemy_attack_frames.py
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
+      - name: Validate combat audio from an isolated exported PCK
+        if: matrix.shard == 1
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/test_combat_sfx_export.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/combat-audio-export"
+      - name: Validate authored combat source geometry and reproducible atlases
+        if: matrix.shard == 1
+        run: |
+          python3 tools/build_combat_motion_v7.py --audit-sources
+          python3 tools/build_combat_motion_v7.py --check
+          python3 tools/build_boss_behavior_motion.py --check
       - name: Validate cold and warm MetSys editor lifecycle
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"

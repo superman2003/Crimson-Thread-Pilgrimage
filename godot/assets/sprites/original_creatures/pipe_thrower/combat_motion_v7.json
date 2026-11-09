@@ -1,0 +1,2458 @@
+{
+  "kind": "pipe_thrower",
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-4f0e5e0e-49bc-42fd-b5ea-00c7aed32c26.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character:  CRITICAL: each sprite is SMALL within its cell: total character width INCLUDING weapon maximum 50% of cell width. Large empty gutters keep swords and dead bodies separated. a wiry insect canal worker with a patched slate blue apron, rust copper shell and a small iron pipe held for throwing",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/pipe_thrower/atlas.png",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-4f0e5e0e-49bc-42fd-b5ea-00c7aed32c26.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          173,
+          207
+        ],
+        "anchor_x": 60.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          175,
+          0,
+          172,
+          207
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          349,
+          0,
+          172,
+          210
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          523,
+          0,
+          167,
+          205
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          692,
+          0,
+          193,
+          203
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          887,
+          0,
+          188,
+          206
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1077,
+          0,
+          199,
+          202
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1278,
+          0,
+          189,
+          195
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1469,
+          0,
+          199,
+          199
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1670,
+          0,
+          201,
+          205
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1873,
+          0,
+          201,
+          198
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2076,
+          0,
+          191,
+          194
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2269,
+          0,
+          187,
+          181
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          44,
+          87,
+          165,
+          159
+        ],
+        "component_seeds": [
+          [
+            119,
+            165
+          ]
+        ],
+        "scale": 1.222958,
+        "anchor_x": 76.270758,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          295,
+          79,
+          176,
+          167
+        ],
+        "component_seeds": [
+          [
+            366,
+            168
+          ]
+        ],
+        "scale": 1.184486,
+        "anchor_x": 85.909735,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2458,
+          0,
+          201,
+          192
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          550,
+          80,
+          178,
+          167
+        ],
+        "component_seeds": [
+          [
+            601,
+            167
+          ]
+        ],
+        "scale": 1.220126,
+        "anchor_x": 85.190722,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          807,
+          75,
+          180,
+          170
+        ],
+        "component_seeds": [
+          [
+            854,
+            166
+          ]
+        ],
+        "scale": 1.209877,
+        "anchor_x": 85.204082,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2661,
+          0,
+          204,
+          198
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1062,
+          65,
+          179,
+          181
+        ],
+        "component_seeds": [
+          [
+            1114,
+            164
+          ]
+        ],
+        "scale": 1.127168,
+        "anchor_x": 84.957265,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1320,
+          77,
+          179,
+          169
+        ],
+        "component_seeds": [
+          [
+            1432,
+            160
+          ]
+        ],
+        "scale": 1.192547,
+        "anchor_x": 79.428819,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2867,
+          0,
+          198,
+          189
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          40,
+          332,
+          176,
+          169
+        ],
+        "component_seeds": [
+          [
+            133,
+            417
+          ]
+        ],
+        "scale": 1.153209,
+        "anchor_x": 77.335727,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          270,
+          344,
+          223,
+          158
+        ],
+        "component_seeds": [
+          [
+            431,
+            417
+          ]
+        ],
+        "scale": 1.215556,
+        "anchor_x": 83.354662,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3067,
+          0,
+          260,
+          179
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          526,
+          344,
+          223,
+          158
+        ],
+        "component_seeds": [
+          [
+            564,
+            416
+          ]
+        ],
+        "scale": 1.18,
+        "anchor_x": 74.700565,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          781,
+          352,
+          231,
+          150
+        ],
+        "component_seeds": [
+          [
+            871,
+            414
+          ]
+        ],
+        "scale": 1.232394,
+        "anchor_x": 77.664762,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3329,
+          0,
+          267,
+          173
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1037,
+          352,
+          229,
+          150
+        ],
+        "component_seeds": [
+          [
+            1078,
+            415
+          ]
+        ],
+        "scale": 1.220657,
+        "anchor_x": 74.157692,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1321,
+          347,
+          175,
+          155
+        ],
+        "component_seeds": [
+          [
+            1386,
+            427
+          ]
+        ],
+        "scale": 1.181406,
+        "anchor_x": 73.685221,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3598,
+          0,
+          197,
+          174
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          41,
+          605,
+          173,
+          152
+        ],
+        "component_seeds": [
+          [
+            185,
+            683
+          ]
+        ],
+        "scale": 1.243056,
+        "anchor_x": 77.715084,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          320,
+          590,
+          134,
+          168
+        ],
+        "component_seeds": [
+          [
+            438,
+            675
+          ]
+        ],
+        "scale": 1.15,
+        "anchor_x": 51.695652,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3797,
+          0,
+          144,
+          189
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          575,
+          590,
+          133,
+          168
+        ],
+        "component_seeds": [
+          [
+            691,
+            676
+          ]
+        ],
+        "scale": 1.164583,
+        "anchor_x": 63.286225,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          817,
+          598,
+          152,
+          159
+        ],
+        "component_seeds": [
+          [
+            885,
+            673
+          ]
+        ],
+        "scale": 1.216336,
+        "anchor_x": 69.303085,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          212,
+          161,
+          181
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1080,
+          599,
+          147,
+          158
+        ],
+        "component_seeds": [
+          [
+            1164,
+            675
+          ]
+        ],
+        "scale": 1.224444,
+        "anchor_x": 67.711434,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1324,
+          590,
+          169,
+          168
+        ],
+        "component_seeds": [
+          [
+            1434,
+            681
+          ]
+        ],
+        "scale": 1.164583,
+        "anchor_x": 83.438283,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          163,
+          212,
+          189,
+          189
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          43,
+          846,
+          171,
+          168
+        ],
+        "component_seeds": [
+          [
+            141,
+            935
+          ]
+        ],
+        "scale": 1.1875,
+        "anchor_x": 78.0,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          301,
+          846,
+          169,
+          168
+        ],
+        "component_seeds": [
+          [
+            425,
+            933
+          ]
+        ],
+        "scale": 1.19375,
+        "anchor_x": 68.324607,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          354,
+          212,
+          182,
+          192
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          558,
+          846,
+          167,
+          168
+        ],
+        "component_seeds": [
+          [
+            687,
+            933
+          ]
+        ],
+        "scale": 1.229167,
+        "anchor_x": 69.0,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          829,
+          834,
+          138,
+          180
+        ],
+        "component_seeds": [
+          [
+            867,
+            935
+          ]
+        ],
+        "scale": 1.170543,
+        "anchor_x": 57.417219,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          538,
+          212,
+          150,
+          206
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1084,
+          834,
+          137,
+          180
+        ],
+        "component_seeds": [
+          [
+            1115,
+            934
+          ]
+        ],
+        "scale": 1.199612,
+        "anchor_x": 61.113086,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "region": [
+          1330,
+          831,
+          157,
+          183
+        ],
+        "component_seeds": [
+          [
+            1382,
+            926
+          ]
+        ],
+        "scale": 1.180952,
+        "anchor_x": 58.645161,
+        "grade": {
+          "saturation": 1.0029,
+          "rgb": [
+            0.8697,
+            0.8652,
+            0.8782
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          690,
+          212,
+          165,
+          203
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          857,
+          212,
+          185,
+          172
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1044,
+          212,
+          171,
+          189
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1217,
+          212,
+          192,
+          179
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1411,
+          212,
+          179,
+          135
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1592,
+          212,
+          215,
+          96
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1809,
+          212,
+          258,
+          81
+        ],
+        "anchor_x": 150.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2069,
+          212,
+          202,
+          158
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2273,
+          212,
+          195,
+          159
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "pipe_mortar_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2470,
+          212,
+          187,
+          156
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          46,
+          107,
+          163,
+          138
+        ],
+        "component_seeds": [
+          [
+            124,
+            180
+          ]
+        ],
+        "scale": 1.197436,
+        "anchor_x": 76.505353,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          303,
+          105,
+          163,
+          141
+        ],
+        "component_seeds": [
+          [
+            400,
+            179
+          ]
+        ],
+        "scale": 1.16792,
+        "anchor_x": 76.56867,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2659,
+          212,
+          186,
+          155
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          559,
+          106,
+          164,
+          140
+        ],
+        "component_seeds": [
+          [
+            579,
+            178
+          ]
+        ],
+        "scale": 1.191919,
+        "anchor_x": 76.79661,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          814,
+          100,
+          165,
+          145
+        ],
+        "component_seeds": [
+          [
+            909,
+            173
+          ]
+        ],
+        "scale": 1.16545,
+        "anchor_x": 76.146138,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2847,
+          212,
+          186,
+          162
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1070,
+          100,
+          164,
+          145
+        ],
+        "component_seeds": [
+          [
+            1167,
+            172
+          ]
+        ],
+        "scale": 1.214112,
+        "anchor_x": 77.02004,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1329,
+          88,
+          162,
+          157
+        ],
+        "component_seeds": [
+          [
+            1381,
+            169
+          ]
+        ],
+        "scale": 1.145414,
+        "anchor_x": 74.910156,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3035,
+          212,
+          181,
+          175
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          47,
+          340,
+          163,
+          161
+        ],
+        "component_seeds": [
+          [
+            85,
+            424
+          ]
+        ],
+        "scale": 1.154684,
+        "anchor_x": 76.598113,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          299,
+          343,
+          173,
+          158
+        ],
+        "component_seeds": [
+          [
+            362,
+            426
+          ]
+        ],
+        "scale": 1.188889,
+        "anchor_x": 81.523364,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      }
+    ],
+    "pipe_mortar": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3218,
+          212,
+          195,
+          180
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          555,
+          343,
+          173,
+          158
+        ],
+        "component_seeds": [
+          [
+            654,
+            425
+          ]
+        ],
+        "scale": 1.213333,
+        "anchor_x": 81.197802,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          811,
+          335,
+          173,
+          166
+        ],
+        "component_seeds": [
+          [
+            856,
+            426
+          ]
+        ],
+        "scale": 1.164557,
+        "anchor_x": 83.003623,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3415,
+          212,
+          196,
+          186
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1067,
+          335,
+          170,
+          166
+        ],
+        "component_seeds": [
+          [
+            1163,
+            426
+          ]
+        ],
+        "scale": 1.164557,
+        "anchor_x": 84.003623,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1327,
+          340,
+          168,
+          161
+        ],
+        "component_seeds": [
+          [
+            1387,
+            426
+          ]
+        ],
+        "scale": 1.189542,
+        "anchor_x": 81.241758,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3613,
+          212,
+          184,
+          180
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          47,
+          597,
+          164,
+          160
+        ],
+        "component_seeds": [
+          [
+            78,
+            683
+          ]
+        ],
+        "scale": 1.142544,
+        "anchor_x": 78.62572,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          305,
+          612,
+          162,
+          145
+        ],
+        "component_seeds": [
+          [
+            332,
+            682
+          ]
+        ],
+        "scale": 1.221411,
+        "anchor_x": 75.456175,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3799,
+          212,
+          181,
+          161
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          560,
+          613,
+          162,
+          144
+        ],
+        "component_seeds": [
+          [
+            605,
+            682
+          ]
+        ],
+        "scale": 1.181373,
+        "anchor_x": 76.821577,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          814,
+          615,
+          164,
+          142
+        ],
+        "component_seeds": [
+          [
+            889,
+            689
+          ]
+        ],
+        "scale": 1.196517,
+        "anchor_x": 79.064449,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      }
+    ],
+    "pipe_mortar_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          420,
+          188,
+          160
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1071,
+          615,
+          165,
+          142
+        ],
+        "component_seeds": [
+          [
+            1148,
+            690
+          ]
+        ],
+        "scale": 1.199005,
+        "anchor_x": 79.058091,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1327,
+          613,
+          166,
+          145
+        ],
+        "component_seeds": [
+          [
+            1428,
+            689
+          ]
+        ],
+        "scale": 1.177616,
+        "anchor_x": 78.830579,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          190,
+          420,
+          186,
+          162
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          47,
+          868,
+          167,
+          145
+        ],
+        "component_seeds": [
+          [
+            152,
+            944
+          ]
+        ],
+        "scale": 1.177616,
+        "anchor_x": 78.830579,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          301,
+          869,
+          169,
+          144
+        ],
+        "component_seeds": [
+          [
+            344,
+            947
+          ]
+        ],
+        "scale": 1.181373,
+        "anchor_x": 79.103734,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          378,
+          420,
+          191,
+          160
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          557,
+          869,
+          168,
+          144
+        ],
+        "component_seeds": [
+          [
+            627,
+            947
+          ]
+        ],
+        "scale": 1.17402,
+        "anchor_x": 79.123173,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          814,
+          870,
+          168,
+          143
+        ],
+        "component_seeds": [
+          [
+            866,
+            946
+          ]
+        ],
+        "scale": 1.180247,
+        "anchor_x": 77.824268,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          571,
+          420,
+          188,
+          159
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1070,
+          870,
+          167,
+          144
+        ],
+        "component_seeds": [
+          [
+            1095,
+            947
+          ]
+        ],
+        "scale": 1.286765,
+        "anchor_x": 78.108571,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "region": [
+          1332,
+          830,
+          156,
+          185
+        ],
+        "component_seeds": [
+          [
+            1390,
+            927
+          ]
+        ],
+        "scale": 1.079096,
+        "anchor_x": 56.633508,
+        "grade": {
+          "saturation": 0.9834,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8632
+          ]
+        }
+      }
+    ],
+    "pipe_mortar_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          761,
+          420,
+          196,
+          175
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          959,
+          420,
+          190,
+          175
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      50,
+      22,
+      174,
+      208
+    ],
+    [
+      268,
+      22,
+      173,
+      208
+    ],
+    [
+      489,
+      21,
+      173,
+      210
+    ],
+    [
+      709,
+      26,
+      168,
+      206
+    ],
+    [
+      36,
+      251,
+      194,
+      203
+    ],
+    [
+      254,
+      248,
+      189,
+      206
+    ],
+    [
+      466,
+      251,
+      200,
+      202
+    ],
+    [
+      688,
+      258,
+      189,
+      197
+    ],
+    [
+      33,
+      477,
+      199,
+      199
+    ],
+    [
+      246,
+      470,
+      201,
+      206
+    ],
+    [
+      465,
+      479,
+      201,
+      198
+    ],
+    [
+      676,
+      483,
+      191,
+      194
+    ],
+    [
+      29,
+      721,
+      188,
+      181
+    ],
+    [
+      235,
+      710,
+      202,
+      192
+    ],
+    [
+      461,
+      703,
+      206,
+      199
+    ],
+    [
+      682,
+      713,
+      198,
+      189
+    ],
+    [
+      25,
+      933,
+      260,
+      179
+    ],
+    [
+      251,
+      940,
+      267,
+      173
+    ],
+    [
+      474,
+      937,
+      197,
+      175
+    ],
+    [
+      712,
+      924,
+      146,
+      189
+    ],
+    [
+      34,
+      1151,
+      161,
+      181
+    ],
+    [
+      245,
+      1145,
+      190,
+      190
+    ],
+    [
+      483,
+      1142,
+      182,
+      193
+    ],
+    [
+      709,
+      1129,
+      151,
+      207
+    ],
+    [
+      34,
+      1347,
+      165,
+      203
+    ],
+    [
+      252,
+      1378,
+      185,
+      173
+    ],
+    [
+      488,
+      1356,
+      175,
+      199
+    ],
+    [
+      41,
+      1564,
+      192,
+      179
+    ],
+    [
+      241,
+      1606,
+      181,
+      135
+    ],
+    [
+      423,
+      1648,
+      215,
+      97
+    ],
+    [
+      625,
+      1665,
+      259,
+      81
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 31,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.6516129032258065,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 3,
+      "death": 4
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "4 columns and 8 rows; actual reviewed count recorded per animation",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            50,
+            22,
+            174,
+            208
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            268,
+            22,
+            173,
+            208
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            489,
+            21,
+            173,
+            210
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            709,
+            26,
+            168,
+            206
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            36,
+            251,
+            194,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            254,
+            248,
+            189,
+            206
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            466,
+            251,
+            200,
+            202
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            688,
+            258,
+            189,
+            197
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            33,
+            477,
+            199,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            246,
+            470,
+            201,
+            206
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            465,
+            479,
+            201,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            676,
+            483,
+            191,
+            194
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            29,
+            721,
+            188,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            235,
+            710,
+            202,
+            192
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            461,
+            703,
+            206,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            682,
+            713,
+            198,
+            189
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            933,
+            260,
+            179
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            251,
+            940,
+            267,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            474,
+            937,
+            197,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            712,
+            924,
+            146,
+            189
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            34,
+            1151,
+            161,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            245,
+            1145,
+            190,
+            190
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            483,
+            1142,
+            182,
+            193
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            709,
+            1129,
+            151,
+            207
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 3,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            34,
+            1347,
+            165,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            252,
+            1378,
+            185,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            488,
+            1356,
+            175,
+            199
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            41,
+            1564,
+            192,
+            179
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            241,
+            1606,
+            181,
+            135
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            423,
+            1648,
+            215,
+            97
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            625,
+            1665,
+            259,
+            81
+          ]
+        }
+      ]
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/pipe_thrower.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "pipe_mortar_windup",
+      "pipe_mortar",
+      "pipe_mortar_recover",
+      "pipe_mortar_charge"
+    ],
+    "sheets": [
+      {
+        "image": "pipe_backblast_loops.png",
+        "image_sha256": "a7179a4bca13f820c0461a1139a6366b222cdbc1dc6205e3216bc7b09482170f",
+        "role": "keep",
+        "attack": "pipe_backblast",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.2967,
+        "anchors": [
+          333.3,
+          337.3
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.2958,
+            0.2977
+          ]
+        }
+      },
+      {
+        "image": "pipe_mortar.png",
+        "image_sha256": "715302025c122ad9f898fd3a26e80e21a938f50b07883eb32116dbbce142e1a5",
+        "role": "new",
+        "attack": "pipe_mortar",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7219,
+        "anchors": [
+          120.9,
+          118.9,
+          116.9,
+          115.9,
+          126.9,
+          131.9,
+          120.9,
+          115.9,
+          123.9,
+          121.9,
+          123.9,
+          119.9,
+          130.9,
+          131.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.727,
+          "last_recover_ratio": 0.7168
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_pipe_thrower_hurt2.png",
+        "image_sha256": "393847b4aeab6ef41eedf0187aee6cef3aafe6324a2039f7df47623a24275bb1",
+        "op": "replace_frames",
+        "animation": "hurt",
+        "scale": 0.2245,
+        "anchors": [
+          437.3
+        ],
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.091,
+            1.074,
+            1.078
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "hurt[2]": 0.2262,
+            "hurt[1]": 0.2228
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_pipe_thrower_hurt2.png",
+        "op": "replace_frames",
+        "animation": "hurt",
+        "replaced": {
+          "2": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              488,
+              1356,
+              175,
+              199
+            ],
+            "component_seeds": [
+              [
+                603,
+                1468
+              ]
+            ],
+            "anchor_x": 66.375
+          }
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "pipe_thrower__attack",
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__attack.png",
+        "sha256": "fdde937633425656b27f18616fe6a6485b9963b0b9b8b8c81e95c0ef6649f601",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/pipe_thrower__attack.png"
+      },
+      {
+        "id": "pipe_thrower__pipe_mortar",
+        "source": "art_requests/combat_motion_v7/incoming/pipe_thrower__pipe_mortar.png",
+        "sha256": "cd744bd66a17bbf3087cde3444bee2acef70870bb3734030722e99fe509de924",
+        "new_drawings": 24,
+        "animations": [
+          "pipe_mortar_windup",
+          "pipe_mortar",
+          "pipe_mortar_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/pipe_thrower__pipe_mortar.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

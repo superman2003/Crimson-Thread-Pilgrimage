@@ -1,0 +1,85 @@
+{
+  "schema": 1,
+  "date": "2026-11-08",
+  "engine": "4.6.1.stable.official.14d19694e",
+  "baseline_commit": "75cc618458f9173e8368c1960c98371bdffe8559",
+  "simulation_seconds_per_case": 25,
+  "fixed_fps": 60,
+  "method": "Same enemy_attack_flow_probe and production command tables; baseline actor source loaded from Git; upgraded source from feature branch. Fixed invulnerable target, isolated saves. Stationary means patrol displacement below 0.03 px per sampled physics frame.",
+  "limitations": [
+    "This is an isolated fixed-target state-machine diagnostic, not a natural traversal or difficulty rating.",
+    "Total post-recovery gaps include purposeful Boss repositioning.",
+    "Late recovery planning increases attack frequency even though authored command timings are unchanged."
+  ],
+  "rows": [
+    {
+      "kind": "moss_larva",
+      "before": {
+        "attacks": 14,
+        "mean_post_recovery_gap_seconds": 0.35,
+        "mean_stationary_post_recovery_seconds": 0.16946153846153847,
+        "maximum_post_recovery_gap_seconds": 0.35
+      },
+      "after": {
+        "attacks": 17,
+        "mean_post_recovery_gap_seconds": 0.083,
+        "mean_stationary_post_recovery_seconds": 0.067,
+        "maximum_post_recovery_gap_seconds": 0.083
+      }
+    },
+    {
+      "kind": "bronze_moth",
+      "before": {
+        "attacks": 13,
+        "mean_post_recovery_gap_seconds": 0.33858333333333335,
+        "mean_stationary_post_recovery_seconds": 0.3225,
+        "maximum_post_recovery_gap_seconds": 0.4
+      },
+      "after": {
+        "attacks": 15,
+        "mean_post_recovery_gap_seconds": 0.0797857142857143,
+        "mean_stationary_post_recovery_seconds": 0.06321428571428572,
+        "maximum_post_recovery_gap_seconds": 0.15
+      }
+    },
+    {
+      "kind": "rust_crown_guardian",
+      "before": {
+        "attacks": 11,
+        "mean_post_recovery_gap_seconds": 0.3,
+        "mean_stationary_post_recovery_seconds": 0.283,
+        "maximum_post_recovery_gap_seconds": 0.3
+      },
+      "after": {
+        "attacks": 12,
+        "mean_post_recovery_gap_seconds": 0.1531818181818182,
+        "mean_stationary_post_recovery_seconds": 0.03636363636363637,
+        "maximum_post_recovery_gap_seconds": 0.383
+      }
+    },
+    {
+      "kind": "sunken_hammer_smith",
+      "before": {
+        "attacks": 12,
+        "mean_post_recovery_gap_seconds": 0.3,
+        "mean_stationary_post_recovery_seconds": 0.283,
+        "maximum_post_recovery_gap_seconds": 0.3
+      },
+      "after": {
+        "attacks": 13,
+        "mean_post_recovery_gap_seconds": 0.17233333333333334,
+        "mean_stationary_post_recovery_seconds": 0.03333333333333333,
+        "maximum_post_recovery_gap_seconds": 0.383
+      }
+    }
+  ],
+  "unchanged_chapter_sha256_lf": {
+    "godot/data/demo_ch01_boss_trial.json": "c50ee7eb84c793b05c7ac61fbe06b6680520faf739f41bc180a174ab6814a7a3",
+    "godot/data/demo_ch01_moss_bell_court.json": "1ce381aac92167eead60bba79e64e66cfd5e7066846f70746a0fb4246017d6bd",
+    "godot/data/demo_ch02_rain_foundry_canal.json": "5fb5046691ead5a05fa7a4e116f04279b728a89de1b6d7c08ea512bf052147e8",
+    "godot/data/demo_ch03_saltwhite_archive.json": "28e3218b741e53d6ebb9e2bfa040b3347205b2c2aab1b0d5bc1e8ff1b45c7109",
+    "godot/data/demo_ch04_broken_string_greenhouse.json": "318016eb23275c43805171a396519307cec0c9352756357c59fcca01cac72275",
+    "godot/data/demo_ch05_obsidian_pilgrim_road.json": "9878679b2560f3035947b5eae925f658294bb498670a303a0b6cbd675bdb0c26",
+    "godot/data/demo_ch06_silent_crown_core.json": "55ac4351eac55089d709079fc8faed3cf4a48e89fa361c2b6df43070809ee3a7"
+  }
+}

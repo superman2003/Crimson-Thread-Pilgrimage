@@ -1,0 +1,6146 @@
+{
+  "kind": "sunken_hammer_smith",
+  "generator": "built-in image_gen",
+  "sources": [
+    {
+      "sheet": "motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Crimson Scissor Apostle exactly as refs, tall cockroach priest, wine-red ragged vestments, bronze needle crown, long antennae, ivory segmented abdomen and gigantic hinged sewing scissors held in both arms. Sheet exactly SIX columns by SIX rows 36 poses, square canvas. Character and COMPLETE open scissors must remain within only 78% cell width with transparent gutters. Read row-major indices 0-35: 0-3 idle breathing loop; 4-11 eight-frame alternating foot walk cycle with cloth/scissors counter-swing; 12-15 draw scissors upward and open blades to prepare; 16-21 six-frame forward scissors lunge and snapping closed with changing arm/torso angles; 22-27 withdraw blades/rebalance/recover to guard; 28-31 hurt recoil, bend and recover; 32-35 stumble/kneel/fall/full collapsed death. No weapon clipping or neighboring overlap. Distinct hand-drawn articulated poses, registered scale.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-2b5bec75-009c-4913-a353-800489d6f761.png",
+      "sha256": "c72c42bf9511970ed89881f6d3d7efe56270ba476be949f415f90d7fb70ab729"
+    },
+    {
+      "sheet": "special_motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Crimson Scissor Apostle as refs, cockroach priest wine-red ragged robes, needle crown bronze armor, huge hinged scissors; complete open blades and long antennae. Exactly FOUR COLUMNS by SIX ROWS, 24 full body sprites. VERY SMALL characters each only 65% of cell width and height, at least 15% blank margin each side; leave truly empty space between all 24. All are same scale. Each row four sequential hand-drawn key poses: ROW1 heavy_windup: opening scissors and lifting above head, body coils. ROW2 heavy: overhead scissor chop, closed blades down through impact and recovery. ROW3 cast_windup: claw draws crimson silk threads inward, scissors low. ROW4 cast: arm sweeps releases attached crimson thread loop toward right then withdraws. ROW5 phase_windup: lowered crouch with scissors crossed and rising recoil. ROW6 phase: turns shoulders forward in great scissors lunge and opens cloak, returns guard. No camera facing changes, every living frame side view right. Do not copy original 4x3 layout; create 4x6 new poses on transparent background. No floor, no shadows, no text.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-0a8b4746-ae4e-49ec-a22e-0cbf910df846.png",
+      "sha256": "40243affbcc08dda11bb597625fc315ff3b7218db986df5851cd6febea92fb61"
+    },
+    {
+      "sheet": "motion_repair.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character Crimson Scissor Apostle EXACTLY reference: roach priest with bronze needle crown, dark wine-red ragged cloth, bronze armor, ivory segmented abdomen and paired giant hinged sewing scissor weapons. FOUR columns by FOUR rows 16 whole sprites, square canvas. Sparse layout with large empty alpha gaps; maximum half cell width per character incl entire scissors to avoid ANY touch. Same scale all16. Row1 four heavy attack poses: scissors raised open, arc down, slammed closed at ground, rising followthrough. Row2 four cast poses: free claw gathers crimson silk, lifts small attached loop, extends open palm right to send attached silk, withdraws and settles; scissors held down complete. Row3 four phase attack poses: low coiled scissors guard, forward lunge opening blades, full snapping scissors closed thrust, low recoiling step. Row4 four death poses: standing dying recoil, kneel head bowed, fall onto side, fully prone collapsed with complete scissors lying along body. All facing right in pure side view, hand drawn same anatomy and style. No painted background, no detached effects, no floor/shadow/labels/text.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-15449929-bb0d-4d54-a036-7b3c795a9800.png",
+      "sha256": "d4af5204fd2b2ed203dcfe2e642f8a7dd367e7b23da74f3f32275a87aae87471"
+    }
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          174,
+          198
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          176,
+          0,
+          177,
+          180
+        ],
+        "anchor_x": 88.06015,
+        "packed_runtime": true,
+        "scale": 1.108333,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          355,
+          0,
+          176,
+          201
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          533,
+          0,
+          186,
+          184
+        ],
+        "anchor_x": 94.22,
+        "packed_runtime": true,
+        "scale": 1.086957,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          721,
+          0,
+          189,
+          199
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          912,
+          0,
+          191,
+          186
+        ],
+        "anchor_x": 102.20603,
+        "packed_runtime": true,
+        "scale": 1.069892,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1105,
+          0,
+          183,
+          199
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1290,
+          0,
+          191,
+          177
+        ],
+        "anchor_x": 94.904282,
+        "packed_runtime": true,
+        "scale": 1.121469,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1483,
+          0,
+          178,
+          200
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1663,
+          0,
+          200,
+          180
+        ],
+        "anchor_x": 103.35,
+        "packed_runtime": true,
+        "scale": 1.111111,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1865,
+          0,
+          173,
+          200
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2040,
+          0,
+          181,
+          175
+        ],
+        "anchor_x": 91.349614,
+        "packed_runtime": true,
+        "scale": 1.111429,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2223,
+          0,
+          201,
+          189
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2426,
+          0,
+          198,
+          175
+        ],
+        "anchor_x": 104.566489,
+        "packed_runtime": true,
+        "scale": 1.074286,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2626,
+          0,
+          195,
+          187
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2823,
+          0,
+          202,
+          173
+        ],
+        "anchor_x": 98.883784,
+        "packed_runtime": true,
+        "scale": 1.069364,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 8,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3027,
+          0,
+          192,
+          183
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3221,
+          0,
+          200,
+          173
+        ],
+        "anchor_x": 105.991713,
+        "packed_runtime": true,
+        "scale": 1.046243,
+        "_v7_loop_alignment": {
+          "from": 8,
+          "to": 10,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3423,
+          0,
+          219,
+          179
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3644,
+          0,
+          213,
+          164
+        ],
+        "anchor_x": 121.688889,
+        "packed_runtime": true,
+        "scale": 1.097561,
+        "_v7_loop_alignment": {
+          "from": 10,
+          "to": 12,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3859,
+          0,
+          195,
+          181
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          203,
+          208,
+          164
+        ],
+        "anchor_x": 121.719101,
+        "packed_runtime": true,
+        "scale": 1.085366,
+        "_v7_loop_alignment": {
+          "from": 12,
+          "to": 14,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          210,
+          203,
+          189,
+          175
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          401,
+          203,
+          196,
+          170
+        ],
+        "anchor_x": 110.773333,
+        "packed_runtime": true,
+        "scale": 1.102941,
+        "_v7_loop_alignment": {
+          "from": 14,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          599,
+          203,
+          170,
+          204
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          47,
+          57,
+          153,
+          189
+        ],
+        "component_seeds": [
+          [
+            115,
+            163
+          ]
+        ],
+        "scale": 1.138122,
+        "anchor_x": 76.656958,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          298,
+          64,
+          168,
+          183
+        ],
+        "component_seeds": [
+          [
+            393,
+            166
+          ]
+        ],
+        "scale": 1.188571,
+        "anchor_x": 77.671474,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          942,
+          203,
+          184,
+          210
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          547,
+          73,
+          179,
+          174
+        ],
+        "component_seeds": [
+          [
+            623,
+            169
+          ]
+        ],
+        "scale": 1.228916,
+        "anchor_x": 85.388889,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          801,
+          90,
+          173,
+          157
+        ],
+        "component_seeds": [
+          [
+            855,
+            178
+          ]
+        ],
+        "scale": 1.328859,
+        "anchor_x": 88.996633,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1335,
+          203,
+          192,
+          192
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1056,
+          96,
+          182,
+          151
+        ],
+        "component_seeds": [
+          [
+            1126,
+            176
+          ]
+        ],
+        "scale": 1.331002,
+        "anchor_x": 103.017513,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1306,
+          81,
+          194,
+          165
+        ],
+        "component_seeds": [
+          [
+            1374,
+            169
+          ]
+        ],
+        "scale": 1.201699,
+        "anchor_x": 113.694346,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1751,
+          203,
+          224,
+          187
+        ],
+        "anchor_x": 134.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          24,
+          333,
+          200,
+          169
+        ],
+        "component_seeds": [
+          [
+            98,
+            422
+          ]
+        ],
+        "scale": 1.043478,
+        "anchor_x": 115.166667,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          283,
+          379,
+          190,
+          123
+        ],
+        "component_seeds": [
+          [
+            427,
+            453
+          ]
+        ],
+        "scale": 1.295652,
+        "anchor_x": 96.630872,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1977,
+          203,
+          210,
+          130
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          538,
+          380,
+          197,
+          123
+        ],
+        "component_seeds": [
+          [
+            626,
+            453
+          ]
+        ],
+        "scale": 1.188406,
+        "anchor_x": 84.902439,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          781,
+          365,
+          225,
+          138
+        ],
+        "component_seeds": [
+          [
+            924,
+            431
+          ]
+        ],
+        "scale": 1.102564,
+        "anchor_x": 96.488372,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2439,
+          203,
+          245,
+          150
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1038,
+          367,
+          225,
+          135
+        ],
+        "component_seeds": [
+          [
+            1203,
+            432
+          ]
+        ],
+        "scale": 1.15748,
+        "anchor_x": 110.136054,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1291,
+          376,
+          230,
+          127
+        ],
+        "component_seeds": [
+          [
+            1414,
+            439
+          ]
+        ],
+        "scale": 1.210084,
+        "anchor_x": 115.875,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2958,
+          203,
+          257,
+          141
+        ],
+        "anchor_x": 143.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          12,
+          632,
+          228,
+          126
+        ],
+        "component_seeds": [
+          [
+            153,
+            694
+          ]
+        ],
+        "scale": 1.135593,
+        "anchor_x": 124.895522,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          303,
+          644,
+          147,
+          115
+        ],
+        "component_seeds": [
+          [
+            353,
+            713
+          ]
+        ],
+        "scale": 1.186916,
+        "anchor_x": 95.637795,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3407,
+          203,
+          161,
+          120
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          561,
+          643,
+          145,
+          116
+        ],
+        "component_seeds": [
+          [
+            576,
+            712
+          ]
+        ],
+        "scale": 1.33642,
+        "anchor_x": 75.26097,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          803,
+          589,
+          174,
+          170
+        ],
+        "component_seeds": [
+          [
+            932,
+            691
+          ]
+        ],
+        "scale": 1.041152,
+        "anchor_x": 64.992095,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3570,
+          203,
+          194,
+          193
+        ],
+        "anchor_x": 57.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1058,
+          588,
+          174,
+          171
+        ],
+        "component_seeds": [
+          [
+            1196,
+            689
+          ]
+        ],
+        "scale": 1.177914,
+        "anchor_x": 61.059028,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1314,
+          589,
+          168,
+          170
+        ],
+        "component_seeds": [
+          [
+            1375,
+            690
+          ]
+        ],
+        "scale": 1.179012,
+        "anchor_x": 62.057592,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          415,
+          197,
+          190
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          34,
+          845,
+          170,
+          170
+        ],
+        "component_seeds": [
+          [
+            117,
+            946
+          ]
+        ],
+        "scale": 1.187243,
+        "anchor_x": 71.17331,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          291,
+          842,
+          170,
+          173
+        ],
+        "component_seeds": [
+          [
+            367,
+            947
+          ]
+        ],
+        "scale": 1.179798,
+        "anchor_x": 83.174658,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          807,
+          415,
+          199,
+          197
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          541,
+          843,
+          181,
+          171
+        ],
+        "component_seeds": [
+          [
+            694,
+            948
+          ]
+        ],
+        "scale": 1.198364,
+        "anchor_x": 91.496587,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          810,
+          847,
+          166,
+          168
+        ],
+        "component_seeds": [
+          [
+            869,
+            952
+          ]
+        ],
+        "scale": 1.210417,
+        "anchor_x": 79.91222,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1762,
+          415,
+          170,
+          192
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1071,
+          843,
+          158,
+          172
+        ],
+        "component_seeds": [
+          [
+            1132,
+            950
+          ]
+        ],
+        "scale": 1.182927,
+        "anchor_x": 75.419244,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "region": [
+          1326,
+          840,
+          150,
+          175
+        ],
+        "component_seeds": [
+          [
+            1418,
+            948
+          ]
+        ],
+        "scale": 1.173653,
+        "anchor_x": 71.87585,
+        "grade": {
+          "saturation": 1.0599,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1934,
+          415,
+          186,
+          188
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2122,
+          415,
+          183,
+          192
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2307,
+          415,
+          180,
+          167
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2489,
+          415,
+          182,
+          125
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2673,
+          415,
+          225,
+          91
+        ],
+        "anchor_x": 141.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2900,
+          415,
+          211,
+          74
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3113,
+          415,
+          203,
+          200
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          34,
+          68,
+          182,
+          179
+        ],
+        "component_seeds": [
+          [
+            103,
+            176
+          ]
+        ],
+        "scale": 1.274854,
+        "anchor_x": 100.380734,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          300,
+          25,
+          162,
+          222
+        ],
+        "component_seeds": [
+          [
+            370,
+            154
+          ]
+        ],
+        "scale": 1.102804,
+        "anchor_x": 113.367232,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3493,
+          415,
+          180,
+          254
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          558,
+          24,
+          158,
+          223
+        ],
+        "component_seeds": [
+          [
+            652,
+            154
+          ]
+        ],
+        "scale": 1.234109,
+        "anchor_x": 100.263819,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          821,
+          22,
+          144,
+          225
+        ],
+        "component_seeds": [
+          [
+            923,
+            159
+          ]
+        ],
+        "scale": 1.274962,
+        "anchor_x": 79.555422,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3851,
+          415,
+          175,
+          288
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1080,
+          20,
+          141,
+          227
+        ],
+        "component_seeds": [
+          [
+            1156,
+            160
+          ]
+        ],
+        "scale": 1.322679,
+        "anchor_x": 71.163406,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1344,
+          20,
+          131,
+          227
+        ],
+        "component_seeds": [
+          [
+            1406,
+            167
+          ]
+        ],
+        "scale": 1.330289,
+        "anchor_x": 68.491991,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          166,
+          705,
+          169,
+          293
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          62,
+          274,
+          134,
+          229
+        ],
+        "component_seeds": [
+          [
+            159,
+            422
+          ]
+        ],
+        "scale": 1.250377,
+        "anchor_x": 71.534379,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          304,
+          289,
+          164,
+          214
+        ],
+        "component_seeds": [
+          [
+            366,
+            412
+          ]
+        ],
+        "scale": 1.260518,
+        "anchor_x": 67.157895,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          337,
+          705,
+          181,
+          243
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          557,
+          289,
+          167,
+          214
+        ],
+        "component_seeds": [
+          [
+            594,
+            412
+          ]
+        ],
+        "scale": 1.124595,
+        "anchor_x": 72.107914,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          812,
+          318,
+          166,
+          185
+        ],
+        "component_seeds": [
+          [
+            915,
+            419
+          ]
+        ],
+        "scale": 1.244821,
+        "anchor_x": 94.409985,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          728,
+          705,
+          178,
+          209
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1068,
+          319,
+          167,
+          184
+        ],
+        "component_seeds": [
+          [
+            1174,
+            419
+          ]
+        ],
+        "scale": 1.054924,
+        "anchor_x": 112.222621,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1308,
+          372,
+          194,
+          131
+        ],
+        "component_seeds": [
+          [
+            1380,
+            448
+          ]
+        ],
+        "scale": 1.319783,
+        "anchor_x": 114.205339,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1140,
+          705,
+          215,
+          139
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          30,
+          632,
+          191,
+          127
+        ],
+        "component_seeds": [
+          [
+            117,
+            703
+          ]
+        ],
+        "scale": 1.417367,
+        "anchor_x": 108.873518,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          300,
+          555,
+          162,
+          204
+        ],
+        "component_seeds": [
+          [
+            371,
+            684
+          ]
+        ],
+        "scale": 1.011905,
+        "anchor_x": 104.447059,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1520,
+          705,
+          174,
+          228
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          556,
+          553,
+          162,
+          206
+        ],
+        "component_seeds": [
+          [
+            606,
+            684
+          ]
+        ],
+        "scale": 1.092593,
+        "anchor_x": 86.084746,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          805,
+          585,
+          173,
+          174
+        ],
+        "component_seeds": [
+          [
+            841,
+            692
+          ]
+        ],
+        "scale": 1.232932,
+        "anchor_x": 68.644951,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "cast_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1696,
+          705,
+          214,
+          206
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          33,
+          66,
+          188,
+          181
+        ],
+        "component_seeds": [
+          [
+            140,
+            177
+          ]
+        ],
+        "scale": 1.194605,
+        "anchor_x": 108.020968,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          290,
+          64,
+          184,
+          183
+        ],
+        "component_seeds": [
+          [
+            324,
+            171
+          ]
+        ],
+        "scale": 1.184762,
+        "anchor_x": 116.663987,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2112,
+          705,
+          218,
+          208
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          546,
+          64,
+          187,
+          183
+        ],
+        "component_seeds": [
+          [
+            597,
+            171
+          ]
+        ],
+        "scale": 1.182857,
+        "anchor_x": 115.162641,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          794,
+          65,
+          199,
+          183
+        ],
+        "component_seeds": [
+          [
+            852,
+            166
+          ]
+        ],
+        "scale": 1.177143,
+        "anchor_x": 106.176375,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2539,
+          705,
+          219,
+          205
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1051,
+          67,
+          200,
+          180
+        ],
+        "component_seeds": [
+          [
+            1089,
+            167
+          ]
+        ],
+        "scale": 1.182171,
+        "anchor_x": 107.688525,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1313,
+          70,
+          191,
+          176
+        ],
+        "component_seeds": [
+          [
+            1458,
+            176
+          ]
+        ],
+        "scale": 1.200397,
+        "anchor_x": 118.993388,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2951,
+          705,
+          208,
+          200
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          34,
+          325,
+          185,
+          177
+        ],
+        "component_seeds": [
+          [
+            114,
+            432
+          ]
+        ],
+        "scale": 1.175542,
+        "anchor_x": 118.147651,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          295,
+          329,
+          175,
+          174
+        ],
+        "component_seeds": [
+          [
+            332,
+            424
+          ]
+        ],
+        "scale": 1.188755,
+        "anchor_x": 93.131757,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "cast": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3161,
+          705,
+          195,
+          196
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          551,
+          328,
+          181,
+          175
+        ],
+        "component_seeds": [
+          [
+            661,
+            423
+          ]
+        ],
+        "scale": 1.209581,
+        "anchor_x": 90.960396,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          808,
+          313,
+          178,
+          190
+        ],
+        "component_seeds": [
+          [
+            925,
+            418
+          ]
+        ],
+        "scale": 1.142857,
+        "anchor_x": 100.25,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3547,
+          705,
+          192,
+          214
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1067,
+          315,
+          174,
+          188
+        ],
+        "component_seeds": [
+          [
+            1147,
+            419
+          ]
+        ],
+        "scale": 1.12037,
+        "anchor_x": 104.256198,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1293,
+          348,
+          227,
+          154
+        ],
+        "component_seeds": [
+          [
+            1435,
+            423
+          ]
+        ],
+        "scale": 1.296804,
+        "anchor_x": 104.852113,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          1000,
+          263,
+          177
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          16,
+          600,
+          227,
+          159
+        ],
+        "component_seeds": [
+          [
+            99,
+            677
+          ]
+        ],
+        "scale": 1.19426,
+        "anchor_x": 103.397412,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          300,
+          588,
+          163,
+          171
+        ],
+        "component_seeds": [
+          [
+            357,
+            690
+          ]
+        ],
+        "scale": 1.126789,
+        "anchor_x": 106.974592,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          500,
+          1000,
+          177,
+          187
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          558,
+          588,
+          161,
+          171
+        ],
+        "component_seeds": [
+          [
+            662,
+            690
+          ]
+        ],
+        "scale": 1.159509,
+        "anchor_x": 92.737213,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          809,
+          588,
+          168,
+          171
+        ],
+        "component_seeds": [
+          [
+            880,
+            694
+          ]
+        ],
+        "scale": 1.171779,
+        "anchor_x": 66.328098,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          679,
+          1000,
+          267,
+          149
+        ],
+        "anchor_x": 161.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          5,
+          2,
+          237,
+          273
+        ],
+        "component_seeds": [
+          [
+            189,
+            190
+          ],
+          [
+            26,
+            9
+          ],
+          [
+            31,
+            8
+          ],
+          [
+            36,
+            9
+          ],
+          [
+            85,
+            10
+          ],
+          [
+            65,
+            10
+          ],
+          [
+            54,
+            10
+          ],
+          [
+            16,
+            265
+          ],
+          [
+            46,
+            266
+          ],
+          [
+            68,
+            265
+          ],
+          [
+            73,
+            265
+          ],
+          [
+            88,
+            266
+          ],
+          [
+            86,
+            266
+          ]
+        ],
+        "scale": 0.586164,
+        "anchor_x": 154.062232,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          267,
+          96,
+          226,
+          177
+        ],
+        "component_seeds": [
+          [
+            338,
+            183
+          ],
+          [
+            273,
+            265
+          ],
+          [
+            278,
+            265
+          ],
+          [
+            289,
+            266
+          ],
+          [
+            295,
+            266
+          ],
+          [
+            309,
+            265
+          ]
+        ],
+        "scale": 0.956607,
+        "anchor_x": 114.272165,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1208,
+          1000,
+          253,
+          168
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          517,
+          2,
+          231,
+          272
+        ],
+        "component_seeds": [
+          [
+            567,
+            180
+          ],
+          [
+            536,
+            9
+          ],
+          [
+            549,
+            9
+          ],
+          [
+            576,
+            10
+          ],
+          [
+            607,
+            9
+          ],
+          [
+            523,
+            265
+          ],
+          [
+            590,
+            266
+          ],
+          [
+            548,
+            265
+          ],
+          [
+            560,
+            266
+          ],
+          [
+            578,
+            264
+          ]
+        ],
+        "scale": 0.712121,
+        "anchor_x": 84.170213,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          806,
+          49,
+          178,
+          197
+        ],
+        "component_seeds": [
+          [
+            921,
+            150
+          ]
+        ],
+        "scale": 1.100529,
+        "anchor_x": 74.4375,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1729,
+          1000,
+          216,
+          230
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1029,
+          1,
+          207,
+          273
+        ],
+        "component_seeds": [
+          [
+            1172,
+            149
+          ],
+          [
+            1045,
+            9
+          ],
+          [
+            1060,
+            9
+          ],
+          [
+            1091,
+            9
+          ],
+          [
+            1097,
+            9
+          ],
+          [
+            1119,
+            9
+          ],
+          [
+            1077,
+            10
+          ],
+          [
+            1110,
+            10
+          ],
+          [
+            1096,
+            265
+          ],
+          [
+            1118,
+            264
+          ],
+          [
+            1041,
+            265
+          ],
+          [
+            1060,
+            265
+          ],
+          [
+            1090,
+            264
+          ],
+          [
+            1072,
+            266
+          ],
+          [
+            1109,
+            266
+          ]
+        ],
+        "scale": 0.85283,
+        "anchor_x": 98.432153,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1294,
+          47,
+          198,
+          226
+        ],
+        "component_seeds": [
+          [
+            1377,
+            162
+          ],
+          [
+            1303,
+            264
+          ],
+          [
+            1307,
+            265
+          ],
+          [
+            1309,
+            265
+          ],
+          [
+            1325,
+            265
+          ],
+          [
+            1328,
+            265
+          ],
+          [
+            1330,
+            265
+          ],
+          [
+            1319,
+            265
+          ],
+          [
+            1335,
+            266
+          ]
+        ],
+        "scale": 1.027523,
+        "anchor_x": 96.940476,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2133,
+          1000,
+          189,
+          222
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          5,
+          306,
+          207,
+          224
+        ],
+        "component_seeds": [
+          [
+            137,
+            417
+          ],
+          [
+            9,
+            521
+          ],
+          [
+            37,
+            520
+          ],
+          [
+            67,
+            520
+          ],
+          [
+            73,
+            521
+          ],
+          [
+            94,
+            521
+          ],
+          [
+            42,
+            522
+          ],
+          [
+            85,
+            522
+          ]
+        ],
+        "scale": 1.04784,
+        "anchor_x": 116.410898,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          304,
+          295,
+          150,
+          207
+        ],
+        "component_seeds": [
+          [
+            416,
+            410
+          ]
+        ],
+        "scale": 1.159129,
+        "anchor_x": 88.41185,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2324,
+          1000,
+          168,
+          235
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          517,
+          295,
+          197,
+          235
+        ],
+        "component_seeds": [
+          [
+            673,
+            409
+          ],
+          [
+            530,
+            521
+          ],
+          [
+            547,
+            521
+          ],
+          [
+            585,
+            521
+          ],
+          [
+            596,
+            522
+          ],
+          [
+            578,
+            521
+          ],
+          [
+            552,
+            522
+          ]
+        ],
+        "scale": 0.904552,
+        "anchor_x": 139.316558,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          817,
+          370,
+          164,
+          133
+        ],
+        "component_seeds": [
+          [
+            939,
+            440
+          ]
+        ],
+        "scale": 1.405333,
+        "anchor_x": 88.134725,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2665,
+          1000,
+          182,
+          146
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1029,
+          370,
+          200,
+          160
+        ],
+        "component_seeds": [
+          [
+            1148,
+            441
+          ],
+          [
+            1049,
+            521
+          ],
+          [
+            1060,
+            520
+          ],
+          [
+            1103,
+            522
+          ],
+          [
+            1038,
+            521
+          ],
+          [
+            1092,
+            521
+          ],
+          [
+            1097,
+            521
+          ],
+          [
+            1066,
+            522
+          ],
+          [
+            1073,
+            522
+          ]
+        ],
+        "scale": 0.942982,
+        "anchor_x": 129.181395,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1287,
+          386,
+          236,
+          117
+        ],
+        "component_seeds": [
+          [
+            1483,
+            440
+          ]
+        ],
+        "scale": 1.29052,
+        "anchor_x": 103.324645,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3011,
+          1000,
+          280,
+          138
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          5,
+          644,
+          237,
+          142
+        ],
+        "component_seeds": [
+          [
+            83,
+            696
+          ],
+          [
+            26,
+            776
+          ],
+          [
+            35,
+            777
+          ],
+          [
+            48,
+            778
+          ],
+          [
+            74,
+            776
+          ],
+          [
+            86,
+            778
+          ],
+          [
+            100,
+            775
+          ]
+        ],
+        "scale": 0.992537,
+        "anchor_x": 106.022556,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          262,
+          656,
+          236,
+          128
+        ],
+        "component_seeds": [
+          [
+            419,
+            713
+          ],
+          [
+            274,
+            777
+          ],
+          [
+            282,
+            777
+          ]
+        ],
+        "scale": 1.066667,
+        "anchor_x": 115.8125,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3566,
+          1000,
+          281,
+          123
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          517,
+          658,
+          238,
+          128
+        ],
+        "component_seeds": [
+          [
+            591,
+            714
+          ],
+          [
+            522,
+            777
+          ],
+          [
+            543,
+            777
+          ],
+          [
+            548,
+            777
+          ],
+          [
+            552,
+            777
+          ],
+          [
+            584,
+            777
+          ],
+          [
+            590,
+            777
+          ],
+          [
+            601,
+            778
+          ],
+          [
+            564,
+            778
+          ]
+        ],
+        "scale": 1.219444,
+        "anchor_x": 108.259681,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          806,
+          586,
+          170,
+          171
+        ],
+        "component_seeds": [
+          [
+            937,
+            691
+          ]
+        ],
+        "scale": 1.0409,
+        "anchor_x": 63.667976,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3849,
+          1000,
+          187,
+          229
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          1237,
+          203,
+          213
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          205,
+          1237,
+          190,
+          172
+        ],
+        "anchor_x": 61.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          397,
+          1237,
+          193,
+          176
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          592,
+          1237,
+          202,
+          191
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          796,
+          1237,
+          204,
+          178
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1002,
+          1237,
+          177,
+          192
+        ],
+        "anchor_x": 57.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1181,
+          1237,
+          200,
+          181
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      }
+    ],
+    "phase_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1383,
+          1237,
+          231,
+          162
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1616,
+          1237,
+          189,
+          172
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1807,
+          1237,
+          180,
+          184
+        ],
+        "anchor_x": 60.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1989,
+          1237,
+          209,
+          154
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3570,
+          203,
+          194,
+          193
+        ],
+        "anchor_x": 57.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1062,
+          588,
+          171,
+          171
+        ],
+        "component_seeds": [
+          [
+            1136,
+            692
+          ]
+        ],
+        "scale": 1.177914,
+        "anchor_x": 59.059028,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1316,
+          590,
+          177,
+          168
+        ],
+        "component_seeds": [
+          [
+            1406,
+            691
+          ]
+        ],
+        "scale": 1.19375,
+        "anchor_x": 64.291449,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          415,
+          197,
+          190
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          41,
+          845,
+          173,
+          170
+        ],
+        "component_seeds": [
+          [
+            166,
+            946
+          ]
+        ],
+        "scale": 1.187243,
+        "anchor_x": 69.17331,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          292,
+          840,
+          175,
+          175
+        ],
+        "component_seeds": [
+          [
+            377,
+            947
+          ]
+        ],
+        "scale": 1.165669,
+        "anchor_x": 85.140411,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          807,
+          415,
+          199,
+          197
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          552,
+          841,
+          173,
+          174
+        ],
+        "component_seeds": [
+          [
+            590,
+            948
+          ]
+        ],
+        "scale": 1.176707,
+        "anchor_x": 82.450512,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          816,
+          843,
+          155,
+          172
+        ],
+        "component_seeds": [
+          [
+            911,
+            950
+          ]
+        ],
+        "scale": 1.180894,
+        "anchor_x": 72.685026,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1762,
+          415,
+          170,
+          192
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1073,
+          844,
+          154,
+          172
+        ],
+        "component_seeds": [
+          [
+            1147,
+            950
+          ]
+        ],
+        "scale": 1.182927,
+        "anchor_x": 71.419244,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "region": [
+          1323,
+          840,
+          159,
+          175
+        ],
+        "component_seeds": [
+          [
+            1392,
+            950
+          ]
+        ],
+        "scale": 1.173653,
+        "anchor_x": 73.87585,
+        "grade": {
+          "saturation": 1.0213,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3570,
+          203,
+          194,
+          193
+        ],
+        "anchor_x": 57.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1061,
+          584,
+          174,
+          176
+        ],
+        "component_seeds": [
+          [
+            1187,
+            690
+          ]
+        ],
+        "scale": 1.142857,
+        "anchor_x": 58.416667,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1317,
+          586,
+          176,
+          173
+        ],
+        "component_seeds": [
+          [
+            1395,
+            690
+          ]
+        ],
+        "scale": 1.157576,
+        "anchor_x": 60.706806,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          415,
+          197,
+          190
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          37,
+          842,
+          174,
+          173
+        ],
+        "component_seeds": [
+          [
+            74,
+            946
+          ]
+        ],
+        "scale": 1.165657,
+        "anchor_x": 68.991334,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          292,
+          838,
+          177,
+          177
+        ],
+        "component_seeds": [
+          [
+            387,
+            946
+          ]
+        ],
+        "scale": 1.151874,
+        "anchor_x": 84.106164,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          807,
+          415,
+          199,
+          197
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          549,
+          838,
+          176,
+          177
+        ],
+        "component_seeds": [
+          [
+            682,
+            946
+          ]
+        ],
+        "scale": 1.155819,
+        "anchor_x": 84.404437,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          817,
+          842,
+          159,
+          173
+        ],
+        "component_seeds": [
+          [
+            899,
+            950
+          ]
+        ],
+        "scale": 1.173737,
+        "anchor_x": 72.628227,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1762,
+          415,
+          170,
+          192
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1073,
+          840,
+          157,
+          176
+        ],
+        "component_seeds": [
+          [
+            1132,
+            950
+          ]
+        ],
+        "scale": 1.154762,
+        "anchor_x": 73.185567,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "region": [
+          1322,
+          838,
+          159,
+          177
+        ],
+        "component_seeds": [
+          [
+            1373,
+            947
+          ]
+        ],
+        "scale": 1.159763,
+        "anchor_x": 74.838435,
+        "grade": {
+          "saturation": 1.0535,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3570,
+          203,
+          194,
+          193
+        ],
+        "anchor_x": 57.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1029,
+          586,
+          199,
+          200
+        ],
+        "component_seeds": [
+          [
+            1191,
+            692
+          ],
+          [
+            1049,
+            776
+          ],
+          [
+            1059,
+            777
+          ],
+          [
+            1040,
+            777
+          ],
+          [
+            1095,
+            777
+          ],
+          [
+            1102,
+            778
+          ],
+          [
+            1114,
+            778
+          ],
+          [
+            1076,
+            778
+          ]
+        ],
+        "scale": 1.0,
+        "anchor_x": 85.333333,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1313,
+          587,
+          172,
+          170
+        ],
+        "component_seeds": [
+          [
+            1435,
+            688
+          ]
+        ],
+        "scale": 1.179012,
+        "anchor_x": 64.057592,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          421,
+          415,
+          197,
+          190
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          33,
+          843,
+          172,
+          170
+        ],
+        "component_seeds": [
+          [
+            135,
+            945
+          ]
+        ],
+        "scale": 1.187243,
+        "anchor_x": 74.17331,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          287,
+          838,
+          181,
+          175
+        ],
+        "component_seeds": [
+          [
+            322,
+            948
+          ]
+        ],
+        "scale": 1.165669,
+        "anchor_x": 89.140411,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          807,
+          415,
+          199,
+          197
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          544,
+          837,
+          176,
+          176
+        ],
+        "component_seeds": [
+          [
+            642,
+            947
+          ]
+        ],
+        "scale": 1.162698,
+        "anchor_x": 89.419795,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          811,
+          844,
+          158,
+          169
+        ],
+        "component_seeds": [
+          [
+            921,
+            952
+          ]
+        ],
+        "scale": 1.202899,
+        "anchor_x": 74.855422,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1762,
+          415,
+          170,
+          192
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1072,
+          844,
+          154,
+          169
+        ],
+        "component_seeds": [
+          [
+            1112,
+            951
+          ]
+        ],
+        "scale": 1.204969,
+        "anchor_x": 71.594502,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "region": [
+          1331,
+          839,
+          151,
+          174
+        ],
+        "component_seeds": [
+          [
+            1400,
+            948
+          ]
+        ],
+        "scale": 1.180723,
+        "anchor_x": 68.894558,
+        "grade": {
+          "saturation": 1.1267,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "qa": {
+    "review": "Source sheets visually reviewed; independent complete alpha components explicitly selected; merged characters and edge-clipped poses excluded. Source atlas and attacks unchanged.",
+    "mechanical_packaging": "Component isolation of authored source pixels, scale normalization and atlas packing; no procedural animation or interpolation."
+  },
+  "slots": {
+    "idle": 4,
+    "walk": 8,
+    "windup": 4,
+    "attack": 4,
+    "recover": 6,
+    "hurt": 2,
+    "death": 4,
+    "heavy_windup": 4,
+    "heavy": 4,
+    "cast_windup": 4,
+    "cast": 4,
+    "phase_windup": 4,
+    "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "E_phase_sunken_hammer_smith.png",
+        "image_sha256": "392c55ec83da9d700b4cc490b2c359c11baed8dfcc80af02f1d51181931d685b",
+        "op": "replace_animation",
+        "animation": "phase",
+        "scale": 0.563,
+        "anchors": [
+          417.8,
+          412.8,
+          350.8,
+          365.8
+        ],
+        "grade": {
+          "saturation": 0.83,
+          "rgb": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "calibration": {
+          "method": "median area of replaced cels",
+          "ratio": 0.563
+        }
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_heavy.png",
+        "image_sha256": "689e8aa4283014420acc1298de20f46efcc053e503b1f6091f6411cca8b8c3cf",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.3201,
+        "anchors": [
+          402.4,
+          276.6
+        ],
+        "grade": {
+          "saturation": 0.882,
+          "rgb": [
+            1.007,
+            1.02,
+            0.997
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.3043,
+            "recover[0]": 0.3201
+          }
+        }
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_cast.png",
+        "image_sha256": "35a87ed16565d0cacd94460a86e61fcba336f7e489a16ffcd95bb3352446a59b",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.3388,
+        "anchors": [
+          429.1,
+          292.3
+        ],
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.976,
+            0.949,
+            0.953
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.3227,
+            "recover[0]": 0.3388
+          }
+        }
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_phase.png",
+        "image_sha256": "aacc67bad4d2eee55538e389f1a4804a4339e71801a8a6de1517b94176df2536",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.3877,
+        "anchors": [
+          323.6,
+          306.6
+        ],
+        "grade": {
+          "saturation": 0.77,
+          "rgb": [
+            0.836,
+            0.869,
+            0.815
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "recover[0]": 0.3877
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "E_phase_sunken_hammer_smith.png",
+        "op": "replace_animation",
+        "animation": "phase",
+        "replaced": {
+          "all": [
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                11,
+                765,
+                316,
+                196
+              ],
+              "component_seeds": [
+                [
+                  30,
+                  882
+                ]
+              ],
+              "anchor_x": 129.0,
+              "scale": 0.67
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                314,
+                737,
+                368,
+                226
+              ],
+              "component_seeds": [
+                [
+                  431,
+                  848
+                ]
+              ],
+              "anchor_x": 146.0,
+              "scale": 0.67
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                653,
+                753,
+                386,
+                213
+              ],
+              "component_seeds": [
+                [
+                  811,
+                  862
+                ]
+              ],
+              "anchor_x": 214.0,
+              "scale": 0.67
+            },
+            {
+              "sheet": "motion_repair.png",
+              "region": [
+                997,
+                785,
+                243,
+                181
+              ],
+              "component_seeds": [
+                [
+                  1053,
+                  895
+                ]
+              ],
+              "anchor_x": 138.0,
+              "scale": 0.67
+            }
+          ]
+        }
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_sunken_hammer_smith_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
+  },
+  "boss_motion_v6": {
+    "tool": "tools/build_boss_motion_v6.py",
+    "baseline_frames": {
+      "idle": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            32,
+            14,
+            177,
+            201
+          ],
+          "component_seeds": [
+            [
+              102,
+              142
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            231,
+            11,
+            178,
+            204
+          ],
+          "component_seeds": [
+            [
+              347,
+              142
+            ]
+          ],
+          "anchor_x": 89.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            432,
+            13,
+            191,
+            202
+          ],
+          "component_seeds": [
+            [
+              568,
+              142
+            ]
+          ],
+          "anchor_x": 88.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            633,
+            13,
+            185,
+            202
+          ],
+          "component_seeds": [
+            [
+              692,
+              144
+            ]
+          ],
+          "anchor_x": 98.0,
+          "scale": 1
+        }
+      ],
+      "walk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            846,
+            12,
+            180,
+            203
+          ],
+          "component_seeds": [
+            [
+              934,
+              141
+            ]
+          ],
+          "anchor_x": 95.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1059,
+            12,
+            176,
+            203
+          ],
+          "component_seeds": [
+            [
+              1168,
+              142
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            17,
+            215,
+            204,
+            191
+          ],
+          "component_seeds": [
+            [
+              130,
+              338
+            ]
+          ],
+          "anchor_x": 99.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            226,
+            216,
+            198,
+            189
+          ],
+          "component_seeds": [
+            [
+              257,
+              338
+            ]
+          ],
+          "anchor_x": 117.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            431,
+            220,
+            195,
+            185
+          ],
+          "component_seeds": [
+            [
+              506,
+              338
+            ]
+          ],
+          "anchor_x": 87.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            623,
+            223,
+            221,
+            182
+          ],
+          "component_seeds": [
+            [
+              716,
+              338
+            ]
+          ],
+          "anchor_x": 132.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            853,
+            222,
+            197,
+            183
+          ],
+          "component_seeds": [
+            [
+              993,
+              337
+            ]
+          ],
+          "anchor_x": 122.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1058,
+            227,
+            191,
+            178
+          ],
+          "component_seeds": [
+            [
+              1118,
+              337
+            ]
+          ],
+          "anchor_x": 119.0,
+          "scale": 1
+        }
+      ],
+      "windup": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            407,
+            172,
+            206
+          ],
+          "component_seeds": [
+            [
+              126,
+              522
+            ]
+          ],
+          "anchor_x": 85.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            222,
+            402,
+            187,
+            212
+          ],
+          "component_seeds": [
+            [
+              305,
+              527
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            424,
+            421,
+            194,
+            195
+          ],
+          "component_seeds": [
+            [
+              516,
+              541
+            ]
+          ],
+          "anchor_x": 100.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            637,
+            427,
+            226,
+            190
+          ],
+          "component_seeds": [
+            [
+              689,
+              534
+            ]
+          ],
+          "anchor_x": 135.0,
+          "scale": 1
+        }
+      ],
+      "attack": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            11,
+            765,
+            316,
+            196
+          ],
+          "component_seeds": [
+            [
+              30,
+              882
+            ]
+          ],
+          "anchor_x": 129.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            314,
+            737,
+            368,
+            226
+          ],
+          "component_seeds": [
+            [
+              431,
+              848
+            ]
+          ],
+          "anchor_x": 146.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            653,
+            753,
+            386,
+            213
+          ],
+          "component_seeds": [
+            [
+              811,
+              862
+            ]
+          ],
+          "anchor_x": 214.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            997,
+            785,
+            243,
+            181
+          ],
+          "component_seeds": [
+            [
+              1053,
+              895
+            ]
+          ],
+          "anchor_x": 138.0,
+          "scale": 0.67
+        }
+      ],
+      "recover": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            16,
+            810,
+            197,
+            195
+          ],
+          "component_seeds": [
+            [
+              99,
+              932
+            ]
+          ],
+          "anchor_x": 58.5,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            219,
+            814,
+            219,
+            190
+          ],
+          "component_seeds": [
+            [
+              366,
+              934
+            ]
+          ],
+          "anchor_x": 126.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            445,
+            814,
+            200,
+            192
+          ],
+          "component_seeds": [
+            [
+              573,
+              930
+            ]
+          ],
+          "anchor_x": 67.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            653,
+            809,
+            201,
+            199
+          ],
+          "component_seeds": [
+            [
+              733,
+              933
+            ]
+          ],
+          "anchor_x": 100.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            868,
+            812,
+            185,
+            198
+          ],
+          "component_seeds": [
+            [
+              949,
+              937
+            ]
+          ],
+          "anchor_x": 93.5,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1068,
+            816,
+            173,
+            194
+          ],
+          "component_seeds": [
+            [
+              1209,
+              940
+            ]
+          ],
+          "anchor_x": 72.0,
+          "scale": 1
+        }
+      ],
+      "hurt": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            1023,
+            188,
+            190
+          ],
+          "component_seeds": [
+            [
+              114,
+              1137
+            ]
+          ],
+          "anchor_x": 108.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            218,
+            1019,
+            185,
+            194
+          ],
+          "component_seeds": [
+            [
+              287,
+              1134
+            ]
+          ],
+          "anchor_x": 101.0,
+          "scale": 1
+        }
+      ],
+      "death": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            23,
+            979,
+            270,
+            251
+          ],
+          "component_seeds": [
+            [
+              202,
+              1127
+            ]
+          ],
+          "anchor_x": 179.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            308,
+            1039,
+            273,
+            189
+          ],
+          "component_seeds": [
+            [
+              486,
+              1155
+            ]
+          ],
+          "anchor_x": 143.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            586,
+            1089,
+            339,
+            138
+          ],
+          "component_seeds": [
+            [
+              697,
+              1179
+            ]
+          ],
+          "anchor_x": 213.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            926,
+            1116,
+            318,
+            113
+          ],
+          "component_seeds": [
+            [
+              1202,
+              1188
+            ]
+          ],
+          "anchor_x": 190.0,
+          "scale": 0.67
+        }
+      ],
+      "heavy_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            35,
+            100,
+            216,
+            212
+          ],
+          "component_seeds": [
+            [
+              97,
+              230
+            ]
+          ],
+          "anchor_x": 112.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            280,
+            42,
+            193,
+            270
+          ],
+          "component_seeds": [
+            [
+              347,
+              202
+            ]
+          ],
+          "anchor_x": 139.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            538,
+            6,
+            187,
+            306
+          ],
+          "component_seeds": [
+            [
+              665,
+              196
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            794,
+            1,
+            181,
+            311
+          ],
+          "component_seeds": [
+            [
+              894,
+              203
+            ]
+          ],
+          "anchor_x": 108.5,
+          "scale": 0.95
+        }
+      ],
+      "heavy": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            23,
+            11,
+            273,
+            365
+          ],
+          "component_seeds": [
+            [
+              186,
+              229
+            ]
+          ],
+          "anchor_x": 96.5,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            344,
+            62,
+            267,
+            314
+          ],
+          "component_seeds": [
+            [
+              471,
+              239
+            ]
+          ],
+          "anchor_x": 174.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            634,
+            166,
+            323,
+            209
+          ],
+          "component_seeds": [
+            [
+              793,
+              288
+            ]
+          ],
+          "anchor_x": 197.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            974,
+            33,
+            263,
+            343
+          ],
+          "component_seeds": [
+            [
+              1052,
+              256
+            ]
+          ],
+          "anchor_x": 153.0,
+          "scale": 0.67
+        }
+      ],
+      "cast_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            23,
+            598,
+            227,
+            219
+          ],
+          "component_seeds": [
+            [
+              131,
+              732
+            ]
+          ],
+          "anchor_x": 124.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            268,
+            595,
+            233,
+            221
+          ],
+          "component_seeds": [
+            [
+              393,
+              723
+            ]
+          ],
+          "anchor_x": 150.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            528,
+            598,
+            233,
+            219
+          ],
+          "component_seeds": [
+            [
+              627,
+              720
+            ]
+          ],
+          "anchor_x": 113.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            788,
+            610,
+            221,
+            212
+          ],
+          "component_seeds": [
+            [
+              879,
+              738
+            ]
+          ],
+          "anchor_x": 150.0,
+          "scale": 0.95
+        }
+      ],
+      "cast": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            15,
+            420,
+            293,
+            295
+          ],
+          "component_seeds": [
+            [
+              107,
+              587
+            ]
+          ],
+          "anchor_x": 133.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            322,
+            391,
+            289,
+            322
+          ],
+          "component_seeds": [
+            [
+              488,
+              580
+            ]
+          ],
+          "anchor_x": 175.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            615,
+            448,
+            394,
+            266
+          ],
+          "component_seeds": [
+            [
+              772,
+              587
+            ]
+          ],
+          "anchor_x": 170.0,
+          "scale": 0.67
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            980,
+            431,
+            266,
+            283
+          ],
+          "component_seeds": [
+            [
+              1239,
+              601
+            ]
+          ],
+          "anchor_x": 173.0,
+          "scale": 0.67
+        }
+      ],
+      "phase_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            19,
+            1122,
+            283,
+            159
+          ],
+          "component_seeds": [
+            [
+              229,
+              1212
+            ]
+          ],
+          "anchor_x": 170.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            287,
+            1102,
+            268,
+            180
+          ],
+          "component_seeds": [
+            [
+              368,
+              1206
+            ]
+          ],
+          "anchor_x": 112.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            508,
+            1036,
+            230,
+            246
+          ],
+          "component_seeds": [
+            [
+              686,
+              1160
+            ]
+          ],
+          "anchor_x": 99.0,
+          "scale": 0.95
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            775,
+            1045,
+            201,
+            237
+          ],
+          "component_seeds": [
+            [
+              836,
+              1187
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 0.95
+        }
+      ],
+      "phase": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_sunken_hammer_smith.png",
+          "region": [
+            0,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              374,
+              50
+            ]
+          ],
+          "scale": 0.563,
+          "anchor_x": 417.8,
+          "grade": {
+            "saturation": 0.83,
+            "rgb": [
+              0.8,
+              0.8,
+              0.8
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_sunken_hammer_smith.png",
+          "region": [
+            768,
+            0,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1084,
+              209
+            ]
+          ],
+          "scale": 0.563,
+          "anchor_x": 412.8,
+          "grade": {
+            "saturation": 0.83,
+            "rgb": [
+              0.8,
+              0.8,
+              0.8
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_sunken_hammer_smith.png",
+          "region": [
+            0,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              256,
+              733
+            ]
+          ],
+          "scale": 0.563,
+          "anchor_x": 350.8,
+          "grade": {
+            "saturation": 0.83,
+            "rgb": [
+              0.8,
+              0.8,
+              0.8
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/E_phase_sunken_hammer_smith.png",
+          "region": [
+            768,
+            512,
+            768,
+            512
+          ],
+          "component_seeds": [
+            [
+              1079,
+              762
+            ]
+          ],
+          "scale": 0.563,
+          "anchor_x": 365.8,
+          "grade": {
+            "saturation": 0.83,
+            "rgb": [
+              0.8,
+              0.8,
+              0.8
+            ]
+          }
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_heavy.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              583,
+              220
+            ]
+          ],
+          "scale": 0.3201,
+          "anchor_x": 402.4,
+          "grade": {
+            "saturation": 0.882,
+            "rgb": [
+              1.007,
+              1.02,
+              0.997
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_heavy.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1200,
+              397
+            ]
+          ],
+          "scale": 0.3201,
+          "anchor_x": 276.6,
+          "grade": {
+            "saturation": 0.882,
+            "rgb": [
+              1.007,
+              1.02,
+              0.997
+            ]
+          }
+        }
+      ],
+      "cast_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_cast.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              435,
+              371
+            ]
+          ],
+          "scale": 0.3388,
+          "anchor_x": 429.1,
+          "grade": {
+            "saturation": 0.906,
+            "rgb": [
+              0.976,
+              0.949,
+              0.953
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_cast.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1202,
+              367
+            ]
+          ],
+          "scale": 0.3388,
+          "anchor_x": 292.3,
+          "grade": {
+            "saturation": 0.906,
+            "rgb": [
+              0.976,
+              0.949,
+              0.953
+            ]
+          }
+        }
+      ],
+      "phase_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_phase.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              362,
+              516
+            ]
+          ],
+          "scale": 0.3877,
+          "anchor_x": 323.6,
+          "grade": {
+            "saturation": 0.77,
+            "rgb": [
+              0.836,
+              0.869,
+              0.815
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_sunken_hammer_smith_phase.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1184,
+              461
+            ]
+          ],
+          "scale": 0.3877,
+          "anchor_x": 306.6,
+          "grade": {
+            "saturation": 0.77,
+            "rgb": [
+              0.836,
+              0.869,
+              0.815
+            ]
+          }
+        }
+      ]
+    },
+    "references": {
+      "idle": [
+        {
+          "area": 14336,
+          "saturation": 0.6111049079450903,
+          "rgb": [
+            111.92855443659347,
+            57.58123860121466,
+            48.689080961063446
+          ],
+          "anchor_offset": -3.5
+        },
+        {
+          "area": 14319,
+          "saturation": 0.6103079999352933,
+          "rgb": [
+            112.5656159536738,
+            57.52372145383837,
+            48.415246059825094
+          ],
+          "anchor_offset": -4.5
+        },
+        {
+          "area": 14936,
+          "saturation": 0.6155509073469974,
+          "rgb": [
+            113.17978649872451,
+            57.20251900775043,
+            48.451117425695
+          ],
+          "anchor_offset": -1.5
+        },
+        {
+          "area": 15196,
+          "saturation": 0.6198414997671029,
+          "rgb": [
+            112.43738670693944,
+            55.772960725069616,
+            47.706948640481244
+          ],
+          "anchor_offset": -7.5
+        }
+      ],
+      "walk": [
+        {
+          "area": 14358,
+          "saturation": 0.6165329179860042,
+          "rgb": [
+            112.31613470921475,
+            56.734341252693866,
+            48.06295496360163
+          ],
+          "anchor_offset": -4.5
+        },
+        {
+          "area": 14529,
+          "saturation": 0.6130239216703994,
+          "rgb": [
+            111.28295310518756,
+            56.35891951837189,
+            47.9961977186297
+          ],
+          "anchor_offset": 1.5
+        },
+        {
+          "area": 14953,
+          "saturation": 0.6227215339678593,
+          "rgb": [
+            110.03757157423091,
+            54.4206604439514,
+            45.50474547023235
+          ],
+          "anchor_offset": -4.5
+        },
+        {
+          "area": 14607,
+          "saturation": 0.6236352649675757,
+          "rgb": [
+            109.8704107157183,
+            54.25248123940588,
+            45.32647462277096
+          ],
+          "anchor_offset": -21.5
+        },
+        {
+          "area": 14074,
+          "saturation": 0.6278383843660501,
+          "rgb": [
+            108.98786610877788,
+            52.81949790794794,
+            44.1806694560685
+          ],
+          "anchor_offset": 3.5
+        },
+        {
+          "area": 14791,
+          "saturation": 0.6259715893965745,
+          "rgb": [
+            109.50817449556479,
+            53.21413190844287,
+            44.813302496212415
+          ],
+          "anchor_offset": -26.5
+        },
+        {
+          "area": 14669,
+          "saturation": 0.6280068076541777,
+          "rgb": [
+            109.84464172478616,
+            52.61731135066241,
+            44.71773937856731
+          ],
+          "anchor_offset": -25.5
+        },
+        {
+          "area": 14155,
+          "saturation": 0.6320515898460214,
+          "rgb": [
+            108.05404293821869,
+            51.77527350497419,
+            43.79402813194102
+          ],
+          "anchor_offset": -32.5
+        }
+      ],
+      "windup": [
+        {
+          "area": 14880,
+          "saturation": 0.603541431565901,
+          "rgb": [
+            110.69471624264932,
+            58.38019569470717,
+            48.51248532289277
+          ],
+          "anchor_offset": -1.5
+        },
+        {
+          "area": 15863,
+          "saturation": 0.6108412685916088,
+          "rgb": [
+            109.81725103121808,
+            56.66875368296072,
+            47.08927519151
+          ],
+          "anchor_offset": 10.5
+        },
+        {
+          "area": 15651,
+          "saturation": 0.6129999585400024,
+          "rgb": [
+            110.28079737194471,
+            55.62109899954336,
+            46.99514708077882
+          ],
+          "anchor_offset": -3.5
+        },
+        {
+          "area": 16372,
+          "saturation": 0.6301215651263617,
+          "rgb": [
+            109.10076521488621,
+            51.7524136451312,
+            44.312736894796515
+          ],
+          "anchor_offset": -34.5
+        }
+      ],
+      "attack": [
+        {
+          "area": 13375,
+          "saturation": 0.6818286299369484,
+          "rgb": [
+            107.45587231136116,
+            45.58168316831442,
+            39.09977808125535
+          ],
+          "anchor_offset": 7.5
+        },
+        {
+          "area": 16137,
+          "saturation": 0.6829651358186396,
+          "rgb": [
+            108.943905525082,
+            44.982637424427764,
+            39.27969914241271
+          ],
+          "anchor_offset": 20.5
+        },
+        {
+          "area": 14598,
+          "saturation": 0.6727945840671175,
+          "rgb": [
+            107.45216648546567,
+            46.62323342133311,
+            39.978645752445466
+          ],
+          "anchor_offset": -36.5
+        },
+        {
+          "area": 9498,
+          "saturation": 0.6852298302493373,
+          "rgb": [
+            104.91207189701396,
+            44.328515909641816,
+            38.2405878066545
+          ],
+          "anchor_offset": -3.5
+        }
+      ],
+      "recover": [
+        {
+          "area": 15556,
+          "saturation": 0.6133681254303184,
+          "rgb": [
+            110.29549198740659,
+            56.05331735808747,
+            47.26014677249877
+          ],
+          "anchor_offset": 27.5
+        },
+        {
+          "area": 16491,
+          "saturation": 0.6232714527680197,
+          "rgb": [
+            111.20285019116024,
+            54.267848453244845,
+            46.273757386163524
+          ],
+          "anchor_offset": -25.5
+        },
+        {
+          "area": 14656,
+          "saturation": 0.6228966450293707,
+          "rgb": [
+            108.42584036959099,
+            52.98765333757662,
+            44.88840210291465
+          ],
+          "anchor_offset": 20.5
+        },
+        {
+          "area": 15104,
+          "saturation": 0.6246955368236258,
+          "rgb": [
+            109.35759956859029,
+            52.790540020025006,
+            45.049919112549325
+          ],
+          "anchor_offset": -4.5
+        },
+        {
+          "area": 15087,
+          "saturation": 0.620810525730656,
+          "rgb": [
+            110.23807704065091,
+            53.901253439309045,
+            46.35165087129146
+          ],
+          "anchor_offset": -6.5
+        },
+        {
+          "area": 13916,
+          "saturation": 0.6263789549883635,
+          "rgb": [
+            109.24270315090385,
+            52.73631840795653,
+            45.14386401326827
+          ],
+          "anchor_offset": 19.5
+        }
+      ],
+      "hurt": [
+        {
+          "area": 16083,
+          "saturation": 0.6329670508749022,
+          "rgb": [
+            109.11538735655911,
+            51.792174470810195,
+            44.15422991946303
+          ],
+          "anchor_offset": -13.5
+        },
+        {
+          "area": 15624,
+          "saturation": 0.6265730105893522,
+          "rgb": [
+            109.14723789722915,
+            52.73195723195272,
+            44.83264033263932
+          ],
+          "anchor_offset": -11.5
+        }
+      ],
+      "death": [
+        {
+          "area": 13150,
+          "saturation": 0.6860392910994808,
+          "rgb": [
+            105.67492749801615,
+            44.54002987960087,
+            39.074083838649415
+          ],
+          "anchor_offset": -27.5
+        },
+        {
+          "area": 11243,
+          "saturation": 0.678617357092829,
+          "rgb": [
+            108.68717290411678,
+            46.633356374048226,
+            40.81208650143141
+          ],
+          "anchor_offset": 3.5
+        },
+        {
+          "area": 10165,
+          "saturation": 0.6688549582015413,
+          "rgb": [
+            104.53770127707058,
+            47.696946141031006,
+            40.77990005552365
+          ],
+          "anchor_offset": -23.5
+        },
+        {
+          "area": 8612,
+          "saturation": 0.6712059798730232,
+          "rgb": [
+            107.928020901372,
+            49.06897452645258,
+            41.07080339647271
+          ],
+          "anchor_offset": -4.5
+        }
+      ],
+      "heavy_windup": [
+        {
+          "area": 15901,
+          "saturation": 0.5998597590797823,
+          "rgb": [
+            108.76927523663932,
+            58.78004191053569,
+            48.2923621648925
+          ],
+          "anchor_offset": -11.5
+        },
+        {
+          "area": 18186,
+          "saturation": 0.6035239259579693,
+          "rgb": [
+            108.89800837243067,
+            58.39756437903334,
+            47.839718381319464
+          ],
+          "anchor_offset": -30.5
+        },
+        {
+          "area": 19275,
+          "saturation": 0.607835448502123,
+          "rgb": [
+            108.50628856191997,
+            57.46582819173128,
+            47.400450878017324
+          ],
+          "anchor_offset": 24.5
+        },
+        {
+          "area": 18657,
+          "saturation": 0.60455470847289,
+          "rgb": [
+            107.93204180160645,
+            57.51420888589047,
+            47.38312045467632
+          ],
+          "anchor_offset": -4.5
+        }
+      ],
+      "heavy": [
+        {
+          "area": 16013,
+          "saturation": 0.6471998459846158,
+          "rgb": [
+            110.84040233522485,
+            53.43933319264786,
+            45.098966026582794
+          ],
+          "anchor_offset": 23.5
+        },
+        {
+          "area": 17639,
+          "saturation": 0.7018292083865106,
+          "rgb": [
+            108.47303858930363,
+            40.720419115761004,
+            37.44371326347726
+          ],
+          "anchor_offset": -16.5
+        },
+        {
+          "area": 14712,
+          "saturation": 0.6820966078437481,
+          "rgb": [
+            107.97971415398197,
+            45.089903181186784,
+            39.63009067158366
+          ],
+          "anchor_offset": -31.5
+        },
+        {
+          "area": 15391,
+          "saturation": 0.6395106676750262,
+          "rgb": [
+            112.52178754360591,
+            55.192932967106806,
+            46.92287135327373
+          ],
+          "anchor_offset": -11.5
+        }
+      ],
+      "cast_windup": [
+        {
+          "area": 18277,
+          "saturation": 0.6224642148793778,
+          "rgb": [
+            108.20520780536151,
+            54.676317790160674,
+            45.40889508362416
+          ],
+          "anchor_offset": -14.5
+        },
+        {
+          "area": 20646,
+          "saturation": 0.6384669838520539,
+          "rgb": [
+            108.22040886444489,
+            50.674282769277575,
+            42.80163774837851
+          ],
+          "anchor_offset": -29.5
+        },
+        {
+          "area": 20872,
+          "saturation": 0.6391656825925297,
+          "rgb": [
+            112.26511012708072,
+            52.104606360335254,
+            44.553223302081896
+          ],
+          "anchor_offset": -4.5
+        },
+        {
+          "area": 18566,
+          "saturation": 0.6451552000942161,
+          "rgb": [
+            110.32493638675737,
+            50.065330788797496,
+            43.33199745546656
+          ],
+          "anchor_offset": -31.5
+        }
+      ],
+      "cast": [
+        {
+          "area": 17390,
+          "saturation": 0.6994704552188389,
+          "rgb": [
+            113.71294799244586,
+            43.7483831851201,
+            39.37550525464659
+          ],
+          "anchor_offset": 3.5
+        },
+        {
+          "area": 16923,
+          "saturation": 0.6900944938953404,
+          "rgb": [
+            113.17516644929927,
+            45.20852495023199,
+            40.51712540325155
+          ],
+          "anchor_offset": -20.5
+        },
+        {
+          "area": 18266,
+          "saturation": 0.7189511477293726,
+          "rgb": [
+            117.78570037014225,
+            40.42807974543355,
+            37.67543346970386
+          ],
+          "anchor_offset": -11.5
+        },
+        {
+          "area": 15425,
+          "saturation": 0.6880293208556817,
+          "rgb": [
+            111.22158877802589,
+            44.57640087014814,
+            39.9381141699797
+          ],
+          "anchor_offset": -18.5
+        }
+      ],
+      "phase_windup": [
+        {
+          "area": 17111,
+          "saturation": 0.6356439414340466,
+          "rgb": [
+            107.06506024094841,
+            52.10816599731376,
+            43.33668005354261
+          ],
+          "anchor_offset": -47.5
+        },
+        {
+          "area": 19956,
+          "saturation": 0.6379177532203957,
+          "rgb": [
+            108.01720752972815,
+            51.34524771912954,
+            43.04775378218739
+          ],
+          "anchor_offset": 15.5
+        },
+        {
+          "area": 19019,
+          "saturation": 0.6382358342606875,
+          "rgb": [
+            106.88857284193206,
+            51.73454118227908,
+            43.45887954488312
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 18122,
+          "saturation": 0.6334458079295237,
+          "rgb": [
+            106.7830200660252,
+            51.879286258560036,
+            43.74549149097371
+          ],
+          "anchor_offset": 14.5
+        }
+      ],
+      "phase": [
+        {
+          "area": 14422,
+          "saturation": 0.6474546261365564,
+          "rgb": [
+            115.57931195516346,
+            51.67387920298225,
+            46.248209838103456
+          ],
+          "anchor_offset": -3.5
+        },
+        {
+          "area": 13967,
+          "saturation": 0.6580581798578093,
+          "rgb": [
+            118.19138079911913,
+            48.35183295391555,
+            45.93743621948012
+          ],
+          "anchor_offset": -2.5
+        },
+        {
+          "area": 12258,
+          "saturation": 0.6447796772165134,
+          "rgb": [
+            118.32371439140968,
+            54.559748427670264,
+            48.11034036256041
+          ],
+          "anchor_offset": -3.5
+        },
+        {
+          "area": 14972,
+          "saturation": 0.6518793897709663,
+          "rgb": [
+            119.62396847817644,
+            51.64136495427309,
+            47.47483458478378
+          ],
+          "anchor_offset": -3.5
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "area": 17498,
+          "saturation": 0.6042818422048651,
+          "rgb": [
+            113.2672793889297,
+            57.47357635222383,
+            48.4568092901876
+          ],
+          "anchor_offset": -10.5
+        },
+        {
+          "area": 15903,
+          "saturation": 0.6115594159642566,
+          "rgb": [
+            112.10632340889924,
+            55.54076754984309,
+            47.27574433214486
+          ],
+          "anchor_offset": 26.5
+        }
+      ],
+      "cast_bridge": [
+        {
+          "area": 17463,
+          "saturation": 0.6529280264629437,
+          "rgb": [
+            110.64617125612243,
+            48.88601785489039,
+            42.137809631581106
+          ],
+          "anchor_offset": -19.5
+        },
+        {
+          "area": 15969,
+          "saturation": 0.632913391240959,
+          "rgb": [
+            113.604079961785,
+            53.46653476154028,
+            46.481339974069385
+          ],
+          "anchor_offset": 27.5
+        }
+      ],
+      "phase_bridge": [
+        {
+          "area": 16602,
+          "saturation": 0.610972153983741,
+          "rgb": [
+            114.03282694847981,
+            56.000330250982756,
+            47.887912813733486
+          ],
+          "anchor_offset": 26.5
+        },
+        {
+          "area": 15927,
+          "saturation": 0.6013261441595192,
+          "rgb": [
+            108.82037277257893,
+            57.51519082405105,
+            47.68614733391949
+          ],
+          "anchor_offset": 26.5
+        }
+      ]
+    },
+    "sources": [
+      {
+        "image": "sunken_hammer_smith_combat_01.png",
+        "sha256": "2adaa5086816031668130ba03b9e8554b64fd7459e1bffb0f70e9b7ab074e882",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "combat_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.951,
+          "rgb": [
+            0.864,
+            0.905,
+            0.852
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_combat_02.png",
+        "sha256": "f917175f22e1776d9c15662d7e95f178cdea1a62a21805e5fa4a589bb81e272d",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "combat_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.96,
+          "rgb": [
+            0.885,
+            0.927,
+            0.886
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_combat_03.png",
+        "sha256": "d7afb3706e857ea8839d4016ded6b9f975853f68dcde3347b662177c5066ee98",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "combat_03",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.95,
+          "rgb": [
+            0.961,
+            0.992,
+            0.956
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_combat_04.png",
+        "sha256": "6652debebf37c42ad9cf47722274007e77dc509290a37a931a8fc3d3de633d81",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "combat_04",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.917,
+            0.916,
+            0.9
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_recovery_01.png",
+        "sha256": "e587d614118c2899efb3cbf1112ba5c8c855760c37004570546743d2fe2e4c99",
+        "prompt_sha256": "19d9f2c6babe7529787a45b9b6970654b2fd8d7c6d2c5f6e9c6365cef43b9c68",
+        "role": "recovery_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.949,
+          "rgb": [
+            0.981,
+            0.982,
+            0.965
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_recovery_02.png",
+        "sha256": "c9c62ca8b18a15e2822c7542ba142c56c34fcb7ba027832fc3ce371fa664d121",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "recovery_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.852,
+          "rgb": [
+            0.875,
+            0.912,
+            0.86
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_locomotion_01.png",
+        "sha256": "4e5f93b736b8b50b3dfbb0170495b8fdb5451c708be63339421a85a2f890847e",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "locomotion_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.913,
+          "rgb": [
+            0.923,
+            0.96,
+            0.907
+          ]
+        }
+      },
+      {
+        "image": "sunken_hammer_smith_locomotion_02.png",
+        "sha256": "c20ec62e86d5a5ca0373a5b63cde20f84c7b5dea8adcf4a6faa340067414b87b",
+        "prompt_sha256": "1eb908f3c549d53fe01e0345618ae64066689622fa0386df44cf613b52ace821",
+        "role": "locomotion_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.938,
+          "rgb": [
+            0.899,
+            0.909,
+            0.867
+          ]
+        }
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "source_only": [],
+    "runtime_model": "main-bridge-settle",
+    "rig_half_parity": 1
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "sunken_hammer_smith__attack",
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__attack.png",
+        "sha256": "7b5d7c29dcd6181928237ce2571561f62e4cadf45eb5a4e954dab2bdef044ba1",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/sunken_hammer_smith__attack.png"
+      },
+      {
+        "id": "sunken_hammer_smith__cast",
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__cast.png",
+        "sha256": "b3fb5b005d0d2682e8510e7f0f5a8fb8ba1cabfef55d78c3eecd3cab36d52b6a",
+        "new_drawings": 24,
+        "animations": [
+          "cast_windup",
+          "cast",
+          "cast_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/sunken_hammer_smith__cast.png"
+      },
+      {
+        "id": "sunken_hammer_smith__heavy",
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__heavy.png",
+        "sha256": "0e4140af0a24fcde24aba1f400d61519e2b96ea18be8bed74981f576f5233c00",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_windup",
+          "heavy",
+          "heavy_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/sunken_hammer_smith__heavy.png"
+      },
+      {
+        "id": "sunken_hammer_smith__phase",
+        "source": "art_requests/combat_motion_v7/incoming/sunken_hammer_smith__phase.png",
+        "sha256": "a6ce6976ce9d8e759a3c1ba8cb407e702428a9198a4f67ff63b6ec9ec1003432",
+        "new_drawings": 24,
+        "animations": [
+          "phase_windup",
+          "phase",
+          "phase_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/sunken_hammer_smith__phase.png"
+      }
+    ],
+    "new_drawings": 96,
+    "runtime_drawings": 96,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

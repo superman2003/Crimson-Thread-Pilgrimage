@@ -1,0 +1,1900 @@
+{
+  "kind": "bronze_moth",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create production transparent sprite sheet expanding the SAME bronze moth from reference: velvet dark teal wings edged ornate aged bronze filigree with dangling bronze jewels, fuzzy blue gray body, slender antennae and glowing amber face. Preserve dark ink hand-painted aesthetic. STRICT 4 columns × 8 rows, THIRTY TWO complete full-body poses on portrait canvas. Every sprite SMALL centered with wide transparent gutters, whole wings/antennae/legs inside cell. Never touch neighbor. All face RIGHT. Equal scale and consistent body anchor. Row1 four idle hovering breathing poses. Rows2 and3 eight flight poses with alternating wing up/down and leg movements. Row4 four windup wings folding/drawing backward. Row5 four attack forward diving/stinger jab poses. Row6 four recovery return to hover poses. Row7 four hurt recoil/stagger poses. Row8 four death wings folding then collapse on ground. Exactly FOUR sprites in EACH row. Every drawing genuinely articulated, not duplicates. True alpha transparency, no colored background, no lines, labels, text, grid or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-b927acb2-4231-4292-ab96-60db7299299e.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, 32 complete pose silhouettes reviewed",
+    "identity": "Original teal and bronze moth appearance retained",
+    "motion": "Distinct wings/legs/torso, attack, recovery, hurt and collapse poses",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          18,
+          788,
+          292,
+          937
+        ],
+        83,
+        true
+      ],
+      [
+        "attack",
+        [
+          279,
+          784,
+          542,
+          939
+        ],
+        213,
+        true
+      ],
+      [
+        "attack",
+        [
+          523,
+          787,
+          795,
+          954
+        ],
+        201,
+        true
+      ],
+      [
+        "attack",
+        [
+          781,
+          802,
+          1007,
+          951
+        ],
+        53,
+        true
+      ]
+    ],
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "validation": "tools/build_expanded_character_motion.py --character bronze_moth passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          194,
+          198
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          196,
+          0,
+          186,
+          190
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          384,
+          0,
+          204,
+          200
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          590,
+          0,
+          199,
+          182
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          791,
+          0,
+          210,
+          185
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1003,
+          0,
+          200,
+          166
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1205,
+          0,
+          213,
+          170
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1420,
+          0,
+          201,
+          161
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1623,
+          0,
+          212,
+          191
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1837,
+          0,
+          209,
+          192
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2048,
+          0,
+          229,
+          173
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2279,
+          0,
+          194,
+          183
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2475,
+          0,
+          215,
+          180
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          31,
+          81,
+          193,
+          167
+        ],
+        "component_seeds": [
+          [
+            73,
+            165
+          ]
+        ],
+        "scale": 1.073375,
+        "anchor_x": 95.136719,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          299,
+          108,
+          175,
+          136
+        ],
+        "component_seeds": [
+          [
+            349,
+            168
+          ]
+        ],
+        "scale": 1.260417,
+        "anchor_x": 92.619835,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2692,
+          0,
+          196,
+          152
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          554,
+          110,
+          175,
+          132
+        ],
+        "component_seeds": [
+          [
+            658,
+            167
+          ]
+        ],
+        "scale": 1.236559,
+        "anchor_x": 93.573913,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          801,
+          106,
+          187,
+          137
+        ],
+        "component_seeds": [
+          [
+            853,
+            166
+          ]
+        ],
+        "scale": 1.198966,
+        "anchor_x": 103.331897,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2890,
+          0,
+          209,
+          156
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1056,
+          106,
+          188,
+          137
+        ],
+        "component_seeds": [
+          [
+            1144,
+            166
+          ]
+        ],
+        "scale": 1.21447,
+        "anchor_x": 105.902128,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1313,
+          107,
+          187,
+          136
+        ],
+        "component_seeds": [
+          [
+            1393,
+            162
+          ]
+        ],
+        "scale": 1.229167,
+        "anchor_x": 103.644068,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3101,
+          0,
+          210,
+          158
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          32,
+          353,
+          190,
+          148
+        ],
+        "component_seeds": [
+          [
+            196,
+            415
+          ]
+        ],
+        "scale": 1.116667,
+        "anchor_x": 100.820896,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          265,
+          370,
+          231,
+          128
+        ],
+        "component_seeds": [
+          [
+            371,
+            428
+          ]
+        ],
+        "scale": 1.288889,
+        "anchor_x": 101.310345,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3313,
+          0,
+          278,
+          153
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          521,
+          370,
+          234,
+          128
+        ],
+        "component_seeds": [
+          [
+            614,
+            429
+          ]
+        ],
+        "scale": 1.291667,
+        "anchor_x": 97.935484,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          776,
+          362,
+          236,
+          138
+        ],
+        "component_seeds": [
+          [
+            859,
+            430
+          ]
+        ],
+        "scale": 1.207692,
+        "anchor_x": 99.751592,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3593,
+          0,
+          267,
+          159
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1033,
+          361,
+          236,
+          139
+        ],
+        "component_seeds": [
+          [
+            1207,
+            430
+          ]
+        ],
+        "scale": 1.244275,
+        "anchor_x": 100.141104,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1289,
+          355,
+          235,
+          146
+        ],
+        "component_seeds": [
+          [
+            1464,
+            421
+          ]
+        ],
+        "scale": 1.210145,
+        "anchor_x": 102.257485,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          202,
+          276,
+          171
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          9,
+          607,
+          235,
+          149
+        ],
+        "component_seeds": [
+          [
+            183,
+            675
+          ]
+        ],
+        "scale": 1.170213,
+        "anchor_x": 106.30303,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          279,
+          615,
+          207,
+          142
+        ],
+        "component_seeds": [
+          [
+            353,
+            677
+          ]
+        ],
+        "scale": 1.186567,
+        "anchor_x": 106.190776,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          278,
+          202,
+          230,
+          153
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          537,
+          614,
+          204,
+          142
+        ],
+        "component_seeds": [
+          [
+            683,
+            676
+          ]
+        ],
+        "scale": 1.243781,
+        "anchor_x": 106.732,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          792,
+          580,
+          195,
+          179
+        ],
+        "component_seeds": [
+          [
+            922,
+            660
+          ]
+        ],
+        "scale": 1.054581,
+        "anchor_x": 104.367837,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          510,
+          202,
+          209,
+          194
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1049,
+          579,
+          195,
+          179
+        ],
+        "component_seeds": [
+          [
+            1132,
+            660
+          ]
+        ],
+        "scale": 1.101365,
+        "anchor_x": 102.184071,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1311,
+          593,
+          190,
+          163
+        ],
+        "component_seeds": [
+          [
+            1361,
+            667
+          ]
+        ],
+        "scale": 1.178495,
+        "anchor_x": 100.45438,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          721,
+          202,
+          211,
+          177
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          27,
+          850,
+          193,
+          160
+        ],
+        "component_seeds": [
+          [
+            138,
+            923
+          ]
+        ],
+        "scale": 1.201754,
+        "anchor_x": 101.948905,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          287,
+          839,
+          188,
+          172
+        ],
+        "component_seeds": [
+          [
+            460,
+            920
+          ]
+        ],
+        "scale": 1.148374,
+        "anchor_x": 94.097345,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          934,
+          202,
+          208,
+          194
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          544,
+          834,
+          187,
+          177
+        ],
+        "component_seeds": [
+          [
+            690,
+            918
+          ]
+        ],
+        "scale": 1.142012,
+        "anchor_x": 96.0,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          792,
+          841,
+          192,
+          167
+        ],
+        "component_seeds": [
+          [
+            862,
+            920
+          ]
+        ],
+        "scale": 1.207547,
+        "anchor_x": 102.484375,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1144,
+          202,
+          201,
+          191
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1057,
+          844,
+          185,
+          164
+        ],
+        "component_seeds": [
+          [
+            1233,
+            922
+          ]
+        ],
+        "scale": 1.239316,
+        "anchor_x": 93.193103,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "region": [
+          1319,
+          840,
+          180,
+          168
+        ],
+        "component_seeds": [
+          [
+            1493,
+            918
+          ]
+        ],
+        "scale": 1.222917,
+        "anchor_x": 88.458262,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1347,
+          202,
+          212,
+          182
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1561,
+          202,
+          205,
+          173
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1768,
+          202,
+          210,
+          193
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1980,
+          202,
+          211,
+          162
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2193,
+          202,
+          183,
+          184
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2378,
+          202,
+          225,
+          155
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2605,
+          202,
+          243,
+          105
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2850,
+          202,
+          235,
+          84
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      }
+    ],
+    "travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3087,
+          202,
+          269,
+          148
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3358,
+          202,
+          276,
+          148
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      }
+    ],
+    "moth_dust_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3636,
+          202,
+          218,
+          175
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          29,
+          90,
+          197,
+          154
+        ],
+        "component_seeds": [
+          [
+            106,
+            159
+          ]
+        ],
+        "scale": 1.253425,
+        "anchor_x": 103.010929,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          291,
+          68,
+          185,
+          179
+        ],
+        "component_seeds": [
+          [
+            402,
+            153
+          ]
+        ],
+        "scale": 1.116959,
+        "anchor_x": 95.52356,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3856,
+          202,
+          210,
+          200
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          551,
+          65,
+          180,
+          182
+        ],
+        "component_seeds": [
+          [
+            601,
+            152
+          ]
+        ],
+        "scale": 1.218391,
+        "anchor_x": 90.896226,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          815,
+          35,
+          160,
+          211
+        ],
+        "component_seeds": [
+          [
+            873,
+            140
+          ]
+        ],
+        "scale": 1.108374,
+        "anchor_x": 74.488889,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          404,
+          178,
+          238
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1070,
+          29,
+          160,
+          217
+        ],
+        "component_seeds": [
+          [
+            1214,
+            138
+          ]
+        ],
+        "scale": 1.165869,
+        "anchor_x": 76.425445,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1337,
+          22,
+          146,
+          225
+        ],
+        "component_seeds": [
+          [
+            1405,
+            133
+          ]
+        ],
+        "scale": 1.149002,
+        "anchor_x": 65.068182,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          180,
+          404,
+          173,
+          255
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          56,
+          280,
+          150,
+          224
+        ],
+        "component_seeds": [
+          [
+            175,
+            388
+          ]
+        ],
+        "scale": 1.104938,
+        "anchor_x": 65.569832,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          269,
+          313,
+          229,
+          189
+        ],
+        "component_seeds": [
+          [
+            337,
+            406
+          ]
+        ],
+        "scale": 1.228361,
+        "anchor_x": 112.115442,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "moth_dust": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          355,
+          404,
+          258,
+          206
+        ],
+        "anchor_x": 126.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          525,
+          315,
+          229,
+          186
+        ],
+        "component_seeds": [
+          [
+            629,
+            406
+          ]
+        ],
+        "scale": 1.09176,
+        "anchor_x": 111.809605,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          780,
+          352,
+          228,
+          148
+        ],
+        "component_seeds": [
+          [
+            945,
+            419
+          ]
+        ],
+        "scale": 1.304762,
+        "anchor_x": 108.912409,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          615,
+          404,
+          293,
+          171
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1036,
+          357,
+          231,
+          143
+        ],
+        "component_seeds": [
+          [
+            1120,
+            421
+          ]
+        ],
+        "scale": 1.249383,
+        "anchor_x": 110.264822,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1293,
+          368,
+          230,
+          131
+        ],
+        "component_seeds": [
+          [
+            1331,
+            440
+          ]
+        ],
+        "scale": 1.352304,
+        "anchor_x": 105.795591,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          910,
+          404,
+          290,
+          164
+        ],
+        "anchor_x": 132.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          13,
+          626,
+          232,
+          127
+        ],
+        "component_seeds": [
+          [
+            103,
+            695
+          ]
+        ],
+        "scale": 1.403361,
+        "anchor_x": 109.149701,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          279,
+          603,
+          207,
+          147
+        ],
+        "component_seeds": [
+          [
+            357,
+            682
+          ]
+        ],
+        "scale": 1.223022,
+        "anchor_x": 97.729412,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1202,
+          404,
+          234,
+          173
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          535,
+          602,
+          209,
+          147
+        ],
+        "component_seeds": [
+          [
+            684,
+            681
+          ]
+        ],
+        "scale": 1.215827,
+        "anchor_x": 98.435897,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          785,
+          605,
+          216,
+          152
+        ],
+        "component_seeds": [
+          [
+            913,
+            667
+          ]
+        ],
+        "scale": 1.145833,
+        "anchor_x": 111.927273,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "moth_dust_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1438,
+          404,
+          247,
+          161
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1040,
+          605,
+          216,
+          152
+        ],
+        "component_seeds": [
+          [
+            1200,
+            666
+          ]
+        ],
+        "scale": 1.157407,
+        "anchor_x": 113.68,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1300,
+          592,
+          212,
+          166
+        ],
+        "component_seeds": [
+          [
+            1407,
+            663
+          ]
+        ],
+        "scale": 1.090717,
+        "anchor_x": 115.415861,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1687,
+          404,
+          235,
+          178
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          21,
+          849,
+          211,
+          164
+        ],
+        "component_seeds": [
+          [
+            193,
+            920
+          ]
+        ],
+        "scale": 1.17094,
+        "anchor_x": 116.014599,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          276,
+          843,
+          210,
+          169
+        ],
+        "component_seeds": [
+          [
+            411,
+            917
+          ]
+        ],
+        "scale": 1.163561,
+        "anchor_x": 117.275801,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1924,
+          404,
+          233,
+          192
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          532,
+          845,
+          208,
+          167
+        ],
+        "component_seeds": [
+          [
+            672,
+            917
+          ]
+        ],
+        "scale": 1.169811,
+        "anchor_x": 117.295699,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          794,
+          858,
+          194,
+          154
+        ],
+        "component_seeds": [
+          [
+            905,
+            926
+          ]
+        ],
+        "scale": 1.232877,
+        "anchor_x": 104.214815,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2159,
+          404,
+          211,
+          174
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1052,
+          856,
+          192,
+          156
+        ],
+        "component_seeds": [
+          [
+            1202,
+            925
+          ]
+        ],
+        "scale": 1.22973,
+        "anchor_x": 99.223443,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "region": [
+          1309,
+          833,
+          188,
+          180
+        ],
+        "component_seeds": [
+          [
+            1373,
+            918
+          ]
+        ],
+        "scale": 1.104651,
+        "anchor_x": 91.438596,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bronze_moth.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "travel",
+      "moth_dust_windup",
+      "moth_dust",
+      "moth_dust_recover"
+    ],
+    "sheets": [
+      {
+        "image": "moth_dive_loops.png",
+        "image_sha256": "0e5281f2935cc59b1293f976f5985de2f38326e77777414dfd2b1c391a7473ee",
+        "role": "keep",
+        "attack": "moth_dive",
+        "plan": [
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.3816,
+        "anchors": [
+          286.8,
+          265.8
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3944,
+            0.3693
+          ]
+        }
+      },
+      {
+        "image": "moth_dust.png",
+        "image_sha256": "2da073bfe36b2d7db5680659e4362206ded9decc15bdb89a0d3248d1148a2d50",
+        "role": "new",
+        "attack": "moth_dust",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7855,
+        "anchors": [
+          146.9,
+          134.9,
+          104.9,
+          101.9,
+          161.9,
+          181.9,
+          168.9,
+          137.9,
+          159.9,
+          163.9,
+          162.9,
+          139.9
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7867,
+          "last_recover_ratio": 0.7842
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "bronze_moth__attack",
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__attack.png",
+        "sha256": "e5396aecd076e9e0de53ff854873f5caa37fca4eca7ff65811f75acae327f059",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bronze_moth__attack.png"
+      },
+      {
+        "id": "bronze_moth__moth_dust",
+        "source": "art_requests/combat_motion_v7/incoming/bronze_moth__moth_dust.png",
+        "sha256": "e2db505d4e9b52c261e192f2290ade0c16aea2e9a7ee7036a821256c101c39da",
+        "new_drawings": 24,
+        "animations": [
+          "moth_dust_windup",
+          "moth_dust",
+          "moth_dust_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bronze_moth__moth_dust.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

@@ -44,6 +44,14 @@ static func spawn_departure(actor: Node2D, command: Dictionary) -> void:
     mark.top_level = true
     mark.global_position = actor.global_position
 
+static func spawn_arrival(actor: Node2D, command: Dictionary, destination: Vector2) -> void:
+    if not matches(actor,command) or actor.boss_skill_texture==null:return
+    var entry: Dictionary=data.commands[String(command.id)]
+    var mark:=_attach(actor,command,"warning",entry.warning,true)
+    mark.name="BossCommittedArrival"
+    mark.top_level=true
+    mark.global_position=destination
+
 static func _attach(actor: Node2D, command: Dictionary, mode: String, source: Dictionary, local_cue: bool) -> Node2D:
     var mark := SkillVisual.new()
     mark.name = "BossSkill_" + mode
@@ -132,6 +140,11 @@ class SkillVisual extends Node2D:
         if not _valid(actor): return
         var progress: float = 1.0-actor.phase_pause/.9 if mode == "phase" else (1.0-actor.state_timer/maxf(.001,float(command.get("windup",.5))) if mode == "warning" else actor.attack_elapsed/maxf(.001,float(command.get("active",.24))))
         var frame := clampi(int(clampf(progress,0,1)*6),0,5)
+        if mode=="execution" and command.has("combo_beats"):
+            var beat:=preload("res://scripts/boss_combat_style.gd").combo_stage(command,progress)
+            if not bool(beat.contact):return
+            frame=clampi(int(clampf((progress-float(beat.start))/maxf(.001,float(beat.end)-float(beat.start)),0,1)*6),0,5)
+            direction=int(actor.attack_direction)
         var footprint := Vector2(float(command.get("hit_width",80)),float(command.get("hit_height",70)))
         var center := Vector2(direction*float(command.get("offset",44)),float(command.get("offset_y",-26)))
         if local_cue:
