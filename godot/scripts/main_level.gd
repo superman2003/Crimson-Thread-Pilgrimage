@@ -2745,7 +2745,7 @@ func _build_map_overlay() -> void:
     title.position = Vector2(155, 20)
     title.add_theme_font_override("font",PILGRIMAGE_UI_SCRIPT.display_font())
     title.add_theme_font_size_override("font_size", 23)
-    title.add_theme_color_override("font_color", Color("e8d7b8"))
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     map_panel.add_child(title)
 
     ui_shell._button(map_panel,"返回",Vector2(1080,18),Vector2(62,34),func():_close_overlays())
@@ -2783,7 +2783,7 @@ func _build_map_overlay() -> void:
     map_text.size = Vector2(1108, 24) if world_mode else Vector2(1108, 110)
     map_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     map_text.add_theme_font_size_override("font_size", 14)
-    map_text.add_theme_color_override("font_color", Color(0.86, 0.90, 0.84))
+    map_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     map_panel.add_child(map_text)
     _build_wish_board_overlay()
 
@@ -2820,7 +2820,7 @@ func _build_wish_board_overlay() -> void:
     title.text = "巡礼愿板"
     title.position = Vector2(16, 12)
     title.add_theme_font_size_override("font_size", 20)
-    title.add_theme_color_override("font_color", Color("bda176"))
+    title.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.GOLD)
     wish_panel.add_child(title)
 
     wish_text = Label.new()
@@ -2828,7 +2828,7 @@ func _build_wish_board_overlay() -> void:
     wish_text.size = Vector2(284, 332)
     wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
     wish_text.add_theme_font_size_override("font_size", 14)
-    wish_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
+    wish_text.add_theme_color_override("font_color", PILGRIMAGE_UI_SCRIPT.IVORY)
     wish_panel.add_child(wish_text)
     _refresh_wish_board_overlay()
 
@@ -3331,7 +3331,7 @@ func _refresh_map_overlay() -> void:
         label.position = overlay_rect.position + (Vector2(4.0, 4.0) if uses_layout else Vector2(6.0, 48.0))
         label.size = Vector2(maxf(62.0, room_size.x - 4.0), 42.0)
         label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (13 if current else 12)))
+        label.add_theme_font_size_override("font_size", 11 if uses_layout and not current else (12 if uses_layout else (14 if current else 12)))
         label.add_theme_color_override("font_color", Color(0.88, 1.0, 0.95) if current else (Color(0.86, 0.94, 0.80) if visited else Color(0.50, 0.56, 0.52)))
         map_draw_root.add_child(label)
 
@@ -4075,7 +4075,7 @@ func _build_hud_labels() -> void:
     lore_banner_label.size=Vector2(620,54)
     lore_banner_label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     lore_banner_label.add_theme_font_size_override("font_size",17)
-    lore_banner_label.add_theme_color_override("font_color",Color("e8ddc3"))
+    lore_banner_label.add_theme_color_override("font_color",PILGRIMAGE_UI_SCRIPT.IVORY)
     lore_banner_label.visible=false
     ui_shell.add_child(lore_banner_label)
     win_label=Label.new()
