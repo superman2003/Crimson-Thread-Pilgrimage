@@ -79,5 +79,5 @@ static func recall(level: Node) -> Dictionary:
     if is_instance_valid(level.death_cache_area):level.death_cache_area.queue_free()
     level.death_cache_area=null
     level._refresh_hud()
-    level._toast("钟声把归途结引了回来：收回%d枚碎钱。" % int(quoted.kept))
+    level._toast("归途结已引回 · 收回 %d 碎钱" % int(quoted.kept))
     return quoted
