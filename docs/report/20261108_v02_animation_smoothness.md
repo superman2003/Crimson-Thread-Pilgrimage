@@ -210,6 +210,11 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 1. 从参考图上去掉标签，或在提取姿势时删除远离身体的小连通块，并按两端帧的身体高度重新校准缩放。之后重建这 5 种敌人的 v7 图集。
 2. 把“帧缺陷为 0”作为 v7／Boss 动作素材的验收条件，可直接用本工具的 `frame_defects` 输出。
 
+**#576 修复后：**
+- 生成工具不再把参考图标签并入身体，重建了 9 种敌人的图集，带标签的帧降到 0，缩放跳变降到 27。
+- 剩下的 27 帧逐一看过，都是真实的姿势变化：钟壳重卫下蹲起手、渠底蛭身体横向拉伸或盘起、蜡枪卫从平举转为高举、绯线执剪者伏身蓄力。高度检测会把这类姿势也算进去，所以它们不是缺陷。
+- 验收时只需 `stray_mark_frames` 为 0；`shrunk` 列出的帧要人工看一眼再判断。
+
 ```
 HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=20 held_loops=['jump_loop', 'fall']
 ENEMY sources species=46 encounter_overrides=8 phase_rows=390
