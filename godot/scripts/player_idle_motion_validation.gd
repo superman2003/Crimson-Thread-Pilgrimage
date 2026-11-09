@@ -3,7 +3,7 @@ extends SceneTree
 class QuietPlayer extends "res://scripts/player_controller.gd":
     func _should_play_sfx() -> bool: return false
 
-const ART := "res://assets/sprites/player/generated_hero_motion_v9/frames/"
+const ART := "res://assets/sprites/player/thread_doll_v1/frames/"
 var checks := 0
 var failures := 0
 var player
@@ -153,7 +153,7 @@ func run() -> void:
     var result := {"checks":checks,"failures":failures,"pixel_cases":pixel_cases,
         "maximum_pixel_error":largest_pixel_error,"maximum_idle_boot_drift_world_px":largest_idle_support_drift,
         "maximum_heavy_handoff_drift_world_px":largest_handoff_drift}
-    var output := ProjectSettings.globalize_path("res://../artifacts/hero_motion_v9")
+    var output := ProjectSettings.globalize_path("res://../artifacts/thread_doll_v1")
     DirAccess.make_dir_recursive_absolute(output)
     var file := FileAccess.open(output.path_join("idle-pixels.json"),FileAccess.WRITE)
     file.store_string(JSON.stringify(result,"  ")+"\n"); file.close()

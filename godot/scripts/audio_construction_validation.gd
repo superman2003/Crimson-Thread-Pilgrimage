@@ -42,6 +42,44 @@ func check(ok: bool, message: String) -> void:
         failures += 1
         push_error(message)
 
+func exported_audio_remaps() -> void:
+    # Mount a real miniature pack with imported AudioStream resources and
+    # .remap entries, deliberately without their raw OGG/WAV files.
+    var pack := PCKPacker.new()
+    var pack_path := "user://audio_export_contract.pck"
+    check(pack.pck_start(ProjectSettings.globalize_path(pack_path)) == OK,"start remap-only audio fixture")
+    var sources := ["res://assets/audio/sfx/kenney/impact/footstep_grass_003.ogg","res://assets/audio/seals/ward_prepare.wav"]
+    var aliases: Array[String] = []
+    for index in sources.size():
+        var extension: String = String(sources[index]).get_extension()
+        var alias := "res://__audio_export_contract/stream_%d.%s" % [index,extension]
+        var resource_path := "res://__audio_export_contract/stream_%d.tres" % index
+        var saved := "user://audio_export_stream_%d.tres" % index
+        var remap := "user://audio_export_stream_%d.remap" % index
+        var stream := DIRECTOR._load_stream(sources[index])
+        check(stream != null,"fixture starts with a real " + extension + " stream")
+        check(ResourceSaver.save(stream,saved) == OK,"save native audio fixture resource")
+        var file := FileAccess.open(remap,FileAccess.WRITE)
+        file.store_string('[remap]\npath="%s"\n' % resource_path)
+        file.close()
+        check(pack.add_file(resource_path,ProjectSettings.globalize_path(saved)) == OK,"pack native stream")
+        check(pack.add_file(alias+".remap",ProjectSettings.globalize_path(remap)) == OK,"pack the export remap")
+        aliases.append(alias)
+    check(pack.flush() == OK,"finish real audio fixture pack")
+    pack = null
+    check(ProjectSettings.load_resource_pack(ProjectSettings.globalize_path(pack_path)),"mount exported audio fixture")
+    for alias in aliases:
+        check(not FileAccess.file_exists(alias) and ResourceLoader.exists(alias,"AudioStream"),"export fixture has a remap and no raw audio file")
+        var once := DIRECTOR.load_cached(alias,false)
+        var looping := DIRECTOR.load_cached(alias,true)
+        check(once != null and looping != null and once.get_length() > 0,"exported audio decodes through production loader")
+        check(once != looping and once == DIRECTOR.load_cached(alias,false),"each loop policy owns its stream and retains cache identity")
+        if once is AudioStreamOggVorbis:
+            check(not once.loop and looping.loop,"OGG loop flag cannot leak across policy keys")
+        elif once is AudioStreamWAV:
+            check(once.loop_mode == AudioStreamWAV.LOOP_DISABLED and looping.loop_mode == AudioStreamWAV.LOOP_FORWARD,"WAV loop flag cannot leak across policy keys")
+    DIRECTOR._stream_cache.clear()
+
 func state(host: Node) -> Dictionary:
     var director: Node = host.audio_director
     var result := {"chapter":director.chapter_short_id,"volumes":director.user_volumes.duplicate(),"players":[],"timers":[]}
@@ -250,6 +288,7 @@ func run() -> void:
     check(await RETIRE.drain(self), "final World audio drains")
     check(DIRECTOR.instance == null and DIRECTOR._stream_cache.is_empty(), "final World releases audio owner and stream cache")
     for stage in ["begin","explore","ambience"]: await exit_partial_audio(stage)
+    exported_audio_remaps()
     var output := ProjectSettings.globalize_path("res://../artifacts/audio_preparation_retirement_v22")
     DirAccess.make_dir_recursive_absolute(output)
     var file := FileAccess.open(output.path_join("job-contract.json"),FileAccess.WRITE)

@@ -10,7 +10,7 @@ var _inline_result: Dictionary = {}
 var _inline_pending := false
 var closed := false
 
-func begin(manifest_path: String = PLAYER.PLAYER_MANIFEST, idle_path: String = PLAYER.LAYERED_IDLE.MANIFEST_PATH) -> int:
+func begin(manifest_path: String = PLAYER.PLAYER_MANIFEST, idle_path: String = "") -> int:
     if closed or _thread != null or _inline_pending: return ERR_ALREADY_IN_USE
     if not RESOURCE_JOB.off_thread_loading_safe():
         _inline_result = _load(manifest_path, idle_path)
@@ -75,6 +75,9 @@ static func _load(manifest_path: String, idle_path: String) -> Dictionary:
             for value in animation.frames:
                 if not value is String: return {"error":"主角动画帧路径无效。"}
                 paths[_path(value)] = true
+    for value in data.get("warm_textures", []):
+        if not value is String: return {"error":"主角附属图片路径无效。"}
+        paths[_path(value)] = true
     # Layered idle is optional in the existing Player attach contract. Missing
     # or unsupported optional assets must leave the original body idle usable.
     var optional_paths: Dictionary = {}

@@ -35,6 +35,10 @@ func run(tree: SceneTree) -> int:
     var result: Dictionary = job.take()
     check(String(result.get("error","missing")).is_empty() and bool(result.get("worker_is_main",true)) != RESOURCE_JOB.off_thread_loading_safe(), "actual image decode runs in the private worker, or inline under the headless Dummy renderer")
     check(result.get("textures",{}).size() > 0 and job._thread == null, "completed owner transfers real native resource references")
+    check(result.get("textures",{}).keys().all(func(path):return String(path).contains("/thread_doll_v1/")), "cold startup never retains a retired human body texture")
+    check(result.get("textures",{}).has("res://assets/sprites/player/thread_doll_v1/foot.png"), "cold startup includes the running feet")
+    for index in 8:
+        check(result.get("textures",{}).has("res://assets/sprites/player/thread_doll_v1/upper/run_upper_%02d.png" % index), "cold startup includes every running cloth pose")
     for path in result.get("textures",{}):
         check(ResourceLoader.has_cached(path) and result.textures[path] is Texture2D, "every retained native entry is a real imported image")
     var player = load("res://scenes/Player.tscn").instantiate()

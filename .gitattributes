@@ -22,6 +22,17 @@ LICENSE text eol=lf
 *.ttf filter=lfs diff=lfs merge=lfs -text
 *.otf filter=lfs diff=lfs merge=lfs -text
 
+# Small, self-contained grounded-run source and fallback cels are reviewable blobs.
+godot/assets/sprites/player/grounded_run_v1/**/*.png -filter -diff -merge -text
+
+# Complete original cloth-thread protagonist and its authored source sheets.
+art_requests/protagonist_thread_doll_v1/*.png -filter -diff -merge -text
+art_requests/thread_doll_motion_v1/*.png -filter -diff -merge -text
+godot/assets/sprites/player/thread_doll_v1/**/*.png -filter -diff -merge -text
+godot/assets/sprites/player/thread_doll_v1/*.png -filter -diff -merge -text
+artifacts/thread_doll_v1/*.mp4 -filter -diff -merge -text
+artifacts/thread_doll_v1/*.png -filter -diff -merge -text
+
 # Small procedural basic-attack sheets are stored as complete, reviewable blobs.
 godot/assets/vfx/player_basic_attack/**/*.png -filter -diff -merge -text
 

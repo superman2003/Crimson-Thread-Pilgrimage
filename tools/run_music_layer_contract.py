@@ -55,9 +55,9 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-s01-music-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'addons/beehave', 'data', 'shaders', 'scenes', 'assets/vfx', 'assets/fonts', 'assets/ui', 'assets/audio/bgm', 'assets/audio/seals'):
+        for directory in ('scripts', 'addons/beehave', 'data', 'shaders', 'assets/sprites/player/thread_doll_v1', 'scenes', 'assets/vfx', 'assets/fonts', 'assets/ui', 'assets/audio/bgm', 'assets/audio/seals'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
-        anchors = Path('assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json')
+        anchors = Path('assets/sprites/player/thread_doll_v1/blade_anchors.json')
         (project / anchors).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / 'godot' / anchors, project / anchors)
         shutil.copy2(ROOT / 'godot/default_bus_layout.tres', project / 'default_bus_layout.tres')

@@ -9,6 +9,7 @@ size = Vector2(34, 84)
 size = Vector2(50, 34)
 
 [node name="Player" type="CharacterBody2D"]
+physics_interpolation_mode = 1
 script = ExtResource("1_player")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -28,8 +29,9 @@ shape = SubResource("RectangleShape2D_hitbox")
 disabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_callback = 0
 position = Vector2(0, -55)
 enabled = true
 zoom = Vector2(1.25, 1.25)
-position_smoothing_enabled = true
+position_smoothing_enabled = false
 position_smoothing_speed = 6.0

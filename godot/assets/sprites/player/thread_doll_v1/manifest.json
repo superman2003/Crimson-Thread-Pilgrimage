@@ -1,0 +1,1201 @@
+{
+  "version": 1,
+  "identity": "thread_doll",
+  "source": "image_gen authored cloth/thread doll; no human fallback",
+  "frame_size": [
+    384,
+    384
+  ],
+  "foot_baseline": 280,
+  "sprite_scale": 0.66,
+  "sprite_position": [
+    0,
+    -58.08
+  ],
+  "idle_presentation": "full_body",
+  "idle_foot_center_x": [
+    185.73291925465838,
+    185.4110514624213,
+    185.8332611050921,
+    186.51528532608694,
+    186.07964135021098,
+    186.38925729442968,
+    185.85782097649187,
+    185.82777777777778
+  ],
+  "grounded_pose_foot_center_x": {
+    "attack_2": [
+      186.10975609756096,
+      185.5012437810945,
+      184.9484126984127,
+      180.99499354005167,
+      189.0875,
+      185.3140526510938
+    ]
+  },
+  "run_presentation": "thread_doll_v1",
+  "run_cycle_distance": 60.0,
+  "warm_textures": [
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_00.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_01.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_02.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_03.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_04.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_05.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_06.png",
+    "res://assets/sprites/player/thread_doll_v1/upper/run_upper_07.png",
+    "res://assets/sprites/player/thread_doll_v1/foot.png"
+  ],
+  "thread_origin_px": {
+    "idle": [
+      [
+        210.851852,
+        229.506173
+      ],
+      [
+        210.7875,
+        226.1375
+      ],
+      [
+        211.367089,
+        220.126582
+      ],
+      [
+        212.192308,
+        215.730769
+      ],
+      [
+        213.306667,
+        219.133333
+      ],
+      [
+        214.116883,
+        227.077922
+      ],
+      [
+        210.746988,
+        230.86747
+      ],
+      [
+        209.84,
+        229.533333
+      ]
+    ],
+    "run": [
+      [
+        193.617284,
+        231.962963
+      ],
+      [
+        213.348485,
+        234.80303
+      ],
+      [
+        227.805195,
+        230.103896
+      ],
+      [
+        220.015152,
+        232.333333
+      ],
+      [
+        190.782051,
+        232.153846
+      ],
+      [
+        217.558824,
+        236.764706
+      ],
+      [
+        234.506849,
+        231.136986
+      ],
+      [
+        214.146667,
+        236.053333
+      ]
+    ],
+    "jump": [
+      [
+        216.759036,
+        246.554217
+      ],
+      [
+        216.1375,
+        230.6625
+      ],
+      [
+        205.189474,
+        227.231579
+      ],
+      [
+        205.05,
+        226.8125
+      ]
+    ],
+    "landing": [
+      [
+        216.430556,
+        241.638889
+      ],
+      [
+        222.442308,
+        260.365385
+      ],
+      [
+        215.716049,
+        240.37037
+      ],
+      [
+        215.697674,
+        230.313953
+      ]
+    ],
+    "attack_1": [
+      [
+        210.024096,
+        223.722892
+      ],
+      [
+        216.04878,
+        230.780488
+      ],
+      [
+        197.57732,
+        225.783505
+      ],
+      [
+        215.27,
+        225.74
+      ],
+      [
+        214.657895,
+        223.302632
+      ],
+      [
+        212.031579,
+        225.705263
+      ]
+    ],
+    "air_attack": [
+      [
+        211.395062,
+        227.938272
+      ],
+      [
+        195.633333,
+        222.966667
+      ],
+      [
+        199.038462,
+        228.269231
+      ],
+      [
+        201.0,
+        222.027778
+      ],
+      [
+        199.671429,
+        229.442857
+      ],
+      [
+        204.264368,
+        229.206897
+      ]
+    ],
+    "attack_2": [
+      [
+        210.7,
+        224.544444
+      ],
+      [
+        213.520833,
+        198.166667
+      ],
+      [
+        223.425532,
+        219.223404
+      ],
+      [
+        218.28866,
+        240.061856
+      ],
+      [
+        219.576923,
+        223.179487
+      ],
+      [
+        209.775281,
+        224.741573
+      ]
+    ],
+    "down_attack": [
+      [
+        201.408451,
+        226.71831
+      ],
+      [
+        197.65,
+        221.85
+      ],
+      [
+        198.074074,
+        227.444444
+      ],
+      [
+        199.096154,
+        232.884615
+      ],
+      [
+        200.986111,
+        225.694444
+      ],
+      [
+        205.367089,
+        228.594937
+      ]
+    ],
+    "dash": [
+      [
+        202.225,
+        227.7125
+      ],
+      [
+        200.09589,
+        227.219178
+      ],
+      [
+        192.782609,
+        225.826087
+      ],
+      [
+        190.507246,
+        223.014493
+      ],
+      [
+        199.24,
+        221.76
+      ],
+      [
+        204.269663,
+        227.460674
+      ]
+    ],
+    "wall_slide": [
+      [
+        214.635294,
+        222.341176
+      ],
+      [
+        213.134831,
+        223.932584
+      ],
+      [
+        213.233766,
+        224.246753
+      ],
+      [
+        213.0,
+        224.75
+      ]
+    ],
+    "hook_throw": [
+      [
+        201.901408,
+        220.957746
+      ],
+      [
+        204.307692,
+        218.969231
+      ],
+      [
+        205.629213,
+        219.247191
+      ],
+      [
+        216.861111,
+        249.611111
+      ],
+      [
+        217.823529,
+        230.014706
+      ],
+      [
+        207.208955,
+        217.119403
+      ]
+    ],
+    "phase": [
+      [
+        204.753247,
+        228.779221
+      ],
+      [
+        195.511905,
+        235.630952
+      ],
+      [
+        222.43662,
+        237.732394
+      ],
+      [
+        206.552941,
+        228.047059
+      ]
+    ],
+    "heal": [
+      [
+        204.839506,
+        208.864198
+      ],
+      [
+        204.546667,
+        209.906667
+      ],
+      [
+        203.359375,
+        211.0
+      ],
+      [
+        202.216667,
+        212.4
+      ],
+      [
+        201.103896,
+        212.727273
+      ],
+      [
+        206.552632,
+        208.276316
+      ]
+    ],
+    "skill_projectile": [
+      [
+        210.130435,
+        214.923913
+      ],
+      [
+        196.057471,
+        219.977011
+      ],
+      [
+        208.204819,
+        211.939759
+      ],
+      [
+        237.553846,
+        218.384615
+      ],
+      [
+        219.508197,
+        218.655738
+      ],
+      [
+        213.042254,
+        214.394366
+      ]
+    ],
+    "skill_control": [
+      [
+        204.554217,
+        218.036145
+      ],
+      [
+        199.373494,
+        218.819277
+      ],
+      [
+        213.275862,
+        226.195402
+      ],
+      [
+        194.320513,
+        215.641026
+      ],
+      [
+        200.915663,
+        217.771084
+      ],
+      [
+        205.565217,
+        218.119565
+      ]
+    ],
+    "skill_defense": [
+      [
+        217.6375,
+        225.3375
+      ],
+      [
+        199.625,
+        224.541667
+      ],
+      [
+        215.139535,
+        221.406977
+      ],
+      [
+        215.188679,
+        225.084906
+      ],
+      [
+        203.623656,
+        219.795699
+      ],
+      [
+        208.352941,
+        218.188235
+      ]
+    ],
+    "hurt": [
+      [
+        209.847826,
+        224.01087
+      ],
+      [
+        208.056818,
+        213.988636
+      ],
+      [
+        201.170732,
+        199.853659
+      ],
+      [
+        182.078947,
+        207.934211
+      ],
+      [
+        229.070175,
+        234.403509
+      ],
+      [
+        207.926316,
+        224.105263
+      ]
+    ],
+    "death": [
+      [
+        227.253333,
+        228.68
+      ],
+      [
+        216.108434,
+        245.53012
+      ],
+      [
+        187.073171,
+        261.573171
+      ],
+      [
+        152.148936,
+        258.06383
+      ],
+      [
+        229.661017,
+        262.694915
+      ],
+      [
+        158.3,
+        256.333333
+      ]
+    ],
+    "guard": [
+      [
+        206.789474,
+        210.960526
+      ],
+      [
+        196.196429,
+        217.803571
+      ],
+      [
+        199.482759,
+        221.241379
+      ],
+      [
+        207.708333,
+        232.694444
+      ],
+      [
+        205.382353,
+        218.617647
+      ],
+      [
+        206.880597,
+        210.686567
+      ]
+    ],
+    "resonance": [
+      [
+        205.465753,
+        217.794521
+      ],
+      [
+        204.68,
+        217.786667
+      ],
+      [
+        206.916667,
+        211.452381
+      ],
+      [
+        206.823529,
+        202.552941
+      ],
+      [
+        206.463415,
+        215.146341
+      ],
+      [
+        206.16,
+        218.21
+      ]
+    ],
+    "jump_start": [
+      [
+        216.759036,
+        246.554217
+      ],
+      [
+        216.1375,
+        230.6625
+      ],
+      [
+        205.189474,
+        227.231579
+      ],
+      [
+        205.05,
+        226.8125
+      ]
+    ],
+    "jump_loop": [
+      [
+        206.864198,
+        226.790123
+      ],
+      [
+        208.287356,
+        228.218391
+      ],
+      [
+        205.3,
+        227.866667
+      ],
+      [
+        204.417582,
+        228.637363
+      ]
+    ],
+    "fall": [
+      [
+        204.934783,
+        228.478261
+      ],
+      [
+        200.710843,
+        228.313253
+      ],
+      [
+        204.853659,
+        227.45122
+      ],
+      [
+        200.241758,
+        228.813187
+      ]
+    ],
+    "land": [
+      [
+        216.430556,
+        241.638889
+      ],
+      [
+        222.442308,
+        260.365385
+      ],
+      [
+        215.716049,
+        240.37037
+      ],
+      [
+        215.697674,
+        230.313953
+      ]
+    ],
+    "skill_melee": [
+      [
+        226.4375,
+        233.6
+      ],
+      [
+        204.890625,
+        242.921875
+      ],
+      [
+        225.605263,
+        243.026316
+      ],
+      [
+        214.653333,
+        228.626667
+      ]
+    ],
+    "skill_wave": [
+      [
+        215.944444,
+        231.266667
+      ],
+      [
+        193.730159,
+        249.222222
+      ],
+      [
+        234.7,
+        221.885714
+      ],
+      [
+        209.157303,
+        226.292135
+      ]
+    ],
+    "item_use": [
+      [
+        210.0,
+        234.869565
+      ],
+      [
+        201.142857,
+        222.017857
+      ],
+      [
+        216.326923,
+        227.644231
+      ],
+      [
+        205.407407,
+        225.604938
+      ]
+    ],
+    "run_attack": [
+      [
+        230.129412,
+        218.670588
+      ],
+      [
+        226.643836,
+        222.794521
+      ],
+      [
+        189.887097,
+        229.903226
+      ],
+      [
+        196.416667,
+        237.638889
+      ],
+      [
+        244.184615,
+        219.246154
+      ],
+      [
+        237.887324,
+        217.929577
+      ]
+    ],
+    "up_attack": [
+      [
+        209.783505,
+        224.814433
+      ],
+      [
+        200.034091,
+        226.465909
+      ],
+      [
+        223.315789,
+        214.252632
+      ],
+      [
+        219.3,
+        209.744444
+      ],
+      [
+        192.238806,
+        227.38806
+      ],
+      [
+        211.207921,
+        226.0
+      ]
+    ],
+    "ground_down_attack": [
+      [
+        210.769231,
+        218.901099
+      ],
+      [
+        212.438356,
+        231.424658
+      ],
+      [
+        212.431818,
+        242.5
+      ],
+      [
+        198.863636,
+        262.181818
+      ],
+      [
+        213.291667,
+        229.847222
+      ],
+      [
+        210.56962,
+        217.860759
+      ]
+    ],
+    "air_up_attack": [
+      [
+        204.957143,
+        227.771429
+      ],
+      [
+        201.27451,
+        225.137255
+      ],
+      [
+        215.744186,
+        218.55814
+      ],
+      [
+        221.0,
+        216.3
+      ],
+      [
+        203.571429,
+        226.821429
+      ],
+      [
+        205.289474,
+        228.539474
+      ]
+    ],
+    "turn": [
+      [
+        220.260274,
+        244.835616
+      ],
+      [
+        206.155844,
+        241.428571
+      ],
+      [
+        161.56962,
+        241.632911
+      ],
+      [
+        157.616438,
+        240.232877
+      ]
+    ]
+  },
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 5.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_05.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_06.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/idle_07.png"
+      ]
+    },
+    {
+      "name": "run",
+      "fps": 38.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/run_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_05.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_06.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_07.png"
+      ]
+    },
+    {
+      "name": "jump",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_03.png"
+      ]
+    },
+    {
+      "name": "landing",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_03.png"
+      ]
+    },
+    {
+      "name": "attack_1",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_1_05.png"
+      ]
+    },
+    {
+      "name": "air_attack",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_attack_05.png"
+      ]
+    },
+    {
+      "name": "attack_2",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/attack_2_05.png"
+      ]
+    },
+    {
+      "name": "down_attack",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/down_attack_05.png"
+      ]
+    },
+    {
+      "name": "dash",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/dash_05.png"
+      ]
+    },
+    {
+      "name": "wall_slide",
+      "fps": 10.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/wall_slide_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/wall_slide_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/wall_slide_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/wall_slide_03.png"
+      ]
+    },
+    {
+      "name": "hook_throw",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hook_throw_05.png"
+      ]
+    },
+    {
+      "name": "phase",
+      "fps": 10.0,
+      "loop": true,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/phase_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/phase_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/phase_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/phase_03.png"
+      ]
+    },
+    {
+      "name": "heal",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/heal_05.png"
+      ]
+    },
+    {
+      "name": "skill_projectile",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_projectile_05.png"
+      ]
+    },
+    {
+      "name": "skill_control",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_control_05.png"
+      ]
+    },
+    {
+      "name": "skill_defense",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_defense_05.png"
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/hurt_05.png"
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/death_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/death_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/death_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/death_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/death_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/death_05.png"
+      ]
+    },
+    {
+      "name": "guard",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/guard_05.png"
+      ]
+    },
+    {
+      "name": "resonance",
+      "fps": 15.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/resonance_05.png"
+      ]
+    },
+    {
+      "name": "jump_start",
+      "fps": 36.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_03.png"
+      ]
+    },
+    {
+      "name": "jump_loop",
+      "fps": 16.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_loop_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_loop_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_loop_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/jump_loop_03.png"
+      ]
+    },
+    {
+      "name": "fall",
+      "fps": 16.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/fall_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/fall_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/fall_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/fall_03.png"
+      ]
+    },
+    {
+      "name": "land",
+      "fps": 29.33333333333333,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/landing_03.png"
+      ]
+    },
+    {
+      "name": "skill_melee",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_melee_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_melee_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_melee_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_melee_03.png"
+      ]
+    },
+    {
+      "name": "skill_wave",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_wave_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_wave_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_wave_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/skill_wave_03.png"
+      ]
+    },
+    {
+      "name": "item_use",
+      "fps": 10.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/item_use_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/item_use_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/item_use_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/item_use_03.png"
+      ]
+    },
+    {
+      "name": "run_attack",
+      "fps": 14.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/run_attack_05.png"
+      ]
+    },
+    {
+      "name": "up_attack",
+      "fps": 14.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/up_attack_05.png"
+      ]
+    },
+    {
+      "name": "ground_down_attack",
+      "fps": 14.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/ground_down_attack_05.png"
+      ]
+    },
+    {
+      "name": "air_up_attack",
+      "fps": 14.0,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_03.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_04.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/air_up_attack_05.png"
+      ]
+    },
+    {
+      "name": "turn",
+      "fps": 33.333333333333336,
+      "loop": false,
+      "frames": [
+        "res://assets/sprites/player/thread_doll_v1/frames/turn_00.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/turn_01.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/turn_02.png",
+        "res://assets/sprites/player/thread_doll_v1/frames/turn_03.png"
+      ]
+    }
+  ]
+}

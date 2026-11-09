@@ -15,6 +15,7 @@ class ProbePlayer extends "res://scripts/player_controller.gd":
                 "animation": sprite.animation, "frame": sprite.frame,
                 "frame_progress": sprite.frame_progress, "flip": sprite.flip_h,
                 "facing": facing, "land": land_timer, "attack": attack_timer,
+                "turn_time": ground_turn_time, "turn_from": ground_turn_from,
                 "heal": heal_timer, "death": death_timer, "hp": hp,
                 "visibility": flash_material.get_shader_parameter("presentation_alpha"),
                 "reveal": respawn_reveal_timer, "sprite_position": sprite.position,
@@ -117,15 +118,17 @@ func _check_idle_registration() -> void:
 func _check_footsteps_on_contacts(initial_phase: float) -> void:
     var expected := 0
     var previous := initial_phase
+    var maximum_contact_step := 0.0
     for sample in player.samples:
         var phase := float(sample.phase)
+        maximum_contact_step = maxf(maximum_contact_step, absf(float(sample.motion)) * 2.0 / player.RUN_CYCLE_DISTANCE)
         if int(floor(phase * 2.0)) != int(floor(previous * 2.0)) and bool(sample.grounded) and float(sample.motion_speed) >= 60.0:
             expected += 1
         previous = phase
     _check(expected >= 2, "Cruise segment crosses both foot contacts (%d)" % expected)
     _check(player.footstep_phases.size() == expected, "One footstep per drawn foot contact (%d sounds, %d contacts)" % [player.footstep_phases.size(), expected])
     for phase in player.footstep_phases:
-        _check(fposmod(phase * 2.0, 1.0) < 0.15, "Footstep sounds right after a contact pose (phase %.3f)" % phase)
+        _check(fposmod(phase * 2.0, 1.0) < maximum_contact_step + .0001, "Footstep sounds within the physics tick crossing its contact (phase %.3f)" % phase)
 
 func _check_travel_samples(label: String, initial_phase: float) -> void:
     var expected := initial_phase
@@ -138,6 +141,12 @@ func _check_travel_samples(label: String, initial_phase: float) -> void:
         var phase_error := absf(float(sample.phase) - expected)
         _check(minf(phase_error, 1.0 - phase_error) < 0.0001, label + ": pose phase follows measured collision-resolved travel")
         if float(sample.motion_speed) > player.GROUND_MOTION_EPSILON and float(sample.attack) <= 0.0 and float(sample.heal) <= 0.0:
+            if sample.animation == &"turn":
+                _check(float(sample.turn_time) > 0.0 and float(sample.turn_time) <= .12, label + ": turn has a bounded visual-only window")
+                _check(bool(sample.flip) == (int(sample.turn_from) < 0), label + ": turn atlas starts from the previous facing")
+                var turn_frame := mini(int((1.0 - float(sample.turn_time) / .12) * 4), 3)
+                _check(int(sample.frame) == turn_frame, label + ": turn cels follow the visual clock")
+                continue
             _check(sample.animation == &"run", label + ": actual motion retains run despite input/landing transitions")
             _check(bool(sample.flip) == (float(sample.dx) < 0.0), label + ": visible facing follows actual ground travel")
             var pose_phase := (float(sample.frame) + float(sample.frame_progress)) / float(player.sprite.sprite_frames.get_frame_count(&"run"))
@@ -399,6 +408,38 @@ func _run() -> void:
         braking_right = braking_right or (float(sample.dx) > 0.01 and int(sample.facing) == -1 and not bool(sample.flip))
         moving_left = moving_left or (float(sample.dx) < -0.01 and bool(sample.flip))
     _check(braking_right and moving_left, "Turn preserves immediate gameplay facing and reverses visible gait with travel")
+    var turn_cels := {}
+    for sample in player.samples:
+        if sample.animation == &"turn":
+            turn_cels[sample.frame] = true
+            _check(int(sample.facing) == -1, "Turn never delays gameplay facing")
+    _check(turn_cels.size() == 4, "Reversal displays all four authored turn cels")
+
+    await _reset(Vector2(500, 300))
+    Input.action_press("move_left")
+    await _frames(20)
+    initial_phase = player.run_cycle_phase
+    _capture()
+    Input.action_release("move_left")
+    Input.action_press("move_right")
+    await _frames(24)
+    _check_travel_samples("Mirrored direction reversal", initial_phase)
+    turn_cels.clear()
+    for sample in player.samples:
+        if sample.animation == &"turn":
+            turn_cels[sample.frame] = true
+            _check(bool(sample.flip) and int(sample.facing) == 1, "Mirrored turn uses immediate right-facing gameplay")
+    _check(turn_cels.size() == 4, "Mirrored reversal displays all four turn cels")
+    player.set_physics_process(false)
+    for interruption in ["attack", "hurt", "heal", "ui"]:
+        player.ground_turn_time = .1
+        player.attack_timer = .1 if interruption == "attack" else 0.0
+        player.hurt_timer = .1 if interruption == "hurt" else 0.0
+        player.heal_timer = .1 if interruption == "heal" else 0.0
+        player.ui_input_locked = interruption == "ui"
+        player._update_animation(0)
+        _check(player.ground_turn_time == 0 and player.sprite.animation != &"turn", interruption + " immediately cancels the visual turn")
+    player.set_physics_process(true)
 
     await _reset()
     Input.action_press("move_right")
