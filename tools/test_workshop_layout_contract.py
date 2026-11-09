@@ -39,7 +39,7 @@ class LayoutContracts(unittest.TestCase):
         self.assertTrue(self.invalid('archetypes differ'))
     def test_wrong_reward_platform(self):
         l=self.selected();chapter=self.data['chapters'][l['region_id']];reward=next(p for p in chapter['collectibles'] if p['id']==l['room_id']+'_evidence');reward['platform_id']='absent'
-        self.assertTrue(self.invalid('original rewards'))
+        self.assertTrue(self.invalid('three rewards'))
     def test_stale_recipe_platform(self):
         self.selected()['platforms'][0]['offset'][1] += 1
         self.assertTrue(self.invalid('platform matches its authored recipe'))

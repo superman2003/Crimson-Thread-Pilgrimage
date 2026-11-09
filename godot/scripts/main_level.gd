@@ -6428,9 +6428,23 @@ func _on_collectible_body_entered(body: Node, area: Area2D) -> void:
         _announce_lore_pickup(String(source.item));_play_sfx("pickup_cloth",-12.0)
     _play_sfx("pickup")
     if metsys_bridge!=null:metsys_bridge.store_object(area)
-    _toast(String(source.message));_spawn_pickup_effect(area.global_position)
+    _toast(_capacity_fragment_message(String(source.item),String(source.message)));_spawn_pickup_effect(area.global_position)
     area.queue_free();_refresh_hud();_refresh_wish_board_overlay()
     if active_overlay=="backpack":_refresh_backpack_overlay()
+
+## Workshop capacity fragments report their set progress, or the finished
+## item when a set completes; any other pickup keeps its own label.
+func _capacity_fragment_message(item_id: String, fallback: String) -> String:
+    var upgrade: Variant = build_system.catalog.get("permanent_upgrades", {}).get(item_id) if build_system != null else null
+    if not upgrade is Dictionary or int(upgrade.get("per", 1)) <= 1:
+        return fallback
+    var per := int(upgrade.per)
+    var count := int(inventory_counts.get(item_id, 0))
+    if count > 0 and count % per == 0:
+        var gain := "最大生命 +%d" if String(upgrade.stat) == "max_hp" else "绯线上限 +%d"
+        return "%s编成 · %s" % [_item_display_name(item_id.trim_suffix("_fragment")), gain % int(upgrade.amount)]
+    return "%s %d / %d" % [_item_display_name(item_id), count % per, per]
+
 
 func _on_collectible_body_entered_legacy(body: Node, area: Area2D) -> void:
     if world_loading:

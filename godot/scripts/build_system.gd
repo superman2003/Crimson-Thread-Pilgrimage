@@ -54,7 +54,9 @@ func sync_progress(inventory_counts: Dictionary, _region_id: String = "", story_
         if not _counter(count, 1000000): continue
         var upgrade: Dictionary = catalog.permanent_upgrades[item_id]
         var stat := String(upgrade.stat)
-        permanent_stats[stat] = int(permanent_stats.get(stat, 0)) + int(count) * int(upgrade.amount)
+        # Fragments count only in complete sets ("per" pieces make one).
+        var per := maxi(1, int(upgrade.get("per", 1)))
+        permanent_stats[stat] = int(permanent_stats.get(stat, 0)) + floori(float(count) / per) * int(upgrade.amount)
     # No region or permanent exploration ability grants equipment. Dialogue and relics do.
     var tables := {"crests": "unlocked_crests", "skills": "unlocked_skills", "tools": "unlocked_tools", "passives": "unlocked_passives"}
     for table in tables:
