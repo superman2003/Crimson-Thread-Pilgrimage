@@ -86,6 +86,7 @@ jobs:
         env:
           EDITOR_FILE: ${{ matrix.editor }}
           TEMPLATE_FILE: ${{ matrix.template }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           python tools/download_godot_release.py \
             --editor "$EDITOR_FILE" --template "$TEMPLATE_FILE" \
