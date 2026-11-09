@@ -79,7 +79,8 @@ def validate():
         check(gate['requires_action'] == target['ability_id'], gate['id'] + ': action must match ability')
         check(gate['permanent_action_unlock_id'] == gate['id'], gate['id'] + ': save unlock ID')
         rewards = [v for v in overlay['collectibles'] if v['id'] in target['reward_ids']]
-        check(len(rewards) == 2 and {v['kind'] for v in rewards} == {'item', 'currency'}, gate['id'] + ': real evidence and currency rewards')
+        check(len(rewards) == 3 and {v['kind'] for v in rewards} == {'item', 'currency'}, gate['id'] + ': real evidence, capacity fragment and currency rewards')
+        check(sum(v.get('item_id') in ('heart_knot_fragment', 'energy_spindle_fragment') for v in rewards) == 1, gate['id'] + ': exactly one permanent capacity fragment')
         platforms = {v['id']: v['rect'] for v in overlay['platforms']}
         room_id = target['room_id']
         roof = platforms[room_id + '_roof']
