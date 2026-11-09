@@ -498,6 +498,41 @@
     {
       "path": "debug/global_debugger.gd",
       "reason": "Register debugger capture only with an active debugger, avoiding teardown errors in standalone tools."
+    },
+    {
+      "path": "debug/debugger_tab.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "fbd01334c8702319cb966bca7707347c003bc4a4b68445ec7352f1bb768f1dd6"
+    },
+    {
+      "path": "debug/new_graph_edit.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "6491aeb660b1031d1a689d2158c08246ef1598baff41a28d929e2445deebf318"
+    },
+    {
+      "path": "debug/old_graph_edit.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "ad3ee508717fc33c73d03b3f203247a7cedf316343bb384c676d0f9e0a8bc00b"
+    },
+    {
+      "path": "debug/new_graph_node.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "272af771bf3fe211024e1321637fe59f9a122b60dca3910ae846054717f27560"
+    },
+    {
+      "path": "debug/old_graph_node.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "4222d28db7505071017424536cf2b64296369a8367e9283a0e757b13820d0f43"
+    },
+    {
+      "path": "utils/utils.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "31f22a1bc65e7befe87d4b0b5e27ec070b5288f9122eb48e1dfe43562dcdb2a0"
+    },
+    {
+      "path": "plugin.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "689cd51b7a963830cfe347f6c5bf1b376c836464ea4e4aeb4292e5af911d9931"
     }
   ]
 }

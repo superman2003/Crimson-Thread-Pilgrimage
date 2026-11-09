@@ -2,6 +2,7 @@
 extends EditorPlugin
 
 const BeehaveEditorDebugger := preload("debug/debugger.gd")
+const BeehaveUtils := preload("utils/utils.gd")
 var editor_debugger: BeehaveEditorDebugger
 var frames: RefCounted
 var _custom_types: Array[StringName] = []
@@ -61,7 +62,7 @@ func _register_custom_types() -> void:
 		push_warning("Beehave: failed to load BeehaveTree script; custom type not registered.")
 		return
 
-	var tree_icon: Texture2D = load("res://addons/beehave/icons/tree.svg")
+	var tree_icon := BeehaveUtils.load_editor_icon("res://addons/beehave/icons/tree.svg")
 	add_custom_type("BeehaveTree", "Node", tree_script, tree_icon)
 	_custom_types.append(&"BeehaveTree")
 

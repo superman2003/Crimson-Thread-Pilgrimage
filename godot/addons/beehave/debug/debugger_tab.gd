@@ -3,7 +3,7 @@ class_name BeehaveDebuggerTab
 extends PanelContainer
 
 const Utils      = preload("res://addons/beehave/utils/utils.gd")
-const TREE_ICON  = preload("../icons/tree.svg")
+var TREE_ICON: Texture2D = Utils.load_editor_icon("res://addons/beehave/icons/tree.svg")
 const OldGraph   = preload("old_graph_edit.gd")
 const NewGraph   = preload("new_graph_edit.gd")
 const Blackboard = preload("new_node_blackboard.gd")

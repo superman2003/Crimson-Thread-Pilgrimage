@@ -1,10 +1,12 @@
 @tool
 extends GraphEdit
 
+const BeehaveUtils := preload("res://addons/beehave/utils/utils.gd")
+
 const BeehaveGraphNode := preload("new_graph_node.gd")
 
-const HORIZONTAL_LAYOUT_ICON := preload("icons/horizontal_layout.svg")
-const VERTICAL_LAYOUT_ICON := preload("icons/vertical_layout.svg")
+var HORIZONTAL_LAYOUT_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/horizontal_layout.svg")
+var VERTICAL_LAYOUT_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/vertical_layout.svg")
 
 const PROGRESS_SHIFT: int = 50
 const INACTIVE_COLOR: Color = Color("#000000")

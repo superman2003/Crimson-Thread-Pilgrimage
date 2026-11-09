@@ -43,13 +43,14 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-map-floor-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'data'):
+        for directory in ('scripts', 'addons/beehave', 'data'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         destination = project / 'assets/fonts/GlobalTypeface.otf'
         destination.parent.mkdir(parents=True)
         shutil.copy2(font, destination)
         (project / 'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Map floor contracts"\n'
+            '[autoload]\nBeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"\nBeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"\n'
             '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
         env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / 'userdata'))
         base = [engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project)]

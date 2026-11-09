@@ -5,10 +5,10 @@ const BeehaveUtils := preload("res://addons/beehave/utils/utils.gd")
 
 const DEFAULT_COLOR := Color("#dad4cb")
 
-const PORT_TOP_ICON := preload("icons/port_top.svg")
-const PORT_BOTTOM_ICON := preload("icons/port_bottom.svg")
-const PORT_LEFT_ICON := preload("icons/port_left.svg")
-const PORT_RIGHT_ICON := preload("icons/port_right.svg")
+var PORT_TOP_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/port_top.svg")
+var PORT_BOTTOM_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/port_bottom.svg")
+var PORT_LEFT_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/port_left.svg")
+var PORT_RIGHT_ICON: Texture2D = BeehaveUtils.load_editor_icon("res://addons/beehave/debug/icons/port_right.svg")
 
 @export var title_text: String:
 	set(value):
