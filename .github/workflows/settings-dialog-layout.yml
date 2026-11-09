@@ -33,7 +33,7 @@ jobs:
         run: python3 tools/test_settings_dialog_layout_runner.py
       - name: Install pinned Godot 4.6.1
         run: |
-          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Native actual settings forms and focus lifecycle
         run: python3 tools/run_settings_dialog_layout_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/settings-layout-native"

@@ -43,7 +43,7 @@ jobs:
           git lfs pull --include='godot/assets/fonts/**,godot/assets/ui/inscription/v2/**,godot/assets/ui/seals/**,godot/assets/vfx/**'
       - name: Install pinned Godot 4.6.1
         run: |
-          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
+          curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Validate authored stations, route permission, owned dispatch and strict departure saves
         run: python3 tools/run_shrine_return_contract.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/shrine-return-logs"

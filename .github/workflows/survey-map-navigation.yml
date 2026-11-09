@@ -35,7 +35,7 @@ jobs:
           git lfs pull --include='godot/assets/**'
       - name: Install Godot and software GL support
         run: |
-          curl --fail --location --retry 3 -o "$RUNNER_TEMP/godot.zip" \
+          curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" \
             https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
           sudo apt-get update -qq
