@@ -9,4 +9,4 @@
 - 生成器 `tools/build_world_upgrade.py` 重新生成 `world_routes.json`，两次生成结果逐字节一致。校验：
   - `validate_world_upgrade`、`workshop_layout_contract` 改为每间三件奖励、恰好一片碎片；
   - `permanent_capacity` 改为碎片按整套计入。
-- 测试：`validate_world_upgrade`（11647 项）、`test_workshop_layout_contract`、`validate_world_routes`、`permanent_capacity`（含世界拾取与重启）、`ch06_workshop_experience`、`artisan_growth` 通过。
+- 测试：`world_upgrade`（609 项）、`validate_world_upgrade`（11647 项）、`test_workshop_layout_contract`、`validate_world_routes`、`permanent_capacity`（含世界拾取与重启）、`ch06_workshop_experience`、`artisan_growth` 通过。
