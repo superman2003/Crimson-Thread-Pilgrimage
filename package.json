@@ -48,6 +48,7 @@
     "build:hero-motion-v9": "node tools/run_python_tool.mjs tools/build_hero_motion_v9.py",
     "test:npc-motion-native": "node tools/run_python_tool.mjs tools/check_npc_motion_v10_native.py",
     "test:audio-construction-native": "node tools/run_python_tool.mjs tools/check_audio_construction_native.py",
-    "test:save-backup-native": "node tools/run_python_tool.mjs tools/check_save_backup_native.py"
+    "test:save-backup-native": "node tools/run_python_tool.mjs tools/check_save_backup_native.py",
+    "test:character-motion-v8": "node tools/run_python_tool.mjs tools/build_character_motion_v8.py --check && node tools/run_python_tool.mjs tools/run_godot_regressions.py --suite character_motion_v8"
   }
 }

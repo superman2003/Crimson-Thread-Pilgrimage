@@ -1,0 +1,4095 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "gear_sentinel",
+  "canvas": [
+    492,
+    226
+  ],
+  "display_height": 102,
+  "visual_scale": 0.5,
+  "visual_offset": [
+    0,
+    4.822259136212622
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            215,
+            204
+          ],
+          "margin": [
+            155,
+            14,
+            277,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            229,
+            213
+          ],
+          "margin": [
+            135,
+            7,
+            263,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            217,
+            0,
+            214,
+            203
+          ],
+          "margin": [
+            157,
+            15,
+            278,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            235,
+            2,
+            227,
+            212
+          ],
+          "margin": [
+            135,
+            8,
+            265,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            433,
+            0,
+            215,
+            202
+          ],
+          "margin": [
+            149,
+            16,
+            277,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            466,
+            2,
+            234,
+            212
+          ],
+          "margin": [
+            128,
+            8,
+            258,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            650,
+            0,
+            214,
+            202
+          ],
+          "margin": [
+            143,
+            16,
+            278,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            704,
+            2,
+            248,
+            213
+          ],
+          "margin": [
+            120,
+            7,
+            244,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            866,
+            0,
+            218,
+            202
+          ],
+          "margin": [
+            141,
+            16,
+            274,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            956,
+            2,
+            249,
+            212
+          ],
+          "margin": [
+            114,
+            8,
+            243,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1086,
+            0,
+            195,
+            202
+          ],
+          "margin": [
+            149,
+            16,
+            297,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1209,
+            2,
+            241,
+            212
+          ],
+          "margin": [
+            128,
+            8,
+            251,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1283,
+            0,
+            237,
+            202
+          ],
+          "margin": [
+            151,
+            16,
+            255,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1454,
+            2,
+            236,
+            211
+          ],
+          "margin": [
+            145,
+            9,
+            256,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1522,
+            0,
+            224,
+            200
+          ],
+          "margin": [
+            163,
+            18,
+            268,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1694,
+            2,
+            237,
+            210
+          ],
+          "margin": [
+            150,
+            10,
+            255,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1748,
+            0,
+            220,
+            200
+          ],
+          "margin": [
+            167,
+            18,
+            272,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            223,
+            239,
+            210
+          ],
+          "margin": [
+            150,
+            10,
+            253,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1970,
+            0,
+            215,
+            200
+          ],
+          "margin": [
+            165,
+            18,
+            277,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            245,
+            223,
+            234,
+            210
+          ],
+          "margin": [
+            148,
+            10,
+            258,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2187,
+            0,
+            205,
+            200
+          ],
+          "margin": [
+            161,
+            18,
+            287,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            483,
+            223,
+            228,
+            209
+          ],
+          "margin": [
+            138,
+            11,
+            264,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2394,
+            0,
+            197,
+            198
+          ],
+          "margin": [
+            149,
+            20,
+            295,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            715,
+            223,
+            234,
+            210
+          ],
+          "margin": [
+            120,
+            10,
+            258,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2593,
+            0,
+            205,
+            185
+          ],
+          "margin": [
+            151,
+            33,
+            287,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            953,
+            223,
+            224,
+            198
+          ],
+          "margin": [
+            151,
+            22,
+            268,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2800,
+            0,
+            210,
+            192
+          ],
+          "margin": [
+            149,
+            26,
+            282,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1181,
+            223,
+            215,
+            201
+          ],
+          "margin": [
+            156,
+            19,
+            277,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3012,
+            0,
+            198,
+            192
+          ],
+          "margin": [
+            156,
+            26,
+            294,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1400,
+            223,
+            194,
+            198
+          ],
+          "margin": [
+            156,
+            22,
+            298,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3212,
+            0,
+            183,
+            185
+          ],
+          "margin": [
+            167,
+            33,
+            309,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1598,
+            223,
+            199,
+            198
+          ],
+          "margin": [
+            152,
+            22,
+            293,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3397,
+            0,
+            194,
+            193
+          ],
+          "margin": [
+            158,
+            25,
+            298,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1801,
+            223,
+            221,
+            203
+          ],
+          "margin": [
+            140,
+            17,
+            271,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3593,
+            0,
+            225,
+            193
+          ],
+          "margin": [
+            138,
+            25,
+            267,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            441,
+            225,
+            199
+          ],
+          "margin": [
+            137,
+            21,
+            267,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3820,
+            0,
+            213,
+            186
+          ],
+          "margin": [
+            147,
+            32,
+            279,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            231,
+            441,
+            226,
+            199
+          ],
+          "margin": [
+            136,
+            21,
+            266,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            206,
+            229,
+            193
+          ],
+          "margin": [
+            135,
+            25,
+            263,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            461,
+            441,
+            224,
+            203
+          ],
+          "margin": [
+            138,
+            17,
+            268,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            231,
+            206,
+            214,
+            193
+          ],
+          "margin": [
+            142,
+            25,
+            278,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            689,
+            441,
+            206,
+            199
+          ],
+          "margin": [
+            147,
+            21,
+            286,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            447,
+            206,
+            197,
+            185
+          ],
+          "margin": [
+            151,
+            33,
+            295,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            899,
+            441,
+            214,
+            198
+          ],
+          "margin": [
+            140,
+            22,
+            278,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            646,
+            206,
+            210,
+            191
+          ],
+          "margin": [
+            148,
+            27,
+            282,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1117,
+            441,
+            277,
+            201
+          ],
+          "margin": [
+            143,
+            19,
+            215,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            858,
+            206,
+            293,
+            191
+          ],
+          "margin": [
+            142,
+            27,
+            199,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1398,
+            441,
+            270,
+            196
+          ],
+          "margin": [
+            148,
+            24,
+            222,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1153,
+            206,
+            291,
+            182
+          ],
+          "margin": [
+            153,
+            36,
+            201,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1672,
+            441,
+            277,
+            197
+          ],
+          "margin": [
+            158,
+            23,
+            215,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1446,
+            206,
+            295,
+            193
+          ],
+          "margin": [
+            154,
+            25,
+            197,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            652,
+            285,
+            204
+          ],
+          "margin": [
+            160,
+            16,
+            207,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1743,
+            206,
+            295,
+            195
+          ],
+          "margin": [
+            166,
+            23,
+            197,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            291,
+            652,
+            276,
+            203
+          ],
+          "margin": [
+            168,
+            17,
+            216,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2040,
+            206,
+            303,
+            190
+          ],
+          "margin": [
+            177,
+            28,
+            189,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            571,
+            652,
+            267,
+            201
+          ],
+          "margin": [
+            180,
+            19,
+            225,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2345,
+            206,
+            306,
+            192
+          ],
+          "margin": [
+            177,
+            26,
+            186,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            842,
+            652,
+            264,
+            199
+          ],
+          "margin": [
+            185,
+            21,
+            228,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2653,
+            206,
+            236,
+            185
+          ],
+          "margin": [
+            160,
+            33,
+            256,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1110,
+            652,
+            200,
+            187
+          ],
+          "margin": [
+            188,
+            33,
+            292,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2891,
+            206,
+            218,
+            171
+          ],
+          "margin": [
+            179,
+            47,
+            274,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1314,
+            652,
+            244,
+            186
+          ],
+          "margin": [
+            188,
+            34,
+            248,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3111,
+            206,
+            232,
+            182
+          ],
+          "margin": [
+            149,
+            36,
+            260,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1562,
+            652,
+            254,
+            194
+          ],
+          "margin": [
+            166,
+            26,
+            238,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3345,
+            206,
+            289,
+            186
+          ],
+          "margin": [
+            156,
+            32,
+            203,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            864,
+            259,
+            194
+          ],
+          "margin": [
+            144,
+            26,
+            233,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3636,
+            206,
+            310,
+            183
+          ],
+          "margin": [
+            139,
+            35,
+            182,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            265,
+            864,
+            255,
+            198
+          ],
+          "margin": [
+            142,
+            22,
+            237,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            403,
+            304,
+            194
+          ],
+          "margin": [
+            141,
+            24,
+            188,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            524,
+            864,
+            211,
+            205
+          ],
+          "margin": [
+            144,
+            15,
+            281,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            306,
+            403,
+            213,
+            195
+          ],
+          "margin": [
+            168,
+            23,
+            279,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            739,
+            864,
+            208,
+            203
+          ],
+          "margin": [
+            172,
+            17,
+            284,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            521,
+            403,
+            206,
+            191
+          ],
+          "margin": [
+            191,
+            27,
+            286,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            951,
+            864,
+            213,
+            204
+          ],
+          "margin": [
+            157,
+            16,
+            279,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            729,
+            403,
+            219,
+            196
+          ],
+          "margin": [
+            174,
+            22,
+            273,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1168,
+            864,
+            265,
+            206
+          ],
+          "margin": [
+            160,
+            14,
+            227,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            950,
+            403,
+            194,
+            195
+          ],
+          "margin": [
+            154,
+            23,
+            298,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1437,
+            864,
+            261,
+            201
+          ],
+          "margin": [
+            150,
+            19,
+            231,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1146,
+            403,
+            181,
+            186
+          ],
+          "margin": [
+            155,
+            32,
+            311,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1702,
+            864,
+            257,
+            202
+          ],
+          "margin": [
+            148,
+            18,
+            235,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1329,
+            403,
+            198,
+            197
+          ],
+          "margin": [
+            141,
+            21,
+            294,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1078,
+            233,
+            209
+          ],
+          "margin": [
+            144,
+            11,
+            259,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1529,
+            403,
+            234,
+            201
+          ],
+          "margin": [
+            145,
+            17,
+            258,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            239,
+            1078,
+            229,
+            210
+          ],
+          "margin": [
+            145,
+            10,
+            263,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1765,
+            403,
+            232,
+            198
+          ],
+          "margin": [
+            151,
+            20,
+            260,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            472,
+            1078,
+            247,
+            213
+          ],
+          "margin": [
+            131,
+            7,
+            245,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1999,
+            403,
+            238,
+            206
+          ],
+          "margin": [
+            140,
+            12,
+            254,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            723,
+            1078,
+            205,
+            217
+          ],
+          "margin": [
+            134,
+            3,
+            287,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2239,
+            403,
+            212,
+            206
+          ],
+          "margin": [
+            152,
+            12,
+            280,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            932,
+            1078,
+            220,
+            214
+          ],
+          "margin": [
+            142,
+            6,
+            272,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2453,
+            403,
+            205,
+            200
+          ],
+          "margin": [
+            155,
+            18,
+            287,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1156,
+            1078,
+            216,
+            215
+          ],
+          "margin": [
+            138,
+            5,
+            276,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2660,
+            403,
+            214,
+            208
+          ],
+          "margin": [
+            149,
+            10,
+            278,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1376,
+            1078,
+            234,
+            220
+          ],
+          "margin": [
+            132,
+            2,
+            258,
+            6
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2876,
+            403,
+            221,
+            210
+          ],
+          "margin": [
+            150,
+            8,
+            271,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1614,
+            1078,
+            226,
+            218
+          ],
+          "margin": [
+            140,
+            2,
+            266,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3099,
+            403,
+            203,
+            174
+          ],
+          "margin": [
+            155,
+            44,
+            289,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1306,
+            227,
+            196
+          ],
+          "margin": [
+            145,
+            24,
+            265,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3304,
+            403,
+            217,
+            196
+          ],
+          "margin": [
+            155,
+            22,
+            275,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            233,
+            1306,
+            225,
+            208
+          ],
+          "margin": [
+            144,
+            12,
+            267,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3523,
+            403,
+            190,
+            197
+          ],
+          "margin": [
+            151,
+            21,
+            302,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            462,
+            1306,
+            199,
+            202
+          ],
+          "margin": [
+            150,
+            18,
+            293,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3715,
+            403,
+            230,
+            185
+          ],
+          "margin": [
+            161,
+            33,
+            262,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            665,
+            1306,
+            234,
+            189
+          ],
+          "margin": [
+            154,
+            31,
+            258,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            615,
+            187,
+            173
+          ],
+          "margin": [
+            153,
+            45,
+            305,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            903,
+            1306,
+            206,
+            200
+          ],
+          "margin": [
+            134,
+            20,
+            286,
+            26
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            189,
+            615,
+            214,
+            125
+          ],
+          "margin": [
+            139,
+            93,
+            278,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1113,
+            1306,
+            203,
+            129
+          ],
+          "margin": [
+            135,
+            91,
+            289,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            405,
+            615,
+            258,
+            114
+          ],
+          "margin": [
+            117,
+            104,
+            234,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1320,
+            1306,
+            219,
+            118
+          ],
+          "margin": [
+            138,
+            102,
+            273,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            665,
+            615,
+            313,
+            103
+          ],
+          "margin": [
+            89,
+            115,
+            179,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1543,
+            1306,
+            286,
+            115
+          ],
+          "margin": [
+            105,
+            105,
+            206,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_elite_spin_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            980,
+            615,
+            210,
+            171
+          ],
+          "margin": [
+            142,
+            47,
+            282,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1522,
+            238,
+            186
+          ],
+          "margin": [
+            123,
+            34,
+            254,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1192,
+            615,
+            217,
+            178
+          ],
+          "margin": [
+            137,
+            40,
+            275,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            244,
+            1522,
+            230,
+            189
+          ],
+          "margin": [
+            126,
+            31,
+            262,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1411,
+            615,
+            212,
+            178
+          ],
+          "margin": [
+            131,
+            40,
+            280,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            478,
+            1522,
+            217,
+            185
+          ],
+          "margin": [
+            128,
+            35,
+            275,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1625,
+            615,
+            205,
+            171
+          ],
+          "margin": [
+            135,
+            47,
+            287,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            699,
+            1522,
+            216,
+            185
+          ],
+          "margin": [
+            128,
+            35,
+            276,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1832,
+            615,
+            205,
+            178
+          ],
+          "margin": [
+            137,
+            40,
+            287,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            919,
+            1522,
+            224,
+            189
+          ],
+          "margin": [
+            123,
+            33,
+            268,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2039,
+            615,
+            199,
+            179
+          ],
+          "margin": [
+            142,
+            39,
+            293,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1147,
+            1522,
+            207,
+            186
+          ],
+          "margin": [
+            138,
+            34,
+            285,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2240,
+            615,
+            198,
+            172
+          ],
+          "margin": [
+            138,
+            46,
+            294,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1358,
+            1522,
+            208,
+            186
+          ],
+          "margin": [
+            136,
+            34,
+            284,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2440,
+            615,
+            200,
+            179
+          ],
+          "margin": [
+            141,
+            39,
+            292,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1570,
+            1522,
+            221,
+            190
+          ],
+          "margin": [
+            126,
+            30,
+            271,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2642,
+            615,
+            243,
+            179
+          ],
+          "margin": [
+            110,
+            39,
+            249,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1795,
+            1522,
+            247,
+            186
+          ],
+          "margin": [
+            106,
+            34,
+            245,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2887,
+            615,
+            236,
+            172
+          ],
+          "margin": [
+            114,
+            46,
+            256,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1720,
+            256,
+            186
+          ],
+          "margin": [
+            101,
+            34,
+            236,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3125,
+            615,
+            238,
+            178
+          ],
+          "margin": [
+            112,
+            40,
+            254,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            262,
+            1720,
+            253,
+            189
+          ],
+          "margin": [
+            101,
+            31,
+            239,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3365,
+            615,
+            215,
+            178
+          ],
+          "margin": [
+            132,
+            40,
+            277,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            519,
+            1720,
+            212,
+            184
+          ],
+          "margin": [
+            134,
+            36,
+            280,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_elite_spin",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3582,
+            615,
+            199,
+            170
+          ],
+          "margin": [
+            139,
+            48,
+            293,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            735,
+            1720,
+            211,
+            183
+          ],
+          "margin": [
+            132,
+            37,
+            281,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3783,
+            615,
+            207,
+            175
+          ],
+          "margin": [
+            134,
+            43,
+            285,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            950,
+            1720,
+            226,
+            185
+          ],
+          "margin": [
+            120,
+            35,
+            266,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            796,
+            222,
+            174
+          ],
+          "margin": [
+            147,
+            44,
+            270,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1180,
+            1720,
+            244,
+            180
+          ],
+          "margin": [
+            107,
+            40,
+            248,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            224,
+            796,
+            209,
+            165
+          ],
+          "margin": [
+            152,
+            53,
+            283,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1428,
+            1720,
+            249,
+            180
+          ],
+          "margin": [
+            100,
+            40,
+            243,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            435,
+            796,
+            215,
+            173
+          ],
+          "margin": [
+            149,
+            45,
+            277,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_00.png",
+          "region": [
+            1681,
+            1720,
+            223,
+            182
+          ],
+          "margin": [
+            135,
+            38,
+            269,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            652,
+            796,
+            227,
+            174
+          ],
+          "margin": [
+            132,
+            44,
+            265,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            219,
+            179
+          ],
+          "margin": [
+            136,
+            41,
+            273,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            881,
+            796,
+            223,
+            167
+          ],
+          "margin": [
+            137,
+            51,
+            269,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            225,
+            2,
+            219,
+            180
+          ],
+          "margin": [
+            136,
+            40,
+            273,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1106,
+            796,
+            240,
+            176
+          ],
+          "margin": [
+            126,
+            42,
+            252,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            448,
+            2,
+            226,
+            185
+          ],
+          "margin": [
+            130,
+            35,
+            266,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1348,
+            796,
+            232,
+            177
+          ],
+          "margin": [
+            138,
+            41,
+            260,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            678,
+            2,
+            218,
+            182
+          ],
+          "margin": [
+            136,
+            38,
+            274,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1582,
+            796,
+            226,
+            171
+          ],
+          "margin": [
+            144,
+            47,
+            266,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            900,
+            2,
+            209,
+            181
+          ],
+          "margin": [
+            141,
+            39,
+            283,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1810,
+            796,
+            232,
+            175
+          ],
+          "margin": [
+            138,
+            43,
+            260,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1113,
+            2,
+            212,
+            182
+          ],
+          "margin": [
+            138,
+            38,
+            280,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2044,
+            796,
+            245,
+            172
+          ],
+          "margin": [
+            130,
+            46,
+            247,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1329,
+            2,
+            202,
+            174
+          ],
+          "margin": [
+            145,
+            46,
+            290,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_elite_spin_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2291,
+            796,
+            237,
+            161
+          ],
+          "margin": [
+            138,
+            57,
+            255,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1535,
+            2,
+            198,
+            173
+          ],
+          "margin": [
+            147,
+            46,
+            294,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2530,
+            796,
+            240,
+            170
+          ],
+          "margin": [
+            133,
+            48,
+            252,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1737,
+            2,
+            197,
+            178
+          ],
+          "margin": [
+            148,
+            42,
+            295,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2772,
+            796,
+            200,
+            171
+          ],
+          "margin": [
+            140,
+            47,
+            292,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            195,
+            175,
+            176
+          ],
+          "margin": [
+            154,
+            44,
+            317,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2974,
+            796,
+            189,
+            166
+          ],
+          "margin": [
+            146,
+            52,
+            303,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            181,
+            195,
+            175,
+            178
+          ],
+          "margin": [
+            146,
+            41,
+            317,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3165,
+            796,
+            207,
+            174
+          ],
+          "margin": [
+            136,
+            44,
+            285,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            360,
+            195,
+            189,
+            182
+          ],
+          "margin": [
+            143,
+            39,
+            303,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3374,
+            796,
+            195,
+            174
+          ],
+          "margin": [
+            136,
+            44,
+            297,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            553,
+            195,
+            198,
+            179
+          ],
+          "margin": [
+            143,
+            42,
+            294,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3571,
+            796,
+            189,
+            168
+          ],
+          "margin": [
+            141,
+            50,
+            303,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            755,
+            195,
+            197,
+            179
+          ],
+          "margin": [
+            144,
+            42,
+            295,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3762,
+            796,
+            193,
+            175
+          ],
+          "margin": [
+            139,
+            43,
+            299,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            956,
+            195,
+            186,
+            183
+          ],
+          "margin": [
+            144,
+            38,
+            306,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            975,
+            212,
+            175
+          ],
+          "margin": [
+            136,
+            43,
+            280,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1146,
+            195,
+            184,
+            179
+          ],
+          "margin": [
+            145,
+            42,
+            308,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            214,
+            975,
+            203,
+            168
+          ],
+          "margin": [
+            141,
+            50,
+            289,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1334,
+            195,
+            199,
+            186
+          ],
+          "margin": [
+            140,
+            34,
+            293,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            419,
+            975,
+            224,
+            188
+          ],
+          "margin": [
+            132,
+            30,
+            268,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1537,
+            195,
+            216,
+            202
+          ],
+          "margin": [
+            133,
+            18,
+            276,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            645,
+            975,
+            218,
+            199
+          ],
+          "margin": [
+            148,
+            19,
+            274,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1757,
+            195,
+            227,
+            211
+          ],
+          "margin": [
+            134,
+            9,
+            265,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_elite_spin_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            865,
+            975,
+            191,
+            168
+          ],
+          "margin": [
+            140,
+            50,
+            301,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            414,
+            179,
+            176
+          ],
+          "margin": [
+            144,
+            45,
+            313,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1058,
+            975,
+            202,
+            168
+          ],
+          "margin": [
+            135,
+            50,
+            290,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            185,
+            414,
+            183,
+            176
+          ],
+          "margin": [
+            140,
+            45,
+            309,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_guard_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1262,
+            975,
+            198,
+            174
+          ],
+          "margin": [
+            146,
+            44,
+            294,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            372,
+            414,
+            199,
+            186
+          ],
+          "margin": [
+            140,
+            34,
+            293,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1462,
+            975,
+            201,
+            182
+          ],
+          "margin": [
+            143,
+            36,
+            291,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            575,
+            414,
+            201,
+            191
+          ],
+          "margin": [
+            140,
+            29,
+            291,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1665,
+            975,
+            205,
+            183
+          ],
+          "margin": [
+            134,
+            35,
+            287,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            780,
+            414,
+            203,
+            189
+          ],
+          "margin": [
+            136,
+            31,
+            289,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1872,
+            975,
+            196,
+            177
+          ],
+          "margin": [
+            140,
+            41,
+            296,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            987,
+            414,
+            203,
+            188
+          ],
+          "margin": [
+            134,
+            32,
+            289,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2070,
+            975,
+            204,
+            182
+          ],
+          "margin": [
+            136,
+            36,
+            288,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1194,
+            414,
+            206,
+            190
+          ],
+          "margin": [
+            133,
+            30,
+            286,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2276,
+            975,
+            200,
+            180
+          ],
+          "margin": [
+            137,
+            38,
+            292,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1404,
+            414,
+            196,
+            185
+          ],
+          "margin": [
+            138,
+            35,
+            296,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2478,
+            975,
+            192,
+            173
+          ],
+          "margin": [
+            146,
+            45,
+            300,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1604,
+            414,
+            193,
+            185
+          ],
+          "margin": [
+            142,
+            35,
+            299,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2672,
+            975,
+            195,
+            180
+          ],
+          "margin": [
+            141,
+            38,
+            297,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1801,
+            414,
+            194,
+            190
+          ],
+          "margin": [
+            141,
+            30,
+            298,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2869,
+            975,
+            179,
+            183
+          ],
+          "margin": [
+            149,
+            35,
+            313,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            613,
+            193,
+            189
+          ],
+          "margin": [
+            141,
+            31,
+            299,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3050,
+            975,
+            173,
+            177
+          ],
+          "margin": [
+            153,
+            41,
+            319,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            199,
+            613,
+            187,
+            188
+          ],
+          "margin": [
+            143,
+            32,
+            305,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3225,
+            975,
+            173,
+            182
+          ],
+          "margin": [
+            152,
+            36,
+            319,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            390,
+            613,
+            178,
+            190
+          ],
+          "margin": [
+            147,
+            30,
+            314,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3400,
+            975,
+            207,
+            180
+          ],
+          "margin": [
+            127,
+            38,
+            285,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            572,
+            613,
+            172,
+            183
+          ],
+          "margin": [
+            149,
+            37,
+            320,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_guard",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3609,
+            975,
+            201,
+            170
+          ],
+          "margin": [
+            134,
+            48,
+            291,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            748,
+            613,
+            169,
+            181
+          ],
+          "margin": [
+            150,
+            39,
+            323,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3812,
+            975,
+            205,
+            176
+          ],
+          "margin": [
+            129,
+            42,
+            287,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            921,
+            613,
+            174,
+            183
+          ],
+          "margin": [
+            152,
+            37,
+            318,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            1176,
+            212,
+            174
+          ],
+          "margin": [
+            126,
+            44,
+            280,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1099,
+            613,
+            173,
+            179
+          ],
+          "margin": [
+            152,
+            41,
+            319,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            214,
+            1176,
+            204,
+            167
+          ],
+          "margin": [
+            131,
+            51,
+            288,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1276,
+            613,
+            178,
+            178
+          ],
+          "margin": [
+            149,
+            42,
+            314,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            420,
+            1176,
+            212,
+            172
+          ],
+          "margin": [
+            125,
+            46,
+            280,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1458,
+            613,
+            198,
+            178
+          ],
+          "margin": [
+            134,
+            42,
+            294,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            634,
+            1176,
+            244,
+            168
+          ],
+          "margin": [
+            101,
+            50,
+            248,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1660,
+            613,
+            209,
+            172
+          ],
+          "margin": [
+            124,
+            48,
+            283,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            880,
+            1176,
+            229,
+            160
+          ],
+          "margin": [
+            112,
+            58,
+            263,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            811,
+            202,
+            172
+          ],
+          "margin": [
+            129,
+            48,
+            290,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1111,
+            1176,
+            236,
+            167
+          ],
+          "margin": [
+            107,
+            51,
+            256,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            208,
+            811,
+            194,
+            176
+          ],
+          "margin": [
+            135,
+            44,
+            298,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1349,
+            1176,
+            217,
+            168
+          ],
+          "margin": [
+            122,
+            50,
+            275,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            406,
+            811,
+            187,
+            173
+          ],
+          "margin": [
+            139,
+            48,
+            305,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1568,
+            1176,
+            201,
+            161
+          ],
+          "margin": [
+            131,
+            57,
+            291,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            597,
+            811,
+            181,
+            176
+          ],
+          "margin": [
+            146,
+            44,
+            311,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1771,
+            1176,
+            215,
+            174
+          ],
+          "margin": [
+            123,
+            44,
+            277,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            782,
+            811,
+            191,
+            185
+          ],
+          "margin": [
+            140,
+            35,
+            301,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            1988,
+            1176,
+            186,
+            179
+          ],
+          "margin": [
+            142,
+            39,
+            306,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            977,
+            811,
+            190,
+            188
+          ],
+          "margin": [
+            140,
+            32,
+            302,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_guard_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2176,
+            1176,
+            188,
+            179
+          ],
+          "margin": [
+            142,
+            39,
+            304,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1171,
+            811,
+            193,
+            192
+          ],
+          "margin": [
+            138,
+            28,
+            299,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2366,
+            1176,
+            200,
+            187
+          ],
+          "margin": [
+            134,
+            31,
+            292,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1368,
+            811,
+            198,
+            196
+          ],
+          "margin": [
+            138,
+            24,
+            294,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2568,
+            1176,
+            189,
+            187
+          ],
+          "margin": [
+            144,
+            31,
+            303,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1570,
+            811,
+            208,
+            192
+          ],
+          "margin": [
+            130,
+            28,
+            284,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2759,
+            1176,
+            187,
+            180
+          ],
+          "margin": [
+            143,
+            38,
+            305,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1782,
+            811,
+            200,
+            191
+          ],
+          "margin": [
+            134,
+            29,
+            292,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            2948,
+            1176,
+            189,
+            185
+          ],
+          "margin": [
+            142,
+            33,
+            303,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            1015,
+            214,
+            193
+          ],
+          "margin": [
+            125,
+            27,
+            278,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3139,
+            1176,
+            194,
+            183
+          ],
+          "margin": [
+            138,
+            35,
+            298,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            220,
+            1015,
+            214,
+            187
+          ],
+          "margin": [
+            123,
+            33,
+            278,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3335,
+            1176,
+            194,
+            174
+          ],
+          "margin": [
+            137,
+            44,
+            298,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            438,
+            1015,
+            219,
+            186
+          ],
+          "margin": [
+            122,
+            34,
+            273,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3531,
+            1176,
+            197,
+            181
+          ],
+          "margin": [
+            136,
+            37,
+            295,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            661,
+            1015,
+            219,
+            190
+          ],
+          "margin": [
+            122,
+            30,
+            273,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            3730,
+            1176,
+            210,
+            181
+          ],
+          "margin": [
+            141,
+            37,
+            282,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            884,
+            1015,
+            222,
+            187
+          ],
+          "margin": [
+            125,
+            33,
+            270,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            1365,
+            209,
+            175
+          ],
+          "margin": [
+            144,
+            43,
+            283,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1110,
+            1015,
+            233,
+            193
+          ],
+          "margin": [
+            120,
+            27,
+            259,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            211,
+            1365,
+            225,
+            192
+          ],
+          "margin": [
+            137,
+            26,
+            267,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1347,
+            1015,
+            253,
+            206
+          ],
+          "margin": [
+            118,
+            14,
+            239,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            438,
+            1365,
+            227,
+            202
+          ],
+          "margin": [
+            141,
+            16,
+            265,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            1604,
+            1015,
+            256,
+            213
+          ],
+          "margin": [
+            120,
+            7,
+            236,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gear_guard_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            667,
+            1365,
+            191,
+            175
+          ],
+          "margin": [
+            143,
+            43,
+            301,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            1236,
+            225,
+            182
+          ],
+          "margin": [
+            131,
+            38,
+            267,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/combat_motion_v7.png",
+          "region": [
+            860,
+            1365,
+            190,
+            173
+          ],
+          "margin": [
+            146,
+            45,
+            302,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/gear_sentinel/motion_v8_01.png",
+          "region": [
+            231,
+            1236,
+            214,
+            182
+          ],
+          "margin": [
+            136,
+            38,
+            278,
+            44
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "gear_elite_spin",
+    "gear_elite_spin_recover",
+    "gear_elite_spin_windup",
+    "gear_guard",
+    "gear_guard_recover",
+    "gear_guard_windup",
+    "recover",
+    "windup"
+  ]
+}

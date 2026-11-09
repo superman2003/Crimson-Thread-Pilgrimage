@@ -1,0 +1,4229 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "corridor_heavy",
+  "canvas": [
+    336,
+    294
+  ],
+  "display_height": 118,
+  "visual_scale": 0.6483516483516484,
+  "visual_offset": [
+    0,
+    -32.912825429603956
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            211,
+            182
+          ],
+          "margin": [
+            93,
+            104,
+            125,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            219,
+            191
+          ],
+          "margin": [
+            78,
+            97,
+            117,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            213,
+            0,
+            191,
+            181
+          ],
+          "margin": [
+            89,
+            105,
+            145,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            225,
+            2,
+            209,
+            188
+          ],
+          "margin": [
+            74,
+            100,
+            127,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            406,
+            0,
+            205,
+            177
+          ],
+          "margin": [
+            82,
+            109,
+            131,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            438,
+            2,
+            206,
+            188
+          ],
+          "margin": [
+            71,
+            100,
+            130,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            613,
+            0,
+            203,
+            182
+          ],
+          "margin": [
+            75,
+            104,
+            133,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            648,
+            2,
+            209,
+            191
+          ],
+          "margin": [
+            76,
+            97,
+            127,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            818,
+            0,
+            209,
+            174
+          ],
+          "margin": [
+            83,
+            112,
+            127,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            861,
+            2,
+            206,
+            183
+          ],
+          "margin": [
+            82,
+            106,
+            130,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1029,
+            0,
+            219,
+            175
+          ],
+          "margin": [
+            83,
+            111,
+            117,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1071,
+            2,
+            213,
+            182
+          ],
+          "margin": [
+            73,
+            107,
+            123,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1250,
+            0,
+            230,
+            173
+          ],
+          "margin": [
+            68,
+            113,
+            106,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1288,
+            2,
+            214,
+            180
+          ],
+          "margin": [
+            63,
+            108,
+            122,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1482,
+            0,
+            203,
+            170
+          ],
+          "margin": [
+            73,
+            116,
+            133,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1506,
+            2,
+            211,
+            180
+          ],
+          "margin": [
+            70,
+            109,
+            125,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1687,
+            0,
+            227,
+            173
+          ],
+          "margin": [
+            79,
+            113,
+            109,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1721,
+            2,
+            214,
+            181
+          ],
+          "margin": [
+            78,
+            108,
+            122,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1916,
+            0,
+            223,
+            173
+          ],
+          "margin": [
+            84,
+            113,
+            113,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            201,
+            219,
+            184
+          ],
+          "margin": [
+            80,
+            104,
+            117,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2141,
+            0,
+            217,
+            179
+          ],
+          "margin": [
+            86,
+            107,
+            119,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            225,
+            201,
+            221,
+            184
+          ],
+          "margin": [
+            70,
+            104,
+            115,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2360,
+            0,
+            205,
+            173
+          ],
+          "margin": [
+            71,
+            113,
+            131,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            450,
+            201,
+            221,
+            182
+          ],
+          "margin": [
+            65,
+            106,
+            115,
+            112
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2567,
+            0,
+            162,
+            214
+          ],
+          "margin": [
+            105,
+            72,
+            174,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            675,
+            201,
+            272,
+            225
+          ],
+          "margin": [
+            44,
+            63,
+            64,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2731,
+            0,
+            170,
+            215
+          ],
+          "margin": [
+            99,
+            71,
+            166,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            951,
+            201,
+            260,
+            221
+          ],
+          "margin": [
+            50,
+            67,
+            76,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2903,
+            0,
+            162,
+            208
+          ],
+          "margin": [
+            96,
+            78,
+            174,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1215,
+            201,
+            226,
+            212
+          ],
+          "margin": [
+            73,
+            76,
+            110,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3067,
+            0,
+            160,
+            197
+          ],
+          "margin": [
+            99,
+            89,
+            176,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1445,
+            201,
+            207,
+            214
+          ],
+          "margin": [
+            80,
+            74,
+            129,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3229,
+            0,
+            165,
+            212
+          ],
+          "margin": [
+            92,
+            74,
+            171,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1656,
+            201,
+            177,
+            225
+          ],
+          "margin": [
+            84,
+            63,
+            159,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3396,
+            0,
+            152,
+            219
+          ],
+          "margin": [
+            107,
+            67,
+            184,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1837,
+            201,
+            178,
+            230
+          ],
+          "margin": [
+            83,
+            58,
+            158,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3550,
+            0,
+            169,
+            221
+          ],
+          "margin": [
+            101,
+            65,
+            167,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            439,
+            172,
+            233
+          ],
+          "margin": [
+            89,
+            55,
+            164,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3721,
+            0,
+            158,
+            226
+          ],
+          "margin": [
+            100,
+            60,
+            178,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            178,
+            439,
+            171,
+            235
+          ],
+          "margin": [
+            89,
+            53,
+            165,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3881,
+            0,
+            158,
+            225
+          ],
+          "margin": [
+            81,
+            61,
+            178,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            353,
+            439,
+            171,
+            231
+          ],
+          "margin": [
+            84,
+            57,
+            165,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            228,
+            158,
+            217
+          ],
+          "margin": [
+            78,
+            69,
+            178,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            528,
+            439,
+            175,
+            222
+          ],
+          "margin": [
+            83,
+            66,
+            161,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            160,
+            228,
+            150,
+            208
+          ],
+          "margin": [
+            92,
+            78,
+            186,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            707,
+            439,
+            183,
+            211
+          ],
+          "margin": [
+            89,
+            77,
+            153,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            312,
+            228,
+            230,
+            194
+          ],
+          "margin": [
+            76,
+            92,
+            106,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            894,
+            439,
+            248,
+            193
+          ],
+          "margin": [
+            72,
+            95,
+            88,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            544,
+            228,
+            216,
+            172
+          ],
+          "margin": [
+            94,
+            114,
+            120,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1146,
+            439,
+            227,
+            184
+          ],
+          "margin": [
+            85,
+            104,
+            109,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            762,
+            228,
+            221,
+            178
+          ],
+          "margin": [
+            91,
+            108,
+            115,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1377,
+            439,
+            217,
+            186
+          ],
+          "margin": [
+            94,
+            102,
+            119,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            985,
+            228,
+            245,
+            177
+          ],
+          "margin": [
+            82,
+            109,
+            91,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1598,
+            439,
+            220,
+            182
+          ],
+          "margin": [
+            88,
+            106,
+            116,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1232,
+            228,
+            229,
+            169
+          ],
+          "margin": [
+            90,
+            117,
+            107,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            682,
+            226,
+            181
+          ],
+          "margin": [
+            82,
+            107,
+            110,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1463,
+            228,
+            247,
+            176
+          ],
+          "margin": [
+            76,
+            110,
+            89,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            232,
+            682,
+            232,
+            186
+          ],
+          "margin": [
+            78,
+            102,
+            104,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1712,
+            228,
+            218,
+            177
+          ],
+          "margin": [
+            86,
+            109,
+            118,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            468,
+            682,
+            228,
+            183
+          ],
+          "margin": [
+            74,
+            105,
+            108,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1932,
+            228,
+            216,
+            170
+          ],
+          "margin": [
+            85,
+            116,
+            120,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            700,
+            682,
+            223,
+            179
+          ],
+          "margin": [
+            72,
+            109,
+            113,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2150,
+            228,
+            211,
+            171
+          ],
+          "margin": [
+            82,
+            115,
+            125,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            927,
+            682,
+            213,
+            177
+          ],
+          "margin": [
+            72,
+            111,
+            123,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2363,
+            228,
+            221,
+            166
+          ],
+          "margin": [
+            69,
+            120,
+            115,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1144,
+            682,
+            208,
+            168
+          ],
+          "margin": [
+            70,
+            120,
+            128,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2586,
+            228,
+            210,
+            153
+          ],
+          "margin": [
+            68,
+            133,
+            126,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1356,
+            682,
+            214,
+            169
+          ],
+          "margin": [
+            66,
+            119,
+            122,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2798,
+            228,
+            222,
+            168
+          ],
+          "margin": [
+            68,
+            118,
+            114,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1574,
+            682,
+            225,
+            181
+          ],
+          "margin": [
+            65,
+            107,
+            111,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3022,
+            228,
+            211,
+            175
+          ],
+          "margin": [
+            86,
+            111,
+            125,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1803,
+            682,
+            225,
+            184
+          ],
+          "margin": [
+            76,
+            104,
+            111,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3235,
+            228,
+            213,
+            176
+          ],
+          "margin": [
+            93,
+            110,
+            123,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            876,
+            221,
+            187
+          ],
+          "margin": [
+            80,
+            101,
+            115,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3450,
+            228,
+            213,
+            181
+          ],
+          "margin": [
+            90,
+            105,
+            123,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            227,
+            876,
+            229,
+            189
+          ],
+          "margin": [
+            72,
+            99,
+            107,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3665,
+            228,
+            215,
+            179
+          ],
+          "margin": [
+            92,
+            107,
+            121,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            460,
+            876,
+            240,
+            184
+          ],
+          "margin": [
+            71,
+            104,
+            96,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3882,
+            228,
+            214,
+            170
+          ],
+          "margin": [
+            94,
+            116,
+            122,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            704,
+            876,
+            244,
+            183
+          ],
+          "margin": [
+            67,
+            105,
+            92,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            447,
+            220,
+            178
+          ],
+          "margin": [
+            88,
+            108,
+            116,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            952,
+            876,
+            230,
+            187
+          ],
+          "margin": [
+            73,
+            101,
+            106,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            222,
+            447,
+            214,
+            178
+          ],
+          "margin": [
+            84,
+            108,
+            122,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1186,
+            876,
+            219,
+            184
+          ],
+          "margin": [
+            74,
+            104,
+            117,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            438,
+            447,
+            215,
+            172
+          ],
+          "margin": [
+            88,
+            114,
+            121,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1409,
+            876,
+            216,
+            186
+          ],
+          "margin": [
+            74,
+            102,
+            120,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            655,
+            447,
+            218,
+            183
+          ],
+          "margin": [
+            80,
+            103,
+            118,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1629,
+            876,
+            230,
+            194
+          ],
+          "margin": [
+            68,
+            94,
+            106,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            875,
+            447,
+            211,
+            186
+          ],
+          "margin": [
+            69,
+            100,
+            125,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            1078,
+            222,
+            194
+          ],
+          "margin": [
+            68,
+            94,
+            114,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1088,
+            447,
+            202,
+            183
+          ],
+          "margin": [
+            79,
+            103,
+            134,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            228,
+            1078,
+            225,
+            196
+          ],
+          "margin": [
+            68,
+            92,
+            111,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1292,
+            447,
+            211,
+            190
+          ],
+          "margin": [
+            72,
+            96,
+            125,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            457,
+            1078,
+            235,
+            199
+          ],
+          "margin": [
+            69,
+            89,
+            101,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1505,
+            447,
+            208,
+            189
+          ],
+          "margin": [
+            84,
+            97,
+            128,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            696,
+            1078,
+            230,
+            195
+          ],
+          "margin": [
+            76,
+            93,
+            106,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1715,
+            447,
+            203,
+            161
+          ],
+          "margin": [
+            94,
+            125,
+            133,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            930,
+            1078,
+            203,
+            170
+          ],
+          "margin": [
+            82,
+            118,
+            133,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1920,
+            447,
+            164,
+            163
+          ],
+          "margin": [
+            91,
+            123,
+            172,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1137,
+            1078,
+            194,
+            169
+          ],
+          "margin": [
+            80,
+            119,
+            142,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2086,
+            447,
+            187,
+            159
+          ],
+          "margin": [
+            82,
+            127,
+            149,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1335,
+            1078,
+            193,
+            167
+          ],
+          "margin": [
+            78,
+            122,
+            143,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2275,
+            447,
+            207,
+            158
+          ],
+          "margin": [
+            69,
+            128,
+            129,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1532,
+            1078,
+            219,
+            179
+          ],
+          "margin": [
+            68,
+            109,
+            117,
+            115
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2484,
+            447,
+            232,
+            154
+          ],
+          "margin": [
+            82,
+            132,
+            104,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1755,
+            1078,
+            211,
+            150
+          ],
+          "margin": [
+            88,
+            139,
+            125,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2718,
+            447,
+            234,
+            131
+          ],
+          "margin": [
+            76,
+            155,
+            102,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            1285,
+            207,
+            130
+          ],
+          "margin": [
+            74,
+            157,
+            129,
+            164
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2954,
+            447,
+            243,
+            114
+          ],
+          "margin": [
+            58,
+            172,
+            93,
+            180
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            213,
+            1285,
+            112,
+            111
+          ],
+          "margin": [
+            104,
+            175,
+            224,
+            183
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3199,
+            447,
+            236,
+            98
+          ],
+          "margin": [
+            43,
+            188,
+            100,
+            196
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            329,
+            1285,
+            114,
+            103
+          ],
+          "margin": [
+            97,
+            183,
+            222,
+            191
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_elite_quake_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3437,
+            447,
+            239,
+            171
+          ],
+          "margin": [
+            64,
+            115,
+            97,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            447,
+            1285,
+            239,
+            189
+          ],
+          "margin": [
+            52,
+            99,
+            97,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3678,
+            447,
+            251,
+            187
+          ],
+          "margin": [
+            55,
+            99,
+            85,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            690,
+            1285,
+            224,
+            200
+          ],
+          "margin": [
+            70,
+            88,
+            112,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            639,
+            181,
+            194
+          ],
+          "margin": [
+            89,
+            92,
+            155,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            918,
+            1285,
+            279,
+            205
+          ],
+          "margin": [
+            38,
+            83,
+            57,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            183,
+            639,
+            184,
+            195
+          ],
+          "margin": [
+            95,
+            91,
+            152,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1201,
+            1285,
+            348,
+            216
+          ],
+          "margin": [
+            10,
+            73,
+            -12,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            369,
+            639,
+            187,
+            212
+          ],
+          "margin": [
+            88,
+            74,
+            149,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1553,
+            1285,
+            413,
+            231
+          ],
+          "margin": [
+            -23,
+            58,
+            -77,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            558,
+            639,
+            168,
+            221
+          ],
+          "margin": [
+            97,
+            65,
+            168,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            1524,
+            370,
+            236
+          ],
+          "margin": [
+            0,
+            53,
+            -34,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            728,
+            639,
+            176,
+            224
+          ],
+          "margin": [
+            94,
+            62,
+            160,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            376,
+            1524,
+            271,
+            248
+          ],
+          "margin": [
+            44,
+            40,
+            65,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            906,
+            639,
+            183,
+            249
+          ],
+          "margin": [
+            89,
+            37,
+            153,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            651,
+            1524,
+            231,
+            269
+          ],
+          "margin": [
+            66,
+            19,
+            105,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1091,
+            639,
+            163,
+            267
+          ],
+          "margin": [
+            92,
+            19,
+            173,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            886,
+            1524,
+            238,
+            284
+          ],
+          "margin": [
+            70,
+            4,
+            98,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1256,
+            639,
+            190,
+            278
+          ],
+          "margin": [
+            71,
+            8,
+            146,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1128,
+            1524,
+            219,
+            273
+          ],
+          "margin": [
+            78,
+            15,
+            117,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1448,
+            639,
+            149,
+            245
+          ],
+          "margin": [
+            95,
+            41,
+            187,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1351,
+            1524,
+            174,
+            236
+          ],
+          "margin": [
+            98,
+            52,
+            162,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1599,
+            639,
+            288,
+            207
+          ],
+          "margin": [
+            33,
+            79,
+            48,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1529,
+            1524,
+            143,
+            191
+          ],
+          "margin": [
+            110,
+            99,
+            193,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_elite_quake",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1889,
+            639,
+            243,
+            159
+          ],
+          "margin": [
+            60,
+            127,
+            93,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1676,
+            1524,
+            136,
+            171
+          ],
+          "margin": [
+            112,
+            116,
+            200,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2134,
+            639,
+            243,
+            168
+          ],
+          "margin": [
+            57,
+            118,
+            93,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1816,
+            1524,
+            178,
+            176
+          ],
+          "margin": [
+            96,
+            112,
+            158,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2379,
+            639,
+            236,
+            170
+          ],
+          "margin": [
+            63,
+            116,
+            100,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            2,
+            1816,
+            210,
+            176
+          ],
+          "margin": [
+            81,
+            112,
+            126,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2617,
+            639,
+            227,
+            165
+          ],
+          "margin": [
+            73,
+            121,
+            109,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            216,
+            1816,
+            273,
+            188
+          ],
+          "margin": [
+            46,
+            100,
+            63,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2846,
+            639,
+            266,
+            191
+          ],
+          "margin": [
+            52,
+            95,
+            70,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            493,
+            1816,
+            262,
+            209
+          ],
+          "margin": [
+            48,
+            79,
+            74,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3114,
+            639,
+            169,
+            207
+          ],
+          "margin": [
+            91,
+            79,
+            167,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            759,
+            1816,
+            180,
+            223
+          ],
+          "margin": [
+            87,
+            65,
+            156,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3285,
+            639,
+            187,
+            219
+          ],
+          "margin": [
+            79,
+            67,
+            149,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            943,
+            1816,
+            184,
+            222
+          ],
+          "margin": [
+            79,
+            66,
+            152,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3474,
+            639,
+            166,
+            204
+          ],
+          "margin": [
+            91,
+            82,
+            170,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1131,
+            1816,
+            163,
+            204
+          ],
+          "margin": [
+            88,
+            84,
+            173,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3642,
+            639,
+            257,
+            186
+          ],
+          "margin": [
+            50,
+            100,
+            79,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1298,
+            1816,
+            221,
+            180
+          ],
+          "margin": [
+            68,
+            108,
+            115,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            919,
+            221,
+            158
+          ],
+          "margin": [
+            64,
+            128,
+            115,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1523,
+            1816,
+            228,
+            171
+          ],
+          "margin": [
+            60,
+            117,
+            108,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            223,
+            919,
+            237,
+            167
+          ],
+          "margin": [
+            59,
+            119,
+            99,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1755,
+            1816,
+            141,
+            176
+          ],
+          "margin": [
+            106,
+            113,
+            195,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            462,
+            919,
+            259,
+            169
+          ],
+          "margin": [
+            44,
+            117,
+            77,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_00.png",
+          "region": [
+            1900,
+            1816,
+            144,
+            174
+          ],
+          "margin": [
+            102,
+            115,
+            192,
+            120
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_elite_quake_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            723,
+            919,
+            243,
+            163
+          ],
+          "margin": [
+            50,
+            123,
+            93,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            152,
+            177
+          ],
+          "margin": [
+            104,
+            111,
+            184,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            968,
+            919,
+            265,
+            175
+          ],
+          "margin": [
+            41,
+            111,
+            71,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            158,
+            2,
+            246,
+            186
+          ],
+          "margin": [
+            56,
+            102,
+            90,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1235,
+            919,
+            205,
+            179
+          ],
+          "margin": [
+            56,
+            107,
+            131,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            408,
+            2,
+            231,
+            187
+          ],
+          "margin": [
+            57,
+            101,
+            105,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1442,
+            919,
+            210,
+            176
+          ],
+          "margin": [
+            59,
+            110,
+            126,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            643,
+            2,
+            244,
+            188
+          ],
+          "margin": [
+            55,
+            100,
+            92,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1654,
+            919,
+            210,
+            181
+          ],
+          "margin": [
+            55,
+            105,
+            126,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            891,
+            2,
+            245,
+            189
+          ],
+          "margin": [
+            52,
+            99,
+            91,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1866,
+            919,
+            239,
+            179
+          ],
+          "margin": [
+            65,
+            107,
+            97,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1140,
+            2,
+            242,
+            183
+          ],
+          "margin": [
+            60,
+            105,
+            94,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2107,
+            919,
+            228,
+            169
+          ],
+          "margin": [
+            71,
+            117,
+            108,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1386,
+            2,
+            233,
+            181
+          ],
+          "margin": [
+            60,
+            107,
+            103,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2337,
+            919,
+            235,
+            175
+          ],
+          "margin": [
+            65,
+            111,
+            101,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1623,
+            2,
+            211,
+            183
+          ],
+          "margin": [
+            60,
+            105,
+            125,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2574,
+            919,
+            216,
+            174
+          ],
+          "margin": [
+            72,
+            112,
+            120,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1838,
+            2,
+            202,
+            178
+          ],
+          "margin": [
+            64,
+            110,
+            134,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2792,
+            919,
+            198,
+            165
+          ],
+          "margin": [
+            79,
+            121,
+            138,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            199,
+            203,
+            179
+          ],
+          "margin": [
+            64,
+            109,
+            133,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2992,
+            919,
+            210,
+            177
+          ],
+          "margin": [
+            78,
+            109,
+            126,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            209,
+            199,
+            201,
+            189
+          ],
+          "margin": [
+            67,
+            99,
+            135,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3204,
+            919,
+            201,
+            183
+          ],
+          "margin": [
+            90,
+            103,
+            135,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            414,
+            199,
+            237,
+            192
+          ],
+          "margin": [
+            70,
+            96,
+            99,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_elite_quake_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3407,
+            919,
+            175,
+            194
+          ],
+          "margin": [
+            93,
+            92,
+            161,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            655,
+            199,
+            264,
+            210
+          ],
+          "margin": [
+            55,
+            78,
+            72,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3584,
+            919,
+            172,
+            206
+          ],
+          "margin": [
+            81,
+            80,
+            164,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            923,
+            199,
+            244,
+            210
+          ],
+          "margin": [
+            66,
+            78,
+            92,
+            84
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3758,
+            919,
+            216,
+            159
+          ],
+          "margin": [
+            64,
+            127,
+            120,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1171,
+            199,
+            204,
+            174
+          ],
+          "margin": [
+            64,
+            114,
+            132,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            1127,
+            204,
+            173
+          ],
+          "margin": [
+            71,
+            113,
+            132,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1379,
+            199,
+            224,
+            175
+          ],
+          "margin": [
+            58,
+            113,
+            112,
+            119
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            206,
+            1127,
+            156,
+            162
+          ],
+          "margin": [
+            110,
+            124,
+            180,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1607,
+            199,
+            164,
+            168
+          ],
+          "margin": [
+            106,
+            121,
+            172,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            364,
+            1127,
+            157,
+            157
+          ],
+          "margin": [
+            113,
+            129,
+            179,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1775,
+            199,
+            165,
+            168
+          ],
+          "margin": [
+            108,
+            120,
+            171,
+            126
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_stamp_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            523,
+            1127,
+            196,
+            142
+          ],
+          "margin": [
+            87,
+            144,
+            140,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            417,
+            221,
+            160
+          ],
+          "margin": [
+            62,
+            128,
+            115,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            721,
+            1127,
+            219,
+            161
+          ],
+          "margin": [
+            76,
+            125,
+            117,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            227,
+            417,
+            218,
+            176
+          ],
+          "margin": [
+            68,
+            112,
+            118,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            942,
+            1127,
+            149,
+            174
+          ],
+          "margin": [
+            100,
+            112,
+            187,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            449,
+            417,
+            152,
+            185
+          ],
+          "margin": [
+            100,
+            103,
+            184,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1093,
+            1127,
+            151,
+            180
+          ],
+          "margin": [
+            99,
+            106,
+            185,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            605,
+            417,
+            153,
+            199
+          ],
+          "margin": [
+            103,
+            89,
+            183,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1246,
+            1127,
+            171,
+            201
+          ],
+          "margin": [
+            89,
+            85,
+            165,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            762,
+            417,
+            174,
+            216
+          ],
+          "margin": [
+            90,
+            72,
+            162,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1419,
+            1127,
+            149,
+            213
+          ],
+          "margin": [
+            97,
+            73,
+            187,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            940,
+            417,
+            168,
+            226
+          ],
+          "margin": [
+            89,
+            62,
+            168,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1570,
+            1127,
+            153,
+            219
+          ],
+          "margin": [
+            97,
+            67,
+            183,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1112,
+            417,
+            276,
+            234
+          ],
+          "margin": [
+            48,
+            54,
+            60,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1725,
+            1127,
+            153,
+            227
+          ],
+          "margin": [
+            93,
+            59,
+            183,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1392,
+            417,
+            192,
+            238
+          ],
+          "margin": [
+            80,
+            50,
+            144,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1880,
+            1127,
+            142,
+            228
+          ],
+          "margin": [
+            99,
+            58,
+            194,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1588,
+            417,
+            182,
+            237
+          ],
+          "margin": [
+            88,
+            51,
+            154,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2024,
+            1127,
+            161,
+            225
+          ],
+          "margin": [
+            89,
+            61,
+            175,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1774,
+            417,
+            186,
+            241
+          ],
+          "margin": [
+            83,
+            47,
+            150,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2187,
+            1127,
+            154,
+            235
+          ],
+          "margin": [
+            92,
+            51,
+            182,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            666,
+            177,
+            248
+          ],
+          "margin": [
+            87,
+            40,
+            159,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2343,
+            1127,
+            146,
+            240
+          ],
+          "margin": [
+            99,
+            46,
+            190,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            183,
+            666,
+            176,
+            250
+          ],
+          "margin": [
+            86,
+            38,
+            160,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_stamp",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2491,
+            1127,
+            152,
+            238
+          ],
+          "margin": [
+            97,
+            48,
+            184,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            363,
+            666,
+            171,
+            241
+          ],
+          "margin": [
+            87,
+            47,
+            165,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2645,
+            1127,
+            136,
+            223
+          ],
+          "margin": [
+            104,
+            63,
+            200,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            538,
+            666,
+            160,
+            223
+          ],
+          "margin": [
+            94,
+            65,
+            176,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2783,
+            1127,
+            254,
+            203
+          ],
+          "margin": [
+            57,
+            83,
+            82,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            702,
+            666,
+            153,
+            196
+          ],
+          "margin": [
+            98,
+            92,
+            183,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3039,
+            1127,
+            226,
+            173
+          ],
+          "margin": [
+            70,
+            113,
+            110,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            859,
+            666,
+            150,
+            182
+          ],
+          "margin": [
+            100,
+            106,
+            186,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3267,
+            1127,
+            225,
+            175
+          ],
+          "margin": [
+            70,
+            111,
+            111,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1013,
+            666,
+            190,
+            183
+          ],
+          "margin": [
+            92,
+            105,
+            146,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3494,
+            1127,
+            248,
+            173
+          ],
+          "margin": [
+            58,
+            113,
+            88,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1207,
+            666,
+            217,
+            176
+          ],
+          "margin": [
+            73,
+            112,
+            119,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3744,
+            1127,
+            237,
+            162
+          ],
+          "margin": [
+            66,
+            124,
+            99,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1428,
+            666,
+            232,
+            172
+          ],
+          "margin": [
+            64,
+            116,
+            104,
+            122
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            1369,
+            238,
+            164
+          ],
+          "margin": [
+            63,
+            122,
+            98,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1664,
+            666,
+            238,
+            170
+          ],
+          "margin": [
+            61,
+            118,
+            98,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            240,
+            1369,
+            244,
+            159
+          ],
+          "margin": [
+            63,
+            127,
+            92,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            924,
+            236,
+            162
+          ],
+          "margin": [
+            62,
+            126,
+            100,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            486,
+            1369,
+            242,
+            147
+          ],
+          "margin": [
+            66,
+            139,
+            94,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            242,
+            924,
+            241,
+            160
+          ],
+          "margin": [
+            62,
+            128,
+            95,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            730,
+            1369,
+            244,
+            156
+          ],
+          "margin": [
+            64,
+            130,
+            92,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            487,
+            924,
+            244,
+            166
+          ],
+          "margin": [
+            64,
+            122,
+            92,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            976,
+            1369,
+            249,
+            158
+          ],
+          "margin": [
+            70,
+            128,
+            87,
+            136
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            735,
+            924,
+            239,
+            164
+          ],
+          "margin": [
+            69,
+            124,
+            97,
+            130
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_stamp_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1227,
+            1369,
+            248,
+            153
+          ],
+          "margin": [
+            71,
+            133,
+            88,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            978,
+            924,
+            243,
+            168
+          ],
+          "margin": [
+            67,
+            120,
+            93,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1477,
+            1369,
+            255,
+            166
+          ],
+          "margin": [
+            64,
+            120,
+            81,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1225,
+            924,
+            246,
+            178
+          ],
+          "margin": [
+            66,
+            110,
+            90,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1734,
+            1369,
+            227,
+            171
+          ],
+          "margin": [
+            70,
+            115,
+            109,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1475,
+            924,
+            229,
+            180
+          ],
+          "margin": [
+            69,
+            108,
+            107,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            1963,
+            1369,
+            225,
+            170
+          ],
+          "margin": [
+            70,
+            116,
+            111,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1708,
+            924,
+            223,
+            183
+          ],
+          "margin": [
+            70,
+            105,
+            113,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2190,
+            1369,
+            238,
+            177
+          ],
+          "margin": [
+            63,
+            109,
+            98,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            1115,
+            225,
+            186
+          ],
+          "margin": [
+            74,
+            102,
+            111,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2430,
+            1369,
+            219,
+            176
+          ],
+          "margin": [
+            78,
+            110,
+            117,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            231,
+            1115,
+            215,
+            181
+          ],
+          "margin": [
+            78,
+            107,
+            121,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2651,
+            1369,
+            209,
+            168
+          ],
+          "margin": [
+            82,
+            118,
+            127,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            450,
+            1115,
+            214,
+            180
+          ],
+          "margin": [
+            79,
+            108,
+            122,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            2862,
+            1369,
+            209,
+            175
+          ],
+          "margin": [
+            81,
+            111,
+            127,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            668,
+            1115,
+            219,
+            184
+          ],
+          "margin": [
+            77,
+            104,
+            117,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3073,
+            1369,
+            225,
+            176
+          ],
+          "margin": [
+            76,
+            110,
+            111,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            891,
+            1115,
+            215,
+            181
+          ],
+          "margin": [
+            78,
+            107,
+            121,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3300,
+            1369,
+            222,
+            169
+          ],
+          "margin": [
+            77,
+            117,
+            114,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1110,
+            1115,
+            231,
+            184
+          ],
+          "margin": [
+            71,
+            104,
+            105,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3524,
+            1369,
+            230,
+            181
+          ],
+          "margin": [
+            76,
+            105,
+            106,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1345,
+            1115,
+            246,
+            192
+          ],
+          "margin": [
+            66,
+            96,
+            90,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            3756,
+            1369,
+            217,
+            184
+          ],
+          "margin": [
+            85,
+            102,
+            119,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            1595,
+            1115,
+            251,
+            193
+          ],
+          "margin": [
+            68,
+            95,
+            85,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "name": "heavy_stamp_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            0,
+            1555,
+            157,
+            235
+          ],
+          "margin": [
+            96,
+            51,
+            179,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            2,
+            1316,
+            321,
+            251
+          ],
+          "margin": [
+            34,
+            38,
+            15,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/combat_motion_v7.png",
+          "region": [
+            159,
+            1555,
+            165,
+            242
+          ],
+          "margin": [
+            91,
+            44,
+            171,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/corridor_heavy/motion_v8_01.png",
+          "region": [
+            327,
+            1316,
+            291,
+            251
+          ],
+          "margin": [
+            50,
+            38,
+            45,
+            43
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "heavy_elite_quake",
+    "heavy_elite_quake_recover",
+    "heavy_elite_quake_windup",
+    "heavy_stamp",
+    "heavy_stamp_recover",
+    "heavy_stamp_windup",
+    "recover",
+    "windup"
+  ]
+}

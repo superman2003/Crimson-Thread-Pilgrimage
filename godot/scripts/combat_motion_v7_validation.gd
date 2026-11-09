@@ -25,18 +25,19 @@ func run() -> void:
         check(not ART.manifest(path).get("authored_combat_sequences",[]).is_empty(),kind+" uses the reviewed v7 production layer")
         if ART.manifest(path).get("authored_combat_sequences",[]).is_empty():continue
         var manifest: Dictionary=ART.manifest(path)
+        var expansion := 2 if path.ends_with("motion_v8_manifest.json") else 1
         var record: Dictionary=ART.manifest(path.get_base_dir()+"/combat_motion_v7.json")
         var actor:=ENEMY.new();actor.configure({"kind":kind,"id":"v7_"+kind,"hp":99},"",bool(design.boss))
         stage.add_child(actor);actor.set_physics_process(false)
         check(actor.asset_path==path,kind+" production configure selects the same layer as prewarming")
-        check(String(manifest.generation_record)=="combat_motion_v7.json",kind+" binds its versioned provenance")
+        check(String(manifest.generation_record)==("motion_v8_generation.json" if expansion==2 else "combat_motion_v7.json"),kind+" binds its versioned provenance")
         var frames: SpriteFrames=actor.animated_sprite.sprite_frames
         var canvas:=Vector2(float(manifest.canvas[0]),float(manifest.canvas[1]))
         var animation_data:={}
         for animation in manifest.animations:animation_data[String(animation.name)]=animation
         for name: String in manifest.authored_combat_sequences:
             clips+=1
-            check(frames.get_frame_count(name)==12,kind+"/"+name+" presents twelve real source poses")
+            check(frames.get_frame_count(name)==12*expansion,kind+"/"+name+" presents the authored source poses")
             check(not frames.get_animation_loop(name),kind+"/"+name+" finishes rather than looping a strike")
             var hashes:={}
             var atlas_images:={}
@@ -47,7 +48,7 @@ func run() -> void:
                 var image: Image=atlas_images[atlas_path].get_region(Rect2i(region[0],region[1],region[2],region[3]))
                 check(not image.is_invisible(),kind+"/"+name+" contains visible authored ink")
                 hashes[image.get_data().hex_encode().sha256_text()]=true
-            check(hashes.size()==12,kind+"/"+name+" contains twelve distinct pose images")
+            check(hashes.size()==12*expansion,kind+"/"+name+" contains distinct pose images")
             atlas_images.clear()
             for index in frames.get_frame_count(name):
                 check(frames.get_frame_texture(name,index).get_size()==canvas,kind+"/"+name+" preserves a fixed rig canvas")

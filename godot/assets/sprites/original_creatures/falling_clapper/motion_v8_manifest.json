@@ -1,0 +1,3058 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "falling_clapper",
+  "canvas": [
+    398,
+    226
+  ],
+  "display_height": 86,
+  "visual_scale": 0.5180722891566265,
+  "visual_offset": [
+    0,
+    2.972373008517586
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            173,
+            166
+          ],
+          "margin": [
+            109,
+            52,
+            225,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            182,
+            174
+          ],
+          "margin": [
+            102,
+            46,
+            216,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            175,
+            0,
+            178,
+            166
+          ],
+          "margin": [
+            108,
+            52,
+            220,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            188,
+            2,
+            186,
+            169
+          ],
+          "margin": [
+            98,
+            51,
+            212,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            355,
+            0,
+            178,
+            156
+          ],
+          "margin": [
+            97,
+            62,
+            220,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            378,
+            2,
+            197,
+            170
+          ],
+          "margin": [
+            83,
+            50,
+            201,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            535,
+            0,
+            190,
+            167
+          ],
+          "margin": [
+            91,
+            51,
+            208,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            579,
+            2,
+            201,
+            175
+          ],
+          "margin": [
+            94,
+            45,
+            197,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            727,
+            0,
+            186,
+            156
+          ],
+          "margin": [
+            109,
+            62,
+            212,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            784,
+            2,
+            198,
+            166
+          ],
+          "margin": [
+            102,
+            54,
+            200,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            915,
+            0,
+            191,
+            158
+          ],
+          "margin": [
+            101,
+            60,
+            207,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            986,
+            2,
+            223,
+            176
+          ],
+          "margin": [
+            74,
+            44,
+            175,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1108,
+            0,
+            184,
+            175
+          ],
+          "margin": [
+            106,
+            43,
+            214,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1213,
+            2,
+            213,
+            186
+          ],
+          "margin": [
+            76,
+            34,
+            185,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1294,
+            0,
+            188,
+            178
+          ],
+          "margin": [
+            94,
+            40,
+            210,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1430,
+            2,
+            204,
+            175
+          ],
+          "margin": [
+            93,
+            45,
+            194,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1484,
+            0,
+            188,
+            155
+          ],
+          "margin": [
+            117,
+            63,
+            210,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1638,
+            2,
+            211,
+            182
+          ],
+          "margin": [
+            102,
+            38,
+            187,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1674,
+            0,
+            191,
+            190
+          ],
+          "margin": [
+            110,
+            28,
+            207,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            196,
+            221,
+            198
+          ],
+          "margin": [
+            92,
+            22,
+            177,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1867,
+            0,
+            205,
+            187
+          ],
+          "margin": [
+            109,
+            31,
+            193,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            227,
+            196,
+            238,
+            200
+          ],
+          "margin": [
+            72,
+            20,
+            160,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2074,
+            0,
+            168,
+            192
+          ],
+          "margin": [
+            116,
+            26,
+            230,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            469,
+            196,
+            205,
+            183
+          ],
+          "margin": [
+            104,
+            37,
+            193,
+            43
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2244,
+            0,
+            189,
+            194
+          ],
+          "margin": [
+            111,
+            24,
+            209,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            678,
+            196,
+            222,
+            206
+          ],
+          "margin": [
+            94,
+            14,
+            176,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2435,
+            0,
+            194,
+            198
+          ],
+          "margin": [
+            111,
+            20,
+            204,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            904,
+            196,
+            247,
+            209
+          ],
+          "margin": [
+            82,
+            11,
+            151,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2631,
+            0,
+            200,
+            198
+          ],
+          "margin": [
+            113,
+            20,
+            198,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1155,
+            196,
+            222,
+            203
+          ],
+          "margin": [
+            95,
+            17,
+            176,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2833,
+            0,
+            182,
+            189
+          ],
+          "margin": [
+            125,
+            29,
+            216,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1381,
+            196,
+            230,
+            203
+          ],
+          "margin": [
+            87,
+            17,
+            168,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3017,
+            0,
+            197,
+            197
+          ],
+          "margin": [
+            111,
+            21,
+            201,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1615,
+            196,
+            218,
+            208
+          ],
+          "margin": [
+            96,
+            12,
+            180,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3216,
+            0,
+            211,
+            199
+          ],
+          "margin": [
+            115,
+            19,
+            187,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            413,
+            249,
+            207
+          ],
+          "margin": [
+            66,
+            13,
+            149,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3429,
+            0,
+            212,
+            194
+          ],
+          "margin": [
+            111,
+            24,
+            186,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            255,
+            413,
+            230,
+            207
+          ],
+          "margin": [
+            90,
+            13,
+            168,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3643,
+            0,
+            215,
+            201
+          ],
+          "margin": [
+            104,
+            17,
+            183,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            489,
+            413,
+            227,
+            211
+          ],
+          "margin": [
+            89,
+            9,
+            171,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3860,
+            0,
+            175,
+            201
+          ],
+          "margin": [
+            109,
+            17,
+            223,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            720,
+            413,
+            193,
+            207
+          ],
+          "margin": [
+            98,
+            13,
+            205,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            0,
+            203,
+            169,
+            194
+          ],
+          "margin": [
+            112,
+            24,
+            229,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            917,
+            413,
+            196,
+            204
+          ],
+          "margin": [
+            98,
+            16,
+            202,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            171,
+            203,
+            179,
+            195
+          ],
+          "margin": [
+            112,
+            23,
+            219,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1117,
+            413,
+            189,
+            201
+          ],
+          "margin": [
+            113,
+            19,
+            209,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            352,
+            203,
+            273,
+            188
+          ],
+          "margin": [
+            102,
+            30,
+            125,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1310,
+            413,
+            266,
+            191
+          ],
+          "margin": [
+            95,
+            29,
+            132,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            627,
+            203,
+            278,
+            176
+          ],
+          "margin": [
+            112,
+            42,
+            120,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1580,
+            413,
+            289,
+            189
+          ],
+          "margin": [
+            100,
+            31,
+            109,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            907,
+            203,
+            268,
+            182
+          ],
+          "margin": [
+            116,
+            36,
+            130,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            632,
+            261,
+            192
+          ],
+          "margin": [
+            114,
+            28,
+            137,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1177,
+            203,
+            194,
+            183
+          ],
+          "margin": [
+            135,
+            35,
+            204,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            267,
+            632,
+            199,
+            190
+          ],
+          "margin": [
+            130,
+            30,
+            199,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1373,
+            203,
+            171,
+            177
+          ],
+          "margin": [
+            154,
+            41,
+            227,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            470,
+            632,
+            183,
+            187
+          ],
+          "margin": [
+            142,
+            33,
+            215,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1546,
+            203,
+            181,
+            178
+          ],
+          "margin": [
+            140,
+            40,
+            217,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            657,
+            632,
+            200,
+            185
+          ],
+          "margin": [
+            126,
+            35,
+            198,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1729,
+            203,
+            240,
+            172
+          ],
+          "margin": [
+            96,
+            46,
+            158,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            861,
+            632,
+            227,
+            174
+          ],
+          "margin": [
+            94,
+            46,
+            171,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1971,
+            203,
+            206,
+            158
+          ],
+          "margin": [
+            113,
+            60,
+            192,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1092,
+            632,
+            262,
+            177
+          ],
+          "margin": [
+            100,
+            43,
+            136,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2179,
+            203,
+            243,
+            178
+          ],
+          "margin": [
+            82,
+            40,
+            155,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1358,
+            632,
+            217,
+            194
+          ],
+          "margin": [
+            98,
+            26,
+            181,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2424,
+            203,
+            176,
+            189
+          ],
+          "margin": [
+            106,
+            29,
+            222,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1579,
+            632,
+            211,
+            203
+          ],
+          "margin": [
+            96,
+            19,
+            187,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2602,
+            203,
+            159,
+            195
+          ],
+          "margin": [
+            118,
+            23,
+            239,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1794,
+            632,
+            214,
+            207
+          ],
+          "margin": [
+            96,
+            13,
+            184,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2763,
+            203,
+            179,
+            197
+          ],
+          "margin": [
+            110,
+            21,
+            219,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            847,
+            273,
+            206
+          ],
+          "margin": [
+            62,
+            14,
+            125,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2944,
+            203,
+            196,
+            193
+          ],
+          "margin": [
+            109,
+            25,
+            202,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            279,
+            847,
+            262,
+            199
+          ],
+          "margin": [
+            80,
+            21,
+            136,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3142,
+            203,
+            184,
+            182
+          ],
+          "margin": [
+            116,
+            36,
+            214,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            545,
+            847,
+            263,
+            197
+          ],
+          "margin": [
+            78,
+            23,
+            135,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3328,
+            203,
+            197,
+            191
+          ],
+          "margin": [
+            110,
+            27,
+            201,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            812,
+            847,
+            217,
+            203
+          ],
+          "margin": [
+            96,
+            17,
+            181,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3527,
+            203,
+            200,
+            193
+          ],
+          "margin": [
+            106,
+            25,
+            198,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1033,
+            847,
+            195,
+            201
+          ],
+          "margin": [
+            114,
+            19,
+            203,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3729,
+            203,
+            188,
+            189
+          ],
+          "margin": [
+            110,
+            29,
+            210,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1232,
+            847,
+            207,
+            200
+          ],
+          "margin": [
+            104,
+            20,
+            191,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            0,
+            402,
+            196,
+            191
+          ],
+          "margin": [
+            103,
+            27,
+            202,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1443,
+            847,
+            221,
+            199
+          ],
+          "margin": [
+            96,
+            21,
+            177,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            198,
+            402,
+            208,
+            187
+          ],
+          "margin": [
+            89,
+            31,
+            190,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1668,
+            847,
+            216,
+            190
+          ],
+          "margin": [
+            96,
+            30,
+            182,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            408,
+            402,
+            181,
+            174
+          ],
+          "margin": [
+            107,
+            44,
+            217,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            1061,
+            213,
+            189
+          ],
+          "margin": [
+            98,
+            31,
+            185,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            591,
+            402,
+            208,
+            185
+          ],
+          "margin": [
+            85,
+            33,
+            190,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            219,
+            1061,
+            224,
+            197
+          ],
+          "margin": [
+            88,
+            23,
+            174,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            801,
+            402,
+            197,
+            189
+          ],
+          "margin": [
+            95,
+            29,
+            201,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            447,
+            1061,
+            219,
+            199
+          ],
+          "margin": [
+            82,
+            21,
+            179,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1000,
+            402,
+            181,
+            188
+          ],
+          "margin": [
+            95,
+            30,
+            217,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            670,
+            1061,
+            215,
+            198
+          ],
+          "margin": [
+            82,
+            22,
+            183,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1183,
+            402,
+            192,
+            188
+          ],
+          "margin": [
+            98,
+            30,
+            206,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            889,
+            1061,
+            226,
+            194
+          ],
+          "margin": [
+            74,
+            26,
+            172,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1377,
+            402,
+            203,
+            181
+          ],
+          "margin": [
+            89,
+            37,
+            195,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1119,
+            1061,
+            201,
+            182
+          ],
+          "margin": [
+            92,
+            38,
+            197,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1582,
+            402,
+            194,
+            171
+          ],
+          "margin": [
+            110,
+            47,
+            204,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1324,
+            1061,
+            188,
+            182
+          ],
+          "margin": [
+            126,
+            38,
+            210,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1778,
+            402,
+            210,
+            176
+          ],
+          "margin": [
+            110,
+            42,
+            188,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1516,
+            1061,
+            199,
+            177
+          ],
+          "margin": [
+            115,
+            43,
+            199,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1990,
+            402,
+            183,
+            160
+          ],
+          "margin": [
+            124,
+            58,
+            215,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1719,
+            1061,
+            210,
+            176
+          ],
+          "margin": [
+            104,
+            44,
+            188,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2175,
+            402,
+            180,
+            173
+          ],
+          "margin": [
+            112,
+            45,
+            218,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            1268,
+            227,
+            180
+          ],
+          "margin": [
+            89,
+            40,
+            171,
+            46
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2357,
+            402,
+            226,
+            168
+          ],
+          "margin": [
+            103,
+            50,
+            172,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            233,
+            1268,
+            237,
+            176
+          ],
+          "margin": [
+            98,
+            44,
+            161,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2585,
+            402,
+            178,
+            164
+          ],
+          "margin": [
+            141,
+            54,
+            220,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            474,
+            1268,
+            220,
+            168
+          ],
+          "margin": [
+            104,
+            52,
+            178,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2765,
+            402,
+            165,
+            152
+          ],
+          "margin": [
+            114,
+            66,
+            233,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            698,
+            1268,
+            162,
+            142
+          ],
+          "margin": [
+            107,
+            77,
+            236,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2932,
+            402,
+            217,
+            118
+          ],
+          "margin": [
+            78,
+            100,
+            181,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            864,
+            1268,
+            149,
+            125
+          ],
+          "margin": [
+            111,
+            94,
+            249,
+            101
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3151,
+            402,
+            164,
+            210
+          ],
+          "margin": [
+            107,
+            8,
+            234,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1017,
+            1268,
+            266,
+            221
+          ],
+          "margin": [
+            46,
+            0,
+            132,
+            5
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3317,
+            402,
+            166,
+            208
+          ],
+          "margin": [
+            107,
+            10,
+            232,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1287,
+            1268,
+            248,
+            221
+          ],
+          "margin": [
+            43,
+            0,
+            150,
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3485,
+            402,
+            141,
+            198
+          ],
+          "margin": [
+            153,
+            20,
+            257,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1539,
+            1268,
+            248,
+            210
+          ],
+          "margin": [
+            106,
+            10,
+            150,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3628,
+            402,
+            129,
+            199
+          ],
+          "margin": [
+            165,
+            19,
+            269,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1791,
+            1268,
+            228,
+            210
+          ],
+          "margin": [
+            114,
+            12,
+            170,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clapper_wave_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3759,
+            402,
+            177,
+            159
+          ],
+          "margin": [
+            123,
+            59,
+            221,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            1497,
+            193,
+            168
+          ],
+          "margin": [
+            100,
+            52,
+            205,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            0,
+            614,
+            180,
+            157
+          ],
+          "margin": [
+            120,
+            61,
+            218,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            199,
+            1497,
+            285,
+            165
+          ],
+          "margin": [
+            53,
+            57,
+            113,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            182,
+            614,
+            203,
+            151
+          ],
+          "margin": [
+            113,
+            67,
+            195,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            488,
+            1497,
+            131,
+            150
+          ],
+          "margin": [
+            133,
+            69,
+            267,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            387,
+            614,
+            182,
+            135
+          ],
+          "margin": [
+            126,
+            83,
+            216,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            623,
+            1497,
+            121,
+            150
+          ],
+          "margin": [
+            137,
+            69,
+            277,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            571,
+            614,
+            204,
+            151
+          ],
+          "margin": [
+            112,
+            67,
+            194,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            748,
+            1497,
+            116,
+            163
+          ],
+          "margin": [
+            140,
+            56,
+            282,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            777,
+            614,
+            177,
+            160
+          ],
+          "margin": [
+            121,
+            58,
+            221,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            868,
+            1497,
+            117,
+            170
+          ],
+          "margin": [
+            143,
+            50,
+            281,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            956,
+            614,
+            176,
+            164
+          ],
+          "margin": [
+            123,
+            54,
+            222,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            989,
+            1497,
+            206,
+            179
+          ],
+          "margin": [
+            109,
+            41,
+            192,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1134,
+            614,
+            192,
+            176
+          ],
+          "margin": [
+            115,
+            42,
+            206,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1199,
+            1497,
+            224,
+            189
+          ],
+          "margin": [
+            100,
+            31,
+            174,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1328,
+            614,
+            169,
+            182
+          ],
+          "margin": [
+            124,
+            36,
+            229,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1427,
+            1497,
+            267,
+            193
+          ],
+          "margin": [
+            81,
+            27,
+            131,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1499,
+            614,
+            164,
+            182
+          ],
+          "margin": [
+            126,
+            36,
+            234,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1698,
+            1497,
+            252,
+            190
+          ],
+          "margin": [
+            91,
+            30,
+            146,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1665,
+            614,
+            164,
+            177
+          ],
+          "margin": [
+            125,
+            41,
+            234,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            2,
+            1698,
+            253,
+            182
+          ],
+          "margin": [
+            89,
+            38,
+            145,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1831,
+            614,
+            199,
+            166
+          ],
+          "margin": [
+            115,
+            52,
+            199,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            259,
+            1698,
+            188,
+            165
+          ],
+          "margin": [
+            116,
+            55,
+            210,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clapper_wave",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2032,
+            614,
+            177,
+            147
+          ],
+          "margin": [
+            131,
+            71,
+            221,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            451,
+            1698,
+            205,
+            163
+          ],
+          "margin": [
+            112,
+            57,
+            193,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2211,
+            614,
+            198,
+            161
+          ],
+          "margin": [
+            117,
+            57,
+            200,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            660,
+            1698,
+            218,
+            174
+          ],
+          "margin": [
+            104,
+            46,
+            180,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2411,
+            614,
+            184,
+            167
+          ],
+          "margin": [
+            114,
+            51,
+            214,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            882,
+            1698,
+            213,
+            176
+          ],
+          "margin": [
+            99,
+            44,
+            185,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2597,
+            614,
+            182,
+            166
+          ],
+          "margin": [
+            116,
+            52,
+            216,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1099,
+            1698,
+            205,
+            174
+          ],
+          "margin": [
+            101,
+            46,
+            193,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2781,
+            614,
+            181,
+            164
+          ],
+          "margin": [
+            115,
+            54,
+            217,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1308,
+            1698,
+            202,
+            169
+          ],
+          "margin": [
+            100,
+            51,
+            196,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2964,
+            614,
+            220,
+            156
+          ],
+          "margin": [
+            98,
+            62,
+            178,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1514,
+            1698,
+            240,
+            157
+          ],
+          "margin": [
+            85,
+            63,
+            158,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3186,
+            614,
+            197,
+            140
+          ],
+          "margin": [
+            110,
+            78,
+            201,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_00.png",
+          "region": [
+            1758,
+            1698,
+            228,
+            155
+          ],
+          "margin": [
+            98,
+            65,
+            170,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3385,
+            614,
+            221,
+            151
+          ],
+          "margin": [
+            97,
+            67,
+            177,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            194,
+            161
+          ],
+          "margin": [
+            108,
+            59,
+            204,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3608,
+            614,
+            201,
+            154
+          ],
+          "margin": [
+            93,
+            64,
+            197,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            200,
+            2,
+            193,
+            161
+          ],
+          "margin": [
+            108,
+            59,
+            205,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            3811,
+            614,
+            193,
+            151
+          ],
+          "margin": [
+            98,
+            67,
+            205,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            397,
+            2,
+            205,
+            165
+          ],
+          "margin": [
+            103,
+            55,
+            193,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            0,
+            798,
+            205,
+            160
+          ],
+          "margin": [
+            92,
+            58,
+            193,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            606,
+            2,
+            231,
+            170
+          ],
+          "margin": [
+            91,
+            50,
+            167,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            207,
+            798,
+            186,
+            161
+          ],
+          "margin": [
+            116,
+            57,
+            212,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            841,
+            2,
+            211,
+            167
+          ],
+          "margin": [
+            101,
+            53,
+            187,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clapper_wave_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            395,
+            798,
+            180,
+            156
+          ],
+          "margin": [
+            119,
+            62,
+            218,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1056,
+            2,
+            224,
+            167
+          ],
+          "margin": [
+            94,
+            53,
+            174,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            577,
+            798,
+            191,
+            160
+          ],
+          "margin": [
+            113,
+            58,
+            207,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1284,
+            2,
+            213,
+            168
+          ],
+          "margin": [
+            97,
+            52,
+            185,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            770,
+            798,
+            205,
+            158
+          ],
+          "margin": [
+            104,
+            60,
+            193,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1501,
+            2,
+            195,
+            161
+          ],
+          "margin": [
+            106,
+            59,
+            203,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            977,
+            798,
+            184,
+            147
+          ],
+          "margin": [
+            115,
+            71,
+            214,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1700,
+            2,
+            206,
+            160
+          ],
+          "margin": [
+            94,
+            60,
+            192,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1163,
+            798,
+            201,
+            155
+          ],
+          "margin": [
+            103,
+            63,
+            197,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            2,
+            180,
+            205,
+            164
+          ],
+          "margin": [
+            102,
+            56,
+            193,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1366,
+            798,
+            196,
+            156
+          ],
+          "margin": [
+            105,
+            62,
+            202,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            211,
+            180,
+            210,
+            161
+          ],
+          "margin": [
+            100,
+            59,
+            188,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1564,
+            798,
+            173,
+            149
+          ],
+          "margin": [
+            121,
+            69,
+            225,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            425,
+            180,
+            200,
+            162
+          ],
+          "margin": [
+            105,
+            58,
+            198,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1739,
+            798,
+            198,
+            157
+          ],
+          "margin": [
+            104,
+            61,
+            200,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            629,
+            180,
+            203,
+            166
+          ],
+          "margin": [
+            100,
+            54,
+            195,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            1939,
+            798,
+            186,
+            157
+          ],
+          "margin": [
+            109,
+            61,
+            212,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            836,
+            180,
+            201,
+            162
+          ],
+          "margin": [
+            98,
+            58,
+            197,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2127,
+            798,
+            162,
+            149
+          ],
+          "margin": [
+            122,
+            69,
+            236,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1041,
+            180,
+            197,
+            165
+          ],
+          "margin": [
+            104,
+            55,
+            201,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2291,
+            798,
+            194,
+            162
+          ],
+          "margin": [
+            109,
+            56,
+            204,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1242,
+            180,
+            213,
+            174
+          ],
+          "margin": [
+            96,
+            46,
+            185,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2487,
+            798,
+            196,
+            168
+          ],
+          "margin": [
+            94,
+            50,
+            202,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1459,
+            180,
+            206,
+            176
+          ],
+          "margin": [
+            96,
+            44,
+            192,
+            50
+          ]
+        }
+      ]
+    },
+    {
+      "name": "clapper_wave_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2685,
+            798,
+            172,
+            156
+          ],
+          "margin": [
+            126,
+            62,
+            226,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1669,
+            180,
+            177,
+            169
+          ],
+          "margin": [
+            114,
+            51,
+            221,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/combat_motion_v7.png",
+          "region": [
+            2859,
+            798,
+            186,
+            165
+          ],
+          "margin": [
+            107,
+            53,
+            212,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/falling_clapper/motion_v8_01.png",
+          "region": [
+            1850,
+            180,
+            176,
+            169
+          ],
+          "margin": [
+            114,
+            52,
+            222,
+            57
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "clapper_wave",
+    "clapper_wave_recover",
+    "clapper_wave_windup",
+    "recover",
+    "windup"
+  ]
+}

@@ -1,0 +1,2961 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "pipe_thrower",
+  "canvas": [
+    392,
+    230
+  ],
+  "display_height": 96,
+  "visual_scale": 0.463768115942029,
+  "visual_offset": [
+    0,
+    7.757456755493223
+  ],
+  "motion": "stationary",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            173,
+            207
+          ],
+          "margin": [
+            136,
+            15,
+            219,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            174,
+            216
+          ],
+          "margin": [
+            131,
+            8,
+            218,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            175,
+            0,
+            172,
+            207
+          ],
+          "margin": [
+            132,
+            15,
+            220,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            180,
+            2,
+            172,
+            218
+          ],
+          "margin": [
+            133,
+            6,
+            220,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            349,
+            0,
+            172,
+            210
+          ],
+          "margin": [
+            131,
+            12,
+            220,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            356,
+            2,
+            171,
+            217
+          ],
+          "margin": [
+            134,
+            7,
+            221,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            523,
+            0,
+            167,
+            205
+          ],
+          "margin": [
+            129,
+            17,
+            225,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            531,
+            2,
+            170,
+            215
+          ],
+          "margin": [
+            132,
+            9,
+            222,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            692,
+            0,
+            193,
+            203
+          ],
+          "margin": [
+            122,
+            19,
+            199,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            705,
+            2,
+            179,
+            214
+          ],
+          "margin": [
+            124,
+            10,
+            213,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            887,
+            0,
+            188,
+            206
+          ],
+          "margin": [
+            118,
+            16,
+            204,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            888,
+            2,
+            188,
+            213
+          ],
+          "margin": [
+            116,
+            11,
+            204,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1077,
+            0,
+            199,
+            202
+          ],
+          "margin": [
+            109,
+            20,
+            193,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1080,
+            2,
+            188,
+            208
+          ],
+          "margin": [
+            115,
+            16,
+            204,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1278,
+            0,
+            189,
+            195
+          ],
+          "margin": [
+            108,
+            27,
+            203,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1272,
+            2,
+            190,
+            206
+          ],
+          "margin": [
+            114,
+            18,
+            202,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1469,
+            0,
+            199,
+            199
+          ],
+          "margin": [
+            118,
+            23,
+            193,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1466,
+            2,
+            193,
+            211
+          ],
+          "margin": [
+            114,
+            13,
+            199,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1670,
+            0,
+            201,
+            205
+          ],
+          "margin": [
+            109,
+            17,
+            191,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1663,
+            2,
+            195,
+            211
+          ],
+          "margin": [
+            106,
+            13,
+            197,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1873,
+            0,
+            201,
+            198
+          ],
+          "margin": [
+            107,
+            24,
+            191,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1862,
+            2,
+            182,
+            205
+          ],
+          "margin": [
+            106,
+            19,
+            210,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2076,
+            0,
+            191,
+            194
+          ],
+          "margin": [
+            96,
+            28,
+            201,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            228,
+            192,
+            208
+          ],
+          "margin": [
+            104,
+            16,
+            200,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2269,
+            0,
+            187,
+            181
+          ],
+          "margin": [
+            115,
+            41,
+            205,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            198,
+            228,
+            183,
+            195
+          ],
+          "margin": [
+            112,
+            29,
+            209,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2458,
+            0,
+            198,
+            192
+          ],
+          "margin": [
+            105,
+            30,
+            194,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            385,
+            228,
+            194,
+            202
+          ],
+          "margin": [
+            106,
+            22,
+            198,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2658,
+            0,
+            205,
+            195
+          ],
+          "margin": [
+            95,
+            27,
+            187,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            583,
+            228,
+            200,
+            203
+          ],
+          "margin": [
+            96,
+            21,
+            192,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2865,
+            0,
+            201,
+            192
+          ],
+          "margin": [
+            98,
+            30,
+            191,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            787,
+            228,
+            208,
+            206
+          ],
+          "margin": [
+            94,
+            18,
+            184,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3068,
+            0,
+            215,
+            201
+          ],
+          "margin": [
+            93,
+            21,
+            177,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            999,
+            228,
+            213,
+            212
+          ],
+          "margin": [
+            94,
+            12,
+            179,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3285,
+            0,
+            215,
+            203
+          ],
+          "margin": [
+            94,
+            19,
+            177,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1216,
+            228,
+            223,
+            210
+          ],
+          "margin": [
+            92,
+            14,
+            169,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3502,
+            0,
+            204,
+            198
+          ],
+          "margin": [
+            104,
+            24,
+            188,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1443,
+            228,
+            209,
+            209
+          ],
+          "margin": [
+            102,
+            15,
+            183,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3708,
+            0,
+            200,
+            201
+          ],
+          "margin": [
+            101,
+            21,
+            192,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1656,
+            228,
+            197,
+            209
+          ],
+          "margin": [
+            104,
+            15,
+            195,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            0,
+            212,
+            211,
+            198
+          ],
+          "margin": [
+            102,
+            24,
+            181,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1857,
+            228,
+            187,
+            203
+          ],
+          "margin": [
+            110,
+            21,
+            205,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            213,
+            212,
+            198,
+            189
+          ],
+          "margin": [
+            102,
+            33,
+            194,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            448,
+            192,
+            200
+          ],
+          "margin": [
+            111,
+            24,
+            200,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            413,
+            212,
+            201,
+            193
+          ],
+          "margin": [
+            108,
+            29,
+            191,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            198,
+            448,
+            212,
+            200
+          ],
+          "margin": [
+            112,
+            24,
+            180,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            616,
+            212,
+            269,
+            188
+          ],
+          "margin": [
+            96,
+            34,
+            123,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            414,
+            448,
+            251,
+            193
+          ],
+          "margin": [
+            106,
+            31,
+            141,
+            37
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            887,
+            212,
+            260,
+            179
+          ],
+          "margin": [
+            110,
+            43,
+            132,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            669,
+            448,
+            249,
+            190
+          ],
+          "margin": [
+            102,
+            34,
+            143,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1149,
+            212,
+            261,
+            184
+          ],
+          "margin": [
+            109,
+            38,
+            131,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            922,
+            448,
+            256,
+            192
+          ],
+          "margin": [
+            102,
+            32,
+            136,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1412,
+            212,
+            280,
+            182
+          ],
+          "margin": [
+            103,
+            40,
+            112,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1182,
+            448,
+            268,
+            186
+          ],
+          "margin": [
+            102,
+            38,
+            124,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1694,
+            212,
+            267,
+            173
+          ],
+          "margin": [
+            114,
+            49,
+            125,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1454,
+            448,
+            266,
+            186
+          ],
+          "margin": [
+            102,
+            38,
+            126,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1963,
+            212,
+            276,
+            181
+          ],
+          "margin": [
+            108,
+            41,
+            116,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1724,
+            448,
+            261,
+            190
+          ],
+          "margin": [
+            101,
+            34,
+            131,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2241,
+            212,
+            202,
+            181
+          ],
+          "margin": [
+            111,
+            41,
+            190,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            656,
+            205,
+            187
+          ],
+          "margin": [
+            116,
+            37,
+            187,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2445,
+            212,
+            197,
+            174
+          ],
+          "margin": [
+            116,
+            48,
+            195,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            211,
+            656,
+            227,
+            189
+          ],
+          "margin": [
+            119,
+            35,
+            165,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2644,
+            212,
+            211,
+            186
+          ],
+          "margin": [
+            101,
+            36,
+            181,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            442,
+            656,
+            234,
+            198
+          ],
+          "margin": [
+            115,
+            26,
+            158,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2857,
+            212,
+            152,
+            191
+          ],
+          "margin": [
+            138,
+            31,
+            240,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            680,
+            656,
+            207,
+            199
+          ],
+          "margin": [
+            121,
+            25,
+            185,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3011,
+            212,
+            144,
+            189
+          ],
+          "margin": [
+            133,
+            33,
+            248,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            891,
+            656,
+            174,
+            200
+          ],
+          "margin": [
+            120,
+            24,
+            218,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3157,
+            212,
+            151,
+            192
+          ],
+          "margin": [
+            125,
+            30,
+            241,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1069,
+            656,
+            183,
+            201
+          ],
+          "margin": [
+            108,
+            23,
+            209,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3310,
+            212,
+            182,
+            191
+          ],
+          "margin": [
+            113,
+            31,
+            210,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1256,
+            656,
+            167,
+            195
+          ],
+          "margin": [
+            113,
+            29,
+            225,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3494,
+            212,
+            161,
+            181
+          ],
+          "margin": [
+            119,
+            41,
+            231,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1427,
+            656,
+            165,
+            195
+          ],
+          "margin": [
+            116,
+            29,
+            227,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3657,
+            212,
+            178,
+            191
+          ],
+          "margin": [
+            114,
+            31,
+            214,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1596,
+            656,
+            156,
+            200
+          ],
+          "margin": [
+            122,
+            24,
+            236,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3837,
+            212,
+            192,
+            192
+          ],
+          "margin": [
+            101,
+            30,
+            200,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1756,
+            656,
+            168,
+            200
+          ],
+          "margin": [
+            116,
+            24,
+            224,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            0,
+            412,
+            189,
+            189
+          ],
+          "margin": [
+            108,
+            33,
+            203,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            865,
+            195,
+            202
+          ],
+          "margin": [
+            110,
+            22,
+            197,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            191,
+            412,
+            200,
+            197
+          ],
+          "margin": [
+            106,
+            25,
+            192,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            201,
+            865,
+            218,
+            206
+          ],
+          "margin": [
+            99,
+            18,
+            174,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            393,
+            412,
+            197,
+            196
+          ],
+          "margin": [
+            117,
+            26,
+            195,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            423,
+            865,
+            217,
+            204
+          ],
+          "margin": [
+            96,
+            20,
+            175,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            592,
+            412,
+            182,
+            192
+          ],
+          "margin": [
+            125,
+            30,
+            210,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            644,
+            865,
+            217,
+            207
+          ],
+          "margin": [
+            102,
+            17,
+            175,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            776,
+            412,
+            200,
+            202
+          ],
+          "margin": [
+            114,
+            20,
+            192,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            865,
+            865,
+            203,
+            214
+          ],
+          "margin": [
+            110,
+            10,
+            189,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            978,
+            412,
+            159,
+            207
+          ],
+          "margin": [
+            130,
+            15,
+            233,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1072,
+            865,
+            172,
+            216
+          ],
+          "margin": [
+            124,
+            8,
+            220,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1139,
+            412,
+            150,
+            206
+          ],
+          "margin": [
+            129,
+            16,
+            242,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1248,
+            865,
+            166,
+            219
+          ],
+          "margin": [
+            122,
+            5,
+            226,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1291,
+            412,
+            160,
+            212
+          ],
+          "margin": [
+            125,
+            10,
+            232,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1418,
+            865,
+            169,
+            223
+          ],
+          "margin": [
+            122,
+            1,
+            223,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1453,
+            412,
+            183,
+            214
+          ],
+          "margin": [
+            128,
+            8,
+            209,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1591,
+            865,
+            171,
+            220
+          ],
+          "margin": [
+            122,
+            4,
+            221,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1638,
+            412,
+            165,
+            203
+          ],
+          "margin": [
+            119,
+            19,
+            227,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1766,
+            865,
+            152,
+            196
+          ],
+          "margin": [
+            122,
+            28,
+            240,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1805,
+            412,
+            185,
+            172
+          ],
+          "margin": [
+            115,
+            50,
+            207,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            1096,
+            175,
+            189
+          ],
+          "margin": [
+            114,
+            35,
+            217,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1992,
+            412,
+            171,
+            189
+          ],
+          "margin": [
+            127,
+            33,
+            221,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            181,
+            1096,
+            181,
+            207
+          ],
+          "margin": [
+            111,
+            17,
+            211,
+            23
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2165,
+            412,
+            192,
+            179
+          ],
+          "margin": [
+            126,
+            43,
+            200,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            366,
+            1096,
+            171,
+            164
+          ],
+          "margin": [
+            116,
+            59,
+            221,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2359,
+            412,
+            179,
+            135
+          ],
+          "margin": [
+            105,
+            87,
+            213,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            541,
+            1096,
+            160,
+            123
+          ],
+          "margin": [
+            102,
+            101,
+            232,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2540,
+            412,
+            215,
+            96
+          ],
+          "margin": [
+            65,
+            126,
+            177,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            705,
+            1096,
+            192,
+            96
+          ],
+          "margin": [
+            79,
+            127,
+            200,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2757,
+            412,
+            258,
+            81
+          ],
+          "margin": [
+            46,
+            141,
+            134,
+            149
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            901,
+            1096,
+            253,
+            90
+          ],
+          "margin": [
+            47,
+            134,
+            139,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3017,
+            412,
+            202,
+            158
+          ],
+          "margin": [
+            97,
+            64,
+            190,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1158,
+            1096,
+            177,
+            167
+          ],
+          "margin": [
+            101,
+            57,
+            215,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3221,
+            412,
+            195,
+            159
+          ],
+          "margin": [
+            96,
+            63,
+            197,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1339,
+            1096,
+            180,
+            166
+          ],
+          "margin": [
+            110,
+            60,
+            212,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipe_mortar_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3418,
+            412,
+            187,
+            156
+          ],
+          "margin": [
+            109,
+            66,
+            205,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1523,
+            1096,
+            212,
+            168
+          ],
+          "margin": [
+            98,
+            56,
+            180,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3607,
+            412,
+            190,
+            163
+          ],
+          "margin": [
+            107,
+            59,
+            202,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1739,
+            1096,
+            271,
+            172
+          ],
+          "margin": [
+            66,
+            52,
+            121,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3799,
+            412,
+            187,
+            161
+          ],
+          "margin": [
+            108,
+            61,
+            205,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            1311,
+            281,
+            168
+          ],
+          "margin": [
+            48,
+            56,
+            111,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            0,
+            628,
+            186,
+            155
+          ],
+          "margin": [
+            111,
+            67,
+            206,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            287,
+            1311,
+            299,
+            171
+          ],
+          "margin": [
+            47,
+            54,
+            93,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            188,
+            628,
+            192,
+            163
+          ],
+          "margin": [
+            107,
+            59,
+            200,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            590,
+            1311,
+            212,
+            174
+          ],
+          "margin": [
+            100,
+            50,
+            180,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            382,
+            628,
+            188,
+            167
+          ],
+          "margin": [
+            110,
+            55,
+            204,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            806,
+            1311,
+            191,
+            173
+          ],
+          "margin": [
+            113,
+            51,
+            201,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            572,
+            628,
+            186,
+            162
+          ],
+          "margin": [
+            112,
+            60,
+            206,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1001,
+            1311,
+            205,
+            176
+          ],
+          "margin": [
+            102,
+            48,
+            187,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            760,
+            628,
+            194,
+            172
+          ],
+          "margin": [
+            105,
+            50,
+            198,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1210,
+            1311,
+            198,
+            183
+          ],
+          "margin": [
+            105,
+            41,
+            194,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            956,
+            628,
+            182,
+            176
+          ],
+          "margin": [
+            111,
+            46,
+            210,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1412,
+            1311,
+            189,
+            184
+          ],
+          "margin": [
+            112,
+            40,
+            203,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1140,
+            628,
+            181,
+            175
+          ],
+          "margin": [
+            113,
+            47,
+            211,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1605,
+            1311,
+            176,
+            187
+          ],
+          "margin": [
+            125,
+            37,
+            216,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1323,
+            628,
+            185,
+            182
+          ],
+          "margin": [
+            110,
+            40,
+            207,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1785,
+            1311,
+            191,
+            192
+          ],
+          "margin": [
+            109,
+            32,
+            201,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1510,
+            628,
+            203,
+            184
+          ],
+          "margin": [
+            100,
+            38,
+            189,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            1511,
+            200,
+            191
+          ],
+          "margin": [
+            112,
+            33,
+            192,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipe_mortar",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1715,
+            628,
+            195,
+            180
+          ],
+          "margin": [
+            105,
+            42,
+            197,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            206,
+            1511,
+            211,
+            193
+          ],
+          "margin": [
+            100,
+            31,
+            181,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1912,
+            628,
+            207,
+            188
+          ],
+          "margin": [
+            99,
+            34,
+            185,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            421,
+            1511,
+            222,
+            199
+          ],
+          "margin": [
+            89,
+            25,
+            170,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2121,
+            628,
+            198,
+            190
+          ],
+          "margin": [
+            102,
+            32,
+            194,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            647,
+            1511,
+            228,
+            197
+          ],
+          "margin": [
+            88,
+            27,
+            164,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2321,
+            628,
+            196,
+            186
+          ],
+          "margin": [
+            102,
+            36,
+            196,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            879,
+            1511,
+            207,
+            197
+          ],
+          "margin": [
+            95,
+            27,
+            185,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2519,
+            628,
+            194,
+            190
+          ],
+          "margin": [
+            101,
+            32,
+            198,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1090,
+            1511,
+            207,
+            198
+          ],
+          "margin": [
+            96,
+            26,
+            185,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2715,
+            628,
+            196,
+            188
+          ],
+          "margin": [
+            102,
+            34,
+            196,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1301,
+            1511,
+            200,
+            193
+          ],
+          "margin": [
+            101,
+            31,
+            192,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2913,
+            628,
+            184,
+            180
+          ],
+          "margin": [
+            109,
+            42,
+            208,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1505,
+            1511,
+            188,
+            188
+          ],
+          "margin": [
+            107,
+            36,
+            204,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3099,
+            628,
+            184,
+            179
+          ],
+          "margin": [
+            107,
+            43,
+            208,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1697,
+            1511,
+            184,
+            185
+          ],
+          "margin": [
+            108,
+            41,
+            208,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3285,
+            628,
+            194,
+            175
+          ],
+          "margin": [
+            105,
+            47,
+            198,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            2,
+            1718,
+            191,
+            176
+          ],
+          "margin": [
+            103,
+            50,
+            201,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3481,
+            628,
+            181,
+            161
+          ],
+          "margin": [
+            113,
+            61,
+            211,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            197,
+            1718,
+            183,
+            172
+          ],
+          "margin": [
+            108,
+            51,
+            209,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3664,
+            628,
+            187,
+            167
+          ],
+          "margin": [
+            108,
+            55,
+            205,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            384,
+            1718,
+            185,
+            175
+          ],
+          "margin": [
+            107,
+            51,
+            207,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            3853,
+            628,
+            193,
+            168
+          ],
+          "margin": [
+            104,
+            54,
+            199,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            573,
+            1718,
+            179,
+            172
+          ],
+          "margin": [
+            108,
+            52,
+            213,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipe_mortar_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            0,
+            820,
+            188,
+            160
+          ],
+          "margin": [
+            107,
+            62,
+            204,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            756,
+            1718,
+            176,
+            172
+          ],
+          "margin": [
+            110,
+            52,
+            216,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            190,
+            820,
+            193,
+            168
+          ],
+          "margin": [
+            104,
+            54,
+            199,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            936,
+            1718,
+            179,
+            175
+          ],
+          "margin": [
+            110,
+            50,
+            213,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            385,
+            820,
+            193,
+            167
+          ],
+          "margin": [
+            104,
+            55,
+            199,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1119,
+            1718,
+            189,
+            173
+          ],
+          "margin": [
+            106,
+            51,
+            203,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            580,
+            820,
+            186,
+            162
+          ],
+          "margin": [
+            109,
+            60,
+            206,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1312,
+            1718,
+            192,
+            173
+          ],
+          "margin": [
+            104,
+            51,
+            200,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            768,
+            820,
+            193,
+            167
+          ],
+          "margin": [
+            106,
+            55,
+            199,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1508,
+            1718,
+            194,
+            175
+          ],
+          "margin": [
+            104,
+            49,
+            198,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            963,
+            820,
+            196,
+            167
+          ],
+          "margin": [
+            105,
+            55,
+            196,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_00.png",
+          "region": [
+            1706,
+            1718,
+            189,
+            172
+          ],
+          "margin": [
+            108,
+            53,
+            203,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1161,
+            820,
+            191,
+            160
+          ],
+          "margin": [
+            107,
+            62,
+            201,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            189,
+            171
+          ],
+          "margin": [
+            109,
+            53,
+            203,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1354,
+            820,
+            195,
+            166
+          ],
+          "margin": [
+            104,
+            56,
+            197,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            195,
+            2,
+            189,
+            174
+          ],
+          "margin": [
+            110,
+            50,
+            203,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1551,
+            820,
+            195,
+            166
+          ],
+          "margin": [
+            107,
+            56,
+            197,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            388,
+            2,
+            192,
+            171
+          ],
+          "margin": [
+            108,
+            53,
+            200,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1748,
+            820,
+            188,
+            159
+          ],
+          "margin": [
+            110,
+            63,
+            204,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            584,
+            2,
+            198,
+            178
+          ],
+          "margin": [
+            104,
+            46,
+            194,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            1938,
+            820,
+            212,
+            181
+          ],
+          "margin": [
+            97,
+            41,
+            180,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            786,
+            2,
+            228,
+            199
+          ],
+          "margin": [
+            90,
+            25,
+            164,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2152,
+            820,
+            166,
+            197
+          ],
+          "margin": [
+            136,
+            25,
+            226,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            1018,
+            2,
+            221,
+            212
+          ],
+          "margin": [
+            100,
+            12,
+            171,
+            18
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pipe_mortar_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2320,
+            820,
+            196,
+            175
+          ],
+          "margin": [
+            102,
+            47,
+            196,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            1243,
+            2,
+            199,
+            183
+          ],
+          "margin": [
+            104,
+            41,
+            193,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/combat_motion_v7.png",
+          "region": [
+            2518,
+            820,
+            190,
+            175
+          ],
+          "margin": [
+            102,
+            47,
+            202,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/pipe_thrower/motion_v8_01.png",
+          "region": [
+            1446,
+            2,
+            198,
+            183
+          ],
+          "margin": [
+            102,
+            41,
+            194,
+            47
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "pipe_mortar",
+    "pipe_mortar_recover",
+    "pipe_mortar_windup",
+    "recover",
+    "windup"
+  ]
+}

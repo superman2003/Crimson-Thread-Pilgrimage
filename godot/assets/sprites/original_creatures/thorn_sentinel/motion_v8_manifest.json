@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "thorn_sentinel",
+  "canvas": [
+    394,
+    233
+  ],
+  "display_height": 104,
+  "visual_scale": 0.5226130653266332,
+  "visual_offset": [
+    0,
+    0.6276721226712283
+  ],
+  "motion": "stationary",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            163,
+            199
+          ],
+          "margin": [
+            123,
+            26,
+            231,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            167,
+            208
+          ],
+          "margin": [
+            114,
+            19,
+            227,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            165,
+            0,
+            161,
+            199
+          ],
+          "margin": [
+            116,
+            26,
+            233,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            173,
+            2,
+            165,
+            208
+          ],
+          "margin": [
+            106,
+            19,
+            229,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            328,
+            0,
+            164,
+            199
+          ],
+          "margin": [
+            111,
+            26,
+            230,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            342,
+            2,
+            168,
+            208
+          ],
+          "margin": [
+            104,
+            19,
+            226,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            494,
+            0,
+            168,
+            199
+          ],
+          "margin": [
+            108,
+            26,
+            226,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            514,
+            2,
+            174,
+            208
+          ],
+          "margin": [
+            104,
+            19,
+            220,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            664,
+            0,
+            180,
+            198
+          ],
+          "margin": [
+            112,
+            27,
+            214,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            692,
+            2,
+            188,
+            208
+          ],
+          "margin": [
+            106,
+            19,
+            206,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            846,
+            0,
+            192,
+            199
+          ],
+          "margin": [
+            110,
+            26,
+            202,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            884,
+            2,
+            202,
+            203
+          ],
+          "margin": [
+            96,
+            24,
+            192,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1040,
+            0,
+            193,
+            190
+          ],
+          "margin": [
+            97,
+            35,
+            201,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1090,
+            2,
+            206,
+            201
+          ],
+          "margin": [
+            86,
+            26,
+            188,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1235,
+            0,
+            197,
+            194
+          ],
+          "margin": [
+            93,
+            31,
+            197,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1300,
+            2,
+            215,
+            203
+          ],
+          "margin": [
+            87,
+            24,
+            179,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1434,
+            0,
+            207,
+            195
+          ],
+          "margin": [
+            112,
+            30,
+            187,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1519,
+            2,
+            229,
+            205
+          ],
+          "margin": [
+            94,
+            22,
+            165,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1643,
+            0,
+            197,
+            196
+          ],
+          "margin": [
+            114,
+            29,
+            197,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1752,
+            2,
+            217,
+            203
+          ],
+          "margin": [
+            99,
+            24,
+            177,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1842,
+            0,
+            198,
+            193
+          ],
+          "margin": [
+            110,
+            32,
+            196,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            218,
+            205,
+            203
+          ],
+          "margin": [
+            102,
+            24,
+            189,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2042,
+            0,
+            188,
+            195
+          ],
+          "margin": [
+            110,
+            30,
+            206,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            211,
+            218,
+            193,
+            205
+          ],
+          "margin": [
+            101,
+            22,
+            201,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2232,
+            0,
+            170,
+            193
+          ],
+          "margin": [
+            112,
+            32,
+            224,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            408,
+            218,
+            186,
+            204
+          ],
+          "margin": [
+            103,
+            23,
+            208,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2404,
+            0,
+            172,
+            197
+          ],
+          "margin": [
+            107,
+            28,
+            222,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            598,
+            218,
+            185,
+            205
+          ],
+          "margin": [
+            98,
+            22,
+            209,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2578,
+            0,
+            176,
+            195
+          ],
+          "margin": [
+            108,
+            30,
+            218,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            787,
+            218,
+            172,
+            200
+          ],
+          "margin": [
+            104,
+            27,
+            222,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2756,
+            0,
+            164,
+            187
+          ],
+          "margin": [
+            111,
+            38,
+            230,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            963,
+            218,
+            170,
+            202
+          ],
+          "margin": [
+            104,
+            25,
+            224,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2922,
+            0,
+            178,
+            199
+          ],
+          "margin": [
+            99,
+            26,
+            216,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1137,
+            218,
+            170,
+            212
+          ],
+          "margin": [
+            104,
+            15,
+            224,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3102,
+            0,
+            189,
+            207
+          ],
+          "margin": [
+            94,
+            18,
+            205,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1311,
+            218,
+            174,
+            216
+          ],
+          "margin": [
+            100,
+            11,
+            220,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3293,
+            0,
+            177,
+            206
+          ],
+          "margin": [
+            102,
+            19,
+            217,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1489,
+            218,
+            179,
+            217
+          ],
+          "margin": [
+            98,
+            10,
+            215,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3472,
+            0,
+            181,
+            209
+          ],
+          "margin": [
+            97,
+            16,
+            213,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1672,
+            218,
+            172,
+            216
+          ],
+          "margin": [
+            102,
+            11,
+            222,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3655,
+            0,
+            193,
+            204
+          ],
+          "margin": [
+            88,
+            21,
+            201,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1848,
+            218,
+            175,
+            208
+          ],
+          "margin": [
+            98,
+            19,
+            219,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3850,
+            0,
+            178,
+            193
+          ],
+          "margin": [
+            96,
+            32,
+            216,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            443,
+            172,
+            203
+          ],
+          "margin": [
+            100,
+            24,
+            222,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            211,
+            182,
+            194
+          ],
+          "margin": [
+            98,
+            31,
+            212,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            178,
+            443,
+            186,
+            201
+          ],
+          "margin": [
+            97,
+            26,
+            208,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            184,
+            211,
+            239,
+            189
+          ],
+          "margin": [
+            90,
+            36,
+            155,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            368,
+            443,
+            224,
+            191
+          ],
+          "margin": [
+            94,
+            36,
+            170,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            425,
+            211,
+            216,
+            176
+          ],
+          "margin": [
+            108,
+            49,
+            178,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            596,
+            443,
+            218,
+            186
+          ],
+          "margin": [
+            96,
+            41,
+            176,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            643,
+            211,
+            219,
+            178
+          ],
+          "margin": [
+            101,
+            47,
+            175,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            818,
+            443,
+            222,
+            184
+          ],
+          "margin": [
+            88,
+            43,
+            172,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            864,
+            211,
+            238,
+            172
+          ],
+          "margin": [
+            93,
+            53,
+            156,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1044,
+            443,
+            239,
+            175
+          ],
+          "margin": [
+            84,
+            52,
+            155,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1104,
+            211,
+            229,
+            160
+          ],
+          "margin": [
+            96,
+            65,
+            165,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1287,
+            443,
+            243,
+            175
+          ],
+          "margin": [
+            80,
+            52,
+            151,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1335,
+            211,
+            245,
+            171
+          ],
+          "margin": [
+            89,
+            54,
+            149,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1534,
+            443,
+            261,
+            183
+          ],
+          "margin": [
+            77,
+            44,
+            133,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1582,
+            211,
+            284,
+            176
+          ],
+          "margin": [
+            87,
+            49,
+            110,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            654,
+            281,
+            185
+          ],
+          "margin": [
+            78,
+            42,
+            113,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1868,
+            211,
+            292,
+            175
+          ],
+          "margin": [
+            94,
+            50,
+            102,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            287,
+            654,
+            276,
+            188
+          ],
+          "margin": [
+            84,
+            39,
+            118,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2162,
+            211,
+            289,
+            182
+          ],
+          "margin": [
+            92,
+            43,
+            105,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            567,
+            654,
+            275,
+            192
+          ],
+          "margin": [
+            85,
+            35,
+            119,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2453,
+            211,
+            270,
+            181
+          ],
+          "margin": [
+            103,
+            44,
+            124,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            846,
+            654,
+            261,
+            187
+          ],
+          "margin": [
+            94,
+            40,
+            133,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2725,
+            211,
+            275,
+            173
+          ],
+          "margin": [
+            110,
+            52,
+            119,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1111,
+            654,
+            253,
+            190
+          ],
+          "margin": [
+            98,
+            37,
+            141,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3002,
+            211,
+            275,
+            188
+          ],
+          "margin": [
+            100,
+            37,
+            119,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1368,
+            654,
+            292,
+            201
+          ],
+          "margin": [
+            92,
+            26,
+            102,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3279,
+            211,
+            170,
+            194
+          ],
+          "margin": [
+            111,
+            31,
+            224,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1664,
+            654,
+            296,
+            204
+          ],
+          "margin": [
+            87,
+            23,
+            98,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3451,
+            211,
+            167,
+            194
+          ],
+          "margin": [
+            112,
+            31,
+            227,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            866,
+            289,
+            208
+          ],
+          "margin": [
+            88,
+            19,
+            105,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3620,
+            211,
+            173,
+            201
+          ],
+          "margin": [
+            106,
+            24,
+            221,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            295,
+            866,
+            279,
+            211
+          ],
+          "margin": [
+            78,
+            16,
+            115,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3795,
+            211,
+            188,
+            200
+          ],
+          "margin": [
+            104,
+            25,
+            206,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            578,
+            866,
+            272,
+            207
+          ],
+          "margin": [
+            84,
+            20,
+            122,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            414,
+            192,
+            193
+          ],
+          "margin": [
+            109,
+            32,
+            202,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            854,
+            866,
+            254,
+            206
+          ],
+          "margin": [
+            86,
+            21,
+            140,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            194,
+            414,
+            195,
+            199
+          ],
+          "margin": [
+            102,
+            26,
+            199,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1112,
+            866,
+            186,
+            210
+          ],
+          "margin": [
+            101,
+            17,
+            208,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            391,
+            414,
+            191,
+            201
+          ],
+          "margin": [
+            99,
+            24,
+            203,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1302,
+            866,
+            173,
+            207
+          ],
+          "margin": [
+            110,
+            20,
+            221,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            584,
+            414,
+            186,
+            194
+          ],
+          "margin": [
+            110,
+            31,
+            208,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1479,
+            866,
+            179,
+            206
+          ],
+          "margin": [
+            106,
+            21,
+            215,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            772,
+            414,
+            189,
+            198
+          ],
+          "margin": [
+            97,
+            27,
+            205,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1662,
+            866,
+            193,
+            207
+          ],
+          "margin": [
+            97,
+            20,
+            201,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            963,
+            414,
+            174,
+            196
+          ],
+          "margin": [
+            103,
+            29,
+            220,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1085,
+            188,
+            201
+          ],
+          "margin": [
+            94,
+            26,
+            206,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1139,
+            414,
+            166,
+            187
+          ],
+          "margin": [
+            108,
+            38,
+            228,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            194,
+            1085,
+            185,
+            202
+          ],
+          "margin": [
+            98,
+            25,
+            209,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1307,
+            414,
+            175,
+            198
+          ],
+          "margin": [
+            102,
+            27,
+            219,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            383,
+            1085,
+            193,
+            210
+          ],
+          "margin": [
+            98,
+            17,
+            201,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1484,
+            414,
+            169,
+            202
+          ],
+          "margin": [
+            112,
+            23,
+            225,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            580,
+            1085,
+            187,
+            211
+          ],
+          "margin": [
+            104,
+            16,
+            207,
+            22
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1655,
+            414,
+            182,
+            183
+          ],
+          "margin": [
+            125,
+            42,
+            212,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            771,
+            1085,
+            177,
+            195
+          ],
+          "margin": [
+            122,
+            32,
+            217,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1839,
+            414,
+            175,
+            190
+          ],
+          "margin": [
+            125,
+            35,
+            219,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            952,
+            1085,
+            157,
+            192
+          ],
+          "margin": [
+            121,
+            35,
+            237,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2016,
+            414,
+            170,
+            177
+          ],
+          "margin": [
+            120,
+            48,
+            224,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1113,
+            1085,
+            162,
+            187
+          ],
+          "margin": [
+            117,
+            41,
+            232,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2188,
+            414,
+            183,
+            180
+          ],
+          "margin": [
+            106,
+            45,
+            211,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1279,
+            1085,
+            187,
+            199
+          ],
+          "margin": [
+            104,
+            28,
+            207,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2373,
+            414,
+            184,
+            178
+          ],
+          "margin": [
+            123,
+            47,
+            210,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1470,
+            1085,
+            167,
+            179
+          ],
+          "margin": [
+            123,
+            49,
+            227,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2559,
+            414,
+            194,
+            164
+          ],
+          "margin": [
+            117,
+            61,
+            200,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1641,
+            1085,
+            185,
+            161
+          ],
+          "margin": [
+            112,
+            66,
+            209,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2755,
+            414,
+            193,
+            141
+          ],
+          "margin": [
+            103,
+            84,
+            201,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1830,
+            1085,
+            142,
+            123
+          ],
+          "margin": [
+            118,
+            103,
+            252,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2950,
+            414,
+            214,
+            92
+          ],
+          "margin": [
+            78,
+            133,
+            180,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1304,
+            100,
+            97
+          ],
+          "margin": [
+            135,
+            128,
+            294,
+            136
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thorn_ring_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3166,
+            414,
+            183,
+            162
+          ],
+          "margin": [
+            101,
+            63,
+            211,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            106,
+            1304,
+            188,
+            180
+          ],
+          "margin": [
+            100,
+            47,
+            206,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3351,
+            414,
+            223,
+            180
+          ],
+          "margin": [
+            78,
+            45,
+            171,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            298,
+            1304,
+            154,
+            194
+          ],
+          "margin": [
+            113,
+            33,
+            240,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3576,
+            414,
+            192,
+            190
+          ],
+          "margin": [
+            103,
+            35,
+            202,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            456,
+            1304,
+            209,
+            201
+          ],
+          "margin": [
+            99,
+            26,
+            185,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3770,
+            414,
+            198,
+            193
+          ],
+          "margin": [
+            102,
+            32,
+            196,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            669,
+            1304,
+            236,
+            209
+          ],
+          "margin": [
+            84,
+            18,
+            158,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            618,
+            208,
+            204
+          ],
+          "margin": [
+            93,
+            21,
+            186,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            909,
+            1304,
+            235,
+            217
+          ],
+          "margin": [
+            78,
+            10,
+            159,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            210,
+            618,
+            192,
+            208
+          ],
+          "margin": [
+            96,
+            17,
+            202,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1148,
+            1304,
+            222,
+            216
+          ],
+          "margin": [
+            79,
+            11,
+            172,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            404,
+            618,
+            183,
+            204
+          ],
+          "margin": [
+            101,
+            21,
+            211,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1374,
+            1304,
+            216,
+            218
+          ],
+          "margin": [
+            86,
+            9,
+            178,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            589,
+            618,
+            195,
+            212
+          ],
+          "margin": [
+            95,
+            13,
+            199,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1594,
+            1304,
+            217,
+            222
+          ],
+          "margin": [
+            88,
+            5,
+            177,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            786,
+            618,
+            196,
+            212
+          ],
+          "margin": [
+            94,
+            13,
+            198,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1815,
+            1304,
+            205,
+            219
+          ],
+          "margin": [
+            91,
+            8,
+            189,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            984,
+            618,
+            191,
+            206
+          ],
+          "margin": [
+            101,
+            19,
+            203,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1534,
+            208,
+            218
+          ],
+          "margin": [
+            88,
+            9,
+            186,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1177,
+            618,
+            187,
+            210
+          ],
+          "margin": [
+            101,
+            15,
+            207,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            214,
+            1534,
+            211,
+            219
+          ],
+          "margin": [
+            92,
+            8,
+            183,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1366,
+            618,
+            240,
+            208
+          ],
+          "margin": [
+            99,
+            17,
+            154,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            429,
+            1534,
+            204,
+            213
+          ],
+          "margin": [
+            98,
+            14,
+            190,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thorn_ring",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1608,
+            618,
+            237,
+            198
+          ],
+          "margin": [
+            106,
+            27,
+            157,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            637,
+            1534,
+            206,
+            213
+          ],
+          "margin": [
+            98,
+            14,
+            188,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1847,
+            618,
+            247,
+            209
+          ],
+          "margin": [
+            99,
+            16,
+            147,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            847,
+            1534,
+            220,
+            221
+          ],
+          "margin": [
+            92,
+            6,
+            174,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2096,
+            618,
+            233,
+            213
+          ],
+          "margin": [
+            102,
+            12,
+            161,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1071,
+            1534,
+            219,
+            222
+          ],
+          "margin": [
+            87,
+            5,
+            175,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2331,
+            618,
+            223,
+            210
+          ],
+          "margin": [
+            110,
+            15,
+            171,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1294,
+            1534,
+            225,
+            224
+          ],
+          "margin": [
+            92,
+            3,
+            169,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2556,
+            618,
+            238,
+            217
+          ],
+          "margin": [
+            102,
+            8,
+            156,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1523,
+            1534,
+            239,
+            226
+          ],
+          "margin": [
+            98,
+            1,
+            155,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2796,
+            618,
+            236,
+            216
+          ],
+          "margin": [
+            94,
+            9,
+            158,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1766,
+            1534,
+            235,
+            222
+          ],
+          "margin": [
+            96,
+            5,
+            159,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3034,
+            618,
+            227,
+            209
+          ],
+          "margin": [
+            101,
+            16,
+            167,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            2,
+            1768,
+            237,
+            221
+          ],
+          "margin": [
+            94,
+            6,
+            157,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3263,
+            618,
+            229,
+            214
+          ],
+          "margin": [
+            100,
+            11,
+            165,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            243,
+            1768,
+            237,
+            223
+          ],
+          "margin": [
+            95,
+            4,
+            157,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3494,
+            618,
+            226,
+            213
+          ],
+          "margin": [
+            100,
+            12,
+            168,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            484,
+            1768,
+            233,
+            218
+          ],
+          "margin": [
+            95,
+            9,
+            161,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3722,
+            618,
+            216,
+            204
+          ],
+          "margin": [
+            107,
+            21,
+            178,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            721,
+            1768,
+            219,
+            212
+          ],
+          "margin": [
+            101,
+            15,
+            175,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            0,
+            837,
+            214,
+            201
+          ],
+          "margin": [
+            105,
+            24,
+            180,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            944,
+            1768,
+            218,
+            206
+          ],
+          "margin": [
+            102,
+            21,
+            176,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            216,
+            837,
+            227,
+            193
+          ],
+          "margin": [
+            80,
+            32,
+            167,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1166,
+            1768,
+            213,
+            193
+          ],
+          "margin": [
+            102,
+            34,
+            181,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thorn_ring_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            445,
+            837,
+            204,
+            176
+          ],
+          "margin": [
+            98,
+            49,
+            190,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1383,
+            1768,
+            211,
+            189
+          ],
+          "margin": [
+            101,
+            38,
+            183,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            651,
+            837,
+            213,
+            184
+          ],
+          "margin": [
+            86,
+            41,
+            181,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1598,
+            1768,
+            212,
+            193
+          ],
+          "margin": [
+            96,
+            34,
+            182,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            866,
+            837,
+            203,
+            185
+          ],
+          "margin": [
+            93,
+            40,
+            191,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_00.png",
+          "region": [
+            1814,
+            1768,
+            203,
+            190
+          ],
+          "margin": [
+            95,
+            37,
+            191,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1071,
+            837,
+            196,
+            178
+          ],
+          "margin": [
+            103,
+            47,
+            198,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            200,
+            189
+          ],
+          "margin": [
+            97,
+            38,
+            194,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1269,
+            837,
+            199,
+            183
+          ],
+          "margin": [
+            97,
+            42,
+            195,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            206,
+            2,
+            206,
+            192
+          ],
+          "margin": [
+            90,
+            35,
+            188,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1470,
+            837,
+            198,
+            183
+          ],
+          "margin": [
+            95,
+            42,
+            196,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            416,
+            2,
+            197,
+            188
+          ],
+          "margin": [
+            93,
+            39,
+            197,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1670,
+            837,
+            194,
+            176
+          ],
+          "margin": [
+            101,
+            49,
+            200,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            617,
+            2,
+            196,
+            187
+          ],
+          "margin": [
+            96,
+            40,
+            198,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            1866,
+            837,
+            195,
+            181
+          ],
+          "margin": [
+            98,
+            44,
+            199,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            817,
+            2,
+            190,
+            190
+          ],
+          "margin": [
+            97,
+            37,
+            204,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2063,
+            837,
+            191,
+            182
+          ],
+          "margin": [
+            96,
+            43,
+            203,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            1011,
+            2,
+            198,
+            186
+          ],
+          "margin": [
+            94,
+            41,
+            196,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2256,
+            837,
+            178,
+            174
+          ],
+          "margin": [
+            107,
+            51,
+            216,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            1213,
+            2,
+            201,
+            189
+          ],
+          "margin": [
+            94,
+            38,
+            193,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2436,
+            837,
+            197,
+            188
+          ],
+          "margin": [
+            96,
+            37,
+            197,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            1418,
+            2,
+            203,
+            201
+          ],
+          "margin": [
+            92,
+            26,
+            191,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2635,
+            837,
+            165,
+            196
+          ],
+          "margin": [
+            116,
+            29,
+            229,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            1625,
+            2,
+            201,
+            206
+          ],
+          "margin": [
+            96,
+            21,
+            193,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "thorn_ring_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            2802,
+            837,
+            202,
+            209
+          ],
+          "margin": [
+            93,
+            16,
+            192,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            2,
+            216,
+            229,
+            221
+          ],
+          "margin": [
+            74,
+            6,
+            165,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/combat_motion_v7.png",
+          "region": [
+            3006,
+            837,
+            207,
+            214
+          ],
+          "margin": [
+            93,
+            11,
+            187,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/thorn_sentinel/motion_v8_01.png",
+          "region": [
+            235,
+            216,
+            228,
+            221
+          ],
+          "margin": [
+            81,
+            6,
+            166,
+            12
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "recover",
+    "thorn_ring",
+    "thorn_ring_recover",
+    "thorn_ring_windup",
+    "windup"
+  ]
+}

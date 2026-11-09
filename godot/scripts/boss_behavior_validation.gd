@@ -68,11 +68,13 @@ func run() -> void:
         signatures[JSON.stringify(branch_names)] = true
 
         # Actual production asset bindings, not just file existence counts.
-        check(actor.asset_path.ends_with("boss_behavior_manifest.json"),kind+" production/prewarm select defensive atlas")
+        var expanded := actor.asset_path.ends_with("motion_v8_manifest.json")
+        check(expanded or actor.asset_path.ends_with("boss_behavior_manifest.json"),kind+" production/prewarm select defensive atlas")
         var manifest := ART.manifest(actor.asset_path)
         for name in ["backstep","ready_guard","ready_settle"]:
             check(actor.animated_sprite.sprite_frames.has_animation(name),kind+"/"+name+" is authored")
             var expected: int = 12 if name == "backstep" else 6
+            if expanded:expected*=2
             check(actor.animated_sprite.sprite_frames.get_frame_count(name)==expected,kind+"/"+name+" source poses")
         for move: Dictionary in actor.ai_commands:
             check(SKILL.matches(actor,move),kind+"/"+move.id+" has painted warning/execution data")

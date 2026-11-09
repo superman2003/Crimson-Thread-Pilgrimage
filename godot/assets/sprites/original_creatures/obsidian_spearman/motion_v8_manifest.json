@@ -1,0 +1,4162 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "obsidian_spearman",
+  "canvas": [
+    498,
+    306
+  ],
+  "display_height": 106,
+  "visual_scale": 0.4732142857142857,
+  "visual_offset": [
+    0,
+    -11.280648231079269
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            136,
+            224
+          ],
+          "margin": [
+            191,
+            74,
+            362,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            154,
+            235
+          ],
+          "margin": [
+            172,
+            65,
+            344,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            138,
+            0,
+            153,
+            224
+          ],
+          "margin": [
+            166,
+            74,
+            345,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            160,
+            2,
+            168,
+            235
+          ],
+          "margin": [
+            155,
+            65,
+            330,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            293,
+            0,
+            161,
+            223
+          ],
+          "margin": [
+            161,
+            75,
+            337,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            332,
+            2,
+            172,
+            235
+          ],
+          "margin": [
+            154,
+            67,
+            326,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            456,
+            0,
+            155,
+            224
+          ],
+          "margin": [
+            160,
+            74,
+            343,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            508,
+            2,
+            178,
+            236
+          ],
+          "margin": [
+            158,
+            64,
+            320,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            613,
+            0,
+            219,
+            197
+          ],
+          "margin": [
+            152,
+            101,
+            279,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            690,
+            2,
+            211,
+            206
+          ],
+          "margin": [
+            150,
+            94,
+            287,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            834,
+            0,
+            215,
+            194
+          ],
+          "margin": [
+            155,
+            104,
+            283,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            905,
+            2,
+            225,
+            206
+          ],
+          "margin": [
+            140,
+            95,
+            273,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1051,
+            0,
+            202,
+            197
+          ],
+          "margin": [
+            151,
+            101,
+            296,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1134,
+            2,
+            225,
+            207
+          ],
+          "margin": [
+            130,
+            93,
+            273,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1255,
+            0,
+            204,
+            195
+          ],
+          "margin": [
+            149,
+            103,
+            294,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1363,
+            2,
+            215,
+            207
+          ],
+          "margin": [
+            142,
+            93,
+            283,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1461,
+            0,
+            215,
+            197
+          ],
+          "margin": [
+            156,
+            101,
+            283,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1582,
+            2,
+            220,
+            207
+          ],
+          "margin": [
+            146,
+            93,
+            278,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1678,
+            0,
+            222,
+            195
+          ],
+          "margin": [
+            148,
+            103,
+            276,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            246,
+            242,
+            206
+          ],
+          "margin": [
+            131,
+            94,
+            256,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1902,
+            0,
+            231,
+            196
+          ],
+          "margin": [
+            139,
+            102,
+            267,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            248,
+            246,
+            231,
+            204
+          ],
+          "margin": [
+            133,
+            96,
+            267,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2135,
+            0,
+            206,
+            190
+          ],
+          "margin": [
+            148,
+            108,
+            292,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            483,
+            246,
+            227,
+            204
+          ],
+          "margin": [
+            135,
+            96,
+            271,
+            102
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2343,
+            0,
+            207,
+            196
+          ],
+          "margin": [
+            149,
+            102,
+            291,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            714,
+            246,
+            220,
+            209
+          ],
+          "margin": [
+            134,
+            91,
+            278,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2552,
+            0,
+            207,
+            201
+          ],
+          "margin": [
+            143,
+            97,
+            291,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            938,
+            246,
+            218,
+            211
+          ],
+          "margin": [
+            140,
+            89,
+            280,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2761,
+            0,
+            252,
+            199
+          ],
+          "margin": [
+            118,
+            99,
+            246,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1160,
+            246,
+            246,
+            205
+          ],
+          "margin": [
+            121,
+            95,
+            252,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3015,
+            0,
+            235,
+            189
+          ],
+          "margin": [
+            137,
+            109,
+            263,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1410,
+            246,
+            244,
+            203
+          ],
+          "margin": [
+            126,
+            97,
+            254,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3252,
+            0,
+            249,
+            196
+          ],
+          "margin": [
+            130,
+            102,
+            249,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1658,
+            246,
+            242,
+            206
+          ],
+          "margin": [
+            132,
+            94,
+            256,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3503,
+            0,
+            214,
+            195
+          ],
+          "margin": [
+            141,
+            103,
+            284,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            465,
+            211,
+            202
+          ],
+          "margin": [
+            150,
+            98,
+            287,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3719,
+            0,
+            213,
+            187
+          ],
+          "margin": [
+            151,
+            111,
+            285,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            217,
+            465,
+            246,
+            208
+          ],
+          "margin": [
+            124,
+            92,
+            252,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            226,
+            234,
+            206
+          ],
+          "margin": [
+            136,
+            92,
+            264,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            467,
+            465,
+            245,
+            223
+          ],
+          "margin": [
+            126,
+            78,
+            253,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            236,
+            226,
+            193,
+            216
+          ],
+          "margin": [
+            157,
+            82,
+            305,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            716,
+            465,
+            249,
+            231
+          ],
+          "margin": [
+            118,
+            70,
+            249,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            431,
+            226,
+            207,
+            220
+          ],
+          "margin": [
+            147,
+            78,
+            291,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            969,
+            465,
+            230,
+            229
+          ],
+          "margin": [
+            128,
+            72,
+            268,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            640,
+            226,
+            203,
+            212
+          ],
+          "margin": [
+            146,
+            86,
+            295,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1203,
+            465,
+            284,
+            217
+          ],
+          "margin": [
+            113,
+            84,
+            214,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            845,
+            226,
+            340,
+            197
+          ],
+          "margin": [
+            122,
+            101,
+            158,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1491,
+            465,
+            318,
+            197
+          ],
+          "margin": [
+            124,
+            103,
+            180,
+            109
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1187,
+            226,
+            298,
+            175
+          ],
+          "margin": [
+            147,
+            123,
+            200,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            704,
+            282,
+            188
+          ],
+          "margin": [
+            148,
+            112,
+            216,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1487,
+            226,
+            307,
+            181
+          ],
+          "margin": [
+            141,
+            117,
+            191,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            288,
+            704,
+            267,
+            188
+          ],
+          "margin": [
+            154,
+            112,
+            231,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1796,
+            226,
+            313,
+            177
+          ],
+          "margin": [
+            132,
+            121,
+            185,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            559,
+            704,
+            266,
+            182
+          ],
+          "margin": [
+            152,
+            118,
+            232,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2111,
+            226,
+            299,
+            168
+          ],
+          "margin": [
+            154,
+            130,
+            199,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            829,
+            704,
+            270,
+            183
+          ],
+          "margin": [
+            156,
+            117,
+            228,
+            123
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2412,
+            226,
+            309,
+            178
+          ],
+          "margin": [
+            149,
+            120,
+            189,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1103,
+            704,
+            261,
+            188
+          ],
+          "margin": [
+            160,
+            112,
+            237,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2723,
+            226,
+            240,
+            178
+          ],
+          "margin": [
+            162,
+            120,
+            258,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1368,
+            704,
+            234,
+            185
+          ],
+          "margin": [
+            162,
+            115,
+            264,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2965,
+            226,
+            236,
+            174
+          ],
+          "margin": [
+            172,
+            124,
+            262,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1606,
+            704,
+            237,
+            188
+          ],
+          "margin": [
+            159,
+            112,
+            261,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3203,
+            226,
+            238,
+            185
+          ],
+          "margin": [
+            152,
+            113,
+            260,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            900,
+            219,
+            197
+          ],
+          "margin": [
+            151,
+            103,
+            279,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3443,
+            226,
+            211,
+            191
+          ],
+          "margin": [
+            158,
+            107,
+            287,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            225,
+            900,
+            216,
+            200
+          ],
+          "margin": [
+            146,
+            100,
+            282,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3656,
+            226,
+            191,
+            190
+          ],
+          "margin": [
+            158,
+            108,
+            307,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            445,
+            900,
+            207,
+            203
+          ],
+          "margin": [
+            142,
+            97,
+            291,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3849,
+            226,
+            213,
+            198
+          ],
+          "margin": [
+            145,
+            100,
+            285,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            656,
+            900,
+            217,
+            209
+          ],
+          "margin": [
+            140,
+            91,
+            281,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            448,
+            244,
+            200
+          ],
+          "margin": [
+            131,
+            98,
+            254,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            877,
+            900,
+            226,
+            207
+          ],
+          "margin": [
+            144,
+            93,
+            272,
+            99
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            246,
+            448,
+            220,
+            195
+          ],
+          "margin": [
+            148,
+            103,
+            278,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1107,
+            900,
+            237,
+            208
+          ],
+          "margin": [
+            138,
+            92,
+            261,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            468,
+            448,
+            236,
+            202
+          ],
+          "margin": [
+            133,
+            96,
+            262,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1348,
+            900,
+            238,
+            213
+          ],
+          "margin": [
+            137,
+            87,
+            260,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            706,
+            448,
+            223,
+            204
+          ],
+          "margin": [
+            137,
+            94,
+            275,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1590,
+            900,
+            219,
+            212
+          ],
+          "margin": [
+            136,
+            88,
+            279,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            931,
+            448,
+            217,
+            200
+          ],
+          "margin": [
+            144,
+            98,
+            281,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1813,
+            900,
+            221,
+            212
+          ],
+          "margin": [
+            129,
+            88,
+            277,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1150,
+            448,
+            225,
+            205
+          ],
+          "margin": [
+            138,
+            93,
+            273,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            1121,
+            245,
+            217
+          ],
+          "margin": [
+            126,
+            83,
+            253,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1377,
+            448,
+            193,
+            208
+          ],
+          "margin": [
+            146,
+            90,
+            305,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            251,
+            1121,
+            213,
+            214
+          ],
+          "margin": [
+            136,
+            86,
+            285,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1572,
+            448,
+            179,
+            201
+          ],
+          "margin": [
+            162,
+            97,
+            319,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            468,
+            1121,
+            226,
+            216
+          ],
+          "margin": [
+            138,
+            84,
+            272,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1753,
+            448,
+            192,
+            212
+          ],
+          "margin": [
+            148,
+            86,
+            306,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            698,
+            1121,
+            221,
+            225
+          ],
+          "margin": [
+            136,
+            75,
+            277,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1947,
+            448,
+            163,
+            218
+          ],
+          "margin": [
+            157,
+            80,
+            335,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            923,
+            1121,
+            190,
+            229
+          ],
+          "margin": [
+            144,
+            71,
+            308,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2112,
+            448,
+            153,
+            219
+          ],
+          "margin": [
+            170,
+            79,
+            345,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1117,
+            1121,
+            181,
+            233
+          ],
+          "margin": [
+            152,
+            67,
+            317,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2267,
+            448,
+            168,
+            227
+          ],
+          "margin": [
+            162,
+            71,
+            330,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1302,
+            1121,
+            164,
+            237
+          ],
+          "margin": [
+            162,
+            63,
+            334,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2437,
+            448,
+            147,
+            227
+          ],
+          "margin": [
+            179,
+            71,
+            351,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1470,
+            1121,
+            170,
+            236
+          ],
+          "margin": [
+            158,
+            64,
+            328,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2586,
+            448,
+            205,
+            190
+          ],
+          "margin": [
+            153,
+            108,
+            293,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1644,
+            1121,
+            196,
+            195
+          ],
+          "margin": [
+            146,
+            105,
+            302,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2793,
+            448,
+            212,
+            181
+          ],
+          "margin": [
+            157,
+            117,
+            286,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1844,
+            1121,
+            190,
+            187
+          ],
+          "margin": [
+            164,
+            113,
+            308,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3007,
+            448,
+            222,
+            176
+          ],
+          "margin": [
+            149,
+            122,
+            276,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            1366,
+            207,
+            169
+          ],
+          "margin": [
+            152,
+            131,
+            291,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3231,
+            448,
+            208,
+            145
+          ],
+          "margin": [
+            146,
+            153,
+            290,
+            161
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            213,
+            1366,
+            280,
+            196
+          ],
+          "margin": [
+            120,
+            104,
+            218,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3441,
+            448,
+            164,
+            165
+          ],
+          "margin": [
+            164,
+            133,
+            334,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            497,
+            1366,
+            163,
+            158
+          ],
+          "margin": [
+            154,
+            142,
+            335,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3607,
+            448,
+            207,
+            134
+          ],
+          "margin": [
+            126,
+            164,
+            291,
+            172
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            664,
+            1366,
+            176,
+            115
+          ],
+          "margin": [
+            136,
+            184,
+            322,
+            191
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3816,
+            448,
+            239,
+            81
+          ],
+          "margin": [
+            103,
+            217,
+            259,
+            225
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            844,
+            1366,
+            88,
+            83
+          ],
+          "margin": [
+            196,
+            215,
+            410,
+            223
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            677,
+            245,
+            77
+          ],
+          "margin": [
+            109,
+            221,
+            253,
+            229
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            936,
+            1366,
+            102,
+            81
+          ],
+          "margin": [
+            190,
+            217,
+            396,
+            225
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_elite_impale_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            247,
+            677,
+            160,
+            182
+          ],
+          "margin": [
+            153,
+            116,
+            338,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1042,
+            1366,
+            278,
+            203
+          ],
+          "margin": [
+            119,
+            98,
+            220,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            409,
+            677,
+            182,
+            200
+          ],
+          "margin": [
+            140,
+            98,
+            316,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1324,
+            1366,
+            142,
+            216
+          ],
+          "margin": [
+            169,
+            84,
+            356,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            593,
+            677,
+            160,
+            211
+          ],
+          "margin": [
+            153,
+            87,
+            338,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1470,
+            1366,
+            282,
+            227
+          ],
+          "margin": [
+            99,
+            74,
+            216,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            755,
+            677,
+            161,
+            215
+          ],
+          "margin": [
+            151,
+            83,
+            337,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            2,
+            1601,
+            567,
+            245
+          ],
+          "margin": [
+            -37,
+            58,
+            -69,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            918,
+            677,
+            172,
+            228
+          ],
+          "margin": [
+            143,
+            70,
+            326,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            573,
+            1601,
+            571,
+            252
+          ],
+          "margin": [
+            -47,
+            51,
+            -73,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1092,
+            677,
+            155,
+            233
+          ],
+          "margin": [
+            156,
+            65,
+            343,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1148,
+            1601,
+            638,
+            256
+          ],
+          "margin": [
+            -68,
+            47,
+            -140,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1249,
+            677,
+            154,
+            233
+          ],
+          "margin": [
+            158,
+            65,
+            344,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_00.png",
+          "region": [
+            1790,
+            1601,
+            200,
+            248
+          ],
+          "margin": [
+            126,
+            52,
+            298,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1405,
+            677,
+            156,
+            240
+          ],
+          "margin": [
+            156,
+            58,
+            342,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            200,
+            251
+          ],
+          "margin": [
+            127,
+            49,
+            298,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1563,
+            677,
+            155,
+            239
+          ],
+          "margin": [
+            158,
+            59,
+            343,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            206,
+            2,
+            174,
+            247
+          ],
+          "margin": [
+            144,
+            53,
+            324,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1720,
+            677,
+            156,
+            233
+          ],
+          "margin": [
+            160,
+            65,
+            342,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            384,
+            2,
+            175,
+            249
+          ],
+          "margin": [
+            144,
+            51,
+            323,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1878,
+            677,
+            161,
+            242
+          ],
+          "margin": [
+            155,
+            56,
+            337,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            563,
+            2,
+            167,
+            254
+          ],
+          "margin": [
+            146,
+            46,
+            331,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2041,
+            677,
+            178,
+            245
+          ],
+          "margin": [
+            143,
+            53,
+            320,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            734,
+            2,
+            167,
+            254
+          ],
+          "margin": [
+            150,
+            46,
+            331,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_elite_impale",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2221,
+            677,
+            165,
+            242
+          ],
+          "margin": [
+            155,
+            56,
+            333,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            905,
+            2,
+            167,
+            240
+          ],
+          "margin": [
+            152,
+            60,
+            331,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2388,
+            677,
+            162,
+            218
+          ],
+          "margin": [
+            154,
+            80,
+            336,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1076,
+            2,
+            158,
+            213
+          ],
+          "margin": [
+            152,
+            87,
+            340,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2552,
+            677,
+            358,
+            191
+          ],
+          "margin": [
+            131,
+            107,
+            140,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1238,
+            2,
+            215,
+            180
+          ],
+          "margin": [
+            166,
+            119,
+            283,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2912,
+            677,
+            274,
+            154
+          ],
+          "margin": [
+            163,
+            144,
+            224,
+            152
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1457,
+            2,
+            220,
+            180
+          ],
+          "margin": [
+            165,
+            120,
+            278,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3188,
+            677,
+            354,
+            191
+          ],
+          "margin": [
+            129,
+            107,
+            144,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1681,
+            2,
+            364,
+            215
+          ],
+          "margin": [
+            124,
+            85,
+            134,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3544,
+            677,
+            148,
+            217
+          ],
+          "margin": [
+            161,
+            81,
+            350,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            264,
+            159,
+            238
+          ],
+          "margin": [
+            158,
+            62,
+            339,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3694,
+            677,
+            150,
+            239
+          ],
+          "margin": [
+            163,
+            59,
+            348,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            165,
+            264,
+            156,
+            244
+          ],
+          "margin": [
+            157,
+            56,
+            342,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3846,
+            677,
+            152,
+            228
+          ],
+          "margin": [
+            161,
+            70,
+            346,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            325,
+            264,
+            154,
+            229
+          ],
+          "margin": [
+            158,
+            71,
+            344,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            924,
+            201,
+            211
+          ],
+          "margin": [
+            141,
+            87,
+            297,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            483,
+            264,
+            186,
+            209
+          ],
+          "margin": [
+            145,
+            91,
+            312,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            203,
+            924,
+            169,
+            188
+          ],
+          "margin": [
+            155,
+            110,
+            329,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            673,
+            264,
+            185,
+            199
+          ],
+          "margin": [
+            144,
+            101,
+            313,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            374,
+            924,
+            180,
+            192
+          ],
+          "margin": [
+            151,
+            106,
+            318,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            862,
+            264,
+            168,
+            200
+          ],
+          "margin": [
+            155,
+            100,
+            330,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            556,
+            924,
+            167,
+            191
+          ],
+          "margin": [
+            149,
+            107,
+            331,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1034,
+            264,
+            141,
+            195
+          ],
+          "margin": [
+            167,
+            105,
+            357,
+            111
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_elite_impale_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            725,
+            924,
+            160,
+            182
+          ],
+          "margin": [
+            158,
+            116,
+            338,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1179,
+            264,
+            148,
+            199
+          ],
+          "margin": [
+            168,
+            101,
+            350,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            887,
+            924,
+            171,
+            199
+          ],
+          "margin": [
+            148,
+            99,
+            327,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1331,
+            264,
+            194,
+            213
+          ],
+          "margin": [
+            142,
+            87,
+            304,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1060,
+            924,
+            187,
+            208
+          ],
+          "margin": [
+            153,
+            90,
+            311,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1529,
+            264,
+            203,
+            220
+          ],
+          "margin": [
+            137,
+            80,
+            295,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1249,
+            924,
+            185,
+            211
+          ],
+          "margin": [
+            158,
+            87,
+            313,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1736,
+            264,
+            207,
+            221
+          ],
+          "margin": [
+            135,
+            79,
+            291,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1436,
+            924,
+            188,
+            210
+          ],
+          "margin": [
+            152,
+            88,
+            310,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            516,
+            207,
+            216
+          ],
+          "margin": [
+            139,
+            84,
+            291,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1626,
+            924,
+            221,
+            202
+          ],
+          "margin": [
+            150,
+            96,
+            277,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            213,
+            516,
+            179,
+            203
+          ],
+          "margin": [
+            152,
+            97,
+            319,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1849,
+            924,
+            201,
+            187
+          ],
+          "margin": [
+            164,
+            111,
+            297,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            396,
+            516,
+            183,
+            196
+          ],
+          "margin": [
+            156,
+            104,
+            315,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2052,
+            924,
+            207,
+            187
+          ],
+          "margin": [
+            158,
+            111,
+            291,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            583,
+            516,
+            185,
+            191
+          ],
+          "margin": [
+            160,
+            109,
+            313,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2261,
+            924,
+            254,
+            178
+          ],
+          "margin": [
+            143,
+            120,
+            244,
+            128
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            772,
+            516,
+            185,
+            180
+          ],
+          "margin": [
+            165,
+            122,
+            313,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2517,
+            924,
+            231,
+            166
+          ],
+          "margin": [
+            159,
+            132,
+            267,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            961,
+            516,
+            213,
+            188
+          ],
+          "margin": [
+            154,
+            112,
+            285,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2750,
+            924,
+            274,
+            192
+          ],
+          "margin": [
+            139,
+            106,
+            224,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1178,
+            516,
+            255,
+            211
+          ],
+          "margin": [
+            145,
+            89,
+            243,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3026,
+            924,
+            134,
+            210
+          ],
+          "margin": [
+            187,
+            88,
+            364,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1437,
+            516,
+            177,
+            228
+          ],
+          "margin": [
+            160,
+            72,
+            321,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_elite_impale_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3162,
+            924,
+            160,
+            192
+          ],
+          "margin": [
+            152,
+            106,
+            338,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1618,
+            516,
+            180,
+            196
+          ],
+          "margin": [
+            142,
+            104,
+            318,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3324,
+            924,
+            167,
+            182
+          ],
+          "margin": [
+            153,
+            116,
+            331,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1802,
+            516,
+            175,
+            196
+          ],
+          "margin": [
+            142,
+            104,
+            323,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_elite_impale_travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3493,
+            924,
+            139,
+            228
+          ],
+          "margin": [
+            170,
+            70,
+            359,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            752,
+            155,
+            246
+          ],
+          "margin": [
+            162,
+            54,
+            343,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3634,
+            924,
+            147,
+            243
+          ],
+          "margin": [
+            162,
+            55,
+            351,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            161,
+            752,
+            160,
+            246
+          ],
+          "margin": [
+            156,
+            54,
+            338,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_raise_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3783,
+            924,
+            264,
+            180
+          ],
+          "margin": [
+            169,
+            118,
+            234,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            325,
+            752,
+            253,
+            190
+          ],
+          "margin": [
+            160,
+            110,
+            245,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            1169,
+            266,
+            182
+          ],
+          "margin": [
+            163,
+            116,
+            232,
+            124
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            582,
+            752,
+            246,
+            188
+          ],
+          "margin": [
+            162,
+            112,
+            252,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            268,
+            1169,
+            255,
+            177
+          ],
+          "margin": [
+            154,
+            121,
+            243,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            832,
+            752,
+            228,
+            181
+          ],
+          "margin": [
+            156,
+            119,
+            270,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            525,
+            1169,
+            255,
+            168
+          ],
+          "margin": [
+            164,
+            130,
+            243,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1064,
+            752,
+            223,
+            175
+          ],
+          "margin": [
+            160,
+            125,
+            275,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            782,
+            1169,
+            237,
+            166
+          ],
+          "margin": [
+            163,
+            132,
+            261,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1291,
+            752,
+            226,
+            172
+          ],
+          "margin": [
+            154,
+            128,
+            272,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1021,
+            1169,
+            241,
+            160
+          ],
+          "margin": [
+            155,
+            138,
+            257,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1521,
+            752,
+            220,
+            161
+          ],
+          "margin": [
+            152,
+            139,
+            278,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1264,
+            1169,
+            227,
+            144
+          ],
+          "margin": [
+            167,
+            154,
+            271,
+            162
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1745,
+            752,
+            227,
+            153
+          ],
+          "margin": [
+            155,
+            147,
+            271,
+            153
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1493,
+            1169,
+            217,
+            145
+          ],
+          "margin": [
+            163,
+            153,
+            281,
+            161
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            1006,
+            222,
+            151
+          ],
+          "margin": [
+            157,
+            149,
+            276,
+            155
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1712,
+            1169,
+            245,
+            140
+          ],
+          "margin": [
+            148,
+            158,
+            253,
+            166
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            228,
+            1006,
+            187,
+            141
+          ],
+          "margin": [
+            172,
+            158,
+            311,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1959,
+            1169,
+            230,
+            128
+          ],
+          "margin": [
+            156,
+            170,
+            268,
+            178
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            419,
+            1006,
+            183,
+            141
+          ],
+          "margin": [
+            171,
+            158,
+            315,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2191,
+            1169,
+            256,
+            140
+          ],
+          "margin": [
+            143,
+            158,
+            242,
+            166
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            606,
+            1006,
+            195,
+            149
+          ],
+          "margin": [
+            168,
+            150,
+            303,
+            157
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2449,
+            1169,
+            262,
+            143
+          ],
+          "margin": [
+            157,
+            155,
+            236,
+            163
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            805,
+            1006,
+            198,
+            149
+          ],
+          "margin": [
+            174,
+            150,
+            300,
+            157
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_raise",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2713,
+            1169,
+            266,
+            141
+          ],
+          "margin": [
+            160,
+            157,
+            232,
+            165
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1007,
+            1006,
+            221,
+            159
+          ],
+          "margin": [
+            166,
+            140,
+            277,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2981,
+            1169,
+            292,
+            161
+          ],
+          "margin": [
+            145,
+            137,
+            206,
+            145
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1232,
+            1006,
+            250,
+            175
+          ],
+          "margin": [
+            155,
+            125,
+            248,
+            131
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3275,
+            1169,
+            236,
+            172
+          ],
+          "margin": [
+            166,
+            126,
+            262,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1486,
+            1006,
+            261,
+            185
+          ],
+          "margin": [
+            151,
+            115,
+            237,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3513,
+            1169,
+            256,
+            180
+          ],
+          "margin": [
+            163,
+            118,
+            242,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1751,
+            1006,
+            268,
+            200
+          ],
+          "margin": [
+            146,
+            100,
+            230,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3771,
+            1169,
+            274,
+            201
+          ],
+          "margin": [
+            152,
+            97,
+            224,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            1214,
+            276,
+            219
+          ],
+          "margin": [
+            144,
+            81,
+            222,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            1372,
+            207,
+            217
+          ],
+          "margin": [
+            167,
+            81,
+            291,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            282,
+            1214,
+            224,
+            233
+          ],
+          "margin": [
+            161,
+            67,
+            274,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            209,
+            1372,
+            222,
+            228
+          ],
+          "margin": [
+            165,
+            70,
+            276,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            510,
+            1214,
+            220,
+            252
+          ],
+          "margin": [
+            161,
+            48,
+            278,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            433,
+            1372,
+            244,
+            254
+          ],
+          "margin": [
+            152,
+            44,
+            254,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            734,
+            1214,
+            218,
+            276
+          ],
+          "margin": [
+            154,
+            24,
+            280,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            679,
+            1372,
+            137,
+            274
+          ],
+          "margin": [
+            165,
+            24,
+            361,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            956,
+            1214,
+            155,
+            294
+          ],
+          "margin": [
+            156,
+            7,
+            343,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            818,
+            1372,
+            138,
+            290
+          ],
+          "margin": [
+            165,
+            8,
+            360,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1115,
+            1214,
+            148,
+            294
+          ],
+          "margin": [
+            162,
+            7,
+            350,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            958,
+            1372,
+            133,
+            272
+          ],
+          "margin": [
+            167,
+            26,
+            365,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1267,
+            1214,
+            150,
+            272
+          ],
+          "margin": [
+            161,
+            29,
+            348,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1093,
+            1372,
+            261,
+            248
+          ],
+          "margin": [
+            147,
+            50,
+            237,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1421,
+            1214,
+            251,
+            243
+          ],
+          "margin": [
+            147,
+            57,
+            247,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "name": "obsidian_raise_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1356,
+            1372,
+            229,
+            215
+          ],
+          "margin": [
+            164,
+            83,
+            269,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1676,
+            1214,
+            214,
+            218
+          ],
+          "margin": [
+            165,
+            82,
+            284,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1587,
+            1372,
+            220,
+            203
+          ],
+          "margin": [
+            164,
+            95,
+            278,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            1516,
+            207,
+            205
+          ],
+          "margin": [
+            168,
+            95,
+            291,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            1809,
+            1372,
+            284,
+            189
+          ],
+          "margin": [
+            146,
+            109,
+            214,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            213,
+            1516,
+            242,
+            186
+          ],
+          "margin": [
+            154,
+            114,
+            256,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2095,
+            1372,
+            244,
+            166
+          ],
+          "margin": [
+            165,
+            132,
+            254,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            459,
+            1516,
+            247,
+            177
+          ],
+          "margin": [
+            155,
+            123,
+            251,
+            129
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2341,
+            1372,
+            250,
+            171
+          ],
+          "margin": [
+            159,
+            127,
+            248,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            710,
+            1516,
+            251,
+            179
+          ],
+          "margin": [
+            152,
+            121,
+            247,
+            127
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2593,
+            1372,
+            268,
+            169
+          ],
+          "margin": [
+            152,
+            129,
+            230,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            965,
+            1516,
+            252,
+            173
+          ],
+          "margin": [
+            152,
+            127,
+            246,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            2863,
+            1372,
+            255,
+            159
+          ],
+          "margin": [
+            160,
+            139,
+            243,
+            147
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1221,
+            1516,
+            262,
+            173
+          ],
+          "margin": [
+            148,
+            127,
+            236,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3120,
+            1372,
+            266,
+            169
+          ],
+          "margin": [
+            154,
+            129,
+            232,
+            137
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1487,
+            1516,
+            249,
+            180
+          ],
+          "margin": [
+            158,
+            120,
+            249,
+            126
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3388,
+            1372,
+            256,
+            174
+          ],
+          "margin": [
+            162,
+            124,
+            242,
+            132
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            1740,
+            1516,
+            242,
+            181
+          ],
+          "margin": [
+            162,
+            119,
+            256,
+            125
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            3646,
+            1372,
+            253,
+            171
+          ],
+          "margin": [
+            169,
+            127,
+            245,
+            135
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            2,
+            1729,
+            251,
+            192
+          ],
+          "margin": [
+            163,
+            108,
+            247,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            0,
+            1664,
+            295,
+            195
+          ],
+          "margin": [
+            152,
+            103,
+            203,
+            111
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            257,
+            1729,
+            284,
+            213
+          ],
+          "margin": [
+            152,
+            87,
+            214,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            297,
+            1664,
+            135,
+            211
+          ],
+          "margin": [
+            187,
+            87,
+            363,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            545,
+            1729,
+            153,
+            227
+          ],
+          "margin": [
+            178,
+            73,
+            345,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            434,
+            1664,
+            275,
+            167
+          ],
+          "margin": [
+            142,
+            131,
+            223,
+            139
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            702,
+            1729,
+            279,
+            176
+          ],
+          "margin": [
+            134,
+            124,
+            219,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/combat_motion_v7.png",
+          "region": [
+            711,
+            1664,
+            285,
+            166
+          ],
+          "margin": [
+            138,
+            132,
+            213,
+            140
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/obsidian_spearman/motion_v8_01.png",
+          "region": [
+            985,
+            1729,
+            271,
+            176
+          ],
+          "margin": [
+            138,
+            124,
+            227,
+            130
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "obsidian_elite_impale",
+    "obsidian_elite_impale_recover",
+    "obsidian_elite_impale_windup",
+    "obsidian_raise",
+    "obsidian_raise_recover",
+    "obsidian_raise_windup",
+    "recover",
+    "windup"
+  ]
+}

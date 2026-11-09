@@ -229,6 +229,12 @@ func _check_live_playback(stage: Node2D) -> void:
         var sprite: AnimatedSprite2D = enemy.animated_sprite
         check(sprite.animation == StringName(pair[1]), "live phase selects "+pair[1])
         check(sprite.frame == 0, "live phase begins at first pose")
+        # This fixture inspects every cel at a 60 Hz process clock. Dense clips
+        # need at least two observations per cel; production command deadlines
+        # are checked independently by character_motion_v8_validation.
+        var fixture_duration := maxf(float(command[pair[0]]),float(sprite.sprite_frames.get_frame_count(sprite.animation))/30.0)
+        command[pair[0]]=fixture_duration
+        enemy._pose_sprite(pair[0],command)
         var seen := {}
         var elapsed := 0.0
         var duration := float(command[pair[0]])

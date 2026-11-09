@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; retained original poses; no temporal pixel interpolation.",
+  "kind": "echo_contract_scribe",
+  "canvas": [
+    480,
+    229
+  ],
+  "display_height": 98,
+  "visual_scale": 0.46226415094339623,
+  "visual_offset": [
+    0,
+    8.185534591194966
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            115,
+            212
+          ],
+          "margin": [
+            184,
+            9,
+            365,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            125,
+            220
+          ],
+          "margin": [
+            179,
+            3,
+            355,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            117,
+            0,
+            119,
+            210
+          ],
+          "margin": [
+            181,
+            11,
+            361,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            131,
+            2,
+            133,
+            220
+          ],
+          "margin": [
+            171,
+            3,
+            347,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            238,
+            0,
+            117,
+            213
+          ],
+          "margin": [
+            180,
+            8,
+            363,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            268,
+            2,
+            143,
+            219
+          ],
+          "margin": [
+            159,
+            4,
+            337,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            357,
+            0,
+            163,
+            207
+          ],
+          "margin": [
+            136,
+            14,
+            317,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            415,
+            2,
+            179,
+            218
+          ],
+          "margin": [
+            134,
+            5,
+            301,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            522,
+            0,
+            167,
+            199
+          ],
+          "margin": [
+            156,
+            22,
+            313,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            598,
+            2,
+            179,
+            206
+          ],
+          "margin": [
+            144,
+            17,
+            301,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            691,
+            0,
+            194,
+            197
+          ],
+          "margin": [
+            136,
+            24,
+            286,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            781,
+            2,
+            194,
+            207
+          ],
+          "margin": [
+            128,
+            16,
+            286,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            887,
+            0,
+            185,
+            199
+          ],
+          "margin": [
+            140,
+            22,
+            295,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            979,
+            2,
+            192,
+            205
+          ],
+          "margin": [
+            128,
+            18,
+            288,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1074,
+            0,
+            195,
+            193
+          ],
+          "margin": [
+            136,
+            28,
+            285,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1175,
+            2,
+            196,
+            205
+          ],
+          "margin": [
+            134,
+            18,
+            284,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1271,
+            0,
+            176,
+            199
+          ],
+          "margin": [
+            154,
+            22,
+            304,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1375,
+            2,
+            186,
+            210
+          ],
+          "margin": [
+            144,
+            13,
+            294,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1449,
+            0,
+            186,
+            203
+          ],
+          "margin": [
+            156,
+            18,
+            294,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1565,
+            2,
+            164,
+            212
+          ],
+          "margin": [
+            160,
+            11,
+            316,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1637,
+            0,
+            182,
+            202
+          ],
+          "margin": [
+            150,
+            19,
+            298,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1733,
+            2,
+            180,
+            211
+          ],
+          "margin": [
+            142,
+            12,
+            300,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1821,
+            0,
+            182,
+            201
+          ],
+          "margin": [
+            157,
+            20,
+            298,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            230,
+            190,
+            209
+          ],
+          "margin": [
+            148,
+            14,
+            290,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2005,
+            0,
+            181,
+            195
+          ],
+          "margin": [
+            146,
+            26,
+            299,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            196,
+            230,
+            186,
+            209
+          ],
+          "margin": [
+            144,
+            14,
+            294,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2188,
+            0,
+            195,
+            205
+          ],
+          "margin": [
+            139,
+            16,
+            285,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            386,
+            230,
+            194,
+            215
+          ],
+          "margin": [
+            141,
+            8,
+            286,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2385,
+            0,
+            219,
+            206
+          ],
+          "margin": [
+            139,
+            15,
+            261,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            584,
+            230,
+            201,
+            214
+          ],
+          "margin": [
+            138,
+            9,
+            279,
+            15
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2606,
+            0,
+            205,
+            203
+          ],
+          "margin": [
+            150,
+            18,
+            275,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            789,
+            230,
+            197,
+            215
+          ],
+          "margin": [
+            140,
+            8,
+            283,
+            14
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2813,
+            0,
+            223,
+            209
+          ],
+          "margin": [
+            137,
+            12,
+            257,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            990,
+            230,
+            210,
+            219
+          ],
+          "margin": [
+            132,
+            4,
+            270,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3038,
+            0,
+            206,
+            210
+          ],
+          "margin": [
+            149,
+            11,
+            274,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1204,
+            230,
+            204,
+            216
+          ],
+          "margin": [
+            141,
+            7,
+            276,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3246,
+            0,
+            187,
+            204
+          ],
+          "margin": [
+            158,
+            17,
+            293,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1412,
+            230,
+            197,
+            216
+          ],
+          "margin": [
+            146,
+            7,
+            283,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3435,
+            0,
+            210,
+            210
+          ],
+          "margin": [
+            140,
+            11,
+            270,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1613,
+            230,
+            202,
+            219
+          ],
+          "margin": [
+            141,
+            4,
+            278,
+            10
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3647,
+            0,
+            198,
+            210
+          ],
+          "margin": [
+            149,
+            11,
+            282,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1819,
+            230,
+            205,
+            217
+          ],
+          "margin": [
+            140,
+            6,
+            275,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3847,
+            0,
+            197,
+            205
+          ],
+          "margin": [
+            148,
+            16,
+            283,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            457,
+            193,
+            209
+          ],
+          "margin": [
+            146,
+            14,
+            287,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            0,
+            215,
+            188,
+            195
+          ],
+          "margin": [
+            152,
+            26,
+            292,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            199,
+            457,
+            259,
+            196
+          ],
+          "margin": [
+            130,
+            27,
+            221,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            190,
+            215,
+            350,
+            180
+          ],
+          "margin": [
+            119,
+            41,
+            130,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            462,
+            457,
+            297,
+            177
+          ],
+          "margin": [
+            129,
+            46,
+            183,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            542,
+            215,
+            343,
+            155
+          ],
+          "margin": [
+            129,
+            66,
+            137,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            763,
+            457,
+            308,
+            172
+          ],
+          "margin": [
+            131,
+            53,
+            172,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            887,
+            215,
+            338,
+            168
+          ],
+          "margin": [
+            128,
+            53,
+            142,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1075,
+            457,
+            319,
+            180
+          ],
+          "margin": [
+            129,
+            43,
+            161,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1227,
+            215,
+            304,
+            170
+          ],
+          "margin": [
+            135,
+            51,
+            176,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1398,
+            457,
+            288,
+            178
+          ],
+          "margin": [
+            138,
+            45,
+            192,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1533,
+            215,
+            285,
+            167
+          ],
+          "margin": [
+            152,
+            54,
+            195,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1690,
+            457,
+            274,
+            177
+          ],
+          "margin": [
+            142,
+            46,
+            206,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1820,
+            215,
+            290,
+            168
+          ],
+          "margin": [
+            145,
+            53,
+            190,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            674,
+            266,
+            173
+          ],
+          "margin": [
+            141,
+            50,
+            214,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2112,
+            215,
+            238,
+            160
+          ],
+          "margin": [
+            163,
+            61,
+            242,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            272,
+            674,
+            229,
+            164
+          ],
+          "margin": [
+            153,
+            59,
+            251,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2352,
+            215,
+            212,
+            150
+          ],
+          "margin": [
+            176,
+            71,
+            268,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            505,
+            674,
+            225,
+            164
+          ],
+          "margin": [
+            150,
+            59,
+            255,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2566,
+            215,
+            238,
+            161
+          ],
+          "margin": [
+            156,
+            60,
+            242,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            734,
+            674,
+            230,
+            172
+          ],
+          "margin": [
+            147,
+            51,
+            250,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2806,
+            215,
+            332,
+            165
+          ],
+          "margin": [
+            110,
+            56,
+            148,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            968,
+            674,
+            232,
+            171
+          ],
+          "margin": [
+            141,
+            52,
+            248,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3140,
+            215,
+            304,
+            160
+          ],
+          "margin": [
+            119,
+            61,
+            176,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1204,
+            674,
+            229,
+            177
+          ],
+          "margin": [
+            140,
+            46,
+            251,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3446,
+            215,
+            352,
+            177
+          ],
+          "margin": [
+            93,
+            44,
+            128,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1437,
+            674,
+            218,
+            190
+          ],
+          "margin": [
+            146,
+            33,
+            262,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3800,
+            215,
+            215,
+            185
+          ],
+          "margin": [
+            135,
+            36,
+            265,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1659,
+            674,
+            209,
+            197
+          ],
+          "margin": [
+            151,
+            26,
+            271,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            0,
+            412,
+            211,
+            189
+          ],
+          "margin": [
+            139,
+            32,
+            269,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            879,
+            206,
+            202
+          ],
+          "margin": [
+            148,
+            21,
+            274,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            213,
+            412,
+            224,
+            195
+          ],
+          "margin": [
+            130,
+            26,
+            256,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            212,
+            879,
+            219,
+            205
+          ],
+          "margin": [
+            137,
+            18,
+            261,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            439,
+            412,
+            261,
+            195
+          ],
+          "margin": [
+            130,
+            26,
+            219,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            435,
+            879,
+            238,
+            202
+          ],
+          "margin": [
+            136,
+            21,
+            242,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            702,
+            412,
+            254,
+            188
+          ],
+          "margin": [
+            137,
+            33,
+            226,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            677,
+            879,
+            232,
+            201
+          ],
+          "margin": [
+            136,
+            22,
+            248,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            958,
+            412,
+            259,
+            194
+          ],
+          "margin": [
+            137,
+            27,
+            221,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            913,
+            879,
+            216,
+            203
+          ],
+          "margin": [
+            144,
+            20,
+            264,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1219,
+            412,
+            239,
+            193
+          ],
+          "margin": [
+            138,
+            28,
+            241,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1133,
+            879,
+            200,
+            197
+          ],
+          "margin": [
+            152,
+            26,
+            280,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1460,
+            412,
+            217,
+            184
+          ],
+          "margin": [
+            154,
+            37,
+            263,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1337,
+            879,
+            205,
+            198
+          ],
+          "margin": [
+            147,
+            25,
+            275,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1679,
+            412,
+            236,
+            194
+          ],
+          "margin": [
+            138,
+            27,
+            244,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1546,
+            879,
+            185,
+            203
+          ],
+          "margin": [
+            154,
+            20,
+            295,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1917,
+            412,
+            159,
+            194
+          ],
+          "margin": [
+            160,
+            27,
+            321,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1735,
+            879,
+            163,
+            202
+          ],
+          "margin": [
+            165,
+            21,
+            317,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2078,
+            412,
+            143,
+            191
+          ],
+          "margin": [
+            170,
+            30,
+            337,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            1092,
+            149,
+            207
+          ],
+          "margin": [
+            173,
+            16,
+            331,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2223,
+            412,
+            159,
+            205
+          ],
+          "margin": [
+            158,
+            16,
+            321,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            155,
+            1092,
+            140,
+            218
+          ],
+          "margin": [
+            177,
+            5,
+            340,
+            11
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2384,
+            412,
+            126,
+            211
+          ],
+          "margin": [
+            179,
+            10,
+            354,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            299,
+            1092,
+            122,
+            221
+          ],
+          "margin": [
+            186,
+            2,
+            358,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2512,
+            412,
+            186,
+            172
+          ],
+          "margin": [
+            143,
+            49,
+            294,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            425,
+            1092,
+            177,
+            177
+          ],
+          "margin": [
+            154,
+            47,
+            303,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2700,
+            412,
+            216,
+            166
+          ],
+          "margin": [
+            165,
+            55,
+            264,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            606,
+            1092,
+            188,
+            166
+          ],
+          "margin": [
+            166,
+            58,
+            292,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2918,
+            412,
+            203,
+            150
+          ],
+          "margin": [
+            152,
+            71,
+            277,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            798,
+            1092,
+            193,
+            150
+          ],
+          "margin": [
+            148,
+            73,
+            287,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3123,
+            412,
+            229,
+            133
+          ],
+          "margin": [
+            134,
+            88,
+            251,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            995,
+            1092,
+            289,
+            184
+          ],
+          "margin": [
+            104,
+            39,
+            191,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3354,
+            412,
+            238,
+            124
+          ],
+          "margin": [
+            120,
+            97,
+            242,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1288,
+            1092,
+            243,
+            132
+          ],
+          "margin": [
+            118,
+            91,
+            237,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3594,
+            412,
+            241,
+            121
+          ],
+          "margin": [
+            121,
+            100,
+            239,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1535,
+            1092,
+            224,
+            111
+          ],
+          "margin": [
+            136,
+            112,
+            256,
+            118
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3837,
+            412,
+            244,
+            85
+          ],
+          "margin": [
+            121,
+            136,
+            236,
+            144
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1763,
+            1092,
+            215,
+            88
+          ],
+          "margin": [
+            132,
+            135,
+            265,
+            141
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            0,
+            625,
+            236,
+            75
+          ],
+          "margin": [
+            121,
+            146,
+            244,
+            154
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            1321,
+            226,
+            84
+          ],
+          "margin": [
+            124,
+            139,
+            254,
+            145
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            238,
+            625,
+            214,
+            208
+          ],
+          "margin": [
+            139,
+            13,
+            266,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            232,
+            1321,
+            206,
+            203
+          ],
+          "margin": [
+            146,
+            20,
+            274,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            454,
+            625,
+            198,
+            177
+          ],
+          "margin": [
+            144,
+            44,
+            282,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            442,
+            1321,
+            212,
+            202
+          ],
+          "margin": [
+            136,
+            21,
+            268,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "echo_scribe_seals_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            654,
+            625,
+            170,
+            213
+          ],
+          "margin": [
+            150,
+            8,
+            310,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            658,
+            1321,
+            183,
+            222
+          ],
+          "margin": [
+            140,
+            1,
+            297,
+            7
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            826,
+            625,
+            160,
+            211
+          ],
+          "margin": [
+            154,
+            10,
+            320,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            845,
+            1321,
+            137,
+            216
+          ],
+          "margin": [
+            172,
+            7,
+            343,
+            13
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            988,
+            625,
+            203,
+            203
+          ],
+          "margin": [
+            140,
+            18,
+            277,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            986,
+            1321,
+            176,
+            204
+          ],
+          "margin": [
+            152,
+            19,
+            304,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1193,
+            625,
+            189,
+            187
+          ],
+          "margin": [
+            154,
+            34,
+            291,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1166,
+            1321,
+            185,
+            196
+          ],
+          "margin": [
+            152,
+            27,
+            295,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1384,
+            625,
+            196,
+            188
+          ],
+          "margin": [
+            145,
+            33,
+            284,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1355,
+            1321,
+            163,
+            194
+          ],
+          "margin": [
+            158,
+            30,
+            317,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1582,
+            625,
+            199,
+            183
+          ],
+          "margin": [
+            142,
+            38,
+            281,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1522,
+            1321,
+            162,
+            184
+          ],
+          "margin": [
+            162,
+            39,
+            318,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1783,
+            625,
+            188,
+            169
+          ],
+          "margin": [
+            154,
+            52,
+            292,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1688,
+            1321,
+            165,
+            187
+          ],
+          "margin": [
+            162,
+            35,
+            315,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1973,
+            625,
+            211,
+            190
+          ],
+          "margin": [
+            137,
+            31,
+            269,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1857,
+            1321,
+            183,
+            204
+          ],
+          "margin": [
+            154,
+            19,
+            297,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2186,
+            625,
+            172,
+            201
+          ],
+          "margin": [
+            160,
+            20,
+            308,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            1551,
+            191,
+            213
+          ],
+          "margin": [
+            154,
+            10,
+            289,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2360,
+            625,
+            177,
+            207
+          ],
+          "margin": [
+            157,
+            14,
+            303,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            197,
+            1551,
+            185,
+            209
+          ],
+          "margin": [
+            155,
+            14,
+            295,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2539,
+            625,
+            167,
+            193
+          ],
+          "margin": [
+            165,
+            28,
+            313,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            386,
+            1551,
+            190,
+            193
+          ],
+          "margin": [
+            152,
+            30,
+            290,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2708,
+            625,
+            255,
+            174
+          ],
+          "margin": [
+            125,
+            47,
+            225,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            580,
+            1551,
+            221,
+            168
+          ],
+          "margin": [
+            137,
+            55,
+            259,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "echo_scribe_seals",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2965,
+            625,
+            228,
+            146
+          ],
+          "margin": [
+            138,
+            75,
+            252,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            805,
+            1551,
+            232,
+            156
+          ],
+          "margin": [
+            134,
+            67,
+            248,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3195,
+            625,
+            227,
+            147
+          ],
+          "margin": [
+            141,
+            74,
+            253,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1041,
+            1551,
+            241,
+            154
+          ],
+          "margin": [
+            131,
+            69,
+            239,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3424,
+            625,
+            248,
+            142
+          ],
+          "margin": [
+            135,
+            79,
+            232,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1286,
+            1551,
+            234,
+            144
+          ],
+          "margin": [
+            138,
+            79,
+            246,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3674,
+            625,
+            212,
+            128
+          ],
+          "margin": [
+            150,
+            93,
+            268,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1524,
+            1551,
+            218,
+            135
+          ],
+          "margin": [
+            146,
+            88,
+            262,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            0,
+            840,
+            219,
+            125
+          ],
+          "margin": [
+            149,
+            96,
+            261,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1746,
+            1551,
+            215,
+            129
+          ],
+          "margin": [
+            148,
+            94,
+            265,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            221,
+            840,
+            279,
+            117
+          ],
+          "margin": [
+            142,
+            104,
+            201,
+            112
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            2,
+            1772,
+            205,
+            116
+          ],
+          "margin": [
+            160,
+            106,
+            275,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            502,
+            840,
+            230,
+            99
+          ],
+          "margin": [
+            163,
+            122,
+            250,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            211,
+            1772,
+            210,
+            112
+          ],
+          "margin": [
+            160,
+            112,
+            270,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            734,
+            840,
+            242,
+            110
+          ],
+          "margin": [
+            158,
+            111,
+            238,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            425,
+            1772,
+            209,
+            120
+          ],
+          "margin": [
+            156,
+            103,
+            271,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            978,
+            840,
+            194,
+            113
+          ],
+          "margin": [
+            161,
+            108,
+            286,
+            116
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            638,
+            1772,
+            195,
+            119
+          ],
+          "margin": [
+            156,
+            105,
+            285,
+            110
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1174,
+            840,
+            192,
+            110
+          ],
+          "margin": [
+            159,
+            111,
+            288,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            837,
+            1772,
+            198,
+            128
+          ],
+          "margin": [
+            151,
+            96,
+            282,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1368,
+            840,
+            216,
+            130
+          ],
+          "margin": [
+            149,
+            91,
+            264,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1039,
+            1772,
+            227,
+            145
+          ],
+          "margin": [
+            138,
+            78,
+            253,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1586,
+            840,
+            174,
+            141
+          ],
+          "margin": [
+            156,
+            80,
+            306,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1270,
+            1772,
+            215,
+            153
+          ],
+          "margin": [
+            134,
+            70,
+            265,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "echo_scribe_seals_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1762,
+            840,
+            193,
+            147
+          ],
+          "margin": [
+            145,
+            74,
+            287,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1489,
+            1772,
+            210,
+            163
+          ],
+          "margin": [
+            136,
+            60,
+            270,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            1957,
+            840,
+            200,
+            161
+          ],
+          "margin": [
+            141,
+            60,
+            280,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_00.png",
+          "region": [
+            1703,
+            1772,
+            202,
+            173
+          ],
+          "margin": [
+            138,
+            50,
+            278,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2159,
+            840,
+            181,
+            168
+          ],
+          "margin": [
+            153,
+            53,
+            299,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            198,
+            177
+          ],
+          "margin": [
+            138,
+            46,
+            282,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2342,
+            840,
+            177,
+            169
+          ],
+          "margin": [
+            154,
+            52,
+            303,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            204,
+            2,
+            193,
+            181
+          ],
+          "margin": [
+            140,
+            42,
+            287,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2521,
+            840,
+            187,
+            176
+          ],
+          "margin": [
+            149,
+            45,
+            293,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            401,
+            2,
+            184,
+            185
+          ],
+          "margin": [
+            144,
+            38,
+            296,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2710,
+            840,
+            159,
+            178
+          ],
+          "margin": [
+            156,
+            43,
+            321,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            589,
+            2,
+            170,
+            183
+          ],
+          "margin": [
+            153,
+            40,
+            310,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            2871,
+            840,
+            153,
+            172
+          ],
+          "margin": [
+            159,
+            49,
+            327,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            763,
+            2,
+            156,
+            182
+          ],
+          "margin": [
+            160,
+            42,
+            324,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3026,
+            840,
+            152,
+            177
+          ],
+          "margin": [
+            160,
+            44,
+            328,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            923,
+            2,
+            145,
+            184
+          ],
+          "margin": [
+            166,
+            40,
+            335,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3180,
+            840,
+            149,
+            175
+          ],
+          "margin": [
+            161,
+            46,
+            331,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            1072,
+            2,
+            131,
+            178
+          ],
+          "margin": [
+            173,
+            44,
+            349,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3331,
+            840,
+            150,
+            166
+          ],
+          "margin": [
+            158,
+            55,
+            330,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            1207,
+            2,
+            127,
+            185
+          ],
+          "margin": [
+            174,
+            39,
+            353,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3483,
+            840,
+            156,
+            189
+          ],
+          "margin": [
+            158,
+            32,
+            324,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            1338,
+            2,
+            132,
+            205
+          ],
+          "margin": [
+            172,
+            18,
+            348,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/combat_motion_v7.png",
+          "region": [
+            3641,
+            840,
+            114,
+            203
+          ],
+          "margin": [
+            182,
+            18,
+            366,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/echo_contract_scribe/motion_v8_01.png",
+          "region": [
+            1474,
+            2,
+            122,
+            217
+          ],
+          "margin": [
+            180,
+            6,
+            358,
+            12
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "echo_scribe_seals",
+    "echo_scribe_seals_recover",
+    "echo_scribe_seals_windup",
+    "recover",
+    "windup"
+  ]
+}
