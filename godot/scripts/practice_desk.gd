@@ -131,7 +131,7 @@ func _skill(_id: String) -> void:
 
 func _accept(action: String) -> void:
     if not curriculum.accept(action,Engine.get_physics_frames()):return
-    if curriculum.active.is_empty():ui.level._toast("课程完成。记录已保存，可在训练课程查看。" if curriculum.pending.is_empty() else "课程完成，记录未写入；请打开训练课程重试保存。")
+    if curriculum.active.is_empty():ui.level._toast("课程完成" if curriculum.pending.is_empty() else "课程完成，记录未写入；请打开训练课程重试保存。")
 
 func _process(delta: float) -> void:
     if not is_instance_valid(ui) or not ui.construction_complete:return
