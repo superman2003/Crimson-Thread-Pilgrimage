@@ -81,6 +81,7 @@ func _check_phase_pacing(stage: Node2D) -> void:
     var combat: Dictionary = ART.manifest("res://data/original_creature_combat.json")
     var commands := 0
     var held_charges := 0
+    var authored_phases := 0
     for design: Dictionary in designs.designs:
         var enemy = ENEMY.new()
         var kind := String(design.kind)
@@ -101,10 +102,15 @@ func _check_phase_pacing(stage: Node2D) -> void:
                 var rate := frames.get_animation_speed(sprite.animation) * sprite.speed_scale
                 var segment: float = float(command[phase]) - enemy.pose_loop_at if not enemy.pose_loop_animation.is_empty() else float(command[phase])
                 var seconds := 0.0
+                # #570's authored combat sequences keep their drawn, evenly
+                # spaced timing; the pose holds apply to the other phase art.
+                var authored: bool = String(sprite.animation).trim_suffix("_left").trim_suffix("_right") in enemy.authored_combat_sequences
+                if authored and phase != "active":
+                    authored_phases += 1
                 for index in count:
                     var cel_seconds := frames.get_frame_duration(sprite.animation, index) / rate
                     seconds += cel_seconds
-                    if (phase == "windup" and index < count - 1) or (phase == "recover" and index > 0):
+                    if not authored and ((phase == "windup" and index < count - 1) or (phase == "recover" and index > 0)):
                         check(cel_seconds <= 1.0 / 12.0 + .00001, kind + "/" + String(command.id) + " moving cel is at least 12fps")
                 check(absf(seconds - segment) < .0001, kind + "/" + String(command.id) + "/" + phase + " retains the exact phase duration")
                 check(enemy.global_position == point and is_equal_approx(enemy.state_timer, float(command[phase])), kind + " presentation leaves position and combat deadline unchanged")
@@ -125,22 +131,26 @@ func _check_phase_pacing(stage: Node2D) -> void:
         stage.add_child(enemy)
         enemy.set_physics_process(false)
     var shared: SpriteFrames = b.animated_sprite.sprite_frames
+    # Every shipped phase is authored now; exercise the hold timing on art
+    # that is not, as a manifest without authored sequences would be.
+    a.authored_combat_sequences = []
     a._pose_sprite("recover", {"id":"generic", "recover":1.4})
     check(a.animated_sprite.sprite_frames != shared and b.animated_sprite.sprite_frames == shared, "phase timing is owned by each actor")
     check(a.animated_sprite.sprite_frames.get_frame_duration("recover", 0) > 1.0, "slow recovery holds its first cel")
     for index in shared.get_frame_count("recover"):
         check(is_equal_approx(shared.get_frame_duration("recover", index), 1.0), "actor A never changes actor B or the shared art cache")
+    # Ground walking cadence is owned by _sync_walk_cadence (main, #570).
     a.state = "patrol"
     a._pose_sprite("walk")
     var point: Vector2 = a.global_position
-    a._update_animation_motion(.1, point - Vector2(a.speed * .05, 0), "patrol")
-    check(is_equal_approx(a.animated_sprite.speed_scale, .6), "slow walking clamps cadence to .6")
-    a._update_animation_motion(.1, point - Vector2(a.speed * .2, 0), "patrol")
-    check(is_equal_approx(a.animated_sprite.speed_scale, 1.4), "fast walking clamps cadence to 1.4")
-    a._update_animation_motion(.1, point, "patrol")
-    check(not a.animated_sprite.is_playing(), "blocked walking pauses its feet")
-    a._update_animation_motion(.1, point - Vector2(a.speed * .1, 0), "patrol")
-    check(a.animated_sprite.is_playing() and is_equal_approx(a.animated_sprite.speed_scale, 1.0), "walking resumes at its actual travel cadence")
+    a._sync_walk_cadence(.1, point - Vector2(a.speed * .01, 0))
+    check(is_equal_approx(a.animated_sprite.speed_scale, .28), "slow walking clamps cadence to .28")
+    a._sync_walk_cadence(.1, point - Vector2(a.speed * .2, 0))
+    check(is_equal_approx(a.animated_sprite.speed_scale, 1.5), "fast walking clamps cadence to 1.5")
+    a._sync_walk_cadence(.1, point - Vector2(a.speed * .1, 0))
+    check(a.animated_sprite.is_playing() and is_equal_approx(a.animated_sprite.speed_scale, 1.0), "walking follows its actual travel cadence")
+    a._sync_walk_cadence(.1, point)
+    check(String(a.animated_sprite.animation).begins_with("idle"), "blocked walking settles to idle")
     a.state = "recover"
     a.active_attack = {"type":"lunge"}
     a._update_animation_motion(.025, point, "active")
@@ -153,7 +163,7 @@ func _check_phase_pacing(stage: Node2D) -> void:
     check(a.pose_feedback_time == 0 and a.sprite.scale == a.sprite_base_scale, "interrupt clears impact feedback")
     a.queue_free()
     b.queue_free()
-    check(commands == 114 and held_charges > 0, "all 114 creature commands have actual runtime timing coverage")
+    check(commands == 114 and authored_phases == 228, "all 114 creature commands have actual runtime timing coverage (authored windup/recover %d, held charges %d)" % [authored_phases, held_charges])
     print("ENEMY_PHASE_PACING commands=%d held_charges=%d" % [commands, held_charges])
 func _check_v6_registration() -> void:
     var bosses := ["rust_crown_guardian", "sunken_hammer_smith", "saltwhite_contract_judge", "broken_string_gardener", "silent_pilgrim_commander", "silent_crown_core"]
