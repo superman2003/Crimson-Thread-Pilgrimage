@@ -1,0 +1,2766 @@
+{
+  "kind": "corridor_heavy",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create transparent 2D game animation sprite sheet of SAME referenced corridor heavy: massive hunched gray beetle with layered mossy stone armor, ivory mask, ragged purple cape and cracked mossy brass bell hammer. Same dark ink hand-painted finish. STRICT 4 columns × 8 rows = 32 COMPLETE isolated full-body poses on portrait canvas. VERY SMALL sprites with LARGE EMPTY TRANSPARENT gutters, all hammers and antennae must fit inside each cell; keep hammer compact near body, no horizontally extended weapon outside cell. Facing RIGHT, equal body size and anchor. Row1 4 idle breathing poses. Row2 4 walk first-half poses. Row3 4 walk second-half poses. Row4 4 windup lifting hammer overhead. Row5 4 downward hammer slam strike/followthrough poses, compact vertical motion. Row6 4 recovery lifting hammer back to rest. Row7 4 hurt stagger/recoil poses. Row8 4 death collapse poses ending prone. Every pose genuine different joints and hammer angle; no duplicates. Exactly 4 figures each row, exactly 8 rows. Actual alpha transparency, no background, grid, text, labels, shadows or frame borders.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-713881a9-b36b-42b2-9c4f-f017109cde7e.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, all 32 complete pose silhouettes reviewed",
+    "identity": "Mossy stone armored beetle with cracked bell hammer retained",
+    "motion": "Different articulated walking legs, overhead hammer windup, compact slam, hurt and collapse",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "walk",
+        [
+          560,
+          403,
+          773,
+          578
+        ],
+        23,
+        true
+      ],
+      [
+        "windup",
+        [
+          575,
+          577,
+          740,
+          794
+        ],
+        63,
+        true
+      ]
+    ],
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "validation": "tools/build_expanded_character_motion.py --character corridor_heavy passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          211,
+          182
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          213,
+          0,
+          191,
+          181
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          406,
+          0,
+          205,
+          177
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          613,
+          0,
+          203,
+          182
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          818,
+          0,
+          209,
+          174
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1029,
+          0,
+          219,
+          175
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1250,
+          0,
+          230,
+          173
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1482,
+          0,
+          203,
+          170
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1687,
+          0,
+          227,
+          173
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1916,
+          0,
+          223,
+          173
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2141,
+          0,
+          217,
+          179
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2360,
+          0,
+          205,
+          173
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2567,
+          0,
+          162,
+          214
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          51,
+          62,
+          146,
+          184
+        ],
+        "component_seeds": [
+          [
+            123,
+            156
+          ]
+        ],
+        "scale": 1.183712,
+        "anchor_x": 59.2128,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          312,
+          60,
+          145,
+          187
+        ],
+        "component_seeds": [
+          [
+            365,
+            158
+          ]
+        ],
+        "scale": 1.132216,
+        "anchor_x": 64.523026,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2731,
+          0,
+          160,
+          197
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          566,
+          58,
+          148,
+          189
+        ],
+        "component_seeds": [
+          [
+            660,
+            158
+          ]
+        ],
+        "scale": 1.132597,
+        "anchor_x": 67.702439,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          822,
+          42,
+          143,
+          205
+        ],
+        "component_seeds": [
+          [
+            910,
+            151
+          ]
+        ],
+        "scale": 1.081218,
+        "anchor_x": 57.225352,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2893,
+          0,
+          169,
+          221
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1078,
+          42,
+          144,
+          205
+        ],
+        "component_seeds": [
+          [
+            1160,
+            152
+          ]
+        ],
+        "scale": 1.115059,
+        "anchor_x": 62.092564,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1333,
+          37,
+          148,
+          210
+        ],
+        "component_seeds": [
+          [
+            1440,
+            150
+          ]
+        ],
+        "scale": 1.080858,
+        "anchor_x": 81.317557,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3064,
+          0,
+          158,
+          217
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          50,
+          293,
+          152,
+          210
+        ],
+        "component_seeds": [
+          [
+            114,
+            406
+          ]
+        ],
+        "scale": 1.0,
+        "anchor_x": 76.666667,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          288,
+          338,
+          194,
+          164
+        ],
+        "component_seeds": [
+          [
+            399,
+            430
+          ]
+        ],
+        "scale": 1.198718,
+        "anchor_x": 77.59893,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3224,
+          0,
+          216,
+          172
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          543,
+          343,
+          197,
+          159
+        ],
+        "component_seeds": [
+          [
+            628,
+            431
+          ]
+        ],
+        "scale": 1.13245,
+        "anchor_x": 69.395712,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          793,
+          351,
+          208,
+          151
+        ],
+        "component_seeds": [
+          [
+            902,
+            436
+          ]
+        ],
+        "scale": 1.188811,
+        "anchor_x": 72.933333,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3442,
+          0,
+          229,
+          169
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1047,
+          353,
+          209,
+          150
+        ],
+        "component_seeds": [
+          [
+            1160,
+            435
+          ]
+        ],
+        "scale": 1.192488,
+        "anchor_x": 78.066929,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1313,
+          349,
+          191,
+          155
+        ],
+        "component_seeds": [
+          [
+            1440,
+            437
+          ]
+        ],
+        "scale": 1.154195,
+        "anchor_x": 72.137525,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3673,
+          0,
+          216,
+          170
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          34,
+          605,
+          191,
+          155
+        ],
+        "component_seeds": [
+          [
+            141,
+            693
+          ]
+        ],
+        "scale": 1.117914,
+        "anchor_x": 77.738337,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          288,
+          616,
+          191,
+          144
+        ],
+        "component_seeds": [
+          [
+            339,
+            700
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 86.142857,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          223,
+          210,
+          153
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          547,
+          615,
+          191,
+          144
+        ],
+        "component_seeds": [
+          [
+            578,
+            699
+          ]
+        ],
+        "scale": 1.181373,
+        "anchor_x": 85.871369,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          801,
+          601,
+          190,
+          158
+        ],
+        "component_seeds": [
+          [
+            922,
+            689
+          ]
+        ],
+        "scale": 1.122222,
+        "anchor_x": 74.168317,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          212,
+          223,
+          213,
+          176
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1056,
+          599,
+          189,
+          161
+        ],
+        "component_seeds": [
+          [
+            1205,
+            689
+          ]
+        ],
+        "scale": 1.137255,
+        "anchor_x": 69.689655,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1315,
+          603,
+          188,
+          157
+        ],
+        "component_seeds": [
+          [
+            1389,
+            692
+          ]
+        ],
+        "scale": 1.154362,
+        "anchor_x": 66.872093,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          427,
+          223,
+          214,
+          170
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          34,
+          861,
+          190,
+          154
+        ],
+        "component_seeds": [
+          [
+            77,
+            948
+          ]
+        ],
+        "scale": 1.16895,
+        "anchor_x": 69.734375,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          288,
+          859,
+          187,
+          156
+        ],
+        "component_seeds": [
+          [
+            439,
+            946
+          ]
+        ],
+        "scale": 1.157658,
+        "anchor_x": 73.361868,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          643,
+          223,
+          215,
+          172
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          544,
+          859,
+          186,
+          156
+        ],
+        "component_seeds": [
+          [
+            662,
+            946
+          ]
+        ],
+        "scale": 1.186937,
+        "anchor_x": 75.506641,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          797,
+          852,
+          185,
+          163
+        ],
+        "component_seeds": [
+          [
+            844,
+            942
+          ]
+        ],
+        "scale": 1.156989,
+        "anchor_x": 86.695167,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          860,
+          223,
+          202,
+          183
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1058,
+          852,
+          181,
+          163
+        ],
+        "component_seeds": [
+          [
+            1187,
+            940
+          ]
+        ],
+        "scale": 1.178495,
+        "anchor_x": 82.322993,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "region": [
+          1314,
+          850,
+          181,
+          165
+        ],
+        "component_seeds": [
+          [
+            1363,
+            941
+          ]
+        ],
+        "scale": 1.161359,
+        "anchor_x": 73.537477,
+        "grade": {
+          "saturation": 0.9882,
+          "rgb": [
+            0.8721,
+            0.8881,
+            0.8793
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1064,
+          223,
+          203,
+          161
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1269,
+          223,
+          164,
+          163
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1435,
+          223,
+          187,
+          159
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1624,
+          223,
+          207,
+          158
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1833,
+          223,
+          232,
+          154
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2067,
+          223,
+          234,
+          131
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2303,
+          223,
+          243,
+          114
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2548,
+          223,
+          236,
+          98
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_elite_quake_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2786,
+          223,
+          239,
+          171
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          24,
+          96,
+          202,
+          150
+        ],
+        "component_seeds": [
+          [
+            194,
+            179
+          ]
+        ],
+        "scale": 1.260563,
+        "anchor_x": 90.620112,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          298,
+          76,
+          159,
+          170
+        ],
+        "component_seeds": [
+          [
+            403,
+            164
+          ]
+        ],
+        "scale": 1.154321,
+        "anchor_x": 69.40107,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3027,
+          223,
+          184,
+          195
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          559,
+          73,
+          154,
+          174
+        ],
+        "component_seeds": [
+          [
+            690,
+            159
+          ]
+        ],
+        "scale": 1.232932,
+        "anchor_x": 65.566775,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          819,
+          48,
+          152,
+          199
+        ],
+        "component_seeds": [
+          [
+            882,
+            141
+          ]
+        ],
+        "scale": 1.122164,
+        "anchor_x": 64.326594,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3213,
+          223,
+          176,
+          224
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1077,
+          45,
+          149,
+          202
+        ],
+        "component_seeds": [
+          [
+            1121,
+            141
+          ]
+        ],
+        "scale": 1.247423,
+        "anchor_x": 64.060606,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1342,
+          19,
+          140,
+          228
+        ],
+        "component_seeds": [
+          [
+            1378,
+            129
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 65.333333,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3391,
+          223,
+          190,
+          278
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          59,
+          275,
+          140,
+          228
+        ],
+        "component_seeds": [
+          [
+            136,
+            384
+          ]
+        ],
+        "scale": 1.083333,
+        "anchor_x": 68.692308,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          277,
+          354,
+          205,
+          148
+        ],
+        "component_seeds": [
+          [
+            348,
+            436
+          ]
+        ],
+        "scale": 1.419048,
+        "anchor_x": 95.946309,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      }
+    ],
+    "heavy_elite_quake": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3583,
+          223,
+          243,
+          159
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          534,
+          358,
+          207,
+          144
+        ],
+        "component_seeds": [
+          [
+            694,
+            438
+          ]
+        ],
+        "scale": 1.183824,
+        "anchor_x": 94.902692,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          794,
+          358,
+          199,
+          144
+        ],
+        "component_seeds": [
+          [
+            909,
+            439
+          ]
+        ],
+        "scale": 1.198529,
+        "anchor_x": 88.218814,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3828,
+          223,
+          227,
+          165
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1050,
+          359,
+          199,
+          143
+        ],
+        "component_seeds": [
+          [
+            1145,
+            441
+          ]
+        ],
+        "scale": 1.355556,
+        "anchor_x": 87.540984,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1330,
+          306,
+          160,
+          196
+        ],
+        "component_seeds": [
+          [
+            1446,
+            407
+          ]
+        ],
+        "scale": 1.069149,
+        "anchor_x": 72.570481,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          503,
+          187,
+          219
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          46,
+          556,
+          164,
+          202
+        ],
+        "component_seeds": [
+          [
+            83,
+            662
+          ]
+        ],
+        "scale": 1.024055,
+        "anchor_x": 76.09396,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          283,
+          613,
+          200,
+          144
+        ],
+        "component_seeds": [
+          [
+            374,
+            690
+          ]
+        ],
+        "scale": 1.311275,
+        "anchor_x": 91.949533,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          189,
+          503,
+          221,
+          158
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          540,
+          616,
+          202,
+          142
+        ],
+        "component_seeds": [
+          [
+            565,
+            694
+          ]
+        ],
+        "scale": 1.191542,
+        "anchor_x": 93.643006,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          789,
+          615,
+          217,
+          142
+        ],
+        "component_seeds": [
+          [
+            927,
+            691
+          ]
+        ],
+        "scale": 1.20398,
+        "anchor_x": 103.677686,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      }
+    ],
+    "heavy_elite_quake_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          412,
+          503,
+          243,
+          163
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1046,
+          616,
+          214,
+          142
+        ],
+        "component_seeds": [
+          [
+            1139,
+            694
+          ]
+        ],
+        "scale": 1.248756,
+        "anchor_x": 102.796813,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1313,
+          601,
+          180,
+          157
+        ],
+        "component_seeds": [
+          [
+            1378,
+            686
+          ]
+        ],
+        "scale": 1.152125,
+        "anchor_x": 98.528155,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          657,
+          503,
+          210,
+          176
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          33,
+          857,
+          182,
+          157
+        ],
+        "component_seeds": [
+          [
+            60,
+            942
+          ]
+        ],
+        "scale": 1.165548,
+        "anchor_x": 97.568138,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          284,
+          864,
+          200,
+          149
+        ],
+        "component_seeds": [
+          [
+            309,
+            948
+          ]
+        ],
+        "scale": 1.21513,
+        "anchor_x": 86.708171,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          869,
+          503,
+          228,
+          169
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          540,
+          864,
+          201,
+          149
+        ],
+        "component_seeds": [
+          [
+            626,
+            948
+          ]
+        ],
+        "scale": 1.189125,
+        "anchor_x": 88.916501,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          804,
+          867,
+          181,
+          146
+        ],
+        "component_seeds": [
+          [
+            924,
+            948
+          ]
+        ],
+        "scale": 1.205314,
+        "anchor_x": 80.234469,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1099,
+          503,
+          198,
+          165
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1062,
+          860,
+          180,
+          153
+        ],
+        "component_seeds": [
+          [
+            1163,
+            947
+          ]
+        ],
+        "scale": 1.177011,
+        "anchor_x": 77.619141,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "region": [
+          1316,
+          846,
+          184,
+          168
+        ],
+        "component_seeds": [
+          [
+            1415,
+            938
+          ]
+        ],
+        "scale": 1.102083,
+        "anchor_x": 72.228733,
+        "grade": {
+          "saturation": 1.0665,
+          "rgb": [
+            0.8577,
+            0.8823,
+            0.8678
+          ]
+        }
+      }
+    ],
+    "heavy_elite_quake_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1299,
+          503,
+          175,
+          194
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1476,
+          503,
+          172,
+          206
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1650,
+          503,
+          216,
+          159
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1868,
+          503,
+          204,
+          173
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2074,
+          503,
+          156,
+          162
+        ],
+        "anchor_x": 58.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2232,
+          503,
+          157,
+          157
+        ],
+        "anchor_x": 55.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_stamp_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2391,
+          503,
+          196,
+          142
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          43,
+          117,
+          170,
+          126
+        ],
+        "component_seeds": [
+          [
+            185,
+            191
+          ]
+        ],
+        "scale": 1.310734,
+        "anchor_x": 71.219828,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          318,
+          89,
+          133,
+          155
+        ],
+        "component_seeds": [
+          [
+            386,
+            167
+          ]
+        ],
+        "scale": 1.138322,
+        "anchor_x": 60.657371,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2589,
+          503,
+          151,
+          180
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          575,
+          87,
+          134,
+          157
+        ],
+        "component_seeds": [
+          [
+            614,
+            165
+          ]
+        ],
+        "scale": 1.295302,
+        "anchor_x": 61.683938,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          827,
+          53,
+          135,
+          192
+        ],
+        "component_seeds": [
+          [
+            918,
+            152
+          ]
+        ],
+        "scale": 1.119565,
+        "anchor_x": 64.320388,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2742,
+          503,
+          153,
+          219
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1082,
+          44,
+          136,
+          201
+        ],
+        "component_seeds": [
+          [
+            1152,
+            151
+          ]
+        ],
+        "scale": 1.145078,
+        "anchor_x": 66.088989,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1341,
+          29,
+          136,
+          216
+        ],
+        "component_seeds": [
+          [
+            1450,
+            146
+          ]
+        ],
+        "scale": 1.072115,
+        "anchor_x": 66.57997,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2897,
+          503,
+          161,
+          225
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          56,
+          287,
+          140,
+          214
+        ],
+        "component_seeds": [
+          [
+            126,
+            402
+          ]
+        ],
+        "scale": 1.113269,
+        "anchor_x": 69.706395,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          317,
+          279,
+          135,
+          221
+        ],
+        "component_seeds": [
+          [
+            375,
+            398
+          ]
+        ],
+        "scale": 1.097027,
+        "anchor_x": 63.961484,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      }
+    ],
+    "heavy_stamp": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3060,
+          503,
+          152,
+          238
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          574,
+          282,
+          134,
+          218
+        ],
+        "component_seeds": [
+          [
+            650,
+            401
+          ]
+        ],
+        "scale": 1.030159,
+        "anchor_x": 63.087827,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          799,
+          347,
+          191,
+          153
+        ],
+        "component_seeds": [
+          [
+            913,
+            433
+          ]
+        ],
+        "scale": 1.342529,
+        "anchor_x": 83.765411,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3214,
+          503,
+          226,
+          173
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1054,
+          349,
+          193,
+          152
+        ],
+        "component_seeds": [
+          [
+            1134,
+            435
+          ]
+        ],
+        "scale": 1.175926,
+        "anchor_x": 84.448819,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1304,
+          358,
+          206,
+          144
+        ],
+        "component_seeds": [
+          [
+            1315,
+            439
+          ]
+        ],
+        "scale": 1.218137,
+        "anchor_x": 91.537223,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3442,
+          503,
+          237,
+          162
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          24,
+          616,
+          204,
+          141
+        ],
+        "component_seeds": [
+          [
+            142,
+            694
+          ]
+        ],
+        "scale": 1.180451,
+        "anchor_x": 90.176221,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          278,
+          624,
+          206,
+          135
+        ],
+        "component_seeds": [
+          [
+            311,
+            701
+          ]
+        ],
+        "scale": 1.19685,
+        "anchor_x": 88.936404,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3681,
+          503,
+          242,
+          147
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          535,
+          625,
+          207,
+          133
+        ],
+        "component_seeds": [
+          [
+            630,
+            701
+          ]
+        ],
+        "scale": 1.192,
+        "anchor_x": 88.203579,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          789,
+          622,
+          213,
+          136
+        ],
+        "component_seeds": [
+          [
+            797,
+            701
+          ]
+        ],
+        "scale": 1.179688,
+        "anchor_x": 83.739514,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      }
+    ],
+    "heavy_stamp_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          743,
+          248,
+          153
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1045,
+          622,
+          208,
+          136
+        ],
+        "component_seeds": [
+          [
+            1213,
+            700
+          ]
+        ],
+        "scale": 1.239583,
+        "anchor_x": 85.117647,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1308,
+          607,
+          196,
+          148
+        ],
+        "component_seeds": [
+          [
+            1338,
+            690
+          ]
+        ],
+        "scale": 1.17381,
+        "anchor_x": 85.728195,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          250,
+          743,
+          225,
+          170
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          28,
+          863,
+          193,
+          144
+        ],
+        "component_seeds": [
+          [
+            164,
+            944
+          ]
+        ],
+        "scale": 1.245098,
+        "anchor_x": 85.322835,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          290,
+          861,
+          184,
+          148
+        ],
+        "component_seeds": [
+          [
+            331,
+            943
+          ]
+        ],
+        "scale": 1.204762,
+        "anchor_x": 75.956522,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          477,
+          743,
+          209,
+          168
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          549,
+          861,
+          177,
+          149
+        ],
+        "component_seeds": [
+          [
+            594,
+            944
+          ]
+        ],
+        "scale": 1.193853,
+        "anchor_x": 73.928713,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          801,
+          862,
+          189,
+          148
+        ],
+        "component_seeds": [
+          [
+            825,
+            946
+          ]
+        ],
+        "scale": 1.204762,
+        "anchor_x": 77.233202,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          688,
+          743,
+          222,
+          169
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1056,
+          861,
+          189,
+          149
+        ],
+        "component_seeds": [
+          [
+            1082,
+            945
+          ]
+        ],
+        "scale": 1.229314,
+        "anchor_x": 75.848077,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "region": [
+          1315,
+          852,
+          184,
+          157
+        ],
+        "component_seeds": [
+          [
+            1344,
+            941
+          ]
+        ],
+        "scale": 1.192394,
+        "anchor_x": 70.893058,
+        "grade": {
+          "saturation": 1.0009,
+          "rgb": [
+            0.9137,
+            0.936,
+            0.929
+          ]
+        }
+      }
+    ],
+    "heavy_stamp_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          912,
+          743,
+          157,
+          235
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1071,
+          743,
+          165,
+          242
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/corridor_heavy.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "heavy_elite_quake_windup",
+      "heavy_elite_quake",
+      "heavy_elite_quake_recover",
+      "heavy_elite_quake_charge",
+      "charge",
+      "travel",
+      "heavy_stamp_windup",
+      "heavy_stamp",
+      "heavy_stamp_recover",
+      "heavy_stamp_charge"
+    ],
+    "sheets": [
+      {
+        "image": "heavy_elite_quake.png",
+        "image_sha256": "77d86db9a797bdd3a7c0bbb0d638f28a910054b67330226f0e9bd3404e73e677",
+        "role": "elite",
+        "attack": "heavy_elite_quake",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7876,
+        "anchors": [
+          134.4,
+          93.4,
+          94.4,
+          124.4,
+          139.4,
+          122.4,
+          114.4,
+          133.4,
+          151.4,
+          139.4,
+          124.4,
+          113.4,
+          96.4,
+          111.4
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7563,
+          "last_recover_ratio": 0.8203
+        }
+      },
+      {
+        "image": "heavy_roll_loops.png",
+        "image_sha256": "2c50a11d2b9b1e3e6c818ef7cc7cf2031140432c83c54bfd3989ca9e4445a7e1",
+        "role": "keep",
+        "attack": "heavy_roll",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.4537,
+        "anchors": [
+          230.8,
+          213.8,
+          128.9,
+          121.9
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.4402,
+            0.4345,
+            0.466,
+            0.4754
+          ]
+        }
+      },
+      {
+        "image": "heavy_stamp.png",
+        "image_sha256": "c0df7f19a0bc315372072fa877ad5fb028ec8d35d20e98c4e09eb6dc0c438c95",
+        "role": "new",
+        "attack": "heavy_stamp",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 1.0785,
+        "anchors": [
+          76.8,
+          64.8,
+          66.8,
+          73.8,
+          66.8,
+          92.8,
+          95.8,
+          95.8,
+          90.8,
+          91.8,
+          80.8,
+          85.8,
+          67.8,
+          72.8
+        ],
+        "calibration": {
+          "method": "recovery idle stance",
+          "first_windup_ratio": 1.2885,
+          "last_recover_ratio": 1.0785
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "corridor_heavy__attack",
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__attack.png",
+        "sha256": "62b045bb3d6697c05d89cf69dba936a32fe7c7e5606b4b213091bd03d6c42b77",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/corridor_heavy__attack.png"
+      },
+      {
+        "id": "corridor_heavy__heavy_elite_quake",
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_elite_quake.png",
+        "sha256": "5c2d1117daa282a930e32bbfe94da4780c2d1ad10eb18729f94d839c7d0153b7",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_elite_quake_windup",
+          "heavy_elite_quake",
+          "heavy_elite_quake_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/corridor_heavy__heavy_elite_quake.png"
+      },
+      {
+        "id": "corridor_heavy__heavy_stamp",
+        "source": "art_requests/combat_motion_v7/incoming/corridor_heavy__heavy_stamp.png",
+        "sha256": "1fe0bb89a2b46d376163dab300cd2e4fe6345c857e5dc1a966378e90104c7fba",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_stamp_windup",
+          "heavy_stamp",
+          "heavy_stamp_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/corridor_heavy__heavy_stamp.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

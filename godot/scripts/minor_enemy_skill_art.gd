@@ -225,6 +225,11 @@ class SkillVisual extends Node2D:
         var actor: Node = actor_ref.get_ref()
         if not _valid(actor): return
         var progress: float = 1.0-actor.state_timer/maxf(.001,float(command.get("windup",.5))) if mode == "warning" else actor.attack_elapsed/maxf(.001,float(command.get("active",.24)))
+        if mode=="execution" and command.has("combo_beats"):
+            var beat:=preload("res://scripts/boss_combat_style.gd").combo_stage(command,progress)
+            if not bool(beat.contact):return
+            progress=(progress-float(beat.start))/maxf(.001,float(beat.end)-float(beat.start))
+            direction=int(actor.attack_direction)
         var frame := clampi(int(clampf(progress,0,1)*entry.frames.size()),0,entry.frames.size()-1)
         var strike: Rect2 = actor.contact_attack_rect(command)
         var footprint := strike.size

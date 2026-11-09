@@ -17,6 +17,9 @@ buses/default_bus_layout="res://default_bus_layout.tres"
 
 [autoload]
 
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+
 MetSys="*res://addons/MetroidvaniaSystem/Nodes/Singleton.tscn"
 FeelKit="*res://scripts/feel_kit.gd"
 GlobalTypography="*res://scripts/global_typography.gd"
@@ -41,4 +44,8 @@ common/physics_interpolation=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/MetroidvaniaSystem/plugin.cfg", "res://addons/MetroidvaniaSystem/EditorExtension/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/MetroidvaniaSystem/plugin.cfg", "res://addons/MetroidvaniaSystem/EditorExtension/plugin.cfg")
+
+[beehave]
+
+debugger/start_detached=false

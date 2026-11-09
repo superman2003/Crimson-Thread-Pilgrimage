@@ -6,7 +6,10 @@ const VISUAL_POLICY := preload("res://scripts/combat_visual_policy.gd")
 
 const ORIGINAL_ART := preload("res://scripts/hand_drawn_assets.gd")
 const ATTACK_EFFECT := preload("res://scripts/enemy_attack_effect.gd")
+const COMBAT_AUDIO := preload("res://scripts/enemy_combat_audio.gd")
+const STREAM_SOURCE := preload("res://scripts/audio_stream_source.gd")
 const BOSS_SKILL_ART := preload("res://scripts/boss_skill_art.gd")
+const BOSS_STYLE := preload("res://scripts/boss_combat_style.gd")
 var boss_skill_texture: Texture2D
 const MINOR_SKILL_ART := preload("res://scripts/minor_enemy_skill_art.gd")
 var minor_skill_texture: Texture2D
@@ -14,6 +17,14 @@ var locomotion := "ground"
 var flight_clock := 0.0
 var hover_height := 0.0
 var attack_elapsed := 0.0
+var attack_recovery := false
+var recovery_velocity_x := 0.0
+var boss_target_history: Array[Vector2] = []
+var boss_attack_history: Array[Vector2] = []
+var boss_history_clock := 0.0
+var boss_blink_destination := Vector2.ZERO
+var combo_visual_stage := ""
+var combo_origin_direction := 1
 var attack_start_position := Vector2.ZERO
 var attack_target := Vector2.ZERO
 var trail_clock := 0.0
@@ -56,6 +67,8 @@ func apply_stagger(seconds: float) -> void:
 func apply_trip(seconds: float) -> void:
     if not bool(combat_resistance.get("trip_immune", is_boss)):
         trip_timer = maxf(trip_timer, minf(1.0, seconds))
+        attack_recovery=false
+        recovery_velocity_x=0.0
         _cancel_unarmed_attack_effects()
         _clear_telegraph()
         state = "recover"
@@ -83,6 +96,7 @@ func investigate_lure(point: Vector2, seconds: float) -> void:
     lure_timer = maxf(lure_timer, minf(2.0, seconds))
 
 var original_visual := false
+var authored_combat_sequences: Array=[]
 var owned_attack_effects: Array[Node2D] = []
 var combat_tweens: Array[Tween] = []
 var combat_visuals_paused := false
@@ -127,7 +141,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     effect.position=point
     effect.velocity=vel
     effect.heading=vel.normalized() if vel.length()>0 else Vector2(attack_direction,0)
-    if effect_kind in ["projectile","beam"]:
+    if effect_kind in ["projectile","beam"] and not bool(command.get("remote_origin",false)):
         effect.launch_anchor=body_center()
     effect.arm_delay=warning
     effect.duration=warning+lifetime
@@ -170,6 +184,7 @@ func _effect(effect_kind: String, point: Vector2, vel: Vector2, command: Diction
     return effect
 
 func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
+    if BOSS_STYLE.spawn(self,command,warning):return
     var type := String(command.get("type","melee"))
     var origin := global_position+Vector2(attack_direction*18,-22)
     var aim := (attack_target-origin).normalized()
@@ -324,6 +339,9 @@ var contact_timer: float = 0.0
 var state_timer: float = 0.0
 var attack_has_hit := false
 var ai_profile: Dictionary = {}
+var boss_brain: Node
+var attack_execution_serial := 0
+var attack_completed_serial := -1
 var ai_commands: Array = []
 var cooldowns: Dictionary = {}
 var active_attack: Dictionary = {}
@@ -366,6 +384,9 @@ const ATTACK_ROLES := {
     "area": ["wave", "rootline", "pool", "nova"],
 }
 var ai_rng := RandomNumberGenerator.new()
+var combat_audio_rng := RandomNumberGenerator.new()
+var combat_audio_last_variant: Dictionary = {}
+var completed_attack_count := 0
 var ai_clock := 0.0
 var attack_repeat_count := 0
 var waiting_for_turn := false
@@ -453,6 +474,22 @@ func _ready() -> void:
     body_entered.connect(_on_body_entered)
     prepare_presentation()
     reset_physics_interpolation()
+    _ensure_boss_brain()
+
+
+func _ensure_boss_brain() -> void:
+    if boss_brain != null or not _boss_behavior_enabled():return
+    boss_brain = preload("res://scripts/boss_behavior_brain.gd").new()
+    boss_brain.name = "BossBehaviorBrain"
+    add_child(boss_brain)
+    boss_brain.setup(self)
+
+func _boss_behavior_enabled() -> bool:
+    if not is_boss or not bool(ai_profile.get("tactical_ai",true)):return false
+    if not BOSS_STYLE.catalog.bosses.has(kind):return false
+    for command in ai_commands:
+        if not String(command.get("boss_pattern", "")).is_empty():return true
+    return false
 
 
 func _physics_process(delta: float) -> void:
@@ -478,13 +515,17 @@ func _step_enemy(delta: float) -> void:
     _set_combat_visuals_paused(ui_locked)
     if ui_locked:
         return
+    var movement_start:=global_position
     if is_boss and battle_phase == 1 and hp <= max_hp * float(ai_profile.get("phase_threshold",0.55)):
+        if boss_brain != null:boss_brain.reset_plan()
         battle_phase = 2
         phase_pause = 0.9
         _cancel_attack_effects()
         _clear_telegraph()
         state = "patrol"
         active_attack = {}
+        attack_recovery=false
+        recovery_velocity_x=0.0
         pose_loop_animation = ""
         _set_enemy_animation("phase", true)
         _fit_animation_duration(phase_pause)
@@ -496,6 +537,7 @@ func _step_enemy(delta: float) -> void:
         return
     _tick_timers(delta)
     var target := _target_player()
+    BOSS_STYLE.remember(self,delta,target)
     if target != null and not _is_attack_state() and _is_aware_of(target):
         _face_target(target)
     if target != null:
@@ -503,6 +545,7 @@ func _step_enemy(delta: float) -> void:
     else:
         last_player_command = "none"
 
+    if boss_brain != null and _boss_behavior_enabled():boss_brain.observe(delta,target)
     if state == "support":
         _update_support(delta, target)
     elif state == "windup":
@@ -515,6 +558,7 @@ func _step_enemy(delta: float) -> void:
         _update_patrol_or_aggro(delta, target)
     if not dying and not is_queued_for_deletion():
         _update_locomotion(delta,target)
+        _sync_walk_cadence(delta,movement_start)
 
 
 func _update_animation_motion(delta: float, previous_position: Vector2, previous_state: String) -> void:
@@ -523,7 +567,9 @@ func _update_animation_motion(delta: float, previous_position: Vector2, previous
     pose_visual_clock += delta
     var motion := global_position - previous_position
     var animation := String(animated_sprite.animation).trim_suffix("_left").trim_suffix("_right")
-    if animation in ["walk", "move"] and state == "patrol":
+    # Ground walk cadence is owned by _sync_walk_cadence; pose feedback must
+    # not replace its slower footwork rate after the actor has moved.
+    if animation in ["walk", "move"] and state == "patrol" and (locomotion != "ground" or animation == "move"):
         var rate := motion.length() / delta if locomotion == "flight" else absf(motion.x) / delta
         if rate < .1 and locomotion != "flight":
             animated_sprite.pause()
@@ -562,6 +608,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     spawn_id = String(data.get("id", "enemy"))
     kind = String(data.get("kind", "moss_larva"))
     ai_rng.seed = hash(spawn_id + ":" + kind)
+    combat_audio_rng.seed = hash(spawn_id + ":sound:" + kind)
     hp = int(data.get("hp", 2))
     max_hp = hp
     damage = int(data.get("damage", 1))
@@ -596,6 +643,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
     var encounter_profile: Variant = data.get("encounter_profile", {})
     if encounter_profile is Dictionary:
         ai_profile.merge(encounter_profile, true)
+    if is_boss:ai_profile=BOSS_STYLE.apply(kind,ai_profile)
     locomotion = String(ai_profile.get("locomotion",data.get("locomotion","ground")))
     hover_height = float(ai_profile.get("hover_height",95)) if locomotion=="flight" else 0.0
     speed = float(ai_profile.get("move_speed",speed))
@@ -611,6 +659,7 @@ func configure(data: Dictionary, sprite_path: String, boss_flag: bool = false, p
         visual_modulate=Color.WHITE
         sprite_faces_left=false
         original_visual=true
+        authored_combat_sequences=art_data.get("authored_combat_sequences",[])
         var h := float(art_data.get("display_height",90))
         if not data.has("hurtbox_offset"):
             hurtbox_offset=Vector2(0,40-h*.5)
@@ -665,7 +714,7 @@ func take_hit(amount: int, hit_direction: int) -> void:
     else:
         _play_sfx(_hit_tier_key(), -6.0)
     _spawn_hit_spark(hit_direction, contact_call)
-    var armored := not is_boss and hp - amount > 0 and _hit_is_armored()
+    var armored := hp - amount > 0 and ((not is_boss and _hit_is_armored()) or (is_boss and _is_attack_state()))
     if not armored:
         pose_loop_animation = ""
         _set_enemy_animation("hurt")
@@ -713,6 +762,8 @@ func _react_to_hit(hit_direction: int) -> void:
         knockback_velocity *= 0.35
         return
     _cancel_unarmed_attack_effects()
+    attack_recovery=false
+    recovery_velocity_x=0.0
     active_attack = {}
     pose_loop_animation = ""
     state = "recover"
@@ -736,6 +787,7 @@ func _begin_death_dissolve() -> void:
     if dying or is_queued_for_deletion():
         return
     dying = true
+    if boss_brain != null:boss_brain.reset_plan()
     active_attack = {}
     state = "dead"
     _cancel_attack_effects()
@@ -835,6 +887,7 @@ func get_hurtbox_rect() -> Rect2:
 
 func get_ai_debug_state() -> Dictionary:
     return {
+        "behavior_tree": boss_brain.debug_state() if boss_brain != null else {},
         "ai_command_total": ai_commands.size(),
         "attack_desire": attack_desire,
         "attack_desire_threshold": _attack_desire_threshold(),
@@ -939,6 +992,9 @@ func set_platform_movement_bounds(min_x: float, max_x: float) -> void:
 func reset_for_respawn() -> void:
     if dying or is_queued_for_deletion():
         return
+    if boss_brain != null:boss_brain.reset_plan()
+    attack_execution_serial += 1
+    attack_completed_serial = -1
     CONTACT_ART.clear_receiver(self)
     _cancel_attack_effects()
     _clear_telegraph()
@@ -952,6 +1008,13 @@ func reset_for_respawn() -> void:
     battle_phase = 1
     phase_pause = 0.0
     attack_elapsed = 0.0
+    attack_recovery=false
+    recovery_velocity_x=0.0
+    completed_attack_count=0
+    boss_target_history.clear()
+    boss_attack_history.clear()
+    boss_history_clock=0.0
+    combo_visual_stage=""
     trail_clock = 0.0
     cooldowns.clear()
     for command in ai_commands:
@@ -1089,12 +1152,20 @@ func _update_patrol_or_aggro(delta: float, target: CharacterBody2D) -> void:
             _face_target(target)
             _set_enemy_animation("idle")
             return
+        if _boss_behavior_enabled():
+            _ensure_boss_brain()
+            boss_brain.step(delta,target)
+            return
+        if is_boss and boss_brain != null and ai_commands.is_empty():
+            boss_brain.reset_plan(false)
+            return
         if _try_start_support():
             return
         if _try_start_attack(target):
             return
         _move_in_combat(delta, target)
         return
+    if boss_brain != null:boss_brain.reset_plan()
     waiting_for_turn = false
     if memory_timer > 0.0 and not is_boss:
         if tactical_role == "guard":
@@ -1700,6 +1771,7 @@ func _attack_candidate_score(command: Dictionary, target: CharacterBody2D) -> fl
     # Repeating the same move gets steadily less likely, but is never banned.
     if String(command.get("id", "")) == last_attack_id:
         score -= 2.5 * float(1 + attack_repeat_count)
+    if String(command.get("boss_pattern",""))=="duel_parry" and not ["slash_forward","slash_up","slash_down","skill","dash_toward"].has(last_player_command):score-=8.0
     return score
 
 
@@ -1789,7 +1861,7 @@ func _read_player_command(target: CharacterBody2D) -> String:
     var velocity_value := target.velocity
     if _float_property(target, "dash_timer", 0.0) > 0.0:
         return "dash_toward" if signf(velocity_value.x) == -float(direction) else "dash_away"
-    if _float_property(target, "heal_cooldown", 0.0) > 0.0:
+    if _float_property(target, "heal_timer", 0.0) > 0.0:
         return "heal"
     if velocity_value.y > 180.0 and target.global_position.y < global_position.y - 26.0:
         return "falling_attack"
@@ -1858,7 +1930,18 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
 func _begin_attack(command: Dictionary) -> void:
     if dying or is_queued_for_deletion() or not world_residency_active():
         return
+    if not is_boss and String(command.get("type",""))=="combo" and not command.has("combo_beats") and _attack_animation_base(command) in authored_combat_sequences and MINOR_SKILL_ART.ready_for(self,command):
+        command=command.duplicate(true)
+        var beats:=clampi(ceili(float(command.get("active",.6))/.2),2,4)
+        var starts: Array=[]
+        for index in beats:starts.append(float(index)/beats)
+        command.combo_beats=starts
+        command.combo_beat_width=.65/beats
+        command.combo_alternate_sides=false
+    attack_execution_serial += 1
     active_attack = command
+    attack_recovery=false
+    recovery_velocity_x=0.0
     attack_elapsed=0
     trail_clock=0
     attack_start_position=global_position
@@ -1867,6 +1950,10 @@ func _begin_attack(command: Dictionary) -> void:
     _aim_attack(command, target_node as CharacterBody2D)
     attack_has_hit = false
     attack_direction = direction
+    combo_origin_direction=attack_direction
+    combo_visual_stage=""
+    boss_attack_history=boss_target_history.duplicate()
+    if String(command.get("boss_pattern",""))=="mirror_committed_shift":boss_blink_destination=BOSS_STYLE.blink_destination(self,command)
     last_attack_id = String(command.get("id", "attack"))
     last_ai_decision = "attack:" + last_attack_id
     if _boss_tactical_enabled():
@@ -1883,6 +1970,7 @@ func _begin_attack(command: Dictionary) -> void:
     _play_attack_sfx("windup")
     _show_telegraph(command)
     _spawn_windup_vfx(command)
+    if String(command.get("boss_pattern",""))=="mirror_committed_shift":BOSS_SKILL_ART.spawn_arrival(self,command,boss_blink_destination)
     if not bool(command.get("blockable", true)) and ResourceLoader.exists("res://scripts/seal_presentation.gd"):
         var presentation := Node2D.new()
         presentation.set_script(load("res://scripts/seal_presentation.gd"))
@@ -1902,9 +1990,12 @@ func _update_windup(delta: float) -> void:
         state = "active"
         _stop_parade_layer()
         state_timer = float(active_attack.get("active", 0.16))
-        _pose_sprite("active", active_attack)
-        _play_attack_sfx("active")
-        _spawn_attack_burst_vfx(active_attack)
+        if active_attack.has("combo_beats"):
+            _update_authored_combo(0.0)
+        else:
+            _pose_sprite("active", active_attack)
+            _play_attack_sfx("active")
+            _spawn_attack_burst_vfx(active_attack)
         if String(active_attack.get("type","")) not in ["beam","pool","rootline"]:
             _spawn_command_effects(active_attack,false)
 
@@ -1932,15 +2023,27 @@ func _update_active(delta: float) -> void:
     var attack_type := String(active_attack.get("type", "melee"))
     attack_elapsed+=delta
     var progress := clampf(attack_elapsed/maxf(.01,float(active_attack.get("active",.24))),0,1)
+    var contact_live:=true
+    if attack_type=="combo" and active_attack.has("combo_beats"):contact_live=_update_authored_combo(progress)
+    if active_attack.has("contact_window"):
+        var window: Array=active_attack.contact_window
+        contact_live=contact_live and progress>=float(window[0]) and progress<=float(window[1])
     if attack_type == "dive":
         global_position=attack_start_position.lerp(attack_target,progress)
     elif attack_type == "vault":
-        position.x+=attack_direction*float(active_attack.get("lunge_speed",240))*delta
+        if String(active_attack.get("boss_pattern",""))=="scissor_reversal":
+            var distance:=float(active_attack.get("lunge_speed",340))*float(active_attack.get("active",.8))
+            var x:=lerpf(0,-40,progress/.22) if progress<.22 else lerpf(-40,distance,(progress-.22)/.78)
+            global_position.x=attack_start_position.x+attack_direction*x
+        else:position.x+=attack_direction*float(active_attack.get("lunge_speed",240))*delta
         global_position.y=attack_start_position.y-sin(progress*PI)*float(active_attack.get("jump_height",130))
     elif attack_type == "combo":
-        position.x+=attack_direction*float(active_attack.get("lunge_speed",125))*delta
-        if int(attack_elapsed/.20)!=int((attack_elapsed-delta)/.20):
+        if not is_boss and active_attack.has("combo_beats"):
+            position.x+=combo_origin_direction*float(active_attack.get("lunge_speed",125))*delta*(1.4 if contact_live else .25)
+        elif contact_live:position.x+=attack_direction*float(active_attack.get("lunge_speed",125))*delta
+        if not active_attack.has("combo_beats") and int(attack_elapsed/.20)!=int((attack_elapsed-delta)/.20):
             attack_has_hit=false
+            _play_combat_material(COMBAT_AUDIO.release_family(kind,locomotion,active_attack),-12.0 if is_boss else -15.0)
     elif attack_type == "lunge":
         position.x += attack_direction * float(active_attack.get("lunge_speed", 220.0)) * delta
     elif attack_type == "retreat":
@@ -1951,7 +2054,7 @@ func _update_active(delta: float) -> void:
     _clamp_movement_bounds()
     global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, previous_position, global_position)
 
-    if attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6):
+    if contact_live and (attack_type in ["melee","aoe","lunge","retreat","feint","combo","guard","dive"] or (attack_type=="vault" and progress>.6)):
         _try_damage_player(active_attack, previous_position)
     if dying or is_queued_for_deletion():
         return
@@ -1965,27 +2068,91 @@ func _update_active(delta: float) -> void:
     _advance_pose_loop()
     if state_timer <= 0.0:
         state = "recover"
+        attack_recovery=true
+        recovery_velocity_x=0.0
+        if delta>0.0 and attack_type in ["lunge","dive","vault","retreat","combo"]:
+            recovery_velocity_x=clampf((global_position.x-previous_position.x)/delta,-110.0 if is_boss else -80.0,110.0 if is_boss else 80.0)
         state_timer = float(active_attack.get("recover", 0.42))
         _pose_sprite("recover", active_attack)
         _clear_telegraph()
         if attack_type=="vault":
             global_position = preload("res://scripts/enemy_motion_sweep.gd").constrain(self, global_position, Vector2(global_position.x, attack_start_position.y))
+            if kind=="sunken_hammer_smith":_play_sfx("ch02_beat_water_hammer",-10.0)
+
+func _update_authored_combo(progress: float) -> bool:
+    var beat:=BOSS_STYLE.combo_stage(active_attack,progress)
+    if String(beat.key)!=combo_visual_stage:
+        combo_visual_stage=String(beat.key)
+        BOSS_SKILL_ART.clear(self)
+        MINOR_SKILL_ART.clear(self)
+        if String(beat.phase)!="recover":
+            var clip:=active_attack.duplicate(true)
+            clip[String(beat.phase)]=maxf(.04,(float(beat.end)-float(beat.start))*float(active_attack.active))
+            var alternate:=bool(active_attack.get("combo_alternate_sides",is_boss))
+            attack_direction=combo_origin_direction*(-1 if alternate and int(beat.index)%2==1 else 1)
+            direction=attack_direction
+            _set_sprite_flip(direction<0)
+            if bool(beat.contact):
+                attack_has_hit=false
+                _play_attack_sfx("active")
+                _spawn_attack_burst_vfx(active_attack)
+            _pose_sprite(String(beat.phase),clip)
+    return bool(beat.contact)
 
 
 func _update_recover(delta: float) -> void:
+    if attack_recovery and not active_attack.is_empty():
+        _prepare_recovery_action(delta)
+        if trip_timer<=0.0 and absf(recovery_velocity_x)>.1:
+            var previous:=global_position
+            global_position=preload("res://scripts/enemy_motion_sweep.gd").constrain(self,previous,previous+Vector2(recovery_velocity_x*minf(delta,maxf(0.0,state_timer)),0))
+            _clamp_movement_bounds()
+            recovery_velocity_x*=exp(-delta/.07)
     state_timer -= delta
     _advance_pose_loop()
     if state_timer <= 0.0:
+        var finished_attack:=attack_recovery
+        attack_recovery=false
+        recovery_velocity_x=0.0
         active_attack = {}
         state = "patrol"
-        if _boss_tactical_enabled():
-            boss_tactic = "reposition" if boss_press_timer >= float(ai_profile.get("max_press_time", 1.25)) * 0.72 else "guard"
-            boss_tactic_timer = _boss_tactic_duration(boss_tactic, 0.34)
+        if finished_attack:
+            completed_attack_count+=1
+            attack_completed_serial=attack_execution_serial
+        if _boss_tactical_enabled() and not _boss_behavior_enabled():
+            var take_step:=locomotion!="stationary" and completed_attack_count>0 and completed_attack_count%3==0
+            boss_tactic = "reposition" if take_step or boss_press_timer >= float(ai_profile.get("max_press_time", 1.25)) * 0.72 else "guard"
+            boss_tactic_timer = _boss_tactic_duration(boss_tactic, 0.38 if take_step else 0.34)
             var target := _target_player()
             if boss_tactic == "reposition" and target != null:
                 boss_reposition_target_x = _boss_reposition_x(target)
-        _set_enemy_animation("idle")
         _pose_sprite("idle")
+        # Decide the next stance in the same physics step, with no mandatory
+        # rendered idle frame between a completed recovery and a walk/attack.
+        var next_target := _target_player()
+        if next_target != null:
+            _update_patrol_or_aggro(0.0,next_target)
+
+func _prepare_recovery_action(delta: float) -> void:
+    var duration:=maxf(.01,float(active_attack.get("recover",.42)))
+    if state_timer>duration*.5:return
+    var target:=_target_player()
+    if target==null or not _target_inside_leash(target) or not _has_line_of_sight(target):return
+    if not _target_in_engage_window(target,float(ai_profile.get("aggro_range",220.0 if not is_boss else 460.0))):return
+    # Plan during the last half, but never start the next attack before the
+    # authored recovery/cooldown. A small remaining desire margin keeps a tell.
+    var cap:=_attack_desire_threshold()*.8
+    if attack_desire<cap:
+        _update_attack_desire(delta,target,true)
+        attack_desire=minf(attack_desire,cap)
+
+func _sync_walk_cadence(delta: float, previous: Vector2) -> void:
+    if delta<=0.0 or locomotion!="ground" or animated_sprite==null or not String(animated_sprite.animation).begins_with("walk"):return
+    var actual_speed:=absf(global_position.x-previous.x)/delta
+    if actual_speed<.1:
+        _set_enemy_animation("idle")
+    else:
+        animated_sprite.speed_scale=clampf(actual_speed/maxf(1.0,speed),.28,1.5)
 
 
 func contact_attack_rect(command: Dictionary) -> Rect2:
@@ -2022,6 +2189,7 @@ func _try_damage_player(command: Dictionary, previous_position: Vector2 = Vector
     if crossed or attack_rect.intersects(player_rect):
         attack_has_hit = true
         var accepted := preload("res://scripts/damage_contact.gd").apply(target, int(command.get("damage", damage)), global_position, bool(command.get("blockable", true)))
+        if accepted and not dying and not is_queued_for_deletion():_play_combat_material("impact",-12.0)
         if accepted and not dying and not is_queued_for_deletion() and bool(command.get("leech",false)):
             hp=mini(max_hp,hp+1)
 
@@ -2217,6 +2385,10 @@ func _build_sprite() -> void:
     if not sprite_parts.is_empty():
         sprite = _build_part_sprite()
     elif asset_path.ends_with(".json"):
+        # Presentation can select another manifest after configure (original
+        # source poses, skins or prefab overrides). Do not carry choreography
+        # capabilities from a different drawing set into the loaded actor.
+        authored_combat_sequences = ORIGINAL_ART.manifest(asset_path).get("authored_combat_sequences", []).duplicate()
         animated_sprite = AnimatedSprite2D.new()
         animated_sprite.name = "EnemyAnimatedSprite"
         animated_sprite.sprite_frames = _load_enemy_sprite_frames(asset_path)
@@ -2350,11 +2522,13 @@ func _set_enemy_animation(animation_name: String, restart: bool = false) -> void
     _apply_sprite_flip()
     if animated_sprite == null or animated_sprite.sprite_frames == null:
         return
-    if next_animation in ["idle", "walk", "phase"]:
+    if animation_name in ["idle", "walk", "phase"]:
         animated_sprite.speed_scale = 1.0
     if restart:
         animated_sprite.stop()
-    if animated_sprite.animation != next_animation or restart:
+    var changed := animated_sprite.animation != next_animation or restart
+    var resume_loop := animation_name in ["idle", "walk"] and not animated_sprite.is_playing() and not combat_visuals_paused
+    if changed:
         pose_holding_charge = false
         pose_travel_stretch = false
         pose_feedback_time = 0.0
@@ -2362,8 +2536,7 @@ func _set_enemy_animation(animation_name: String, restart: bool = false) -> void
             sprite.position = sprite_base_position
             sprite.scale = sprite_base_scale
             pose_feedback_was_active = false
-        animated_sprite.play(next_animation)
-    elif not animated_sprite.is_playing() and not pose_holding_charge:
+    if changed or resume_loop:
         animated_sprite.play(next_animation)
     if is_inside_tree() and not Engine.is_in_physics_frame():
         reset_physics_interpolation()
@@ -2374,7 +2547,8 @@ func _fit_animation_duration(duration: float, phase: String = "") -> void:
         return
     var frames := animated_sprite.sprite_frames
     var animation_name := animated_sprite.animation
-    if phase in ["windup", "recover"]:
+    var authored_name := String(animation_name).trim_suffix("_left").trim_suffix("_right")
+    if phase in ["windup", "recover"] and authored_name not in authored_combat_sequences:
         if animated_sprite.sprite_frames != pose_owned_frames:
             pose_source_frames = animated_sprite.sprite_frames
             pose_owned_frames = pose_source_frames.duplicate(false) as SpriteFrames
@@ -2387,7 +2561,17 @@ func _fit_animation_duration(duration: float, phase: String = "") -> void:
     elif frames == pose_owned_frames and pose_source_frames != null:
         for index in frames.get_frame_count(animation_name):
             frames.set_frame(animation_name, index, pose_source_frames.get_frame_texture(animation_name, index), pose_source_frames.get_frame_duration(animation_name, index))
-    animated_sprite.speed_scale = frames.get_frame_count(animation_name) / maxf(0.01, frames.get_animation_speed(animation_name) * duration)
+    var natural:=_animation_seconds(String(animated_sprite.animation))
+    animated_sprite.speed_scale=natural/maxf(.01,duration) if natural>0.0 else 1.0
+
+func _animation_seconds(name: String) -> float:
+    if animated_sprite==null or animated_sprite.sprite_frames==null:return 0.0
+    var frames:=animated_sprite.sprite_frames
+    var resolved:=_resolve_directional_animation(name)
+    if not frames.has_animation(resolved):return 0.0
+    var weight:=0.0
+    for index in frames.get_frame_count(resolved):weight+=frames.get_frame_duration(resolved,index)
+    return weight/maxf(.01,frames.get_animation_speed(resolved))
 
 
 func _resolve_directional_animation(animation_name: String) -> String:
@@ -2410,7 +2594,7 @@ func _attack_animation_base(command: Dictionary) -> String:
 
 
 func _advance_pose_loop() -> void:
-    if pose_loop_animation.is_empty() or state_timer > pose_loop_at:
+    if pose_loop_animation.is_empty() or state_timer > pose_loop_at+.000001:
         return
     var loop_name := pose_loop_animation
     pose_loop_animation = ""
@@ -2511,6 +2695,7 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
             elif animation_name=="recover" and _has_enemy_animation(requested+"_settle"):
                 animation_name=requested+"_settle"
                 loop_name="idle"
+        if animation_name in authored_combat_sequences:loop_name=""
         pose_loop_animation = ""
         pose_loop_fit = 0.0
         _set_enemy_animation(animation_name, pose_name in ["windup", "active", "recover", "hurt", "death"])
@@ -2519,6 +2704,11 @@ func _pose_sprite(pose_name: String, command: Dictionary = {}) -> void:
             if pose_name in ["windup","active","recover"] and animation_name != "idle":
                 var duration := float(command.get(pose_name, .3))
                 var lead := float(POSE_LOOP_LEAD.get(pose_name, 0.0))
+                if pose_name=="recover" and loop_name=="recover" and _has_enemy_animation(loop_name):
+                    var bridge_seconds:=_animation_seconds(animation_name)
+                    var settle_seconds:=_animation_seconds(loop_name)
+                    if bridge_seconds+settle_seconds>0.0:
+                        lead=clampf(duration*bridge_seconds/(bridge_seconds+settle_seconds),.04,maxf(.04,duration-.04))
                 if not loop_name.is_empty() and _has_enemy_animation(loop_name) and duration > lead + 0.12:
                     _fit_animation_duration(lead, pose_name)
                     pose_loop_animation = loop_name
@@ -2653,13 +2843,15 @@ func _stop_parade_layer() -> void:
 
 
 func _play_attack_sfx(phase: String) -> void:
+    var material:=COMBAT_AUDIO.release_family(kind,locomotion,active_attack)
     if phase == "windup":
+        _play_combat_material(COMBAT_AUDIO.preparation_family(material),-11.0 if is_boss else -15.0)
         if is_boss:
             # Boss 前摇分档（音频规格 §4.4）：damage>=2（各 Boss aoe/shockwave 大招）走 lethal 档。
-            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0, 1.0, 0)
+            _play_sfx("boss_windup_lethal" if _active_attack_is_heavy() else "boss_windup_light", -6.0 if _active_attack_is_heavy() else -18.0, 1.0, 0)
         else:
             # 普通敌前摇=windup_light 低配版：升调 + 压量，与 Boss 档拉开距离。
-            _play_sfx("enemy_windup", -13.0, 1.22, 0)
+            _play_sfx("enemy_windup", -24.0, 1.12, 0)
         # ch5 beat `parade_charge`（manifest ch05_beat_03）：巡礼指挥官冲锋（vault）前摇
         # 叠低频步伐循环，前摇一结束（出招、被打断或倒下）即停。
         if kind == "silent_pilgrim_commander" and String(active_attack.get("type", "")) == "vault":
@@ -2674,17 +2866,26 @@ func _play_attack_sfx(phase: String) -> void:
             _play_sfx("ch05_beat_silent_order", -12.0)
     elif is_boss:
         # Boss 出招按档走本章四件套 atk_light/atk_heavy（替换 player_attack.ogg 复用）。
-        _play_sfx(_boss_sfx_key("atk_heavy" if _active_attack_is_heavy() else "atk_light"), -7.0)
-        # ch2 beat `boss_water_hammer`（manifest ch02_beat_03）：沉锤匠水锤大招落点
-        # 叠半圆水浪声层。
-        if kind == "sunken_hammer_smith" and _active_attack_is_heavy():
-            _play_sfx("ch02_beat_water_hammer", -8.0)
+        if not _play_combat_material(material,-7.5):
+            _play_sfx(_boss_sfx_key("atk_heavy" if _active_attack_is_heavy() else "atk_light"), -7.0)
     else:
-        _play_sfx("enemy_attack", -10.0)
+        if not _play_combat_material(material,-10.5):_play_sfx("enemy_attack", -10.0)
         # Beat `delayed_shadow`（manifest ch03_beat_01）：迟影复写玩家动作的回声一击
         # 叠玻璃摩擦与低音翻页声；只认这一招，瞬移不叠。
         if kind == "delayed_shadow" and String(active_attack.get("id", "")) == "shadow_echo":
             _play_sfx("ch03_beat_delayed_shadow", -9.0)
+
+func _play_combat_material(family: String, volume: float) -> bool:
+    var count:=COMBAT_AUDIO.variant_count(family)
+    var previous:=int(combat_audio_last_variant.get(family,0))
+    var variant:=combat_audio_rng.randi_range(1,count)
+    if variant==previous and count>1:variant=variant%count+1
+    var path:=COMBAT_AUDIO.path(family,variant)
+    if not STREAM_SOURCE.exists(path):return false
+    combat_audio_last_variant[family]=variant
+    var pitch:=combat_audio_rng.randf_range(.97,1.03)*(0.91 if is_boss and not family.begins_with("prep_") else 1.0)
+    _play_sfx("combat_"+family+"_"+str(variant),volume,pitch,1)
+    return true
 
 
 ## 招式分档：优先读攻击条目 telegraph_tier（lethal/heavy 即重档），否则按 damage>=2 判定
@@ -3005,6 +3206,8 @@ func _should_play_sfx() -> bool:
 
 func _load_sfx_stream(audio_key: String) -> AudioStream:
     var path := String(SFX.get(audio_key, ""))
+    if path.is_empty() and audio_key.begins_with("combat_"):
+        path=COMBAT_AUDIO.ROOT+audio_key.trim_prefix("combat_")+".ogg"
     if path.is_empty() and audio_key.begins_with("boss_ch"):
         # Boss 四件套（roar/phase_shift/atk_light/atk_heavy × 六章）按键名直取合成包文件。
         path = "res://assets/audio/sfx/generated/%s.ogg" % audio_key
@@ -3022,23 +3225,21 @@ static func _load_stream_for_path(path: String, looped: bool = false) -> AudioSt
 
 
 static func _load_stream_direct(path: String, looped: bool = false) -> AudioStream:
-    if not FileAccess.file_exists(path):
-        return null
+    var stream:=STREAM_SOURCE.load_stream(path)
     if path.ends_with(".ogg"):
-        var ogg := AudioStreamOggVorbis.load_from_file(path)
-        if ogg != null and looped:
-            ogg.loop = true
+        var ogg:=stream as AudioStreamOggVorbis
+        if ogg!=null:ogg.loop=looped
         return ogg
     if path.ends_with(".wav"):
         # 自产 SFX 包走 WAV 直读（Godot 4.6 headless 安全，无需 import 资源）。
-        var wav := AudioStreamWAV.load_from_file(path)
-        if wav != null and looped:
-            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
-            wav.loop_begin = 0
-            # 16bit 帧数按实际声道数折算，避免立体声 loop_end 超界一倍。
-            wav.loop_end = wav.data.size() / (4 if wav.stereo else 2)
+        var wav:=stream as AudioStreamWAV
+        if wav!=null:
+            wav.loop_mode=AudioStreamWAV.LOOP_FORWARD if looped else AudioStreamWAV.LOOP_DISABLED
+            if looped:
+                wav.loop_begin=0
+                wav.loop_end=wav.data.size()/((2 if wav.format==AudioStreamWAV.FORMAT_16_BITS else 1)*(2 if wav.stereo else 1))
         return wav
-    return load(path) as AudioStream
+    return load(path) as AudioStream if ResourceLoader.exists(path,"AudioStream") else null
 
 
 func _spawn_hit_spark(hit_direction: int, contact_call: int = -1) -> void:

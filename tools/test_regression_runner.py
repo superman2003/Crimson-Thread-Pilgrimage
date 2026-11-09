@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Check portable completion contracts and CI error/timeout propagation."""
 import os
+import io
+from contextlib import redirect_stdout
 from pathlib import Path
 import subprocess
 import sys
@@ -16,6 +18,28 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class CompletionContractTests(unittest.TestCase):
     """Static suite contracts apply on every host, including Windows."""
+    def test_native_utf8_log_is_preserved_on_windows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scripts = root / 'godot/scripts'
+            scripts.mkdir(parents=True)
+            (scripts / 'enemy_combat_continuity_validation.gd').touch()
+            logs = root / 'logs'
+            logs.mkdir()
+            text = '攻击衔接与音效正常\nENEMY_COMBAT_CONTINUITY checks=142 failures=0\n'
+            def execute(command, **kwargs):
+                # Native Godot emits UTF-8 bytes, independently of the locale
+                # Python would otherwise use to read a Windows text file.
+                kwargs['stdout'].buffer.write(text.encode('utf-8'))
+                return subprocess.CompletedProcess(command, 0)
+            captured = io.StringIO()
+            with patch.object(runner, 'ROOT', root), patch.object(
+                runner.subprocess, 'run', side_effect=execute
+            ), redirect_stdout(captured):
+                failures = run_suites('godot', ['enemy_combat_continuity'], None, logs, root, False, {})
+            self.assertEqual(failures, [])
+            self.assertIn('攻击衔接与音效正常', captured.getvalue())
+
     def test_suite_timeout_defaults_and_explicit_override_still_fail_on_timeout(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -97,6 +121,7 @@ class CompletionContractTests(unittest.TestCase):
             'enemy_hurtbox_fit',
             'ending_doors_beat',
             'region_beat_layers',
+            'boss_behavior',
             'boss_heal_windows',
             'boss_heal_windows_late',
             'enemy_projectile_launch',
@@ -114,8 +139,11 @@ class CompletionContractTests(unittest.TestCase):
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
         # reject a missing base suite, an unknown addition or invalid completion.
-        self.assertEqual(len(all_suites), 183 + len(set(all_suites) & combat_additions))
+        self.assertEqual(len(all_suites), 186 + len(set(all_suites) & combat_additions))
         self.assertIn("ai_music_pack", DEFAULT_SUITES)
+        self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
+        self.assertIn("boss_combat_identity", DEFAULT_SUITES)
+        self.assertIn("combat_motion_v7", DEFAULT_SUITES)
         self.assertIn("shrine_return_world", DEFAULT_SUITES)
         self.assertIn("grounded_run", DEFAULT_SUITES)
 

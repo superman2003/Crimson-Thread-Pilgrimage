@@ -72,3 +72,53 @@ See `docs/decision/20260616162014251_不可再分发素材包清单与开源边�
 ## Music v2.5 game score (2026-11-08)
 
 33 AI-generated music cues are installed under `godot/assets/audio/bgm/ai_generated/`. The three original approved tracks retain their ElevenLabs Music v2.5 via fal.ai receipts; the remaining 30 retain ElevenLabs Music v2.5 via Vercel AI Gateway receipts. Source MP3s, prompts, response IDs, source/output SHA-256 and processing records are in `art_requests/ai_music_v1/` and the runtime `music_pack.json`. These outputs are not relabelled as the project's synthesized CC0 assets. Provider usage is subject to the applicable ElevenLabs/Vercel terms. No API credential is distributed with game assets.
+
+## Original AI combat sound effects (2026-11-08)
+
+30 short sound effects were generated from project-authored text prompts with
+ElevenLabs Sound Effects v2 through Vercel AI Gateway (`elevenlabs/sound-effects-v2`).
+Runtime Ogg files, source/output SHA-256, loudness preparation and decode records
+are under `godot/assets/audio/sfx/ai_combat/`; retained MP3 sources, request prompts
+and response receipts are under `art_requests/combat_sfx_v1/`. No reference-game
+recording, sample or extracted asset was supplied to the model or bundled here.
+These outputs are separate from the project's synthesized CC0 packs and remain
+subject to the applicable ElevenLabs/Vercel terms. Human artistic audition is
+tracked separately from technical decoding. No API credential is distributed.
+
+## Project-authored combat motion v7 (2026-11-08)
+
+114 accepted source sheets contain 2,736 newly generated animation drawings for
+the project's 40 regular enemy species, their elite signatures and six Bosses.
+They were generated with the built-in `image_gen` tool using this project's own
+character references. Source sheets, complete prompts, alpha repair provenance
+and selected versions are retained in `art_requests/combat_motion_v7/`.
+Versioned runtime atlases and generation records are installed beside the
+existing characters as `combat_motion_v7*.png/json`. Crop, rig alignment, uniform
+scale and palette calibration are build preparation; they are not counted as
+additional authored drawings. Existing source artwork remains available.
+No Silksong image, animation, sound recording or extracted asset is included in
+this pack. Gameplay observations informed the original attack design; official
+reference footage stays outside the release payload.
+
+## Beehave Boss behavior integration (2026-11-08)
+
+Beehave by bitbrain and contributors is bundled under the MIT license in
+`godot/addons/beehave/`, pinned to v2.9.3, commit
+`773a5f6dd9b3433cdb8735ab35e9043d4cd60674`.
+The upstream license is retained in that directory. `UPSTREAM.json` records
+upstream hashes and two small local debugger-connection guards required by
+standalone/headless Godot 4.6.1. The project adapter owns tree cleanup.
+Source: https://github.com/bitbrain/beehave/tree/v2.9.3
+
+Tactical sequence design was informed by LimboAI's MIT-licensed v1.8.1 demo
+trees (charger, skirmisher, melee combo and nuanced melee). Only control-flow
+ideas were adapted; no LimboAI runtime, demo artwork or sounds are distributed.
+Source: https://github.com/limbonaut/limboai/tree/v1.8.1/demo/demo/ai
+
+Six project-owned character references were supplied to the built-in
+`image_gen` tool to generate 144 defensive/transition poses (18 clips).
+Sources and prompts are in `art_requests/boss_behavior_v1/`; runtime atlases and
+provenance are `boss_behavior_v1.png/json` beside each Boss. A derived manifest
+adds these clips while retaining the original combat atlas and pose timing.
+No Hollow Knight/Silksong or Phantom Blade Zero code, sprites or audio are
+included. Their disclosed or observed behavior is a design reference only.

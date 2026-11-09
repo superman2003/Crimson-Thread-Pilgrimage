@@ -1,0 +1,2392 @@
+{
+  "kind": "rust_diver",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-b95d1e20-6f04-49c4-a16d-ced8b5acea8c.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Production 2D hand-painted sprite animation sheet of reference character rust_diver. Preserve exact original character design, proportions, palette and fine ink outlines: squat beetle in algae-patched bronze diving helmet, rope-bound iron armor, short jagged spear. Reference is identity/style only. PORTRAIT sheet with exactly FOUR columns and EIGHT rows, exactly 32 full body sprites, on TRUE TRANSPARENT alpha background, no scenery, no text, labels or grid. Rows in precise order: ROW1 four IDLE breathing poses; ROW2 walk cycle poses 1-4; ROW3 walk cycle poses 5-8; ROW4 four WINDUP anticipation poses; ROW5 four ATTACK strike/follow-through poses; ROW6 four RECOVERY returning to ready; ROW7 four HURT recoil poses; ROW8 four DEATH poses stagger, buckle, collapse, settled. Maintain consistent scale and horizontal registration, feet baseline within every equal cell. Make sprites SMALLER to leave generous safety margin; every full body and COMPLETE antenna, weapon and appendage occupies at most 65% cell width/72% height even during attack. No weapon or limb crosses a cell border, no neighbor overlap. All living frames face RIGHT, orthographic side view. lifts spear then extends it right, legs shift weight. Distinct intentional anatomical poses: real joint rotation, alternating foot contacts, body weight shift and secondary motion. Never simple translated or rotated duplicates.",
+  "qa": {
+    "dimensions": [
+      992,
+      1586
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          19,
+          36,
+          234,
+          174
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            131,
+            137
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          263,
+          32,
+          238,
+          179
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            360,
+            136
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          514,
+          36,
+          225,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            541,
+            132
+          ]
+        ]
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          767,
+          37,
+          218,
+          174
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            828,
+            134
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          20,
+          229,
+          227,
+          176
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            201,
+            322
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          284,
+          230,
+          221,
+          176
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            390,
+            324
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          526,
+          231,
+          225,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            627,
+            325
+          ]
+        ]
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          764,
+          234,
+          224,
+          172
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            886,
+            326
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          14,
+          425,
+          239,
+          178
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            109,
+            521
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          258,
+          425,
+          243,
+          177
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            334,
+            518
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          511,
+          424,
+          255,
+          179
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            684,
+            519
+          ]
+        ]
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          773,
+          429,
+          216,
+          175
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            874,
+            522
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          16,
+          642,
+          250,
+          174
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            127,
+            734
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          258,
+          644,
+          228,
+          172
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            326,
+            736
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          495,
+          622,
+          220,
+          194
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            520,
+            726
+          ]
+        ]
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          776,
+          608,
+          176,
+          208
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            880,
+            725
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          23,
+          853,
+          301,
+          177
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            132,
+            937
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          295,
+          863,
+          252,
+          164
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            410,
+            952
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          543,
+          854,
+          249,
+          172
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            732,
+            946
+          ]
+        ]
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          786,
+          859,
+          203,
+          167
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            888,
+            951
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          26,
+          1050,
+          217,
+          180
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            75,
+            1141
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          280,
+          1042,
+          237,
+          187
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            410,
+            1132
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          510,
+          1053,
+          225,
+          176
+        ],
+        "bad_edge": true,
+        "component_seeds": [
+          [
+            612,
+            1148
+          ]
+        ]
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          767,
+          1052,
+          212,
+          178
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            832,
+            1149
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          18,
+          1262,
+          235,
+          199
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            57,
+            1364
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          269,
+          1291,
+          235,
+          171
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            390,
+            1381
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          510,
+          1354,
+          242,
+          121
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            564,
+            1419
+          ]
+        ]
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          753,
+          1351,
+          230,
+          124
+        ],
+        "bad_edge": false,
+        "component_seeds": [
+          [
+            809,
+            1419
+          ]
+        ]
+      }
+    ],
+    "status": "reviewed",
+    "frames": 29,
+    "retained_original_poses": "Complete original connected silhouettes, uniform per-source scale based on original and new idle character proportions. Source pixels remain unchanged.",
+    "horizontal_registration": "Fixed four-column cell body origin retained; complete source silhouette and per-source scale preserved.",
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          234,
+          174
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          236,
+          0,
+          238,
+          179
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          476,
+          0,
+          225,
+          175
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          703,
+          0,
+          218,
+          174
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          923,
+          0,
+          227,
+          176
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1152,
+          0,
+          221,
+          176
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1375,
+          0,
+          225,
+          175
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1602,
+          0,
+          224,
+          172
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1828,
+          0,
+          239,
+          178
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2069,
+          0,
+          243,
+          177
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2314,
+          0,
+          255,
+          179
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2571,
+          0,
+          216,
+          175
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2789,
+          0,
+          250,
+          174
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          25,
+          90,
+          217,
+          157
+        ],
+        "component_seeds": [
+          [
+            186,
+            172
+          ]
+        ],
+        "scale": 1.163311,
+        "anchor_x": 101.303846,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          278,
+          91,
+          214,
+          155
+        ],
+        "component_seeds": [
+          [
+            415,
+            172
+          ]
+        ],
+        "scale": 1.174603,
+        "anchor_x": 108.22973,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3041,
+          0,
+          228,
+          172
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          533,
+          90,
+          219,
+          156
+        ],
+        "component_seeds": [
+          [
+            704,
+            171
+          ]
+        ],
+        "scale": 1.211712,
+        "anchor_x": 111.104089,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          802,
+          70,
+          190,
+          176
+        ],
+        "component_seeds": [
+          [
+            905,
+            165
+          ]
+        ],
+        "scale": 1.111111,
+        "anchor_x": 105.6,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3271,
+          0,
+          220,
+          194
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1058,
+          61,
+          190,
+          185
+        ],
+        "component_seeds": [
+          [
+            1152,
+            163
+          ]
+        ],
+        "scale": 1.122411,
+        "anchor_x": 104.364094,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1316,
+          81,
+          174,
+          166
+        ],
+        "component_seeds": [
+          [
+            1397,
+            167
+          ]
+        ],
+        "scale": 1.28692,
+        "anchor_x": 96.770492,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3493,
+          0,
+          176,
+          208
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          41,
+          332,
+          170,
+          171
+        ],
+        "component_seeds": [
+          [
+            121,
+            421
+          ]
+        ],
+        "scale": 1.212679,
+        "anchor_x": 82.900506,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          271,
+          363,
+          229,
+          139
+        ],
+        "component_seeds": [
+          [
+            450,
+            430
+          ]
+        ],
+        "scale": 1.430025,
+        "anchor_x": 86.63879,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3671,
+          0,
+          301,
+          177
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          521,
+          360,
+          236,
+          142
+        ],
+        "component_seeds": [
+          [
+            564,
+            431
+          ]
+        ],
+        "scale": 1.288557,
+        "anchor_x": 81.772201,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          781,
+          353,
+          230,
+          149
+        ],
+        "component_seeds": [
+          [
+            898,
+            436
+          ]
+        ],
+        "scale": 1.193853,
+        "anchor_x": 80.013861,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          210,
+          252,
+          164
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1040,
+          352,
+          226,
+          150
+        ],
+        "component_seeds": [
+          [
+            1173,
+            435
+          ]
+        ],
+        "scale": 1.173709,
+        "anchor_x": 76.836,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1294,
+          349,
+          221,
+          153
+        ],
+        "component_seeds": [
+          [
+            1429,
+            432
+          ]
+        ],
+        "scale": 1.167816,
+        "anchor_x": 72.588583,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          254,
+          210,
+          249,
+          172
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          16,
+          604,
+          219,
+          154
+        ],
+        "component_seeds": [
+          [
+            104,
+            689
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 77.714286,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          289,
+          604,
+          185,
+          154
+        ],
+        "component_seeds": [
+          [
+            371,
+            690
+          ]
+        ],
+        "scale": 1.155251,
+        "anchor_x": 74.901186,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          505,
+          210,
+          203,
+          167
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          541,
+          604,
+          182,
+          154
+        ],
+        "component_seeds": [
+          [
+            563,
+            690
+          ]
+        ],
+        "scale": 1.173516,
+        "anchor_x": 81.614786,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          796,
+          597,
+          200,
+          161
+        ],
+        "component_seeds": [
+          [
+            862,
+            679
+          ]
+        ],
+        "scale": 1.148148,
+        "anchor_x": 87.741935,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          710,
+          210,
+          217,
+          180
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1053,
+          596,
+          196,
+          162
+        ],
+        "component_seeds": [
+          [
+            1181,
+            677
+          ]
+        ],
+        "scale": 1.183983,
+        "anchor_x": 89.340037,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1294,
+          590,
+          219,
+          168
+        ],
+        "component_seeds": [
+          [
+            1332,
+            672
+          ]
+        ],
+        "scale": 1.154167,
+        "anchor_x": 88.422383,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          929,
+          210,
+          237,
+          187
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          18,
+          848,
+          214,
+          166
+        ],
+        "component_seeds": [
+          [
+            36,
+            929
+          ]
+        ],
+        "scale": 1.160338,
+        "anchor_x": 90.596364,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          274,
+          853,
+          205,
+          161
+        ],
+        "component_seeds": [
+          [
+            402,
+            940
+          ]
+        ],
+        "scale": 1.174292,
+        "anchor_x": 102.528757,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1168,
+          210,
+          225,
+          176
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          535,
+          853,
+          203,
+          161
+        ],
+        "component_seeds": [
+          [
+            710,
+            941
+          ]
+        ],
+        "scale": 1.154684,
+        "anchor_x": 100.083019,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          789,
+          853,
+          201,
+          161
+        ],
+        "component_seeds": [
+          [
+            885,
+            942
+          ]
+        ],
+        "scale": 1.159041,
+        "anchor_x": 101.477444,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1395,
+          210,
+          212,
+          178
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1049,
+          853,
+          200,
+          161
+        ],
+        "component_seeds": [
+          [
+            1228,
+            942
+          ]
+        ],
+        "scale": 1.154684,
+        "anchor_x": 99.216981,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "region": [
+          1295,
+          860,
+          216,
+          154
+        ],
+        "component_seeds": [
+          [
+            1391,
+            950
+          ]
+        ],
+        "scale": 1.200913,
+        "anchor_x": 101.21673,
+        "grade": {
+          "saturation": 1.0719,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8617
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1609,
+          210,
+          235,
+          199
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1846,
+          210,
+          235,
+          171
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2083,
+          210,
+          242,
+          121
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2327,
+          210,
+          230,
+          124
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2559,
+          210,
+          226,
+          92
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      }
+    ],
+    "diver_splash_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2787,
+          210,
+          206,
+          148
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          36,
+          115,
+          182,
+          133
+        ],
+        "component_seeds": [
+          [
+            128,
+            189
+          ]
+        ],
+        "scale": 1.266667,
+        "anchor_x": 106.210526,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          295,
+          87,
+          174,
+          161
+        ],
+        "component_seeds": [
+          [
+            410,
+            171
+          ]
+        ],
+        "scale": 1.102397,
+        "anchor_x": 102.280632,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2995,
+          210,
+          193,
+          179
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          551,
+          92,
+          176,
+          156
+        ],
+        "component_seeds": [
+          [
+            585,
+            173
+          ]
+        ],
+        "scale": 1.272523,
+        "anchor_x": 103.644248,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          810,
+          64,
+          167,
+          184
+        ],
+        "component_seeds": [
+          [
+            906,
+            156
+          ]
+        ],
+        "scale": 1.123106,
+        "anchor_x": 101.794266,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3190,
+          210,
+          182,
+          207
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1067,
+          64,
+          171,
+          184
+        ],
+        "component_seeds": [
+          [
+            1207,
+            155
+          ]
+        ],
+        "scale": 1.200758,
+        "anchor_x": 100.883281,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1330,
+          50,
+          162,
+          198
+        ],
+        "component_seeds": [
+          [
+            1371,
+            151
+          ]
+        ],
+        "scale": 1.135088,
+        "anchor_x": 96.103555,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3374,
+          210,
+          163,
+          220
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          51,
+          305,
+          151,
+          199
+        ],
+        "component_seeds": [
+          [
+            173,
+            407
+          ]
+        ],
+        "scale": 1.068063,
+        "anchor_x": 92.674837,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          290,
+          340,
+          183,
+          164
+        ],
+        "component_seeds": [
+          [
+            365,
+            426
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 102.851064,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      }
+    ],
+    "diver_splash": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3539,
+          210,
+          207,
+          172
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          543,
+          350,
+          189,
+          154
+        ],
+        "component_seeds": [
+          [
+            590,
+            429
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 107.428571,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          793,
+          359,
+          202,
+          145
+        ],
+        "component_seeds": [
+          [
+            936,
+            437
+          ]
+        ],
+        "scale": 1.231144,
+        "anchor_x": 113.934783,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3748,
+          210,
+          213,
+          167
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1055,
+          360,
+          196,
+          144
+        ],
+        "component_seeds": [
+          [
+            1217,
+            439
+          ]
+        ],
+        "scale": 1.134804,
+        "anchor_x": 109.693305,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1304,
+          386,
+          208,
+          119
+        ],
+        "component_seeds": [
+          [
+            1484,
+            450
+          ]
+        ],
+        "scale": 1.276276,
+        "anchor_x": 116.618824,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          432,
+          224,
+          129
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          24,
+          640,
+          204,
+          119
+        ],
+        "component_seeds": [
+          [
+            177,
+            704
+          ]
+        ],
+        "scale": 1.204204,
+        "anchor_x": 115.134663,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          282,
+          629,
+          199,
+          130
+        ],
+        "component_seeds": [
+          [
+            345,
+            701
+          ]
+        ],
+        "scale": 1.13388,
+        "anchor_x": 111.701205,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          226,
+          432,
+          215,
+          143
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          543,
+          631,
+          196,
+          128
+        ],
+        "component_seeds": [
+          [
+            563,
+            700
+          ]
+        ],
+        "scale": 1.269444,
+        "anchor_x": 109.665208,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          798,
+          606,
+          187,
+          153
+        ],
+        "component_seeds": [
+          [
+            921,
+            682
+          ]
+        ],
+        "scale": 1.114943,
+        "anchor_x": 111.865979,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      }
+    ],
+    "diver_splash_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          443,
+          432,
+          203,
+          171
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1061,
+          605,
+          181,
+          154
+        ],
+        "component_seeds": [
+          [
+            1209,
+            680
+          ]
+        ],
+        "scale": 1.219178,
+        "anchor_x": 106.022472,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1320,
+          587,
+          177,
+          173
+        ],
+        "component_seeds": [
+          [
+            1350,
+            677
+          ]
+        ],
+        "scale": 1.121212,
+        "anchor_x": 110.810811,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          648,
+          432,
+          197,
+          192
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          39,
+          839,
+          175,
+          177
+        ],
+        "component_seeds": [
+          [
+            142,
+            931
+          ]
+        ],
+        "scale": 1.08284,
+        "anchor_x": 111.15847,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          291,
+          866,
+          176,
+          150
+        ],
+        "component_seeds": [
+          [
+            456,
+            944
+          ]
+        ],
+        "scale": 1.225352,
+        "anchor_x": 106.977011,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          847,
+          432,
+          191,
+          165
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          547,
+          866,
+          179,
+          150
+        ],
+        "component_seeds": [
+          [
+            627,
+            943
+          ]
+        ],
+        "scale": 1.164319,
+        "anchor_x": 109.447581,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          802,
+          868,
+          179,
+          147
+        ],
+        "component_seeds": [
+          [
+            966,
+            945
+          ]
+        ],
+        "scale": 1.191847,
+        "anchor_x": 111.229376,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1040,
+          432,
+          189,
+          166
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1060,
+          868,
+          177,
+          147
+        ],
+        "component_seeds": [
+          [
+            1172,
+            945
+          ]
+        ],
+        "scale": 1.213429,
+        "anchor_x": 108.51581,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "region": [
+          1303,
+          859,
+          217,
+          156
+        ],
+        "component_seeds": [
+          [
+            1498,
+            949
+          ]
+        ],
+        "scale": 1.157658,
+        "anchor_x": 101.350195,
+        "grade": {
+          "saturation": 1.146,
+          "rgb": [
+            0.85,
+            0.85,
+            0.87
+          ]
+        }
+      }
+    ],
+    "diver_splash_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1231,
+          432,
+          211,
+          163
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1444,
+          432,
+          199,
+          183
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      }
+    ],
+    "travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1645,
+          432,
+          331,
+          159
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1978,
+          432,
+          322,
+          165
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/rust_diver.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "diver_splash_windup",
+      "diver_splash",
+      "diver_splash_recover",
+      "diver_splash_charge",
+      "travel"
+    ],
+    "sheets": [
+      {
+        "image": "diver_splash.png",
+        "image_sha256": "8e95b7772cfe24e38dc85bcd82c364ee360a4ee5d17ef539ce06ebc5ccea78a7",
+        "role": "new",
+        "attack": "diver_splash",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8088,
+        "anchors": [
+          148.1,
+          141.1,
+          140.1,
+          125.1,
+          146.1,
+          151.1,
+          159.1,
+          151.1,
+          152.1,
+          153.1,
+          146.1,
+          146.1,
+          152.1,
+          145.1
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8197,
+          "last_recover_ratio": 0.798
+        }
+      },
+      {
+        "image": "diver_vault_loops.png",
+        "image_sha256": "363d86c3b5effd03050482844710da45a375843a812fb142dabfbc1ee12ec1a5",
+        "role": "keep",
+        "attack": "diver_vault",
+        "plan": [
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.4118,
+        "anchors": [
+          248.3,
+          251.3
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.4156,
+            0.4081
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "rust_diver__attack",
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__attack.png",
+        "sha256": "716527ae693a5ba223e3fc9cb453fd56c1e5986c5a9418325f25809711b5423a",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_diver__attack.png"
+      },
+      {
+        "id": "rust_diver__diver_splash",
+        "source": "art_requests/combat_motion_v7/incoming/rust_diver__diver_splash.png",
+        "sha256": "1cb538e4db938a34075a96c85aee4d118090d970ef9c7faf00b9e79b826c022d",
+        "new_drawings": 24,
+        "animations": [
+          "diver_splash_windup",
+          "diver_splash",
+          "diver_splash_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/rust_diver__diver_splash.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

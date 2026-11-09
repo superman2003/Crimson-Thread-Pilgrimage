@@ -1,0 +1,2379 @@
+{
+  "kind": "salt_bookmite",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-6ca53cb1-6a0f-45b3-8c29-6e4641507f62.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Expand this reference atlas into a production hand-drawn 2D sprite animation sheet of the SAME character salt_bookmite. Preserve original anatomy, palette, ink line quality and costume: cream paper louse body, red wax eyes, burgundy folded book shell and salt crystal spine. Transparent background with real alpha, no text, no cell borders, no shadows/background. EXACTLY 6 columns × 6 rows, 36 sprites total with ONE complete full-body sprite centered INSIDE each equal cell. Make sprites relatively small (maximum 68% cell width and 76% cell height), generous transparent gutters, consistent scale and foot/hover baseline. All living poses face RIGHT. Every weapon, antenna, limb must remain inside own cell, never crosses adjacent column or row. Row-major exact sequence by slot index: 0,1,2,3 idle breathing; 4,5,6,7,8,9,10,11 eight consecutive walk poses (alternating contact, down, passing, up on both legs); 12,13,14,15 windup; 16,17,18,19,20,21 attack; 22,23,24,25,26,27 recover to ready; 28,29,30,31 hurt/recoil; 32,33,34,35 death buckling, falling, collapsed, settled. Motion focus: mandible and foreleg lunge, pages flare and settle. Actual articulation and pose differences, not shifted duplicate stamps. Orthographic side-view, detailed ink and flat painted natural colors matching input. Do not add objects or redesign the character.",
+  "qa": {
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          39,
+          41,
+          226,
+          141
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          294,
+          41,
+          226,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          550,
+          38,
+          224,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          803,
+          38,
+          223,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          4
+        ],
+        "region": [
+          1062,
+          39,
+          231,
+          144
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          5
+        ],
+        "region": [
+          1308,
+          37,
+          214,
+          146
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          37,
+          197,
+          226,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          297,
+          204,
+          223,
+          138
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          546,
+          209,
+          220,
+          134
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          799,
+          206,
+          226,
+          137
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          4
+        ],
+        "region": [
+          1061,
+          206,
+          225,
+          137
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          5
+        ],
+        "region": [
+          1316,
+          212,
+          208,
+          131
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          31,
+          369,
+          234,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          300,
+          368,
+          229,
+          143
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          551,
+          374,
+          230,
+          138
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          812,
+          381,
+          214,
+          132
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          4
+        ],
+        "region": [
+          1066,
+          371,
+          218,
+          141
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          5
+        ],
+        "region": [
+          1318,
+          372,
+          208,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          21,
+          539,
+          253,
+          135
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          284,
+          540,
+          247,
+          131
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          544,
+          535,
+          237,
+          139
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          800,
+          533,
+          231,
+          141
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          4
+        ],
+        "region": [
+          1053,
+          530,
+          236,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          5
+        ],
+        "region": [
+          1305,
+          544,
+          226,
+          132
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          33,
+          696,
+          230,
+          141
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          294,
+          694,
+          230,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          549,
+          696,
+          237,
+          141
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          804,
+          701,
+          228,
+          137
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          4
+        ],
+        "region": [
+          1064,
+          701,
+          220,
+          137
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          5
+        ],
+        "region": [
+          1320,
+          703,
+          203,
+          135
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          41,
+          845,
+          221,
+          155
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          284,
+          835,
+          214,
+          165
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          527,
+          856,
+          233,
+          144
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          3
+        ],
+        "region": [
+          773,
+          878,
+          226,
+          120
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          4
+        ],
+        "region": [
+          1024,
+          891,
+          256,
+          112
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          5
+        ],
+        "region": [
+          1284,
+          906,
+          243,
+          100
+        ],
+        "bad_edge": false
+      }
+    ],
+    "status": "reviewed",
+    "frames": 36,
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "registration_origins_by_source_row": [
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ],
+      [
+        128,
+        384,
+        640,
+        896,
+        1152,
+        1408
+      ]
+    ],
+    "horizontal_registration": "Explicit authored strip/cell body origins; central strips and variable row counts measured independently. Anchor does not follow weapon or wing bounding-box expansion. Natural pose lean/lunge relative to fixed origin preserved; flying roles do not use feet.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          226,
+          141
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          228,
+          0,
+          226,
+          142
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          456,
+          0,
+          224,
+          145
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          682,
+          0,
+          223,
+          145
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          907,
+          0,
+          231,
+          144
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1140,
+          0,
+          214,
+          146
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1356,
+          0,
+          226,
+          142
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1584,
+          0,
+          223,
+          138
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1809,
+          0,
+          220,
+          134
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2031,
+          0,
+          226,
+          137
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2259,
+          0,
+          225,
+          137
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2486,
+          0,
+          208,
+          131
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2696,
+          0,
+          234,
+          140
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2932,
+          0,
+          229,
+          143
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3163,
+          0,
+          230,
+          138
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          27,
+          122,
+          200,
+          125
+        ],
+        "component_seeds": [
+          [
+            154,
+            188
+          ]
+        ],
+        "scale": 1.162393,
+        "anchor_x": 82.117647,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          290,
+          129,
+          182,
+          118
+        ],
+        "component_seeds": [
+          [
+            311,
+            190
+          ]
+        ],
+        "scale": 1.218182,
+        "anchor_x": 72.895522,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3395,
+          0,
+          214,
+          132
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          546,
+          129,
+          185,
+          116
+        ],
+        "component_seeds": [
+          [
+            665,
+            189
+          ]
+        ],
+        "scale": 1.25,
+        "anchor_x": 74.333333,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          798,
+          121,
+          192,
+          125
+        ],
+        "component_seeds": [
+          [
+            891,
+            188
+          ]
+        ],
+        "scale": 1.179487,
+        "anchor_x": 79.043478,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3611,
+          0,
+          218,
+          141
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1056,
+          122,
+          191,
+          124
+        ],
+        "component_seeds": [
+          [
+            1104,
+            189
+          ]
+        ],
+        "scale": 1.212644,
+        "anchor_x": 79.800948,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1316,
+          122,
+          184,
+          123
+        ],
+        "component_seeds": [
+          [
+            1421,
+            188
+          ]
+        ],
+        "scale": 1.22029,
+        "anchor_x": 78.546318,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3831,
+          0,
+          208,
+          140
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          36,
+          378,
+          182,
+          123
+        ],
+        "component_seeds": [
+          [
+            116,
+            444
+          ]
+        ],
+        "scale": 1.202899,
+        "anchor_x": 79.710843,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          276,
+          381,
+          205,
+          122
+        ],
+        "component_seeds": [
+          [
+            312,
+            443
+          ]
+        ],
+        "scale": 1.19883,
+        "anchor_x": 89.117073,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          148,
+          253,
+          135
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          535,
+          381,
+          204,
+          121
+        ],
+        "component_seeds": [
+          [
+            572,
+            444
+          ]
+        ],
+        "scale": 1.20649,
+        "anchor_x": 85.249389,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          791,
+          378,
+          209,
+          123
+        ],
+        "component_seeds": [
+          [
+            938,
+            441
+          ]
+        ],
+        "scale": 1.197101,
+        "anchor_x": 89.062954,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          504,
+          148,
+          237,
+          139
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1047,
+          379,
+          209,
+          122
+        ],
+        "component_seeds": [
+          [
+            1063,
+            442
+          ]
+        ],
+        "scale": 1.225146,
+        "anchor_x": 88.448687,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1303,
+          376,
+          204,
+          126
+        ],
+        "component_seeds": [
+          [
+            1383,
+            440
+          ]
+        ],
+        "scale": 1.189266,
+        "anchor_x": 88.204276,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          743,
+          148,
+          231,
+          141
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          27,
+          634,
+          201,
+          124
+        ],
+        "component_seeds": [
+          [
+            117,
+            697
+          ]
+        ],
+        "scale": 1.189655,
+        "anchor_x": 85.724638,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          283,
+          638,
+          199,
+          119
+        ],
+        "component_seeds": [
+          [
+            433,
+            699
+          ]
+        ],
+        "scale": 1.216216,
+        "anchor_x": 90.4,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1214,
+          148,
+          226,
+          132
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          538,
+          640,
+          195,
+          118
+        ],
+        "component_seeds": [
+          [
+            608,
+            701
+          ]
+        ],
+        "scale": 1.227273,
+        "anchor_x": 92.061728,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          794,
+          633,
+          196,
+          126
+        ],
+        "component_seeds": [
+          [
+            857,
+            697
+          ]
+        ],
+        "scale": 1.169492,
+        "anchor_x": 87.270531,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1442,
+          148,
+          230,
+          141
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1052,
+          634,
+          194,
+          122
+        ],
+        "component_seeds": [
+          [
+            1069,
+            698
+          ]
+        ],
+        "scale": 1.236842,
+        "anchor_x": 82.964539,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1306,
+          635,
+          206,
+          123
+        ],
+        "component_seeds": [
+          [
+            1373,
+            698
+          ]
+        ],
+        "scale": 1.226087,
+        "anchor_x": 81.08747,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1906,
+          148,
+          237,
+          141
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          26,
+          889,
+          205,
+          125
+        ],
+        "component_seeds": [
+          [
+            62,
+            954
+          ]
+        ],
+        "scale": 1.193732,
+        "anchor_x": 81.558473,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          283,
+          892,
+          201,
+          122
+        ],
+        "component_seeds": [
+          [
+            317,
+            956
+          ]
+        ],
+        "scale": 1.21345,
+        "anchor_x": 81.922892,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2145,
+          148,
+          228,
+          137
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          542,
+          891,
+          193,
+          122
+        ],
+        "component_seeds": [
+          [
+            680,
+            955
+          ]
+        ],
+        "scale": 1.195906,
+        "anchor_x": 82.459658,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          804,
+          892,
+          177,
+          122
+        ],
+        "component_seeds": [
+          [
+            855,
+            955
+          ]
+        ],
+        "scale": 1.190058,
+        "anchor_x": 78.601966,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2597,
+          148,
+          203,
+          135
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1060,
+          892,
+          180,
+          122
+        ],
+        "component_seeds": [
+          [
+            1132,
+            955
+          ]
+        ],
+        "scale": 1.201754,
+        "anchor_x": 78.160584,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "region": [
+          1311,
+          892,
+          194,
+          122
+        ],
+        "component_seeds": [
+          [
+            1365,
+            955
+          ]
+        ],
+        "scale": 1.219298,
+        "anchor_x": 81.640288,
+        "grade": {
+          "saturation": 0.9886,
+          "rgb": [
+            0.8636,
+            0.8755,
+            0.872
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2802,
+          148,
+          221,
+          155
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3025,
+          148,
+          214,
+          165
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3241,
+          148,
+          233,
+          144
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3476,
+          148,
+          226,
+          120
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3704,
+          148,
+          256,
+          112
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          315,
+          243,
+          100
+        ],
+        "anchor_x": 124.0,
+        "packed_runtime": true
+      }
+    ],
+    "book_bite_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          245,
+          315,
+          218,
+          130
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          33,
+          130,
+          190,
+          116
+        ],
+        "component_seeds": [
+          [
+            65,
+            189
+          ]
+        ],
+        "scale": 1.20679,
+        "anchor_x": 83.828645,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          285,
+          127,
+          192,
+          119
+        ],
+        "component_seeds": [
+          [
+            381,
+            188
+          ]
+        ],
+        "scale": 1.177177,
+        "anchor_x": 87.84949,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          465,
+          315,
+          218,
+          131
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          540,
+          126,
+          194,
+          120
+        ],
+        "component_seeds": [
+          [
+            606,
+            188
+          ]
+        ],
+        "scale": 1.244048,
+        "anchor_x": 89.07177,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          798,
+          107,
+          194,
+          139
+        ],
+        "component_seeds": [
+          [
+            857,
+            182
+          ]
+        ],
+        "scale": 1.127226,
+        "anchor_x": 90.478555,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          685,
+          315,
+          218,
+          156
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1054,
+          105,
+          194,
+          141
+        ],
+        "component_seeds": [
+          [
+            1139,
+            181
+          ]
+        ],
+        "scale": 1.175439,
+        "anchor_x": 88.41791,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1309,
+          101,
+          195,
+          145
+        ],
+        "component_seeds": [
+          [
+            1388,
+            179
+          ]
+        ],
+        "scale": 1.143552,
+        "anchor_x": 83.165957,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          905,
+          315,
+          220,
+          157
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          30,
+          356,
+          194,
+          145
+        ],
+        "component_seeds": [
+          [
+            79,
+            435
+          ]
+        ],
+        "scale": 1.172749,
+        "anchor_x": 83.136929,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          272,
+          350,
+          218,
+          149
+        ],
+        "component_seeds": [
+          [
+            385,
+            430
+          ]
+        ],
+        "scale": 1.165485,
+        "anchor_x": 96.43002,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      }
+    ],
+    "book_bite": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1127,
+          315,
+          261,
+          168
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          528,
+          350,
+          219,
+          150
+        ],
+        "component_seeds": [
+          [
+            672,
+            429
+          ]
+        ],
+        "scale": 1.176056,
+        "anchor_x": 97.417166,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          786,
+          356,
+          214,
+          143
+        ],
+        "component_seeds": [
+          [
+            852,
+            433
+          ]
+        ],
+        "scale": 1.22963,
+        "anchor_x": 93.084337,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1390,
+          315,
+          246,
+          165
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1044,
+          356,
+          212,
+          141
+        ],
+        "component_seeds": [
+          [
+            1058,
+            433
+          ]
+        ],
+        "scale": 1.250627,
+        "anchor_x": 92.066132,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1298,
+          351,
+          217,
+          149
+        ],
+        "component_seeds": [
+          [
+            1339,
+            431
+          ]
+        ],
+        "scale": 1.189125,
+        "anchor_x": 93.40159,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1638,
+          315,
+          256,
+          169
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          19,
+          606,
+          215,
+          148
+        ],
+        "component_seeds": [
+          [
+            62,
+            687
+          ]
+        ],
+        "scale": 1.195238,
+        "anchor_x": 92.394422,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          278,
+          613,
+          209,
+          139
+        ],
+        "component_seeds": [
+          [
+            438,
+            689
+          ]
+        ],
+        "scale": 1.264631,
+        "anchor_x": 90.054326,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1896,
+          315,
+          243,
+          164
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          534,
+          613,
+          209,
+          139
+        ],
+        "component_seeds": [
+          [
+            660,
+            689
+          ]
+        ],
+        "scale": 1.216285,
+        "anchor_x": 89.822176,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          789,
+          623,
+          209,
+          134
+        ],
+        "component_seeds": [
+          [
+            888,
+            695
+          ]
+        ],
+        "scale": 1.227513,
+        "anchor_x": 89.814655,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      }
+    ],
+    "book_bite_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2141,
+          315,
+          243,
+          150
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1045,
+          624,
+          210,
+          132
+        ],
+        "component_seeds": [
+          [
+            1186,
+            695
+          ]
+        ],
+        "scale": 1.201613,
+        "anchor_x": 90.832215,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1304,
+          628,
+          206,
+          127
+        ],
+        "component_seeds": [
+          [
+            1348,
+            697
+          ]
+        ],
+        "scale": 1.243697,
+        "anchor_x": 90.804054,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2386,
+          315,
+          234,
+          147
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          26,
+          883,
+          202,
+          129
+        ],
+        "component_seeds": [
+          [
+            146,
+            952
+          ]
+        ],
+        "scale": 1.195592,
+        "anchor_x": 88.836406,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          282,
+          888,
+          201,
+          126
+        ],
+        "component_seeds": [
+          [
+            441,
+            953
+          ]
+        ],
+        "scale": 1.206215,
+        "anchor_x": 86.82904,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2622,
+          315,
+          229,
+          140
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          540,
+          888,
+          199,
+          125
+        ],
+        "component_seeds": [
+          [
+            727,
+            953
+          ]
+        ],
+        "scale": 1.193732,
+        "anchor_x": 87.116945,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          798,
+          891,
+          194,
+          122
+        ],
+        "component_seeds": [
+          [
+            951,
+            954
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 86.363636,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2853,
+          315,
+          223,
+          139
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1054,
+          892,
+          194,
+          121
+        ],
+        "component_seeds": [
+          [
+            1198,
+            954
+          ]
+        ],
+        "scale": 1.235988,
+        "anchor_x": 85.809069,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "region": [
+          1308,
+          888,
+          201,
+          126
+        ],
+        "component_seeds": [
+          [
+            1454,
+            953
+          ]
+        ],
+        "scale": 1.189266,
+        "anchor_x": 83.0,
+        "grade": {
+          "saturation": 1.0403,
+          "rgb": [
+            0.9009,
+            0.9236,
+            0.9112
+          ]
+        }
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3078,
+          315,
+          208,
+          114
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3288,
+          315,
+          218,
+          125
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/salt_bookmite.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "book_bite_windup",
+      "book_bite",
+      "book_bite_recover",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "book_bite.png",
+        "image_sha256": "788d14e3aebfd1dd301f493a7dd883f5e3a3e56b260a58210e90927d4274437b",
+        "role": "new",
+        "attack": "book_bite",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.8057,
+        "anchors": [
+          118.7,
+          119.7,
+          124.7,
+          117.7,
+          143.7,
+          131.7,
+          135.7,
+          132.7,
+          129.7,
+          127.7,
+          122.7,
+          121.7
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8225,
+          "last_recover_ratio": 0.7893
+        }
+      },
+      {
+        "image": "book_burrow_loops.png",
+        "image_sha256": "bc75467ad8d36d2033147af7560777f7d80f1ff8869984b0c078e29c3d08e249",
+        "role": "keep",
+        "attack": "book_burrow",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3381,
+        "anchors": [
+          279.9,
+          299.9
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3443,
+            0.3321
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "salt_bookmite__attack",
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__attack.png",
+        "sha256": "ee2c0ce14cacf7454bd25e9caf3f8c799e6300b27c53498cbe40d42577c86e30",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/salt_bookmite__attack.png"
+      },
+      {
+        "id": "salt_bookmite__book_bite",
+        "source": "art_requests/combat_motion_v7/incoming/salt_bookmite__book_bite.png",
+        "sha256": "d3a42d745d089867107c3e2555f56a074db6dc803ef0d17b756fffbd1261397b",
+        "new_drawings": 24,
+        "animations": [
+          "book_bite_windup",
+          "book_bite",
+          "book_bite_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/salt_bookmite__book_bite.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

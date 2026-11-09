@@ -162,34 +162,25 @@ func _hits_player(center: Vector2) -> bool:
 
 func _draw() -> void:
     if age < arm_delay and (BOSS_SKILL_ART.draw_hazard_warning(self) or MINOR_SKILL_ART.draw_hazard_warning(self)):
-        # Authored material is the main cue; the fine edge retains exact range.
-        if effect_kind == "beam":
-            _draw_beam_channel_outline(_beam_channel_corners(),Color(.98,.8,.46,.9),1.2)
-        elif effect_kind == "pool":
-            draw_arc(Vector2.ZERO,radius,0,TAU,32,Color(.98,.8,.46,.8),1.2,true)
+        # Authored warning pixels communicate the footprint. Do not surround
+        # the material with a second geometric debug-like outline.
         return
     if age >= arm_delay and MINOR_SKILL_ART.draw_hazard_execution(self):
-        draw_arc(Vector2.ZERO,radius,0,TAU,32,Color(.98,.8,.46,.8),1.2,true)
         return
     if effect_kind in ["wave","eruption"]:
         var family := TERRAIN_ART.family_for(effect_kind,skin,owner_actor)
         var frame := TERRAIN_ART.frame_for(effect_kind,age,arm_delay)
         var direction := velocity.x if effect_kind == "wave" else heading.x
         if age < arm_delay:
-            TERRAIN_ART.draw_frame(self,family,frame,radius,direction,Color(tint,.55))
+            if TERRAIN_ART.draw_frame(self,family,maxi(0,frame),radius,direction,Color(tint,.55)):return
         elif TERRAIN_ART.draw_frame(self,family,frame,radius,direction,Color(tint,1)):
-            _draw_terrain_boundary()
             return
     if effect_kind == "pool":
         var family := GROUND_ART.family_for(skin, owner_actor)
         var frame := GROUND_ART.frame_for(age, arm_delay)
         if age < arm_delay:
-            GROUND_ART.draw_frame(self, family, frame, radius, Color(tint, 0.55))
+            if GROUND_ART.draw_frame(self, family, maxi(0,frame), radius, Color(tint, 0.55)):return
         elif GROUND_ART.draw_frame(self, family, frame, radius, Color(tint, 1.0)):
-            # A flat painted footprint cannot express circular player collision.
-            # Keep the existing radius explicit and fully readable until expiry.
-            draw_arc(Vector2.ZERO, radius, 0, TAU, 32, Color(0.07,0.05,0.04,0.9), 3.5, true)
-            draw_arc(Vector2.ZERO, radius, 0, TAU, 32, Color(0.98,0.76,0.4,0.95), 1.5, true)
             return
     if age<arm_delay:
         # Pulse never drops below a readable floor, so a glance mid-warning still sees the cue.
@@ -210,9 +201,6 @@ func _draw() -> void:
     active_color.a=clampf((duration-age)/.18,0,1)
     if effect_kind == "beam":
         if BEAM_ART.draw_frame(self,BEAM_ART.family_for(skin,owner_actor),length,radius,heading,age-arm_delay):
-            if length > 0:
-                # Keep the exact channel visible for the entire damaging period.
-                _draw_beam_channel_outline(_beam_channel_corners(),Color(.99,.91,.71,.9),1.5)
             return
     if effect_kind == "projectile":
         var axis := velocity.normalized() if velocity.length() > 1.0 else heading

@@ -1,0 +1,5660 @@
+{
+  "kind": "silent_crown_core",
+  "generator": "built-in image_gen",
+  "sources": [
+    {
+      "sheet": "motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Hundred Key Gatekeeper exactly reference, towering ivory stag beetle sovereign with massive crescent ivory mandibles, elaborate antique key crown, black and silver segmented armor, white ermine collar, crimson silk royal cloak with gold edges, holding a long heavy brass KEY SCEPTER. Exactly 4 columns by 9 rows =36 full body sprites, tall canvas. Draw sprite SMALL at 60% cell width and height with 20% empty transparent margins EVERY SIDE. Never touch or overlap neighboring sprites, all full weapons must fit. Four frames each row: ROW1 idle breathing; ROW2 walk first four leg poses; ROW3 walk second four opposite leg poses; ROW4 windup lifting key scepter and bracing legs; ROW5 attack four rightward scepter swing/lunge poses; ROW6 recover four scepter retraction poses; ROW7 hurt four recoil/bent poses; ROW8 death stagger kneel fall collapsed; ROW9 extra two attack followthrough then two recover. Preserve identity same scale. No painted background or glow or floor or shadow. All side view facing right. Genuine transparent alpha.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-caa3d5ba-ad46-4df5-90e9-484d96c8e400.png",
+      "sha256": "29b2f792ffd5b5e4e72d4e83f680d2ca96a80ee3f9fdc10cbbca056e0395b405"
+    },
+    {
+      "sheet": "special_motion_expanded.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character: Hundred Key Gatekeeper as refs, ivory stag beetle royal sovereign, enormous ivory crescent mandibles, tall brass key crown, black silver armor, ermine collar, crimson gold royal cloak and brass heavy key scepter. Exactly FOUR COLUMNS by SIX ROWS 24 independent full body sprites. LARGE TRANSPARENT GUTTERS; entire character only 60% cell width/height, every scepter and horn contained, no overlap. Four distinct consecutive articulated poses per row. Row1 heavy_windup lifting key scepter slowly above crown, knees coil. Row2 heavy four scepter downward slam poses through ground and returning. Row3 cast_windup free hand slowly lifts, key scepter held low. Row4 cast four open-hand royal summoning gestures with claw extended right and returning, no detached effect. Row5 phase_windup crouches, cloak gathers, scepter drawn across chest. Row6 phase four forward scepter thrust poses with body advancing and recoil. Complete dark fantasy hand drawn 2D bodies, all RIGHT side view, same proportions/scale. Transparent background no brown backdrop, shadow, words, or ground.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-481e4221-1e11-447a-b630-613b62b53b46.png",
+      "sha256": "d593bf570fe926113850a0fda1831ee2f3ae8fae6b6fdea9daaf6a6dd3f044fa"
+    },
+    {
+      "sheet": "motion_repair.png",
+      "generator": "built-in image_gen",
+      "prompt": "Use case: stylized-concept. Production sprite animation expansion for original hand-drawn 2D dark fantasy insect game. Reference images are identity and style references only, NOT desired grid or background. Preserve exact character identity, proportions, costume, palette, clean ink and painterly material textures. Pure side view all living frames facing RIGHT. Transparent real alpha background, no backdrop, ground, shadows, labels, text, borders, particles, panels. Each equal cell contains exactly one COMPLETE character including every antenna, blade and robe, with ample transparent gutter. Fixed body scale and centered pelvis, grounded foot baseline at 90% cell height. Distinct redrawn poses with real limb and weapon articulation, never stamp, shift or rotate a whole copy. Character Hundred Key Gatekeeper EXACTLY reference: ivory stag beetle sovereign crescent mandibles, key crown, black silver armor, ermine red gold royal cloak, brass key scepter. SPARSE 4 COLUMNS by 3 ROWS = 12 complete sprites, landscape canvas. EACH sprite takes only half its cell width and half its cell height. Very wide transparent gaps between all figures so NO body, cloak or weapon can touch adjacent figure. ROW ONE four consecutive forward right scepter thrust/slash attack poses, bent knees drive forward, fully complete scepter. ROW TWO four consecutive PHASE ATTACK poses: low coiled crouch holding scepter across chest, explosive forward thrust, maximum extended lunge, recoiling settle. ROW THREE four death poses: severe standing stagger, knee hits ground and head bows, body falling onto side, fully collapsed rightward on ground with complete horns and key. All 12 same scale and species/style identity, side view right. No words, no drawn grid lines, no floor, no shadows, real alpha transparency.",
+      "source_reference": [
+        "atlas.png",
+        "attacks.png"
+      ],
+      "output_source": "/workspace/scratch/3ba9ab550e44/generated_images/exec-a8368c3e-1e5d-42c1-8f9c-3cd3d0b03c8e.png",
+      "sha256": "09fb82274bd62796de5c3d0eb063432a0dabfb8a5ac857ab45bd4f4ef99e1f8c"
+    }
+  ],
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          194,
+          172
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          196,
+          0,
+          194,
+          165
+        ],
+        "anchor_x": 77.180233,
+        "packed_runtime": true,
+        "scale": 1.042424,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          392,
+          0,
+          189,
+          172
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          583,
+          0,
+          195,
+          162
+        ],
+        "anchor_x": 73.389535,
+        "packed_runtime": true,
+        "scale": 1.061728,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          780,
+          0,
+          193,
+          172
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          975,
+          0,
+          194,
+          167
+        ],
+        "anchor_x": 75.988372,
+        "packed_runtime": true,
+        "scale": 1.02994,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1171,
+          0,
+          193,
+          172
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1366,
+          0,
+          215,
+          157
+        ],
+        "anchor_x": 93.159884,
+        "packed_runtime": true,
+        "scale": 1.095541,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1583,
+          0,
+          205,
+          161
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1790,
+          0,
+          194,
+          156
+        ],
+        "anchor_x": 65.735849,
+        "packed_runtime": true,
+        "scale": 1.019231,
+        "_v7_loop_alignment": {
+          "from": 0,
+          "to": 2,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1986,
+          0,
+          207,
+          157
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2195,
+          0,
+          195,
+          148
+        ],
+        "anchor_x": 93.109677,
+        "packed_runtime": true,
+        "scale": 1.047297,
+        "_v7_loop_alignment": {
+          "from": 2,
+          "to": 4,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2392,
+          0,
+          210,
+          153
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2604,
+          0,
+          201,
+          152
+        ],
+        "anchor_x": 130.168285,
+        "packed_runtime": true,
+        "scale": 1.016447,
+        "_v7_loop_alignment": {
+          "from": 4,
+          "to": 6,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2807,
+          0,
+          206,
+          156
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3015,
+          0,
+          199,
+          149
+        ],
+        "anchor_x": 107.414557,
+        "packed_runtime": true,
+        "scale": 1.060403,
+        "_v7_loop_alignment": {
+          "from": 6,
+          "to": 8,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3216,
+          0,
+          206,
+          160
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3424,
+          0,
+          195,
+          153
+        ],
+        "anchor_x": 78.228571,
+        "packed_runtime": true,
+        "scale": 1.029412,
+        "_v7_loop_alignment": {
+          "from": 8,
+          "to": 10,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3621,
+          0,
+          202,
+          155
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3825,
+          0,
+          200,
+          149
+        ],
+        "anchor_x": 84.33657,
+        "packed_runtime": true,
+        "scale": 1.036913,
+        "_v7_loop_alignment": {
+          "from": 10,
+          "to": 12,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          174,
+          201,
+          154
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          203,
+          174,
+          202,
+          153
+        ],
+        "anchor_x": 104.533981,
+        "packed_runtime": true,
+        "scale": 1.009804,
+        "_v7_loop_alignment": {
+          "from": 12,
+          "to": 14,
+          "progress": 0.5
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          407,
+          174,
+          204,
+          155
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          613,
+          174,
+          198,
+          153
+        ],
+        "anchor_x": 96.379747,
+        "packed_runtime": true,
+        "scale": 1.03268,
+        "_v7_loop_alignment": {
+          "from": 14,
+          "to": 0,
+          "progress": 0.5
+        }
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          813,
+          174,
+          179,
+          187
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          45,
+          85,
+          165,
+          162
+        ],
+        "component_seeds": [
+          [
+            143,
+            183
+          ]
+        ],
+        "scale": 1.19697,
+        "anchor_x": 68.443038,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          295,
+          78,
+          179,
+          169
+        ],
+        "component_seeds": [
+          [
+            370,
+            188
+          ]
+        ],
+        "scale": 1.128364,
+        "anchor_x": 68.957798,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1182,
+          174,
+          201,
+          179
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          547,
+          79,
+          183,
+          168
+        ],
+        "component_seeds": [
+          [
+            611,
+            188
+          ]
+        ],
+        "scale": 1.120833,
+        "anchor_x": 75.587361,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          809,
+          76,
+          171,
+          171
+        ],
+        "component_seeds": [
+          [
+            939,
+            189
+          ]
+        ],
+        "scale": 1.102249,
+        "anchor_x": 75.133581,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1573,
+          174,
+          187,
+          180
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1064,
+          76,
+          172,
+          171
+        ],
+        "component_seeds": [
+          [
+            1199,
+            188
+          ]
+        ],
+        "scale": 1.110429,
+        "anchor_x": 77.587477,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1320,
+          67,
+          174,
+          180
+        ],
+        "component_seeds": [
+          [
+            1399,
+            183
+          ]
+        ],
+        "scale": 1.05814,
+        "anchor_x": 63.948718,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1945,
+          174,
+          193,
+          183
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          41,
+          333,
+          172,
+          169
+        ],
+        "component_seeds": [
+          [
+            116,
+            440
+          ]
+        ],
+        "scale": 1.10559,
+        "anchor_x": 57.166667,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          281,
+          354,
+          198,
+          148
+        ],
+        "component_seeds": [
+          [
+            376,
+            440
+          ]
+        ],
+        "scale": 1.235714,
+        "anchor_x": 75.406551,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2140,
+          174,
+          220,
+          168
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          538,
+          353,
+          199,
+          149
+        ],
+        "component_seeds": [
+          [
+            635,
+            440
+          ]
+        ],
+        "scale": 1.193853,
+        "anchor_x": 95.623762,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          780,
+          354,
+          232,
+          148
+        ],
+        "component_seeds": [
+          [
+            859,
+            437
+          ]
+        ],
+        "scale": 1.204762,
+        "anchor_x": 120.43083,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2608,
+          174,
+          266,
+          169
+        ],
+        "anchor_x": 164.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1032,
+          354,
+          239,
+          147
+        ],
+        "component_seeds": [
+          [
+            1241,
+            435
+          ]
+        ],
+        "scale": 1.196643,
+        "anchor_x": 152.683367,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1294,
+          370,
+          231,
+          131
+        ],
+        "component_seeds": [
+          [
+            1449,
+            436
+          ]
+        ],
+        "scale": 1.330623,
+        "anchor_x": 150.087576,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3144,
+          174,
+          293,
+          161
+        ],
+        "anchor_x": 189.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          13,
+          629,
+          231,
+          129
+        ],
+        "component_seeds": [
+          [
+            69,
+            692
+          ]
+        ],
+        "scale": 1.347107,
+        "anchor_x": 125.300613,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          265,
+          610,
+          228,
+          148
+        ],
+        "component_seeds": [
+          [
+            386,
+            687
+          ]
+        ],
+        "scale": 1.178571,
+        "anchor_x": 104.212121,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3702,
+          174,
+          246,
+          167
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          525,
+          610,
+          225,
+          148
+        ],
+        "component_seeds": [
+          [
+            635,
+            687
+          ]
+        ],
+        "scale": 1.154762,
+        "anchor_x": 81.731959,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          795,
+          620,
+          192,
+          138
+        ],
+        "component_seeds": [
+          [
+            894,
+            701
+          ]
+        ],
+        "scale": 1.202564,
+        "anchor_x": 88.477612,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          374,
+          212,
+          151
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1056,
+          620,
+          190,
+          138
+        ],
+        "component_seeds": [
+          [
+            1147,
+            701
+          ]
+        ],
+        "scale": 1.197436,
+        "anchor_x": 88.638116,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1315,
+          610,
+          183,
+          149
+        ],
+        "component_seeds": [
+          [
+            1383,
+            699
+          ]
+        ],
+        "scale": 1.137116,
+        "anchor_x": 71.014553,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          374,
+          199,
+          165
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          34,
+          863,
+          182,
+          151
+        ],
+        "component_seeds": [
+          [
+            158,
+            953
+          ]
+        ],
+        "scale": 1.160839,
+        "anchor_x": 64.146586,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          290,
+          861,
+          184,
+          154
+        ],
+        "component_seeds": [
+          [
+            412,
+            951
+          ]
+        ],
+        "scale": 1.143836,
+        "anchor_x": 68.189621,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1481,
+          374,
+          209,
+          168
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          545,
+          864,
+          187,
+          150
+        ],
+        "component_seeds": [
+          [
+            634,
+            952
+          ]
+        ],
+        "scale": 1.192488,
+        "anchor_x": 88.334646,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          800,
+          860,
+          190,
+          152
+        ],
+        "component_seeds": [
+          [
+            940,
+            952
+          ]
+        ],
+        "scale": 1.185185,
+        "anchor_x": 110.03125,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2125,
+          374,
+          213,
+          172
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1055,
+          860,
+          191,
+          154
+        ],
+        "component_seeds": [
+          [
+            1108,
+            952
+          ]
+        ],
+        "scale": 1.178082,
+        "anchor_x": 111.790698,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "region": [
+          1320,
+          860,
+          177,
+          156
+        ],
+        "component_seeds": [
+          [
+            1445,
+            952
+          ]
+        ],
+        "scale": 1.162162,
+        "anchor_x": 91.534884,
+        "grade": {
+          "saturation": 1.0847,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.8595
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2340,
+          374,
+          194,
+          172
+        ],
+        "anchor_x": 45.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2536,
+          374,
+          278,
+          168
+        ],
+        "anchor_x": 176.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2816,
+          374,
+          202,
+          173
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3020,
+          374,
+          214,
+          188
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3236,
+          374,
+          216,
+          138
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3454,
+          374,
+          272,
+          123
+        ],
+        "anchor_x": 193.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3728,
+          374,
+          269,
+          84
+        ],
+        "anchor_x": 252.0,
+        "packed_runtime": true
+      }
+    ],
+    "heavy_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          564,
+          201,
+          171
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          41,
+          93,
+          176,
+          154
+        ],
+        "component_seeds": [
+          [
+            107,
+            186
+          ]
+        ],
+        "scale": 1.189498,
+        "anchor_x": 58.410749,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          303,
+          86,
+          169,
+          160
+        ],
+        "component_seeds": [
+          [
+            351,
+            185
+          ]
+        ],
+        "scale": 1.160088,
+        "anchor_x": 50.94518,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          402,
+          564,
+          194,
+          179
+        ],
+        "anchor_x": 61.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          558,
+          86,
+          169,
+          160
+        ],
+        "component_seeds": [
+          [
+            608,
+            185
+          ]
+        ],
+        "scale": 1.241228,
+        "anchor_x": 58.607774,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          818,
+          60,
+          161,
+          186
+        ],
+        "component_seeds": [
+          [
+            892,
+            173
+          ]
+        ],
+        "scale": 1.114232,
+        "anchor_x": 58.973109,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          798,
+          564,
+          185,
+          208
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1046,
+          3,
+          189,
+          243
+        ],
+        "component_seeds": [
+          [
+            1147,
+            174
+          ],
+          [
+            1050,
+            9
+          ]
+        ],
+        "scale": 0.880851,
+        "anchor_x": 89.402576,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1323,
+          60,
+          167,
+          187
+        ],
+        "component_seeds": [
+          [
+            1442,
+            185
+          ]
+        ],
+        "scale": 1.150838,
+        "anchor_x": 74.200647,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1168,
+          564,
+          181,
+          205
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          44,
+          314,
+          165,
+          188
+        ],
+        "component_seeds": [
+          [
+            177,
+            440
+          ]
+        ],
+        "scale": 1.161111,
+        "anchor_x": 70.478469,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          296,
+          306,
+          176,
+          195
+        ],
+        "component_seeds": [
+          [
+            428,
+            430
+          ]
+        ],
+        "scale": 1.139037,
+        "anchor_x": 65.125196,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1351,
+          564,
+          198,
+          217
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          548,
+          306,
+          180,
+          195
+        ],
+        "component_seeds": [
+          [
+            665,
+            430
+          ]
+        ],
+        "scale": 1.131907,
+        "anchor_x": 63.962205,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          802,
+          322,
+          185,
+          180
+        ],
+        "component_seeds": [
+          [
+            947,
+            436
+          ]
+        ],
+        "scale": 1.199612,
+        "anchor_x": 72.657512,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1751,
+          564,
+          196,
+          201
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1058,
+          319,
+          186,
+          182
+        ],
+        "component_seeds": [
+          [
+            1149,
+            435
+          ]
+        ],
+        "scale": 1.057471,
+        "anchor_x": 90.913043,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1314,
+          365,
+          185,
+          137
+        ],
+        "component_seeds": [
+          [
+            1464,
+            431
+          ]
+        ],
+        "scale": 1.294574,
+        "anchor_x": 104.784431,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2173,
+          564,
+          202,
+          150
+        ],
+        "anchor_x": 135.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          34,
+          621,
+          186,
+          137
+        ],
+        "component_seeds": [
+          [
+            195,
+            687
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 124.181818,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          297,
+          602,
+          173,
+          155
+        ],
+        "component_seeds": [
+          [
+            437,
+            696
+          ]
+        ],
+        "scale": 1.124717,
+        "anchor_x": 125.415323,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2603,
+          564,
+          192,
+          173
+        ],
+        "anchor_x": 139.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          550,
+          603,
+          175,
+          154
+        ],
+        "component_seeds": [
+          [
+            644,
+            696
+          ]
+        ],
+        "scale": 1.134703,
+        "anchor_x": 115.507042,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          796,
+          620,
+          196,
+          140
+        ],
+        "component_seeds": [
+          [
+            916,
+            701
+          ]
+        ],
+        "scale": 1.199495,
+        "anchor_x": 111.835789,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "cast_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2797,
+          564,
+          197,
+          188
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          38,
+          80,
+          177,
+          165
+        ],
+        "component_seeds": [
+          [
+            87,
+            182
+          ]
+        ],
+        "scale": 1.197452,
+        "anchor_x": 67.93617,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          292,
+          80,
+          178,
+          166
+        ],
+        "component_seeds": [
+          [
+            357,
+            180
+          ]
+        ],
+        "scale": 1.189873,
+        "anchor_x": 67.744681,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3195,
+          564,
+          201,
+          188
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          548,
+          79,
+          177,
+          167
+        ],
+        "component_seeds": [
+          [
+            642,
+            180
+          ]
+        ],
+        "scale": 1.180294,
+        "anchor_x": 68.063943,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          807,
+          82,
+          176,
+          164
+        ],
+        "component_seeds": [
+          [
+            854,
+            182
+          ]
+        ],
+        "scale": 1.200855,
+        "anchor_x": 65.131673,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3610,
+          564,
+          196,
+          187
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1067,
+          81,
+          172,
+          165
+        ],
+        "component_seeds": [
+          [
+            1165,
+            180
+          ]
+        ],
+        "scale": 1.180467,
+        "anchor_x": 61.350719,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1321,
+          85,
+          174,
+          161
+        ],
+        "component_seeds": [
+          [
+            1412,
+            182
+          ]
+        ],
+        "scale": 1.200436,
+        "anchor_x": 61.010889,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          783,
+          194,
+          182
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          41,
+          341,
+          173,
+          161
+        ],
+        "component_seeds": [
+          [
+            114,
+            437
+          ]
+        ],
+        "scale": 1.198257,
+        "anchor_x": 62.512727,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          290,
+          338,
+          178,
+          164
+        ],
+        "component_seeds": [
+          [
+            370,
+            436
+          ]
+        ],
+        "scale": 1.183761,
+        "anchor_x": 61.559567,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "cast": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          196,
+          783,
+          197,
+          186
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          548,
+          339,
+          174,
+          163
+        ],
+        "component_seeds": [
+          [
+            648,
+            436
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 60.055556,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          798,
+          339,
+          186,
+          162
+        ],
+        "component_seeds": [
+          [
+            883,
+            435
+          ]
+        ],
+        "scale": 1.207792,
+        "anchor_x": 66.953405,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          602,
+          783,
+          219,
+          186
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1055,
+          338,
+          186,
+          164
+        ],
+        "component_seeds": [
+          [
+            1155,
+            435
+          ]
+        ],
+        "scale": 1.190171,
+        "anchor_x": 64.432675,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1314,
+          339,
+          181,
+          163
+        ],
+        "component_seeds": [
+          [
+            1359,
+            439
+          ]
+        ],
+        "scale": 1.195699,
+        "anchor_x": 67.728417,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1034,
+          783,
+          212,
+          185
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          35,
+          594,
+          179,
+          163
+        ],
+        "component_seeds": [
+          [
+            152,
+            692
+          ]
+        ],
+        "scale": 1.187097,
+        "anchor_x": 66.358696,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          292,
+          596,
+          179,
+          162
+        ],
+        "component_seeds": [
+          [
+            421,
+            694
+          ]
+        ],
+        "scale": 1.188312,
+        "anchor_x": 72.071038,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1459,
+          783,
+          198,
+          182
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          545,
+          597,
+          183,
+          161
+        ],
+        "component_seeds": [
+          [
+            668,
+            694
+          ]
+        ],
+        "scale": 1.122004,
+        "anchor_x": 81.095146,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          795,
+          622,
+          197,
+          137
+        ],
+        "component_seeds": [
+          [
+            860,
+            704
+          ]
+        ],
+        "scale": 1.250646,
+        "anchor_x": 94.272727,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1659,
+          783,
+          189,
+          167
+        ],
+        "anchor_x": 33.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          42,
+          97,
+          169,
+          150
+        ],
+        "component_seeds": [
+          [
+            119,
+            181
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 41.428571,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          295,
+          114,
+          175,
+          133
+        ],
+        "component_seeds": [
+          [
+            429,
+            187
+          ]
+        ],
+        "scale": 1.314667,
+        "anchor_x": 67.109533,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2072,
+          783,
+          188,
+          163
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          549,
+          108,
+          176,
+          138
+        ],
+        "component_seeds": [
+          [
+            644,
+            186
+          ]
+        ],
+        "scale": 1.24359,
+        "anchor_x": 73.340206,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          801,
+          106,
+          182,
+          140
+        ],
+        "component_seeds": [
+          [
+            944,
+            185
+          ]
+        ],
+        "scale": 1.214646,
+        "anchor_x": 72.910603,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2509,
+          783,
+          201,
+          159
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1053,
+          104,
+          186,
+          142
+        ],
+        "component_seeds": [
+          [
+            1141,
+            185
+          ]
+        ],
+        "scale": 1.174129,
+        "anchor_x": 78.461864,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1307,
+          114,
+          201,
+          132
+        ],
+        "component_seeds": [
+          [
+            1455,
+            188
+          ]
+        ],
+        "scale": 1.255376,
+        "anchor_x": 86.351178,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2940,
+          783,
+          210,
+          154
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          32,
+          370,
+          190,
+          133
+        ],
+        "component_seeds": [
+          [
+            67,
+            445
+          ]
+        ],
+        "scale": 1.237333,
+        "anchor_x": 76.717672,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          281,
+          369,
+          204,
+          134
+        ],
+        "component_seeds": [
+          [
+            322,
+            447
+          ]
+        ],
+        "scale": 1.232804,
+        "anchor_x": 73.06867,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3152,
+          783,
+          217,
+          156
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          535,
+          366,
+          205,
+          137
+        ],
+        "component_seeds": [
+          [
+            649,
+            445
+          ]
+        ],
+        "scale": 1.229974,
+        "anchor_x": 65.348739,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          785,
+          367,
+          227,
+          136
+        ],
+        "component_seeds": [
+          [
+            823,
+            431
+          ]
+        ],
+        "scale": 1.260417,
+        "anchor_x": 49.363636,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3632,
+          783,
+          281,
+          164
+        ],
+        "anchor_x": 54.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1038,
+          369,
+          234,
+          134
+        ],
+        "component_seeds": [
+          [
+            1115,
+            431
+          ]
+        ],
+        "scale": 1.230159,
+        "anchor_x": 65.483871,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1293,
+          407,
+          234,
+          94
+        ],
+        "component_seeds": [
+          [
+            1397,
+            458
+          ]
+        ],
+        "scale": 1.697674,
+        "anchor_x": 97.219178,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          319,
+          971,
+          335,
+          137
+        ],
+        "anchor_x": 151.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          14,
+          663,
+          229,
+          92
+        ],
+        "component_seeds": [
+          [
+            128,
+            713
+          ]
+        ],
+        "scale": 1.72619,
+        "anchor_x": 94.151724,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          281,
+          614,
+          208,
+          144
+        ],
+        "component_seeds": [
+          [
+            427,
+            699
+          ]
+        ],
+        "scale": 1.125,
+        "anchor_x": 73.777778,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          897,
+          971,
+          239,
+          161
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          535,
+          615,
+          212,
+          142
+        ],
+        "component_seeds": [
+          [
+            593,
+            701
+          ]
+        ],
+        "scale": 1.176617,
+        "anchor_x": 73.120507,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          799,
+          625,
+          184,
+          133
+        ],
+        "component_seeds": [
+          [
+            894,
+            704
+          ]
+        ],
+        "scale": 1.234667,
+        "anchor_x": 82.451404,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1138,
+          971,
+          211,
+          160
+        ],
+        "anchor_x": 153.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1351,
+          971,
+          205,
+          151
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1558,
+          971,
+          202,
+          150
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1762,
+          971,
+          219,
+          142
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1983,
+          971,
+          199,
+          179
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2184,
+          971,
+          219,
+          150
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2405,
+          971,
+          197,
+          154
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2604,
+          971,
+          203,
+          146
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      }
+    ],
+    "phase_bridge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2809,
+          971,
+          233,
+          160
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3044,
+          971,
+          223,
+          150
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3269,
+          971,
+          214,
+          144
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3485,
+          971,
+          214,
+          142
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      }
+    ],
+    "cast_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          374,
+          212,
+          151
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1057,
+          623,
+          190,
+          135
+        ],
+        "component_seeds": [
+          [
+            1181,
+            703
+          ]
+        ],
+        "scale": 1.225722,
+        "anchor_x": 87.946467,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1311,
+          613,
+          187,
+          146
+        ],
+        "component_seeds": [
+          [
+            1403,
+            701
+          ]
+        ],
+        "scale": 1.161836,
+        "anchor_x": 76.482328,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          374,
+          199,
+          165
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          33,
+          868,
+          184,
+          146
+        ],
+        "component_seeds": [
+          [
+            133,
+            956
+          ]
+        ],
+        "scale": 1.202899,
+        "anchor_x": 69.120482,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          287,
+          865,
+          188,
+          148
+        ],
+        "component_seeds": [
+          [
+            423,
+            954
+          ]
+        ],
+        "scale": 1.192857,
+        "anchor_x": 71.291417,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1481,
+          374,
+          209,
+          168
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          544,
+          864,
+          188,
+          149
+        ],
+        "component_seeds": [
+          [
+            663,
+            954
+          ]
+        ],
+        "scale": 1.200946,
+        "anchor_x": 88.395669,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          798,
+          862,
+          192,
+          151
+        ],
+        "component_seeds": [
+          [
+            898,
+            953
+          ]
+        ],
+        "scale": 1.193473,
+        "anchor_x": 112.982422,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2125,
+          374,
+          213,
+          172
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1056,
+          862,
+          191,
+          151
+        ],
+        "component_seeds": [
+          [
+            1189,
+            952
+          ]
+        ],
+        "scale": 1.202797,
+        "anchor_x": 111.651163,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "region": [
+          1318,
+          861,
+          178,
+          154
+        ],
+        "component_seeds": [
+          [
+            1375,
+            954
+          ]
+        ],
+        "scale": 1.178082,
+        "anchor_x": 92.662791,
+        "grade": {
+          "saturation": 1.0089,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "heavy_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          374,
+          212,
+          151
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1056,
+          621,
+          191,
+          138
+        ],
+        "component_seeds": [
+          [
+            1129,
+            701
+          ]
+        ],
+        "scale": 1.197436,
+        "anchor_x": 89.638116,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1317,
+          607,
+          182,
+          153
+        ],
+        "component_seeds": [
+          [
+            1429,
+            697
+          ]
+        ],
+        "scale": 1.105747,
+        "anchor_x": 68.390852,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          374,
+          199,
+          165
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          35,
+          865,
+          182,
+          150
+        ],
+        "component_seeds": [
+          [
+            94,
+            953
+          ]
+        ],
+        "scale": 1.169014,
+        "anchor_x": 65.341365,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          287,
+          862,
+          191,
+          150
+        ],
+        "component_seeds": [
+          [
+            343,
+            952
+          ]
+        ],
+        "scale": 1.176056,
+        "anchor_x": 71.924152,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1481,
+          374,
+          209,
+          168
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          545,
+          863,
+          188,
+          149
+        ],
+        "component_seeds": [
+          [
+            622,
+            951
+          ]
+        ],
+        "scale": 1.200946,
+        "anchor_x": 87.395669,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          801,
+          860,
+          189,
+          151
+        ],
+        "component_seeds": [
+          [
+            884,
+            952
+          ]
+        ],
+        "scale": 1.193473,
+        "anchor_x": 109.982422,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2125,
+          374,
+          213,
+          172
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1060,
+          860,
+          186,
+          153
+        ],
+        "component_seeds": [
+          [
+            1156,
+            951
+          ]
+        ],
+        "scale": 1.186207,
+        "anchor_x": 106.744186,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "region": [
+          1320,
+          859,
+          178,
+          156
+        ],
+        "component_seeds": [
+          [
+            1449,
+            951
+          ]
+        ],
+        "scale": 1.162162,
+        "anchor_x": 90.534884,
+        "grade": {
+          "saturation": 1.0614,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "phase_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          374,
+          212,
+          151
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1054,
+          626,
+          179,
+          131
+        ],
+        "component_seeds": [
+          [
+            1112,
+            704
+          ]
+        ],
+        "scale": 1.265583,
+        "anchor_x": 91.357602,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1313,
+          615,
+          175,
+          142
+        ],
+        "component_seeds": [
+          [
+            1385,
+            698
+          ]
+        ],
+        "scale": 1.196517,
+        "anchor_x": 74.106029,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          374,
+          199,
+          165
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          32,
+          871,
+          181,
+          142
+        ],
+        "component_seeds": [
+          [
+            114,
+            955
+          ]
+        ],
+        "scale": 1.238806,
+        "anchor_x": 66.899598,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          288,
+          869,
+          185,
+          145
+        ],
+        "component_seeds": [
+          [
+            378,
+            954
+          ]
+        ],
+        "scale": 1.218978,
+        "anchor_x": 69.842315,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1481,
+          374,
+          209,
+          168
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          542,
+          868,
+          186,
+          146
+        ],
+        "component_seeds": [
+          [
+            609,
+            954
+          ]
+        ],
+        "scale": 1.227053,
+        "anchor_x": 89.57874,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          792,
+          863,
+          192,
+          151
+        ],
+        "component_seeds": [
+          [
+            905,
+            953
+          ]
+        ],
+        "scale": 1.193473,
+        "anchor_x": 113.982422,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2125,
+          374,
+          213,
+          172
+        ],
+        "anchor_x": 142.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1055,
+          863,
+          188,
+          151
+        ],
+        "component_seeds": [
+          [
+            1129,
+            953
+          ]
+        ],
+        "scale": 1.202797,
+        "anchor_x": 111.651163,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "region": [
+          1316,
+          864,
+          178,
+          150
+        ],
+        "component_seeds": [
+          [
+            1408,
+            952
+          ]
+        ],
+        "scale": 1.211268,
+        "anchor_x": 94.918605,
+        "grade": {
+          "saturation": 1.094,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "qa": {
+    "review": "Source sheets visually reviewed; independent complete alpha components explicitly selected; merged characters and edge-clipped poses excluded. Source atlas and attacks unchanged.",
+    "mechanical_packaging": "Component isolation of authored source pixels, scale normalization and atlas packing; no procedural animation or interpolation."
+  },
+  "slots": {
+    "idle": 4,
+    "walk": 8,
+    "windup": 4,
+    "attack": 4,
+    "recover": 5,
+    "hurt": 3,
+    "death": 4,
+    "heavy_windup": 4,
+    "heavy": 4,
+    "cast_windup": 4,
+    "cast": 4,
+    "phase_windup": 4,
+    "phase": 4
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "F_recover_silent_crown_core_heavy.png",
+        "image_sha256": "3de47c3f53fb51ce226adbc2538cf452ab92db0ddd2936c40a4fe0826da7e5b9",
+        "op": "new_animation",
+        "animation": "heavy_bridge",
+        "scale": 0.3532,
+        "anchors": [
+          518.2,
+          392.4
+        ],
+        "grade": {
+          "saturation": 0.845,
+          "rgb": [
+            0.959,
+            0.961,
+            0.947
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "heavy[-1]": 0.3492,
+            "recover[0]": 0.3532
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_crown_core_cast.png",
+        "image_sha256": "b470cc044715170f689484c1d5480620fcabafb5e85ac124cc1d7b3c64033f9d",
+        "op": "new_animation",
+        "animation": "cast_bridge",
+        "scale": 0.3333,
+        "anchors": [
+          337.0,
+          389.0
+        ],
+        "grade": {
+          "saturation": 0.882,
+          "rgb": [
+            0.96,
+            0.965,
+            0.938
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "cast[-1]": 0.341,
+            "recover[0]": 0.3333
+          }
+        }
+      },
+      {
+        "image": "F_recover_silent_crown_core_phase.png",
+        "image_sha256": "f7f8fbfcbe061b8b7415127158c6cefcb4619e4cca997744a43f83b1f755fa4b",
+        "op": "new_animation",
+        "animation": "phase_bridge",
+        "scale": 0.3907,
+        "anchors": [
+          262.1,
+          383.7
+        ],
+        "grade": {
+          "saturation": 0.906,
+          "rgb": [
+            0.949,
+            0.938,
+            0.916
+          ]
+        },
+        "calibration": {
+          "method": "primary matched pose",
+          "ratios": {
+            "phase[-1]": 0.3924,
+            "recover[0]": 0.3907
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "F_recover_silent_crown_core_heavy.png",
+        "op": "new_animation",
+        "animation": "heavy_bridge"
+      },
+      {
+        "image": "F_recover_silent_crown_core_cast.png",
+        "op": "new_animation",
+        "animation": "cast_bridge"
+      },
+      {
+        "image": "F_recover_silent_crown_core_phase.png",
+        "op": "new_animation",
+        "animation": "phase_bridge"
+      }
+    ]
+  },
+  "boss_motion_v6": {
+    "tool": "tools/build_boss_motion_v6.py",
+    "baseline_frames": {
+      "idle": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            37,
+            8,
+            197,
+            175
+          ],
+          "component_seeds": [
+            [
+              124,
+              113
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            292,
+            9,
+            191,
+            174
+          ],
+          "component_seeds": [
+            [
+              418,
+              111
+            ]
+          ],
+          "anchor_x": 77.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            530,
+            9,
+            195,
+            174
+          ],
+          "component_seeds": [
+            [
+              677,
+              114
+            ]
+          ],
+          "anchor_x": 73.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            787,
+            8,
+            196,
+            175
+          ],
+          "component_seeds": [
+            [
+              917,
+              115
+            ]
+          ],
+          "anchor_x": 78.0,
+          "scale": 1
+        }
+      ],
+      "walk": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            27,
+            189,
+            208,
+            163
+          ],
+          "component_seeds": [
+            [
+              144,
+              285
+            ]
+          ],
+          "anchor_x": 78.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            280,
+            193,
+            209,
+            159
+          ],
+          "component_seeds": [
+            [
+              417,
+              290
+            ]
+          ],
+          "anchor_x": 68.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            529,
+            195,
+            212,
+            155
+          ],
+          "component_seeds": [
+            [
+              589,
+              290
+            ]
+          ],
+          "anchor_x": 128.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            779,
+            194,
+            208,
+            158
+          ],
+          "component_seeds": [
+            [
+              919,
+              289
+            ]
+          ],
+          "anchor_x": 143.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            26,
+            351,
+            209,
+            162
+          ],
+          "component_seeds": [
+            [
+              175,
+              448
+            ]
+          ],
+          "anchor_x": 90.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            280,
+            356,
+            204,
+            158
+          ],
+          "component_seeds": [
+            [
+              402,
+              452
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            529,
+            358,
+            203,
+            156
+          ],
+          "component_seeds": [
+            [
+              635,
+              451
+            ]
+          ],
+          "anchor_x": 89.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            779,
+            358,
+            206,
+            157
+          ],
+          "component_seeds": [
+            [
+              828,
+              453
+            ]
+          ],
+          "anchor_x": 124.0,
+          "scale": 1
+        }
+      ],
+      "windup": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            33,
+            514,
+            181,
+            189
+          ],
+          "component_seeds": [
+            [
+              164,
+              634
+            ]
+          ],
+          "anchor_x": 73.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            281,
+            524,
+            204,
+            181
+          ],
+          "component_seeds": [
+            [
+              331,
+              644
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            533,
+            523,
+            189,
+            182
+          ],
+          "component_seeds": [
+            [
+              631,
+              642
+            ]
+          ],
+          "anchor_x": 81.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            780,
+            520,
+            195,
+            185
+          ],
+          "component_seeds": [
+            [
+              898,
+              638
+            ]
+          ],
+          "anchor_x": 68.0,
+          "scale": 1
+        }
+      ],
+      "attack": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            13,
+            99,
+            341,
+            261
+          ],
+          "component_seeds": [
+            [
+              172,
+              254
+            ]
+          ],
+          "anchor_x": 108.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            370,
+            98,
+            411,
+            262
+          ],
+          "component_seeds": [
+            [
+              732,
+              246
+            ]
+          ],
+          "anchor_x": 253.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            751,
+            114,
+            453,
+            249
+          ],
+          "component_seeds": [
+            [
+              1188,
+              243
+            ]
+          ],
+          "anchor_x": 292.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1142,
+            104,
+            381,
+            259
+          ],
+          "component_seeds": [
+            [
+              1304,
+              247
+            ]
+          ],
+          "anchor_x": 111.0,
+          "scale": 0.65
+        }
+      ],
+      "recover": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            791,
+            717,
+            214,
+            153
+          ],
+          "component_seeds": [
+            [
+              835,
+              808
+            ]
+          ],
+          "anchor_x": 105.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            878,
+            202,
+            167
+          ],
+          "component_seeds": [
+            [
+              85,
+              979
+            ]
+          ],
+          "anchor_x": 66.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            272,
+            879,
+            219,
+            166
+          ],
+          "component_seeds": [
+            [
+              365,
+              977
+            ]
+          ],
+          "anchor_x": 158.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            525,
+            880,
+            212,
+            170
+          ],
+          "component_seeds": [
+            [
+              586,
+              979
+            ]
+          ],
+          "anchor_x": 77.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            780,
+            878,
+            217,
+            174
+          ],
+          "component_seeds": [
+            [
+              853,
+              981
+            ]
+          ],
+          "anchor_x": 144.0,
+          "scale": 1
+        }
+      ],
+      "hurt": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            26,
+            1058,
+            196,
+            174
+          ],
+          "component_seeds": [
+            [
+              126,
+              1148
+            ]
+          ],
+          "anchor_x": 46.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            248,
+            1064,
+            281,
+            170
+          ],
+          "component_seeds": [
+            [
+              392,
+              1161
+            ]
+          ],
+          "anchor_x": 178.0,
+          "scale": 1
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            530,
+            1057,
+            204,
+            176
+          ],
+          "component_seeds": [
+            [
+              640,
+              1149
+            ]
+          ],
+          "anchor_x": 67.0,
+          "scale": 1
+        }
+      ],
+      "death": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            10,
+            695,
+            334,
+            291
+          ],
+          "component_seeds": [
+            [
+              171,
+              878
+            ]
+          ],
+          "anchor_x": 116.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            365,
+            769,
+            334,
+            214
+          ],
+          "component_seeds": [
+            [
+              634,
+              892
+            ]
+          ],
+          "anchor_x": 143.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            688,
+            804,
+            421,
+            191
+          ],
+          "component_seeds": [
+            [
+              877,
+              922
+            ]
+          ],
+          "anchor_x": 298.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1105,
+            864,
+            417,
+            132
+          ],
+          "component_seeds": [
+            [
+              1377,
+              937
+            ]
+          ],
+          "anchor_x": 389.0,
+          "scale": 0.65
+        }
+      ],
+      "heavy_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            9,
+            42,
+            257,
+            220
+          ],
+          "component_seeds": [
+            [
+              174,
+              179
+            ]
+          ],
+          "anchor_x": 82.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            261,
+            32,
+            248,
+            229
+          ],
+          "component_seeds": [
+            [
+              394,
+              176
+            ]
+          ],
+          "anchor_x": 78.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            511,
+            1,
+            236,
+            265
+          ],
+          "component_seeds": [
+            [
+              674,
+              168
+            ]
+          ],
+          "anchor_x": 96.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            758,
+            1,
+            232,
+            263
+          ],
+          "component_seeds": [
+            [
+              924,
+              178
+            ]
+          ],
+          "anchor_x": 104.0,
+          "scale": 0.79
+        }
+      ],
+      "heavy": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            6,
+            252,
+            253,
+            277
+          ],
+          "component_seeds": [
+            [
+              135,
+              431
+            ]
+          ],
+          "anchor_x": 85.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            254,
+            271,
+            251,
+            257
+          ],
+          "component_seeds": [
+            [
+              367,
+              435
+            ]
+          ],
+          "anchor_x": 92.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            516,
+            337,
+            258,
+            192
+          ],
+          "component_seeds": [
+            [
+              724,
+              431
+            ]
+          ],
+          "anchor_x": 172.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            773,
+            310,
+            245,
+            222
+          ],
+          "component_seeds": [
+            [
+              852,
+              445
+            ]
+          ],
+          "anchor_x": 177.0,
+          "scale": 0.79
+        }
+      ],
+      "cast_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            6,
+            534,
+            251,
+            240
+          ],
+          "component_seeds": [
+            [
+              172,
+              684
+            ]
+          ],
+          "anchor_x": 90.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            254,
+            532,
+            256,
+            241
+          ],
+          "component_seeds": [
+            [
+              430,
+              677
+            ]
+          ],
+          "anchor_x": 94.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            506,
+            536,
+            250,
+            239
+          ],
+          "component_seeds": [
+            [
+              594,
+              684
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            759,
+            542,
+            249,
+            232
+          ],
+          "component_seeds": [
+            [
+              876,
+              683
+            ]
+          ],
+          "anchor_x": 83.0,
+          "scale": 0.79
+        }
+      ],
+      "cast": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            2,
+            780,
+            251,
+            238
+          ],
+          "component_seeds": [
+            [
+              114,
+              924
+            ]
+          ],
+          "anchor_x": 80.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            248,
+            782,
+            280,
+            239
+          ],
+          "component_seeds": [
+            [
+              314,
+              926
+            ]
+          ],
+          "anchor_x": 91.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            494,
+            784,
+            270,
+            236
+          ],
+          "component_seeds": [
+            [
+              553,
+              930
+            ]
+          ],
+          "anchor_x": 93.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            759,
+            786,
+            253,
+            233
+          ],
+          "component_seeds": [
+            [
+              950,
+              929
+            ]
+          ],
+          "anchor_x": 100.0,
+          "scale": 0.79
+        }
+      ],
+      "phase_windup": [
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            14,
+            1033,
+            242,
+            213
+          ],
+          "component_seeds": [
+            [
+              84,
+              1153
+            ]
+          ],
+          "anchor_x": 43.5,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            261,
+            1039,
+            240,
+            209
+          ],
+          "component_seeds": [
+            [
+              428,
+              1159
+            ]
+          ],
+          "anchor_x": 98.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            498,
+            1045,
+            257,
+            203
+          ],
+          "component_seeds": [
+            [
+              586,
+              1161
+            ]
+          ],
+          "anchor_x": 90.0,
+          "scale": 0.79
+        },
+        {
+          "sheet": "special_motion_expanded.png",
+          "region": [
+            753,
+            1052,
+            268,
+            197
+          ],
+          "component_seeds": [
+            [
+              959,
+              1165
+            ]
+          ],
+          "anchor_x": 112.0,
+          "scale": 0.79
+        }
+      ],
+      "phase": [
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            8,
+            435,
+            336,
+            242
+          ],
+          "component_seeds": [
+            [
+              182,
+              577
+            ]
+          ],
+          "anchor_x": 99.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            362,
+            422,
+            435,
+            255
+          ],
+          "component_seeds": [
+            [
+              575,
+              541
+            ]
+          ],
+          "anchor_x": 84.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            695,
+            467,
+            518,
+            213
+          ],
+          "component_seeds": [
+            [
+              811,
+              584
+            ]
+          ],
+          "anchor_x": 234.0,
+          "scale": 0.65
+        },
+        {
+          "sheet": "motion_repair.png",
+          "region": [
+            1153,
+            427,
+            370,
+            250
+          ],
+          "component_seeds": [
+            [
+              1267,
+              580
+            ]
+          ],
+          "anchor_x": 105.0,
+          "scale": 0.65
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_heavy.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              563,
+              481
+            ]
+          ],
+          "scale": 0.3532,
+          "anchor_x": 518.2,
+          "grade": {
+            "saturation": 0.845,
+            "rgb": [
+              0.959,
+              0.961,
+              0.947
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_heavy.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1249,
+              509
+            ]
+          ],
+          "scale": 0.3532,
+          "anchor_x": 392.4,
+          "grade": {
+            "saturation": 0.845,
+            "rgb": [
+              0.959,
+              0.961,
+              0.947
+            ]
+          }
+        }
+      ],
+      "cast_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_cast.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              543,
+              398
+            ]
+          ],
+          "scale": 0.3333,
+          "anchor_x": 337.0,
+          "grade": {
+            "saturation": 0.882,
+            "rgb": [
+              0.96,
+              0.965,
+              0.938
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_cast.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1238,
+              473
+            ]
+          ],
+          "scale": 0.3333,
+          "anchor_x": 389.0,
+          "grade": {
+            "saturation": 0.882,
+            "rgb": [
+              0.96,
+              0.965,
+              0.938
+            ]
+          }
+        }
+      ],
+      "phase_bridge": [
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_phase.png",
+          "region": [
+            0,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              446,
+              526
+            ]
+          ],
+          "scale": 0.3907,
+          "anchor_x": 262.1,
+          "grade": {
+            "saturation": 0.906,
+            "rgb": [
+              0.949,
+              0.938,
+              0.916
+            ]
+          }
+        },
+        {
+          "source": "art_requests/character_motion_v5/incoming/F_recover_silent_crown_core_phase.png",
+          "region": [
+            768,
+            0,
+            768,
+            1024
+          ],
+          "component_seeds": [
+            [
+              1221,
+              567
+            ]
+          ],
+          "scale": 0.3907,
+          "anchor_x": 383.7,
+          "grade": {
+            "saturation": 0.906,
+            "rgb": [
+              0.949,
+              0.938,
+              0.916
+            ]
+          }
+        }
+      ]
+    },
+    "references": {
+      "idle": [
+        {
+          "area": 15921,
+          "saturation": 0.5420287197142923,
+          "rgb": [
+            104.81398287237928,
+            65.2265197248277,
+            52.87147269408011
+          ],
+          "anchor_offset": 31.5
+        },
+        {
+          "area": 15386,
+          "saturation": 0.5288064522934605,
+          "rgb": [
+            104.72104644326215,
+            67.00977366254506,
+            54.26660787771078
+          ],
+          "anchor_offset": 29.5
+        },
+        {
+          "area": 14998,
+          "saturation": 0.5484197107105613,
+          "rgb": [
+            106.11234521575324,
+            64.66671669792859,
+            52.26333958723363
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 15656,
+          "saturation": 0.5439490419286855,
+          "rgb": [
+            106.67317493359585,
+            64.8637570885,
+            53.164238030282995
+          ],
+          "anchor_offset": 32.5
+        }
+      ],
+      "walk": [
+        {
+          "area": 14117,
+          "saturation": 0.5437706349992669,
+          "rgb": [
+            105.84167935261173,
+            64.48385546029236,
+            52.302539860580985
+          ],
+          "anchor_offset": 38.5
+        },
+        {
+          "area": 14177,
+          "saturation": 0.5465270104207074,
+          "rgb": [
+            105.89133908596493,
+            63.11705017576739,
+            51.2708533077591
+          ],
+          "anchor_offset": 42.5
+        },
+        {
+          "area": 13861,
+          "saturation": 0.547080763234106,
+          "rgb": [
+            107.12969955671666,
+            64.29945821703414,
+            52.28049581348861
+          ],
+          "anchor_offset": -11.5
+        },
+        {
+          "area": 14067,
+          "saturation": 0.5543631248567117,
+          "rgb": [
+            107.05647572109041,
+            63.53769087823464,
+            51.38886644582049
+          ],
+          "anchor_offset": -25.5
+        },
+        {
+          "area": 13571,
+          "saturation": 0.552092273937351,
+          "rgb": [
+            108.00329280648164,
+            64.57573454913127,
+            52.47061803444115
+          ],
+          "anchor_offset": 26.5
+        },
+        {
+          "area": 13625,
+          "saturation": 0.5439357336027043,
+          "rgb": [
+            107.16507537688122,
+            64.8794807370114,
+            52.60644891121617
+          ],
+          "anchor_offset": 28.5
+        },
+        {
+          "area": 13583,
+          "saturation": 0.5468891250412702,
+          "rgb": [
+            106.04050654142387,
+            64.43181818181107,
+            51.73574303924233
+          ],
+          "anchor_offset": 21.5
+        },
+        {
+          "area": 14403,
+          "saturation": 0.5385212715805299,
+          "rgb": [
+            107.16903858316657,
+            64.41216002529343,
+            53.41034155596909
+          ],
+          "anchor_offset": -11.5
+        }
+      ],
+      "windup": [
+        {
+          "area": 15111,
+          "saturation": 0.5425950327729222,
+          "rgb": [
+            102.56079664569934,
+            62.32292602574938,
+            49.66457023060145
+          ],
+          "anchor_offset": 29.5
+        },
+        {
+          "area": 15183,
+          "saturation": 0.550737139367377,
+          "rgb": [
+            102.59080101054559,
+            60.02452073115677,
+            48.58329618070419
+          ],
+          "anchor_offset": 25.5
+        },
+        {
+          "area": 15082,
+          "saturation": 0.5545417886041436,
+          "rgb": [
+            107.58771929824353,
+            61.40928175137989,
+            49.210376368265635
+          ],
+          "anchor_offset": 22.5
+        },
+        {
+          "area": 14434,
+          "saturation": 0.5297294566422781,
+          "rgb": [
+            101.60077580747013,
+            62.86249208359178,
+            49.740975300817794
+          ],
+          "anchor_offset": 25.5
+        }
+      ],
+      "attack": [
+        {
+          "area": 17168,
+          "saturation": 0.6137813960245205,
+          "rgb": [
+            99.89598062319084,
+            58.9548965697755,
+            44.777363184071135
+          ],
+          "anchor_offset": 42.5
+        },
+        {
+          "area": 17898,
+          "saturation": 0.5916390529938266,
+          "rgb": [
+            100.101131363913,
+            59.96838466372528,
+            46.00087994970806
+          ],
+          "anchor_offset": -50.5
+        },
+        {
+          "area": 20431,
+          "saturation": 0.6228462845403229,
+          "rgb": [
+            102.33866231647035,
+            54.88368678628843,
+            43.256987493193186
+          ],
+          "anchor_offset": -58.5
+        },
+        {
+          "area": 17404,
+          "saturation": 0.5901247542578494,
+          "rgb": [
+            98.06361664113267,
+            59.57050791219304,
+            45.29153905052767
+          ],
+          "anchor_offset": 43.5
+        }
+      ],
+      "recover": [
+        {
+          "area": 14212,
+          "saturation": 0.5290132333035931,
+          "rgb": [
+            110.38962195417488,
+            66.29822715129198,
+            54.72986319112039
+          ],
+          "anchor_offset": 8.5
+        },
+        {
+          "area": 15283,
+          "saturation": 0.550439967745501,
+          "rgb": [
+            105.85676215855503,
+            64.07920645494838,
+            51.630542601220874
+          ],
+          "anchor_offset": 36.5
+        },
+        {
+          "area": 15634,
+          "saturation": 0.5527898788065421,
+          "rgb": [
+            105.009897387373,
+            62.23156975474081,
+            50.359144167083485
+          ],
+          "anchor_offset": -44.5
+        },
+        {
+          "area": 15709,
+          "saturation": 0.5372622402107337,
+          "rgb": [
+            105.64779064778419,
+            65.24646074645327,
+            52.31874731873836
+          ],
+          "anchor_offset": 30.5
+        },
+        {
+          "area": 16482,
+          "saturation": 0.556222930728137,
+          "rgb": [
+            106.24730743012381,
+            62.303203817306155,
+            50.73033401498771
+          ],
+          "anchor_offset": -25.5
+        }
+      ],
+      "hurt": [
+        {
+          "area": 16897,
+          "saturation": 0.5595726938800049,
+          "rgb": [
+            103.964067529388,
+            58.659922485703945,
+            49.11278985744436
+          ],
+          "anchor_offset": 54.5
+        },
+        {
+          "area": 19502,
+          "saturation": 0.5425448655508341,
+          "rgb": [
+            104.18244711262709,
+            63.05197255573637,
+            51.47192681531225
+          ],
+          "anchor_offset": -24.5
+        },
+        {
+          "area": 15668,
+          "saturation": 0.5440971627714641,
+          "rgb": [
+            104.32550192225014,
+            61.95108927807799,
+            51.34607717498799
+          ],
+          "anchor_offset": 45.5
+        }
+      ],
+      "death": [
+        {
+          "area": 20605,
+          "saturation": 0.6139451754999321,
+          "rgb": [
+            98.79408315563856,
+            56.85911513858496,
+            43.54125799572632
+          ],
+          "anchor_offset": 35.5
+        },
+        {
+          "area": 15700,
+          "saturation": 0.5761702568869619,
+          "rgb": [
+            100.6004622172358,
+            61.46438826247584,
+            48.28804538132102
+          ],
+          "anchor_offset": 33.5
+        },
+        {
+          "area": 16739,
+          "saturation": 0.5887558958662813,
+          "rgb": [
+            92.5201186484328,
+            54.42145989166235,
+            41.194738199632766
+          ],
+          "anchor_offset": -55.5
+        },
+        {
+          "area": 13169,
+          "saturation": 0.589788676605644,
+          "rgb": [
+            106.0713166790243,
+            65.9049385769581,
+            49.81993569131287
+          ],
+          "anchor_offset": -116.5
+        }
+      ],
+      "heavy_windup": [
+        {
+          "area": 15736,
+          "saturation": 0.5383935772012256,
+          "rgb": [
+            106.39126200082657,
+            68.73465980241313,
+            53.89529706413394
+          ],
+          "anchor_offset": 45.5
+        },
+        {
+          "area": 14926,
+          "saturation": 0.5380740154499093,
+          "rgb": [
+            104.25135769851032,
+            66.60076324672704,
+            52.1662263320037
+          ],
+          "anchor_offset": 40.5
+        },
+        {
+          "area": 16807,
+          "saturation": 0.542984733747791,
+          "rgb": [
+            100.55154877484125,
+            64.37408361402177,
+            48.71104946832297
+          ],
+          "anchor_offset": 24.5
+        },
+        {
+          "area": 16494,
+          "saturation": 0.557883361300346,
+          "rgb": [
+            102.67414150879387,
+            60.40129861435779,
+            48.91873619384669
+          ],
+          "anchor_offset": 17.5
+        }
+      ],
+      "heavy": [
+        {
+          "area": 18283,
+          "saturation": 0.568794881323317,
+          "rgb": [
+            101.58151553391521,
+            60.020671834618504,
+            45.80920617750532
+          ],
+          "anchor_offset": 35.5
+        },
+        {
+          "area": 18371,
+          "saturation": 0.5695991816294155,
+          "rgb": [
+            103.12960306072998,
+            59.09636537541064,
+            46.69063845049293
+          ],
+          "anchor_offset": 34.5
+        },
+        {
+          "area": 17794,
+          "saturation": 0.5587739239334787,
+          "rgb": [
+            106.46648477706488,
+            63.82985056116273,
+            51.04855211755795
+          ],
+          "anchor_offset": -34.5
+        },
+        {
+          "area": 16456,
+          "saturation": 0.5636564464003447,
+          "rgb": [
+            107.62731759369679,
+            63.635654261696956,
+            50.75676937440669
+          ],
+          "anchor_offset": -34.5
+        }
+      ],
+      "cast_windup": [
+        {
+          "area": 16681,
+          "saturation": 0.5383339414554196,
+          "rgb": [
+            103.63031254085601,
+            66.8089446841828,
+            52.27559827382309
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 18677,
+          "saturation": 0.5423506171074806,
+          "rgb": [
+            102.73443837064785,
+            63.99353435607198,
+            50.79932992416545
+          ],
+          "anchor_offset": 36.5
+        },
+        {
+          "area": 18527,
+          "saturation": 0.5381605551163474,
+          "rgb": [
+            103.55904812643303,
+            65.30924051381304,
+            51.720890309585435
+          ],
+          "anchor_offset": 35.5
+        },
+        {
+          "area": 17601,
+          "saturation": 0.5273661900224405,
+          "rgb": [
+            101.95455119302179,
+            66.17977528089163,
+            52.25899507636935
+          ],
+          "anchor_offset": 38.5
+        }
+      ],
+      "cast": [
+        {
+          "area": 17997,
+          "saturation": 0.5347968807726162,
+          "rgb": [
+            101.51025390623875,
+            65.34472656249169,
+            51.49133300780232
+          ],
+          "anchor_offset": 33.5
+        },
+        {
+          "area": 19125,
+          "saturation": 0.5399507178340884,
+          "rgb": [
+            100.99781206815994,
+            63.58711423306321,
+            50.2669852602385
+          ],
+          "anchor_offset": 34.5
+        },
+        {
+          "area": 18414,
+          "saturation": 0.5358000708379159,
+          "rgb": [
+            101.13696896654469,
+            64.98915335943717,
+            51.01126845434377
+          ],
+          "anchor_offset": 37.5
+        },
+        {
+          "area": 16804,
+          "saturation": 0.5442919237993201,
+          "rgb": [
+            106.1665249525723,
+            66.61547517822545,
+            51.781215252786545
+          ],
+          "anchor_offset": 31.5
+        }
+      ],
+      "phase_windup": [
+        {
+          "area": 17953,
+          "saturation": 0.5243024971480245,
+          "rgb": [
+            97.8142089696186,
+            63.466650570401676,
+            51.341643025281044
+          ],
+          "anchor_offset": 59.5
+        },
+        {
+          "area": 17898,
+          "saturation": 0.5421967312071564,
+          "rgb": [
+            102.2766916377223,
+            61.54077593031525,
+            51.19392167609644
+          ],
+          "anchor_offset": 26.5
+        },
+        {
+          "area": 16998,
+          "saturation": 0.5252145493004954,
+          "rgb": [
+            107.01718058849038,
+            68.92300788511253,
+            56.33104686196823
+          ],
+          "anchor_offset": 41.5
+        },
+        {
+          "area": 18097,
+          "saturation": 0.5431750152877359,
+          "rgb": [
+            107.53740920095619,
+            66.54884987892564,
+            54.41773607747156
+          ],
+          "anchor_offset": 19.5
+        }
+      ],
+      "phase": [
+        {
+          "area": 16578,
+          "saturation": 0.5829108656708554,
+          "rgb": [
+            103.97380968369235,
+            65.95903565911526,
+            49.76838358739269
+          ],
+          "anchor_offset": 46.5
+        },
+        {
+          "area": 19744,
+          "saturation": 0.6398088143093069,
+          "rgb": [
+            103.40270330651613,
+            51.2043118856043,
+            40.94006925825802
+          ],
+          "anchor_offset": 61.5
+        },
+        {
+          "area": 18999,
+          "saturation": 0.5785182502889794,
+          "rgb": [
+            101.12729728141876,
+            59.72837766425097,
+            46.236392460797845
+          ],
+          "anchor_offset": 1.5
+        },
+        {
+          "area": 17350,
+          "saturation": 0.6051221518629292,
+          "rgb": [
+            101.82040294210775,
+            60.0572433642393,
+            45.72344099775246
+          ],
+          "anchor_offset": 52.5
+        }
+      ],
+      "heavy_bridge": [
+        {
+          "area": 17138,
+          "saturation": 0.5442385308457066,
+          "rgb": [
+            109.24603873238856,
+            64.01810865190122,
+            52.38814134807913
+          ],
+          "anchor_offset": -34.5
+        },
+        {
+          "area": 14434,
+          "saturation": 0.5416341282388557,
+          "rgb": [
+            111.00383170547929,
+            67.19601803154647,
+            54.20323065363702
+          ],
+          "anchor_offset": 8.5
+        }
+      ],
+      "cast_bridge": [
+        {
+          "area": 16352,
+          "saturation": 0.5309542177822543,
+          "rgb": [
+            108.79051616710827,
+            66.5719813733772,
+            53.389322489659875
+          ],
+          "anchor_offset": 31.5
+        },
+        {
+          "area": 14524,
+          "saturation": 0.5349795192670102,
+          "rgb": [
+            109.07833655705072,
+            67.11374795416609,
+            53.89622080046834
+          ],
+          "anchor_offset": 8.5
+        }
+      ],
+      "phase_bridge": [
+        {
+          "area": 17468,
+          "saturation": 0.5792044447484355,
+          "rgb": [
+            107.4372323504145,
+            62.43545821606926,
+            49.98152453198592
+          ],
+          "anchor_offset": 52.5
+        },
+        {
+          "area": 14469,
+          "saturation": 0.5561414520707992,
+          "rgb": [
+            106.51927202780988,
+            65.17082192793565,
+            51.47961825848223
+          ],
+          "anchor_offset": 8.5
+        }
+      ]
+    },
+    "sources": [
+      {
+        "image": "silent_crown_core_combat_01.png",
+        "sha256": "e0b379e1178002e7549b5766e2b0dbb6d6e0612157327d6b50a7ff07fafd9367",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "combat_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.893,
+          "rgb": [
+            0.931,
+            0.949,
+            0.916
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_combat_02.png",
+        "sha256": "1050e09d26b9d7cdb9bf9cbaaddf8e1c1c4b9397b10616c2ab0efec85cbb813f",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "combat_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.946,
+          "rgb": [
+            0.944,
+            0.955,
+            0.93
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_combat_03.png",
+        "sha256": "bd999a1cbeaba7ea21965d943b0d70d0ac4a0b2c0153c74a499cf1c995f5fe37",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "combat_03",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.927,
+          "rgb": [
+            0.957,
+            0.964,
+            0.948
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_combat_04.png",
+        "sha256": "f8f71bfc1f66428980d31dbac1b468a96d9aa41111ccf39fc1f5c8d57f4c6503",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "combat_04",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.877,
+          "rgb": [
+            0.909,
+            0.923,
+            0.894
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_recovery_01.png",
+        "sha256": "622f7df96ac416eccad18e6f12b2920bf5adb2aae6c89248356b0b2fd52d8c5c",
+        "prompt_sha256": "d660ec0d73e46575f7b0a07a1bf97269801e163973b3cb5b178835a0ecde3bc1",
+        "role": "recovery_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.92,
+          "rgb": [
+            0.956,
+            0.968,
+            0.949
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_recovery_02.png",
+        "sha256": "ff0584d701c6aa6a9acbd5eec03a1b754ac6d7e2a540d09d8e323b8e2838ebde",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "recovery_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.856,
+          "rgb": [
+            0.949,
+            0.964,
+            0.946
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_locomotion_01.png",
+        "sha256": "dec605995bb69a04611fbe6c5dc19d497d9a90a04cfac75e65f8e95c7114fe93",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "locomotion_01",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.924,
+          "rgb": [
+            0.963,
+            0.972,
+            0.969
+          ]
+        }
+      },
+      {
+        "image": "silent_crown_core_locomotion_02.png",
+        "sha256": "d77b4a284d1cb6740b64cc8b2f8674210b9908ffad05f881ddce6df2efde65a5",
+        "prompt_sha256": "866fa9c67286e45e10cdef13760327c85e4bc47fcb3d527694f85fed24547905",
+        "role": "locomotion_02",
+        "frames": 6,
+        "runtime_frames": 6,
+        "grade": {
+          "saturation": 0.935,
+          "rgb": [
+            0.925,
+            0.93,
+            0.924
+          ]
+        }
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "source_only": [],
+    "runtime_model": "main-bridge-settle",
+    "rig_half_parity": 1
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "silent_crown_core__attack",
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__attack.png",
+        "sha256": "4b5912d40f29f6c764a39bdce4c18b809555dec43e8f2c7d4be7f845aba2279d",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_crown_core__attack.png"
+      },
+      {
+        "id": "silent_crown_core__cast",
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__cast.png",
+        "sha256": "68e1fbf104e8709d5044041a2a7fe1ba4ec6b62febddb9cb49913d60dc4cce0b",
+        "new_drawings": 24,
+        "animations": [
+          "cast_windup",
+          "cast",
+          "cast_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_crown_core__cast.png"
+      },
+      {
+        "id": "silent_crown_core__heavy",
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__heavy.png",
+        "sha256": "be6d42970d1d1ffd6b814b34136fe8402e3daa0934e9ed060be56c43e0a5388f",
+        "new_drawings": 24,
+        "animations": [
+          "heavy_windup",
+          "heavy",
+          "heavy_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_crown_core__heavy.png"
+      },
+      {
+        "id": "silent_crown_core__phase",
+        "source": "art_requests/combat_motion_v7/incoming/silent_crown_core__phase.png",
+        "sha256": "4c06e37f3b7187ab445c9826a5ebdd7c202d9f9108d926c58031037b1324a45e",
+        "new_drawings": 24,
+        "animations": [
+          "phase_windup",
+          "phase",
+          "phase_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_crown_core__phase.png"
+      }
+    ],
+    "new_drawings": 96,
+    "runtime_drawings": 96,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

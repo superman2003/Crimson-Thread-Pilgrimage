@@ -12,6 +12,7 @@
 ## 实例化并 add_child；_ready 赋 instance，_exit_tree 清空。
 class_name AudioDirector
 extends Node
+const STREAM_SOURCE := preload("res://scripts/audio_stream_source.gd")
 
 static var instance: AudioDirector
 
@@ -430,13 +431,13 @@ static func load_cached(path: String, looped: bool = false) -> AudioStream:
         push_warning("AudioDirector.load_cached: 音频缺失或解码失败: " + path)
         _stream_cache[cache_key] = null
         return null
-    if looped:
-        var ogg := stream as AudioStreamOggVorbis
-        if ogg != null:
-            ogg.loop = true
-        var wav := stream as AudioStreamWAV
-        if wav != null:
-            wav.loop_mode = AudioStreamWAV.LOOP_FORWARD
+    var ogg := stream as AudioStreamOggVorbis
+    if ogg != null:
+        ogg.loop = looped
+    var wav := stream as AudioStreamWAV
+    if wav != null:
+        wav.loop_mode = AudioStreamWAV.LOOP_FORWARD if looped else AudioStreamWAV.LOOP_DISABLED
+        if looped:
             wav.loop_begin = 0
             wav.loop_end = _wav_frame_count(wav)
     _stream_cache[cache_key] = stream
@@ -450,19 +451,9 @@ static func _wav_frame_count(wav: AudioStreamWAV) -> int:
     return wav.data.size() / (bytes_per_sample * channels)
 
 
-## Source projects keep direct decoding. Exports may only retain an imported
-## remap: load that without the shared Resource cache, so looped/non-looped
-## callers still own different mutable stream flags.
+## 本地直读与发行包导入资源共用入口。仅供 load_cached 内部使用。
 static func _load_stream(path: String) -> AudioStream:
-    if path.is_empty() or (not path.ends_with(".ogg") and not path.ends_with(".wav")):
-        return null
-    if FileAccess.file_exists(path):
-        if path.ends_with(".ogg"):
-            return AudioStreamOggVorbis.load_from_file(path)
-        return AudioStreamWAV.load_from_file(path)
-    if ResourceLoader.exists(path, "AudioStream"):
-        return ResourceLoader.load(path, "AudioStream", ResourceLoader.CACHE_MODE_IGNORE) as AudioStream
-    return null
+    return STREAM_SOURCE.load_stream(path)
 
 
 static func _short_chapter_id(chapter_id: String) -> String:
