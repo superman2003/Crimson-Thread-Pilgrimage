@@ -6036,7 +6036,7 @@ func _activate_hunt_track(area: Area2D) -> void:
     else:
         var ready := _challenge_tracks_ready(challenge)
         if ready and not challenge.is_empty():
-            _toast("%s · 残迹齐了，去敲响猎物的余响钟。" % String(challenge.get("name", "追踪狩猎")))
+            _toast("%s · 残迹已齐 · 去敲余响钟" % String(challenge.get("name", "追踪狩猎")))
         elif not hint.is_empty():
             _toast(hint)
         else:
@@ -6059,7 +6059,7 @@ func _activate_challenge_shrine(area: Area2D) -> void:
         _grant_optional_challenge_reward(challenge)
         return
     if String(challenge.get("kind", "")) == "tracking_hunt" and not _challenge_tracks_ready(challenge):
-        _toast("%s · 猎物尚未显形，先循着渠影残迹。" % String(challenge.get("name", "追踪狩猎")))
+        _toast("%s · 猎物未显形 · 先找残迹" % String(challenge.get("name", "追踪狩猎")))
         return
     if not active_challenge_id.is_empty():
         _toast("先了结当前的可选挑战。")
@@ -7637,7 +7637,9 @@ func _announce_lore_pickup(item_id: String) -> void:
     var lore_lines: Array = lore_entry.get("lore", [])
     if lore_lines.is_empty():
         return
-    var text := "拾获「%s」——%s" % [_item_display_name(item_id), String(lore_lines[0])]
+    # The inscription itself is the item's backpack description; the banner
+    # only names the find (U01 less text).
+    var text := "拾获「%s」" % _item_display_name(item_id)
     _show_lore_banner(text)
     print("LORE_PICKUP " + text)
 
