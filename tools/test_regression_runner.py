@@ -135,6 +135,7 @@ class CompletionContractTests(unittest.TestCase):
             'world_save_backup',
             'map_group_framing',
             'grounded_run',
+            'interpolation_arrival',
         }
         # Keep the original 182-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still

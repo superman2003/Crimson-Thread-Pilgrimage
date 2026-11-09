@@ -96,6 +96,7 @@ static func spawn(actor: Node2D, command: Dictionary, warning: bool) -> bool:
         "mirror_committed_shift":
             preload("res://scripts/boss_skill_art.gd").spawn_departure(actor,command)
             actor.global_position=preload("res://scripts/enemy_motion_sweep.gd").constrain(actor,actor.global_position,actor.boss_blink_destination)
+            actor.reset_physics_interpolation()
             actor.attack_direction=-1 if actor.attack_target.x<actor.global_position.x else 1
             actor.direction=actor.attack_direction;actor._set_sprite_flip(actor.direction<0)
             origin=actor.global_position+Vector2(actor.attack_direction*20,-24)

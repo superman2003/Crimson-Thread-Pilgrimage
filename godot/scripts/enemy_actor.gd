@@ -225,6 +225,7 @@ func _spawn_command_effects(command: Dictionary, warning: bool) -> void:
         MINOR_SKILL_ART.spawn_departure(self,command)
         var x := attack_target.x-attack_direction*float(command.get("blink_offset",115))
         global_position.x=clampf(x,platform_min_x,platform_max_x)
+        reset_physics_interpolation()
         var target := _target_player()
         if target!=null:_face_target(target)
         origin=global_position+Vector2(direction*20,-24)
@@ -2538,8 +2539,6 @@ func _set_enemy_animation(animation_name: String, restart: bool = false) -> void
             pose_feedback_was_active = false
     if changed or resume_loop:
         animated_sprite.play(next_animation)
-    if is_inside_tree() and not Engine.is_in_physics_frame():
-        reset_physics_interpolation()
 
 
 func _fit_animation_duration(duration: float, phase: String = "") -> void:

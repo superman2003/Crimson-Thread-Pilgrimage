@@ -5859,6 +5859,8 @@ func _start_boss_trial() -> void:
             player.set_spawn(trial_spawn)
         if player.has_method("restore_at_save_point"):
             player.restore_at_save_point()
+        if player.has_method("reset_camera_after_arrival"):
+            player.reset_camera_after_arrival()
     _spawn_boss()
     if boss_spawned and not demo_complete:
         if boss_trial_mode or not config.get("interactives", []).is_empty():
@@ -7481,6 +7483,8 @@ func _reset_encounters_after_player_death() -> void:
             player.global_position = active_spawn
             if player.has_method("restore_at_save_point"):
                 player.restore_at_save_point()
+            if player.has_method("reset_camera_after_arrival"):
+                player.reset_camera_after_arrival()
         _defer_region_call("_respawn_boss_trial_boss")
         _toast("试炼重置 · 守门者已经归位。")
     else:
