@@ -56,7 +56,7 @@ def main():
         manifest['behavior_generation_record'] = 'boss_behavior_v1.json'
         record = dict(schema=1,kind=kind,source=job['source'],source_sha256=sha256(source.read_bytes()).hexdigest(),reference=f'art_requests/boss_behavior_v1/refs/{kind}.png',
             generator='built-in image_gen',prompt=job['prompt'],new_drawings=24,source_regions=[c['region'] for c in cels],scale=scale,
-            baseline_manifest_sha256=sha256(original_path.read_bytes()).hexdigest(),animations=['backstep','ready_guard','ready_settle'])
+            baseline_manifest_sha256=sha256(original_path.read_text(encoding='utf-8').encode('utf-8')).hexdigest(),animations=['backstep','ready_guard','ready_settle'])
         for path, data in [(folder/'boss_behavior_manifest.json',manifest),(folder/'boss_behavior_v1.json',record)]:
             content=json.dumps(data,ensure_ascii=False,indent=2)+'\n'
             if args.check:

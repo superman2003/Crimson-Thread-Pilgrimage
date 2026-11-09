@@ -1865,7 +1865,7 @@ func _try_start_attack(target: CharacterBody2D) -> bool:
 func _begin_attack(command: Dictionary) -> void:
     if dying or is_queued_for_deletion() or not world_residency_active():
         return
-    if not is_boss and String(command.get("type",""))=="combo" and not command.has("combo_beats") and MINOR_SKILL_ART.ready_for(self,command):
+    if not is_boss and String(command.get("type",""))=="combo" and not command.has("combo_beats") and _attack_animation_base(command) in authored_combat_sequences and MINOR_SKILL_ART.ready_for(self,command):
         command=command.duplicate(true)
         var beats:=clampi(ceili(float(command.get("active",.6))/.2),2,4)
         var starts: Array=[]
@@ -2064,7 +2064,9 @@ func _update_recover(delta: float) -> void:
         _pose_sprite("idle")
         # Decide the next stance in the same physics step, with no mandatory
         # rendered idle frame between a completed recovery and a walk/attack.
-        _update_patrol_or_aggro(0.0,_target_player())
+        var next_target := _target_player()
+        if next_target != null:
+            _update_patrol_or_aggro(0.0,next_target)
 
 func _prepare_recovery_action(delta: float) -> void:
     var duration:=maxf(.01,float(active_attack.get("recover",.42)))
@@ -2318,6 +2320,10 @@ func _build_sprite() -> void:
     if not sprite_parts.is_empty():
         sprite = _build_part_sprite()
     elif asset_path.ends_with(".json"):
+        # Presentation can select another manifest after configure (original
+        # source poses, skins or prefab overrides). Do not carry choreography
+        # capabilities from a different drawing set into the loaded actor.
+        authored_combat_sequences = ORIGINAL_ART.manifest(asset_path).get("authored_combat_sequences", []).duplicate()
         animated_sprite = AnimatedSprite2D.new()
         animated_sprite.name = "EnemyAnimatedSprite"
         animated_sprite.sprite_frames = _load_enemy_sprite_frames(asset_path)
