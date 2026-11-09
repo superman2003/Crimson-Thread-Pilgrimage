@@ -1,13 +1,18 @@
 extends SceneTree
-const ENEMY = preload("res://scripts/enemy_actor.gd")
 const BRAIN = preload("res://scripts/boss_behavior_brain.gd")
 const ART = preload("res://scripts/hand_drawn_assets.gd")
 const RETIRE = preload("res://scripts/audio_retirement.gd")
 const ACTION = preload("res://scripts/boss_behavior_action.gd")
 const AUDIO = preload("res://scripts/enemy_combat_audio.gd")
+const DIRECTOR = preload("res://scripts/audio_director.gd")
 const SKILL = preload("res://scripts/boss_skill_art.gd")
 var checks := 0
 var failures := 0
+
+class NativeSoundBoss extends "res://scripts/enemy_actor.gd":
+    # Exercise the same voice/cache ownership with the runner's Dummy audio
+    # driver, including when this suite runs without a display server.
+    func _should_play_sfx() -> bool:return true
 
 class Terrain extends Node:
     func floor_height(_x: float, _y: float, _depth: float) -> float:return 340.0
@@ -47,7 +52,7 @@ func run() -> void:
         target.velocity=Vector2.ZERO
         target.heal_timer=0.0
         target.attack_timer=0.0
-        var actor := ENEMY.new()
+        var actor := NativeSoundBoss.new()
         actor.configure({"id":"behavior_"+kind,"kind":kind,"hp":9999},"",true)
         actor.position = Vector2(500,300)
         stage.add_child(actor)
@@ -206,6 +211,11 @@ func run() -> void:
     stage.queue_free()
     await process_frame
     await process_frame
+    check(RETIRE.observed>0,"Boss actions exercise actual native playback")
+    check(not DIRECTOR._stream_cache.is_empty(),"Boss actions exercise decoded stream caching")
+    # Session caches deliberately outlive actors. Release this fixture's final
+    # strong stream owner before checking AudioServer playback retirement.
+    DIRECTOR._stream_cache.clear()
     check(await RETIRE.drain(self),"all test audio retires")
     print("BOSS_BEHAVIOR_REPORT "+JSON.stringify(report))
     print("BOSS_BEHAVIOR checks=%d failures=%d" % [checks,failures])
