@@ -118,7 +118,7 @@ static func refresh(level: Node) -> void:
         marker.text = PINS.SYMBOLS[PINS.KINDS.find(record.kind)] + str(record.id)
         var anchor := project(level, record.region_id, Vector2(record.position[0], record.position[1]))
         marker.position = anchor - LABEL_ORIGIN
-        marker.add_theme_font_size_override("font_size", 19)
+        marker.add_theme_font_size_override("font_size", 18)
         marker.add_theme_color_override("font_color", [Color("b35a38"), Color("9a342f"), Color("486f82")][PINS.KINDS.find(record.kind)])
         marker.set_meta("pin_id", int(record.id))
         marker.set_meta("region_id", record.region_id)
