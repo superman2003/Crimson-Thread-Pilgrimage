@@ -98,8 +98,7 @@ static func notice(level: Node) -> void:
         level.world_state.data=saved.candidate
         level.story_flags=flags
         if clue.has_meta(RETRY):clue.remove_meta(RETRY)
-        level._toast(String(entry.clue.line))
-        # Nearby lever/lamp hints may replace the ordinary toast in this same
-        # frame. Preserve the earned observation in the existing reading banner.
+        # The reading banner alone carries the observation: nearby lever/lamp
+        # toasts cannot replace it, and showing it twice only doubles the text.
         level._show_lore_banner(String(entry.clue.line))
         return
