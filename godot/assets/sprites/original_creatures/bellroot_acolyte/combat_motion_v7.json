@@ -1,0 +1,1839 @@
+{
+  "kind": "bellroot_acolyte",
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create production transparent sprite sheet expanding the SAME character in reference: thin mantis acolyte in tattered sage root-fiber robes, ivory beaked mask, branch antlers with dangling brass ritual bell, curved scythe forearms. Preserve hand-drawn ink and painterly texture. STRICT 4 columns × 8 rows, 32 complete full-body poses, portrait canvas. Every sprite SMALL centered with generous empty transparent gutters, whole antler/bell/arms visible inside each cell, never touch neighbor. Facing RIGHT, fixed proportions and costume, equal scale and baseline. Row1: 4 idle breathing poses. Row2: 4 walk poses, first half stride. Row3: 4 walk poses, second half stride. Row4: 4 windup crouch/draw scythe arms back. Row5: 4 attack scythe swipe followthrough. Row6: 4 recovery poses returning to guard. Row7: 4 hurt recoil stagger poses. Row8: 4 death collapse poses ending fallen on ground. 4 figures in EVERY row, 8 rows. Real articulated limb and robe changes, no duplicated or translated poses. True alpha transparency, no colored background, grid lines, labels, text or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-7dd32093-3009-45b0-89e4-1a03912afd8f.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, all 32 authored poses visually reviewed",
+    "identity": "Original reference design and hand-painted dark outline preserved",
+    "motion": "Distinct articulated limb, costume and prop poses",
+    "component_isolation": "Full visible silhouettes mechanically isolated by explicit component seed; no interpolation",
+    "rectangular_region_issues": "Resolved by explicit 8-connected component extraction and original-RGBA packing; overlapping true silhouettes excluded.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character bellroot_acolyte passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "supplemental_attack_prompt": "Create supplemental ATTACK animation sprites only for the referenced mantis acolyte (ivory beaked mask, branch antlers, dangling brass bell, tattered sage root-fiber robes, curved scythe forearms), same hand-inked painted style. SIX isolated full-body poses in a 2-column by 3-row grid on transparent canvas. Lots of empty padding between sprites. Each sprite small within its cell; keep whole antlers/bell/scythe forearms. Facing right, same size and proportions. Poses in order: 1 low crouch arms drawn back; 2 lead scythe arm beginning sweep forward; 3 forward scythe extension; 4 double scythe striking peak; 5 low sweeping follow-through; 6 relaxed follow-through arms beginning retract. Real distinct joint articulation. Six sprites total. No background, grid, labels, shadows, text, no overlapping silhouettes.",
+  "supplemental_attack_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-6dde518b-cf42-48bd-ac10-fa35bd25f090.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          151,
+          248
+        ],
+        "anchor_x": 56.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          153,
+          0,
+          137,
+          247
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          292,
+          0,
+          145,
+          246
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          439,
+          0,
+          153,
+          245
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          594,
+          0,
+          168,
+          226
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          764,
+          0,
+          176,
+          226
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          942,
+          0,
+          183,
+          228
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1127,
+          0,
+          183,
+          227
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1312,
+          0,
+          193,
+          239
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1507,
+          0,
+          192,
+          233
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1701,
+          0,
+          196,
+          238
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1899,
+          0,
+          193,
+          236
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2094,
+          0,
+          207,
+          205
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          34,
+          56,
+          183,
+          189
+        ],
+        "component_seeds": [
+          [
+            180,
+            166
+          ]
+        ],
+        "scale": 1.134438,
+        "anchor_x": 84.37013,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          298,
+          62,
+          169,
+          183
+        ],
+        "component_seeds": [
+          [
+            374,
+            164
+          ]
+        ],
+        "scale": 1.175238,
+        "anchor_x": 69.534846,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2303,
+          0,
+          185,
+          206
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          558,
+          62,
+          164,
+          183
+        ],
+        "component_seeds": [
+          [
+            677,
+            164
+          ]
+        ],
+        "scale": 1.184762,
+        "anchor_x": 69.901929,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          813,
+          60,
+          170,
+          185
+        ],
+        "component_seeds": [
+          [
+            849,
+            169
+          ]
+        ],
+        "scale": 1.178908,
+        "anchor_x": 73.559105,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2490,
+          0,
+          195,
+          210
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1067,
+          60,
+          171,
+          185
+        ],
+        "component_seeds": [
+          [
+            1229,
+            167
+          ]
+        ],
+        "scale": 1.20339,
+        "anchor_x": 77.197183,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1327,
+          50,
+          159,
+          195
+        ],
+        "component_seeds": [
+          [
+            1478,
+            169
+          ]
+        ],
+        "scale": 1.15508,
+        "anchor_x": 79.476852,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2687,
+          0,
+          179,
+          219
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          47,
+          305,
+          163,
+          197
+        ],
+        "component_seeds": [
+          [
+            174,
+            425
+          ]
+        ],
+        "scale": 1.174603,
+        "anchor_x": 86.027027,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          272,
+          306,
+          222,
+          196
+        ],
+        "component_seeds": [
+          [
+            360,
+            415
+          ]
+        ],
+        "scale": 1.196809,
+        "anchor_x": 115.721481,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2868,
+          0,
+          195,
+          225
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1064,
+          559,
+          172,
+          199
+        ],
+        "component_seeds": [
+          [
+            1172,
+            672
+          ]
+        ],
+        "scale": 1.183246,
+        "anchor_x": 56.617994,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1323,
+          559,
+          163,
+          199
+        ],
+        "component_seeds": [
+          [
+            1391,
+            671
+          ]
+        ],
+        "scale": 1.188482,
+        "anchor_x": 60.842878,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3065,
+          0,
+          178,
+          228
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          46,
+          815,
+          166,
+          200
+        ],
+        "component_seeds": [
+          [
+            112,
+            925
+          ]
+        ],
+        "scale": 1.185764,
+        "anchor_x": 64.414348,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          306,
+          815,
+          156,
+          200
+        ],
+        "component_seeds": [
+          [
+            353,
+            928
+          ]
+        ],
+        "scale": 1.184028,
+        "anchor_x": 63.894428,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3245,
+          0,
+          177,
+          227
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          559,
+          815,
+          163,
+          199
+        ],
+        "component_seeds": [
+          [
+            613,
+            927
+          ]
+        ],
+        "scale": 1.181501,
+        "anchor_x": 75.639586,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          813,
+          821,
+          163,
+          193
+        ],
+        "component_seeds": [
+          [
+            942,
+            931
+          ]
+        ],
+        "scale": 1.212613,
+        "anchor_x": 84.976226,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3424,
+          0,
+          176,
+          223
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1072,
+          820,
+          158,
+          194
+        ],
+        "component_seeds": [
+          [
+            1129,
+            930
+          ]
+        ],
+        "scale": 1.243728,
+        "anchor_x": 77.691643,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1336,
+          804,
+          143,
+          211
+        ],
+        "component_seeds": [
+          [
+            1391,
+            918
+          ]
+        ],
+        "scale": 1.180624,
+        "anchor_x": 62.342142,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3602,
+          0,
+          203,
+          177
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3807,
+          0,
+          165,
+          188
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          250,
+          187,
+          167
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          189,
+          250,
+          189,
+          150
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          380,
+          250,
+          200,
+          159
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          582,
+          250,
+          215,
+          154
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          799,
+          250,
+          207,
+          116
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1008,
+          250,
+          229,
+          103
+        ],
+        "anchor_x": 128.0,
+        "packed_runtime": true
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1239,
+          250,
+          253,
+          228
+        ],
+        "anchor_x": 134.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          527,
+          302,
+          223,
+          200
+        ],
+        "component_seeds": [
+          [
+            627,
+            413
+          ]
+        ],
+        "scale": 1.185764,
+        "anchor_x": 119.248902,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          782,
+          362,
+          235,
+          140
+        ],
+        "component_seeds": [
+          [
+            791,
+            432
+          ]
+        ],
+        "scale": 1.722222,
+        "anchor_x": 84.774194,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1800,
+          250,
+          386,
+          227
+        ],
+        "anchor_x": 137.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1039,
+          366,
+          231,
+          136
+        ],
+        "component_seeds": [
+          [
+            1135,
+            430
+          ]
+        ],
+        "scale": 1.848958,
+        "anchor_x": 81.197183,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          1299,
+          285,
+          212,
+          217
+        ],
+        "component_seeds": [
+          [
+            1377,
+            407
+          ]
+        ],
+        "scale": 1.178628,
+        "anchor_x": 88.343708,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2188,
+          250,
+          255,
+          256
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          19,
+          535,
+          216,
+          223
+        ],
+        "component_seeds": [
+          [
+            85,
+            661
+          ]
+        ],
+        "scale": 1.204651,
+        "anchor_x": 88.189189,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          286,
+          542,
+          195,
+          216
+        ],
+        "component_seeds": [
+          [
+            378,
+            665
+          ]
+        ],
+        "scale": 1.259615,
+        "anchor_x": 85.824427,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2822,
+          250,
+          237,
+          265
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          540,
+          542,
+          197,
+          216
+        ],
+        "component_seeds": [
+          [
+            623,
+            666
+          ]
+        ],
+        "scale": 1.209936,
+        "anchor_x": 81.459603,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "region": [
+          805,
+          560,
+          175,
+          198
+        ],
+        "component_seeds": [
+          [
+            867,
+            672
+          ]
+        ],
+        "scale": 1.254386,
+        "anchor_x": 68.321678,
+        "grade": {
+          "saturation": 1.0947,
+          "rgb": [
+            0.85,
+            0.8529,
+            0.85
+          ]
+        }
+      }
+    ],
+    "root_bell_wave_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3061,
+          250,
+          197,
+          184
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          44,
+          81,
+          172,
+          166
+        ],
+        "component_seeds": [
+          [
+            156,
+            175
+          ]
+        ],
+        "scale": 1.232068,
+        "anchor_x": 69.071918,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          304,
+          54,
+          157,
+          193
+        ],
+        "component_seeds": [
+          [
+            363,
+            159
+          ]
+        ],
+        "scale": 1.10991,
+        "anchor_x": 64.089286,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3260,
+          250,
+          172,
+          216
+        ],
+        "anchor_x": 68.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          560,
+          54,
+          153,
+          193
+        ],
+        "component_seeds": [
+          [
+            649,
+            159
+          ]
+        ],
+        "scale": 1.218018,
+        "anchor_x": 63.968935,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          821,
+          35,
+          144,
+          212
+        ],
+        "component_seeds": [
+          [
+            921,
+            148
+          ]
+        ],
+        "scale": 1.150327,
+        "anchor_x": 61.4375,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3434,
+          250,
+          158,
+          244
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1080,
+          34,
+          139,
+          213
+        ],
+        "component_seeds": [
+          [
+            1174,
+            147
+          ]
+        ],
+        "scale": 1.206504,
+        "anchor_x": 62.15903,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1337,
+          25,
+          141,
+          222
+        ],
+        "component_seeds": [
+          [
+            1420,
+            143
+          ]
+        ],
+        "scale": 1.17134,
+        "anchor_x": 69.178191,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3594,
+          250,
+          154,
+          254
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          49,
+          274,
+          145,
+          229
+        ],
+        "component_seeds": [
+          [
+            159,
+            396
+          ]
+        ],
+        "scale": 1.095023,
+        "anchor_x": 73.867769,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          285,
+          301,
+          192,
+          202
+        ],
+        "component_seeds": [
+          [
+            413,
+            427
+          ]
+        ],
+        "scale": 1.185567,
+        "anchor_x": 84.565217,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "root_bell_wave": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3750,
+          250,
+          215,
+          218
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          543,
+          307,
+          191,
+          196
+        ],
+        "component_seeds": [
+          [
+            699,
+            428
+          ]
+        ],
+        "scale": 1.115248,
+        "anchor_x": 84.033386,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          802,
+          325,
+          184,
+          178
+        ],
+        "component_seeds": [
+          [
+            941,
+            442
+          ]
+        ],
+        "scale": 1.184314,
+        "anchor_x": 98.556291,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          517,
+          205,
+          193
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1059,
+          332,
+          183,
+          171
+        ],
+        "component_seeds": [
+          [
+            1197,
+            442
+          ]
+        ],
+        "scale": 1.147239,
+        "anchor_x": 98.864528,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1318,
+          341,
+          180,
+          162
+        ],
+        "component_seeds": [
+          [
+            1381,
+            448
+          ]
+        ],
+        "scale": 1.175325,
+        "anchor_x": 101.626151,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          207,
+          517,
+          194,
+          175
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          43,
+          600,
+          174,
+          160
+        ],
+        "component_seeds": [
+          [
+            117,
+            703
+          ]
+        ],
+        "scale": 1.151316,
+        "anchor_x": 96.761905,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          294,
+          601,
+          177,
+          159
+        ],
+        "component_seeds": [
+          [
+            438,
+            708
+          ]
+        ],
+        "scale": 1.15894,
+        "anchor_x": 100.521905,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          403,
+          517,
+          198,
+          175
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          550,
+          601,
+          177,
+          159
+        ],
+        "component_seeds": [
+          [
+            666,
+            708
+          ]
+        ],
+        "scale": 1.214128,
+        "anchor_x": 101.587273,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          811,
+          581,
+          170,
+          179
+        ],
+        "component_seeds": [
+          [
+            890,
+            694
+          ]
+        ],
+        "scale": 1.120858,
+        "anchor_x": 91.970435,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "root_bell_wave_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          603,
+          517,
+          184,
+          200
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1068,
+          579,
+          169,
+          181
+        ],
+        "component_seeds": [
+          [
+            1125,
+            691
+          ]
+        ],
+        "scale": 1.183044,
+        "anchor_x": 92.392508,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1316,
+          566,
+          185,
+          194
+        ],
+        "component_seeds": [
+          [
+            1437,
+            685
+          ]
+        ],
+        "scale": 1.125448,
+        "anchor_x": 91.003185,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          789,
+          517,
+          196,
+          214
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          38,
+          821,
+          180,
+          194
+        ],
+        "component_seeds": [
+          [
+            177,
+            938
+          ]
+        ],
+        "scale": 1.177419,
+        "anchor_x": 89.073059,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          293,
+          808,
+          175,
+          207
+        ],
+        "component_seeds": [
+          [
+            331,
+            925
+          ]
+        ],
+        "scale": 1.125628,
+        "anchor_x": 79.412202,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          987,
+          517,
+          187,
+          229
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          551,
+          807,
+          171,
+          208
+        ],
+        "component_seeds": [
+          [
+            625,
+            925
+          ]
+        ],
+        "scale": 1.093333,
+        "anchor_x": 76.853659,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          815,
+          832,
+          159,
+          183
+        ],
+        "component_seeds": [
+          [
+            884,
+            937
+          ]
+        ],
+        "scale": 1.190476,
+        "anchor_x": 70.6,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1176,
+          517,
+          170,
+          198
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1074,
+          836,
+          158,
+          179
+        ],
+        "component_seeds": [
+          [
+            1122,
+            939
+          ]
+        ],
+        "scale": 1.255361,
+        "anchor_x": 64.98913,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "region": [
+          1338,
+          798,
+          141,
+          217
+        ],
+        "component_seeds": [
+          [
+            1362,
+            917
+          ]
+        ],
+        "scale": 1.106858,
+        "anchor_x": 57.521614,
+        "grade": {
+          "saturation": 1.0874,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "root_bell_wave_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1348,
+          517,
+          151,
+          232
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1501,
+          517,
+          154,
+          234
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bellroot_acolyte.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "root_bell_wave_windup",
+      "root_bell_wave",
+      "root_bell_wave_recover",
+      "root_bell_wave_charge"
+    ],
+    "sheets": [
+      {
+        "image": "root_bell_wave.png",
+        "image_sha256": "e2f520a5490c0c83ece29fc1fd6382131d4c8c820ed39e99e3593edbb810c7f8",
+        "role": "new",
+        "attack": "root_bell_wave",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7799,
+        "anchors": [
+          103.4,
+          88.4,
+          87.4,
+          95.4,
+          120.4,
+          142.4,
+          134.4,
+          146.4,
+          127.4,
+          121.4,
+          104.4,
+          96.4,
+          90.4,
+          94.4
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7886,
+          "last_recover_ratio": 0.7713
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "bellroot_acolyte__attack",
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__attack.png",
+        "sha256": "0aee7af45b0340967c697082cfb3f10b2ee23cb5a2bf4eb1f9cebff984bf7d69",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bellroot_acolyte__attack.png"
+      },
+      {
+        "id": "bellroot_acolyte__root_bell_wave",
+        "source": "art_requests/combat_motion_v7/incoming/bellroot_acolyte__root_bell_wave.png",
+        "sha256": "04e979d2ae6ea1e4000b219d12326f54fb161d115676a7902bd2685abac35c0a",
+        "new_drawings": 24,
+        "animations": [
+          "root_bell_wave_windup",
+          "root_bell_wave",
+          "root_bell_wave_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bellroot_acolyte__root_bell_wave.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

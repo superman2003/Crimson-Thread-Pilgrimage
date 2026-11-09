@@ -1,0 +1,3249 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: identity-preserve. Create a production hand-drawn 2D side-view game animation SPRITE SHEET from this reference atlas. Reference is character identity and style only; produce MORE distinct poses of exactly the SAME character. Preserve costume, colors, materials, anatomy, weapon and hand-painted ink linework. Square sheet, exactly SIX columns and SIX rows, 36 equal invisible cells, one complete character per cell, transparent background with actual alpha. No text, gridlines, borders, background or scenery. Right-facing orthographic side view. Stable scale and feet baseline; entire silhouette and weapon fit within each cell, no clipping and no adjacent-cell overlap, with generous transparent gutters. 36 poses in row-major order, numbered here only for instructions, do NOT render numbers: slots 0-3 four subtle idle breathing poses; 4-11 eight sequential locomotion poses with alternating contact/down/passing/up, articulated knees/feet/body and appendages; 12-15 four progressive attack anticipation poses; 16-21 six progressive attack action poses; 22-27 six recovery poses returning to idle; 28-31 four recoil and regain balance poses; 32-35 four progressive death collapse poses, last lying still. Poses must genuinely change joints, appendages, wings/wheels/tentacles and weapon angle appropriate to character; no duplicate stamps, no rigid translations, no blur trails. Use the same character throughout all 36 cells. Character: a compact clockwork beetle guard with tarnished bronze plate armor, a toothed gear shield and a short spear",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/gear_sentinel/atlas.png",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-a816f300-3852-4b0b-a398-fbc6c1fc14ea.png",
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            13,
+            14,
+            215,
+            204
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            223,
+            14,
+            215,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            425,
+            14,
+            215,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            629,
+            14,
+            214,
+            203
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            835,
+            13,
+            219,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1052,
+            13,
+            195,
+            203
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            9,
+            225,
+            237,
+            202
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            230,
+            226,
+            224,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            444,
+            227,
+            220,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            650,
+            227,
+            216,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            855,
+            227,
+            205,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1052,
+            230,
+            198,
+            198
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 6,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            450,
+            205,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            231,
+            446,
+            212,
+            189
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            444,
+            450,
+            183,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            632,
+            448,
+            213,
+            187
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            843,
+            443,
+            204,
+            192
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1054,
+            449,
+            197,
+            186
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            661,
+            292,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            245,
+            655,
+            303,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            455,
+            675,
+            218,
+            171
+          ]
+        },
+        {
+          "sheet": "attack_0_isolated.png",
+          "region": [
+            0,
+            0,
+            768,
+            337
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 6,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            676,
+            656,
+            207,
+            191
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            862,
+            660,
+            207,
+            188
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1058,
+            660,
+            183,
+            186
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            10,
+            860,
+            232,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            235,
+            860,
+            188,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            432,
+            859,
+            205,
+            200
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 5,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            641,
+            891,
+            203,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            849,
+            864,
+            217,
+            196
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            1054,
+            861,
+            191,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            19,
+            1053,
+            230,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            220,
+            1064,
+            187,
+            174
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 3,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            428,
+            1107,
+            214,
+            125
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            659,
+            1117,
+            258,
+            114
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            921,
+            1134,
+            313,
+            103
+          ]
+        }
+      ]
+    }
+  },
+  "qa": {
+    "status": "reviewed35 actual poses; death final row5 poses includes3 collapse frames; sourceisolatedattack scaled consistently",
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 6,
+      "attack": 4,
+      "recover": 6,
+      "hurt": 5,
+      "death": 3
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "6 columns and 6 nominal rows, 35 actual authored poses",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          215,
+          204
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          217,
+          0,
+          214,
+          203
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          433,
+          0,
+          215,
+          202
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          650,
+          0,
+          214,
+          202
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          866,
+          0,
+          218,
+          202
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1086,
+          0,
+          195,
+          202
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1283,
+          0,
+          237,
+          202
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1522,
+          0,
+          224,
+          200
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1748,
+          0,
+          220,
+          200
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1970,
+          0,
+          215,
+          200
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2187,
+          0,
+          205,
+          200
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2394,
+          0,
+          197,
+          198
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2593,
+          0,
+          205,
+          185
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          39,
+          83,
+          179,
+          164
+        ],
+        "component_seeds": [
+          [
+            184,
+            177
+          ]
+        ],
+        "scale": 1.185897,
+        "anchor_x": 82.664865,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          305,
+          86,
+          166,
+          161
+        ],
+        "component_seeds": [
+          [
+            328,
+            174
+          ]
+        ],
+        "scale": 1.20915,
+        "anchor_x": 75.286486,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3014,
+          0,
+          183,
+          185
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          559,
+          84,
+          165,
+          163
+        ],
+        "component_seeds": [
+          [
+            705,
+            173
+          ]
+        ],
+        "scale": 1.195699,
+        "anchor_x": 75.830935,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          799,
+          84,
+          190,
+          163
+        ],
+        "component_seeds": [
+          [
+            882,
+            173
+          ]
+        ],
+        "scale": 1.197849,
+        "anchor_x": 91.251346,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3199,
+          0,
+          213,
+          186
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1056,
+          83,
+          194,
+          164
+        ],
+        "component_seeds": [
+          [
+            1211,
+            173
+          ]
+        ],
+        "scale": 1.190171,
+        "anchor_x": 94.67684,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1323,
+          86,
+          179,
+          161
+        ],
+        "component_seeds": [
+          [
+            1362,
+            177
+          ]
+        ],
+        "scale": 1.211329,
+        "anchor_x": 86.992806,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3620,
+          0,
+          197,
+          185
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          42,
+          342,
+          177,
+          161
+        ],
+        "component_seeds": [
+          [
+            104,
+            432
+          ]
+        ],
+        "scale": 1.202614,
+        "anchor_x": 82.527174,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          270,
+          357,
+          223,
+          146
+        ],
+        "component_seeds": [
+          [
+            417,
+            427
+          ]
+        ],
+        "scale": 1.326087,
+        "anchor_x": 79.42623,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          206,
+          291,
+          182
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          525,
+          356,
+          224,
+          147
+        ],
+        "component_seeds": [
+          [
+            586,
+            427
+          ]
+        ],
+        "scale": 1.328537,
+        "anchor_x": 69.920578,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          783,
+          356,
+          221,
+          146
+        ],
+        "component_seeds": [
+          [
+            845,
+            434
+          ]
+        ],
+        "scale": 1.357488,
+        "anchor_x": 61.252669,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          293,
+          206,
+          303,
+          190
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1037,
+          356,
+          232,
+          146
+        ],
+        "component_seeds": [
+          [
+            1063,
+            433
+          ]
+        ],
+        "scale": 1.330918,
+        "anchor_x": 52.680581,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1310,
+          350,
+          195,
+          152
+        ],
+        "component_seeds": [
+          [
+            1476,
+            436
+          ]
+        ],
+        "scale": 1.231481,
+        "anchor_x": 71.526316,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          598,
+          206,
+          218,
+          171
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          31,
+          606,
+          194,
+          153
+        ],
+        "component_seeds": [
+          [
+            119,
+            692
+          ]
+        ],
+        "scale": 1.206897,
+        "anchor_x": 81.133333,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          269,
+          620,
+          213,
+          138
+        ],
+        "component_seeds": [
+          [
+            371,
+            687
+          ]
+        ],
+        "scale": 1.376923,
+        "anchor_x": 66.685289,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          818,
+          206,
+          310,
+          183
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          525,
+          620,
+          215,
+          138
+        ],
+        "component_seeds": [
+          [
+            577,
+            688
+          ]
+        ],
+        "scale": 1.428205,
+        "anchor_x": 74.231598,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          799,
+          591,
+          184,
+          168
+        ],
+        "component_seeds": [
+          [
+            862,
+            683
+          ]
+        ],
+        "scale": 1.177083,
+        "anchor_x": 68.026549,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1130,
+          206,
+          206,
+          191
+        ],
+        "anchor_x": 55.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1056,
+          590,
+          187,
+          168
+        ],
+        "component_seeds": [
+          [
+            1205,
+            681
+          ]
+        ],
+        "scale": 1.183333,
+        "anchor_x": 62.056338,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1325,
+          592,
+          166,
+          167
+        ],
+        "component_seeds": [
+          [
+            1356,
+            691
+          ]
+        ],
+        "scale": 1.180294,
+        "anchor_x": 78.642984,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1546,
+          206,
+          181,
+          186
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          44,
+          847,
+          169,
+          167
+        ],
+        "component_seeds": [
+          [
+            177,
+            947
+          ]
+        ],
+        "scale": 1.194969,
+        "anchor_x": 89.236842,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          277,
+          841,
+          201,
+          173
+        ],
+        "component_seeds": [
+          [
+            338,
+            933
+          ]
+        ],
+        "scale": 1.175758,
+        "anchor_x": 86.912371,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1729,
+          206,
+          232,
+          198
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          535,
+          841,
+          200,
+          173
+        ],
+        "component_seeds": [
+          [
+            636,
+            933
+          ]
+        ],
+        "scale": 1.20404,
+        "anchor_x": 88.954698,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          803,
+          838,
+          182,
+          176
+        ],
+        "component_seeds": [
+          [
+            848,
+            934
+          ]
+        ],
+        "scale": 1.186508,
+        "anchor_x": 80.033445,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2153,
+          206,
+          205,
+          200
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1059,
+          837,
+          183,
+          177
+        ],
+        "component_seeds": [
+          [
+            1185,
+            934
+          ]
+        ],
+        "scale": 1.191321,
+        "anchor_x": 82.720199,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "region": [
+          1313,
+          836,
+          187,
+          178
+        ],
+        "component_seeds": [
+          [
+            1422,
+            930
+          ]
+        ],
+        "scale": 1.192157,
+        "anchor_x": 81.279605,
+        "grade": {
+          "saturation": 1.0429,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2360,
+          206,
+          203,
+          174
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2565,
+          206,
+          217,
+          196
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2784,
+          206,
+          190,
+          197
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2976,
+          206,
+          230,
+          185
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3208,
+          206,
+          187,
+          173
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3397,
+          206,
+          214,
+          125
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3613,
+          206,
+          258,
+          114
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          408,
+          313,
+          103
+        ],
+        "anchor_x": 157.0,
+        "packed_runtime": true
+      }
+    ],
+    "gear_elite_spin_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          315,
+          408,
+          210,
+          171
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          38,
+          98,
+          182,
+          150
+        ],
+        "component_seeds": [
+          [
+            69,
+            181
+          ]
+        ],
+        "scale": 1.204225,
+        "anchor_x": 91.536062,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          293,
+          94,
+          182,
+          153
+        ],
+        "component_seeds": [
+          [
+            379,
+            179
+          ]
+        ],
+        "scale": 1.17931,
+        "anchor_x": 98.37037,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          527,
+          408,
+          205,
+          171
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          552,
+          93,
+          177,
+          154
+        ],
+        "component_seeds": [
+          [
+            631,
+            178
+          ]
+        ],
+        "scale": 1.173516,
+        "anchor_x": 93.828794,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          811,
+          93,
+          171,
+          154
+        ],
+        "component_seeds": [
+          [
+            950,
+            178
+          ]
+        ],
+        "scale": 1.175799,
+        "anchor_x": 89.535922,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          734,
+          408,
+          198,
+          172
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1068,
+          93,
+          172,
+          154
+        ],
+        "component_seeds": [
+          [
+            1183,
+            178
+          ]
+        ],
+        "scale": 1.178082,
+        "anchor_x": 90.527132,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1304,
+          95,
+          207,
+          153
+        ],
+        "component_seeds": [
+          [
+            1416,
+            179
+          ]
+        ],
+        "scale": 1.186207,
+        "anchor_x": 115.777132,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          934,
+          408,
+          236,
+          172
+        ],
+        "anchor_x": 132.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          25,
+          349,
+          205,
+          154
+        ],
+        "component_seeds": [
+          [
+            222,
+            433
+          ]
+        ],
+        "scale": 1.173516,
+        "anchor_x": 114.828794,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          294,
+          351,
+          183,
+          152
+        ],
+        "component_seeds": [
+          [
+            441,
+            434
+          ]
+        ],
+        "scale": 1.185185,
+        "anchor_x": 97.5,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      }
+    ],
+    "gear_elite_spin": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1172,
+          408,
+          199,
+          170
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          551,
+          351,
+          179,
+          152
+        ],
+        "component_seeds": [
+          [
+            673,
+            434
+          ]
+        ],
+        "scale": 1.168981,
+        "anchor_x": 96.562376,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          799,
+          354,
+          190,
+          149
+        ],
+        "component_seeds": [
+          [
+            911,
+            434
+          ]
+        ],
+        "scale": 1.182033,
+        "anchor_x": 84.794,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1591,
+          408,
+          209,
+          165
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1059,
+          355,
+          184,
+          148
+        ],
+        "component_seeds": [
+          [
+            1113,
+            435
+          ]
+        ],
+        "scale": 1.183333,
+        "anchor_x": 83.352113,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1313,
+          356,
+          193,
+          147
+        ],
+        "component_seeds": [
+          [
+            1451,
+            436
+          ]
+        ],
+        "scale": 1.196643,
+        "anchor_x": 96.571142,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1802,
+          408,
+          223,
+          167
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          28,
+          612,
+          200,
+          147
+        ],
+        "component_seeds": [
+          [
+            169,
+            691
+          ]
+        ],
+        "scale": 1.211031,
+        "anchor_x": 99.780198,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          283,
+          606,
+          202,
+          154
+        ],
+        "component_seeds": [
+          [
+            401,
+            684
+          ]
+        ],
+        "scale": 1.1621,
+        "anchor_x": 94.023576,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2241,
+          408,
+          226,
+          171
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          537,
+          606,
+          204,
+          154
+        ],
+        "component_seeds": [
+          [
+            590,
+            685
+          ]
+        ],
+        "scale": 1.148402,
+        "anchor_x": 95.095427,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          791,
+          615,
+          205,
+          144
+        ],
+        "component_seeds": [
+          [
+            920,
+            693
+          ]
+        ],
+        "scale": 1.208333,
+        "anchor_x": 96.793103,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      }
+    ],
+    "gear_elite_spin_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2469,
+          408,
+          237,
+          161
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1050,
+          615,
+          203,
+          144
+        ],
+        "component_seeds": [
+          [
+            1172,
+            693
+          ]
+        ],
+        "scale": 1.196078,
+        "anchor_x": 95.295082,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1322,
+          612,
+          171,
+          147
+        ],
+        "component_seeds": [
+          [
+            1450,
+            696
+          ]
+        ],
+        "scale": 1.182254,
+        "anchor_x": 90.793103,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2708,
+          408,
+          189,
+          166
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          37,
+          867,
+          176,
+          148
+        ],
+        "component_seeds": [
+          [
+            141,
+            953
+          ]
+        ],
+        "scale": 1.190476,
+        "anchor_x": 93.48,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          296,
+          864,
+          169,
+          151
+        ],
+        "component_seeds": [
+          [
+            334,
+            951
+          ]
+        ],
+        "scale": 1.170163,
+        "anchor_x": 94.842629,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2899,
+          408,
+          189,
+          168
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          556,
+          864,
+          166,
+          151
+        ],
+        "component_seeds": [
+          [
+            673,
+            950
+          ]
+        ],
+        "scale": 1.174825,
+        "anchor_x": 92.390873,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          804,
+          865,
+          181,
+          150
+        ],
+        "component_seeds": [
+          [
+            898,
+            949
+          ]
+        ],
+        "scale": 1.183099,
+        "anchor_x": 93.634921,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3090,
+          408,
+          203,
+          168
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1062,
+          865,
+          179,
+          150
+        ],
+        "component_seeds": [
+          [
+            1123,
+            949
+          ]
+        ],
+        "scale": 1.267606,
+        "anchor_x": 90.944444,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "region": [
+          1311,
+          836,
+          196,
+          179
+        ],
+        "component_seeds": [
+          [
+            1414,
+            931
+          ]
+        ],
+        "scale": 1.122807,
+        "anchor_x": 88.671875,
+        "grade": {
+          "saturation": 1.0314,
+          "rgb": [
+            0.9219,
+            0.926,
+            0.94
+          ]
+        }
+      }
+    ],
+    "gear_elite_spin_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3295,
+          408,
+          191,
+          168
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3488,
+          408,
+          202,
+          168
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      }
+    ],
+    "gear_guard_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3692,
+          408,
+          198,
+          174
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          40,
+          91,
+          172,
+          156
+        ],
+        "component_seeds": [
+          [
+            90,
+            178
+          ]
+        ],
+        "scale": 1.182432,
+        "anchor_x": 88.074286,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          296,
+          91,
+          174,
+          156
+        ],
+        "component_seeds": [
+          [
+            405,
+            180
+          ]
+        ],
+        "scale": 1.189189,
+        "anchor_x": 95.045455,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3892,
+          408,
+          196,
+          177
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          553,
+          91,
+          174,
+          156
+        ],
+        "component_seeds": [
+          [
+            716,
+            180
+          ]
+        ],
+        "scale": 1.186937,
+        "anchor_x": 94.055028,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          807,
+          94,
+          168,
+          153
+        ],
+        "component_seeds": [
+          [
+            908,
+            180
+          ]
+        ],
+        "scale": 1.202299,
+        "anchor_x": 91.99044,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          587,
+          192,
+          173
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1067,
+          94,
+          164,
+          153
+        ],
+        "component_seeds": [
+          [
+            1100,
+            181
+          ]
+        ],
+        "scale": 1.202299,
+        "anchor_x": 88.713193,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1331,
+          90,
+          154,
+          157
+        ],
+        "component_seeds": [
+          [
+            1444,
+            179
+          ]
+        ],
+        "scale": 1.178971,
+        "anchor_x": 83.523719,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          194,
+          587,
+          173,
+          177
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          52,
+          345,
+          150,
+          157
+        ],
+        "component_seeds": [
+          [
+            132,
+            435
+          ]
+        ],
+        "scale": 1.17226,
+        "anchor_x": 81.265267,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          296,
+          351,
+          174,
+          151
+        ],
+        "component_seeds": [
+          [
+            386,
+            438
+          ]
+        ],
+        "scale": 1.205128,
+        "anchor_x": 100.148936,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      }
+    ],
+    "gear_guard": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          369,
+          587,
+          201,
+          170
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          551,
+          350,
+          177,
+          152
+        ],
+        "component_seeds": [
+          [
+            585,
+            438
+          ]
+        ],
+        "scale": 1.173611,
+        "anchor_x": 100.544379,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          806,
+          353,
+          180,
+          149
+        ],
+        "component_seeds": [
+          [
+            931,
+            438
+          ]
+        ],
+        "scale": 1.191489,
+        "anchor_x": 101.755952,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          572,
+          587,
+          204,
+          167
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1061,
+          355,
+          181,
+          147
+        ],
+        "component_seeds": [
+          [
+            1144,
+            438
+          ]
+        ],
+        "scale": 1.184652,
+        "anchor_x": 103.064777,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1307,
+          361,
+          202,
+          141
+        ],
+        "component_seeds": [
+          [
+            1388,
+            442
+          ]
+        ],
+        "scale": 1.220551,
+        "anchor_x": 119.915811,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          778,
+          587,
+          229,
+          160
+        ],
+        "anchor_x": 134.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          28,
+          615,
+          201,
+          143
+        ],
+        "component_seeds": [
+          [
+            214,
+            696
+          ]
+        ],
+        "scale": 1.187654,
+        "anchor_x": 118.051975,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          292,
+          615,
+          184,
+          143
+        ],
+        "component_seeds": [
+          [
+            332,
+            696
+          ]
+        ],
+        "scale": 1.190123,
+        "anchor_x": 105.041494,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1009,
+          587,
+          201,
+          161
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          549,
+          613,
+          178,
+          145
+        ],
+        "component_seeds": [
+          [
+            683,
+            694
+          ]
+        ],
+        "scale": 1.218978,
+        "anchor_x": 101.922156,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          813,
+          600,
+          163,
+          158
+        ],
+        "component_seeds": [
+          [
+            914,
+            691
+          ]
+        ],
+        "scale": 1.153333,
+        "anchor_x": 91.202312,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      }
+    ],
+    "gear_guard_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1212,
+          587,
+          188,
+          179
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1064,
+          600,
+          170,
+          158
+        ],
+        "component_seeds": [
+          [
+            1091,
+            691
+          ]
+        ],
+        "scale": 1.195556,
+        "anchor_x": 95.018587,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1327,
+          599,
+          162,
+          159
+        ],
+        "component_seeds": [
+          [
+            1464,
+            689
+          ]
+        ],
+        "scale": 1.189845,
+        "anchor_x": 88.042672,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1402,
+          587,
+          187,
+          180
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          47,
+          855,
+          164,
+          159
+        ],
+        "component_seeds": [
+          [
+            165,
+            945
+          ]
+        ],
+        "scale": 1.178808,
+        "anchor_x": 90.089888,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          301,
+          858,
+          166,
+          156
+        ],
+        "component_seeds": [
+          [
+            423,
+            949
+          ]
+        ],
+        "scale": 1.189189,
+        "anchor_x": 92.045455,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1591,
+          587,
+          194,
+          174
+        ],
+        "anchor_x": 109.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          554,
+          858,
+          169,
+          156
+        ],
+        "component_seeds": [
+          [
+            647,
+            949
+          ]
+        ],
+        "scale": 1.177928,
+        "anchor_x": 94.09369,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          805,
+          859,
+          180,
+          155
+        ],
+        "component_seeds": [
+          [
+            877,
+            947
+          ]
+        ],
+        "scale": 1.188209,
+        "anchor_x": 89.049618,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1787,
+          587,
+          209,
+          175
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1061,
+          859,
+          181,
+          155
+        ],
+        "component_seeds": [
+          [
+            1193,
+            946
+          ]
+        ],
+        "scale": 1.256236,
+        "anchor_x": 87.449458,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "region": [
+          1311,
+          846,
+          190,
+          168
+        ],
+        "component_seeds": [
+          [
+            1377,
+            935
+          ]
+        ],
+        "scale": 1.214583,
+        "anchor_x": 87.19554,
+        "grade": {
+          "saturation": 1.0822,
+          "rgb": [
+            0.9035,
+            0.9185,
+            0.9479
+          ]
+        }
+      }
+    ],
+    "gear_guard_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1998,
+          587,
+          191,
+          175
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2191,
+          587,
+          190,
+          173
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      13,
+      14,
+      215,
+      204
+    ],
+    [
+      223,
+      14,
+      215,
+      203
+    ],
+    [
+      425,
+      14,
+      215,
+      203
+    ],
+    [
+      629,
+      14,
+      214,
+      203
+    ],
+    [
+      835,
+      13,
+      219,
+      203
+    ],
+    [
+      1052,
+      13,
+      195,
+      203
+    ],
+    [
+      9,
+      225,
+      237,
+      202
+    ],
+    [
+      230,
+      226,
+      224,
+      201
+    ],
+    [
+      444,
+      227,
+      220,
+      200
+    ],
+    [
+      650,
+      227,
+      216,
+      200
+    ],
+    [
+      855,
+      227,
+      205,
+      200
+    ],
+    [
+      1052,
+      230,
+      198,
+      198
+    ],
+    [
+      10,
+      450,
+      205,
+      185
+    ],
+    [
+      231,
+      446,
+      212,
+      189
+    ],
+    [
+      444,
+      450,
+      183,
+      185
+    ],
+    [
+      632,
+      448,
+      213,
+      187
+    ],
+    [
+      843,
+      443,
+      204,
+      192
+    ],
+    [
+      1054,
+      449,
+      197,
+      186
+    ],
+    [
+      10,
+      661,
+      292,
+      182
+    ],
+    [
+      245,
+      655,
+      303,
+      191
+    ],
+    [
+      455,
+      675,
+      218,
+      171
+    ],
+    [
+      676,
+      656,
+      207,
+      191
+    ],
+    [
+      862,
+      660,
+      207,
+      188
+    ],
+    [
+      1058,
+      660,
+      183,
+      186
+    ],
+    [
+      10,
+      860,
+      232,
+      198
+    ],
+    [
+      235,
+      860,
+      188,
+      199
+    ],
+    [
+      432,
+      859,
+      205,
+      200
+    ],
+    [
+      641,
+      891,
+      203,
+      175
+    ],
+    [
+      849,
+      864,
+      217,
+      196
+    ],
+    [
+      1054,
+      861,
+      191,
+      198
+    ],
+    [
+      19,
+      1053,
+      230,
+      185
+    ],
+    [
+      220,
+      1064,
+      187,
+      174
+    ],
+    [
+      428,
+      1107,
+      214,
+      125
+    ],
+    [
+      659,
+      1117,
+      258,
+      114
+    ],
+    [
+      921,
+      1134,
+      313,
+      103
+    ]
+  ],
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/gear_sentinel.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "gear_elite_spin_windup",
+      "gear_elite_spin",
+      "gear_elite_spin_recover",
+      "gear_elite_spin_charge",
+      "gear_guard_windup",
+      "gear_guard",
+      "gear_guard_recover",
+      "gear_guard_charge"
+    ],
+    "sheets": [
+      {
+        "image": "gear_elite_spin.png",
+        "image_sha256": "1a2ef590f9d8b26c8451d3b1c9e718d5de953fe5fcc0b23422398de79963254d",
+        "role": "elite",
+        "attack": "gear_elite_spin",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            6
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8533,
+        "anchors": [
+          122.7,
+          130.7,
+          127.7,
+          155.7,
+          126.7,
+          135.7,
+          110.7,
+          128.7,
+          148.7,
+          120.7,
+          127.7,
+          118.7,
+          123.7,
+          123.7,
+          125.7,
+          130.7
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8508,
+          "last_recover_ratio": 0.8558
+        }
+      },
+      {
+        "image": "gear_guard.png",
+        "image_sha256": "bf068e0b20ea4e47452bebba92994ee13e2d55d1c4e638130cdfd308605b42ca",
+        "role": "new",
+        "attack": "gear_guard",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.7574,
+        "anchors": [
+          132.4,
+          142.4,
+          133.4,
+          124.4,
+          149.4,
+          153.4,
+          178.4,
+          152.4,
+          138.4,
+          136.4,
+          144.4,
+          135.4,
+          137.4,
+          133.4
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7683,
+          "last_recover_ratio": 0.7467
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "gear_sentinel__attack",
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__attack.png",
+        "sha256": "7c8a70a71e5fd31dd81c7fdf02d7e57c0531469496696690b771e072252ff540",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/gear_sentinel__attack.png"
+      },
+      {
+        "id": "gear_sentinel__gear_elite_spin",
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_elite_spin.png",
+        "sha256": "74e9bb38ec24053d7038875ba5be5090ae2f4a9385c97b055784c2d2576be95f",
+        "new_drawings": 24,
+        "animations": [
+          "gear_elite_spin_windup",
+          "gear_elite_spin",
+          "gear_elite_spin_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/gear_sentinel__gear_elite_spin.png"
+      },
+      {
+        "id": "gear_sentinel__gear_guard",
+        "source": "art_requests/combat_motion_v7/incoming/gear_sentinel__gear_guard.png",
+        "sha256": "a58b6479b72348a6f4a5ac4506cd55e10471e8e3043c27202fe39baaf24246ca",
+        "new_drawings": 24,
+        "animations": [
+          "gear_guard_windup",
+          "gear_guard",
+          "gear_guard_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/gear_sentinel__gear_guard.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

@@ -1,0 +1,1804 @@
+{
+  "kind": "drain_leech",
+  "generator": "built-in image_gen",
+  "prompt": "Create production transparent sprite sheet of the SAME armored leech from reference: low slithering charcoal blue segmented shell, rusty red jaw plates and little brass whiskers, tiny hooked rust legs. Same intricate dark ink painted finish. A STRICT regular table of FOUR columns and EIGHT rows, thirty-two isolated sprites total. Very small sprites fully inside cells with wide empty transparent gutters. All face right, equal body length and scale. Row 1: FOUR idle breathing poses. Row 2: FOUR crawling poses first half. Row 3: FOUR crawling poses second half. Row 4: FOUR windup curling/rearing poses. Row 5: FOUR jaw bite attack poses and followthrough. Row 6: FOUR recovery uncurling back down poses. Row 7: FOUR hurt recoil poses. Row 8: FOUR death collapse poses. Every segment, leg and jaw genuinely changes pose, no translated/duplicated bodies. Entire antennae tail jaw visible in each cell with margin, no neighbor contact. Keep all eight rows. Actual transparent alpha, no scenery or background, no labels, grid, text or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-115ebeba-2b63-41d5-ba12-840efb3ab106.png",
+  "qa": {
+    "layout": "Actual 7 rows by 4 columns:28 reviewed new figures; original final death retained for29 total.",
+    "identity": "Original reference design, costume, palette and dark hand-painted contours retained",
+    "motion": "Genuinely articulated idle, gait, windup, attack, recovery, recoil and collapse",
+    "component_isolation": "Explicit full silhouette component seeds preserve source RGBA and exclude neighbor ink",
+    "rectangular_region_issues": "Resolved by explicit 8-connected component extraction and original-RGBA packing; overlapping true silhouettes excluded.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character drain_leech passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          267,
+          115
+        ],
+        "anchor_x": 132.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          269,
+          0,
+          286,
+          119
+        ],
+        "anchor_x": 144.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          557,
+          0,
+          286,
+          116
+        ],
+        "anchor_x": 156.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          845,
+          0,
+          288,
+          117
+        ],
+        "anchor_x": 166.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1135,
+          0,
+          316,
+          102
+        ],
+        "anchor_x": 154.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1453,
+          0,
+          311,
+          103
+        ],
+        "anchor_x": 148.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1766,
+          0,
+          302,
+          101
+        ],
+        "anchor_x": 152.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2070,
+          0,
+          300,
+          100
+        ],
+        "anchor_x": 154.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2372,
+          0,
+          329,
+          103
+        ],
+        "anchor_x": 139.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2703,
+          0,
+          323,
+          107
+        ],
+        "anchor_x": 137.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3028,
+          0,
+          307,
+          106
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3337,
+          0,
+          305,
+          94
+        ],
+        "anchor_x": 164.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3644,
+          0,
+          279,
+          126
+        ],
+        "anchor_x": 137.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          17,
+          137,
+          221,
+          108
+        ],
+        "component_seeds": [
+          [
+            79,
+            202
+          ]
+        ],
+        "scale": 1.326667,
+        "anchor_x": 112.180905,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          272,
+          123,
+          222,
+          123
+        ],
+        "component_seeds": [
+          [
+            413,
+            196
+          ]
+        ],
+        "scale": 1.211594,
+        "anchor_x": 108.942584,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          128,
+          274,
+          146
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          529,
+          121,
+          221,
+          125
+        ],
+        "component_seeds": [
+          [
+            651,
+            195
+          ]
+        ],
+        "scale": 1.267806,
+        "anchor_x": 113.379775,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          789,
+          107,
+          210,
+          138
+        ],
+        "component_seeds": [
+          [
+            865,
+            183
+          ]
+        ],
+        "scale": 1.158974,
+        "anchor_x": 109.234513,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          276,
+          128,
+          250,
+          153
+        ],
+        "anchor_x": 133.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1043,
+          104,
+          207,
+          141
+        ],
+        "component_seeds": [
+          [
+            1210,
+            181
+          ]
+        ],
+        "scale": 1.18797,
+        "anchor_x": 117.438819,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1299,
+          95,
+          209,
+          151
+        ],
+        "component_seeds": [
+          [
+            1440,
+            178
+          ]
+        ],
+        "scale": 1.13986,
+        "anchor_x": 123.584867,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          528,
+          128,
+          251,
+          168
+        ],
+        "anchor_x": 146.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          20,
+          354,
+          208,
+          148
+        ],
+        "component_seeds": [
+          [
+            134,
+            433
+          ]
+        ],
+        "scale": 1.078571,
+        "anchor_x": 111.492274,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          272,
+          409,
+          219,
+          94
+        ],
+        "component_seeds": [
+          [
+            456,
+            463
+          ]
+        ],
+        "scale": 1.55814,
+        "anchor_x": 107.169154,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          781,
+          128,
+          322,
+          117
+        ],
+        "anchor_x": 139.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          529,
+          412,
+          220,
+          91
+        ],
+        "component_seeds": [
+          [
+            679,
+            464
+          ]
+        ],
+        "scale": 1.373494,
+        "anchor_x": 96.090643,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          785,
+          421,
+          219,
+          81
+        ],
+        "component_seeds": [
+          [
+            858,
+            465
+          ]
+        ],
+        "scale": 1.520548,
+        "anchor_x": 94.570571,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1105,
+          128,
+          325,
+          108
+        ],
+        "anchor_x": 130.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1042,
+          422,
+          217,
+          80
+        ],
+        "component_seeds": [
+          [
+            1139,
+            465
+          ]
+        ],
+        "scale": 1.509259,
+        "anchor_x": 102.656442,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1297,
+          408,
+          217,
+          94
+        ],
+        "component_seeds": [
+          [
+            1406,
+            461
+          ]
+        ],
+        "scale": 1.271318,
+        "anchor_x": 110.871951,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1432,
+          128,
+          271,
+          110
+        ],
+        "anchor_x": 147.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          18,
+          666,
+          215,
+          91
+        ],
+        "component_seeds": [
+          [
+            186,
+            717
+          ]
+        ],
+        "scale": 1.333333,
+        "anchor_x": 120.5,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          272,
+          671,
+          217,
+          86
+        ],
+        "component_seeds": [
+          [
+            380,
+            719
+          ]
+        ],
+        "scale": 1.42735,
+        "anchor_x": 125.736527,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1705,
+          128,
+          295,
+          112
+        ],
+        "anchor_x": 164.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          529,
+          671,
+          217,
+          86
+        ],
+        "component_seeds": [
+          [
+            612,
+            719
+          ]
+        ],
+        "scale": 1.474359,
+        "anchor_x": 122.0,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          785,
+          656,
+          213,
+          101
+        ],
+        "component_seeds": [
+          [
+            969,
+            713
+          ]
+        ],
+        "scale": 1.268817,
+        "anchor_x": 117.271186,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2002,
+          128,
+          266,
+          121
+        ],
+        "anchor_x": 135.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1041,
+          654,
+          216,
+          103
+        ],
+        "component_seeds": [
+          [
+            1092,
+            712
+          ]
+        ],
+        "scale": 1.263158,
+        "anchor_x": 112.027778,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1298,
+          667,
+          221,
+          90
+        ],
+        "component_seeds": [
+          [
+            1407,
+            716
+          ]
+        ],
+        "scale": 1.45122,
+        "anchor_x": 116.64986,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2270,
+          128,
+          302,
+          118
+        ],
+        "anchor_x": 154.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          18,
+          923,
+          222,
+          90
+        ],
+        "component_seeds": [
+          [
+            178,
+            971
+          ]
+        ],
+        "scale": 1.414634,
+        "anchor_x": 120.994253,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          272,
+          920,
+          218,
+          92
+        ],
+        "component_seeds": [
+          [
+            401,
+            972
+          ]
+        ],
+        "scale": 1.357143,
+        "anchor_x": 122.017544,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2574,
+          128,
+          262,
+          112
+        ],
+        "anchor_x": 145.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          529,
+          921,
+          218,
+          91
+        ],
+        "component_seeds": [
+          [
+            684,
+            971
+          ]
+        ],
+        "scale": 1.281124,
+        "anchor_x": 124.821317,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          785,
+          924,
+          218,
+          89
+        ],
+        "component_seeds": [
+          [
+            987,
+            975
+          ]
+        ],
+        "scale": 1.242798,
+        "anchor_x": 125.34106,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2838,
+          128,
+          300,
+          95
+        ],
+        "anchor_x": 162.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1041,
+          924,
+          220,
+          89
+        ],
+        "component_seeds": [
+          [
+            1122,
+            976
+          ]
+        ],
+        "scale": 1.255144,
+        "anchor_x": 121.75082,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "region": [
+          1300,
+          911,
+          217,
+          102
+        ],
+        "component_seeds": [
+          [
+            1481,
+            970
+          ]
+        ],
+        "scale": 1.152482,
+        "anchor_x": 112.876923,
+        "grade": {
+          "saturation": 1.1055,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8739
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3140,
+          128,
+          286,
+          122
+        ],
+        "anchor_x": 144.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3428,
+          128,
+          260,
+          137
+        ],
+        "anchor_x": 143.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3690,
+          128,
+          263,
+          123
+        ],
+        "anchor_x": 153.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          298,
+          351,
+          88
+        ],
+        "anchor_x": 186.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          353,
+          298,
+          307,
+          86
+        ],
+        "anchor_x": 169.0,
+        "packed_runtime": true
+      }
+    ],
+    "leech_leap_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          662,
+          298,
+          195,
+          114
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          44,
+          142,
+          167,
+          103
+        ],
+        "component_seeds": [
+          [
+            158,
+            197
+          ]
+        ],
+        "scale": 1.312281,
+        "anchor_x": 83.141711,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          298,
+          115,
+          171,
+          130
+        ],
+        "component_seeds": [
+          [
+            441,
+            183
+          ]
+        ],
+        "scale": 1.10929,
+        "anchor_x": 85.8867,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          859,
+          298,
+          196,
+          146
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          554,
+          118,
+          172,
+          127
+        ],
+        "component_seeds": [
+          [
+            597,
+            185
+          ]
+        ],
+        "scale": 1.305322,
+        "anchor_x": 88.10515,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          811,
+          93,
+          167,
+          152
+        ],
+        "component_seeds": [
+          [
+            940,
+            172
+          ]
+        ],
+        "scale": 1.143519,
+        "anchor_x": 85.129555,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1057,
+          298,
+          194,
+          174
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1066,
+          92,
+          167,
+          153
+        ],
+        "component_seeds": [
+          [
+            1173,
+            172
+          ]
+        ],
+        "scale": 1.234483,
+        "anchor_x": 86.16946,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1317,
+          73,
+          186,
+          172
+        ],
+        "component_seeds": [
+          [
+            1424,
+            163
+          ]
+        ],
+        "scale": 1.121951,
+        "anchor_x": 98.789855,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1253,
+          298,
+          216,
+          189
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          36,
+          328,
+          187,
+          173
+        ],
+        "component_seeds": [
+          [
+            101,
+            419
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 99.974359,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          277,
+          317,
+          215,
+          185
+        ],
+        "component_seeds": [
+          [
+            399,
+            401
+          ]
+        ],
+        "scale": 1.135593,
+        "anchor_x": 108.900498,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      }
+    ],
+    "leech_leap": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1471,
+          298,
+          252,
+          207
+        ],
+        "anchor_x": 129.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          533,
+          316,
+          215,
+          186
+        ],
+        "component_seeds": [
+          [
+            635,
+            401
+          ]
+        ],
+        "scale": 1.170412,
+        "anchor_x": 108.456,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          787,
+          315,
+          221,
+          187
+        ],
+        "component_seeds": [
+          [
+            904,
+            393
+          ]
+        ],
+        "scale": 1.171322,
+        "anchor_x": 109.462639,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1725,
+          298,
+          264,
+          211
+        ],
+        "anchor_x": 131.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1042,
+          315,
+          222,
+          185
+        ],
+        "component_seeds": [
+          [
+            1140,
+            393
+          ]
+        ],
+        "scale": 0.996234,
+        "anchor_x": 110.296786,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1298,
+          422,
+          223,
+          78
+        ],
+        "component_seeds": [
+          [
+            1376,
+            466
+          ]
+        ],
+        "scale": 2.02381,
+        "anchor_x": 124.388235,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1991,
+          298,
+          319,
+          107
+        ],
+        "anchor_x": 177.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          16,
+          679,
+          225,
+          78
+        ],
+        "component_seeds": [
+          [
+            180,
+            722
+          ]
+        ],
+        "scale": 1.842857,
+        "anchor_x": 126.116279,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          280,
+          606,
+          205,
+          151
+        ],
+        "component_seeds": [
+          [
+            365,
+            677
+          ]
+        ],
+        "scale": 1.055944,
+        "anchor_x": 106.476821,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2312,
+          298,
+          237,
+          173
+        ],
+        "anchor_x": 124.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          540,
+          605,
+          200,
+          153
+        ],
+        "component_seeds": [
+          [
+            614,
+            676
+          ]
+        ],
+        "scale": 1.004598,
+        "anchor_x": 100.709382,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          782,
+          682,
+          224,
+          76
+        ],
+        "component_seeds": [
+          [
+            916,
+            726
+          ]
+        ],
+        "scale": 1.740196,
+        "anchor_x": 124.44507,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      }
+    ],
+    "leech_leap_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2551,
+          298,
+          309,
+          91
+        ],
+        "anchor_x": 169.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1039,
+          684,
+          224,
+          72
+        ],
+        "component_seeds": [
+          [
+            1106,
+            725
+          ]
+        ],
+        "scale": 1.541667,
+        "anchor_x": 122.72973,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1293,
+          668,
+          229,
+          89
+        ],
+        "component_seeds": [
+          [
+            1514,
+            720
+          ]
+        ],
+        "scale": 1.312757,
+        "anchor_x": 122.890282,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2862,
+          298,
+          288,
+          114
+        ],
+        "anchor_x": 155.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          16,
+          923,
+          226,
+          90
+        ],
+        "component_seeds": [
+          [
+            118,
+            976
+          ]
+        ],
+        "scale": 1.398374,
+        "anchor_x": 121.802326,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          282,
+          913,
+          203,
+          100
+        ],
+        "component_seeds": [
+          [
+            449,
+            970
+          ]
+        ],
+        "scale": 1.253623,
+        "anchor_x": 108.352601,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3152,
+          298,
+          236,
+          116
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          539,
+          914,
+          202,
+          99
+        ],
+        "component_seeds": [
+          [
+            713,
+            970
+          ]
+        ],
+        "scale": 1.25641,
+        "anchor_x": 106.367347,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          783,
+          919,
+          226,
+          93
+        ],
+        "component_seeds": [
+          [
+            968,
+            972
+          ]
+        ],
+        "scale": 1.32549,
+        "anchor_x": 121.461538,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3390,
+          298,
+          275,
+          111
+        ],
+        "anchor_x": 149.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1040,
+          920,
+          224,
+          92
+        ],
+        "component_seeds": [
+          [
+            1129,
+            973
+          ]
+        ],
+        "scale": 1.337302,
+        "anchor_x": 118.026706,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "region": [
+          1298,
+          915,
+          221,
+          98
+        ],
+        "component_seeds": [
+          [
+            1382,
+            973
+          ]
+        ],
+        "scale": 1.262963,
+        "anchor_x": 115.123167,
+        "grade": {
+          "saturation": 1.0974,
+          "rgb": [
+            0.85,
+            0.85,
+            0.8551
+          ]
+        }
+      }
+    ],
+    "leech_leap_travel": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3667,
+          298,
+          306,
+          110
+        ],
+        "anchor_x": 164.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          511,
+          304,
+          103
+        ],
+        "anchor_x": 168.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/drain_leech.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "leech_leap_windup",
+      "leech_leap",
+      "leech_leap_recover",
+      "leech_leap_travel"
+    ],
+    "sheets": [
+      {
+        "image": "leech_leap.png",
+        "image_sha256": "3d30c215e442699557707213ac76a6a6184cd1f109dc2d89906ab2c32e81468f",
+        "role": "new",
+        "attack": "leech_leap",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "travel loop",
+            2
+          ]
+        ],
+        "scale": 0.9985,
+        "anchors": [
+          96.7,
+          100.7,
+          98.7,
+          115.7,
+          129.7,
+          131.7,
+          178.7,
+          124.7,
+          171.7,
+          156.7,
+          127.7,
+          150.7,
+          165.7,
+          169.7
+        ],
+        "calibration": {
+          "method": "recovery idle stance",
+          "first_windup_ratio": 1.1304,
+          "last_recover_ratio": 0.9985
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "drain_leech__attack",
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__attack.png",
+        "sha256": "f341dbc91ca075a061882da90569a78b2913845f55cf6e820f711f6bd73d13e3",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/drain_leech__attack.png"
+      },
+      {
+        "id": "drain_leech__leech_leap",
+        "source": "art_requests/combat_motion_v7/incoming/drain_leech__leech_leap.png",
+        "sha256": "7e7d0a62f04ed94cebe8736359bc432dcaf9aacfcf10ffe220d7414ee1950302",
+        "new_drawings": 24,
+        "animations": [
+          "leech_leap_windup",
+          "leech_leap",
+          "leech_leap_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/drain_leech__leech_leap.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}
