@@ -2827,7 +2827,7 @@ func _build_wish_board_overlay() -> void:
     wish_text.position = Vector2(16, 48)
     wish_text.size = Vector2(284, 332)
     wish_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-    wish_text.add_theme_font_size_override("font_size", 13)
+    wish_text.add_theme_font_size_override("font_size", 14)
     wish_text.add_theme_color_override("font_color", Color(0.86, 0.91, 0.84))
     wish_panel.add_child(wish_text)
     _refresh_wish_board_overlay()

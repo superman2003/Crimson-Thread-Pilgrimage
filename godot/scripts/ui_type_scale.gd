@@ -12,5 +12,6 @@ const READING := 21    ## reading-size baseline text
 const DISPLAY := 23    ## region or item names
 const SCALE := [BREADCRUMB, CAPTION, CONTROL, BODY, ACTION, TITLE, SECTION, READING, DISPLAY]
 const HUD_PLACE := 25  ## the HUD's current room name, the one larger HUD line
-## The HUD uses the page scale plus its room name.
-const HUD_SCALE := [BREADCRUMB, CAPTION, CONTROL, BODY, ACTION, TITLE, SECTION, READING, DISPLAY, HUD_PLACE]
+const BANNER := 30     ## full-screen announcements such as a cleared chapter
+## The HUD uses the page scale plus its room name and banner.
+const HUD_SCALE := [BREADCRUMB, CAPTION, CONTROL, BODY, ACTION, TITLE, SECTION, READING, DISPLAY, HUD_PLACE, BANNER]

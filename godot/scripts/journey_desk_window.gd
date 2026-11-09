@@ -49,7 +49,7 @@ func button(parent: Node, title_text: String, callback: Callable) -> Button:
     var result := Button.new()
     result.text = title_text
     result.custom_minimum_size.y = 32
-    result.add_theme_font_size_override("font_size", 15)
+    result.add_theme_font_size_override("font_size", 14)
     result.pressed.connect(callback)
     parent.add_child(result)
     return result

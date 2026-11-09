@@ -825,7 +825,7 @@ func _build_dialogue() -> void:
     dialogue.get_child(0).kind="dialogue"
     _well(dialogue,Vector2(18,16),Vector2(188,220))
     dialogue_portrait=_icon(dialogue,null,Vector2(23,21),Vector2(173,191))
-    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),26,GOLD)
+    dialogue_name=_label(dialogue,"",Vector2(221,19),Vector2(740,37),TYPE.DISPLAY,GOLD)
     dialogue_identity=_label(dialogue,"",Vector2(221,57),Vector2(770,28),14,MUTED)
     dialogue_scroll=ScrollContainer.new()
     dialogue_scroll.position=Vector2(221,93)
@@ -838,7 +838,7 @@ func _build_dialogue() -> void:
     dialogue_body.size_flags_horizontal=Control.SIZE_EXPAND_FILL
     dialogue_body.custom_minimum_size=Vector2(825,0)
     dialogue_body.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-    dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),13,MUTED)
+    dialogue_hint=_label(dialogue,_dialogue_binding_hint(),Vector2(24,242),Vector2(180,50),TYPE.CAPTION,MUTED)
     dialogue_hint.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
     dialogue_hint.mouse_filter=Control.MOUSE_FILTER_PASS
     dialogue_continue_button=_button(dialogue,"继续交谈",Vector2(221,250),Vector2(147,34),func():
