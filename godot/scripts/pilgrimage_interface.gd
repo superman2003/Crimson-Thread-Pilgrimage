@@ -338,7 +338,7 @@ func _button(parent: Node, text: String, position_value: Vector2, size_value: Ve
     var button:=INSCRIBED_BUTTON.new()
     button.position=position_value
     button.size=size_value
-    button.add_theme_font_size_override("font_size",17)
+    button.add_theme_font_size_override("font_size",TYPE.ACTION)
     button.add_theme_color_override("font_color",IVORY)
     button.add_theme_stylebox_override("normal",_style(Color(.01,.025,.028,.35),Color("61553f")))
     button.add_theme_stylebox_override("hover",_style(Color(.18,.06,.055,.25),RED))
@@ -500,11 +500,11 @@ func _build_hud() -> void:
     health_glyphs.position=Vector2(77,7)
     health_glyphs.size=Vector2(205,46)
     hud_card.add_child(health_glyphs)
-    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),17,IVORY)
+    hearts=_label(hud_card,"",Vector2(266,17),Vector2(55,27),TYPE.ACTION,IVORY)
     hearts.add_theme_font_override("font",display_font())
     hearts.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),13,GOLD).add_theme_font_override("font",display_font())
-    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),13,IVORY)
+    _label(hud_card,"绯线",Vector2(79,58),Vector2(65,22),TYPE.CONTROL,GOLD).add_theme_font_override("font",display_font())
+    energy_status=_label(hud_card,"",Vector2(205,58),Vector2(112,22),TYPE.CONTROL,IVORY)
     energy_status.add_theme_font_override("font",display_font())
     energy_status.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
     thread_bar=ProgressBar.new()
@@ -527,26 +527,26 @@ func _build_hud() -> void:
     thread_thresholds.size=Vector2(224,13)
     hud_card.add_child(thread_thresholds)
     currency_emblem=_icon(self,ART.item("currency"),Vector2(1130,31),Vector2(28,28))
-    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),21,GOLD)
+    currency=_label(self,"0",Vector2(1168,30),Vector2(88,30),TYPE.READING,GOLD)
     location_rule=CHROME.new()
     location_rule.kind="location"
     location_rule.position=Vector2(443,24)
     location_rule.size=Vector2(394,51)
     add_child(location_rule)
-    location=_label(self,"",Vector2(478,27),Vector2(324,38),25,IVORY)
+    location=_label(self,"",Vector2(478,27),Vector2(324,38),TYPE.HUD_PLACE,IVORY)
     location.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    toast=_label(self,"",Vector2(395,102),Vector2(490,60),16,IVORY)
+    toast=_label(self,"",Vector2(395,102),Vector2(490,60),TYPE.BODY,IVORY)
     toast.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),Color("514e3e")))
     toast.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     toast.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
-    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),18,IVORY)
+    prompt=_label(self,"",Vector2(370,549),Vector2(540,42),TYPE.TITLE,IVORY)
     prompt.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     prompt.clip_text=true
     prompt.add_theme_stylebox_override("normal",_style(Color(0.04,0.07,0.08,0.94),GOLD))
-    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),13,IVORY)
+    combat_status=_label(self,"",Vector2(28,144),Vector2(360,76),TYPE.CONTROL,IVORY)
     combat_status.visible=false
-    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),13,GOLD)
-    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),13,MUTED)
+    mechanism_status=_label(self,"",Vector2(30,141),Vector2(360,26),TYPE.CONTROL,GOLD)
+    healing_status=_label(self,"",Vector2(30,169),Vector2(360,24),TYPE.CONTROL,MUTED)
     healing_status.mouse_filter=Control.MOUSE_FILTER_PASS
     healing_status.add_theme_stylebox_override("normal",_meter_style(Color(0.04,0.07,0.08,0.9)))
     healing_bar=ProgressBar.new()
@@ -564,7 +564,7 @@ func _build_hud() -> void:
     add_child(healing_bar)
     healing_bar.update_minimum_size()
     healing_bar.size=Vector2(300,6)
-    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),13,MUTED)
+    pinned=_label(self,"",Vector2(30,212),Vector2(300,45),TYPE.CONTROL,MUTED)
     pinned.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
     for index in 4:
         var card:=Panel.new()
@@ -579,13 +579,13 @@ func _build_hud() -> void:
         card_frame.size=card.size
         card.add_child(card_frame)
         tactical_icons.append(_icon(card,null,Vector2(6,6),Vector2(46,46)))
-        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),13,GOLD))
-        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),11,IVORY))
+        tactical_values.append(_label(card,"",Vector2(53,13),Vector2(39,30),TYPE.CAPTION,GOLD))
+        tactical_names.append(_label(card,"",Vector2(8,54),Vector2(83,20),TYPE.CAPTION,IVORY))
         tactical_names[-1].text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
-    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),11,MUTED)
+    tutorial_hint=_label(self,"",Vector2(28,687),Vector2(620,23),TYPE.CAPTION,MUTED)
     for entry in [["B  构筑",_request_build_toggle],["Tab  行囊",func():level._toggle_backpack()],["M  地图",func():level._toggle_map()],["V  设置",func():level._toggle_audio_settings()]]:
         quick_actions.append(_button(self,entry[0],Vector2(827+quick_actions.size()*108,673),Vector2(100,33),entry[1]))
-    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),17,GOLD)
+    boss_name=_label(self,"",Vector2(395,593),Vector2(490,27),TYPE.ACTION,GOLD)
     boss_name.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER
     boss_bar=ProgressBar.new()
     boss_bar.position=Vector2(468,628)
@@ -2692,7 +2692,8 @@ func _refresh_combat_status(player: Node) -> void:
     var paid:=HEAL_READOUT.apply(healing_payment,heal,int(player.energy),int(player.max_energy),level.active_overlay!="")
     if is_instance_valid(healing_payment_track):healing_payment_track.update_snapshot(paid,level.active_overlay!="")
     if is_instance_valid(pinned):pinned.position.y=248.0 if bool(paid.active) else 212.0
-    healing_status.visible=not heal.is_empty() and level.active_overlay==""
+    # Full health leaves nothing to do: keep the corner quiet (U01 less text).
+    healing_status.visible=not heal.is_empty() and level.active_overlay=="" and String(heal.get("reason",""))!="full_health"
     if not heal.is_empty():
         var reason := String(heal.get("reason","busy"))
         var status: String = {"ready":"可用 +%d" % int(heal.get("amount",1)),"channeling":"治疗中 %.1fs" % float(heal.get("remaining",0.0)),
