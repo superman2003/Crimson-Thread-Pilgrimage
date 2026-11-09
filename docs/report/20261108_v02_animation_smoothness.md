@@ -1,7 +1,7 @@
 # V02：主角与敌人动作为什么不顺，以及怎么改（对照《空洞骑士：丝之歌》）
 
-> 只是调查报告，本 PR 不改游戏行为。数据都可以用 `tools/audit_animation_smoothness.py` 复现（约 10 秒）。
-> 基线：main `6858d30`，Godot 4.6.1。
+> 只是调查报告，本 PR 不改游戏行为。数据都可以用 `tools/audit_animation_smoothness.py` 复现（约 1 分钟）。
+> “发现”到“建议的执行顺序”各节以 main `6858d30` 为基线（Godot 4.6.1）；#570 合并后的复测见文末“#570 合并后复测”。
 
 ## 一句话结论
 
@@ -69,7 +69,7 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 | 出手 active | 16.7 | 5.7 | 5 |
 | 恢复 recover | **8.0** | **3.2** | **43** |
 
-- 关卡遭遇普遍把收招拉得更长，所以更慢：第一章第一只苔虫（`demo_ch01` E01）的 `larva_curl` 4 帧撑 1.25 秒，只有 3.2fps；第四章 E11 的 `cage_pounce`、第五章 E07/E13 也只有 3.3fps。
+- 关卡遭遇普遍把收招拉得更长，所以更慢：第一章第一只苔钟幼虫（`demo_ch01` E01）的 `larva_curl` 4 帧撑 1.25 秒，只有 3.2fps；第四章 E11 的 `cage_pounce`、第五章 E07/E13 也只有 3.3fps。
 - 物种数据里最慢的：`pilgrim_chariot` 冲撞、`falling_clapper` 下砸，都是 4 帧恢复撑 1.15 秒，每帧停 0.29 秒；`corridor_heavy`、`erasure_bailiff` 精英横扫也是 4 帧撑 1.1 秒。
 - 4 帧均匀播放 1 秒，玩家看到的是“幻灯片”。如果同样 4 帧改成“第 1 帧停 0.7 秒，后 3 帧各 0.1 秒快速收回”（总长仍是 1 秒），看起来就是“砸完喘一口气再起身”。
 
@@ -97,10 +97,10 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
   - `index_scribe` 蓄力：笔从身后直接跳到头顶，最大 0.79；
   - `bell_mote` 走路：最大 0.80。
 
-![敌人：苔虫走路、齿轮哨兵蓄力和攻击、抹除执达吏恢复](../../artifacts/animation_smoothness_20261108/enemy_rows.webp)
+![敌人：苔钟幼虫走路、齿轮哨卫蓄力和攻击、删页执行官收招](../../artifacts/animation_smoothness_20261108/enemy_rows.webp)
 
-![苔虫走路：腿几乎不动，外壳每帧重画](../../artifacts/animation_smoothness_20261108/moss_larva_walk.webp)
-![齿轮哨兵攻击：盾和齿轮时有时无](../../artifacts/animation_smoothness_20261108/gear_sentinel_attack.webp)
+![苔钟幼虫走路：腿几乎不动，外壳每帧重画](../../artifacts/animation_smoothness_20261108/moss_larva_walk.webp)
+![齿轮哨卫攻击：盾和齿轮时有时无](../../artifacts/animation_smoothness_20261108/gear_sentinel_attack.webp)
 ![索引书吏蓄力：笔在两帧之间跳过半个身位](../../artifacts/animation_smoothness_20261108/index_scribe_windup.webp)
 
 **脚底对齐没有问题**：逐帧脚底位置漂移为 0px，之前的对齐修复是有效的。所以“抖”不是位置没对齐，而是画面本身每帧在变。
@@ -178,7 +178,50 @@ python3 tools/audit_animation_smoothness.py --sheets dir/   # 输出最差几例
 
 1–3 都不需要新美术，做完后再录一次 120Hz 视频对比，能判断剩下的“不顺”有多少真的需要重画。
 
-## 附：工具输出（基线）
+## #570 合并后复测（main `aeb8f85`）
+
+#570 给 40 种小怪和 6 个 Boss 的攻击换上了每段 12 张的新动作（`combat_motion_v7_manifest.json`、`boss_behavior_manifest.json`，运行时优先读取），这些招式整段播放、不再接循环；走路播放速度也改为跟随实际移动速度。工具已按新的读取顺序更新，复测结果：
+
+| 指标 | 合并前 | 合并后 |
+|---|---|---|
+| 蓄力有效 fps 中位数／最低 | 9.5 ／ 6.1 | 17.1 ／ 10.4 |
+| 收招有效 fps 中位数／最低 | 8.0 ／ 3.2 | 22.9 ／ 9.6 |
+| 低于 8fps 的阶段 | 74 | **0** |
+| 2 帧循环 | 94 | **0** |
+| 相邻帧轮廓变化中位数（待机／蓄力／出手／收招） | 0.27／0.30／0.37／0.31 | 0.29／0.27／0.30／0.24 |
+| 跳帧（单步变化超过 0.5）的动画段 | 107／504 | 95／422 |
+
+- **节奏层（P0 第 2、3、4 条）基本解决。** 帧时间和 2 帧循环的问题都已消失。
+- **“沸腾”没有改善。** 帧数变成 3 倍后，相邻帧的轮廓变化只从约 0.3 降到约 0.27，仍是整体平移 2px（0.09）的 3 倍左右。这说明新增的中间帧也是逐张独立生成的，不是在同一造型上小幅改动。
+- **新素材自身有缺陷。** 工具新增“帧缺陷”检查，在实际会播放的动画里发现：
+  - **画进了标签文字（30 帧）**：绯线执剪者（`sunken_hammer_smith`）`phase` 三段、水轮骑士 `wheel_elite_ride` 三段、微光异体（`isotope_lumen`）`windup`/`attack`/`recover`、苔钟幼虫 `larva_snap` 蓄力和收招、回声荆棘哨卫蓄力，共 5 种敌人 12 段动画。
+    - 这些帧的身体下方有一行灰色小字，形如“PAIR n / phase … / gap …”。
+    - 来源是 `tools/build_combat_motion_v7.py` 生成参考图时在每格写的标签（第 130 行）。模型把字照画进了输出，提取姿势时没有去掉。
+  - **缩放跳变（40 帧）**：同一段动画里个别帧的身体高度不到其余帧的 75%。
+    - 最明显的是上面几段的第 2、5、8、11 帧（下标 1、4、7、10），与带标签的帧重合，整体缩小一圈，播放时会一闪一闪地变小。
+    - 另有 11 段只有第 1 帧偏小，可能是本来就设计的下蹲起手，需要人工确认。
+- **主角与物理插值不在 #570 的范围内**：`physics_interpolation` 仍未开启，主角素材未变。这两项在 Codex 的 #568 里，#568 目前与 main 冲突，尚未合并。
+
+![绯线执剪者、水轮骑士、微光异体、苔钟幼虫的新 12 帧动作：每隔 3 帧缩小一圈](../../artifacts/animation_smoothness_20261108/v7_scale_and_labels.webp)
+![水轮骑士第 1、2 帧：第 2 帧缩小，身体下方有生成时的标签文字](../../artifacts/animation_smoothness_20261108/v7_label_zoom.webp)
+
+建议的后续：
+
+1. 从参考图上去掉标签，或在提取姿势时删除远离身体的小连通块，并按两端帧的身体高度重新校准缩放。之后重建这 5 种敌人的 v7 图集。
+2. 把“帧缺陷为 0”作为 v7／Boss 动作素材的验收条件，可直接用本工具的 `frame_defects` 输出。
+
+```
+HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=20 held_loops=['jump_loop', 'fall']
+ENEMY sources species=46 encounter_overrides=8 phase_rows=390
+ENEMY windup phases=130 effective_fps median=17.1 min=10.4 below_8=0
+ENEMY active phases=130 effective_fps median=50.0 min=14.1 below_8=0
+ENEMY recover phases=130 effective_fps median=22.9 min=9.6 below_8=0
+ENEMY loops=0 two_frame=0 two_frame_over_0.5s=0
+ENEMY frame_change cycles=422 median idle=0.29 walk=0.35 windup=0.27 active=0.30 recover=0.24 shift_2px_reference=0.09 jumpy_over_0.5=95
+ENEMY frame_defects animations=34 shrunk_frames=40 stray_mark_frames=30
+```
+
+## 附：工具输出（基线 `6858d30`）
 
 ```
 HERO actions=31 frame_refs=162 distinct_images=154 timer_driven=20 held_loops=['jump_loop', 'fall']

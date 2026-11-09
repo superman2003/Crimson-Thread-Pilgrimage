@@ -13,6 +13,8 @@ Reads the runtime animation data the game actually loads and prints:
   stretches them over the command's windup/active/recover time, plus the
   phases that end in a short hold loop (POSE_LOOP_LEAD in enemy_actor.gd), and
   the cut from each main animation into its loop or bridge;
+- frame defects: frames much smaller than the rest of their animation, and
+  frames with separate marks away from the body (baked-in labels);
 - frame-to-frame change: how much of the silhouette differs between
   consecutive frames (1 - overlap / union of the alpha masks). Very small
   changes read as sliding or a frozen pose; very large ones as a jump (a limb
@@ -20,7 +22,7 @@ Reads the runtime animation data the game actually loads and prints:
 
 It does not judge pass or fail; it records a baseline so art and engine
 changes can be compared. --sheets DIR also writes contact sheets of the worst
-cases. The frame comparison needs Pillow and NumPy
+cases. The frame comparison needs Pillow, NumPy and SciPy
 (tools/requirements-animation-audit.txt); --no-images skips it.
 """
 import argparse
@@ -57,8 +59,14 @@ def find(anims, name):
     return anims.get(name) or anims.get(name + '_right') or anims.get(name + '_left')
 
 
-def phase_animation(anims, command, phase):
-    """Mirror of enemy_actor._pose_sprite: (main animation, follow-up loop)."""
+def phase_animation(anims, command, phase, authored=()):
+    """Mirror of enemy_actor._pose_sprite: (main animation, follow-up loop).
+    An authored combat sequence plays whole, with no follow-up."""
+    name, loop = _phase_animation(anims, command, phase)
+    return name, '' if name in authored else loop
+
+
+def _phase_animation(anims, command, phase):
     own = str(command.get('id', ''))
     base = own if own and (find(anims, own) or find(anims, own + '_windup')) else str(command.get('animation', 'attack'))
     if phase == 'windup':
@@ -76,7 +84,8 @@ def phase_animation(anims, command, phase):
 
 
 def creature_manifest(kind):
-    for name in ('motion_manifest.json', 'manifest.json'):
+    # Same preference order as hand_drawn_assets.character_manifest.
+    for name in ('boss_behavior_manifest.json', 'combat_motion_v7_manifest.json', 'motion_manifest.json', 'manifest.json'):
         path = CREATURES / kind / name
         if path.exists():
             return json.loads(path.read_text(encoding='utf-8'))
@@ -105,9 +114,10 @@ def enemy_phases():
         if manifest is None:
             continue
         anims = animations(manifest)
+        authored = manifest.get('authored_combat_sequences', [])
         for command in commands:
             for phase in ('windup', 'active', 'recover'):
-                name, loop = phase_animation(anims, command, phase)
+                name, loop = phase_animation(anims, command, phase, authored)
                 anim = find(anims, name)
                 if not anim:
                     continue
@@ -200,6 +210,44 @@ def frame_changes(phases):
     return rows
 
 
+def frame_defects(changes):
+    """Frames whose body is much smaller than the rest of their animation
+    (a scale pop), and frames carrying separate marks well away from the body
+    (baked-in labels or specks from a reference sheet). Death animations are
+    skipped for size: their last frame is meant to collapse."""
+    from scipy import ndimage
+    rows = []
+    for row in changes:
+        manifest = creature_manifest(row['kind'])
+        images = frame_images(manifest, find(animations(manifest), row['animation']))
+        heights, marked = [], []
+        for index, image in enumerate(images):
+            solid = mask(image)
+            labels, count = ndimage.label(solid)
+            if count == 0:
+                heights.append(0)
+                continue
+            sizes = ndimage.sum(solid, labels, range(1, count + 1))
+            body = int(sizes.argmax()) + 1
+            ys, xs = (labels == body).nonzero()
+            heights.append(int(ys.max() - ys.min() + 1))
+            stray = 0
+            for label in range(1, count + 1):
+                if label == body or sizes[label - 1] < 4:
+                    continue
+                cy, cx = ndimage.center_of_mass(solid, labels, label)
+                if not (ys.min() - 12 <= cy <= ys.max() + 12 and xs.min() - 12 <= cx <= xs.max() + 12):
+                    stray += int(sizes[label - 1])
+            if stray >= 30:
+                marked.append(index)
+        middle = statistics.median(heights)
+        shrunk = [] if row['animation'] == 'death' else [i for i, h in enumerate(heights) if h < 0.75 * middle]
+        if shrunk or marked:
+            rows.append({'kind': row['kind'], 'animation': row['animation'], 'frames': len(images),
+                         'shrunk': shrunk, 'stray_marks': marked})
+    return rows
+
+
 def handoff_seams(phases):
     """Main animation's last frame against the follow-up's first frame, the
     cut the runtime shows when a long phase hands over to its loop or bridge."""
@@ -258,7 +306,7 @@ def write_sheets(directory, changes):
         sheet.convert('RGB').save(directory / f"{row['kind']}_{row['animation']}.png")
 
 
-def summary(hero, phases, changes, seams):
+def summary(hero, phases, changes, seams, defects=()):
     manifest = json.loads(HERO.read_text(encoding='utf-8'))
     distinct = len({frame for anim in manifest['animations'] for frame in anim.get('frames', [])})
     lines = ['HERO actions=%d frame_refs=%d distinct_images=%d timer_driven=%d held_loops=%s' % (
@@ -285,6 +333,9 @@ def summary(hero, phases, changes, seams):
         lines.append('ENEMY frame_change cycles=%d median %s shift_2px_reference=%.2f jumpy_over_%.1f=%d' % (
             len(changes), medians, statistics.median(r['shift_2px'] for r in changes), JUMP,
             sum(1 for r in changes if r['max_change'] > JUMP)))
+    if changes:
+        lines.append('ENEMY frame_defects animations=%d shrunk_frames=%d stray_mark_frames=%d' % (
+            len(defects), sum(len(r['shrunk']) for r in defects), sum(len(r['stray_marks']) for r in defects)))
     if seams:
         values = [r['change'] for r in seams]
         lines.append('ENEMY handoff_seams=%d change median=%.2f max=%.2f jumpy_over_%.1f=%d' % (
@@ -302,18 +353,21 @@ def main():
         try:
             import numpy  # noqa: F401
             import PIL  # noqa: F401
+            import scipy  # noqa: F401
         except ImportError as error:
-            print('audit_animation_smoothness: the frame comparison needs Pillow and NumPy (%s).\n'
+            print('audit_animation_smoothness: the frame comparison needs Pillow, NumPy and SciPy (%s).\n'
                   '  python3 -m pip install -r tools/requirements-animation-audit.txt\n'
                   'or pass --no-images for the timing figures only.' % error, file=sys.stderr)
             return 2
     hero, phases = hero_rows(), enemy_phases()
     changes = [] if args.no_images else frame_changes(phases)
     seams = [] if args.no_images else handoff_seams(phases)
-    for line in summary(hero, phases, changes, seams):
+    defects = [] if args.no_images else frame_defects(changes)
+    for line in summary(hero, phases, changes, seams, defects):
         print(line)
     if args.json:
-        args.json.write_text(json.dumps({'hero': hero, 'enemy_phases': phases, 'frame_changes': changes, 'handoff_seams': seams},
+        args.json.write_text(json.dumps({'hero': hero, 'enemy_phases': phases, 'frame_changes': changes, 'handoff_seams': seams,
+                                         'frame_defects': defects},
                                         ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
     if args.sheets and changes:
         write_sheets(args.sheets, changes)
