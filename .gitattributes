@@ -273,3 +273,15 @@ artifacts/settings_construction_v12/**/*.png -filter -diff -merge -text
 # Retained AI music masters and game-ready loops ship directly with the PR.
 godot/assets/audio/bgm/ai_generated/*.ogg -filter -diff -merge -text
 art_requests/ai_music_v1/**/*.mp3 -filter -diff -merge -text
+
+# Original AI combat SFX and retained source masters are small direct Git assets.
+godot/assets/audio/sfx/ai_combat/*.ogg -filter -diff -merge -text
+art_requests/combat_sfx_v1/**/*.mp3 -filter -diff -merge -text
+
+# Reviewed combat motion source sheets and versioned runtime atlases.
+art_requests/combat_motion_v7/**/*.png -filter -diff -merge -text
+godot/assets/sprites/original_creatures/*/combat_motion_v7.png -filter -diff -merge -text
+
+# Original defensive stance sources are reproducible without LFS account limits.
+art_requests/boss_behavior_v1/**/*.png -filter -diff -merge -text
+artifacts/boss_behavior_v1/*.jpg -filter -diff -merge -text

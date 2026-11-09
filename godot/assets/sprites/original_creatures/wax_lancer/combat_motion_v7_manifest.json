@@ -1,0 +1,1536 @@
+{
+  "source": "imagegen authored expanded poses; reviewed atlas regions; no interpolation",
+  "kind": "wax_lancer",
+  "canvas": [
+    450,
+    243
+  ],
+  "display_height": 106,
+  "visual_scale": 0.5196078431372549,
+  "visual_offset": [
+    0,
+    -1.6238082388918897
+  ],
+  "motion": "ground",
+  "version": 2,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 6.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            153,
+            204
+          ],
+          "margin": [
+            129,
+            31,
+            297,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            155,
+            0,
+            160,
+            204
+          ],
+          "margin": [
+            121,
+            31,
+            290,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            317,
+            0,
+            164,
+            204
+          ],
+          "margin": [
+            118,
+            31,
+            286,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            483,
+            0,
+            154,
+            204
+          ],
+          "margin": [
+            130,
+            31,
+            296,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 18.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            639,
+            0,
+            179,
+            174
+          ],
+          "margin": [
+            143,
+            61,
+            271,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            820,
+            0,
+            184,
+            174
+          ],
+          "margin": [
+            125,
+            61,
+            266,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1006,
+            0,
+            202,
+            165
+          ],
+          "margin": [
+            120,
+            70,
+            248,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1210,
+            0,
+            186,
+            163
+          ],
+          "margin": [
+            125,
+            72,
+            264,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1398,
+            0,
+            181,
+            177
+          ],
+          "margin": [
+            137,
+            58,
+            269,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1581,
+            0,
+            156,
+            179
+          ],
+          "margin": [
+            150,
+            56,
+            294,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1739,
+            0,
+            184,
+            179
+          ],
+          "margin": [
+            122,
+            56,
+            266,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1925,
+            0,
+            178,
+            181
+          ],
+          "margin": [
+            120,
+            54,
+            272,
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2105,
+            0,
+            196,
+            212
+          ],
+          "margin": [
+            135,
+            23,
+            254,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2303,
+            0,
+            196,
+            213
+          ],
+          "margin": [
+            137,
+            22,
+            254,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2501,
+            0,
+            188,
+            207
+          ],
+          "margin": [
+            151,
+            28,
+            262,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2691,
+            0,
+            180,
+            194
+          ],
+          "margin": [
+            158,
+            41,
+            270,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2873,
+            0,
+            178,
+            193
+          ],
+          "margin": [
+            155,
+            42,
+            272,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3053,
+            0,
+            189,
+            186
+          ],
+          "margin": [
+            145,
+            49,
+            261,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3244,
+            0,
+            175,
+            172
+          ],
+          "margin": [
+            152,
+            63,
+            275,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3421,
+            0,
+            192,
+            189
+          ],
+          "margin": [
+            134,
+            46,
+            258,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3615,
+            0,
+            205,
+            198
+          ],
+          "margin": [
+            110,
+            37,
+            245,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3822,
+            0,
+            209,
+            200
+          ],
+          "margin": [
+            96,
+            35,
+            241,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            0,
+            215,
+            190,
+            191
+          ],
+          "margin": [
+            111,
+            44,
+            260,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            192,
+            215,
+            296,
+            178
+          ],
+          "margin": [
+            100,
+            57,
+            154,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 18,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            490,
+            215,
+            284,
+            155
+          ],
+          "margin": [
+            115,
+            80,
+            166,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            776,
+            215,
+            286,
+            159
+          ],
+          "margin": [
+            124,
+            76,
+            164,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1064,
+            215,
+            288,
+            156
+          ],
+          "margin": [
+            137,
+            79,
+            162,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1354,
+            215,
+            277,
+            145
+          ],
+          "margin": [
+            165,
+            90,
+            173,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1633,
+            215,
+            283,
+            150
+          ],
+          "margin": [
+            158,
+            85,
+            167,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1918,
+            215,
+            264,
+            149
+          ],
+          "margin": [
+            157,
+            86,
+            186,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2184,
+            215,
+            248,
+            141
+          ],
+          "margin": [
+            165,
+            94,
+            202,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2434,
+            215,
+            247,
+            143
+          ],
+          "margin": [
+            151,
+            92,
+            203,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2683,
+            215,
+            232,
+            138
+          ],
+          "margin": [
+            130,
+            97,
+            218,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2917,
+            215,
+            214,
+            126
+          ],
+          "margin": [
+            129,
+            109,
+            236,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3133,
+            215,
+            257,
+            151
+          ],
+          "margin": [
+            107,
+            84,
+            193,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3392,
+            215,
+            218,
+            167
+          ],
+          "margin": [
+            122,
+            68,
+            232,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 14,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3612,
+            215,
+            219,
+            177
+          ],
+          "margin": [
+            128,
+            58,
+            231,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3833,
+            215,
+            225,
+            186
+          ],
+          "margin": [
+            118,
+            49,
+            225,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            0,
+            408,
+            176,
+            187
+          ],
+          "margin": [
+            126,
+            48,
+            274,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            178,
+            408,
+            185,
+            182
+          ],
+          "margin": [
+            126,
+            53,
+            265,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            365,
+            408,
+            166,
+            190
+          ],
+          "margin": [
+            134,
+            45,
+            284,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            533,
+            408,
+            171,
+            191
+          ],
+          "margin": [
+            136,
+            44,
+            279,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            706,
+            408,
+            177,
+            185
+          ],
+          "margin": [
+            152,
+            50,
+            273,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            885,
+            408,
+            180,
+            195
+          ],
+          "margin": [
+            130,
+            40,
+            270,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1067,
+            408,
+            153,
+            198
+          ],
+          "margin": [
+            128,
+            37,
+            297,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1222,
+            408,
+            160,
+            195
+          ],
+          "margin": [
+            115,
+            40,
+            290,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1384,
+            408,
+            160,
+            205
+          ],
+          "margin": [
+            117,
+            30,
+            290,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1546,
+            408,
+            161,
+            208
+          ],
+          "margin": [
+            121,
+            27,
+            289,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 16,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1709,
+            408,
+            181,
+            190
+          ],
+          "margin": [
+            122,
+            45,
+            269,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1892,
+            408,
+            191,
+            179
+          ],
+          "margin": [
+            126,
+            56,
+            259,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2085,
+            408,
+            174,
+            184
+          ],
+          "margin": [
+            126,
+            51,
+            276,
+            59
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 10,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2261,
+            408,
+            197,
+            152
+          ],
+          "margin": [
+            129,
+            83,
+            253,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2460,
+            408,
+            229,
+            140
+          ],
+          "margin": [
+            115,
+            95,
+            221,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2691,
+            408,
+            246,
+            97
+          ],
+          "margin": [
+            93,
+            138,
+            204,
+            146
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2939,
+            408,
+            237,
+            87
+          ],
+          "margin": [
+            102,
+            148,
+            213,
+            156
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3178,
+            408,
+            281,
+            147
+          ],
+          "margin": [
+            100,
+            88,
+            169,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3461,
+            408,
+            269,
+            146
+          ],
+          "margin": [
+            108,
+            89,
+            181,
+            97
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 12,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3732,
+            408,
+            281,
+            142
+          ],
+          "margin": [
+            155,
+            93,
+            169,
+            101
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            0,
+            618,
+            277,
+            140
+          ],
+          "margin": [
+            158,
+            95,
+            173,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wax_high_windup",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            279,
+            618,
+            234,
+            157
+          ],
+          "margin": [
+            138,
+            78,
+            216,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            515,
+            618,
+            225,
+            157
+          ],
+          "margin": [
+            137,
+            78,
+            225,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            742,
+            618,
+            246,
+            151
+          ],
+          "margin": [
+            127,
+            84,
+            204,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            990,
+            618,
+            222,
+            139
+          ],
+          "margin": [
+            140,
+            96,
+            228,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1214,
+            618,
+            234,
+            141
+          ],
+          "margin": [
+            136,
+            94,
+            216,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1450,
+            618,
+            258,
+            134
+          ],
+          "margin": [
+            125,
+            101,
+            192,
+            109
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1710,
+            618,
+            222,
+            122
+          ],
+          "margin": [
+            139,
+            113,
+            228,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1934,
+            618,
+            245,
+            124
+          ],
+          "margin": [
+            129,
+            111,
+            205,
+            119
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2181,
+            618,
+            257,
+            122
+          ],
+          "margin": [
+            123,
+            113,
+            193,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2440,
+            618,
+            215,
+            113
+          ],
+          "margin": [
+            141,
+            122,
+            235,
+            130
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2657,
+            618,
+            248,
+            126
+          ],
+          "margin": [
+            130,
+            109,
+            202,
+            117
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2907,
+            618,
+            243,
+            131
+          ],
+          "margin": [
+            130,
+            104,
+            207,
+            112
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wax_high",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3152,
+            618,
+            240,
+            129
+          ],
+          "margin": [
+            135,
+            106,
+            210,
+            114
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3394,
+            618,
+            266,
+            146
+          ],
+          "margin": [
+            119,
+            89,
+            184,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3662,
+            618,
+            220,
+            154
+          ],
+          "margin": [
+            133,
+            81,
+            230,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            0,
+            777,
+            224,
+            157
+          ],
+          "margin": [
+            135,
+            78,
+            226,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            226,
+            777,
+            241,
+            180
+          ],
+          "margin": [
+            122,
+            55,
+            209,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            469,
+            777,
+            172,
+            195
+          ],
+          "margin": [
+            130,
+            40,
+            278,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            643,
+            777,
+            171,
+            205
+          ],
+          "margin": [
+            130,
+            30,
+            279,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            816,
+            777,
+            177,
+            219
+          ],
+          "margin": [
+            126,
+            16,
+            273,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            995,
+            777,
+            166,
+            225
+          ],
+          "margin": [
+            126,
+            10,
+            284,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1163,
+            777,
+            155,
+            227
+          ],
+          "margin": [
+            130,
+            8,
+            295,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1320,
+            777,
+            161,
+            221
+          ],
+          "margin": [
+            126,
+            14,
+            289,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1483,
+            777,
+            186,
+            209
+          ],
+          "margin": [
+            118,
+            26,
+            264,
+            34
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wax_high_recover",
+      "fps": 12,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1671,
+            777,
+            169,
+            191
+          ],
+          "margin": [
+            130,
+            44,
+            281,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            1842,
+            777,
+            182,
+            203
+          ],
+          "margin": [
+            121,
+            32,
+            268,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2026,
+            777,
+            156,
+            209
+          ],
+          "margin": [
+            123,
+            26,
+            294,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2184,
+            777,
+            148,
+            209
+          ],
+          "margin": [
+            128,
+            26,
+            302,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2334,
+            777,
+            155,
+            211
+          ],
+          "margin": [
+            125,
+            24,
+            295,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2491,
+            777,
+            157,
+            207
+          ],
+          "margin": [
+            125,
+            28,
+            293,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2650,
+            777,
+            136,
+            195
+          ],
+          "margin": [
+            137,
+            40,
+            314,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2788,
+            777,
+            158,
+            201
+          ],
+          "margin": [
+            124,
+            34,
+            292,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            2948,
+            777,
+            164,
+            203
+          ],
+          "margin": [
+            121,
+            32,
+            286,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3114,
+            777,
+            139,
+            196
+          ],
+          "margin": [
+            135,
+            39,
+            311,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3255,
+            777,
+            165,
+            206
+          ],
+          "margin": [
+            120,
+            29,
+            285,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_lancer/combat_motion_v7.png",
+          "region": [
+            3422,
+            777,
+            171,
+            208
+          ],
+          "margin": [
+            118,
+            27,
+            279,
+            35
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "combat_motion_v7.json",
+  "authored_combat_sequences": [
+    "attack",
+    "recover",
+    "wax_high",
+    "wax_high_recover",
+    "wax_high_windup",
+    "windup"
+  ]
+}

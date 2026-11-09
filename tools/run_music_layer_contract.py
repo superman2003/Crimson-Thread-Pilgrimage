@@ -55,7 +55,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-s01-music-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'data', 'shaders', 'scenes', 'assets/vfx', 'assets/fonts', 'assets/ui', 'assets/audio/bgm', 'assets/audio/seals'):
+        for directory in ('scripts', 'addons/beehave', 'data', 'shaders', 'scenes', 'assets/vfx', 'assets/fonts', 'assets/ui', 'assets/audio/bgm', 'assets/audio/seals'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         anchors = Path('assets/sprites/player/generated_hero_motion_v4/runtime_supplement/blade_anchors.json')
         (project / anchors).parent.mkdir(parents=True, exist_ok=True)
@@ -63,7 +63,9 @@ def main():
         shutil.copy2(ROOT / 'godot/default_bus_layout.tres', project / 'default_bus_layout.tres')
         (project / 'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Music layer transition contracts"\n'
-            '[audio]\nbuses/default_bus_layout="res://default_bus_layout.tres"\n[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
+            '[audio]\nbuses/default_bus_layout="res://default_bus_layout.tres"\n'
+            '[autoload]\nBeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"\nBeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"\n'
+            '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
         env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / 'userdata'))
         base = [engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project)]
         if not invoke(base + ['--editor', '--recovery-mode', '--import', '--quit'], env,

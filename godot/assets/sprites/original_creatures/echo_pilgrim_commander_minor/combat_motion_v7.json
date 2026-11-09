@@ -1,0 +1,2755 @@
+{
+  "kind": "echo_pilgrim_commander_minor",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent production 2D game sprite sheet of SAME referenced porcelain insect officer: white layered crown plate armor, crimson feather crest and cape, silver spear, black slender legs. Match exact original dark hand-drawn ink and painted aesthetic. STRICT FOUR columns and EIGHT rows:32 full-body drawings. Each sprite SMALL with generous transparent margin including all weapon/cape/crest. Face RIGHT, fixed body proportions, consistent scale. Keep spear compact vertical or diagonal to fit cell, no horizontal long thrust. Row1 FOUR idle breath poses. Row2 FOUR first half march strides. Row3 FOUR second half march strides. Row4 FOUR windup drawing spear up/back. Row5 FOUR diagonal downward spear strike poses. Row6 FOUR recovery spear retract/stand poses. Row7 FOUR hurt stagger poses. Row8 FOUR death collapse poses ending prone. Exactly four figures each row, eight rows total. Real limb and weapon articulation in every pose, no duplicates/translations. Complete silhouettes do not overlap each other. Actual transparent alpha, no background/grid/labels/text/shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-ec6d5610-ca1b-45f8-bb9d-3336a923cac9.png",
+  "qa": {
+    "layout": "Authored sheet reviewed for complete character silhouette and role-specific articulations",
+    "identity": "Original reference design, costume, palette and dark hand-painted contours retained",
+    "motion": "Genuinely articulated idle, gait, windup, attack, recovery, recoil and collapse",
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          15,
+          964,
+          242,
+          1149
+        ],
+        11,
+        true
+      ],
+      [
+        "attack",
+        [
+          242,
+          962,
+          445,
+          1149
+        ],
+        5,
+        true
+      ],
+      [
+        "death",
+        [
+          448,
+          1651,
+          657,
+          1756
+        ],
+        21,
+        true
+      ],
+      [
+        "death",
+        [
+          653,
+          1681,
+          870,
+          1756
+        ],
+        17,
+        true
+      ]
+    ],
+    "validation": "tools/build_expanded_character_motion.py --character echo_pilgrim_commander_minor passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          153,
+          226
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          155,
+          0,
+          157,
+          227
+        ],
+        "anchor_x": 67.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          314,
+          0,
+          156,
+          223
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          472,
+          0,
+          157,
+          223
+        ],
+        "anchor_x": 63.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          0,
+          206,
+          210
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          839,
+          0,
+          197,
+          208
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1038,
+          0,
+          198,
+          208
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1238,
+          0,
+          187,
+          212
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1427,
+          0,
+          210,
+          213
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1639,
+          0,
+          212,
+          211
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1853,
+          0,
+          198,
+          212
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2053,
+          0,
+          197,
+          216
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2252,
+          0,
+          211,
+          200
+        ],
+        "anchor_x": 99.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          34,
+          67,
+          183,
+          179
+        ],
+        "component_seeds": [
+          [
+            59,
+            164
+          ]
+        ],
+        "scale": 1.22807,
+        "anchor_x": 87.457143,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          296,
+          38,
+          172,
+          207
+        ],
+        "component_seeds": [
+          [
+            411,
+            158
+          ]
+        ],
+        "scale": 1.105528,
+        "anchor_x": 88.793939,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2465,
+          0,
+          190,
+          230
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          552,
+          39,
+          171,
+          206
+        ],
+        "component_seeds": [
+          [
+            618,
+            157
+          ]
+        ],
+        "scale": 1.176768,
+        "anchor_x": 83.76824,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          809,
+          30,
+          172,
+          215
+        ],
+        "component_seeds": [
+          [
+            953,
+            160
+          ]
+        ],
+        "scale": 1.140097,
+        "anchor_x": 79.889831,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2657,
+          0,
+          195,
+          239
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1057,
+          36,
+          190,
+          209
+        ],
+        "component_seeds": [
+          [
+            1233,
+            161
+          ]
+        ],
+        "scale": 1.192371,
+        "anchor_x": 87.097357,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1306,
+          48,
+          201,
+          198
+        ],
+        "component_seeds": [
+          [
+            1421,
+            165
+          ]
+        ],
+        "scale": 1.264912,
+        "anchor_x": 91.675451,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2854,
+          0,
+          183,
+          241
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          35,
+          301,
+          188,
+          200
+        ],
+        "component_seeds": [
+          [
+            114,
+            420
+          ]
+        ],
+        "scale": 1.164931,
+        "anchor_x": 89.283159,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          278,
+          336,
+          215,
+          165
+        ],
+        "component_seeds": [
+          [
+            375,
+            428
+          ]
+        ],
+        "scale": 1.314225,
+        "anchor_x": 92.239095,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3039,
+          0,
+          231,
+          189
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          531,
+          331,
+          227,
+          170
+        ],
+        "component_seeds": [
+          [
+            640,
+            428
+          ]
+        ],
+        "scale": 1.170782,
+        "anchor_x": 96.72232,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          791,
+          336,
+          219,
+          165
+        ],
+        "component_seeds": [
+          [
+            840,
+            428
+          ]
+        ],
+        "scale": 1.212314,
+        "anchor_x": 95.600701,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3272,
+          0,
+          207,
+          191
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1050,
+          334,
+          213,
+          167
+        ],
+        "component_seeds": [
+          [
+            1117,
+            428
+          ]
+        ],
+        "scale": 1.180294,
+        "anchor_x": 98.305506,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1303,
+          344,
+          222,
+          157
+        ],
+        "component_seeds": [
+          [
+            1420,
+            430
+          ]
+        ],
+        "scale": 1.237136,
+        "anchor_x": 96.233273,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3481,
+          0,
+          225,
+          181
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          25,
+          596,
+          211,
+          161
+        ],
+        "component_seeds": [
+          [
+            84,
+            686
+          ]
+        ],
+        "scale": 1.172113,
+        "anchor_x": 94.118959,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          283,
+          598,
+          199,
+          157
+        ],
+        "component_seeds": [
+          [
+            349,
+            689
+          ]
+        ],
+        "scale": 1.192394,
+        "anchor_x": 94.677298,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3708,
+          0,
+          200,
+          176
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          539,
+          597,
+          196,
+          160
+        ],
+        "component_seeds": [
+          [
+            653,
+            688
+          ]
+        ],
+        "scale": 1.223684,
+        "anchor_x": 88.913978,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          790,
+          573,
+          193,
+          185
+        ],
+        "component_seeds": [
+          [
+            941,
+            675
+          ]
+        ],
+        "scale": 1.107345,
+        "anchor_x": 90.77551,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          243,
+          220,
+          206
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1049,
+          572,
+          203,
+          185
+        ],
+        "component_seeds": [
+          [
+            1081,
+            673
+          ]
+        ],
+        "scale": 1.158192,
+        "anchor_x": 88.214634,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1313,
+          572,
+          181,
+          185
+        ],
+        "component_seeds": [
+          [
+            1403,
+            670
+          ]
+        ],
+        "scale": 1.152542,
+        "anchor_x": 85.877451,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          222,
+          243,
+          186,
+          203
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          32,
+          823,
+          174,
+          191
+        ],
+        "component_seeds": [
+          [
+            121,
+            928
+          ]
+        ],
+        "scale": 1.147541,
+        "anchor_x": 87.12381,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          297,
+          811,
+          161,
+          202
+        ],
+        "component_seeds": [
+          [
+            363,
+            927
+          ]
+        ],
+        "scale": 1.118557,
+        "anchor_x": 83.463902,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          410,
+          243,
+          172,
+          224
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          560,
+          811,
+          156,
+          203
+        ],
+        "component_seeds": [
+          [
+            669,
+            926
+          ]
+        ],
+        "scale": 1.138462,
+        "anchor_x": 80.387387,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          817,
+          814,
+          142,
+          200
+        ],
+        "component_seeds": [
+          [
+            916,
+            929
+          ]
+        ],
+        "scale": 1.145833,
+        "anchor_x": 78.6,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          584,
+          243,
+          151,
+          218
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1072,
+          815,
+          148,
+          199
+        ],
+        "component_seeds": [
+          [
+            1172,
+            929
+          ]
+        ],
+        "scale": 1.155323,
+        "anchor_x": 77.632931,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "region": [
+          1335,
+          811,
+          140,
+          203
+        ],
+        "component_seeds": [
+          [
+            1390,
+            926
+          ]
+        ],
+        "scale": 1.145299,
+        "anchor_x": 68.358209,
+        "grade": {
+          "saturation": 1.0729,
+          "rgb": [
+            0.8768,
+            0.9041,
+            0.8855
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          737,
+          243,
+          201,
+          221
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          940,
+          243,
+          179,
+          208
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1121,
+          243,
+          203,
+          169
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1326,
+          243,
+          183,
+          167
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1511,
+          243,
+          210,
+          136
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1723,
+          243,
+          207,
+          128
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1932,
+          243,
+          213,
+          109
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2147,
+          243,
+          221,
+          79
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      }
+    ],
+    "minor_banner_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2370,
+          243,
+          151,
+          228
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          59,
+          47,
+          135,
+          198
+        ],
+        "component_seeds": [
+          [
+            176,
+            173
+          ]
+        ],
+        "scale": 1.210526,
+        "anchor_x": 65.826087,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          307,
+          36,
+          151,
+          209
+        ],
+        "component_seeds": [
+          [
+            390,
+            169
+          ]
+        ],
+        "scale": 1.154229,
+        "anchor_x": 63.939655,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2523,
+          243,
+          171,
+          234
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          563,
+          34,
+          151,
+          211
+        ],
+        "component_seeds": [
+          [
+            633,
+            169
+          ]
+        ],
+        "scale": 1.203612,
+        "anchor_x": 65.444748,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          833,
+          20,
+          129,
+          225
+        ],
+        "component_seeds": [
+          [
+            918,
+            168
+          ]
+        ],
+        "scale": 1.173579,
+        "anchor_x": 50.685864,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2696,
+          243,
+          150,
+          265
+        ],
+        "anchor_x": 58.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1088,
+          19,
+          130,
+          226
+        ],
+        "component_seeds": [
+          [
+            1185,
+            169
+          ]
+        ],
+        "scale": 1.244648,
+        "anchor_x": 50.520885,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1347,
+          18,
+          122,
+          227
+        ],
+        "component_seeds": [
+          [
+            1421,
+            168
+          ]
+        ],
+        "scale": 1.267884,
+        "anchor_x": 48.859544,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2848,
+          243,
+          148,
+          284
+        ],
+        "anchor_x": 58.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          66,
+          282,
+          125,
+          219
+        ],
+        "component_seeds": [
+          [
+            123,
+            427
+          ]
+        ],
+        "scale": 1.21643,
+        "anchor_x": 50.366234,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          280,
+          323,
+          209,
+          178
+        ],
+        "component_seeds": [
+          [
+            318,
+            429
+          ]
+        ],
+        "scale": 1.34902,
+        "anchor_x": 75.444767,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "minor_banner": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2998,
+          243,
+          233,
+          202
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          537,
+          329,
+          207,
+          172
+        ],
+        "component_seeds": [
+          [
+            725,
+            429
+          ]
+        ],
+        "scale": 1.203252,
+        "anchor_x": 72.993243,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          791,
+          340,
+          208,
+          161
+        ],
+        "component_seeds": [
+          [
+            881,
+            440
+          ]
+        ],
+        "scale": 1.259259,
+        "anchor_x": 84.058824,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3233,
+          243,
+          236,
+          188
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1049,
+          341,
+          201,
+          160
+        ],
+        "component_seeds": [
+          [
+            1172,
+            441
+          ]
+        ],
+        "scale": 1.225877,
+        "anchor_x": 83.597496,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1329,
+          347,
+          156,
+          154
+        ],
+        "component_seeds": [
+          [
+            1471,
+            448
+          ]
+        ],
+        "scale": 1.26484,
+        "anchor_x": 76.870036,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3471,
+          243,
+          169,
+          183
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          48,
+          605,
+          153,
+          153
+        ],
+        "component_seeds": [
+          [
+            108,
+            706
+          ]
+        ],
+        "scale": 1.248276,
+        "anchor_x": 75.375691,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          306,
+          606,
+          149,
+          151
+        ],
+        "component_seeds": [
+          [
+            352,
+            708
+          ]
+        ],
+        "scale": 1.251748,
+        "anchor_x": 73.424581,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3642,
+          243,
+          163,
+          177
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          562,
+          604,
+          151,
+          153
+        ],
+        "component_seeds": [
+          [
+            686,
+            706
+          ]
+        ],
+        "scale": 1.303448,
+        "anchor_x": 76.121693,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          811,
+          570,
+          165,
+          187
+        ],
+        "component_seeds": [
+          [
+            890,
+            688
+          ]
+        ],
+        "scale": 1.122905,
+        "anchor_x": 65.40796,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "minor_banner_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3807,
+          243,
+          191,
+          213
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1068,
+          569,
+          161,
+          188
+        ],
+        "component_seeds": [
+          [
+            1173,
+            686
+          ]
+        ],
+        "scale": 1.155556,
+        "anchor_x": 66.961538,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1320,
+          586,
+          171,
+          171
+        ],
+        "component_seeds": [
+          [
+            1416,
+            686
+          ]
+        ],
+        "scale": 1.245399,
+        "anchor_x": 67.334975,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          529,
+          198,
+          198
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          42,
+          848,
+          163,
+          165
+        ],
+        "component_seeds": [
+          [
+            91,
+            942
+          ]
+        ],
+        "scale": 1.212314,
+        "anchor_x": 66.85289,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          287,
+          860,
+          189,
+          153
+        ],
+        "component_seeds": [
+          [
+            434,
+            952
+          ]
+        ],
+        "scale": 1.25977,
+        "anchor_x": 71.536496,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          200,
+          529,
+          215,
+          175
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          541,
+          862,
+          192,
+          151
+        ],
+        "component_seeds": [
+          [
+            701,
+            954
+          ]
+        ],
+        "scale": 1.324009,
+        "anchor_x": 74.383803,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          823,
+          827,
+          143,
+          186
+        ],
+        "component_seeds": [
+          [
+            902,
+            946
+          ]
+        ],
+        "scale": 1.144195,
+        "anchor_x": 66.772504,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          417,
+          529,
+          156,
+          218
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1080,
+          822,
+          142,
+          191
+        ],
+        "component_seeds": [
+          [
+            1191,
+            944
+          ]
+        ],
+        "scale": 1.205829,
+        "anchor_x": 69.137462,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "region": [
+          1339,
+          817,
+          141,
+          196
+        ],
+        "component_seeds": [
+          [
+            1425,
+            925
+          ]
+        ],
+        "scale": 1.187943,
+        "anchor_x": 63.286567,
+        "grade": {
+          "saturation": 1.0721,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "minor_banner_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          575,
+          529,
+          158,
+          239
+        ],
+        "anchor_x": 61.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          735,
+          529,
+          155,
+          259
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      }
+    ],
+    "minor_elite_rally_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          892,
+          529,
+          172,
+          191
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          50,
+          77,
+          151,
+          168
+        ],
+        "component_seeds": [
+          [
+            117,
+            178
+          ]
+        ],
+        "scale": 1.277083,
+        "anchor_x": 70.773246,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          302,
+          47,
+          164,
+          198
+        ],
+        "component_seeds": [
+          [
+            394,
+            175
+          ]
+        ],
+        "scale": 1.145614,
+        "anchor_x": 65.796325,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1066,
+          529,
+          184,
+          231
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          559,
+          41,
+          165,
+          204
+        ],
+        "component_seeds": [
+          [
+            588,
+            175
+          ]
+        ],
+        "scale": 1.222789,
+        "anchor_x": 66.735744,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          812,
+          26,
+          164,
+          219
+        ],
+        "component_seeds": [
+          [
+            884,
+            168
+          ]
+        ],
+        "scale": 1.176935,
+        "anchor_x": 56.74094,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1252,
+          529,
+          189,
+          257
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1070,
+          20,
+          163,
+          225
+        ],
+        "component_seeds": [
+          [
+            1128,
+            168
+          ]
+        ],
+        "scale": 1.256528,
+        "anchor_x": 55.96088,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1335,
+          8,
+          141,
+          237
+        ],
+        "component_seeds": [
+          [
+            1366,
+            173
+          ]
+        ],
+        "scale": 1.259098,
+        "anchor_x": 58.262428,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1443,
+          529,
+          184,
+          304
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          53,
+          272,
+          142,
+          229
+        ],
+        "component_seeds": [
+          [
+            79,
+            429
+          ]
+        ],
+        "scale": 1.257919,
+        "anchor_x": 59.510791,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          286,
+          298,
+          182,
+          203
+        ],
+        "component_seeds": [
+          [
+            362,
+            432
+          ]
+        ],
+        "scale": 1.292308,
+        "anchor_x": 82.97619,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      }
+    ],
+    "minor_elite_rally": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1629,
+          529,
+          201,
+          226
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          544,
+          298,
+          179,
+          203
+        ],
+        "component_seeds": [
+          [
+            681,
+            432
+          ]
+        ],
+        "scale": 1.066667,
+        "anchor_x": 78.375,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          783,
+          355,
+          219,
+          146
+        ],
+        "component_seeds": [
+          [
+            859,
+            442
+          ]
+        ],
+        "scale": 1.376812,
+        "anchor_x": 89.021053,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1832,
+          529,
+          235,
+          172
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1040,
+          357,
+          220,
+          144
+        ],
+        "component_seeds": [
+          [
+            1132,
+            442
+          ]
+        ],
+        "scale": 1.17402,
+        "anchor_x": 87.26096,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1295,
+          377,
+          225,
+          124
+        ],
+        "component_seeds": [
+          [
+            1347,
+            452
+          ]
+        ],
+        "scale": 1.270115,
+        "anchor_x": 82.678733,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2069,
+          529,
+          248,
+          135
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          15,
+          633,
+          223,
+          124
+        ],
+        "component_seeds": [
+          [
+            59,
+            707
+          ]
+        ],
+        "scale": 1.137931,
+        "anchor_x": 80.959596,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          267,
+          644,
+          231,
+          113
+        ],
+        "component_seeds": [
+          [
+            347,
+            711
+          ]
+        ],
+        "scale": 1.228571,
+        "anchor_x": 82.635659,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2319,
+          529,
+          258,
+          126
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          522,
+          644,
+          232,
+          113
+        ],
+        "component_seeds": [
+          [
+            617,
+            710
+          ]
+        ],
+        "scale": 1.292063,
+        "anchor_x": 83.488943,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          782,
+          617,
+          224,
+          140
+        ],
+        "component_seeds": [
+          [
+            791,
+            699
+          ]
+        ],
+        "scale": 1.10101,
+        "anchor_x": 79.321101,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      }
+    ],
+    "minor_elite_rally_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2579,
+          529,
+          254,
+          155
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1037,
+          617,
+          227,
+          140
+        ],
+        "component_seeds": [
+          [
+            1180,
+            698
+          ]
+        ],
+        "scale": 1.252525,
+        "anchor_x": 82.701613,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1305,
+          590,
+          211,
+          167
+        ],
+        "component_seeds": [
+          [
+            1370,
+            679
+          ]
+        ],
+        "scale": 1.104822,
+        "anchor_x": 76.690702,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2835,
+          529,
+          229,
+          186
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          30,
+          846,
+          201,
+          167
+        ],
+        "component_seeds": [
+          [
+            100,
+            933
+          ]
+        ],
+        "scale": 1.318658,
+        "anchor_x": 74.82194,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          304,
+          791,
+          155,
+          222
+        ],
+        "component_seeds": [
+          [
+            382,
+            935
+          ]
+        ],
+        "scale": 1.090343,
+        "anchor_x": 64.128571,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3066,
+          529,
+          175,
+          258
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          559,
+          789,
+          155,
+          224
+        ],
+        "component_seeds": [
+          [
+            676,
+            935
+          ]
+        ],
+        "scale": 1.097222,
+        "anchor_x": 65.253165,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          814,
+          837,
+          160,
+          175
+        ],
+        "component_seeds": [
+          [
+            922,
+            941
+          ]
+        ],
+        "scale": 1.299401,
+        "anchor_x": 79.582181,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3243,
+          529,
+          178,
+          197
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1073,
+          838,
+          157,
+          174
+        ],
+        "component_seeds": [
+          [
+            1187,
+            941
+          ]
+        ],
+        "scale": 1.24498,
+        "anchor_x": 78.203226,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "region": [
+          1332,
+          823,
+          144,
+          191
+        ],
+        "component_seeds": [
+          [
+            1413,
+            930
+          ]
+        ],
+        "scale": 1.182149,
+        "anchor_x": 70.491525,
+        "grade": {
+          "saturation": 1.0602,
+          "rgb": [
+            0.85,
+            0.8735,
+            0.8504
+          ]
+        }
+      }
+    ],
+    "minor_elite_rally_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3423,
+          529,
+          183,
+          247
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3608,
+          529,
+          188,
+          280
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3798,
+          529,
+          248,
+          176
+        ],
+        "anchor_x": 110.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          835,
+          271,
+          177
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/echo_pilgrim_commander_minor.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "minor_banner_windup",
+      "minor_banner",
+      "minor_banner_recover",
+      "minor_banner_charge",
+      "minor_elite_rally_windup",
+      "minor_elite_rally",
+      "minor_elite_rally_recover",
+      "minor_elite_rally_charge",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "minor_banner.png",
+        "image_sha256": "a673bfae2f861532bbc158541481e97ce1fe43923bf49b9806d5a6d086cabf55",
+        "role": "new",
+        "attack": "minor_banner",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.977,
+        "anchors": [
+          74.7,
+          75.7,
+          60.7,
+          60.7,
+          84.7,
+          95.7,
+          85.7,
+          80.7,
+          79.7,
+          78.7,
+          79.7,
+          75.7,
+          63.7,
+          67.7
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.9838,
+          "last_recover_ratio": 0.9702
+        }
+      },
+      {
+        "image": "minor_elite_rally.png",
+        "image_sha256": "7f819ada191c574d9c22f5b5c15a5d7e0a860d0303e1853d3b9ed8100d59068b",
+        "role": "elite",
+        "attack": "minor_elite_rally",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.9088,
+        "anchors": [
+          87.0,
+          82.0,
+          69.0,
+          84.0,
+          95.0,
+          96.0,
+          93.0,
+          94.0,
+          96.0,
+          93.0,
+          79.0,
+          94.0,
+          81.0,
+          88.0
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.9097,
+          "last_recover_ratio": 0.908
+        }
+      },
+      {
+        "image": "minor_lances_loops.png",
+        "image_sha256": "185193c3af2eb00e4b2df1bbc1e335a5e97218b0a76fd6869ff2e08d23198387",
+        "role": "keep",
+        "attack": "minor_lances",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.355,
+        "anchors": [
+          312.6,
+          344.6
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3573,
+            0.3528
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "echo_pilgrim_commander_minor__attack",
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__attack.png",
+        "sha256": "69930597b21fdee6949e5ffd53f66fef830b4025047a9a69c8eb062848e8ce2d",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/echo_pilgrim_commander_minor__attack.png"
+      },
+      {
+        "id": "echo_pilgrim_commander_minor__minor_banner",
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_banner.png",
+        "sha256": "a36adc287bed1723d521b7715638077d05576daa31f6a20bdbe2d83dfdd83460",
+        "new_drawings": 24,
+        "animations": [
+          "minor_banner_windup",
+          "minor_banner",
+          "minor_banner_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/echo_pilgrim_commander_minor__minor_banner.png"
+      },
+      {
+        "id": "echo_pilgrim_commander_minor__minor_elite_rally",
+        "source": "art_requests/combat_motion_v7/incoming/echo_pilgrim_commander_minor__minor_elite_rally.png",
+        "sha256": "8f0a37564f6bbe086b0a48e1531dd1be307a5b3999d51094489e2bd3ef0701e4",
+        "new_drawings": 24,
+        "animations": [
+          "minor_elite_rally_windup",
+          "minor_elite_rally",
+          "minor_elite_rally_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/echo_pilgrim_commander_minor__minor_elite_rally.png"
+      }
+    ],
+    "new_drawings": 72,
+    "runtime_drawings": 72,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

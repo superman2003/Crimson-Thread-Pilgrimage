@@ -225,5 +225,9 @@
   "region_beat_layers": "^REGION_BEAT_LAYERS_PASS checks=\\d+$",
   "boss_heal_windows": "^BOSS_HEAL_WINDOWS_PASS bosses=3 checks=\\d+$",
   "boss_heal_windows_late": "^BOSS_HEAL_WINDOWS_LATE_PASS bosses=3 checks=\\d+$",
-  "ai_music_pack": "^AI_MUSIC_PACK checks=\\d+ failures=0$"
+  "ai_music_pack": "^AI_MUSIC_PACK checks=\\d+ failures=0$",
+  "enemy_combat_continuity": "^ENEMY_COMBAT_CONTINUITY checks=[1-9][0-9]* failures=0$",
+  "boss_combat_identity": "^BOSS_COMBAT_IDENTITY checks=[1-9][0-9]* failures=0 bosses=6 patterns=24$",
+  "combat_motion_v7": "^COMBAT_MOTION_V7 checks=[1-9][0-9]* failures=0 characters=46 clips=[1-9][0-9]* new_drawings=[1-9][0-9]*$",
+  "boss_behavior": "^BOSS_BEHAVIOR checks=[1-9][0-9]* failures=0$"
 }

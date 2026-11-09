@@ -1,0 +1,1836 @@
+{
+  "kind": "bell_mote",
+  "generator": "built-in image_gen",
+  "prompt": "Create a transparent game sprite sheet of the bell-shaped insect shown in reference. Same oxidized brass bell body, warm slit eyes, blue fin wings, dangling bell clapper, delicate dark ink and hand-painted textures. 36 distinct articulated poses in a STRICT UNIFORM 6-column by 6-row grid. Each sprite is SMALL and centered in its cell with wide empty gutters and all wings/clapper inside. Six rows, each row exactly SIX sprites. All face right. First row: four idle breathing/flutter poses followed by two flying cycle poses. Second row: six flying cycle poses. Third row: four windup wing-back/clapper-draw poses followed by two attack thrust poses. Fourth row: four attack thrust/followthrough poses followed by two recovery poses. Fifth row: four recovery returning poses followed by two hurt recoil poses. Sixth row: two hurt stagger poses followed by four death falling/collapse poses. All limbs and wings articulate between frames. Preserve exact original character identity; consistent size and grounding. TRUE TRANSPARENT ALPHA BACKGROUND. Only isolated cutout sprites, no colored background, no shadows, no text or grid lines.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-56101cc2-1b80-47c3-b888-337097b4a992.png",
+  "qa": {
+    "layout": "6 rows × 6 columns confirmed; each entire sprite isolated by alpha gap",
+    "identity": "Brass bell shell, blue wings, amber eyes and dark hand-painted outlines retained",
+    "motion": "Distinct wing, body, clapper and attack/recoil/collapse poses reviewed",
+    "alpha": "Actual transparent alpha confirmed by pixel inspection; invisible RGB includes original atmospheric colors",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "validation": "tools/build_expanded_character_motion.py --character bell_mote passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          168,
+          148
+        ],
+        "anchor_x": 55.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          170,
+          0,
+          185,
+          151
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          357,
+          0,
+          173,
+          148
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          532,
+          0,
+          181,
+          149
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          715,
+          0,
+          186,
+          148
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          903,
+          0,
+          171,
+          143
+        ],
+        "anchor_x": 120.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1076,
+          0,
+          182,
+          161
+        ],
+        "anchor_x": 62.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1260,
+          0,
+          206,
+          145
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1468,
+          0,
+          193,
+          150
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1663,
+          0,
+          196,
+          153
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1861,
+          0,
+          195,
+          146
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2058,
+          0,
+          186,
+          155
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2246,
+          0,
+          192,
+          145
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          44,
+          110,
+          172,
+          132
+        ],
+        "component_seeds": [
+          [
+            190,
+            171
+          ]
+        ],
+        "scale": 1.180108,
+        "anchor_x": 61.432802,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          299,
+          108,
+          161,
+          137
+        ],
+        "component_seeds": [
+          [
+            417,
+            170
+          ]
+        ],
+        "scale": 1.144703,
+        "anchor_x": 51.34763,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2440,
+          0,
+          166,
+          149
+        ],
+        "anchor_x": 53.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          552,
+          108,
+          163,
+          138
+        ],
+        "component_seeds": [
+          [
+            693,
+            170
+          ]
+        ],
+        "scale": 1.14359,
+        "anchor_x": 62.390135,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          810,
+          110,
+          159,
+          136
+        ],
+        "component_seeds": [
+          [
+            882,
+            172
+          ]
+        ],
+        "scale": 1.158854,
+        "anchor_x": 67.604494,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2608,
+          0,
+          153,
+          148
+        ],
+        "anchor_x": 65.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1065,
+          109,
+          156,
+          137
+        ],
+        "component_seeds": [
+          [
+            1149,
+            173
+          ]
+        ],
+        "scale": 1.144703,
+        "anchor_x": 79.214447,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1318,
+          108,
+          170,
+          139
+        ],
+        "component_seeds": [
+          [
+            1452,
+            170
+          ]
+        ],
+        "scale": 1.124682,
+        "anchor_x": 94.074661,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2763,
+          0,
+          190,
+          147
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          42,
+          365,
+          173,
+          137
+        ],
+        "component_seeds": [
+          [
+            131,
+            428
+          ]
+        ],
+        "scale": 1.144703,
+        "anchor_x": 107.900677,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          285,
+          366,
+          195,
+          134
+        ],
+        "component_seeds": [
+          [
+            422,
+            426
+          ]
+        ],
+        "scale": 1.177249,
+        "anchor_x": 99.608989,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2955,
+          0,
+          228,
+          149
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          539,
+          365,
+          199,
+          135
+        ],
+        "component_seeds": [
+          [
+            648,
+            427
+          ]
+        ],
+        "scale": 1.152231,
+        "anchor_x": 85.396355,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          787,
+          376,
+          216,
+          123
+        ],
+        "component_seeds": [
+          [
+            906,
+            433
+          ]
+        ],
+        "scale": 1.249275,
+        "anchor_x": 81.389791,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3411,
+          0,
+          250,
+          141
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1041,
+          377,
+          222,
+          123
+        ],
+        "component_seeds": [
+          [
+            1180,
+            434
+          ]
+        ],
+        "scale": 1.255072,
+        "anchor_x": 66.066975,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1318,
+          357,
+          171,
+          144
+        ],
+        "component_seeds": [
+          [
+            1373,
+            424
+          ]
+        ],
+        "scale": 1.085784,
+        "anchor_x": 49.625282,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3663,
+          0,
+          186,
+          151
+        ],
+        "anchor_x": 56.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          39,
+          618,
+          173,
+          140
+        ],
+        "component_seeds": [
+          [
+            130,
+            681
+          ]
+        ],
+        "scale": 1.126263,
+        "anchor_x": 52.524664,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          278,
+          622,
+          205,
+          134
+        ],
+        "component_seeds": [
+          [
+            401,
+            685
+          ]
+        ],
+        "scale": 1.161376,
+        "anchor_x": 56.539863,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          163,
+          245,
+          144
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          530,
+          624,
+          211,
+          132
+        ],
+        "component_seeds": [
+          [
+            643,
+            685
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 68.428571,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          801,
+          626,
+          179,
+          131
+        ],
+        "component_seeds": [
+          [
+            908,
+            687
+          ]
+        ],
+        "scale": 1.181572,
+        "anchor_x": 79.559633,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          247,
+          163,
+          192,
+          146
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1055,
+          623,
+          180,
+          134
+        ],
+        "component_seeds": [
+          [
+            1134,
+            687
+          ]
+        ],
+        "scale": 1.177249,
+        "anchor_x": 92.089888,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1310,
+          621,
+          182,
+          135
+        ],
+        "component_seeds": [
+          [
+            1423,
+            688
+          ]
+        ],
+        "scale": 1.186352,
+        "anchor_x": 96.975664,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          665,
+          163,
+          197,
+          153
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          35,
+          876,
+          179,
+          136
+        ],
+        "component_seeds": [
+          [
+            114,
+            945
+          ]
+        ],
+        "scale": 1.182292,
+        "anchor_x": 94.669604,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          296,
+          883,
+          167,
+          130
+        ],
+        "component_seeds": [
+          [
+            339,
+            943
+          ]
+        ],
+        "scale": 1.226776,
+        "anchor_x": 74.946548,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          864,
+          163,
+          181,
+          148
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          552,
+          884,
+          166,
+          129
+        ],
+        "component_seeds": [
+          [
+            643,
+            943
+          ]
+        ],
+        "scale": 1.192837,
+        "anchor_x": 75.057737,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          803,
+          890,
+          175,
+          123
+        ],
+        "component_seeds": [
+          [
+            910,
+            943
+          ]
+        ],
+        "scale": 1.223188,
+        "anchor_x": 94.63981,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1244,
+          163,
+          190,
+          137
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1059,
+          892,
+          176,
+          121
+        ],
+        "component_seeds": [
+          [
+            1196,
+            944
+          ]
+        ],
+        "scale": 1.244838,
+        "anchor_x": 89.092417,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "region": [
+          1329,
+          884,
+          154,
+          129
+        ],
+        "component_seeds": [
+          [
+            1399,
+            944
+          ]
+        ],
+        "scale": 1.192837,
+        "anchor_x": 64.321016,
+        "grade": {
+          "saturation": 1.1101,
+          "rgb": [
+            0.9278,
+            0.9435,
+            0.9418
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1436,
+          163,
+          193,
+          145
+        ],
+        "anchor_x": 137.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1631,
+          163,
+          199,
+          148
+        ],
+        "anchor_x": 66.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1832,
+          163,
+          195,
+          146
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2029,
+          163,
+          165,
+          138
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2196,
+          163,
+          218,
+          126
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2416,
+          163,
+          200,
+          117
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2618,
+          163,
+          188,
+          143
+        ],
+        "anchor_x": 117.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2808,
+          163,
+          213,
+          106
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      }
+    ],
+    "mote_seek_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3023,
+          163,
+          185,
+          142
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          45,
+          120,
+          162,
+          127
+        ],
+        "component_seeds": [
+          [
+            175,
+            179
+          ]
+        ],
+        "scale": 1.193277,
+        "anchor_x": 71.004695,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          306,
+          118,
+          156,
+          130
+        ],
+        "component_seeds": [
+          [
+            362,
+            176
+          ]
+        ],
+        "scale": 1.163934,
+        "anchor_x": 59.812207,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3210,
+          163,
+          182,
+          142
+        ],
+        "anchor_x": 72.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          560,
+          118,
+          159,
+          129
+        ],
+        "component_seeds": [
+          [
+            708,
+            176
+          ]
+        ],
+        "scale": 1.192837,
+        "anchor_x": 62.556582,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          813,
+          112,
+          161,
+          135
+        ],
+        "component_seeds": [
+          [
+            844,
+            174
+          ]
+        ],
+        "scale": 1.154856,
+        "anchor_x": 63.95,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3394,
+          163,
+          185,
+          149
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1069,
+          113,
+          162,
+          133
+        ],
+        "component_seeds": [
+          [
+            1081,
+            176
+          ]
+        ],
+        "scale": 1.168,
+        "anchor_x": 63.878995,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1325,
+          118,
+          161,
+          126
+        ],
+        "component_seeds": [
+          [
+            1406,
+            174
+          ]
+        ],
+        "scale": 1.211864,
+        "anchor_x": 64.296037,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3581,
+          163,
+          184,
+          140
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          47,
+          375,
+          158,
+          126
+        ],
+        "component_seeds": [
+          [
+            149,
+            430
+          ]
+        ],
+        "scale": 1.19774,
+        "anchor_x": 62.075472,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          287,
+          370,
+          186,
+          132
+        ],
+        "component_seeds": [
+          [
+            389,
+            431
+          ]
+        ],
+        "scale": 1.150538,
+        "anchor_x": 64.588785,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      }
+    ],
+    "mote_seek": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3767,
+          163,
+          222,
+          144
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          543,
+          371,
+          189,
+          130
+        ],
+        "component_seeds": [
+          [
+            663,
+            431
+          ]
+        ],
+        "scale": 1.161202,
+        "anchor_x": 65.054118,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          799,
+          380,
+          191,
+          121
+        ],
+        "component_seeds": [
+          [
+            884,
+            436
+          ]
+        ],
+        "scale": 1.233038,
+        "anchor_x": 67.157895,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          318,
+          221,
+          137
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1054,
+          378,
+          191,
+          124
+        ],
+        "component_seeds": [
+          [
+            1180,
+            435
+          ]
+        ],
+        "scale": 1.143678,
+        "anchor_x": 66.763819,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1310,
+          389,
+          191,
+          112
+        ],
+        "component_seeds": [
+          [
+            1375,
+            436
+          ]
+        ],
+        "scale": 1.233974,
+        "anchor_x": 72.171429,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          223,
+          318,
+          217,
+          124
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          31,
+          643,
+          189,
+          114
+        ],
+        "component_seeds": [
+          [
+            115,
+            691
+          ]
+        ],
+        "scale": 1.235849,
+        "anchor_x": 71.198473,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          302,
+          629,
+          160,
+          127
+        ],
+        "component_seeds": [
+          [
+            416,
+            683
+          ]
+        ],
+        "scale": 1.159664,
+        "anchor_x": 64.028986,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          442,
+          318,
+          180,
+          145
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          559,
+          628,
+          159,
+          128
+        ],
+        "component_seeds": [
+          [
+            595,
+            683
+          ]
+        ],
+        "scale": 1.197222,
+        "anchor_x": 63.62413,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          800,
+          631,
+          183,
+          126
+        ],
+        "component_seeds": [
+          [
+            887,
+            684
+          ]
+        ],
+        "scale": 1.206215,
+        "anchor_x": 71.761124,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      }
+    ],
+    "mote_seek_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          624,
+          318,
+          209,
+          141
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1058,
+          632,
+          182,
+          125
+        ],
+        "component_seeds": [
+          [
+            1110,
+            685
+          ]
+        ],
+        "scale": 1.196581,
+        "anchor_x": 70.335714,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1326,
+          636,
+          159,
+          121
+        ],
+        "component_seeds": [
+          [
+            1428,
+            687
+          ]
+        ],
+        "scale": 1.230088,
+        "anchor_x": 66.573141,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          835,
+          318,
+          177,
+          138
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          45,
+          892,
+          161,
+          121
+        ],
+        "component_seeds": [
+          [
+            103,
+            945
+          ]
+        ],
+        "scale": 1.215339,
+        "anchor_x": 67.349515,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          301,
+          892,
+          161,
+          121
+        ],
+        "component_seeds": [
+          [
+            438,
+            946
+          ]
+        ],
+        "scale": 1.20944,
+        "anchor_x": 68.534146,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1014,
+          318,
+          181,
+          136
+        ],
+        "anchor_x": 76.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          556,
+          892,
+          163,
+          121
+        ],
+        "component_seeds": [
+          [
+            621,
+            946
+          ]
+        ],
+        "scale": 1.20354,
+        "anchor_x": 69.997549,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          810,
+          891,
+          168,
+          122
+        ],
+        "component_seeds": [
+          [
+            947,
+            944
+          ]
+        ],
+        "scale": 1.192982,
+        "anchor_x": 74.117647,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1197,
+          318,
+          185,
+          136
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1068,
+          890,
+          165,
+          122
+        ],
+        "component_seeds": [
+          [
+            1178,
+            943
+          ]
+        ],
+        "scale": 1.22807,
+        "anchor_x": 68.557143,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "region": [
+          1328,
+          882,
+          156,
+          131
+        ],
+        "component_seeds": [
+          [
+            1348,
+            942
+          ]
+        ],
+        "scale": 1.170732,
+        "anchor_x": 57.951389,
+        "grade": {
+          "saturation": 1.0641,
+          "rgb": [
+            0.8612,
+            0.8808,
+            0.9012
+          ]
+        }
+      }
+    ],
+    "mote_seek_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1384,
+          318,
+          183,
+          144
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1569,
+          318,
+          183,
+          143
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/bell_mote.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "mote_seek_windup",
+      "mote_seek",
+      "mote_seek_recover",
+      "mote_seek_charge"
+    ],
+    "sheets": [
+      {
+        "image": "mote_seek.png",
+        "image_sha256": "96cff75cda16e4676bc24aacf14c449f16515b7b7776b51052c1591c01a5ded1",
+        "role": "new",
+        "attack": "mote_seek",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.8261,
+        "anchors": [
+          99.6,
+          87.6,
+          92.6,
+          89.6,
+          91.6,
+          92.6,
+          96.6,
+          84.6,
+          94.6,
+          89.6,
+          93.6,
+          98.6,
+          86.6,
+          86.6
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.8209,
+          "last_recover_ratio": 0.8314
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "bell_mote__attack",
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__attack.png",
+        "sha256": "f652d30d2bd3ebd1043ba7174703329fd7a70fb9b988429cdcb8044c8443f931",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bell_mote__attack.png"
+      },
+      {
+        "id": "bell_mote__mote_seek",
+        "source": "art_requests/combat_motion_v7/incoming/bell_mote__mote_seek.png",
+        "sha256": "7be95afdc57ea84a5d8c0838d3f5ec66dc87f2cc2ad445f87988159ff930f296",
+        "new_drawings": 24,
+        "animations": [
+          "mote_seek_windup",
+          "mote_seek",
+          "mote_seek_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/bell_mote__mote_seek.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

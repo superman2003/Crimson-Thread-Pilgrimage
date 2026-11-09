@@ -152,7 +152,7 @@ def audit(root: Path) -> dict:
         report['errors'].append(f'invalid audit configuration: {error}')
         return report
     candidates = sorted('res://' + path.relative_to(godot).as_posix() for path in godot.rglob('*')
-                        if path.suffix in ('.gd', '.tscn') and '.godot' not in path.parts and 'addons' not in path.parts)
+                        if path.suffix in ('.gd', '.tscn') and '.godot' not in path.parts and ('addons' not in path.parts or 'beehave' in path.parts))
     errors = [f'missing runtime reference: {item}' for item in missing]
     errors.extend(f'script or scene path is built dynamically, review export by hand: {item}' for item in dynamic)
     report.update(reachable=sorted(item for item in seen if item in candidates),

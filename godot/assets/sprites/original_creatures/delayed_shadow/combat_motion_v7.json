@@ -1,0 +1,2425 @@
+{
+  "generator": "built-in image_gen",
+  "prompt": "Use case: stylized-concept. Create a transparent 2D game animation sprite sheet of SAME referenced delayed shadow: slender dark navy moth shade, blank ivory mask, long feather antennae, ragged dark navy wing cloak, trailing crimson scarf, slim silver needle sword. Preserve hand-drawn ink/painterly style. STRICT 4 columns by 8 rows, 32 full-body poses on portrait canvas. Small complete sprites with LARGE empty transparent gutters. Whole scarf, sword and antennae fit inside each cell, no touching others; keep sword close to body and strike diagonally down rather than long horizontal extension. Face RIGHT, same body proportions and size. Row1 4 idle breath poses; Rows2-3 8 walking/running poses alternating legs; Row4 4 crouching needle-draw windup poses; Row5 4 downward diagonal needle-slash attack poses; Row6 4 recovery to stance poses; Row7 4 hurt stagger recoil poses; Row8 4 death collapse poses ending prone. Each drawing genuinely different joints, scarf and body articulation, no duplicates. EXACTLY FOUR figures every row, eight rows. Real transparent alpha, no backdrop, labels, text, grid lines or shadows.",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-5c2c8e91-4429-4fb6-80af-0136af63c189.png",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/delayed_shadow/atlas.png",
+  "supplement": {
+    "prompt": "Use case: identity-preserve. SAME delayed_shadow character as reference. Draw a production transparent 2D hand-painted ink game sprite strip with exactly FOUR columns and ONE row: four full body attack RECOVERY poses in sequence. 1 needle sword low after slash, 2 drawing sword towards hip, 3 settling feet and shoulders, 4 returning relaxed upright idle, sword near cloak. Identical navy moth body with ivory blank mask, long feather antennae, ragged navy wing cloak and crimson scarf. Entire scarf, antennae and silver needle sword fully visible. Right-facing orthographic side view. Tiny centered figure taking at most 60% cell width and 75% cell height, VERY LARGE blank transparent gutters. Same body size each pose, consistent foot baseline, real arm/leg/cloth articulation, no duplicated stamps. True transparent alpha; no background, text, grid or labels.",
+    "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-7198b1af-443e-4708-98b3-53379ec2c59d.png"
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          202,
+          221
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          204,
+          0,
+          190,
+          220
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          396,
+          0,
+          175,
+          215
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          573,
+          0,
+          183,
+          216
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          758,
+          0,
+          207,
+          200
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          967,
+          0,
+          208,
+          201
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1177,
+          0,
+          210,
+          194
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1389,
+          0,
+          198,
+          193
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1589,
+          0,
+          221,
+          200
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1812,
+          0,
+          213,
+          195
+        ],
+        "anchor_x": 93.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2027,
+          0,
+          223,
+          194
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2252,
+          0,
+          205,
+          192
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2459,
+          0,
+          199,
+          177
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          30,
+          89,
+          185,
+          157
+        ],
+        "component_seeds": [
+          [
+            43,
+            172
+          ]
+        ],
+        "scale": 1.176734,
+        "anchor_x": 95.501901,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          275,
+          91,
+          212,
+          155
+        ],
+        "component_seeds": [
+          [
+            303,
+            171
+          ]
+        ],
+        "scale": 1.181406,
+        "anchor_x": 97.996161,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2660,
+          0,
+          248,
+          172
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          529,
+          91,
+          218,
+          157
+        ],
+        "component_seeds": [
+          [
+            622,
+            172
+          ]
+        ],
+        "scale": 1.170022,
+        "anchor_x": 98.464627,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          783,
+          89,
+          218,
+          159
+        ],
+        "component_seeds": [
+          [
+            877,
+            177
+          ]
+        ],
+        "scale": 1.169978,
+        "anchor_x": 96.603774,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2910,
+          0,
+          232,
+          179
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1041,
+          83,
+          211,
+          164
+        ],
+        "component_seeds": [
+          [
+            1113,
+            176
+          ]
+        ],
+        "scale": 1.181624,
+        "anchor_x": 97.972875,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1314,
+          77,
+          178,
+          169
+        ],
+        "component_seeds": [
+          [
+            1424,
+            161
+          ]
+        ],
+        "scale": 1.178054,
+        "anchor_x": 90.077329,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3144,
+          0,
+          200,
+          195
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          29,
+          326,
+          185,
+          175
+        ],
+        "component_seeds": [
+          [
+            128,
+            412
+          ]
+        ],
+        "scale": 1.213573,
+        "anchor_x": 95.583882,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          280,
+          314,
+          193,
+          187
+        ],
+        "component_seeds": [
+          [
+            420,
+            402
+          ]
+        ],
+        "scale": 1.175047,
+        "anchor_x": 105.489699,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3346,
+          0,
+          214,
+          218
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          538,
+          318,
+          190,
+          183
+        ],
+        "component_seeds": [
+          [
+            666,
+            402
+          ]
+        ],
+        "scale": 1.213333,
+        "anchor_x": 99.538462,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          779,
+          327,
+          223,
+          173
+        ],
+        "component_seeds": [
+          [
+            925,
+            414
+          ]
+        ],
+        "scale": 1.252525,
+        "anchor_x": 91.701613,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3562,
+          0,
+          256,
+          201
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1034,
+          327,
+          226,
+          173
+        ],
+        "component_seeds": [
+          [
+            1132,
+            413
+          ]
+        ],
+        "scale": 1.262626,
+        "anchor_x": 86.824,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1304,
+          316,
+          196,
+          185
+        ],
+        "component_seeds": [
+          [
+            1460,
+            410
+          ]
+        ],
+        "scale": 1.218456,
+        "anchor_x": 83.199382,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3820,
+          0,
+          209,
+          223
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          27,
+          566,
+          190,
+          189
+        ],
+        "component_seeds": [
+          [
+            113,
+            665
+          ]
+        ],
+        "scale": 1.217311,
+        "anchor_x": 80.534039,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          289,
+          571,
+          173,
+          185
+        ],
+        "component_seeds": [
+          [
+            428,
+            667
+          ]
+        ],
+        "scale": 1.229755,
+        "anchor_x": 77.97856,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          225,
+          184,
+          215
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          542,
+          568,
+          179,
+          189
+        ],
+        "component_seeds": [
+          [
+            631,
+            666
+          ]
+        ],
+        "scale": 1.119705,
+        "anchor_x": 83.588816,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          778,
+          605,
+          222,
+          150
+        ],
+        "component_seeds": [
+          [
+            855,
+            688
+          ]
+        ],
+        "scale": 1.340376,
+        "anchor_x": 82.835377,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          186,
+          225,
+          265,
+          178
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1033,
+          604,
+          225,
+          152
+        ],
+        "component_seeds": [
+          [
+            1081,
+            689
+          ]
+        ],
+        "scale": 1.289352,
+        "anchor_x": 84.971275,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1310,
+          584,
+          185,
+          172
+        ],
+        "component_seeds": [
+          [
+            1406,
+            676
+          ]
+        ],
+        "scale": 1.178862,
+        "anchor_x": 88.510345,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          453,
+          225,
+          192,
+          201
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          34,
+          840,
+          180,
+          172
+        ],
+        "component_seeds": [
+          [
+            176,
+            931
+          ]
+        ],
+        "scale": 1.247967,
+        "anchor_x": 84.899023,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          295,
+          832,
+          158,
+          182
+        ],
+        "component_seeds": [
+          [
+            387,
+            931
+          ]
+        ],
+        "scale": 1.197318,
+        "anchor_x": 80.0688,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          647,
+          225,
+          154,
+          212
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          550,
+          830,
+          159,
+          184
+        ],
+        "component_seeds": [
+          [
+            629,
+            930
+          ]
+        ],
+        "scale": 1.221591,
+        "anchor_x": 87.993798,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          800,
+          822,
+          164,
+          192
+        ],
+        "component_seeds": [
+          [
+            895,
+            924
+          ]
+        ],
+        "scale": 1.184783,
+        "anchor_x": 98.278287,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          803,
+          225,
+          160,
+          221
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1056,
+          823,
+          170,
+          191
+        ],
+        "component_seeds": [
+          [
+            1202,
+            922
+          ]
+        ],
+        "scale": 1.20765,
+        "anchor_x": 100.78733,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "region": [
+          1310,
+          819,
+          188,
+          195
+        ],
+        "component_seeds": [
+          [
+            1334,
+            928
+          ]
+        ],
+        "scale": 1.181818,
+        "anchor_x": 104.205128,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          965,
+          225,
+          223,
+          222
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1190,
+          225,
+          188,
+          223
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1380,
+          225,
+          238,
+          185
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1620,
+          225,
+          228,
+          161
+        ],
+        "anchor_x": 115.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1850,
+          225,
+          238,
+          197
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2090,
+          225,
+          257,
+          144
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2349,
+          225,
+          255,
+          98
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2606,
+          225,
+          250,
+          82
+        ],
+        "anchor_x": 123.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2858,
+          225,
+          206,
+          162
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3066,
+          225,
+          228,
+          163
+        ],
+        "anchor_x": 124.0,
+        "packed_runtime": true
+      }
+    ],
+    "shadow_echo_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3296,
+          225,
+          169,
+          199
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          45,
+          69,
+          158,
+          178
+        ],
+        "component_seeds": [
+          [
+            156,
+            169
+          ]
+        ],
+        "scale": 1.180392,
+        "anchor_x": 77.209302,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          302,
+          63,
+          154,
+          184
+        ],
+        "component_seeds": [
+          [
+            399,
+            167
+          ]
+        ],
+        "scale": 1.149621,
+        "anchor_x": 72.733114,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3467,
+          225,
+          170,
+          204
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          554,
+          62,
+          159,
+          185
+        ],
+        "component_seeds": [
+          [
+            665,
+            165
+          ]
+        ],
+        "scale": 1.246704,
+        "anchor_x": 79.155589,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          814,
+          25,
+          154,
+          222
+        ],
+        "component_seeds": [
+          [
+            943,
+            157
+          ]
+        ],
+        "scale": 1.109034,
+        "anchor_x": 69.064607,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3639,
+          225,
+          170,
+          254
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1071,
+          25,
+          154,
+          223
+        ],
+        "component_seeds": [
+          [
+            1192,
+            155
+          ]
+        ],
+        "scale": 1.172093,
+        "anchor_x": 70.083333,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1326,
+          24,
+          157,
+          223
+        ],
+        "component_seeds": [
+          [
+            1419,
+            152
+          ]
+        ],
+        "scale": 1.162791,
+        "anchor_x": 73.94,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3811,
+          225,
+          171,
+          248
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          44,
+          279,
+          159,
+          224
+        ],
+        "component_seeds": [
+          [
+            178,
+            408
+          ]
+        ],
+        "scale": 1.029321,
+        "anchor_x": 70.598201,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          281,
+          342,
+          187,
+          161
+        ],
+        "component_seeds": [
+          [
+            414,
+            421
+          ]
+        ],
+        "scale": 1.285403,
+        "anchor_x": 89.662712,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "shadow_echo": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          481,
+          203,
+          171
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          534,
+          343,
+          188,
+          159
+        ],
+        "component_seeds": [
+          [
+            704,
+            421
+          ]
+        ],
+        "scale": 1.121413,
+        "anchor_x": 88.86811,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          777,
+          353,
+          225,
+          149
+        ],
+        "component_seeds": [
+          [
+            874,
+            427
+          ]
+        ],
+        "scale": 1.189125,
+        "anchor_x": 84.461233,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          205,
+          481,
+          248,
+          166
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1034,
+          355,
+          232,
+          147
+        ],
+        "component_seeds": [
+          [
+            1209,
+            428
+          ]
+        ],
+        "scale": 1.146283,
+        "anchor_x": 84.424686,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1292,
+          382,
+          235,
+          120
+        ],
+        "component_seeds": [
+          [
+            1364,
+            441
+          ]
+        ],
+        "scale": 1.363095,
+        "anchor_x": 85.061135,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          455,
+          481,
+          289,
+          146
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          8,
+          637,
+          239,
+          120
+        ],
+        "component_seeds": [
+          [
+            58,
+            697
+          ]
+        ],
+        "scale": 1.35119,
+        "anchor_x": 88.69163,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          288,
+          609,
+          173,
+          149
+        ],
+        "component_seeds": [
+          [
+            320,
+            686
+          ]
+        ],
+        "scale": 1.111111,
+        "anchor_x": 71.3,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          746,
+          481,
+          189,
+          162
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          544,
+          610,
+          176,
+          148
+        ],
+        "component_seeds": [
+          [
+            668,
+            684
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 72.333333,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          796,
+          595,
+          189,
+          163
+        ],
+        "component_seeds": [
+          [
+            876,
+            676
+          ]
+        ],
+        "scale": 1.122581,
+        "anchor_x": 75.183908,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "shadow_echo_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          937,
+          481,
+          199,
+          180
+        ],
+        "anchor_x": 74.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1050,
+          595,
+          187,
+          163
+        ],
+        "component_seeds": [
+          [
+            1133,
+            675
+          ]
+        ],
+        "scale": 1.154839,
+        "anchor_x": 80.970205,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1302,
+          596,
+          199,
+          162
+        ],
+        "component_seeds": [
+          [
+            1366,
+            678
+          ]
+        ],
+        "scale": 1.155844,
+        "anchor_x": 80.273408,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1138,
+          481,
+          223,
+          177
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          23,
+          851,
+          197,
+          163
+        ],
+        "component_seeds": [
+          [
+            146,
+            935
+          ]
+        ],
+        "scale": 1.141935,
+        "anchor_x": 80.06968,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          289,
+          852,
+          172,
+          163
+        ],
+        "component_seeds": [
+          [
+            309,
+            932
+          ]
+        ],
+        "scale": 1.141935,
+        "anchor_x": 84.777778,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1363,
+          481,
+          183,
+          177
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          548,
+          850,
+          172,
+          165
+        ],
+        "component_seeds": [
+          [
+            662,
+            931
+          ]
+        ],
+        "scale": 1.131635,
+        "anchor_x": 83.326454,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          805,
+          851,
+          170,
+          164
+        ],
+        "component_seeds": [
+          [
+            904,
+            936
+          ]
+        ],
+        "scale": 1.143162,
+        "anchor_x": 83.504673,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1548,
+          481,
+          174,
+          179
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1065,
+          851,
+          166,
+          164
+        ],
+        "component_seeds": [
+          [
+            1178,
+            935
+          ]
+        ],
+        "scale": 1.237179,
+        "anchor_x": 80.487047,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "region": [
+          1311,
+          813,
+          188,
+          204
+        ],
+        "component_seeds": [
+          [
+            1413,
+            927
+          ]
+        ],
+        "scale": 1.056122,
+        "anchor_x": 99.906602,
+        "grade": {
+          "saturation": 1.15,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      20,
+      2,
+      202,
+      221
+    ],
+    [
+      290,
+      4,
+      190,
+      220
+    ],
+    [
+      550,
+      11,
+      175,
+      215
+    ],
+    [
+      812,
+      9,
+      184,
+      216
+    ],
+    [
+      25,
+      225,
+      207,
+      200
+    ],
+    [
+      287,
+      225,
+      209,
+      201
+    ],
+    [
+      538,
+      234,
+      211,
+      194
+    ],
+    [
+      804,
+      234,
+      198,
+      193
+    ],
+    [
+      20,
+      432,
+      223,
+      200
+    ],
+    [
+      290,
+      433,
+      214,
+      196
+    ],
+    [
+      542,
+      440,
+      223,
+      194
+    ],
+    [
+      809,
+      439,
+      205,
+      193
+    ],
+    [
+      25,
+      634,
+      200,
+      177
+    ],
+    [
+      276,
+      643,
+      248,
+      173
+    ],
+    [
+      538,
+      645,
+      232,
+      180
+    ],
+    [
+      793,
+      638,
+      200,
+      197
+    ],
+    [
+      12,
+      830,
+      215,
+      218
+    ],
+    [
+      290,
+      844,
+      257,
+      202
+    ],
+    [
+      553,
+      832,
+      209,
+      224
+    ],
+    [
+      818,
+      841,
+      184,
+      215
+    ],
+    [
+      22,
+      1066,
+      223,
+      222
+    ],
+    [
+      295,
+      1070,
+      188,
+      224
+    ],
+    [
+      537,
+      1101,
+      238,
+      185
+    ],
+    [
+      781,
+      1126,
+      228,
+      161
+    ],
+    [
+      12,
+      1316,
+      238,
+      197
+    ],
+    [
+      267,
+      1358,
+      258,
+      146
+    ],
+    [
+      529,
+      1404,
+      256,
+      99
+    ],
+    [
+      773,
+      1420,
+      250,
+      84
+    ]
+  ],
+  "qa": {
+    "status": "visually reviewed actual 7x4 layout, recovered missing action poses separately",
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "source_scale": 0.44763860369609854,
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers.",
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "tool": "built-in image_gen",
+    "complete_silhouettes": "Verified source and packaged runtime, including full claws, wings, scarf, shield and sword. All four waterwheel attack sword tips inside source image; no boundary cuts."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            2,
+            202,
+            221
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            290,
+            4,
+            190,
+            220
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            550,
+            11,
+            175,
+            215
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            812,
+            9,
+            184,
+            216
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            225,
+            207,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            287,
+            225,
+            209,
+            201
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            538,
+            234,
+            211,
+            194
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            804,
+            234,
+            198,
+            193
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            20,
+            432,
+            223,
+            200
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            290,
+            433,
+            214,
+            196
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            542,
+            440,
+            223,
+            194
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            809,
+            439,
+            205,
+            193
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            25,
+            634,
+            200,
+            177
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            276,
+            643,
+            248,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            538,
+            645,
+            232,
+            180
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            793,
+            638,
+            200,
+            197
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            12,
+            830,
+            215,
+            218
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            290,
+            844,
+            257,
+            202
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            553,
+            832,
+            209,
+            224
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            818,
+            841,
+            184,
+            215
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            60,
+            192,
+            634,
+            407
+          ]
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            631,
+            149,
+            430,
+            449
+          ]
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            1190,
+            124,
+            346,
+            473
+          ]
+        },
+        {
+          "sheet": "motion_recover.png",
+          "region": [
+            1676,
+            110,
+            359,
+            493
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            22,
+            1066,
+            223,
+            222
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            295,
+            1070,
+            188,
+            224
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            537,
+            1101,
+            238,
+            185
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            781,
+            1126,
+            228,
+            161
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            12,
+            1316,
+            238,
+            197
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            267,
+            1358,
+            258,
+            146
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            529,
+            1404,
+            256,
+            99
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            773,
+            1420,
+            250,
+            84
+          ]
+        }
+      ]
+    }
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/delayed_shadow.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "shadow_echo_windup",
+      "shadow_echo",
+      "shadow_echo_recover"
+    ],
+    "sheets": [
+      {
+        "image": "shadow_blink_loops.png",
+        "image_sha256": "c15923610e428242e2a27acc2ccfd3ce1ecd47dd0b26ba1d2d0d8ed8498f3965",
+        "role": "keep",
+        "attack": "shadow_blink",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3574,
+        "anchors": [
+          300.5,
+          348.5
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3594,
+            0.3553
+          ]
+        }
+      },
+      {
+        "image": "shadow_echo.png",
+        "image_sha256": "6758eddcbceaa1b7f5769b13fa249d0ef4e3e9c7d7ef87adf17637a361b514d3",
+        "role": "new",
+        "attack": "shadow_echo",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7048,
+        "anchors": [
+          114.8,
+          110.8,
+          104.8,
+          110.8,
+          125.8,
+          119.8,
+          150.8,
+          99.8,
+          105.8,
+          116.8,
+          121.8,
+          116.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.6994,
+          "last_recover_ratio": 0.7103
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "H_delayed_shadow_recover0.png",
+        "image_sha256": "01ea1ad38934d9b47383d0945f6863e3198e33b32e299c295cf17f96c0db2c0f",
+        "op": "replace_frames",
+        "animation": "recover",
+        "scale": 0.3326,
+        "anchors": [
+          383.9
+        ],
+        "grade": {
+          "saturation": 0.869,
+          "rgb": [
+            1.002,
+            0.997,
+            1.001
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "recover[0]": 0.3405,
+            "recover[1]": 0.3248
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "H_delayed_shadow_recover0.png",
+        "op": "replace_frames",
+        "animation": "recover",
+        "replaced": {
+          "0": {
+            "sheet": "motion_recover.png",
+            "region": [
+              60,
+              192,
+              634,
+              407
+            ],
+            "component_seeds": [
+              [
+                248,
+                423
+              ]
+            ],
+            "scale": 0.44763860369609854,
+            "anchor_x": 211.5
+          }
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "delayed_shadow__attack",
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__attack.png",
+        "sha256": "8d31139db0c061cd9bc052460cc0c7efdfb681abf07014d3fa55b76d40cd28c7",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/delayed_shadow__attack.png"
+      },
+      {
+        "id": "delayed_shadow__shadow_echo",
+        "source": "art_requests/combat_motion_v7/incoming/delayed_shadow__shadow_echo.png",
+        "sha256": "a8a79a16d0ec353f877e3af19decfcf2500cc8f4124ed5bdcc2f864b7bfbde22",
+        "new_drawings": 24,
+        "animations": [
+          "shadow_echo_windup",
+          "shadow_echo",
+          "shadow_echo_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/delayed_shadow__shadow_echo.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

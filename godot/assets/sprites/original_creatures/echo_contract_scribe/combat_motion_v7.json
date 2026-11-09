@@ -1,0 +1,1944 @@
+{
+  "kind": "echo_contract_scribe",
+  "generator": "built-in image_gen",
+  "prompt": "Create transparent 2D game animation sheet of exactly SAME referenced silver parchment insect scribe: smooth porcelain horned mask, ivory parchment cape, dark navy slender body, red hanging contract scroll with wax seal, narrow gold pen rapier. Preserve inked painted muted palette. A STRICT regular FOUR columns by EIGHT rows sprite sheet, 32 COMPLETE figures. Each full figure SMALL with wide transparent gutters and whole weapon/cape/antennae/scroll inside cell. Facing right; consistent costume, body scale and feet anchor. Row1 FOUR idle breathing poses. Row2 FOUR walk first-half alternating stride poses. Row3 FOUR walk second-half stride poses. Row4 FOUR windup lifting pen arm poses. Row5 FOUR compact downward pen slash/strike poses. Row6 FOUR recovery retracting pen and settling cape poses. Row7 FOUR hurt recoil stagger poses. Row8 FOUR death collapsing poses ending prone. No duplicated or translated figures; real limb and cape articulation between all poses. Exactly four sprites in all EIGHT rows, preserve last recovery row. Actual transparent alpha, no backdrop, grid, text, labels or shadows.",
+  "reference": "atlas.png",
+  "source_output": "/workspace/scratch/3ba9ab550e44/generated_images/exec-1430566c-32d5-482e-b02c-563caa11cd93.png",
+  "qa": {
+    "layout": "4 columns by 8 rows, all 32 authored poses visually reviewed",
+    "identity": "Original reference design and hand-painted dark outline preserved",
+    "motion": "Distinct articulated limb, costume and prop poses",
+    "component_isolation": "Explicit full silhouette seeds isolate interlocking rectangular bounds without modifying RGBA art.",
+    "final_review": "Packaged runtime atlas visually reviewed: complete isolated whole character poses, held weapons/props retained, transparent margins, no neighboring silhouette fragments.",
+    "resolved_bbox_intersections": [
+      [
+        "attack",
+        [
+          19,
+          865,
+          358,
+          1016
+        ],
+        3237,
+        true
+      ],
+      [
+        "attack",
+        [
+          298,
+          853,
+          579,
+          1016
+        ],
+        324,
+        true
+      ],
+      [
+        "attack",
+        [
+          578,
+          870,
+          786,
+          1016
+        ],
+        8,
+        true
+      ]
+    ],
+    "validation": "tools/build_expanded_character_motion.py --character echo_contract_scribe passes unique-pose, alpha, full-component, crop-margin, schema and minimum-count checks.",
+    "rig_origin": "Fixed source-sheet column cell center, shared across poses independent of silhouette bounding width. Main grids use their actual4/6 columns; supplemental attack strip2 columns; original atlas4 columns. Resolution factor applies uniformly after rig anchoring; actual authored lunges retained."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          115,
+          212
+        ],
+        "anchor_x": 56.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          117,
+          0,
+          119,
+          210
+        ],
+        "anchor_x": 59.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          238,
+          0,
+          117,
+          213
+        ],
+        "anchor_x": 60.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          357,
+          0,
+          163,
+          207
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          522,
+          0,
+          167,
+          199
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          691,
+          0,
+          194,
+          197
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          887,
+          0,
+          185,
+          199
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1074,
+          0,
+          195,
+          193
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1271,
+          0,
+          176,
+          199
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1449,
+          0,
+          186,
+          203
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1637,
+          0,
+          182,
+          202
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1821,
+          0,
+          182,
+          201
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2005,
+          0,
+          181,
+          195
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          41,
+          71,
+          168,
+          175
+        ],
+        "component_seeds": [
+          [
+            192,
+            175
+          ]
+        ],
+        "scale": 1.183633,
+        "anchor_x": 86.666105,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          287,
+          70,
+          186,
+          176
+        ],
+        "component_seeds": [
+          [
+            339,
+            174
+          ]
+        ],
+        "scale": 1.19246,
+        "anchor_x": 85.830283,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2188,
+          0,
+          205,
+          203
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          543,
+          70,
+          187,
+          176
+        ],
+        "component_seeds": [
+          [
+            576,
+            175
+          ]
+        ],
+        "scale": 1.210317,
+        "anchor_x": 87.098361,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          805,
+          67,
+          176,
+          180
+        ],
+        "component_seeds": [
+          [
+            863,
+            169
+          ]
+        ],
+        "scale": 1.184109,
+        "anchor_x": 77.672668,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2395,
+          0,
+          187,
+          204
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1058,
+          67,
+          179,
+          179
+        ],
+        "component_seeds": [
+          [
+            1182,
+            169
+          ]
+        ],
+        "scale": 1.194932,
+        "anchor_x": 84.49429,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1322,
+          61,
+          173,
+          185
+        ],
+        "component_seeds": [
+          [
+            1428,
+            176
+          ]
+        ],
+        "scale": 1.156309,
+        "anchor_x": 79.721498,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2584,
+          0,
+          197,
+          205
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          36,
+          318,
+          179,
+          184
+        ],
+        "component_seeds": [
+          [
+            108,
+            432
+          ]
+        ],
+        "scale": 1.070076,
+        "anchor_x": 82.982301,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          270,
+          388,
+          219,
+          114
+        ],
+        "component_seeds": [
+          [
+            338,
+            447
+          ]
+        ],
+        "scale": 1.619497,
+        "anchor_x": 76.590291,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2783,
+          0,
+          343,
+          155
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          525,
+          390,
+          223,
+          112
+        ],
+        "component_seeds": [
+          [
+            635,
+            446
+          ]
+        ],
+        "scale": 1.528846,
+        "anchor_x": 74.534591,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          777,
+          370,
+          234,
+          132
+        ],
+        "component_seeds": [
+          [
+            871,
+            443
+          ]
+        ],
+        "scale": 1.314516,
+        "anchor_x": 80.503067,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3128,
+          0,
+          285,
+          167
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1032,
+          365,
+          235,
+          137
+        ],
+        "component_seeds": [
+          [
+            1140,
+            443
+          ]
+        ],
+        "scale": 1.250646,
+        "anchor_x": 77.345041,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1306,
+          366,
+          200,
+          137
+        ],
+        "component_seeds": [
+          [
+            1383,
+            452
+          ]
+        ],
+        "scale": 1.206718,
+        "anchor_x": 65.901499,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3415,
+          0,
+          212,
+          150
+        ],
+        "anchor_x": 64.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          28,
+          625,
+          197,
+          133
+        ],
+        "component_seeds": [
+          [
+            52,
+            707
+          ]
+        ],
+        "scale": 1.226667,
+        "anchor_x": 69.695652,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          261,
+          638,
+          240,
+          120
+        ],
+        "component_seeds": [
+          [
+            327,
+            707
+          ]
+        ],
+        "scale": 1.39881,
+        "anchor_x": 94.276596,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3629,
+          0,
+          304,
+          160
+        ],
+        "anchor_x": 121.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          521,
+          639,
+          232,
+          119
+        ],
+        "component_seeds": [
+          [
+            660,
+            706
+          ]
+        ],
+        "scale": 1.528529,
+        "anchor_x": 97.45776,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          792,
+          591,
+          195,
+          168
+        ],
+        "component_seeds": [
+          [
+            893,
+            687
+          ]
+        ],
+        "scale": 1.120833,
+        "anchor_x": 96.078067,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          215,
+          211,
+          189
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1050,
+          591,
+          191,
+          167
+        ],
+        "component_seeds": [
+          [
+            1136,
+            688
+          ]
+        ],
+        "scale": 1.186583,
+        "anchor_x": 93.572438,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1296,
+          592,
+          223,
+          167
+        ],
+        "component_seeds": [
+          [
+            1303,
+            682
+          ]
+        ],
+        "scale": 1.184486,
+        "anchor_x": 93.557522,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          213,
+          215,
+          254,
+          188
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          14,
+          850,
+          221,
+          165
+        ],
+        "component_seeds": [
+          [
+            110,
+            938
+          ]
+        ],
+        "scale": 1.18896,
+        "anchor_x": 88.944643,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          279,
+          852,
+          201,
+          162
+        ],
+        "component_seeds": [
+          [
+            395,
+            950
+          ]
+        ],
+        "scale": 1.203463,
+        "anchor_x": 85.489209,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          469,
+          215,
+          217,
+          184
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          535,
+          853,
+          196,
+          161
+        ],
+        "component_seeds": [
+          [
+            602,
+            952
+          ]
+        ],
+        "scale": 1.217865,
+        "anchor_x": 84.483005,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          820,
+          843,
+          139,
+          171
+        ],
+        "component_seeds": [
+          [
+            909,
+            947
+          ]
+        ],
+        "scale": 1.157464,
+        "anchor_x": 70.008834,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          688,
+          215,
+          143,
+          191
+        ],
+        "anchor_x": 70.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1083,
+          843,
+          133,
+          171
+        ],
+        "component_seeds": [
+          [
+            1137,
+            946
+          ]
+        ],
+        "scale": 1.214724,
+        "anchor_x": 68.553872,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "region": [
+          1352,
+          829,
+          112,
+          185
+        ],
+        "component_seeds": [
+          [
+            1433,
+            939
+          ]
+        ],
+        "scale": 1.158192,
+        "anchor_x": 53.336585,
+        "grade": {
+          "saturation": 1.0725,
+          "rgb": [
+            0.8915,
+            0.9035,
+            0.9023
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          833,
+          215,
+          186,
+          172
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1021,
+          215,
+          216,
+          166
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1239,
+          215,
+          203,
+          150
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1444,
+          215,
+          229,
+          133
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1675,
+          215,
+          238,
+          124
+        ],
+        "anchor_x": 120.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1915,
+          215,
+          241,
+          121
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2158,
+          215,
+          244,
+          85
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2404,
+          215,
+          236,
+          75
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2642,
+          215,
+          214,
+          208
+        ],
+        "anchor_x": 101.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2858,
+          215,
+          198,
+          177
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      }
+    ],
+    "echo_scribe_seals_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3058,
+          215,
+          170,
+          213
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          54,
+          50,
+          148,
+          195
+        ],
+        "component_seeds": [
+          [
+            89,
+            177
+          ]
+        ],
+        "scale": 1.092692,
+        "anchor_x": 79.763458,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          299,
+          85,
+          160,
+          160
+        ],
+        "component_seeds": [
+          [
+            446,
+            177
+          ]
+        ],
+        "scale": 1.287281,
+        "anchor_x": 79.008518,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3230,
+          215,
+          189,
+          187
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          555,
+          91,
+          160,
+          154
+        ],
+        "component_seeds": [
+          [
+            660,
+            180
+          ]
+        ],
+        "scale": 1.239726,
+        "anchor_x": 77.740331,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          810,
+          100,
+          158,
+          145
+        ],
+        "component_seeds": [
+          [
+            878,
+            184
+          ]
+        ],
+        "scale": 1.277372,
+        "anchor_x": 77.954286,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3421,
+          215,
+          188,
+          169
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1065,
+          99,
+          162,
+          146
+        ],
+        "component_seeds": [
+          [
+            1124,
+            184
+          ]
+        ],
+        "scale": 1.316425,
+        "anchor_x": 78.910092,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1329,
+          63,
+          156,
+          182
+        ],
+        "component_seeds": [
+          [
+            1469,
+            169
+          ]
+        ],
+        "scale": 1.116858,
+        "anchor_x": 72.344768,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3611,
+          215,
+          177,
+          207
+        ],
+        "anchor_x": 83.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          51,
+          316,
+          160,
+          185
+        ],
+        "component_seeds": [
+          [
+            202,
+            422
+          ]
+        ],
+        "scale": 1.054614,
+        "anchor_x": 71.833929,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          285,
+          367,
+          195,
+          134
+        ],
+        "component_seeds": [
+          [
+            323,
+            438
+          ]
+        ],
+        "scale": 1.320106,
+        "anchor_x": 87.92986,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      }
+    ],
+    "echo_scribe_seals": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3790,
+          215,
+          228,
+          146
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          538,
+          369,
+          203,
+          132
+        ],
+        "component_seeds": [
+          [
+            628,
+            439
+          ]
+        ],
+        "scale": 1.129032,
+        "anchor_x": 89.028571,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          796,
+          387,
+          198,
+          114
+        ],
+        "component_seeds": [
+          [
+            871,
+            454
+          ]
+        ],
+        "scale": 1.264151,
+        "anchor_x": 83.880597,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          430,
+          212,
+          128
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1053,
+          388,
+          196,
+          113
+        ],
+        "component_seeds": [
+          [
+            1179,
+            454
+          ]
+        ],
+        "scale": 1.126984,
+        "anchor_x": 81.71831,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1300,
+          412,
+          210,
+          89
+        ],
+        "component_seeds": [
+          [
+            1357,
+            461
+          ]
+        ],
+        "scale": 1.341564,
+        "anchor_x": 73.794479,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          214,
+          430,
+          230,
+          99
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          27,
+          662,
+          207,
+          95
+        ],
+        "component_seeds": [
+          [
+            156,
+            716
+          ]
+        ],
+        "scale": 1.180077,
+        "anchor_x": 70.090909,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          297,
+          654,
+          177,
+          104
+        ],
+        "component_seeds": [
+          [
+            319,
+            718
+          ]
+        ],
+        "scale": 1.107639,
+        "anchor_x": 72.175549,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          446,
+          430,
+          192,
+          110
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          554,
+          651,
+          177,
+          107
+        ],
+        "component_seeds": [
+          [
+            650,
+            717
+          ]
+        ],
+        "scale": 1.23569,
+        "anchor_x": 74.256131,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          808,
+          619,
+          172,
+          139
+        ],
+        "component_seeds": [
+          [
+            859,
+            700
+          ]
+        ],
+        "scale": 1.02799,
+        "anchor_x": 82.569307,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      }
+    ],
+    "echo_scribe_seals_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          640,
+          430,
+          193,
+          147
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1064,
+          618,
+          172,
+          139
+        ],
+        "component_seeds": [
+          [
+            1220,
+            698
+          ]
+        ],
+        "scale": 1.178117,
+        "anchor_x": 84.643629,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1324,
+          606,
+          164,
+          152
+        ],
+        "component_seeds": [
+          [
+            1449,
+            687
+          ]
+        ],
+        "scale": 1.122685,
+        "anchor_x": 79.57732,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          835,
+          430,
+          177,
+          169
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          48,
+          864,
+          158,
+          150
+        ],
+        "component_seeds": [
+          [
+            106,
+            945
+          ]
+        ],
+        "scale": 1.197183,
+        "anchor_x": 77.039216,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          315,
+          862,
+          136,
+          152
+        ],
+        "component_seeds": [
+          [
+            411,
+            950
+          ]
+        ],
+        "scale": 1.1875,
+        "anchor_x": 71.701754,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1014,
+          430,
+          153,
+          172
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          575,
+          863,
+          130,
+          151
+        ],
+        "component_seeds": [
+          [
+            606,
+            951
+          ]
+        ],
+        "scale": 1.188811,
+        "anchor_x": 68.14902,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          834,
+          866,
+          126,
+          148
+        ],
+        "component_seeds": [
+          [
+            858,
+            954
+          ]
+        ],
+        "scale": 1.2,
+        "anchor_x": 66.944444,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1169,
+          430,
+          150,
+          166
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1093,
+          865,
+          123,
+          149
+        ],
+        "component_seeds": [
+          [
+            1160,
+            953
+          ]
+        ],
+        "scale": 1.286052,
+        "anchor_x": 64.446691,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "region": [
+          1352,
+          827,
+          107,
+          189
+        ],
+        "component_seeds": [
+          [
+            1402,
+            939
+          ]
+        ],
+        "scale": 1.086556,
+        "anchor_x": 53.955932,
+        "grade": {
+          "saturation": 1.0804,
+          "rgb": [
+            0.894,
+            0.907,
+            0.8921
+          ]
+        }
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/echo_contract_scribe.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "echo_scribe_seals_windup",
+      "echo_scribe_seals",
+      "echo_scribe_seals_recover"
+    ],
+    "sheets": [
+      {
+        "image": "echo_scribe_pages_loops.png",
+        "image_sha256": "c46c7e4398e1495b900db74a4b3c2440bdac629b2885ae324f8109b97ceeb952",
+        "role": "keep",
+        "attack": "echo_scribe_pages",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3352,
+        "anchors": [
+          302.3,
+          286.3
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.3256,
+            0.3451
+          ]
+        }
+      },
+      {
+        "image": "echo_scribe_seals.png",
+        "image_sha256": "46af9b29cefc677442fda757c98d4d264f308fa159f7fdf4cd26063e16008708",
+        "role": "new",
+        "attack": "echo_scribe_seals",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.6199,
+        "anchors": [
+          146.0,
+          139.0,
+          140.0,
+          135.0,
+          166.0,
+          146.0,
+          127.0,
+          132.0,
+          155.0,
+          139.0,
+          131.0,
+          133.0
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.5973,
+          "last_recover_ratio": 0.6433
+        }
+      }
+    ]
+  },
+  "character_motion_v5": {
+    "brief": "art_requests/character_motion_v5/README.md",
+    "tool": "tools/build_character_motion_v5.py",
+    "sheets": [
+      {
+        "image": "G_echo_contract_scribe_attack3.png",
+        "image_sha256": "0e5f7a1e6aee23b1afb58945888c0ec1cd7501917bc4ca002a0411e80730112b",
+        "op": "replace_frames",
+        "animation": "attack",
+        "scale": 0.3818,
+        "anchors": [
+          429.4
+        ],
+        "grade": {
+          "saturation": 0.948,
+          "rgb": [
+            0.953,
+            0.959,
+            0.946
+          ]
+        },
+        "calibration": {
+          "method": "matched poses",
+          "ratios": {
+            "attack[0]": 0.3818
+          }
+        }
+      }
+    ],
+    "changes": [
+      {
+        "image": "G_echo_contract_scribe_attack3.png",
+        "op": "replace_frames",
+        "animation": "attack",
+        "replaced": {
+          "3": {
+            "sheet": "motion_expanded.png",
+            "region": [
+              793,
+              898,
+              222,
+              119
+            ],
+            "component_seeds": [
+              [
+                849,
+                965
+              ]
+            ],
+            "anchor_x": 103.0
+          }
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "echo_contract_scribe__attack",
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__attack.png",
+        "sha256": "71a60b4dbb131c0324873d2d3658ec3ad4e6b615ec182039e78ead4f8669a3aa",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/echo_contract_scribe__attack.png"
+      },
+      {
+        "id": "echo_contract_scribe__echo_scribe_seals",
+        "source": "art_requests/combat_motion_v7/incoming/echo_contract_scribe__echo_scribe_seals.png",
+        "sha256": "ecc96ba0c1c2cf627017a0850e43ac73f7acc1282f064821af5c6d3bff372ad5",
+        "new_drawings": 24,
+        "animations": [
+          "echo_scribe_seals_windup",
+          "echo_scribe_seals",
+          "echo_scribe_seals_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/echo_contract_scribe__echo_scribe_seals.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

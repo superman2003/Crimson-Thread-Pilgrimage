@@ -1,0 +1,574 @@
+{
+  "schema": 1,
+  "framework": "Beehave v2.9.3",
+  "bosses": {
+    "rust_crown_guardian": {
+      "close_range": 210,
+      "approach_range": 159.6,
+      "reaction_seconds": 0.24,
+      "branches": [
+        {
+          "id": "canopy_air_denial",
+          "when": "airborne",
+          "opening": [
+            "boss_moss_spores"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.24
+            },
+            {
+              "moves": [
+                "boss_moss_spores"
+              ]
+            },
+            {
+              "moves": [
+                "boss_moss_stamp"
+              ],
+              "response": "grounded",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.32
+            }
+          ]
+        },
+        {
+          "id": "root_then_sweep",
+          "when": "retreat",
+          "opening": [
+            "boss_moss_roots"
+          ],
+          "steps": [
+            {
+              "moves": [
+                "boss_moss_roots"
+              ]
+            },
+            {
+              "moves": [
+                "boss_moss_scythe"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.42
+            }
+          ],
+          "phase": 2
+        },
+        {
+          "id": "scythe_pressure",
+          "when": "always",
+          "opening": [
+            "boss_moss_scythe",
+            "boss_moss_stamp",
+            "boss_moss_spores",
+            "boss_moss_roots"
+          ],
+          "steps": [
+            {
+              "task": "approach",
+              "duration": 0.45
+            },
+            {
+              "moves": [
+                "boss_moss_scythe",
+                "boss_moss_stamp",
+                "boss_moss_spores",
+                "boss_moss_roots"
+              ]
+            },
+            {
+              "moves": [
+                "boss_moss_stamp"
+              ],
+              "response": "retreat",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.4
+            }
+          ]
+        }
+      ]
+    },
+    "sunken_hammer_smith": {
+      "close_range": 225,
+      "approach_range": 171.0,
+      "reaction_seconds": 0.2,
+      "branches": [
+        {
+          "id": "retreat_and_reverse",
+          "when": "committed",
+          "opening": [
+            "boss_shears_turn",
+            "boss_shears_close"
+          ],
+          "steps": [
+            {
+              "task": "backstep",
+              "duration": 0.38
+            },
+            {
+              "moves": [
+                "boss_shears_turn",
+                "boss_shears_close"
+              ]
+            },
+            {
+              "task": "settle",
+              "duration": 0.36
+            }
+          ]
+        },
+        {
+          "id": "cut_escape_lane",
+          "when": "retreat",
+          "opening": [
+            "boss_shears_knots",
+            "boss_shears_thread"
+          ],
+          "steps": [
+            {
+              "moves": [
+                "boss_shears_knots",
+                "boss_shears_thread"
+              ]
+            },
+            {
+              "moves": [
+                "boss_shears_thread"
+              ],
+              "response": "retreat",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.44
+            }
+          ]
+        },
+        {
+          "id": "pincer_pressure",
+          "when": "always",
+          "opening": [
+            "boss_shears_close",
+            "boss_shears_thread",
+            "boss_shears_knots",
+            "boss_shears_turn"
+          ],
+          "steps": [
+            {
+              "task": "approach",
+              "duration": 0.4
+            },
+            {
+              "moves": [
+                "boss_shears_close",
+                "boss_shears_thread",
+                "boss_shears_knots",
+                "boss_shears_turn"
+              ]
+            },
+            {
+              "moves": [
+                "boss_shears_turn"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.32
+            }
+          ]
+        }
+      ]
+    },
+    "saltwhite_contract_judge": {
+      "close_range": 190,
+      "approach_range": 144.4,
+      "reaction_seconds": 0.16,
+      "branches": [
+        {
+          "id": "bait_and_riposte",
+          "when": "committed",
+          "opening": [
+            "boss_mantis_guard"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.24
+            },
+            {
+              "moves": [
+                "boss_mantis_guard"
+              ]
+            },
+            {
+              "moves": [
+                "boss_mantis_overhead"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "backstep",
+              "duration": 0.32
+            },
+            {
+              "task": "settle",
+              "duration": 0.26
+            }
+          ]
+        },
+        {
+          "id": "close_the_gap",
+          "when": "retreat",
+          "opening": [
+            "boss_mantis_lunge"
+          ],
+          "steps": [
+            {
+              "task": "approach",
+              "duration": 0.26
+            },
+            {
+              "moves": [
+                "boss_mantis_lunge"
+              ]
+            },
+            {
+              "moves": [
+                "boss_mantis_flurry"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.4
+            }
+          ]
+        },
+        {
+          "id": "measured_blades",
+          "when": "always",
+          "opening": [
+            "boss_mantis_guard",
+            "boss_mantis_lunge",
+            "boss_mantis_overhead",
+            "boss_mantis_flurry"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.28
+            },
+            {
+              "task": "approach",
+              "duration": 0.4
+            },
+            {
+              "moves": [
+                "boss_mantis_overhead",
+                "boss_mantis_flurry",
+                "boss_mantis_lunge",
+                "boss_mantis_guard"
+              ]
+            },
+            {
+              "task": "backstep",
+              "duration": 0.26
+            },
+            {
+              "task": "settle",
+              "duration": 0.26
+            }
+          ]
+        }
+      ]
+    },
+    "broken_string_gardener": {
+      "close_range": 185,
+      "approach_range": 140.6,
+      "reaction_seconds": 0.25,
+      "branches": [
+        {
+          "id": "cage_and_exit",
+          "when": "retreat",
+          "opening": [
+            "boss_bishop_cage"
+          ],
+          "steps": [
+            {
+              "moves": [
+                "boss_bishop_cage"
+              ]
+            },
+            {
+              "moves": [
+                "boss_bishop_seeds"
+              ],
+              "response": "airborne",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.42
+            }
+          ],
+          "phase": 2
+        },
+        {
+          "id": "root_lanes",
+          "when": "grounded",
+          "opening": [
+            "boss_bishop_roots"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.22
+            },
+            {
+              "moves": [
+                "boss_bishop_roots"
+              ]
+            },
+            {
+              "moves": [
+                "boss_bishop_staff"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.4
+            }
+          ]
+        },
+        {
+          "id": "keep_casting_space",
+          "when": "always",
+          "opening": [
+            "boss_bishop_staff",
+            "boss_bishop_seeds",
+            "boss_bishop_roots",
+            "boss_bishop_cage"
+          ],
+          "steps": [
+            {
+              "task": "backstep",
+              "duration": 0.4
+            },
+            {
+              "moves": [
+                "boss_bishop_seeds",
+                "boss_bishop_staff",
+                "boss_bishop_roots",
+                "boss_bishop_cage"
+              ]
+            },
+            {
+              "task": "settle",
+              "duration": 0.45
+            }
+          ]
+        }
+      ]
+    },
+    "silent_pilgrim_commander": {
+      "close_range": 220,
+      "approach_range": 167.2,
+      "reaction_seconds": 0.18,
+      "branches": [
+        {
+          "id": "echo_then_intercept",
+          "when": "committed",
+          "opening": [
+            "boss_bride_pools"
+          ],
+          "steps": [
+            {
+              "moves": [
+                "boss_bride_pools"
+              ]
+            },
+            {
+              "moves": [
+                "boss_bride_dash"
+              ],
+              "response": "retreat",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.38
+            }
+          ]
+        },
+        {
+          "id": "painted_flank",
+          "when": "retreat",
+          "opening": [
+            "boss_bride_mirror"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.24
+            },
+            {
+              "moves": [
+                "boss_bride_mirror"
+              ]
+            },
+            {
+              "moves": [
+                "boss_bride_crescent"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.36
+            }
+          ]
+        },
+        {
+          "id": "crescent_footwork",
+          "when": "always",
+          "opening": [
+            "boss_bride_crescent",
+            "boss_bride_mirror",
+            "boss_bride_pools",
+            "boss_bride_dash"
+          ],
+          "steps": [
+            {
+              "task": "approach",
+              "duration": 0.36
+            },
+            {
+              "moves": [
+                "boss_bride_crescent",
+                "boss_bride_mirror",
+                "boss_bride_pools",
+                "boss_bride_dash"
+              ]
+            },
+            {
+              "task": "backstep",
+              "duration": 0.3
+            },
+            {
+              "task": "settle",
+              "duration": 0.3
+            }
+          ]
+        }
+      ]
+    },
+    "silent_crown_core": {
+      "close_range": 240,
+      "approach_range": 182.4,
+      "reaction_seconds": 0.23,
+      "branches": [
+        {
+          "id": "gate_then_ground",
+          "when": "grounded",
+          "opening": [
+            "boss_key_gate"
+          ],
+          "steps": [
+            {
+              "moves": [
+                "boss_key_gate"
+              ]
+            },
+            {
+              "moves": [
+                "boss_key_rings"
+              ],
+              "response": "grounded",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.5
+            }
+          ],
+          "phase": 2
+        },
+        {
+          "id": "keys_cover_escape",
+          "when": "retreat",
+          "opening": [
+            "boss_key_return"
+          ],
+          "steps": [
+            {
+              "task": "guard",
+              "duration": 0.3
+            },
+            {
+              "moves": [
+                "boss_key_return"
+              ]
+            },
+            {
+              "moves": [
+                "boss_key_cleave"
+              ],
+              "response": "approach",
+              "optional": true
+            },
+            {
+              "task": "settle",
+              "duration": 0.45
+            }
+          ]
+        },
+        {
+          "id": "royal_advance",
+          "when": "always",
+          "opening": [
+            "boss_key_cleave",
+            "boss_key_return",
+            "boss_key_gate",
+            "boss_key_rings"
+          ],
+          "steps": [
+            {
+              "task": "approach",
+              "duration": 0.5
+            },
+            {
+              "moves": [
+                "boss_key_cleave",
+                "boss_key_return",
+                "boss_key_gate",
+                "boss_key_rings"
+              ]
+            },
+            {
+              "task": "settle",
+              "duration": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

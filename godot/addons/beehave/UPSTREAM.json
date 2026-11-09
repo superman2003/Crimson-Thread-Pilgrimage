@@ -1,0 +1,538 @@
+{
+  "repository": "https://github.com/bitbrain/beehave",
+  "tag": "v2.9.3",
+  "commit": "773a5f6dd9b3433cdb8735ab35e9043d4cd60674",
+  "archive_sha256": "337793064d5281a8bdec600265e8c43579249c717c9ef436fdb758576136b135",
+  "license": "MIT",
+  "files": [
+    {
+      "path": "addons/beehave/LICENSE",
+      "sha256": "b7b01f5f34016e8be5ba15ec3cbf88d64de580727647e6789986f11686e7a299"
+    },
+    {
+      "path": "addons/beehave/blackboard.gd",
+      "sha256": "e1b980ce875b611f5881d158c4cce4d61b92ce8f27e09101304e8014706c10b6"
+    },
+    {
+      "path": "addons/beehave/blackboard.gd.uid",
+      "sha256": "0e073bc5300dcdf42812b77597050fee9674692fb376a5f81daf7ed2711f9960"
+    },
+    {
+      "path": "addons/beehave/debug/debugger.gd",
+      "sha256": "e974539c337bd77b1a5cfc767e7c195c46fe86daff479a306871a798f5f4da12"
+    },
+    {
+      "path": "addons/beehave/debug/debugger.gd.uid",
+      "sha256": "bec43a8e9e2f048405404b59ba9b3950a1d1ee5aab0f7c9c69fa17de2a41cf8e"
+    },
+    {
+      "path": "addons/beehave/debug/debugger_messages.gd",
+      "sha256": "eca1179c6b0edf438a1cc0a24505f6d263fb7ad6fd3ccd792a3e72cababda1dd"
+    },
+    {
+      "path": "addons/beehave/debug/debugger_messages.gd.uid",
+      "sha256": "ba5bad62650177a8d336fd7b68de3c15e49ad7061b9c4002c95551b7977e36fc"
+    },
+    {
+      "path": "addons/beehave/debug/debugger_tab.gd",
+      "sha256": "9e7ecc3f974d8fcbb9c50e7c09f5b1a807e3348835937a8aef63fa834c878f58"
+    },
+    {
+      "path": "addons/beehave/debug/debugger_tab.gd.uid",
+      "sha256": "700e1f72951d08602070da65dc0da2e70c470e836f983d631d6332f9546c0fd3"
+    },
+    {
+      "path": "addons/beehave/debug/global_debugger.gd",
+      "sha256": "b16bf6aa5aefe14ae8bf1a1f36a193f1b283b83082d7a6124e8c20815500aa95"
+    },
+    {
+      "path": "addons/beehave/debug/global_debugger.gd.uid",
+      "sha256": "23037fe37c763aec447ee04d8271b3b4f7e7c0f964733f7398614c01c8c8c264"
+    },
+    {
+      "path": "addons/beehave/debug/icons/horizontal_layout.svg",
+      "sha256": "6f88cbeac51f2289d28498b77fa8c12662bc847c2cf927b2ea74c7f0005a548d"
+    },
+    {
+      "path": "addons/beehave/debug/icons/port_bottom.svg",
+      "sha256": "34734324864cb37ddf5b8017a96f64b58cc8c71555996b166e46ff7cf12e6495"
+    },
+    {
+      "path": "addons/beehave/debug/icons/port_left.svg",
+      "sha256": "8b82e80bc45ce27aa04e66290a3e38c623bbdefe2f96342ae75810f8ac925494"
+    },
+    {
+      "path": "addons/beehave/debug/icons/port_right.svg",
+      "sha256": "948baad319b14421e8ec1022db331b3a98004f6ead3ee4eb88b0fdf4a132606e"
+    },
+    {
+      "path": "addons/beehave/debug/icons/port_top.svg",
+      "sha256": "1aa4a503bbaed4cacd4945413ab1c51a5b38bba706ff6b6f89d8289165b213f4"
+    },
+    {
+      "path": "addons/beehave/debug/icons/vertical_layout.svg",
+      "sha256": "bbd1b27dcb2f1800c6357a8510df70664caa8c85e11dcdd158333336cca435c6"
+    },
+    {
+      "path": "addons/beehave/debug/new_frames.gd",
+      "sha256": "9d74fb3b356fae4c358f8740e6ebebfc2b56db06beee896adfe3e70ebf2a5a88"
+    },
+    {
+      "path": "addons/beehave/debug/new_frames.gd.uid",
+      "sha256": "cce81480b70710331bbde995c0c02266c3a62bf134c9f0ce492e67288211ea57"
+    },
+    {
+      "path": "addons/beehave/debug/new_graph_edit.gd",
+      "sha256": "ff0d6fe3f205f86f9660c11090e90e33a83bc27d56afd9995ddb2921df575527"
+    },
+    {
+      "path": "addons/beehave/debug/new_graph_edit.gd.uid",
+      "sha256": "755dec5d9c35d2c31565164e0b1766a9bb51214dfa73d76ef4b13b1f7ba55e29"
+    },
+    {
+      "path": "addons/beehave/debug/new_graph_node.gd",
+      "sha256": "7ed2453e33a4f9636181d2820d70b2190750a0335a02eec29ef9e5d92cb6b539"
+    },
+    {
+      "path": "addons/beehave/debug/new_graph_node.gd.uid",
+      "sha256": "7fc0a14059e1c3fdd63efddc15894879bca48b7fea6ea12db3294fb5659b1ee4"
+    },
+    {
+      "path": "addons/beehave/debug/new_node_blackboard.gd",
+      "sha256": "e52f158abbe4ee7ad9ab74b0096e424c7f565d61c1e67437b25e667a737fd9ca"
+    },
+    {
+      "path": "addons/beehave/debug/new_node_blackboard.gd.uid",
+      "sha256": "bd702c3527e65536fae4f4afeaacc230c86cf4f7f19533480bdd80b0608f9268"
+    },
+    {
+      "path": "addons/beehave/debug/old_frames.gd",
+      "sha256": "538c1d0b7753a213c37c19eae14256ecf0dd584ca7744fcefa0ba7dc62424cf7"
+    },
+    {
+      "path": "addons/beehave/debug/old_frames.gd.uid",
+      "sha256": "a457f44d21fd633d8500eab31cb3537a037081c1d477aaa62237939b2b4a8a33"
+    },
+    {
+      "path": "addons/beehave/debug/old_graph_edit.gd",
+      "sha256": "231824d4efaaa2195b1a5200272aeae74d15b422d521a4726860d7eb3477b282"
+    },
+    {
+      "path": "addons/beehave/debug/old_graph_edit.gd.uid",
+      "sha256": "391991e3ab6ad4d529fc5723aa2aee57ea3a66c999ce92c36a29fce50a375b0e"
+    },
+    {
+      "path": "addons/beehave/debug/old_graph_node.gd",
+      "sha256": "20ef02d806305aaed161e19ab0773189c0d748095b1a5d51352782e0c31d3053"
+    },
+    {
+      "path": "addons/beehave/debug/old_graph_node.gd.uid",
+      "sha256": "63ba61c0a0b4a10612bc962dc8e5391659a99437fea97d9e0cbdf2a54593ee82"
+    },
+    {
+      "path": "addons/beehave/debug/tree_node.gd",
+      "sha256": "44627bc9691b609133b47156d3fca074e91b900c209ee8b63440f059580662a9"
+    },
+    {
+      "path": "addons/beehave/debug/tree_node.gd.uid",
+      "sha256": "820ad78b7e0d19fe4b1d267f1b1ab6455e2736c4ced37dc3b3ab812567b59bb3"
+    },
+    {
+      "path": "addons/beehave/icons/action.svg",
+      "sha256": "ba828aac24fb0b0b3628584a28ab23884bd901d918f1bd752c5994f8f2c85ef7"
+    },
+    {
+      "path": "addons/beehave/icons/blackboard.svg",
+      "sha256": "7da2bb26b844fd0019291a19d546ade341a7da1165241806d2ade658f093bf17"
+    },
+    {
+      "path": "addons/beehave/icons/category_bt.svg",
+      "sha256": "ac31256014a0ba715f1da4f6f3c8043028704c624339523641b66e512d3ee7cc"
+    },
+    {
+      "path": "addons/beehave/icons/category_composite.svg",
+      "sha256": "0bd205e2c50fb60ef83b6623f7e517318518ed8c6630d8d6046b4c93362ce34b"
+    },
+    {
+      "path": "addons/beehave/icons/category_decorator.svg",
+      "sha256": "69e38791a3e806e91d8d13b62257580690fff2746826dac9ec85b5af8f25e5ee"
+    },
+    {
+      "path": "addons/beehave/icons/category_leaf.svg",
+      "sha256": "47036e92cfc0dc0763317436a9b479c30d19535b733372ac7f35d1299d4b19c4"
+    },
+    {
+      "path": "addons/beehave/icons/condition.svg",
+      "sha256": "b74361149c872841dea828d22df454c18a72cbaeffe349a7c4b9a557102c5825"
+    },
+    {
+      "path": "addons/beehave/icons/cooldown.svg",
+      "sha256": "b7204c79cd3cf76bb8c356ba911dea61bfda58f28f7de618f5973dee5235b2c9"
+    },
+    {
+      "path": "addons/beehave/icons/delayer.svg",
+      "sha256": "732253465a4bec7824e0d4d98c627c2228e1c61d0b9e3689b3e17e438ce8a3e4"
+    },
+    {
+      "path": "addons/beehave/icons/failer.svg",
+      "sha256": "7b2b591009bd8606a887d39377643fd4d90ae5eedf02e22ff4986e13d9250d65"
+    },
+    {
+      "path": "addons/beehave/icons/inverter.svg",
+      "sha256": "e5adff50982ae32decfe2373ef279341a58ba4086b5e999da942172f3415e132"
+    },
+    {
+      "path": "addons/beehave/icons/limiter.svg",
+      "sha256": "030e389bb787f9d9f659ae2794b00472e330f544cf5da40bd86a14e8afb35a47"
+    },
+    {
+      "path": "addons/beehave/icons/repeater.svg",
+      "sha256": "7ce5054afeae4d9d85466b24353a58e0f13b5980a67cdf7c2b1f6cde3eb54d94"
+    },
+    {
+      "path": "addons/beehave/icons/selector.svg",
+      "sha256": "4fbcae98a9d420653e1b34a0824ffec3fa7829bedaede81722969e812a08ee88"
+    },
+    {
+      "path": "addons/beehave/icons/selector_random.svg",
+      "sha256": "cf616b9c598f4da62177f882c4cb614681b08972d13620092a7a3865b1594448"
+    },
+    {
+      "path": "addons/beehave/icons/selector_reactive.svg",
+      "sha256": "926cd7c08bdeb393821948f4620114f482d055ef93bd3a9c5c85a24fb7136d05"
+    },
+    {
+      "path": "addons/beehave/icons/sequence.svg",
+      "sha256": "6ca1888d2d9ffced57bbef7ee8103ab348b84eeecc39f4dbabd2c3330d5c70da"
+    },
+    {
+      "path": "addons/beehave/icons/sequence_random.svg",
+      "sha256": "2a9da1216c7abcd0aecc3d316a10831ed833b551c41532975563ac9a1811d0bf"
+    },
+    {
+      "path": "addons/beehave/icons/sequence_reactive.svg",
+      "sha256": "3dba15203938983dc90e4e42cb5bdbd42b702b23526e68d03900798d14fddf21"
+    },
+    {
+      "path": "addons/beehave/icons/simple_parallel.svg",
+      "sha256": "fdc6cfecdc74b1620dff1ad46f1267e325c2e80215f730080bf67ad7009a9bc7"
+    },
+    {
+      "path": "addons/beehave/icons/succeeder.svg",
+      "sha256": "54aaa663ad746c39bfdb9e6ab041ec4081026466d053dabefb14ca22fb6aa2c8"
+    },
+    {
+      "path": "addons/beehave/icons/tree.svg",
+      "sha256": "16734d9875af0369285e0325a26f86850e2ddd1ffece3d609abc9cd10b1897ba"
+    },
+    {
+      "path": "addons/beehave/icons/until_fail.svg",
+      "sha256": "2207a4fb6c9042ea075b2b03927f9b99ef761119e99fcc7189089bd35e190db4"
+    },
+    {
+      "path": "addons/beehave/metrics/beehave_global_metrics.gd",
+      "sha256": "88435469b995273f3e820e45841d8c11464173be7690a9eb5c01376167e018e8"
+    },
+    {
+      "path": "addons/beehave/metrics/beehave_global_metrics.gd.uid",
+      "sha256": "568277db690b35d4d85de767afd520cb8270abbde26c1ba3d3320155f3078ee3"
+    },
+    {
+      "path": "addons/beehave/nodes/beehave_node.gd",
+      "sha256": "2a3ad20306ed422f913bacd7622fc879f955c8a9038c71bfed7e6bd1c4ee8f7b"
+    },
+    {
+      "path": "addons/beehave/nodes/beehave_node.gd.uid",
+      "sha256": "db29c5d500bd4867e23ecc7bdde439bb5609db168959fa9fc5ae3310ce01d78a"
+    },
+    {
+      "path": "addons/beehave/nodes/beehave_tree.gd",
+      "sha256": "6ed3f775c7f805a96b085201cfa9d1c675eb6b2982fb97c887cb1eb0477e3f71"
+    },
+    {
+      "path": "addons/beehave/nodes/beehave_tree.gd.uid",
+      "sha256": "4295a88db117a5cd31d3c0982dc546c12c41606bbeda1858871071fb3d787109"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/composite.gd",
+      "sha256": "ad66c856aaea30e3a30ff3ea5d946fd87c0c975e51970a6be9b82e49ff2ffeff"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/composite.gd.uid",
+      "sha256": "377365ba9162f2dfeb4412633d1fad6c84147e626c09df3fc9ad3c278e58293c"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/randomized_composite.gd",
+      "sha256": "19801855846e243e659c7889b66716405ac41e6db6f0645bc73459124fd4a6a0"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/randomized_composite.gd.uid",
+      "sha256": "353d3e1ed939e315851295547bd8745eb418a617cbe9894f7a1ae481e879f342"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector.gd",
+      "sha256": "d2fa2ee76ba02bc6036ad148d912b516993bf675c4d6dfce226092280846fbcc"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector.gd.uid",
+      "sha256": "4f886740f376d5a01a3a613dc5145e10333bde8ea65735f65e5a51761174d3e3"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector_random.gd",
+      "sha256": "be7fcdbe3f743fff002281ddfbad86a210c9ecf4f6f5d016c5e0dd094d788765"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector_random.gd.uid",
+      "sha256": "6fb70c00eb165136322b988ac72a5da32ce639f0c79a20984deaea47826971e5"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector_reactive.gd",
+      "sha256": "89f816b20017d6cae35570c9fe4dbc8208d60d91dd3a75c6d4e49ff79653a456"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/selector_reactive.gd.uid",
+      "sha256": "ba1a331c30ebb9a3841373e93d5764b5101eff9bc403eb46f3c66a35acf62dc8"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence.gd",
+      "sha256": "cbd23ca9bb1a0d366542f4525a1355860a4fd7bf9a5848cd36f9df601c4023e6"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence.gd.uid",
+      "sha256": "77cc6817f258719eb98d7d48534ff8ec0faaef2df608c321fbb5a6409d5b00ff"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_random.gd",
+      "sha256": "1ae4c81ff842936e685167247260a6bf6b30be162e09217faca7369547c2354f"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_random.gd.uid",
+      "sha256": "e952e5dc4102a3be03063f10df2231a3af28739f4b1c3a7a6108f9566b7263a7"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_reactive.gd",
+      "sha256": "88b7906adb24c513c54260902b5fb8176f42f6820f3caf0c58f94f2f6f9cd987"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_reactive.gd.uid",
+      "sha256": "f2127c08072ccf3cc630b6bb16c9bf6396911f98cd74cf52cc427e4f1f001f3b"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_star.gd",
+      "sha256": "414123eb150f9af541f8f869fe9111e002ea5e9cec799f7d162f059bb3cd7a12"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/sequence_star.gd.uid",
+      "sha256": "d9e34cd34d996d6dbd4e438b876e6bf0e8c81c671b00864c5086830c0b10e2d0"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/simple_parallel.gd",
+      "sha256": "86f0341f9594db5f05865e81b7cef59b746224867ceefb996bcd0e98d3c2d880"
+    },
+    {
+      "path": "addons/beehave/nodes/composites/simple_parallel.gd.uid",
+      "sha256": "a56b060ca0b961e569c57350bc7e585928a93e107a2d3af100bff1ce336d5bd0"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/cooldown.gd",
+      "sha256": "37eb7c195606ca8671c8d08c32f0b27df1635b70370b9de34f954c494f51c6a9"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/cooldown.gd.uid",
+      "sha256": "1b868d545ef6caff38bbe1b45bb394543f389bac9c5265859483642929423ca3"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/decorator.gd",
+      "sha256": "8dab54b9346efd51b8c58e1acff423994afb96f809f678e924ab0258e0f35bd3"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/decorator.gd.uid",
+      "sha256": "315e173a7579fe10fffc38b45f45b45be0160f69a724bf90addec08f0fa76d45"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/delayer.gd",
+      "sha256": "c944411905d48839701d94cf500777fb6a342877be2917f17625c7b0860d923e"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/delayer.gd.uid",
+      "sha256": "387e6319fc5696a5ea9c1b32b632c304ec1f90b408f816ea6021d681090c2772"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/failer.gd",
+      "sha256": "77d213017753fe021181ac3643992faac7d4cf33a9d351af77f41ed3bc8806f3"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/failer.gd.uid",
+      "sha256": "2153cb978538f186aac482ce22efa321b04205a7fc663a26042bf91f0246e2d5"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/inverter.gd",
+      "sha256": "a4fa1827159e039378f75a641b628a0e8e9e6a3b97ba084faf9d7b0366e5bd22"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/inverter.gd.uid",
+      "sha256": "2666a7d60936bce418d8e1e0c8c5690a9e96d977f220fb3e39157bd5d406dd7d"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/limiter.gd",
+      "sha256": "b641f9824c9ede97f376cc0f2d856b6b46cd786a8d3784d52912625195e628b9"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/limiter.gd.uid",
+      "sha256": "2b275e18fac886a382a619880a8b6c5c99e1781797cd986107660d73fe98ae9a"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/repeater.gd",
+      "sha256": "5fc8bb57fae5fe1193d3cb3a786b0d7a64433eaa6bf2c270622dde0ab79007fc"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/repeater.gd.uid",
+      "sha256": "1492027058678584c10dc35f6fa8b2cf07b66f13719360f18ec61df620766187"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/succeeder.gd",
+      "sha256": "eb2fdf26a8142a417e620b2d334241ada11761b1a0a2b2ec979b9c45b62c1dfa"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/succeeder.gd.uid",
+      "sha256": "25d6b0ee3a7f9cfa60e12145de1fc6cac63a3ed5e369dbafdd0b45c2590f2e44"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/time_limiter.gd",
+      "sha256": "0c6319b7b0927b4a6cba72ca6a9e4c2743a639aa0d03bbbaf7b2510601279221"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/time_limiter.gd.uid",
+      "sha256": "8bf7e669dbf213ac5538babcd3fd8de9a2b91c0d3ae281fc6955ca5d3c2838aa"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/until_fail.gd",
+      "sha256": "114c69a74e86dc5c91e2dea93799d2f7534256d6a8b60023eb2f29c4f7f839f7"
+    },
+    {
+      "path": "addons/beehave/nodes/decorators/until_fail.gd.uid",
+      "sha256": "c11bd8676777c12e61d8bdf1a19c1f183687b36f6ceda62f65b3ac29037e3348"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/action.gd",
+      "sha256": "f58cfabe40847d88527cb627b63eca3cc7f930c4678e58d3c605f2afb5892959"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/action.gd.uid",
+      "sha256": "39e9141d12282abf4052e077183c51df65fc037a43bed06017b0aa90897523dc"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_compare.gd",
+      "sha256": "cd7008ea7deb939071a57b1765803a1614be43cc1ef5aa112cff2f160523df75"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_compare.gd.uid",
+      "sha256": "31f7d003116a8da48a131a6ce5f4095de8afe67e1d41c2b32fba22118a16c84e"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_erase.gd",
+      "sha256": "15a288e815fbb8d88c0732d9820d68ddfc238b2f131b8127cc06f2736bff3de6"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_erase.gd.uid",
+      "sha256": "06b03efbb3f1c65322ae9767eca507fa030b8a245bc31be89aba2435cbdfec69"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_has.gd",
+      "sha256": "b0319ffa55a86a65fc01cb30026e5dfb87f04dff70ac3558cac26f9cd2c0b395"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_has.gd.uid",
+      "sha256": "e69af4deea3cfb61c899460e66b5a485d915e671fa3cabdf2f214e3c28d6f723"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_set.gd",
+      "sha256": "fb4fc4dde707ecf1d20998cb6d6da6d9568b73af060ecfa7e1aeb337453410e0"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/blackboard_set.gd.uid",
+      "sha256": "406d85fb4b16e08cb17073a3ca8c918b9bed8bb5a852a70f1d48a05bb398bc4a"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/condition.gd",
+      "sha256": "c7e709c0fcc3b5086c9353354e79ec92c9dff658023fae58aad54e917989b980"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/condition.gd.uid",
+      "sha256": "ee3ac62c469f245ebadd36f433f258440446082cf973387f6e2b11586dd48b57"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/leaf.gd",
+      "sha256": "91248861a01ddd2e2b30e1786654a9063232dcc93a8c59235c72589ae38d6f5c"
+    },
+    {
+      "path": "addons/beehave/nodes/leaves/leaf.gd.uid",
+      "sha256": "d95daeff53d2dcb2d696ed7f74bfb9a526ea994d8ad21262209a949f6e5f5c82"
+    },
+    {
+      "path": "addons/beehave/plugin.cfg",
+      "sha256": "750f2fa27e8c5d621b61651215d121f6798409638bb343c7547663cff29c0123"
+    },
+    {
+      "path": "addons/beehave/plugin.gd",
+      "sha256": "82498c9f239ee0faae6dfc834edf9084a83e508d9332f3f817aa43c007d4bdac"
+    },
+    {
+      "path": "addons/beehave/plugin.gd.uid",
+      "sha256": "c05aa613c6bbfba7957870ad500fd03fa6940a45562724ee9e3850a78a00ac5d"
+    },
+    {
+      "path": "addons/beehave/utils/utils.gd",
+      "sha256": "f1ec699a886e84e1a1c43d3e2de50b8e16c20014689faaf62413749d43c7d49c"
+    },
+    {
+      "path": "addons/beehave/utils/utils.gd.uid",
+      "sha256": "a9fb76d984dd8db4363ee0957b649520d054b82d597bb8c5ebb9cd83fdb601bb"
+    }
+  ],
+  "local_patches": [
+    {
+      "path": "debug/debugger_messages.gd",
+      "reason": "Only send to an active editor debugger; standalone and headless engine binaries also expose the editor feature."
+    },
+    {
+      "path": "debug/global_debugger.gd",
+      "reason": "Register debugger capture only with an active debugger, avoiding teardown errors in standalone tools."
+    },
+    {
+      "path": "debug/debugger_tab.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "fbd01334c8702319cb966bca7707347c003bc4a4b68445ec7352f1bb768f1dd6"
+    },
+    {
+      "path": "debug/new_graph_edit.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "6491aeb660b1031d1a689d2158c08246ef1598baff41a28d929e2445deebf318"
+    },
+    {
+      "path": "debug/old_graph_edit.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "ad3ee508717fc33c73d03b3f203247a7cedf316343bb384c676d0f9e0a8bc00b"
+    },
+    {
+      "path": "debug/new_graph_node.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "272af771bf3fe211024e1321637fe59f9a122b60dca3910ae846054717f27560"
+    },
+    {
+      "path": "debug/old_graph_node.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "4222d28db7505071017424536cf2b64296369a8367e9283a0e757b13820d0f43"
+    },
+    {
+      "path": "utils/utils.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "31f22a1bc65e7befe87d4b0b5e27ec070b5288f9122eb48e1dfe43562dcdb2a0"
+    },
+    {
+      "path": "plugin.gd",
+      "reason": "Decode editor SVG icons from bundled source at instance time, so a cold Godot import does not require an existing texture import cache.",
+      "local_sha256": "689cd51b7a963830cfe347f6c5bf1b376c836464ea4e4aeb4292e5af911d9931"
+    }
+  ]
+}

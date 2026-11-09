@@ -10,12 +10,13 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 from software_gl import software_gl
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SUITES = (
-    'ai_music_pack '
+    'ai_music_pack enemy_combat_continuity boss_behavior boss_combat_identity combat_motion_v7 '
     'player_basic_attack_vfx dialog_viewport_fit dialog_dpad_focus reading_scroll '
     'beam_channel damage_receipt grapple_path enemy_attack_motion player_attack_window enemy_wave_sweep player_effect_lifecycle player_projectile_contact death_recovery_map shrine_return_world danger_captions material_exchange sparring_hall artisan_growth field_contracts combat_ledger settings_profiles practice_curriculum expedition_desk pickup_ledger cartographer_trade challenge_claim practice_coach return_knot_transaction lift_service save_desk craft_cart audio_landmarks spatial_ambience spatial_ambience_world room_ambience room_ambience_world map_directory controller_comfort journal_desk loadout_workbench resupply_plan world_rim world_wayfinding world_passage world_passage_network world_route_manifest_walk_lower world_route_manifest_walk_upper world_route_manifest_integration audio_retirement world_neighbor_collision world_neighbor_entities world_neighbor_gameplay world_gameplay_plan world_neighbor_gameplay_live world_neighbor_gameplay_stress terrain_collision_streaming world_platform_streaming cave_collision_streaming world_async_loading world_streaming world_host world_coordinates world_interaction_residency world_enemy_residency cartography world_map world_route_access world_state world_integration world_route_walk ability_movement goal_desk '
     'application_close character_art_prewarm item_art_prewarm texture_request_exit background_texture_contention expanded_character_motion enemy_lifecycle_regression enemy_effect_lifetime boss_skill_art combat_visual_budget enemy_visibility minor_enemy_skill_art enemy_atlas_integrity world_material parallax_layout hero_animation cave_exploration cave_route_walk '
@@ -85,6 +86,8 @@ def select_shard(suites, index, count):
 
 
 def main():
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--engine', default=os.environ.get('GODOT', 'godot'))
     parser.add_argument('--suite', action='append', help='Repeat to select suites; defaults to the CI suite list.')
@@ -98,6 +101,9 @@ def main():
     engine = shutil.which(args.engine)
     if not engine:
         parser.error(f'Godot executable not found: {args.engine}; set GODOT or --engine')
+    if os.name=='nt' and Path(engine).name.endswith('_console.exe'):
+        native=Path(engine).with_name(Path(engine).name.replace('_console.exe','.exe'))
+        if native.is_file():engine=str(native)
     if args.timeout is not None and (not math.isfinite(args.timeout) or args.timeout <= 0):
         parser.error('--timeout must be finite and positive')
     suites = args.suite or DEFAULT_SUITES + NARRATIVE_SUITES
@@ -144,7 +150,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
         env = dict(os.environ, **renderer_env, APPDATA=str(scratch / name), XDG_DATA_HOME=str(scratch / name))
         print(f'Running {suite}', flush=True)
         try:
-            with preserve_fixture_sources(suite), log.open('w') as output:
+            with preserve_fixture_sources(suite), log.open('w', encoding='utf-8') as output:
                 # Frame-counted ability/actuator and residency melee probes use a fixed clock.
                 # Audio lifetime/admission suites must retain normal playback timing:
                 # player_action_sfx_sync checks a live channel and the 40ms voice gate.
@@ -156,7 +162,7 @@ def run_suites(engine, suites, timeout, logs, scratch, real_gl, renderer_env):
                 drawing = render_loop_args(real_gl, suite)
                 user_args = ['--', '--player'] if suite == 'room_camera_stability' else []
                 result = subprocess.run([engine, *renderer, *drawing, *simulation, *diagnostics, '--path', str(ROOT / 'godot'), '--script', script, *user_args], env=env, stdout=output, stderr=subprocess.STDOUT, timeout=suite_timeout, check=False)
-            output = log.read_text(errors='replace')
+            output = log.read_text(encoding='utf-8', errors='replace')
             # Color must not hide fatal engine diagnostics or a valid marker.
             plain = re.sub(r'\x1b\[[0-?]*[ -/]*[@-~]', '', output)
             errors = re.findall(r'^\s*(?:SCRIPT ERROR:|ERROR:).*$', plain, re.MULTILINE)

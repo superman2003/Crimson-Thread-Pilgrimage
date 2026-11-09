@@ -1,0 +1,2785 @@
+{
+  "kind": "moss_larva",
+  "path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-119894c2-eb29-440c-9508-c7ae21249fd9.png",
+  "prompt": "Use case: identity-preserve. Character reference image only: preserve exactly this character's hand-drawn dark fantasy insect design, colors, costume and weapons. Create ONE production animation sheet for ONLY this character. Draw exactly FOUR columns by EIGHT rows: 32 separate full-body sprites. The output must be tall portrait 1:2 aspect ratio, 4-column/8-row atlas. Transparent background, actual alpha. No text, no grid, no backgrounds. Each cell has its own fully isolated sprite with large blank gutters; keep the complete character including all limbs/weapons within 75% cell width and 80% cell height, never touching neighboring sprites. Right-facing side view, consistent character scale, stable feet/hover baseline in all cells. Every row must contain exactly FOUR poses. Row 1: four idle breaths. Row 2: first four walk/flight poses contact down passing up. Row 3: next four walk/flight poses with opposite limbs/wings/contact down passing up. Row 4: four progressive attack anticipation/windup poses. Row 5: four progressive strike/release/follow-through attack poses. Row 6: four recovery poses returning to rest. Row 7: four hurt/recoil poses. Row 8: four progressive death collapse poses, each fits in its own cell even when lying flat. Real joint/body/weapon/wing articulation; no duplicated stamps or translations. Preserve original detailed painted ink 2D style, no pixel art, no3D. Character: a squat moss covered caterpillar with a dark teal segmented belly, four tiny hooked feet and a weathered bronze bell shell",
+  "source_reference": "/workspace/scratch/3ba9ab550e44/Crimson-Thread-Pilgrimage/godot/assets/sprites/original_creatures/moss_larva/atlas.png",
+  "generator": "built-in image_gen",
+  "tool_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-119894c2-eb29-440c-9508-c7ae21249fd9.png",
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          199,
+          177
+        ],
+        "anchor_x": 100.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          201,
+          0,
+          197,
+          178
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          400,
+          0,
+          206,
+          182
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          608,
+          0,
+          200,
+          180
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          810,
+          0,
+          215,
+          176
+        ],
+        "anchor_x": 98.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1027,
+          0,
+          209,
+          174
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1238,
+          0,
+          206,
+          171
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1446,
+          0,
+          199,
+          171
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1647,
+          0,
+          210,
+          170
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1859,
+          0,
+          208,
+          177
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2069,
+          0,
+          204,
+          178
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2275,
+          0,
+          204,
+          178
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2481,
+          0,
+          218,
+          186
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          34,
+          86,
+          191,
+          158
+        ],
+        "component_seeds": [
+          [
+            169,
+            175
+          ]
+        ],
+        "scale": 1.264444,
+        "anchor_x": 77.88225,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          301,
+          72,
+          166,
+          172
+        ],
+        "component_seeds": [
+          [
+            320,
+            161
+          ]
+        ],
+        "scale": 1.178862,
+        "anchor_x": 68.972414,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2701,
+          0,
+          190,
+          197
+        ],
+        "anchor_x": 73.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          557,
+          73,
+          166,
+          172
+        ],
+        "component_seeds": [
+          [
+            663,
+            160
+          ]
+        ],
+        "scale": 1.203252,
+        "anchor_x": 67.810811,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          817,
+          75,
+          157,
+          170
+        ],
+        "component_seeds": [
+          [
+            893,
+            162
+          ]
+        ],
+        "scale": 1.220165,
+        "anchor_x": 59.892074,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2893,
+          0,
+          178,
+          198
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1073,
+          73,
+          156,
+          173
+        ],
+        "component_seeds": [
+          [
+            1198,
+            160
+          ]
+        ],
+        "scale": 1.222222,
+        "anchor_x": 64.818182,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1332,
+          65,
+          151,
+          181
+        ],
+        "component_seeds": [
+          [
+            1396,
+            149
+          ]
+        ],
+        "scale": 1.186898,
+        "anchor_x": 69.753247,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3073,
+          0,
+          169,
+          209
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          51,
+          324,
+          153,
+          177
+        ],
+        "component_seeds": [
+          [
+            99,
+            404
+          ]
+        ],
+        "scale": 1.16568,
+        "anchor_x": 74.715736,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          287,
+          347,
+          190,
+          153
+        ],
+        "component_seeds": [
+          [
+            454,
+            429
+          ]
+        ],
+        "scale": 1.275862,
+        "anchor_x": 89.351351,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3244,
+          0,
+          222,
+          173
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          543,
+          348,
+          191,
+          152
+        ],
+        "component_seeds": [
+          [
+            678,
+            430
+          ]
+        ],
+        "scale": 1.201389,
+        "anchor_x": 85.612717,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          793,
+          348,
+          204,
+          152
+        ],
+        "component_seeds": [
+          [
+            807,
+            432
+          ]
+        ],
+        "scale": 1.201389,
+        "anchor_x": 84.895954,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3468,
+          0,
+          237,
+          173
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1050,
+          349,
+          203,
+          151
+        ],
+        "component_seeds": [
+          [
+            1136,
+            432
+          ]
+        ],
+        "scale": 1.216783,
+        "anchor_x": 77.672414,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1317,
+          350,
+          185,
+          150
+        ],
+        "component_seeds": [
+          [
+            1407,
+            434
+          ]
+        ],
+        "scale": 1.232394,
+        "anchor_x": 82.205714,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3707,
+          0,
+          210,
+          176
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          36,
+          605,
+          187,
+          151
+        ],
+        "component_seeds": [
+          [
+            49,
+            690
+          ]
+        ],
+        "scale": 1.202797,
+        "anchor_x": 82.034884,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          298,
+          616,
+          171,
+          141
+        ],
+        "component_seeds": [
+          [
+            373,
+            690
+          ]
+        ],
+        "scale": 1.263158,
+        "anchor_x": 77.541667,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          211,
+          191,
+          164
+        ],
+        "anchor_x": 85.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          556,
+          615,
+          170,
+          141
+        ],
+        "component_seeds": [
+          [
+            637,
+            690
+          ]
+        ],
+        "scale": 1.283208,
+        "anchor_x": 82.505859,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          800,
+          595,
+          189,
+          162
+        ],
+        "component_seeds": [
+          [
+            821,
+            685
+          ]
+        ],
+        "scale": 1.151515,
+        "anchor_x": 78.421053,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          193,
+          211,
+          219,
+          184
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1056,
+          595,
+          189,
+          162
+        ],
+        "component_seeds": [
+          [
+            1182,
+            684
+          ]
+        ],
+        "scale": 1.186147,
+        "anchor_x": 81.529197,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1312,
+          597,
+          193,
+          160
+        ],
+        "component_seeds": [
+          [
+            1362,
+            689
+          ]
+        ],
+        "scale": 1.192982,
+        "anchor_x": 83.161765,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          414,
+          211,
+          215,
+          180
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          34,
+          854,
+          190,
+          158
+        ],
+        "component_seeds": [
+          [
+            73,
+            945
+          ]
+        ],
+        "scale": 1.186667,
+        "anchor_x": 80.033708,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          292,
+          859,
+          182,
+          153
+        ],
+        "component_seeds": [
+          [
+            437,
+            941
+          ]
+        ],
+        "scale": 1.213793,
+        "anchor_x": 77.274621,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          631,
+          211,
+          203,
+          174
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          546,
+          859,
+          184,
+          153
+        ],
+        "component_seeds": [
+          [
+            670,
+            942
+          ]
+        ],
+        "scale": 1.204598,
+        "anchor_x": 83.811069,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          799,
+          858,
+          190,
+          154
+        ],
+        "component_seeds": [
+          [
+            941,
+            944
+          ]
+        ],
+        "scale": 1.200913,
+        "anchor_x": 92.159696,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          836,
+          211,
+          208,
+          176
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1056,
+          859,
+          190,
+          154
+        ],
+        "component_seeds": [
+          [
+            1128,
+            944
+          ]
+        ],
+        "scale": 1.207763,
+        "anchor_x": 96.247637,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "region": [
+          1315,
+          859,
+          183,
+          153
+        ],
+        "component_seeds": [
+          [
+            1380,
+            943
+          ]
+        ],
+        "scale": 1.218391,
+        "anchor_x": 93.95283,
+        "grade": {
+          "saturation": 1.1358,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1046,
+          211,
+          167,
+          188
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1215,
+          211,
+          170,
+          175
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1387,
+          211,
+          181,
+          160
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1570,
+          211,
+          223,
+          138
+        ],
+        "anchor_x": 118.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1795,
+          211,
+          174,
+          166
+        ],
+        "anchor_x": 79.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1971,
+          211,
+          231,
+          148
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2204,
+          211,
+          235,
+          128
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2441,
+          211,
+          178,
+          93
+        ],
+        "anchor_x": 75.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2621,
+          211,
+          203,
+          147
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2826,
+          211,
+          193,
+          139
+        ],
+        "anchor_x": 94.0,
+        "packed_runtime": true
+      }
+    ],
+    "larva_snap_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3021,
+          211,
+          209,
+          161
+        ],
+        "anchor_x": 116.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          6,
+          107,
+          214,
+          167
+        ],
+        "component_seeds": [
+          [
+            170,
+            186
+          ],
+          [
+            29,
+            266
+          ],
+          [
+            10,
+            266
+          ],
+          [
+            15,
+            266
+          ],
+          [
+            34,
+            266
+          ],
+          [
+            64,
+            265
+          ],
+          [
+            27,
+            266
+          ],
+          [
+            38,
+            267
+          ],
+          [
+            41,
+            267
+          ],
+          [
+            49,
+            267
+          ],
+          [
+            78,
+            267
+          ],
+          [
+            86,
+            267
+          ]
+        ],
+        "scale": 1.054507,
+        "anchor_x": 134.224652,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          292,
+          87,
+          180,
+          158
+        ],
+        "component_seeds": [
+          [
+            334,
+            175
+          ]
+        ],
+        "scale": 1.162222,
+        "anchor_x": 103.90631,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3232,
+          211,
+          201,
+          181
+        ],
+        "anchor_x": 113.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          524,
+          87,
+          204,
+          187
+        ],
+        "component_seeds": [
+          [
+            580,
+            174
+          ],
+          [
+            540,
+            266
+          ],
+          [
+            530,
+            266
+          ],
+          [
+            578,
+            266
+          ],
+          [
+            534,
+            266
+          ],
+          [
+            548,
+            266
+          ],
+          [
+            570,
+            266
+          ],
+          [
+            603,
+            266
+          ],
+          [
+            550,
+            267
+          ],
+          [
+            596,
+            266
+          ],
+          [
+            607,
+            267
+          ]
+        ],
+        "scale": 1.057728,
+        "anchor_x": 129.181338,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          805,
+          71,
+          173,
+          202
+        ],
+        "component_seeds": [
+          [
+            947,
+            163
+          ],
+          [
+            811,
+            266
+          ],
+          [
+            821,
+            265
+          ],
+          [
+            834,
+            266
+          ],
+          [
+            837,
+            266
+          ],
+          [
+            814,
+            267
+          ]
+        ],
+        "scale": 1.0189,
+        "anchor_x": 103.721754,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3435,
+          211,
+          188,
+          206
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1050,
+          4,
+          185,
+          270
+        ],
+        "component_seeds": [
+          [
+            1164,
+            162
+          ],
+          [
+            1074,
+            10
+          ],
+          [
+            1104,
+            10
+          ],
+          [
+            1109,
+            9
+          ],
+          [
+            1055,
+            266
+          ],
+          [
+            1061,
+            266
+          ],
+          [
+            1065,
+            267
+          ],
+          [
+            1081,
+            266
+          ],
+          [
+            1109,
+            266
+          ]
+        ],
+        "scale": 0.810433,
+        "anchor_x": 118.508634,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1318,
+          52,
+          172,
+          221
+        ],
+        "component_seeds": [
+          [
+            1358,
+            152
+          ],
+          [
+            1328,
+            266
+          ],
+          [
+            1346,
+            265
+          ],
+          [
+            1322,
+            267
+          ],
+          [
+            1350,
+            265
+          ],
+          [
+            1339,
+            267
+          ],
+          [
+            1341,
+            267
+          ],
+          [
+            1353,
+            268
+          ]
+        ],
+        "scale": 1.026604,
+        "anchor_x": 104.61128,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3625,
+          211,
+          182,
+          225
+        ],
+        "anchor_x": 105.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          31,
+          304,
+          179,
+          226
+        ],
+        "component_seeds": [
+          [
+            118,
+            407
+          ],
+          [
+            36,
+            521
+          ],
+          [
+            64,
+            522
+          ],
+          [
+            45,
+            522
+          ],
+          [
+            48,
+            523
+          ],
+          [
+            83,
+            522
+          ],
+          [
+            52,
+            522
+          ],
+          [
+            61,
+            522
+          ],
+          [
+            78,
+            523
+          ],
+          [
+            85,
+            523
+          ]
+        ],
+        "scale": 0.952599,
+        "anchor_x": 112.396469,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          288,
+          347,
+          193,
+          182
+        ],
+        "component_seeds": [
+          [
+            398,
+            420
+          ],
+          [
+            321,
+            522
+          ],
+          [
+            305,
+            522
+          ],
+          [
+            317,
+            523
+          ]
+        ],
+        "scale": 1.09387,
+        "anchor_x": 101.103327,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "larva_snap": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3809,
+          211,
+          218,
+          173
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          539,
+          351,
+          200,
+          179
+        ],
+        "component_seeds": [
+          [
+            714,
+            423
+          ],
+          [
+            585,
+            521
+          ],
+          [
+            552,
+            522
+          ],
+          [
+            570,
+            522
+          ],
+          [
+            578,
+            521
+          ],
+          [
+            550,
+            521
+          ],
+          [
+            561,
+            522
+          ],
+          [
+            566,
+            522
+          ],
+          [
+            589,
+            523
+          ],
+          [
+            602,
+            522
+          ],
+          [
+            543,
+            523
+          ]
+        ],
+        "scale": 0.982456,
+        "anchor_x": 107.589286,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          787,
+          367,
+          220,
+          134
+        ],
+        "component_seeds": [
+          [
+            869,
+            443
+          ]
+        ],
+        "scale": 1.293651,
+        "anchor_x": 108.337423,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          438,
+          243,
+          158
+        ],
+        "anchor_x": 122.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1030,
+          367,
+          233,
+          163
+        ],
+        "component_seeds": [
+          [
+            1107,
+            445
+          ],
+          [
+            1054,
+            521
+          ],
+          [
+            1097,
+            521
+          ],
+          [
+            1034,
+            522
+          ],
+          [
+            1044,
+            521
+          ],
+          [
+            1046,
+            521
+          ],
+          [
+            1050,
+            522
+          ],
+          [
+            1089,
+            522
+          ],
+          [
+            1113,
+            522
+          ],
+          [
+            1070,
+            522
+          ],
+          [
+            1081,
+            522
+          ],
+          [
+            1105,
+            522
+          ],
+          [
+            1061,
+            522
+          ],
+          [
+            1119,
+            523
+          ]
+        ],
+        "scale": 0.982796,
+        "anchor_x": 127.601751,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1296,
+          383,
+          230,
+          146
+        ],
+        "component_seeds": [
+          [
+            1429,
+            452
+          ],
+          [
+            1323,
+            522
+          ],
+          [
+            1336,
+            522
+          ],
+          [
+            1341,
+            522
+          ],
+          [
+            1313,
+            522
+          ],
+          [
+            1330,
+            522
+          ],
+          [
+            1360,
+            522
+          ]
+        ],
+        "scale": 1.062802,
+        "anchor_x": 116.740909,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          245,
+          438,
+          265,
+          141
+        ],
+        "anchor_x": 132.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          15,
+          640,
+          227,
+          145
+        ],
+        "component_seeds": [
+          [
+            71,
+            709
+          ],
+          [
+            49,
+            778
+          ],
+          [
+            53,
+            778
+          ],
+          [
+            60,
+            779
+          ],
+          [
+            81,
+            779
+          ],
+          [
+            84,
+            778
+          ]
+        ],
+        "scale": 1.060827,
+        "anchor_x": 116.082569,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          282,
+          621,
+          203,
+          136
+        ],
+        "component_seeds": [
+          [
+            306,
+            693
+          ]
+        ],
+        "scale": 1.169271,
+        "anchor_x": 111.683742,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          512,
+          438,
+          222,
+          154
+        ],
+        "anchor_x": 119.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          539,
+          622,
+          201,
+          163
+        ],
+        "component_seeds": [
+          [
+            669,
+            691
+          ],
+          [
+            560,
+            778
+          ],
+          [
+            577,
+            778
+          ],
+          [
+            570,
+            779
+          ]
+        ],
+        "scale": 1.034409,
+        "anchor_x": 110.14553,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          797,
+          604,
+          201,
+          154
+        ],
+        "component_seeds": [
+          [
+            930,
+            683
+          ]
+        ],
+        "scale": 1.141553,
+        "anchor_x": 109.432,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "larva_snap_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          736,
+          438,
+          228,
+          173
+        ],
+        "anchor_x": 125.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1054,
+          603,
+          200,
+          183
+        ],
+        "component_seeds": [
+          [
+            1119,
+            682
+          ],
+          [
+            1061,
+            777
+          ],
+          [
+            1097,
+            776
+          ],
+          [
+            1080,
+            778
+          ],
+          [
+            1090,
+            778
+          ],
+          [
+            1109,
+            779
+          ],
+          [
+            1115,
+            778
+          ],
+          [
+            1118,
+            779
+          ]
+        ],
+        "scale": 0.954286,
+        "anchor_x": 112.067864,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1309,
+          623,
+          200,
+          134
+        ],
+        "component_seeds": [
+          [
+            1357,
+            696
+          ]
+        ],
+        "scale": 1.277778,
+        "anchor_x": 107.26087,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          966,
+          438,
+          224,
+          155
+        ],
+        "anchor_x": 120.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          28,
+          882,
+          200,
+          131
+        ],
+        "component_seeds": [
+          [
+            207,
+            954
+          ]
+        ],
+        "scale": 1.249322,
+        "anchor_x": 107.54013,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          282,
+          886,
+          203,
+          127
+        ],
+        "component_seeds": [
+          [
+            310,
+            957
+          ]
+        ],
+        "scale": 1.280112,
+        "anchor_x": 108.978118,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1192,
+          438,
+          224,
+          151
+        ],
+        "anchor_x": 120.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          536,
+          887,
+          208,
+          126
+        ],
+        "component_seeds": [
+          [
+            666,
+            957
+          ]
+        ],
+        "scale": 1.279661,
+        "anchor_x": 110.461369,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          790,
+          893,
+          210,
+          120
+        ],
+        "component_seeds": [
+          [
+            953,
+            959
+          ]
+        ],
+        "scale": 1.348214,
+        "anchor_x": 103.631347,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1418,
+          438,
+          228,
+          151
+        ],
+        "anchor_x": 114.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1049,
+          888,
+          207,
+          125
+        ],
+        "component_seeds": [
+          [
+            1214,
+            958
+          ]
+        ],
+        "scale": 1.364672,
+        "anchor_x": 104.235908,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "region": [
+          1318,
+          860,
+          185,
+          153
+        ],
+        "component_seeds": [
+          [
+            1426,
+            941
+          ]
+        ],
+        "scale": 1.16092,
+        "anchor_x": 92.356436,
+        "grade": {
+          "saturation": 1.0547,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ]
+  },
+  "frame_regions": [
+    [
+      11,
+      59,
+      199,
+      178
+    ],
+    [
+      236,
+      57,
+      197,
+      180
+    ],
+    [
+      451,
+      55,
+      206,
+      182
+    ],
+    [
+      680,
+      56,
+      200,
+      181
+    ],
+    [
+      13,
+      283,
+      215,
+      176
+    ],
+    [
+      247,
+      285,
+      209,
+      175
+    ],
+    [
+      465,
+      288,
+      206,
+      172
+    ],
+    [
+      684,
+      289,
+      199,
+      171
+    ],
+    [
+      16,
+      514,
+      210,
+      170
+    ],
+    [
+      243,
+      506,
+      208,
+      178
+    ],
+    [
+      464,
+      506,
+      205,
+      178
+    ],
+    [
+      682,
+      504,
+      204,
+      178
+    ],
+    [
+      19,
+      725,
+      218,
+      186
+    ],
+    [
+      260,
+      713,
+      190,
+      198
+    ],
+    [
+      484,
+      711,
+      179,
+      199
+    ],
+    [
+      695,
+      701,
+      169,
+      209
+    ],
+    [
+      9,
+      954,
+      222,
+      173
+    ],
+    [
+      243,
+      956,
+      237,
+      173
+    ],
+    [
+      467,
+      951,
+      210,
+      176
+    ],
+    [
+      690,
+      965,
+      192,
+      164
+    ],
+    [
+      16,
+      1173,
+      219,
+      184
+    ],
+    [
+      246,
+      1175,
+      215,
+      181
+    ],
+    [
+      468,
+      1182,
+      203,
+      174
+    ],
+    [
+      673,
+      1181,
+      208,
+      177
+    ],
+    [
+      34,
+      1383,
+      167,
+      189
+    ],
+    [
+      251,
+      1399,
+      170,
+      176
+    ],
+    [
+      464,
+      1415,
+      181,
+      160
+    ],
+    [
+      658,
+      1437,
+      223,
+      138
+    ],
+    [
+      32,
+      1588,
+      174,
+      167
+    ],
+    [
+      241,
+      1606,
+      232,
+      148
+    ],
+    [
+      467,
+      1624,
+      235,
+      129
+    ],
+    [
+      701,
+      1660,
+      178,
+      94
+    ]
+  ],
+  "qa": {
+    "status": "reviewed components; no neighbouring character pixels in accepted regions",
+    "image_size": [
+      887,
+      1774
+    ],
+    "mode": "RGBA",
+    "accepted_new_poses": 32,
+    "rejected_overlapping_or_edge_poses": [],
+    "source_supplement_scale": 0.698,
+    "counts": {
+      "idle": 4,
+      "walk": 8,
+      "windup": 4,
+      "attack": 4,
+      "recover": 4,
+      "hurt": 4,
+      "death": 4
+    },
+    "packer_check": "passed",
+    "visual_inspection": "Full-body poses and equipment reviewed. Seeded components retain disconnected equipment and remove neighbours without altering RGBA core. True merged or canvas-edge-cut poses rejected; scale applies uniformly per source sheet.",
+    "layout": "4 columns and 8 rows; actual reviewed count recorded per animation",
+    "anchor_policy": "Fixed authored cell horizontal rig origin; weapon extension never changes origin. Gear final 3 death poses occupy irregular-width cells, individually reviewed collapse centers."
+  },
+  "slot_schema": {
+    "idle": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            11,
+            59,
+            199,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            236,
+            57,
+            197,
+            180
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            451,
+            55,
+            206,
+            182
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            680,
+            56,
+            200,
+            181
+          ]
+        }
+      ]
+    },
+    "walk": {
+      "frame_count": 8,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            13,
+            283,
+            215,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            247,
+            285,
+            209,
+            175
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            465,
+            288,
+            206,
+            172
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            684,
+            289,
+            199,
+            171
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            16,
+            514,
+            210,
+            170
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            243,
+            506,
+            208,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            464,
+            506,
+            205,
+            178
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            682,
+            504,
+            204,
+            178
+          ]
+        }
+      ]
+    },
+    "windup": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            19,
+            725,
+            218,
+            186
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            260,
+            713,
+            190,
+            198
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            484,
+            711,
+            179,
+            199
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            695,
+            701,
+            169,
+            209
+          ]
+        }
+      ]
+    },
+    "attack": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            9,
+            954,
+            222,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            243,
+            956,
+            237,
+            173
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            467,
+            951,
+            210,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            690,
+            965,
+            192,
+            164
+          ]
+        }
+      ]
+    },
+    "recover": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            16,
+            1173,
+            219,
+            184
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            246,
+            1175,
+            215,
+            181
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            468,
+            1182,
+            203,
+            174
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            673,
+            1181,
+            208,
+            177
+          ]
+        }
+      ]
+    },
+    "hurt": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            34,
+            1383,
+            167,
+            189
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            251,
+            1399,
+            170,
+            176
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            464,
+            1415,
+            181,
+            160
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            658,
+            1437,
+            223,
+            138
+          ]
+        }
+      ]
+    },
+    "death": {
+      "frame_count": 4,
+      "order": "reviewed sequential action poses",
+      "sheet_regions": [
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            32,
+            1588,
+            174,
+            167
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            241,
+            1606,
+            232,
+            148
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            467,
+            1624,
+            235,
+            129
+          ]
+        },
+        {
+          "sheet": "motion_expanded.png",
+          "region": [
+            701,
+            1660,
+            178,
+            94
+          ]
+        }
+      ]
+    }
+  },
+  "tool": "image_gen.imagegen",
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/moss_larva.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "charge",
+      "larva_snap_windup",
+      "larva_snap",
+      "larva_snap_recover"
+    ],
+    "sheets": [
+      {
+        "image": "larva_curl_loops.png",
+        "image_sha256": "bc8e3575d4e9cd2fdaf67da497fb9d0e64fb96006ddb99684a872acb22fa2385",
+        "role": "keep",
+        "attack": "larva_curl",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.3063,
+        "anchors": [
+          334.1,
+          308.1
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.299,
+            0.3138
+          ]
+        }
+      },
+      {
+        "image": "larva_snap.png",
+        "image_sha256": "e7d4c946c96624595d99a397aa0978464b526bbfa77620767b9b22c72e257d41",
+        "role": "new",
+        "attack": "larva_snap",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ]
+        ],
+        "scale": 0.7533,
+        "anchors": [
+          154.8,
+          150.8,
+          141.8,
+          139.8,
+          153.8,
+          162.8,
+          175.8,
+          158.8,
+          166.8,
+          159.8,
+          159.8,
+          152.8
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.7372,
+          "last_recover_ratio": 0.7698
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "moss_larva__attack",
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__attack.png",
+        "sha256": "fdd699f4ff87db9f8894a0b0d44aa8cb38f58886b6f66472e2af93d6a3b90a0e",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/moss_larva__attack.png"
+      },
+      {
+        "id": "moss_larva__larva_snap",
+        "source": "art_requests/combat_motion_v7/incoming/moss_larva__larva_snap.png",
+        "sha256": "4f3e1410899b1b0be7bce37bcfbcc1dc2fb710eb66ae05024513f53d368fd325",
+        "new_drawings": 24,
+        "animations": [
+          "larva_snap_windup",
+          "larva_snap",
+          "larva_snap_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/moss_larva__larva_snap.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}

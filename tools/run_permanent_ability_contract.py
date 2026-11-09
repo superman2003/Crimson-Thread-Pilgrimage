@@ -51,10 +51,11 @@ def main():
     with tempfile.TemporaryDirectory(prefix='crimson-a01-roles-') as scratch:
         project = Path(scratch) / 'godot'
         project.mkdir()
-        for directory in ('scripts', 'data', 'shaders', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals'):
+        for directory in ('scripts', 'addons/beehave', 'data', 'shaders', 'assets/vfx', 'assets/fonts', 'assets/ui/inscription/v2', 'assets/ui/seals'):
             shutil.copytree(ROOT / 'godot' / directory, project / directory)
         (project / 'project.godot').write_text(
             'config_version=5\n[application]\nconfig/name="Permanent ability contracts"\n'
+            '[autoload]\nBeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"\nBeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"\n'
             '[rendering]\nrenderer/rendering_method="gl_compatibility"\n')
         env = dict(os.environ, XDG_DATA_HOME=str(Path(scratch) / 'userdata'))
         base = [engine, '--headless', '--audio-driver', 'Dummy', '--path', str(project)]

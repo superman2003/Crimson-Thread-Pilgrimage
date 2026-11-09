@@ -1,0 +1,2376 @@
+{
+  "kind": "silent_bugbler",
+  "generator": "built-in image_gen",
+  "source_reference": "atlas.png",
+  "source_output_path": "/workspace/scratch/3ba9ab550e44/generated_images/exec-19a210b0-b3b1-4c3f-8c8f-57847cc1b6db.png",
+  "output": "motion_expanded.png",
+  "prompt": "Use case: identity-preserve. Expand this reference atlas into a production hand-drawn 2D sprite animation sheet of the SAME character silent_bugbler. Preserve original anatomy, palette, ink line quality and costume: charcoal beetle armor, ivory oval mask, shredded grey cloak and bandaged brass bugle. Transparent background with real alpha, no text, no cell borders, no shadows/background. EXACTLY 6 columns × 6 rows, 36 sprites total with ONE complete full-body sprite centered INSIDE each equal cell. Make sprites relatively small (maximum 68% cell width and 76% cell height), generous transparent gutters, consistent scale and foot/hover baseline. All living poses face RIGHT. Every weapon, antenna, limb must remain inside own cell, never crosses adjacent column or row. Row-major exact sequence by slot index: 0,1,2,3 idle breathing; 4,5,6,7,8,9,10,11 eight consecutive walk poses (alternating contact, down, passing, up on both legs); 12,13,14,15 windup; 16,17,18,19,20,21 attack; 22,23,24,25,26,27 recover to ready; 28,29,30,31 hurt/recoil; 32,33,34,35 death buckling, falling, collapsed, settled. Motion focus: raises bugle to face then forcefully projects toward right and lowers it. Actual articulation and pose differences, not shifted duplicate stamps. Orthographic side-view, detailed ink and flat painted natural colors matching input. Do not add objects or redesign the character.",
+  "qa": {
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "method": "Visual semantic review, connected alpha components, explicit full-pose rectangles, >24 alpha edge checks; rejected touching-neighbor poses excluded",
+    "reviewed_regions": [
+      {
+        "index": [
+          0,
+          0
+        ],
+        "region": [
+          99,
+          9,
+          152,
+          158
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          1
+        ],
+        "region": [
+          352,
+          10,
+          157,
+          157
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          2
+        ],
+        "region": [
+          618,
+          12,
+          157,
+          155
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          0,
+          3
+        ],
+        "region": [
+          876,
+          10,
+          164,
+          157
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          0
+        ],
+        "region": [
+          41,
+          170,
+          149,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          1
+        ],
+        "region": [
+          212,
+          170,
+          161,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          2
+        ],
+        "region": [
+          393,
+          171,
+          176,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          3
+        ],
+        "region": [
+          584,
+          170,
+          155,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          4
+        ],
+        "region": [
+          756,
+          169,
+          172,
+          148
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          5
+        ],
+        "region": [
+          944,
+          175,
+          164,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          6
+        ],
+        "region": [
+          1120,
+          168,
+          183,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          1,
+          7
+        ],
+        "region": [
+          1331,
+          166,
+          167,
+          151
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          0
+        ],
+        "region": [
+          69,
+          321,
+          177,
+          150
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          1
+        ],
+        "region": [
+          446,
+          321,
+          183,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          2
+        ],
+        "region": [
+          824,
+          321,
+          185,
+          149
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          2,
+          3
+        ],
+        "region": [
+          1227,
+          320,
+          190,
+          150
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          0
+        ],
+        "region": [
+          37,
+          471,
+          212,
+          138
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          1
+        ],
+        "region": [
+          288,
+          475,
+          220,
+          134
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          2
+        ],
+        "region": [
+          536,
+          468,
+          236,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          3
+        ],
+        "region": [
+          797,
+          470,
+          215,
+          139
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          3,
+          4
+        ],
+        "region": [
+          1043,
+          465,
+          237,
+          144
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          3,
+          5
+        ],
+        "region": [
+          1300,
+          466,
+          214,
+          143
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          4,
+          0
+        ],
+        "region": [
+          47,
+          612,
+          178,
+          142
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          1
+        ],
+        "region": [
+          314,
+          615,
+          158,
+          139
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          2
+        ],
+        "region": [
+          568,
+          612,
+          179,
+          143
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          3
+        ],
+        "region": [
+          816,
+          610,
+          169,
+          145
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          4
+        ],
+        "region": [
+          1070,
+          607,
+          164,
+          148
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          4,
+          5
+        ],
+        "region": [
+          1312,
+          608,
+          157,
+          147
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          0
+        ],
+        "region": [
+          89,
+          763,
+          175,
+          123
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          1
+        ],
+        "region": [
+          422,
+          753,
+          165,
+          136
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          5,
+          2
+        ],
+        "region": [
+          801,
+          759,
+          189,
+          140
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          0
+        ],
+        "region": [
+          81,
+          903,
+          244,
+          106
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          1
+        ],
+        "region": [
+          480,
+          879,
+          231,
+          131
+        ],
+        "bad_edge": true
+      },
+      {
+        "index": [
+          6,
+          2
+        ],
+        "region": [
+          815,
+          917,
+          310,
+          90
+        ],
+        "bad_edge": false
+      },
+      {
+        "index": [
+          6,
+          3
+        ],
+        "region": [
+          1187,
+          902,
+          309,
+          109
+        ],
+        "bad_edge": false
+      }
+    ],
+    "status": "reviewed",
+    "frames": 32,
+    "runtime_visual_review": "Reviewed actual motion_manifest output contact sheet for every animation: full body, weapons, antennae/wings present; no neighboring sprite fragments; unified source scale and stable foot/hover baseline.",
+    "registration_origins_by_source_row": [
+      [
+        176,
+        436,
+        696,
+        956
+      ],
+      [
+        112,
+        296,
+        480,
+        664,
+        848,
+        1032,
+        1216,
+        1400
+      ],
+      [
+        160,
+        548,
+        936,
+        1324
+      ],
+      [
+        144,
+        396,
+        648,
+        900,
+        1152,
+        1404
+      ],
+      [
+        144,
+        396,
+        648,
+        900,
+        1152,
+        1404
+      ],
+      [
+        176,
+        528,
+        912
+      ],
+      [
+        208,
+        592,
+        976,
+        1360
+      ]
+    ],
+    "horizontal_registration": "Explicit authored strip/cell body origins; central strips and variable row counts measured independently. Anchor does not follow weapon or wing bounding-box expansion. Natural pose lean/lunge relative to fixed origin preserved; flying roles do not use feet.",
+    "anchor_review": "All runtime entries specify anchor_x. Reviewed final rendered sequences with fixed vertical body-origin guide; no bounding-box weapon/wing recentering. Flight origins follow authored body/cell layout, not feet."
+  },
+  "runtime_frames": {
+    "idle": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          0,
+          152,
+          158
+        ],
+        "anchor_x": 77.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          154,
+          0,
+          157,
+          157
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          313,
+          0,
+          157,
+          155
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          472,
+          0,
+          164,
+          157
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      }
+    ],
+    "walk": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          638,
+          0,
+          149,
+          147
+        ],
+        "anchor_x": 71.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          789,
+          0,
+          161,
+          147
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          952,
+          0,
+          176,
+          145
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1130,
+          0,
+          155,
+          147
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1287,
+          0,
+          172,
+          148
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1461,
+          0,
+          164,
+          142
+        ],
+        "anchor_x": 88.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1627,
+          0,
+          183,
+          149
+        ],
+        "anchor_x": 96.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1812,
+          0,
+          167,
+          151
+        ],
+        "anchor_x": 69.0,
+        "packed_runtime": true
+      }
+    ],
+    "windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1981,
+          0,
+          177,
+          150
+        ],
+        "anchor_x": 91.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          50,
+          110,
+          160,
+          138
+        ],
+        "component_seeds": [
+          [
+            120,
+            193
+          ]
+        ],
+        "scale": 1.151282,
+        "anchor_x": 84.948775,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          304,
+          109,
+          160,
+          139
+        ],
+        "component_seeds": [
+          [
+            356,
+            191
+          ]
+        ],
+        "scale": 1.139949,
+        "anchor_x": 85.404018,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2160,
+          0,
+          183,
+          149
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          559,
+          109,
+          162,
+          139
+        ],
+        "component_seeds": [
+          [
+            632,
+            191
+          ]
+        ],
+        "scale": 1.137405,
+        "anchor_x": 92.825503,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          809,
+          109,
+          170,
+          139
+        ],
+        "component_seeds": [
+          [
+            820,
+            192
+          ]
+        ],
+        "scale": 1.137405,
+        "anchor_x": 102.825503,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2345,
+          0,
+          185,
+          149
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1065,
+          110,
+          171,
+          138
+        ],
+        "component_seeds": [
+          [
+            1211,
+            190
+          ]
+        ],
+        "scale": 1.148718,
+        "anchor_x": 100.638393,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1320,
+          112,
+          175,
+          135
+        ],
+        "component_seeds": [
+          [
+            1345,
+            186
+          ]
+        ],
+        "scale": 1.178478,
+        "anchor_x": 94.314031,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2532,
+          0,
+          190,
+          150
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          37,
+          366,
+          178,
+          137
+        ],
+        "component_seeds": [
+          [
+            110,
+            442
+          ]
+        ],
+        "scale": 1.131783,
+        "anchor_x": 90.479452,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          289,
+          371,
+          190,
+          132
+        ],
+        "component_seeds": [
+          [
+            471,
+            440
+          ]
+        ],
+        "scale": 1.145161,
+        "anchor_x": 99.201878,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      }
+    ],
+    "attack": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2724,
+          0,
+          212,
+          138
+        ],
+        "anchor_x": 107.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          543,
+          373,
+          192,
+          130
+        ],
+        "component_seeds": [
+          [
+            721,
+            437
+          ]
+        ],
+        "scale": 1.120219,
+        "anchor_x": 98.487805,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          796,
+          380,
+          200,
+          123
+        ],
+        "component_seeds": [
+          [
+            958,
+            439
+          ]
+        ],
+        "scale": 1.176812,
+        "anchor_x": 97.832512,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2938,
+          0,
+          220,
+          134
+        ],
+        "anchor_x": 108.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1048,
+          380,
+          201,
+          123
+        ],
+        "component_seeds": [
+          [
+            1156,
+            440
+          ]
+        ],
+        "scale": 1.182609,
+        "anchor_x": 100.536765,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1301,
+          376,
+          210,
+          127
+        ],
+        "component_seeds": [
+          [
+            1310,
+            440
+          ]
+        ],
+        "scale": 1.159664,
+        "anchor_x": 100.862319,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3160,
+          0,
+          236,
+          140
+        ],
+        "anchor_x": 112.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          24,
+          631,
+          204,
+          127
+        ],
+        "component_seeds": [
+          [
+            214,
+            693
+          ]
+        ],
+        "scale": 1.173669,
+        "anchor_x": 95.295943,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          282,
+          630,
+          198,
+          129
+        ],
+        "component_seeds": [
+          [
+            425,
+            693
+          ]
+        ],
+        "scale": 1.151515,
+        "anchor_x": 94.394737,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3398,
+          0,
+          215,
+          139
+        ],
+        "anchor_x": 103.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          541,
+          630,
+          191,
+          128
+        ],
+        "component_seeds": [
+          [
+            646,
+            692
+          ]
+        ],
+        "scale": 1.166667,
+        "anchor_x": 95.285714,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          817,
+          626,
+          157,
+          133
+        ],
+        "component_seeds": [
+          [
+            917,
+            704
+          ]
+        ],
+        "scale": 1.128,
+        "anchor_x": 82.137116,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      }
+    ],
+    "recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3615,
+          0,
+          178,
+          142
+        ],
+        "anchor_x": 97.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1072,
+          627,
+          157,
+          132
+        ],
+        "component_seeds": [
+          [
+            1142,
+            704
+          ]
+        ],
+        "scale": 1.147849,
+        "anchor_x": 82.484778,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1327,
+          627,
+          159,
+          132
+        ],
+        "component_seeds": [
+          [
+            1356,
+            705
+          ]
+        ],
+        "scale": 1.150538,
+        "anchor_x": 76.130841,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          160,
+          179,
+          143
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          47,
+          883,
+          159,
+          131
+        ],
+        "component_seeds": [
+          [
+            90,
+            961
+          ]
+        ],
+        "scale": 1.168022,
+        "anchor_x": 74.860789,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          306,
+          883,
+          153,
+          131
+        ],
+        "component_seeds": [
+          [
+            388,
+            963
+          ]
+        ],
+        "scale": 1.173442,
+        "anchor_x": 75.863741,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          181,
+          160,
+          169,
+          145
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          561,
+          880,
+          151,
+          135
+        ],
+        "component_seeds": [
+          [
+            679,
+            963
+          ]
+        ],
+        "scale": 1.146982,
+        "anchor_x": 79.940503,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          818,
+          878,
+          145,
+          136
+        ],
+        "component_seeds": [
+          [
+            935,
+            963
+          ]
+        ],
+        "scale": 1.143229,
+        "anchor_x": 84.038724,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          518,
+          160,
+          157,
+          147
+        ],
+        "anchor_x": 92.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1077,
+          878,
+          141,
+          136
+        ],
+        "component_seeds": [
+          [
+            1111,
+            963
+          ]
+        ],
+        "scale": 1.177083,
+        "anchor_x": 82.628319,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "region": [
+          1338,
+          874,
+          136,
+          140
+        ],
+        "component_seeds": [
+          [
+            1410,
+            960
+          ]
+        ],
+        "scale": 1.169192,
+        "anchor_x": 75.557235,
+        "grade": {
+          "saturation": 1.0078,
+          "rgb": [
+            0.8719,
+            0.8783,
+            0.8742
+          ]
+        }
+      }
+    ],
+    "hurt": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          677,
+          160,
+          175,
+          123
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          854,
+          160,
+          165,
+          136
+        ],
+        "anchor_x": 106.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1021,
+          160,
+          189,
+          140
+        ],
+        "anchor_x": 111.0,
+        "packed_runtime": true
+      }
+    ],
+    "death": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1212,
+          160,
+          244,
+          106
+        ],
+        "anchor_x": 127.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1458,
+          160,
+          310,
+          90
+        ],
+        "anchor_x": 161.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          1770,
+          160,
+          309,
+          109
+        ],
+        "anchor_x": 173.0,
+        "packed_runtime": true
+      }
+    ],
+    "bugle_pulse_windup": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2081,
+          160,
+          162,
+          145
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          52,
+          118,
+          148,
+          128
+        ],
+        "component_seeds": [
+          [
+            78,
+            198
+          ]
+        ],
+        "scale": 1.219444,
+        "anchor_x": 73.460137,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          308,
+          114,
+          151,
+          132
+        ],
+        "component_seeds": [
+          [
+            379,
+            189
+          ]
+        ],
+        "scale": 1.19086,
+        "anchor_x": 72.519187,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2245,
+          160,
+          173,
+          149
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          566,
+          111,
+          149,
+          135
+        ],
+        "component_seeds": [
+          [
+            661,
+            187
+          ]
+        ],
+        "scale": 1.223097,
+        "anchor_x": 70.45279,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          822,
+          97,
+          147,
+          149
+        ],
+        "component_seeds": [
+          [
+            947,
+            183
+          ]
+        ],
+        "scale": 1.146572,
+        "anchor_x": 73.616495,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2420,
+          160,
+          164,
+          168
+        ],
+        "anchor_x": 81.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1078,
+          96,
+          147,
+          150
+        ],
+        "component_seeds": [
+          [
+            1168,
+            182
+          ]
+        ],
+        "scale": 1.192488,
+        "anchor_x": 73.23622,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1332,
+          94,
+          149,
+          152
+        ],
+        "component_seeds": [
+          [
+            1378,
+            180
+          ]
+        ],
+        "scale": 1.185185,
+        "anchor_x": 75.96875,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2586,
+          160,
+          163,
+          172
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          53,
+          349,
+          148,
+          153
+        ],
+        "component_seeds": [
+          [
+            152,
+            435
+          ]
+        ],
+        "scale": 1.098851,
+        "anchor_x": 76.426778,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          304,
+          379,
+          158,
+          123
+        ],
+        "component_seeds": [
+          [
+            342,
+            453
+          ]
+        ],
+        "scale": 1.275362,
+        "anchor_x": 79.613636,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "bugle_pulse": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2751,
+          160,
+          178,
+          134
+        ],
+        "anchor_x": 89.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          561,
+          376,
+          155,
+          126
+        ],
+        "component_seeds": [
+          [
+            601,
+            452
+          ]
+        ],
+        "scale": 1.132768,
+        "anchor_x": 79.236908,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          811,
+          382,
+          166,
+          120
+        ],
+        "component_seeds": [
+          [
+            833,
+            449
+          ]
+        ],
+        "scale": 1.190476,
+        "anchor_x": 85.8,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          2931,
+          160,
+          187,
+          133
+        ],
+        "anchor_x": 95.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1070,
+          386,
+          161,
+          116
+        ],
+        "component_seeds": [
+          [
+            1136,
+            449
+          ]
+        ],
+        "scale": 1.17284,
+        "anchor_x": 82.557895,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1328,
+          399,
+          159,
+          104
+        ],
+        "component_seeds": [
+          [
+            1434,
+            451
+          ]
+        ],
+        "scale": 1.253472,
+        "anchor_x": 79.393352,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3120,
+          160,
+          182,
+          115
+        ],
+        "anchor_x": 90.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          46,
+          658,
+          160,
+          101
+        ],
+        "component_seeds": [
+          [
+            63,
+            708
+          ]
+        ],
+        "scale": 1.218638,
+        "anchor_x": 79.188235,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          303,
+          656,
+          159,
+          102
+        ],
+        "component_seeds": [
+          [
+            415,
+            710
+          ]
+        ],
+        "scale": 1.198582,
+        "anchor_x": 78.946746,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3304,
+          160,
+          176,
+          112
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          560,
+          652,
+          160,
+          106
+        ],
+        "component_seeds": [
+          [
+            668,
+            710
+          ]
+        ],
+        "scale": 1.227891,
+        "anchor_x": 77.900277,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          815,
+          635,
+          159,
+          123
+        ],
+        "component_seeds": [
+          [
+            896,
+            706
+          ]
+        ],
+        "scale": 1.118841,
+        "anchor_x": 77.38342,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "bugle_pulse_recover": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3482,
+          160,
+          179,
+          137
+        ],
+        "anchor_x": 87.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1072,
+          633,
+          158,
+          125
+        ],
+        "component_seeds": [
+          [
+            1147,
+            705
+          ]
+        ],
+        "scale": 1.196581,
+        "anchor_x": 77.507143,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1331,
+          627,
+          151,
+          131
+        ],
+        "component_seeds": [
+          [
+            1353,
+            706
+          ]
+        ],
+        "scale": 1.162602,
+        "anchor_x": 72.58042,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3663,
+          160,
+          167,
+          146
+        ],
+        "anchor_x": 80.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          51,
+          884,
+          148,
+          130
+        ],
+        "component_seeds": [
+          [
+            175,
+            962
+          ]
+        ],
+        "scale": 1.18306,
+        "anchor_x": 71.535797,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          307,
+          888,
+          149,
+          126
+        ],
+        "component_seeds": [
+          [
+            387,
+            966
+          ]
+        ],
+        "scale": 1.20904,
+        "anchor_x": 73.481308,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          3832,
+          160,
+          165,
+          141
+        ],
+        "anchor_x": 82.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          565,
+          890,
+          148,
+          124
+        ],
+        "component_seeds": [
+          [
+            619,
+            967
+          ]
+        ],
+        "scale": 1.201149,
+        "anchor_x": 73.497608,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          820,
+          895,
+          149,
+          119
+        ],
+        "component_seeds": [
+          [
+            891,
+            968
+          ]
+        ],
+        "scale": 1.24024,
+        "anchor_x": 73.418886,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          0,
+          334,
+          168,
+          136
+        ],
+        "anchor_x": 86.0,
+        "packed_runtime": true
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1077,
+          895,
+          149,
+          119
+        ],
+        "component_seeds": [
+          [
+            1137,
+            968
+          ]
+        ],
+        "scale": 1.291291,
+        "anchor_x": 74.581395,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      },
+      {
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "region": [
+          1338,
+          883,
+          137,
+          131
+        ],
+        "component_seeds": [
+          [
+            1369,
+            965
+          ]
+        ],
+        "scale": 1.224932,
+        "anchor_x": 69.993363,
+        "grade": {
+          "saturation": 1.0354,
+          "rgb": [
+            0.85,
+            0.85,
+            0.85
+          ]
+        }
+      }
+    ],
+    "bugle_pulse_charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          170,
+          334,
+          172,
+          145
+        ],
+        "anchor_x": 84.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          344,
+          334,
+          162,
+          152
+        ],
+        "anchor_x": 78.0,
+        "packed_runtime": true
+      }
+    ],
+    "charge": [
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          508,
+          334,
+          193,
+          134
+        ],
+        "anchor_x": 102.0,
+        "packed_runtime": true
+      },
+      {
+        "sheet": "motion_runtime.png",
+        "region": [
+          703,
+          334,
+          189,
+          150
+        ],
+        "anchor_x": 104.0,
+        "packed_runtime": true
+      }
+    ]
+  },
+  "attack_motion_v1": {
+    "brief": "art_requests/creature_attacks_v1/silent_bugbler.md",
+    "tool": "tools/build_creature_attack_motion.py",
+    "animations": [
+      "bugle_pulse_windup",
+      "bugle_pulse",
+      "bugle_pulse_recover",
+      "bugle_pulse_charge",
+      "charge"
+    ],
+    "sheets": [
+      {
+        "image": "bugle_pulse.png",
+        "image_sha256": "9368905c2fb7bf2c3984ce2a1ac51dbee288cad84f0289e70c647d2376396b7b",
+        "role": "new",
+        "attack": "bugle_pulse",
+        "plan": [
+          [
+            "wind-up",
+            4
+          ],
+          [
+            "strike",
+            4
+          ],
+          [
+            "recovery",
+            4
+          ],
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.6136,
+        "anchors": [
+          128.4,
+          138.4,
+          132.4,
+          135.4,
+          146.4,
+          157.4,
+          147.4,
+          141.4,
+          142.4,
+          132.4,
+          134.4,
+          140.4,
+          138.4,
+          128.4
+        ],
+        "calibration": {
+          "method": "idle stance",
+          "first_windup_ratio": 0.6068,
+          "last_recover_ratio": 0.6204
+        }
+      },
+      {
+        "image": "bugle_volley_loops.png",
+        "image_sha256": "6e8b9a7fa32ccdb1f8919d39890ef7ac2f799c296c95baa130718e97c2193d74",
+        "role": "keep",
+        "attack": "bugle_volley",
+        "plan": [
+          [
+            "charge loop",
+            2
+          ]
+        ],
+        "scale": 0.252,
+        "anchors": [
+          404.2,
+          413.2
+        ],
+        "calibration": {
+          "method": "matched continued pose",
+          "ratios": [
+            0.2533,
+            0.2506
+          ]
+        }
+      }
+    ]
+  },
+  "combat_motion_v7": {
+    "tool": "tools/build_combat_motion_v7.py",
+    "sources": [
+      {
+        "id": "silent_bugbler__attack",
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__attack.png",
+        "sha256": "07e55ef2b335a1ed94c16cbbc839b3c860082e50dbc599de4187c96044400bc4",
+        "new_drawings": 24,
+        "animations": [
+          "windup",
+          "attack",
+          "recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_bugbler__attack.png"
+      },
+      {
+        "id": "silent_bugbler__bugle_pulse",
+        "source": "art_requests/combat_motion_v7/incoming/silent_bugbler__bugle_pulse.png",
+        "sha256": "5b131550797a4207439628543682f6818cf733e1af8cca3a8b4955bbcbaadcdc",
+        "new_drawings": 24,
+        "animations": [
+          "bugle_pulse_windup",
+          "bugle_pulse",
+          "bugle_pulse_recover"
+        ],
+        "reference": "art_requests/combat_motion_v7/refs/silent_bugbler__bugle_pulse.png"
+      }
+    ],
+    "new_drawings": 48,
+    "runtime_drawings": 48,
+    "calibration": "Continuous endpoint height and rig median; uniform sheet palette match; source pixels never morphed or interpolated."
+  }
+}
