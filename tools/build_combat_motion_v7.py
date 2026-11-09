@@ -22,6 +22,8 @@ BASE=ROOT/'godot/assets/sprites/original_creatures'
 RECORD='combat_motion_v7.json'
 MANIFEST='combat_motion_v7_manifest.json'
 ATLAS='combat_motion_v7.png'
+DETACHED_MARGIN=16  # px beyond a body's bounds that still count as part of the figure
+CAPTION_HEIGHT,CAPTION_AREA=9,150  # glyph-sized marks entirely above or below a body
 CHAPTERS=['moss_bell_court','rain_foundry_canal','saltwhite_archive','broken_string_greenhouse','obsidian_pilgrim_road','silent_crown_core']
 PROMPT='''Use case: identity-preserve. Production 2D game animation IN-BETWEEN drawings, not concept art.
 The reference is a strict SIX-COLUMN by FOUR-ROW sheet. Each adjacent horizontal pair (left endpoint, right endpoint) is ONE numbered transition. There are three PAIRS per row, twelve pairs total, read left-to-right then top-to-bottom.
@@ -153,6 +155,16 @@ def extract(path):
         if i in groups or sizes[i]<4:continue
         y,x=moments[i-1]
         nearest=min(main,key=lambda j:(x-centers[int(j)][1])**2+(y-centers[int(j)][0])**2)
+        # Detached pieces of a figure sit beside its body. Marks well outside it
+        # are not part of the drawing (generated sheets sometimes copy the
+        # reference's "PAIR n / phase / gap" captions); keeping them inflated
+        # the measured height, so calibration shrank the whole pose.
+        body,piece=objects[int(nearest)-1],objects[i-1]
+        if piece[0].start>body[0].stop+DETACHED_MARGIN or piece[0].stop<body[0].start-DETACHED_MARGIN or \
+                piece[1].start>body[1].stop+DETACHED_MARGIN or piece[1].stop<body[1].start-DETACHED_MARGIN:continue
+        # A caption glyph close below or above the figure: short and small,
+        # lying entirely outside the body's height.
+        if (piece[0].start>=body[0].stop or piece[0].stop<=body[0].start) and piece[0].stop-piece[0].start<=CAPTION_HEIGHT and sizes[i]<=CAPTION_AREA:continue
         groups[int(nearest)].append(i)
     result=[]
     for body in main:
