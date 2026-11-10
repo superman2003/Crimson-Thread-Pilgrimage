@@ -83,7 +83,7 @@ LEGACY_META: dict[str, dict[str, Any]] = {
         "depth": 2,
         "objective": "穿过下层紫区绕行线。",
         "guide": "宽平台给地面战斗留出空间。",
-        "danger": "别被下层敌人逼进陷阱。",
+        "danger": "留意下层敌人的攻击和平台落点。",
         "next": "旧钟绳井",
     },
     "old_bell_rope": {

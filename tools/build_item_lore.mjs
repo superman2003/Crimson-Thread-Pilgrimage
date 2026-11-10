@@ -29,9 +29,9 @@ const KEEP_CATALOG_NAME = new Set(["worker_badge"]);
 // functional one-liners appended AFTER the canon lore (先铭文后功能).
 const FUNCTION_LINES = {
   moss_lens: "【功能】自动记录已探索的房间，写入路线图。",
-  quiet_sole: "【功能】陷阱触发判定略微缩小。",
-  heart_knot: "【功能】增加最大生命。",
-  energy_spindle: "【功能】增加最大能量。",
+  quiet_sole: "【功能】地面移动速度提高5%；不增加跳高。",
+  heart_knot: "【功能】每个完整心结永久增加1格生命上限；拾取时不回复生命。",
+  energy_spindle: "【功能】每只完整纺锤永久增加20点绯线上限；拾取时不补充绯线。",
   map_fragment: "【功能】预先揭示一个区域的房间轮廓。",
   smith_oath_plate: "【功能】可作为进入盐白书库的凭证。",
 };
@@ -94,6 +94,7 @@ if (process.argv.includes("--verify")) {
     const a = (item.lore || []).join("\n");
     const b = e.lore.join("\n");
     if (a !== b) problems.push(`lore (json ${a.length} chars vs spec ${b.length} chars)`);
+    if (FUNCTION_LINES[runtimeId] && item.function !== FUNCTION_LINES[runtimeId]) problems.push("function");
     if (problems.length) {
       console.log(`MISMATCH ${e.canon_id} -> ${runtimeId}: ${problems.join(", ")}`);
       mismatches++;

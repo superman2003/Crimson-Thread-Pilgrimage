@@ -183,7 +183,7 @@ def build_rooms(chapter: int) -> list[dict]:
                 "kind": kind,
                 "objective": f"{name}：沿横向主线推进，并观察上层/下层回路。",
                 "guide": "主线保持横向可读；竖井连接上下层，捷径从背面回到熟悉区域。",
-                "danger": "下层更宽但陷阱多，上层更安全但跳跃窗口更窄。",
+                "danger": "下层更宽但敌人多，上层跳跃窗口更窄。",
                 "next": room_specs[index + 1][1] if index + 1 < len(room_specs) else "章节出口",
             }
         )

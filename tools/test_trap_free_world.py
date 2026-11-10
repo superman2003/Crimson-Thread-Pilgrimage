@@ -51,7 +51,26 @@ class TrapFreeWorld(unittest.TestCase):
                                       capture_output=True,text=True,encoding="utf-8",timeout=60)
                 self.assertEqual(result.returncode,0,result.stdout+result.stderr)
                 self.assertIn("SELF_AUDIT_OK",result.stdout)
-                self.assertEqual(json.loads((base/"godot/data"/data).read_text(encoding="utf-8"))["hazards"],[])
+                generated=json.loads((base/"godot/data"/data).read_text(encoding="utf-8"))
+                self.assertEqual(generated["hazards"],[])
+                item="quiet_sole" if number==1 else "damp_knot"
+                description=generated["inventory"]["catalog"][item]["description"]
+                self.assertIn("5%",description)
+                self.assertNotIn("陷阱",description)
+
+    def test_lore_rebuild_preserves_canon_and_uses_current_reward_effect(self):
+        with tempfile.TemporaryDirectory(prefix="ctp-lore-generation-") as tmp:
+            base=Path(tmp)
+            for name in ["tools/build_item_lore.mjs","godot/data/item_lore.json",
+                         "docs/spec/20260726160100000_绯线巡礼世界观圣典.md"]:
+                dest=base/name;dest.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(ROOT/name,dest)
+            for flags in [[],["--verify"]]:
+                result=subprocess.run(["node","tools/build_item_lore.mjs",*flags],cwd=base,
+                                      capture_output=True,text=True,encoding="utf-8",timeout=60)
+                self.assertEqual(result.returncode,0,result.stdout+result.stderr)
+            item=json.loads((base/"godot/data/item_lore.json").read_text(encoding="utf-8"))["items"]["quiet_sole"]
+            self.assertIn("5%",item["function"])
 
     def test_retired_trap_art_is_not_shipped_in_the_runtime_tree(self):
         for folder in ["godot/assets/sprites/demo","godot/assets/sprites/gothicvania/demo"]:

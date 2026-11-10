@@ -19,7 +19,7 @@ ROOM_SPECS = [
     ("echo_moss_trench", "回响苔沟", 5480, 6620, 2, "lower", "下层苔沟，放置宽平台和低风险敌群。"),
     ("old_bell_rope", "旧钟绳井", 6620, 7620, -1, "vertical", "第二个竖向枢纽，同时连接下层回环和上层捷径。"),
     ("bell_leaf_tangle", "钟叶缠结处", 7620, 8780, -1, "upper", "上层平台编织区，制造连续跳跃和视野奖励。"),
-    ("lower_bell_cistern", "沉钟蓄水槽", 8780, 9800, 2, "lower", "可选下层绕行，有陷阱、敌人和回升出口。"),
+    ("lower_bell_cistern", "沉钟蓄水槽", 8780, 9800, 2, "lower", "可选下层绕行，有敌人和回升出口。"),
     ("cistern_pump_shaft", "苔轮回升井", 9800, 10720, 0, "vertical", "从蓄水槽回到主线，形成完整下层回环。"),
     ("upper_crown_rafters", "王冠上梁", 10720, 11740, -2, "upper", "隐藏存档和上层捷径，奖励探索。"),
     ("bellmaker_crossway", "钟匠横桥", 11740, 12580, 0, "field", "中线汇合点，衔接 Boss 前冲刺。"),
@@ -56,7 +56,7 @@ def build_rooms() -> list[dict]:
                 "kind": kind,
                 "objective": objective,
                 "guide": "主线保持中层可读；下层用于绕行和资源压力；上层用于捷径、存档和视野奖励。",
-                "danger": "下层空间宽但陷阱多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
+                "danger": "下层空间宽但敌人多；上层跳跃更窄；Boss 前回廊要求连续处理近战敌人。",
                 "next": next_name,
             }
         )

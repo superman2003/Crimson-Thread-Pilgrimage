@@ -89,7 +89,7 @@
   "static": {
     "npm_test_exit": 0,
     "campaign_exit": 0,
-    "trap_regression_tests": 6,
+    "trap_regression_tests": 7,
     "dependency_regression_tests": 4,
     "contracts_lint": {
       "contracts": 166,
@@ -100,13 +100,14 @@
       "Parsing_Selection_Repository": 10,
       "Running": "Windows lacks directory symlink privilege (WinError 1314); Linux CI executes full 16 cases."
     },
-    "generated_maps": "Structure and ch01 route passed; generated geometry has 54 pre-existing errors, identical to parent. Not a pass."
+    "generated_maps": "Structure and ch01 route passed; generated geometry has 54 pre-existing errors, identical to parent. Not a pass.",
+    "lore_verify_entries": 32
   },
   "scope": "Level environment traps; player tools, enemy attacks and void recovery unchanged.",
   "source_snapshot_after_run": {
     ".gitattributes": "4b60c2e698264d53d4e9178944d6c174b121c06c4ef52000898ccadc46b2669f",
-    ".github/contracts/trap-free-world.yml": "cc6542ddeaf4eaa38bfaf32f5f6f06e7f47451314bd10afc6404cce225320dff",
-    "docs/TRAP_FREE_WORLD.md": "5b179158322a0feb1041dc0467c58d7ffab0412ca1377026523fa8843e4666ba",
+    ".github/contracts/trap-free-world.yml": "60b8cf3da6f4ebc1a818ef11f4cac26542ff308db7d99a582d9635fb167a247e",
+    "docs/TRAP_FREE_WORLD.md": "5ce2dab9f58964487a4ccbe91caf3635d6b71f597fa88b1245df4036dd97a40b",
     "docs/ledger/entries/2026-11-10-1950-v01-retire-level-traps.md": "1a8be80efdc3db8eee67de67bc5494fc27292aa165b1514ad26b3cdf408f9efb",
     "docs/ledger/status/C01.md": "f3345dc011fa0726988dd57e0af127b550418c1f84cd43b7b4d83438b224ca6b",
     "docs/ledger/status/V01.md": "4c504843b47daa8bc611bd31f3a9d1a1c47153e30d6f744a8176ec0c5c703261",
@@ -128,7 +129,7 @@
     "godot/data/generated/demo_ch04_broken_string_greenhouse.generated.json": "2e17d071d7245254a2679e77e5887930aadbae63e6650c17e90f51911d9bad32",
     "godot/data/generated/demo_ch05_obsidian_pilgrim_road.generated.json": "a4c190dede6582a6fac6365edaa21bdecd731e695b850c250c126ab444b53026",
     "godot/data/generated/demo_ch06_silent_crown_core.generated.json": "b314288f4d1d1fb4fc4556a7b157c34262fa96ba67689ce94d365c19502cedea",
-    "godot/data/item_lore.json": "8a794dcc9113750d5934ab730fa10d89af7a132de2ab47cebf295e1756c4d40c",
+    "godot/data/item_lore.json": "ebbe76876ce4f299f55a2046fe813d66291035a8c9020eb637ee6930e3192666",
     "godot/data/progression_plan.json": "1ad594e524b85de396130c2253e5ae8e63d65980cc7dc52abb6c37e445892144",
     "godot/data/soulbox_level_graph.json": "3d901d1e34e22a4127fc910fca526ed740431e57ce087522465447c9d1204d59",
     "godot/scripts/build_profile_comparison.gd": "566a58087ee686d31f26abe627133170cd98843cf5a686cf339bef223c0e307b",
@@ -152,22 +153,23 @@
     "tools/build_open_asset_replacements.py": "902b812d5b2688136a7dc0919a96c296f290973dc6b3f2667b2973d40e60dbda",
     "tools/build_silksong_scale_room_detail_sheets.py": "e8e90eb99271a95ba95e291908ad5e2ff554364b2f5e5327cfe672010453a354",
     "tools/check_trap_free_world_native.py": "3df554371b4d7658531f37bdc75814e6246e84d889703085ac73b4cae692a2d1",
-    "tools/expand_multilayer_maps.py": "ac14080cfa549b19287c747cdc8e1aacffc491fc82b027c7c2e292f1c6e8d870",
+    "tools/expand_multilayer_maps.py": "5cfea3cc8b28453c7198b3598b063c34ead2a74816e316cb72a496c0836f433b",
     "tools/generate_asset_pack.py": "1fceb395a67dce40f6bbf0db58bfe6ab638aa81b13c9bfaedb53eea1f27d048b",
-    "tools/generate_ch01_from_maniamap.py": "168db984a039dcc8bdb2c41683ad99d4e21fc5ff6679d815924f958c42d4b696",
-    "tools/generate_ch01_moss_bell_map.py": "d4767bed77a4752b4980ed6668cfe2b498387dc386e07886f374375d967219f7",
+    "tools/generate_ch01_from_maniamap.py": "f112916b3b89b94d8846c6ffd3aaf7c474b029263289aaeedfacc6665c08162b",
+    "tools/generate_ch01_moss_bell_map.py": "c05f9c5feb0c1e8b8e01f40f49fc163980ffd17768e749313b92f20eb3c168c7",
     "tools/godot_suite_success_markers.json": "4132422adf8fe39b415416229351e6774695fded09e68afd39088f32f58f30ec",
-    "tools/handcraft_ch01_boxgarden.mjs": "f010b8c908e31990e4f0043132f012315bf2f3815dd6fcc0426a45d0c28f80ec",
-    "tools/handcraft_ch02_boxgarden.mjs": "56cc549658fe627536ab99149d67c571dd42961104c232ba1095f8f19e598879",
+    "tools/handcraft_ch01_boxgarden.mjs": "3d262b0c9dc80103a0e4f602bf024d3919350022f7939c7e87233b7d78a58ca3",
+    "tools/handcraft_ch02_boxgarden.mjs": "ee7f480cf730bf8cd7ac07671bc229dab8c2856b4abee273be0f9f96dc364685",
     "tools/run_godot_regressions.py": "083337c7366e2165ec8911655668dc6e2f70f0f36f9a00de26a11510f83fa503",
     "tools/run_quiet_sole_audio.py": "4ec4678096baaa40bf942e3d3820f70e7cb8791833ef9de2e755d38170df2bef",
     "tools/test_regression_runner.py": "87d66750beefed17e289b793390d56a483f207944a8407dd070f28d48371b303",
     "tools/test_runtime_asset_dependencies.py": "0a13898189bacd5005d227a161b7a71ba78f11ade9e70937f43b7b51aa108751",
-    "tools/test_trap_free_world.py": "ec599b6d5ac39f1cba4d7a8bf8597f5835774041b04172010d6bf2ee34ead47b",
+    "tools/test_trap_free_world.py": "dd926135f33a31cf1123b28405ce2e1aecaa40de05ca98255c901764b005a99e",
     "tools/validate_enemy_runtime_manifest_coverage.py": "5e66c5362fd55f5f52acca5b16213827171b23a291f740a3ada1e7724bc73b45",
     "tools/validate_gothicvania_assets.py": "b7b879439f0067856730f4bee080f06a5899fb18d4bcc323c63c29dbb93b360e",
     "tools/validate_open_asset_replacement.py": "8f0a834a6e11416a4f592b7cfdd92864c3bfa501037def9480845ed101a2b9e5",
     "tools/validate_runtime_asset_dependencies.py": "5896f45230e42b8a833ce77a6f450ed705ef0eedd5c374c381b24c043fa4e264",
-    "tools/validate_seal_catalog.py": "3f12d39ee3912b033b43b5e7cc78fba29c7ae03fb7a9ad965109acf1607aba4b"
+    "tools/validate_seal_catalog.py": "3f12d39ee3912b033b43b5e7cc78fba29c7ae03fb7a9ad965109acf1607aba4b",
+    "tools/build_item_lore.mjs": "6b31ed40bb54c5038e779fa0ab6203f57df06394301e9bac27a1736427486407"
   }
 }

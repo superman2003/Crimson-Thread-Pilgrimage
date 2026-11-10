@@ -777,7 +777,7 @@ function build() {
   ];
   const catalog_extra = {
     thread_dash: { name: "绯线冲刺", category: "Abilities", description: "短距离水平冲刺，可穿过钟隙与窄刺阵。断枝祭坛的守卫曾用它护住整条苔脉。" },
-    quiet_sole: { name: "静靴", category: "Charms", description: "陷阱触发判定略微缩小。织线者留下的软底靴。" },
+    quiet_sole: { name: "静靴", category: "Charms", description: "地面移动速度提高5%；不增加跳高。织线者留下的软底靴。" },
     energy_spindle: { name: "能量纺锤", category: "Upgrades", description: "增加最大能量。沉在水窖深廊的纺锤仍在转。" },
     map_fragment: { name: "地图残页", category: "Relics", description: "预先揭示一个区域的房间轮廓。残页边缘写着看不懂的钟文。" },
     heart_knot: { name: "心结", category: "Upgrades", description: "增加最大生命。打了死结的绯线，攥紧就不冷。" },

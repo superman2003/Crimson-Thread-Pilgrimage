@@ -542,7 +542,7 @@ function build() {
     testimony_02: { name: "证词·其二", category: "Relics", description: "六份证词之二：沉没档案舱里泡了三十年的点名册。" },
     heart_knot: { name: "心结", category: "Upgrades", description: "增加最大生命。打了死结的绯线，攥紧就不冷。" },
     energy_spindle: { name: "能量纺锤", category: "Upgrades", description: "增加最大能量。半沉在暗室水里的纺锤仍在转。" },
-    damp_knot: { name: "防潮线结", category: "Charms", description: "锈泵修女编的防潮线结，陷阱触发判定略微缩小。" },
+    damp_knot: { name: "防潮线结", category: "Charms", description: "锈泵修女编的防潮线结，地面移动速度提高5%；不增加跳高。" },
     map_fragment_02: { name: "地图残页·其二", category: "Relics", description: "预先揭示一个区域的房间轮廓。残页背面画着水轮的剖面。" },
     worker_badge: { name: "锈工牌", category: "Quest", description: "半沉工头点名要的工牌。牌上的坑坑洼洼，都是工人自己敲的。" },
   };
