@@ -1,0 +1,3160 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "moss_larva",
+  "canvas": [
+    332,
+    241
+  ],
+  "display_height": 70,
+  "visual_scale": 0.3954802259887006,
+  "visual_offset": [
+    0,
+    12.948474576271188
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            199,
+            177
+          ],
+          "margin": [
+            66,
+            56,
+            133,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            195,
+            177
+          ],
+          "margin": [
+            68,
+            60,
+            137,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            201,
+            0,
+            197,
+            178
+          ],
+          "margin": [
+            69,
+            55,
+            135,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            201,
+            2,
+            201,
+            176
+          ],
+          "margin": [
+            62,
+            60,
+            131,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            400,
+            0,
+            206,
+            182
+          ],
+          "margin": [
+            63,
+            51,
+            126,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            406,
+            2,
+            199,
+            180
+          ],
+          "margin": [
+            64,
+            56,
+            133,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            608,
+            0,
+            200,
+            180
+          ],
+          "margin": [
+            70,
+            53,
+            132,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            609,
+            2,
+            198,
+            177
+          ],
+          "margin": [
+            64,
+            60,
+            134,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            810,
+            0,
+            215,
+            176
+          ],
+          "margin": [
+            68,
+            57,
+            117,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            811,
+            2,
+            201,
+            179
+          ],
+          "margin": [
+            76,
+            58,
+            131,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1027,
+            0,
+            209,
+            174
+          ],
+          "margin": [
+            80,
+            59,
+            123,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1016,
+            2,
+            195,
+            172
+          ],
+          "margin": [
+            82,
+            65,
+            137,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1238,
+            0,
+            206,
+            171
+          ],
+          "margin": [
+            77,
+            62,
+            126,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1215,
+            2,
+            195,
+            170
+          ],
+          "margin": [
+            80,
+            66,
+            137,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1446,
+            0,
+            199,
+            171
+          ],
+          "margin": [
+            74,
+            62,
+            133,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1414,
+            2,
+            199,
+            170
+          ],
+          "margin": [
+            73,
+            66,
+            133,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1647,
+            0,
+            210,
+            170
+          ],
+          "margin": [
+            71,
+            63,
+            122,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1617,
+            2,
+            199,
+            174
+          ],
+          "margin": [
+            74,
+            63,
+            133,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1859,
+            0,
+            208,
+            177
+          ],
+          "margin": [
+            76,
+            56,
+            124,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1820,
+            2,
+            198,
+            180
+          ],
+          "margin": [
+            77,
+            57,
+            134,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2069,
+            0,
+            204,
+            178
+          ],
+          "margin": [
+            77,
+            55,
+            128,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            190,
+            197,
+            175
+          ],
+          "margin": [
+            73,
+            61,
+            135,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2275,
+            0,
+            204,
+            178
+          ],
+          "margin": [
+            72,
+            55,
+            128,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            203,
+            190,
+            198,
+            177
+          ],
+          "margin": [
+            72,
+            59,
+            134,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2481,
+            0,
+            218,
+            186
+          ],
+          "margin": [
+            74,
+            47,
+            114,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            405,
+            190,
+            218,
+            190
+          ],
+          "margin": [
+            76,
+            45,
+            114,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2701,
+            0,
+            239,
+            196
+          ],
+          "margin": [
+            69,
+            37,
+            93,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            627,
+            190,
+            212,
+            193
+          ],
+          "margin": [
+            82,
+            42,
+            120,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2942,
+            0,
+            191,
+            200
+          ],
+          "margin": [
+            87,
+            33,
+            141,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            843,
+            190,
+            191,
+            184
+          ],
+          "margin": [
+            96,
+            51,
+            141,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3135,
+            0,
+            190,
+            197
+          ],
+          "margin": [
+            93,
+            36,
+            142,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1038,
+            190,
+            193,
+            195
+          ],
+          "margin": [
+            92,
+            40,
+            139,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3327,
+            0,
+            196,
+            202
+          ],
+          "margin": [
+            87,
+            31,
+            136,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1235,
+            190,
+            202,
+            198
+          ],
+          "margin": [
+            86,
+            37,
+            130,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3525,
+            0,
+            188,
+            204
+          ],
+          "margin": [
+            95,
+            29,
+            144,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1441,
+            190,
+            180,
+            201
+          ],
+          "margin": [
+            98,
+            34,
+            152,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3715,
+            0,
+            178,
+            198
+          ],
+          "margin": [
+            97,
+            35,
+            154,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1625,
+            190,
+            178,
+            202
+          ],
+          "margin": [
+            94,
+            33,
+            154,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3895,
+            0,
+            188,
+            208
+          ],
+          "margin": [
+            88,
+            25,
+            144,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1807,
+            190,
+            181,
+            198
+          ],
+          "margin": [
+            88,
+            37,
+            151,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            210,
+            177,
+            211
+          ],
+          "margin": [
+            84,
+            22,
+            155,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            400,
+            170,
+            190
+          ],
+          "margin": [
+            90,
+            45,
+            162,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            179,
+            210,
+            169,
+            209
+          ],
+          "margin": [
+            85,
+            24,
+            163,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            176,
+            400,
+            172,
+            191
+          ],
+          "margin": [
+            86,
+            44,
+            160,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            350,
+            210,
+            176,
+            203
+          ],
+          "margin": [
+            80,
+            30,
+            156,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            352,
+            400,
+            191,
+            181
+          ],
+          "margin": [
+            72,
+            54,
+            141,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            528,
+            210,
+            240,
+            190
+          ],
+          "margin": [
+            53,
+            43,
+            92,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            547,
+            400,
+            215,
+            184
+          ],
+          "margin": [
+            64,
+            51,
+            117,
+            57
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            770,
+            210,
+            222,
+            173
+          ],
+          "margin": [
+            64,
+            60,
+            110,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            766,
+            400,
+            223,
+            178
+          ],
+          "margin": [
+            64,
+            58,
+            109,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            994,
+            210,
+            227,
+            179
+          ],
+          "margin": [
+            64,
+            54,
+            105,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            993,
+            400,
+            232,
+            179
+          ],
+          "margin": [
+            63,
+            56,
+            100,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1223,
+            210,
+            241,
+            178
+          ],
+          "margin": [
+            65,
+            55,
+            91,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1229,
+            400,
+            238,
+            175
+          ],
+          "margin": [
+            64,
+            60,
+            94,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1466,
+            210,
+            237,
+            173
+          ],
+          "margin": [
+            76,
+            60,
+            95,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1471,
+            400,
+            240,
+            173
+          ],
+          "margin": [
+            68,
+            62,
+            92,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1705,
+            210,
+            245,
+            179
+          ],
+          "margin": [
+            73,
+            54,
+            87,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1715,
+            400,
+            250,
+            178
+          ],
+          "margin": [
+            69,
+            57,
+            82,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1952,
+            210,
+            226,
+            181
+          ],
+          "margin": [
+            66,
+            52,
+            106,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            599,
+            222,
+            169
+          ],
+          "margin": [
+            66,
+            66,
+            110,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2180,
+            210,
+            210,
+            176
+          ],
+          "margin": [
+            79,
+            57,
+            122,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            228,
+            599,
+            218,
+            176
+          ],
+          "margin": [
+            72,
+            59,
+            114,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2392,
+            210,
+            223,
+            177
+          ],
+          "margin": [
+            69,
+            56,
+            109,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            450,
+            599,
+            220,
+            172
+          ],
+          "margin": [
+            70,
+            63,
+            112,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2617,
+            210,
+            213,
+            174
+          ],
+          "margin": [
+            69,
+            59,
+            119,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            674,
+            599,
+            201,
+            159
+          ],
+          "margin": [
+            76,
+            78,
+            131,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2832,
+            210,
+            191,
+            164
+          ],
+          "margin": [
+            81,
+            69,
+            141,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            879,
+            599,
+            209,
+            160
+          ],
+          "margin": [
+            69,
+            75,
+            123,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3025,
+            210,
+            216,
+            177
+          ],
+          "margin": [
+            61,
+            56,
+            116,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1092,
+            599,
+            218,
+            170
+          ],
+          "margin": [
+            56,
+            65,
+            114,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3243,
+            210,
+            214,
+            183
+          ],
+          "margin": [
+            78,
+            50,
+            118,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1314,
+            599,
+            198,
+            177
+          ],
+          "margin": [
+            61,
+            58,
+            134,
+            64
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3459,
+            210,
+            219,
+            184
+          ],
+          "margin": [
+            71,
+            49,
+            113,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1516,
+            599,
+            209,
+            176
+          ],
+          "margin": [
+            50,
+            59,
+            123,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3680,
+            210,
+            222,
+            189
+          ],
+          "margin": [
+            70,
+            44,
+            110,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1729,
+            599,
+            212,
+            179
+          ],
+          "margin": [
+            52,
+            56,
+            120,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            423,
+            227,
+            187
+          ],
+          "margin": [
+            68,
+            46,
+            105,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            786,
+            205,
+            172
+          ],
+          "margin": [
+            62,
+            63,
+            127,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            229,
+            423,
+            215,
+            180
+          ],
+          "margin": [
+            79,
+            53,
+            117,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            211,
+            786,
+            202,
+            169
+          ],
+          "margin": [
+            65,
+            66,
+            130,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            446,
+            423,
+            223,
+            184
+          ],
+          "margin": [
+            72,
+            49,
+            109,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            417,
+            786,
+            221,
+            180
+          ],
+          "margin": [
+            74,
+            55,
+            111,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            671,
+            423,
+            218,
+            182
+          ],
+          "margin": [
+            73,
+            51,
+            114,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            642,
+            786,
+            219,
+            178
+          ],
+          "margin": [
+            68,
+            57,
+            113,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            891,
+            423,
+            203,
+            174
+          ],
+          "margin": [
+            80,
+            59,
+            129,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            865,
+            786,
+            214,
+            177
+          ],
+          "margin": [
+            68,
+            58,
+            118,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1096,
+            423,
+            219,
+            181
+          ],
+          "margin": [
+            66,
+            52,
+            113,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1083,
+            786,
+            219,
+            182
+          ],
+          "margin": [
+            62,
+            53,
+            113,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1317,
+            423,
+            225,
+            180
+          ],
+          "margin": [
+            58,
+            53,
+            107,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1306,
+            786,
+            214,
+            169
+          ],
+          "margin": [
+            59,
+            67,
+            118,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1544,
+            423,
+            208,
+            176
+          ],
+          "margin": [
+            63,
+            57,
+            124,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1524,
+            786,
+            215,
+            169
+          ],
+          "margin": [
+            54,
+            66,
+            117,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1754,
+            423,
+            225,
+            181
+          ],
+          "margin": [
+            52,
+            52,
+            107,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1743,
+            786,
+            227,
+            175
+          ],
+          "margin": [
+            48,
+            60,
+            105,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1981,
+            423,
+            221,
+            183
+          ],
+          "margin": [
+            53,
+            50,
+            111,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            976,
+            221,
+            169
+          ],
+          "margin": [
+            47,
+            66,
+            111,
+            72
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2204,
+            423,
+            167,
+            188
+          ],
+          "margin": [
+            89,
+            45,
+            165,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            227,
+            976,
+            178,
+            189
+          ],
+          "margin": [
+            84,
+            46,
+            154,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2373,
+            423,
+            170,
+            175
+          ],
+          "margin": [
+            84,
+            58,
+            162,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            409,
+            976,
+            176,
+            167
+          ],
+          "margin": [
+            78,
+            70,
+            156,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2545,
+            423,
+            181,
+            160
+          ],
+          "margin": [
+            76,
+            73,
+            151,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            589,
+            976,
+            178,
+            145
+          ],
+          "margin": [
+            66,
+            89,
+            154,
+            96
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2728,
+            423,
+            223,
+            138
+          ],
+          "margin": [
+            48,
+            95,
+            109,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            771,
+            976,
+            229,
+            146
+          ],
+          "margin": [
+            46,
+            89,
+            103,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2953,
+            423,
+            174,
+            166
+          ],
+          "margin": [
+            87,
+            67,
+            158,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1004,
+            976,
+            227,
+            135
+          ],
+          "margin": [
+            74,
+            100,
+            105,
+            106
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3129,
+            423,
+            231,
+            148
+          ],
+          "margin": [
+            75,
+            85,
+            101,
+            93
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1235,
+            976,
+            220,
+            146
+          ],
+          "margin": [
+            75,
+            89,
+            112,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3362,
+            423,
+            235,
+            128
+          ],
+          "margin": [
+            79,
+            105,
+            97,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1459,
+            976,
+            212,
+            108
+          ],
+          "margin": [
+            76,
+            127,
+            120,
+            133
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3599,
+            423,
+            178,
+            93
+          ],
+          "margin": [
+            91,
+            140,
+            154,
+            148
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1675,
+            976,
+            203,
+            90
+          ],
+          "margin": [
+            77,
+            147,
+            129,
+            151
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3779,
+            423,
+            203,
+            147
+          ],
+          "margin": [
+            64,
+            86,
+            129,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            1173,
+            236,
+            160
+          ],
+          "margin": [
+            63,
+            75,
+            96,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            613,
+            193,
+            139
+          ],
+          "margin": [
+            72,
+            94,
+            139,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            242,
+            1173,
+            189,
+            179
+          ],
+          "margin": [
+            80,
+            56,
+            143,
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "name": "larva_snap_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            195,
+            613,
+            209,
+            161
+          ],
+          "margin": [
+            50,
+            72,
+            123,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            435,
+            1173,
+            245,
+            171
+          ],
+          "margin": [
+            38,
+            64,
+            87,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            406,
+            613,
+            237,
+            174
+          ],
+          "margin": [
+            33,
+            59,
+            95,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            684,
+            1173,
+            271,
+            162
+          ],
+          "margin": [
+            24,
+            73,
+            61,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            645,
+            613,
+            207,
+            180
+          ],
+          "margin": [
+            46,
+            53,
+            125,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            959,
+            1173,
+            216,
+            170
+          ],
+          "margin": [
+            52,
+            65,
+            116,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            854,
+            613,
+            201,
+            181
+          ],
+          "margin": [
+            53,
+            52,
+            131,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1179,
+            1173,
+            217,
+            183
+          ],
+          "margin": [
+            47,
+            52,
+            115,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1057,
+            613,
+            224,
+            197
+          ],
+          "margin": [
+            39,
+            36,
+            108,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1400,
+            1173,
+            214,
+            204
+          ],
+          "margin": [
+            48,
+            31,
+            118,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1283,
+            613,
+            193,
+            205
+          ],
+          "margin": [
+            56,
+            28,
+            139,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1618,
+            1173,
+            201,
+            203
+          ],
+          "margin": [
+            56,
+            32,
+            131,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1478,
+            613,
+            188,
+            206
+          ],
+          "margin": [
+            60,
+            27,
+            144,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1823,
+            1173,
+            202,
+            213
+          ],
+          "margin": [
+            55,
+            22,
+            130,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1668,
+            613,
+            201,
+            219
+          ],
+          "margin": [
+            54,
+            14,
+            131,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            1394,
+            216,
+            219
+          ],
+          "margin": [
+            50,
+            17,
+            116,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1871,
+            613,
+            188,
+            225
+          ],
+          "margin": [
+            58,
+            8,
+            144,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            222,
+            1394,
+            202,
+            223
+          ],
+          "margin": [
+            52,
+            12,
+            130,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2061,
+            613,
+            182,
+            225
+          ],
+          "margin": [
+            61,
+            8,
+            150,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            428,
+            1394,
+            198,
+            211
+          ],
+          "margin": [
+            56,
+            24,
+            134,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2245,
+            613,
+            177,
+            214
+          ],
+          "margin": [
+            64,
+            19,
+            155,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            630,
+            1394,
+            221,
+            222
+          ],
+          "margin": [
+            46,
+            13,
+            111,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2424,
+            613,
+            252,
+            197
+          ],
+          "margin": [
+            37,
+            36,
+            80,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            855,
+            1394,
+            233,
+            196
+          ],
+          "margin": [
+            38,
+            39,
+            99,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "larva_snap",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2678,
+            613,
+            218,
+            173
+          ],
+          "margin": [
+            52,
+            60,
+            114,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1092,
+            1394,
+            229,
+            182
+          ],
+          "margin": [
+            44,
+            53,
+            103,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2898,
+            613,
+            237,
+            173
+          ],
+          "margin": [
+            43,
+            60,
+            95,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1325,
+            1394,
+            257,
+            179
+          ],
+          "margin": [
+            31,
+            56,
+            75,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3137,
+            613,
+            282,
+            171
+          ],
+          "margin": [
+            27,
+            62,
+            50,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1586,
+            1394,
+            255,
+            165
+          ],
+          "margin": [
+            32,
+            70,
+            77,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3421,
+            613,
+            243,
+            158
+          ],
+          "margin": [
+            44,
+            75,
+            89,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            1625,
+            250,
+            160
+          ],
+          "margin": [
+            36,
+            75,
+            82,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3666,
+            613,
+            261,
+            158
+          ],
+          "margin": [
+            35,
+            75,
+            71,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            256,
+            1625,
+            268,
+            170
+          ],
+          "margin": [
+            27,
+            65,
+            64,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            840,
+            310,
+            155
+          ],
+          "margin": [
+            13,
+            78,
+            22,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            528,
+            1625,
+            268,
+            153
+          ],
+          "margin": [
+            28,
+            82,
+            64,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            312,
+            840,
+            265,
+            141
+          ],
+          "margin": [
+            34,
+            92,
+            67,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            800,
+            1625,
+            268,
+            153
+          ],
+          "margin": [
+            24,
+            82,
+            64,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            579,
+            840,
+            301,
+            153
+          ],
+          "margin": [
+            15,
+            80,
+            31,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1072,
+            1625,
+            270,
+            155
+          ],
+          "margin": [
+            22,
+            80,
+            62,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            882,
+            840,
+            235,
+            154
+          ],
+          "margin": [
+            37,
+            79,
+            97,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1346,
+            1625,
+            236,
+            146
+          ],
+          "margin": [
+            36,
+            89,
+            96,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1119,
+            840,
+            222,
+            154
+          ],
+          "margin": [
+            47,
+            79,
+            110,
+            87
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1586,
+            1625,
+            243,
+            158
+          ],
+          "margin": [
+            36,
+            77,
+            89,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1343,
+            840,
+            252,
+            167
+          ],
+          "margin": [
+            31,
+            66,
+            80,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            2,
+            1803,
+            247,
+            164
+          ],
+          "margin": [
+            32,
+            71,
+            85,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1597,
+            840,
+            226,
+            171
+          ],
+          "margin": [
+            42,
+            62,
+            106,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            253,
+            1803,
+            236,
+            172
+          ],
+          "margin": [
+            36,
+            63,
+            96,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "larva_snap_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            1825,
+            840,
+            228,
+            173
+          ],
+          "margin": [
+            41,
+            60,
+            104,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            493,
+            1803,
+            233,
+            173
+          ],
+          "margin": [
+            38,
+            62,
+            99,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2055,
+            840,
+            225,
+            173
+          ],
+          "margin": [
+            42,
+            60,
+            107,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            730,
+            1803,
+            235,
+            187
+          ],
+          "margin": [
+            39,
+            48,
+            97,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2282,
+            840,
+            252,
+            167
+          ],
+          "margin": [
+            31,
+            66,
+            80,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            969,
+            1803,
+            235,
+            177
+          ],
+          "margin": [
+            37,
+            58,
+            97,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2536,
+            840,
+            224,
+            155
+          ],
+          "margin": [
+            46,
+            78,
+            108,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1208,
+            1803,
+            231,
+            178
+          ],
+          "margin": [
+            41,
+            57,
+            101,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            2762,
+            840,
+            246,
+            160
+          ],
+          "margin": [
+            33,
+            73,
+            86,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1443,
+            1803,
+            243,
+            180
+          ],
+          "margin": [
+            34,
+            55,
+            89,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3010,
+            840,
+            257,
+            159
+          ],
+          "margin": [
+            28,
+            74,
+            75,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_00.png",
+          "region": [
+            1690,
+            1803,
+            235,
+            160
+          ],
+          "margin": [
+            36,
+            75,
+            97,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3269,
+            840,
+            224,
+            151
+          ],
+          "margin": [
+            46,
+            82,
+            108,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            239,
+            157
+          ],
+          "margin": [
+            35,
+            78,
+            93,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3495,
+            840,
+            264,
+            159
+          ],
+          "margin": [
+            26,
+            74,
+            68,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            245,
+            2,
+            258,
+            163
+          ],
+          "margin": [
+            30,
+            72,
+            74,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            3761,
+            840,
+            279,
+            158
+          ],
+          "margin": [
+            28,
+            75,
+            53,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            507,
+            2,
+            235,
+            150
+          ],
+          "margin": [
+            38,
+            85,
+            97,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            1015,
+            228,
+            151
+          ],
+          "margin": [
+            52,
+            82,
+            104,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            746,
+            2,
+            238,
+            155
+          ],
+          "margin": [
+            33,
+            80,
+            94,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            230,
+            1015,
+            278,
+            166
+          ],
+          "margin": [
+            25,
+            67,
+            54,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            988,
+            2,
+            248,
+            157
+          ],
+          "margin": [
+            28,
+            78,
+            84,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            510,
+            1015,
+            212,
+            173
+          ],
+          "margin": [
+            60,
+            60,
+            120,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_v8_01.png",
+          "region": [
+            1240,
+            2,
+            233,
+            147
+          ],
+          "margin": [
+            34,
+            88,
+            99,
+            94
+          ]
+        }
+      ]
+    },
+    {
+      "name": "turn",
+      "fps": 38.88888888888889,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            199,
+            177
+          ],
+          "margin": [
+            66,
+            56,
+            133,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            1297,
+            2,
+            203,
+            175
+          ],
+          "margin": [
+            67,
+            56,
+            129,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            1504,
+            2,
+            176,
+            179
+          ],
+          "margin": [
+            75,
+            52,
+            156,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            1684,
+            2,
+            166,
+            180
+          ],
+          "margin": [
+            73,
+            52,
+            166,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            1854,
+            2,
+            162,
+            181
+          ],
+          "margin": [
+            86,
+            50,
+            170,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            2,
+            191,
+            196,
+            181
+          ],
+          "margin": [
+            54,
+            51,
+            136,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            202,
+            191,
+            214,
+            179
+          ],
+          "margin": [
+            46,
+            52,
+            118,
+            62
+          ]
+        }
+      ]
+    },
+    {
+      "name": "brake",
+      "fps": 43.75,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/combat_motion_v7.png",
+          "region": [
+            810,
+            0,
+            215,
+            176
+          ],
+          "margin": [
+            68,
+            57,
+            117,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            2,
+            2,
+            212,
+            171
+          ],
+          "margin": [
+            67,
+            55,
+            120,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            218,
+            2,
+            211,
+            171
+          ],
+          "margin": [
+            66,
+            55,
+            121,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            433,
+            2,
+            212,
+            171
+          ],
+          "margin": [
+            71,
+            55,
+            120,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            649,
+            2,
+            212,
+            170
+          ],
+          "margin": [
+            67,
+            58,
+            120,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            865,
+            2,
+            212,
+            171
+          ],
+          "margin": [
+            69,
+            58,
+            120,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/moss_larva/motion_transition_00.png",
+          "region": [
+            1081,
+            2,
+            212,
+            171
+          ],
+          "margin": [
+            71,
+            58,
+            120,
+            70
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "larva_snap",
+    "larva_snap_recover",
+    "larva_snap_windup",
+    "recover",
+    "windup"
+  ],
+  "transition_record": {
+    "schema": 1,
+    "baseline": "motion_v8_manifest.json",
+    "baseline_sha256": "f9112343119c9543c94d07e8ce5ac3a66b37b54f81d02514c4df39041fe2f05d",
+    "spec": "art_requests/enemy_transitions_v1/jobs/moss_larva.json",
+    "new_drawings": 12,
+    "durations": {
+      "turn": 0.18,
+      "brake": 0.16
+    },
+    "turn": "Canonical artwork turns from its original-facing side to its opposite; runtime mirrors the entire gesture for the reverse direction."
+  }
+}

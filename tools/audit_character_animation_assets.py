@@ -19,7 +19,7 @@ CHAPTERS = [
     "moss_bell_court", "rain_foundry_canal", "saltwhite_archive",
     "broken_string_greenhouse", "obsidian_pilgrim_road", "silent_crown_core",
 ]
-LAYERS = ["motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
+LAYERS = ["motion_transition_manifest.json", "motion_onion_manifest.json", "motion_v8_manifest.json", "boss_behavior_manifest.json", "combat_motion_v7_manifest.json",
           "motion_manifest.json", "manifest.json"]
 CORE = ["idle", "walk", "windup", "attack", "recover", "hurt", "death"]
 OPTIONAL = ["turn", "brake", "jump", "land", "intro", "stagger"]
@@ -246,7 +246,7 @@ def resolve_signature(command):
 def markdown(report):
     s = report["summary"]
     has_v8 = any(Path(a["manifest"]).name == "motion_v8_manifest.json" for a in report["actors"])
-    priority = ("`motion_v8_manifest` → " if has_v8 else "") + "`boss_behavior_manifest` → `combat_motion_v7_manifest` → `motion_manifest` → `manifest`"
+    priority = " → ".join("`"+name.removesuffix(".json")+"`" for name in LAYERS)
     phase_note = ("当前正式角色的攻击阶段为 24 帧，通常三段合计 72 个姿势引用。" if has_v8 else
                   "十二帧是每个阶段的数量，通常三段合计 36 个姿势引用。")
     lines = ["# 敌人动作素材逐项盘点（自动生成）", "",

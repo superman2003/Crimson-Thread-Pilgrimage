@@ -222,8 +222,9 @@ class ScaleGate(unittest.TestCase):
 
     def test_gated_layers_cover_onion_and_v8(self):
         self.assertIn("motion_onion_", gate.GATED_ATLAS_MARKERS)
-        self.assertEqual(gate.ACTIVE_LAYERS[0], onion.LAYER)
-        self.assertEqual(gate.ACTIVE_LAYERS[2:], onion.BASELINE_LAYERS)
+        self.assertEqual(gate.ACTIVE_LAYERS[:2], ["motion_transition_manifest.json", onion.LAYER])
+        self.assertIn("motion_transition_", gate.GATED_ATLAS_MARKERS)
+        self.assertEqual(gate.ACTIVE_LAYERS[3:], onion.BASELINE_LAYERS)
 
 
 if __name__ == "__main__":

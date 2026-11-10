@@ -29,9 +29,17 @@ func run() -> void:
         var kind := String(design.kind)
         if not only.is_empty() and not kind in only:continue
         var path := ART.character_manifest("original_creatures",kind)
-        check(path.ends_with("motion_v8_manifest.json"),kind+" production/prewarm chooses v8")
-        if not path.ends_with("motion_v8_manifest.json"):continue
-        var manifest := ART.manifest(path)
+        var production := ART.manifest(path)
+        var extension: Dictionary = production.get("transition_record",{})
+        var uses_v8 := path.ends_with("motion_v8_manifest.json") or (path.ends_with("motion_transition_manifest.json") and String(extension.get("baseline",""))=="motion_v8_manifest.json")
+        check(uses_v8,kind+" production/prewarm retains the complete v8 core")
+        if not uses_v8:continue
+        # New gestures are supplemental. Keep every frozen v8 assertion and
+        # its totals, and separately require the production core to be exact.
+        var manifest := ART.manifest(path.get_base_dir()+"/motion_v8_manifest.json")
+        var production_clips := {}
+        for clip: Dictionary in production.animations:production_clips[String(clip.name)]=clip
+        check(production.canvas==manifest.canvas and production.visual_scale==manifest.visual_scale and production.visual_offset==manifest.visual_offset,kind+" extension retains the complete fixed rig")
         var record := ART.manifest(path.get_base_dir()+"/motion_v8_generation.json")
         var baseline := ART.manifest("res://"+String(record.baseline_manifest).trim_prefix("godot/"))
         var padding: Array=record.symmetric_padding
@@ -50,6 +58,7 @@ func run() -> void:
         var frames: SpriteFrames = actor.animated_sprite.sprite_frames
         for animation: Dictionary in manifest.animations:
             var name := String(animation.name)
+            check(production_clips.get(name,{})==animation,kind+" extension never replaces a frozen core pose or clock")
             var previous: Dictionary=originals[name]
             check(animation.frames.size()==previous.frames.size()*2,kind+"/"+name+" exactly doubles cels")
             check(is_equal_approx(float(animation.fps),float(previous.fps)*2),kind+"/"+name+" preserves cycle time")
