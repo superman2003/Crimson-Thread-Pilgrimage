@@ -13,6 +13,8 @@ concurrency:
   group: godot-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+# Test steps carry `if: !cancelled()`: a failing step no longer hides the
+# later ones (the job still fails), so one push reports every broken gate.
 jobs:
   runtime:
     strategy:
@@ -41,6 +43,7 @@ jobs:
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Validate JavaScript and chapter structure
+        if: ${{ !cancelled() }}
         run: |
           python3 tools/test_ci_shards.py
           python3 tools/test_integration_workflow.py
@@ -53,22 +56,24 @@ jobs:
           python3 tools/validate_hero_v3.py
           python3 tools/test_hero_pose_extraction.py
       - name: Validate combat audio from an isolated exported PCK
-        if: matrix.shard == 1
+        if: matrix.shard == 1 && !cancelled()
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/test_combat_sfx_export.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/combat-audio-export"
       - name: Validate authored combat source geometry and reproducible atlases
-        if: matrix.shard == 1
+        if: matrix.shard == 1 && !cancelled()
         run: |
           python3 tools/build_combat_motion_v7.py --audit-sources
           python3 tools/build_combat_motion_v7.py --check
           python3 tools/build_boss_behavior_motion.py --check
       - name: Validate cold and warm MetSys editor lifecycle
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/test_metsys_probe_contract.py
           python3 tools/test_metsys_cold_import.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/metsys-editor"
       - name: Import resources without editor plugins
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           # Resource hydration only: editor-plugin behavior is not validated.
@@ -76,11 +81,13 @@ jobs:
           # A cold checkout imports thousands of assets; retain a bounded 10m budget.
           python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Install software GL dependencies
+        if: ${{ !cancelled() }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
           python3 tools/test_software_gl.py
       - name: Run chapter, preparation, combat, dialogue and physics regressions
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           npm run test:godot -- --engine "$engine" --software-gl --log-dir "$RUNNER_TEMP/regression-logs" --shard-index "${{ matrix.shard }}" --shard-count 3
@@ -113,6 +120,7 @@ jobs:
           GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
           unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
       - name: Import resources without editor plugins
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           # Resource hydration only: editor-plugin behavior is not validated.
@@ -120,6 +128,7 @@ jobs:
           # A cold checkout imports thousands of assets; retain a bounded 10m budget.
           python3 tools/run_godot_import.py --engine "$engine" --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/regression-logs/import"
       - name: Validate real GL rock boundaries
+        if: ${{ !cancelled() }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y xvfb libgl1-mesa-dri
@@ -127,26 +136,32 @@ jobs:
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/rock-gpu"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/streaming-gpu" --script ../tools/validate_streaming_pixels.gd --success-marker "STREAMING_PIXELS probes=12 failures=0" --summary-path artifacts/world_streaming/gpu_pixels.json
       - name: Validate physical pipe rendering and visible hero
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/passage-gpu" --script ../tools/validate_passage_pixels.gd --success-marker 'PASSAGE_PIXELS probes=5 failures=0' --summary-path artifacts/world_passage/gpu_pipe.json
       - name: Validate authored rock rims in all regions
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/room-rims-gpu" --script ../tools/validate_room_rim_pixels.gd --success-marker 'ROOM_RIM_PIXELS probes=12 failures=0' --summary-path artifacts/world_rims/gpu_rims.json
       - name: Validate fixed-coordinate world atlas rendering
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/atlas-gpu" --script ../tools/validate_world_atlas_pixels.gd --success-marker 'WORLD_ATLAS_PIXELS probes=5 failures=0' --summary-path artifacts/world_atlas/gpu_atlas.json
       - name: Validate neighboring gameplay artwork parity
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-gpu" --script ../tools/validate_neighbor_gameplay_pixels.gd --success-marker 'NEIGHBOR_GAMEPLAY_PIXELS probes=6 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_gameplay.json
       - name: Validate live neighboring gameplay and directional pipe approaches
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/neighbor-gameplay-live-gpu" --script res://scripts/world_neighbor_gameplay_live_validation.gd --success-marker 'WORLD_NEIGHBOR_GAMEPLAY_LIVE checks=52 failures=0' --summary-path artifacts/neighbor_gameplay/gpu_live.json --timeout 300
       - name: Validate budgeted arrival UI against synchronous rendering
+        if: ${{ !cancelled() }}
         run: |
           engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
           python3 tools/run_rock_gpu_validation.py --engine "$engine" --log-dir "$RUNNER_TEMP/regression-logs/region-commit-gpu" --script ../tools/validate_region_commit_pixels.gd --success-marker 'REGION_COMMIT_PIXELS probes=10 failures=0' --summary-path artifacts/region_commit/gpu_ui.json

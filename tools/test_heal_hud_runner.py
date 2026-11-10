@@ -9,8 +9,8 @@ from run_heal_hud_contract import invoke
 
 class StrictHealHudRunner(unittest.TestCase):
     def test_workflow_watches_its_real_path(self):
-        workflow = Path(__file__).resolve().parents[1] / '.github/workflows/ledger-u03-heal-hud.yml'
-        self.assertIn("      - '.github/workflows/ledger-u03-heal-hud.yml'", workflow.read_text())
+        workflow = Path(__file__).resolve().parents[1] / '.github/contracts/ledger-u03-heal-hud.yml'
+        self.assertIn("      - '.github/contracts/ledger-u03-heal-hud.yml'", workflow.read_text())
 
     def test_native_result_and_diagnostics_are_all_required(self):
         marker = r'^HEAL_RESOURCE_READOUT checks=[1-9][0-9]* failures=0$'

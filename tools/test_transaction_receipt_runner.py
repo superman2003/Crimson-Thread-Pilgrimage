@@ -32,7 +32,7 @@ class TransactionReceiptRunnerTests(unittest.TestCase):
             self.assertIn('partial report',path.read_text());self.assertIn('before wait',path.read_text());self.assertIn('timeout',path.read_text())
     def test_workflow_declares_real_existing_regressions(self):
         root=Path(__file__).resolve().parents[1]
-        text=(root/'.github/workflows/transaction-receipts.yml').read_text()
+        text=(root/'.github/contracts/transaction-receipts.yml').read_text()
         names=set(re.findall(r'--suite\s+([a-z0-9_/]+)',text))
         self.assertEqual(names,{'material_exchange','field_contracts','ui_world_integration'})
         for name in names:
