@@ -171,6 +171,50 @@ class OnionPipeline(unittest.TestCase):
         with self.assertRaises(ValueError):
             onion.build(KIND)
 
+    def test_replacement_keeps_world_position_when_v8_canvas_is_padded(self):
+        base = onion.read(onion.first_layer(KIND, onion.BASELINE_LAYERS))
+        doubled = json.loads(json.dumps(base))
+        padding = [12, 20]
+        doubled["canvas"] = [size + 2 * pad for size, pad in zip(base["canvas"], padding)]
+        for clip in onion.clips_of(doubled).values():
+            for frame in clip["frames"]:
+                frame["margin"] = [frame["margin"][0] + padding[0], frame["margin"][1] + padding[1],
+                                   frame["margin"][2] + 2 * padding[0], frame["margin"][3] + 2 * padding[1]]
+            clip["frames"] = [frame for frame in clip["frames"] for _ in range(2)]
+            clip["fps"] *= 2
+        onion.write(self.creatures / KIND / "motion_v8_manifest.json", doubled)
+        job = self.job()[0]
+        onion.deliver(job["id"], fake_generation(job, self.tmp / "out.png"))
+        accepted = self.spec()["accepted"]
+        built = onion.build(KIND, over="motion_v8_manifest.json")
+        frames = onion.clips_of(built)["idle"]["frames"]
+        for edge in job["edges"]:
+            after = edge["after"]
+            margin = accepted[f"idle#{after}"]["margin_xy"]
+            for facing in [-1, 1]:
+                before = [(margin[0] - base["canvas"][0] / 2) * facing, margin[1] - base["canvas"][1] / 2]
+                replacement = frames[2 * after + 1]["margin"]
+                actual = [(replacement[0] - built["canvas"][0] / 2) * facing, replacement[1] - built["canvas"][1] / 2]
+                self.assertEqual(actual, before, "transparent canvas padding must not move the new pose")
+            self.assertEqual(frames[2 * after], onion.clips_of(doubled)["idle"]["frames"][2 * after])
+        self.assertEqual(onion.clips_of(built)["walk"], onion.clips_of(doubled)["walk"])
+        onion.build(KIND, over="motion_v8_manifest.json", check=True)
+
+    def test_replacement_rejects_a_different_original_pose(self):
+        base = onion.read(onion.first_layer(KIND, onion.BASELINE_LAYERS))
+        doubled = json.loads(json.dumps(base))
+        for clip in onion.clips_of(doubled).values():
+            clip["frames"] = [frame for frame in clip["frames"] for _ in range(2)]
+            clip["fps"] *= 2
+        frames = onion.clips_of(doubled)["idle"]["frames"]
+        frames[0] = json.loads(json.dumps(frames[0]))
+        frames[0]["margin"][0] += 5
+        onion.write(self.creatures / KIND / "motion_v8_manifest.json", doubled)
+        job = self.job()[0]
+        onion.deliver(job["id"], fake_generation(job, self.tmp / "out.png"))
+        with self.assertRaisesRegex(ValueError, "original pose"):
+            onion.build(KIND, over="motion_v8_manifest.json")
+
 
 class ScaleGate(unittest.TestCase):
     def test_gate_self_test(self):

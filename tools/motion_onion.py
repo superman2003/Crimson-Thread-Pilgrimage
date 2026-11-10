@@ -531,6 +531,30 @@ def retry(kind):
 
 # ---------------------------------------------------------------- build
 
+def replacement_offset(kind, spec, manifest):
+    """Map baseline coordinates into v8's symmetrically padded canvas."""
+    delta = [new - old for new, old in zip(manifest["canvas"], spec["canvas"])]
+    if any(value < 0 or value % 2 for value in delta):
+        raise ValueError(f"{kind}: v8 canvas is not symmetric integer padding of the planned canvas")
+    offset = [value // 2 for value in delta]
+    jobs = {job["id"]: job for job in spec["jobs"]}
+    clips = clips_of(manifest)
+    for key, row in spec.get("accepted", {}).items():
+        name, after = key.rsplit("#", 1)
+        after = int(after)
+        job = jobs[row["job"]]
+        source = next(edge["left"] for edge in job["edges"]
+                      if edge["animation"] == name and edge["after"] == after)
+        frames = clips.get(name, {}).get("frames", [])
+        expected_margin = [source["margin"][0] + offset[0], source["margin"][1] + offset[1],
+                           source["margin"][2] + delta[0], source["margin"][3] + delta[1]]
+        if (2 * after + 1 >= len(frames) or frames[2 * after].get("atlas") != source["atlas"]
+                or frames[2 * after].get("region") != source["region"]
+                or frames[2 * after].get("margin") != expected_margin):
+            raise ValueError(f"{kind}: {name}[{after}] original pose differs from the planned onion reference")
+    return offset
+
+
 def build(kind, over=None, check=False):
     spec = load_spec(kind)
     accepted = spec.get("accepted", {})
@@ -543,6 +567,7 @@ def build(kind, over=None, check=False):
         base_path = first_layer(kind, BASELINE_LAYERS)
     manifest = read(base_path)
     canvas = manifest["canvas"]
+    offset = replacement_offset(kind, spec, manifest) if over else [0, 0]
     drawings = {}
     for key, row in accepted.items():
         path = ROOT / row["drawing"]
@@ -550,7 +575,8 @@ def build(kind, over=None, check=False):
             raise ValueError(f"{kind}: accepted drawing changed: {row['drawing']}")
         name, after = key.rsplit("#", 1)
         with Image.open(path) as image:
-            drawings[(name, int(after))] = (image.convert("RGBA"), row["margin_xy"])
+            drawings[(name, int(after))] = (image.convert("RGBA"),
+                                          [value + shift for value, shift in zip(row["margin_xy"], offset)])
     pages, frames = pack(kind, drawings, canvas)
     used = set()
     for name, clip in clips_of(manifest).items():
@@ -566,6 +592,7 @@ def build(kind, over=None, check=False):
             used.update((name, i) for i in range(len(old)))
     unused = sorted(set(frames) - used)
     manifest["onion_record"] = dict(base=base_path.name, spec=rel(spec_path(kind)), drawings=len(used),
+                                    coordinate_shift=offset,
                                     waiting=[f"{n}#{a}" for n, a in unused])
     outputs = [(folder / LAYER, manifest)] + [(folder / f"motion_onion_{i:02}.png", page) for i, page in enumerate(pages)]
     for path, data in outputs:
