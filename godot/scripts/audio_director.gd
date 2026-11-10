@@ -143,7 +143,7 @@ const BELLWAY_TRANSIT_LOOP := MUSIC_ROOT + "bellway_transit_loop.ogg"
 const HIDDEN_DRONE := MUSIC_ROOT + "hidden_black_tide_drone.ogg"
 
 static var _npc_voice_cache: Dictionary = {}
-const NPC_LANGUAGE := preload("res://scripts/npc_insect_language.gd")
+const NPC_LANGUAGE_PATH := "res://scripts/npc_insect_language.gd"
 ## Session-only phrase positions. Values are seconds/instance IDs, never streams.
 static var _explore_resume: Dictionary = {}
 static var _explore_owners: Dictionary = {}
@@ -1515,7 +1515,13 @@ func play_npc_voice(npc_id: String, line: String, profile: String = "warm", spea
     var voice_ticket := reserve_voice(key, 2, 450, 1)
     if voice_ticket == 0:
         return false
-    var phrase := NPC_LANGUAGE.utterance(npc_id, line, profile)
+    # Audio-only hosts do not own character art; resolve that dependency only
+    # when a conversation actually requests a phrase.
+    var language := load(NPC_LANGUAGE_PATH) as Script
+    if language == null:
+        release_ticket(voice_ticket)
+        return false
+    var phrase: Dictionary = language.utterance(npc_id, line, profile)
     if phrase.is_empty():
         release_ticket(voice_ticket)
         return false

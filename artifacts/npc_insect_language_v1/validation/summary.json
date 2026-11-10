@@ -53,5 +53,13 @@
   "limits": [
     "Isolated rendered/mixed validation, not a natural playthrough or performance benchmark.",
     "Existing NPC motion suite retains an ObjectDB warning at exit; new voice suite drains audio with pending=0."
-  ]
+  ],
+  "compatibility_regressions": {
+    "world_reading_session_checks": 355,
+    "audio_volume_save_checks": 99,
+    "audio_user_volume_checks": 37,
+    "room_reverb_checks": 182,
+    "reliability_r10_checks": 11,
+    "all_exit_codes": 0
+  }
 }

@@ -897,8 +897,9 @@ func _speaker_motion(area, talking: bool) -> void:
     var method := &"begin_conversation" if talking else &"end_conversation"
     if sprite.has_method(method): sprite.call(method)
     else: sprite.play(&"talk" if talking else &"idle")
-    if talking and sprite.has_method("face_listener") and is_instance_valid(level.player):
-        sprite.call("face_listener", level.player.global_position.x)
+    var listener: Node2D = level.get("player") as Node2D if is_instance_valid(level) else null
+    if talking and sprite.has_method("face_listener") and is_instance_valid(listener):
+        sprite.call("face_listener", listener.global_position.x)
 
 func _open_narrative_inquiries() -> void:
     if not preload("res://scripts/narrative_inquiries.gd").can_talk(self,dialogue_area):return
@@ -1002,7 +1003,8 @@ func close_dialogue() -> void:
     _remember_dialogue_reading()
     _speaker_motion(dialogue_area,false)
     if is_instance_valid(dialogue_portrait): dialogue_portrait.call("release_speaker")
-    if level != null and is_instance_valid(level.audio_director): level.audio_director.stop_npc_voice()
+    var director: Node = level.get("audio_director") as Node if is_instance_valid(level) else null
+    if is_instance_valid(director) and director.has_method("stop_npc_voice"): director.call("stop_npc_voice")
     dialogue_area=null
     dialogue_reading_key=""
 
