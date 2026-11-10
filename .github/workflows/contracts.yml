@@ -147,7 +147,8 @@ jobs:
       - name: Run every contract in this shard (failures are collected, not fatal)
         run: |
           python3 tools/ci/contracts.py run --plan "$RUNNER_TEMP/plan.json" --shard ${{ matrix.shard }} \
-            --engine "$RUNNER_TEMP/engine-shared/Godot_v4.6.1-stable_linux.x86_64" --work "$RUNNER_TEMP/contracts"
+            --engine "$RUNNER_TEMP/engine-shared/Godot_v4.6.1-stable_linux.x86_64" --work "$RUNNER_TEMP/contracts" \
+            --godot-zip "$RUNNER_TEMP/godot-cache/$GODOT_ZIP"
       - name: Keep contract logs
         if: always()
         uses: actions/upload-artifact@v4

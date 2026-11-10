@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 import stat
+import subprocess
 import sys
 import tempfile
 import textwrap
@@ -78,7 +79,9 @@ class Parsing(unittest.TestCase):
           name: logs
           path: ${{ runner.temp }}/logs
 """))
-        self.assertEqual([s.script for s in contract.steps], ['python3 tools/check_a.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64"'])
+        self.assertEqual([s.real for s in contract.steps], [False, True], "the install step only keeps its zip link")
+        self.assertEqual(contract.steps[-1].script, 'mkdir -p "$RUNNER_TEMP/import"\n'
+                         'python3 tools/check_a.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64"')
         self.assertTrue(contract.imports)
         self.assertEqual(contract.apt, {"xvfb", "libgl1-mesa-dri"})
         self.assertEqual(contract.lfs_includes, {"godot/assets/**", "art_requests/x/*.png"})
@@ -112,8 +115,25 @@ class Parsing(unittest.TestCase):
           GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
           echo "$VALIDATION_SHA" > "$RUNNER_TEMP/sha"
 """))
-        self.assertEqual(contract.steps[0].script, 'echo "$VALIDATION_SHA" > "$RUNNER_TEMP/sha"')
-        self.assertEqual(contract.steps[0].env, {"VALIDATION_SHA": "$CONTRACT_SHA"})
+        self.assertEqual(contract.steps[-1].script, 'echo "$VALIDATION_SHA" > "$RUNNER_TEMP/sha"')
+        self.assertEqual(contract.steps[-1].env, {"VALIDATION_SHA": "$CONTRACT_SHA"})
+
+
+    def test_heredoc_indentation_and_setup_side_effects_survive(self):
+        contract = self.load(workflow("""      - name: Import and check
+        run: |
+          python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine/Godot_v4.6.1-stable_linux.x86_64" --log-dir "$RUNNER_TEMP/logs/import"
+          echo "abc  $RUNNER_TEMP/godot.zip" | sha256sum --check
+          python3 - <<'PY'
+          for x in [1, 2]:
+              assert x
+          PY
+"""))
+        script = contract.steps[-1].script
+        self.assertIn('mkdir -p "$RUNNER_TEMP/logs/import"', script)
+        self.assertIn("for x in [1, 2]:\n    assert x", script, "heredoc bodies keep their indentation")
+        install = contract.steps[0].script
+        self.assertIn('ln -sf "$CONTRACT_GODOT_ZIP" "$RUNNER_TEMP/godot.zip"', install)
 
 
 class Selection(unittest.TestCase):
@@ -217,6 +237,33 @@ class Running(unittest.TestCase):
             os.environ["PATH"] = saved
         self.assertEqual(len(counter.read_text().split()), 1)
         self.assertIn("[ci_once] reusing exit 0", (self.tmp / "work/second/contract.log").read_text())
+
+    def test_godot_zip_link_and_restored_tracked_files(self):
+        repo = self.tmp / "repo"
+        repo.mkdir()
+        for args in (["init", "-q"], ["config", "user.email", "t@t"], ["config", "user.name", "t"]):
+            subprocess.run(["git", *args], cwd=repo, check=True)
+        (repo / "artifact.json").write_text("committed\n")
+        subprocess.run(["git", "add", "."], cwd=repo, check=True)
+        subprocess.run(["git", "commit", "-qm", "x"], cwd=repo, check=True)
+        zip_file = self.tmp / "godot.zip"
+        zip_file.write_bytes(b"zip")
+        saved_root, saved_zip = c.ROOT, os.environ.get("CONTRACT_GODOT_ZIP")
+        c.ROOT, os.environ["CONTRACT_GODOT_ZIP"] = repo, str(zip_file)
+        try:
+            contract = self.contract([c.Step("writes", 'ln -sf "$CONTRACT_GODOT_ZIP" "$RUNNER_TEMP/godot.zip"\n'
+                                                       'cmp "$RUNNER_TEMP/godot.zip" "$CONTRACT_GODOT_ZIP"\n'
+                                                       'echo changed > artifact.json')])
+            failed, log = c.run_contract(contract, self.engine, self.tmp / "work")
+        finally:
+            c.ROOT = saved_root
+            if saved_zip is None:
+                os.environ.pop("CONTRACT_GODOT_ZIP", None)
+            else:
+                os.environ["CONTRACT_GODOT_ZIP"] = saved_zip
+        self.assertIsNone(failed, log.read_text())
+        self.assertEqual((repo / "artifact.json").read_text(), "committed\n", "the next contract sees the commit")
+        self.assertIn("restored tracked files", log.read_text())
 
     def test_github_env_heredoc(self):
         path = self.tmp / "env"

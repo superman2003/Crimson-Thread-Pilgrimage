@@ -102,6 +102,7 @@ class Step:
     env: dict = field(default_factory=dict)
     directory: str | None = None
     always: bool = False
+    real: bool = True
 
 
 @dataclass
@@ -126,17 +127,20 @@ class Contract:
 # ------------------------------------------------------------------ parsing
 
 def logical_lines(script: str):
-    """Shell lines with backslash continuations joined, comments kept."""
-    buffer = ""
+    """(raw, bare) per shell line: raw keeps the original physical lines and
+    indentation (heredoc bodies depend on it); bare joins backslash
+    continuations and trims, for recognising setup commands only."""
+    raw_lines, buffer = [], ""
     for raw in script.splitlines():
+        raw_lines.append(raw)
         line = raw.rstrip()
         if line.endswith("\\"):
-            buffer += line[:-1] + " "
+            buffer += line[:-1].strip() + " "
             continue
-        yield (buffer + line).strip()
-        buffer = ""
-    if buffer.strip():
-        yield buffer.strip()
+        yield "\n".join(raw_lines), (buffer + line.strip()).strip()
+        raw_lines, buffer = [], ""
+    if raw_lines:
+        yield "\n".join(raw_lines), buffer.strip()
 
 
 def substitute(text: str, where: str) -> str:
@@ -150,10 +154,16 @@ def substitute(text: str, where: str) -> str:
 
 def classify(script: str, contract: Contract) -> str:
     """Strip shared-setup lines out of one run script, recording what they needed."""
-    kept = []
-    for line in logical_lines(script):
-        bare = line.strip()
+    kept, real = [], False
+    for raw, bare in logical_lines(script):
         if any(p.search(bare) for p in SETUP_PATTERNS):
+            # Keep the side effects later lines rely on: the directories an
+            # import would have created and the zip a checksum line verifies.
+            for directory in re.findall(r"--log-dir[= ]['\"]?([^'\" ]+)", bare):
+                kept.append(f'mkdir -p "{directory}"')
+            if "godot" in bare.lower() and ("release download" in bare or bare.startswith("curl")):
+                for target in dict.fromkeys(re.findall(r"\s-[oO]\s+['\"]?([^'\" ]+)", bare)):
+                    kept.append(f'mkdir -p "$(dirname "{target}")" && ln -sf "$CONTRACT_GODOT_ZIP" "{target}"')
             if "apt-get install" in bare:
                 contract.apt.update(t for t in bare.split("install", 1)[1].split() if not t.startswith("-"))
             elif "pip" in bare and "install" in bare:
@@ -170,9 +180,9 @@ def classify(script: str, contract: Contract) -> str:
                 if target:
                     contract.engine_dirs.add(target.group(1))
             continue
-        kept.append(line)
-    body = "\n".join(kept).strip()
-    return body
+        kept.append(raw)
+        real = real or bool(bare) and not bare.startswith("#")
+    return ("\n".join(kept).strip("\n") if any(line.strip() for line in kept) else ""), real
 
 
 def triggers(document):
@@ -239,11 +249,11 @@ def load(path: Path) -> Contract:
             raise Unsupported(f"{where}: step if {condition}")
         if step.get("continue-on-error") or step.get("timeout-minutes"):
             raise Unsupported(f"{where}: step continue-on-error/timeout")
-        script = classify(substitute(step["run"], where), contract)
+        script, real = classify(substitute(step["run"], where), contract)
         env = {k: substitute(str(v), where) for k, v in (step.get("env") or {}).items()}
         if script:
-            contract.steps.append(Step(name=name, script=script, env=env, directory=step.get("working-directory"), always=always))
-    if not contract.steps:
+            contract.steps.append(Step(name=name, script=script, env=env, directory=step.get("working-directory"), always=always, real=real))
+    if not any(step.real for step in contract.steps):
         raise Unsupported(f"{where}: no test commands left after setup")
     return contract
 
@@ -417,8 +427,12 @@ def run_contract(contract: Contract, engine: Path, work: Path):
                 failed = f"{step.name}: exit {code}"
     changed = sorted(set(git_status()) - set(before))
     if changed:
+        # Each original workflow had a fresh checkout; put tracked files back so
+        # the next contract in this shard sees the commit, not this one's output.
+        subprocess.run(["git", "checkout", "--", *changed], cwd=ROOT, env=dict(os.environ, GIT_LFS_SKIP_SMUDGE="0"),
+                       capture_output=True)
         with log.open("a", encoding="utf-8") as out:
-            out.write("\nWARNING: contract modified tracked files: " + ", ".join(changed[:20]) + "\n")
+            out.write("\nNOTE: restored tracked files the contract modified: " + ", ".join(changed[:20]) + "\n")
     return failed, log
 
 
@@ -512,6 +526,7 @@ def main():
     p.add_argument("--shard", type=int, required=True)
     p.add_argument("--engine", type=Path, required=True)
     p.add_argument("--work", type=Path, required=True)
+    p.add_argument("--godot-zip", type=Path)
     args = parser.parse_args()
     if args.command == "lint":
         return lint()
@@ -534,6 +549,8 @@ def main():
         contracts = [c for c in load_all() if c.id in ids]
         print(json.dumps(needs(contracts)))
         return 0
+    if args.godot_zip:
+        os.environ["CONTRACT_GODOT_ZIP"] = str(args.godot_zip.resolve())
     return run_shard(data, args.shard, args.engine, args.work)
 
 
