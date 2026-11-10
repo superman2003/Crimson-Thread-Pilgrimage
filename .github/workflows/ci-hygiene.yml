@@ -1,0 +1,46 @@
+name: CI hygiene
+
+# Cheap guards that keep CI and the repository from growing back:
+# contract/workflow lint (no new self-installing Godot workflows), the non-LFS
+# binary budget, and the contract runner's own tests.
+"on":
+  pull_request:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-hygiene-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  hygiene:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Contract runner tests and workflow lint
+        run: |
+          python3 -m pip install --break-system-packages -q 'PyYAML>=6,<7'
+          python3 tools/ci/test_contracts.py
+          python3 tools/ci/test_check_binary_budget.py
+          python3 tools/test_prune_local_worktrees.py
+          python3 tools/ci/contracts.py lint
+      - name: Non-LFS binary budget
+        if: ${{ !cancelled() && github.event_name == 'pull_request' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR/files" --paginate \
+            -q '.[] | select(.status != "removed") | .filename' > "$RUNNER_TEMP/changed.txt"
+          python3 tools/ci/check_binary_budget.py --files "$RUNNER_TEMP/changed.txt" --labels "$LABELS"

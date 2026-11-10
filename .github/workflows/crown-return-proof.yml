@@ -16,6 +16,10 @@ name: Earned crown resonance return proof
       - artifacts/t04_crown_resonance_return_v19/**
   workflow_dispatch:
 
+concurrency:
+  group: crown-return-proof-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

@@ -32,8 +32,8 @@ class ReceiptRunnerTests(unittest.TestCase):
             self.assertIn('partial stderr',log.read_text())
             self.assertIn('timeout',log.read_text())
     def test_workflow_runs_native_world_and_old_reader(self):
-        workflow=(Path(__file__).resolve().parents[1]/'.github/workflows/build-receipt.yml').read_text()
-        for path in ['tools/run_build_receipt_contract.py','tools/test_build_receipt_runner.py','.github/workflows/build-receipt.yml']:
+        workflow=(Path(__file__).resolve().parents[1]/'.github/contracts/build-receipt.yml').read_text()
+        for path in ['tools/run_build_receipt_contract.py','tools/test_build_receipt_runner.py','.github/contracts/build-receipt.yml']:
             self.assertIn("      - '"+path+"'",workflow)
         self.assertIn('tools/run_build_receipt_contract.py --engine',workflow)
         self.assertIn('tools/run_credits_reader_contract.py --engine',workflow)

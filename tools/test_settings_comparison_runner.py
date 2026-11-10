@@ -32,7 +32,7 @@ class ComparisonRunnerTests(unittest.TestCase):
             self.assertIn('partial report',path.read_text());self.assertIn('before wait',path.read_text());self.assertIn('timeout',path.read_text())
     def test_workflow_declares_real_existing_regressions(self):
         root=Path(__file__).resolve().parents[1]
-        text=(root/'.github/workflows/settings-comparison.yml').read_text()
+        text=(root/'.github/contracts/settings-comparison.yml').read_text()
         names=set(re.findall(r'--suite\s+([a-z0-9_/]+)',text))
         self.assertEqual(names,{'settings_profiles','settings_remap','build_slots_ui','ui_world_integration'})
         for name in names:

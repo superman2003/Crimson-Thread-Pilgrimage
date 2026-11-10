@@ -13,6 +13,10 @@ name: Alternate crown continuation proof
       - artifacts/t04_second_order_crown_v18/**
   workflow_dispatch:
 
+concurrency:
+  group: second-order-crown-proof-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

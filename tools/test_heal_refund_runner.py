@@ -9,8 +9,8 @@ from run_heal_refund_contract import invoke
 
 class StrictHealRefundRunner(unittest.TestCase):
     def test_workflow_watches_its_real_path(self):
-        workflow = Path(__file__).resolve().parents[1] / '.github/workflows/ledger-c02-thread-refunds.yml'
-        self.assertIn("      - '.github/workflows/ledger-c02-thread-refunds.yml'", workflow.read_text())
+        workflow = Path(__file__).resolve().parents[1] / '.github/contracts/ledger-c02-thread-refunds.yml'
+        self.assertIn("      - '.github/contracts/ledger-c02-thread-refunds.yml'", workflow.read_text())
 
     def test_native_result_and_diagnostics_are_all_required(self):
         marker = r'^HEAL_REFUND_ACCOUNT checks=[1-9][0-9]* failures=0$'

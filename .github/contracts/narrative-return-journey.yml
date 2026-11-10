@@ -1,0 +1,127 @@
+name: Narrative return journey
+
+on:
+  pull_request:
+    paths:
+      - 'godot/data/world_narrative.json'
+      - 'godot/data/narrative_journey.json'
+      - 'godot/data/known_inquiry_contacts.json'
+      - 'godot/scripts/known_inquiry_contacts*.gd'
+      - 'tools/validate_known_inquiry_contacts.py'
+      - 'godot/scripts/inquiry_source_notes*.gd'
+      - 'tools/validate_inquiry_source_notes.py'
+      - 'godot/data/guardian_identities.json'
+      - 'godot/scripts/guardian_identities*.gd'
+      - 'tools/validate_guardian_identities.py'
+      - 'godot/data/known_world_terms.json'
+      - 'godot/scripts/known_world_terms*.gd'
+      - 'tools/validate_known_world_terms.py'
+      - 'godot/data/ending_return_journal.json'
+      - 'godot/scripts/ending_return_journal*.gd'
+      - 'godot/scripts/journal_sources*.gd'
+      - 'godot/scripts/journal_source_desk.gd'
+      - 'tools/validate_ending_return_journal.py'
+      - 'godot/data/testimony_sources.json'
+      - 'godot/scripts/testimony_sources*.gd'
+      - 'tools/validate_testimony_sources.py'
+      - 'godot/scripts/narrative_journey.gd'
+      - 'godot/scripts/ending_story_desk.gd'
+      - 'godot/scripts/narrative_closure_validation.gd'
+      - 'godot/scripts/personal_codas_checks.gd'
+      - 'tools/validate_personal_codas.py'
+      - 'tools/validate_narrative_closure.py'
+      - 'tools/run_narrative_closure.py'
+      - 'docs/NARRATIVE_CANON.md'
+      - 'godot/data/scene_history.json'
+      - 'godot/scripts/scene_history*.gd'
+      - 'tools/validate_scene_history.py'
+      - 'godot/scripts/world_narrative.gd'
+      - 'godot/scripts/enemy_journal.gd'
+      - 'godot/data/enemy_journal.json'
+      - 'godot/scripts/journal_records_validation.gd'
+      - 'tools/validate_enemy_journal.py'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'godot/scripts/narrative_outcomes_validation.gd'
+      - 'godot/scripts/narrative_return_runtime_validation.gd'
+      - 'godot/data/quest_contacts.json'
+      - 'godot/scripts/quest_contacts*.gd'
+      - 'tools/validate_quest_contacts.py'
+      - 'godot/tests/verify_narrative*.gd'
+      - 'godot/tests/verify_world_narrative.gd'
+      - 'tools/validate_world_narrative.py'
+      - 'tools/run_narrative_return_journey.py'
+      - 'docs/NARRATIVE_RETURN_JOURNEY.md'
+      - '.github/contracts/narrative-return-journey.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: narrative-return-journey-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  focused-regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Check out the exact PR head and hydrate runtime assets
+        env:
+          VALIDATION_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          GIT_LFS_SKIP_SMUDGE=1 git fetch --depth=1 origin "$VALIDATION_SHA"
+          GIT_LFS_SKIP_SMUDGE=1 git checkout --detach FETCH_HEAD
+          git lfs install --skip-smudge
+          git lfs pull --include='godot/assets/**'
+      - name: Install Godot and software GL support
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+      - name: Validate JavaScript and campaign structure
+        run: |
+          python3 tools/validate_world_narrative.py
+          python3 tools/validate_narrative_closure.py
+          npm test
+          npm run test:campaign
+      - name: Import resources with strict error checks
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_import.py --engine "$engine" --recovery-mode \
+            --timeout 600 --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/import"
+      - name: Validate variable discovery, quest transactions and ending restoration
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_narrative_return_journey.py --engine "$engine" --software-gl \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs"
+      - name: Validate journal filters and real enemy discovery
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl \
+            --suite ui_world_integration --suite ui_redesign --suite inventory_map \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/journal"
+      - name: Validate story synthesis, explicit choices and relationship follow-ups
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_narrative_closure.py --engine "$engine" --software-gl \
+            --suite narrative_closure --suite ending_aftermath \
+            --suite npc_recollections \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/closure"
+      - name: Validate observed environment history through the real World
+        env:
+          SCENE_HISTORY_CAPTURE_DIR: ${{ runner.temp }}/narrative-return-journey-logs/scene-history/captures
+        run: |
+          engine="$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64"
+          python3 tools/run_godot_regressions.py --engine "$engine" --software-gl --suite scene_history \
+            --log-dir "$RUNNER_TEMP/narrative-return-journey-logs/scene-history"
+      - name: Preserve regression logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: narrative-return-journey-logs
+          path: ${{ runner.temp }}/narrative-return-journey-logs
+          if-no-files-found: ignore

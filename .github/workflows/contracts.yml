@@ -1,0 +1,175 @@
+name: Native contracts
+
+# Runs every contract in .github/contracts/ whose own `paths` filter matches the
+# change, with ONE Godot install, LFS hydration and import per shard instead of
+# one per contract. Add new native checks there, not as new workflows here
+# (tools/ci/contracts.py lint enforces it). See AGENTS.md.
+"on":
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: contracts-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+env:
+  GIT_LFS_SKIP_SMUDGE: "1"
+  CONTRACT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  GODOT_ZIP: Godot_v4.6.1-stable_linux.x86_64.zip
+
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      shards: ${{ steps.select.outputs.shards }}
+      count: ${{ steps.select.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CONTRACT_SHA }}
+          lfs: false
+      - name: List changed files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          PR: ${{ github.event.pull_request.number }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          python3 -m pip install --break-system-packages -q 'PyYAML>=6,<7'
+          case "$EVENT" in
+            pull_request)
+              gh api "repos/$GITHUB_REPOSITORY/pulls/$PR/files" --paginate \
+                -q '.[] | .filename, (.previous_filename // empty)' > "$RUNNER_TEMP/changed.txt"
+              # The files API stops at 3000 entries; treat a larger change as "everything".
+              if [ "$(wc -l < "$RUNNER_TEMP/changed.txt")" -ge 3000 ]; then echo "EVENT=workflow_dispatch" >> "$GITHUB_ENV"; fi ;;
+            push)
+              if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+                echo "EVENT=workflow_dispatch" >> "$GITHUB_ENV"; : > "$RUNNER_TEMP/changed.txt"
+              else
+                gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$AFTER" -q '.files[].filename' > "$RUNNER_TEMP/changed.txt"
+                # compare lists at most 300 files.
+                if [ "$(wc -l < "$RUNNER_TEMP/changed.txt")" -ge 300 ]; then echo "EVENT=workflow_dispatch" >> "$GITHUB_ENV"; fi
+              fi ;;
+            *) : > "$RUNNER_TEMP/changed.txt" ;;
+          esac
+          wc -l < "$RUNNER_TEMP/changed.txt"
+      - name: Select contracts and shards
+        id: select
+        run: |
+          python3 tools/ci/contracts.py select --files "$RUNNER_TEMP/changed.txt" \
+            --event "${EVENT:-${{ github.event_name }}}" --max-shards 12 --out "$RUNNER_TEMP/plan.json"
+          python3 -c "import json,sys; d=json.load(open(sys.argv[1])); [print(s['index'], s['estimate_minutes'], ' '.join(s['contracts'])) for s in d['shards']]" "$RUNNER_TEMP/plan.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: contract-plan
+          path: ${{ runner.temp }}/plan.json
+
+  run:
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.CONTRACT_SHA }}
+          lfs: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: contract-plan
+          path: ${{ runner.temp }}
+      - name: Shared needs of this shard
+        id: needs
+        run: |
+          python3 -m pip install --break-system-packages -q 'PyYAML>=6,<7'
+          python3 tools/ci/contracts.py setup --plan "$RUNNER_TEMP/plan.json" --shard ${{ matrix.shard }} > "$RUNNER_TEMP/needs.json"
+          cat "$RUNNER_TEMP/needs.json"
+          include=$(python3 -c "import json,sys; print(','.join(json.load(open(sys.argv[1]))['lfs']))" "$RUNNER_TEMP/needs.json")
+          echo "lfs=$include" >> "$GITHUB_OUTPUT"
+          if [ -n "$include" ]; then
+            echo "lfs_key=lfs-v1-$(git lfs ls-files -l -I "$include" | sha256sum | cut -c1-32)" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Restore LFS objects
+        if: steps.needs.outputs.lfs != ''
+        uses: actions/cache/restore@v4
+        with:
+          path: .git/lfs/objects
+          key: ${{ steps.needs.outputs.lfs_key }}
+          restore-keys: lfs-v1-
+      - name: Hydrate LFS assets once for the shard
+        if: steps.needs.outputs.lfs != ''
+        run: python3 tools/hydrate_runtime_assets.py --include='${{ steps.needs.outputs.lfs }}'
+      - name: Save LFS objects (main only)
+        if: steps.needs.outputs.lfs != '' && github.event_name == 'push'
+        uses: actions/cache/save@v4
+        with:
+          path: .git/lfs/objects
+          key: ${{ steps.needs.outputs.lfs_key }}
+      - name: Cache Godot
+        id: godot-cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/godot-cache
+          key: godot-4.6.1-stable-linux-v1
+      - name: Install Godot, packages and Python dependencies once
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/godot-cache"
+          if [ ! -f "$RUNNER_TEMP/godot-cache/$GODOT_ZIP" ]; then
+            gh release download 4.6.1-stable -R godotengine/godot -p "$GODOT_ZIP" -O "$RUNNER_TEMP/godot-cache/$GODOT_ZIP" --clobber || \
+              curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 \
+                -o "$RUNNER_TEMP/godot-cache/$GODOT_ZIP" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/$GODOT_ZIP"
+          fi
+          unzip -q -o "$RUNNER_TEMP/godot-cache/$GODOT_ZIP" -d "$RUNNER_TEMP/engine-shared"
+          apt=$(python3 -c "import json,sys; print(' '.join(json.load(open(sys.argv[1]))['apt']))" "$RUNNER_TEMP/needs.json")
+          if [ -n "$apt" ]; then sudo apt-get update -qq && sudo apt-get install -y $apt; fi
+          python3 -c "import json,sys; print('\n'.join(json.load(open(sys.argv[1]))['pip']))" "$RUNNER_TEMP/needs.json" > "$RUNNER_TEMP/pip.sh"
+          bash -eo pipefail "$RUNNER_TEMP/pip.sh"
+      - name: Import the project once
+        run: |
+          if python3 -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1]))['imports'] else 1)" "$RUNNER_TEMP/needs.json"; then
+            python3 tools/run_godot_import.py --engine "$RUNNER_TEMP/engine-shared/Godot_v4.6.1-stable_linux.x86_64" \
+              --recovery-mode --timeout 900 --log-dir "$RUNNER_TEMP/contracts/import"
+          fi
+      - name: Run every contract in this shard (failures are collected, not fatal)
+        run: |
+          python3 tools/ci/contracts.py run --plan "$RUNNER_TEMP/plan.json" --shard ${{ matrix.shard }} \
+            --engine "$RUNNER_TEMP/engine-shared/Godot_v4.6.1-stable_linux.x86_64" --work "$RUNNER_TEMP/contracts" \
+            --godot-zip "$RUNNER_TEMP/godot-cache/$GODOT_ZIP"
+      - name: Keep contract logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: contract-logs-${{ matrix.shard }}
+          path: |
+            ${{ runner.temp }}/contracts/**/*.log
+            ${{ runner.temp }}/contracts/**/*.json
+            ${{ runner.temp }}/contracts/**/*.txt
+          retention-days: 7
+          if-no-files-found: ignore
+
+  result:
+    # One stable check name for branch rules and humans, whatever was selected.
+    needs: [plan, run]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Contracts passed
+        run: |
+          echo "plan=${{ needs.plan.result }} run=${{ needs.run.result }} shards=${{ needs.plan.outputs.count }}"
+          [ "${{ needs.plan.result }}" = success ] || exit 1
+          case "${{ needs.run.result }}" in success|skipped) ;; *) exit 1 ;; esac

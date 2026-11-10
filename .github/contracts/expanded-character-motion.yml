@@ -1,0 +1,104 @@
+name: Expanded character motion
+
+on:
+  pull_request:
+    paths:
+      - 'godot/assets/sprites/original_creatures/**'
+      - 'godot/assets/sprites/original_npcs/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v4/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v7/**'
+      - 'art_requests/hero_motion_v7/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v8/**'
+      - 'art_requests/hero_motion_v8/**'
+      - 'art_requests/hero_motion_v9/**'
+      - 'godot/assets/sprites/player/generated_hero_motion_v9/**'
+      - 'tools/build_hero_motion_v9.py'
+      - 'tools/check_hero_motion_v9_native.py'
+      - 'tools/build_hero_motion_v8.py'
+      - 'tools/check_hero_motion_v8_native.py'
+      - 'godot/scripts/player_*.gd'
+      - 'godot/scripts/seal_presentation*.gd'
+      - 'godot/scripts/hero_animation_validation.gd'
+      - 'tools/validate_hero_v3.py'
+      - 'tools/build_hero_motion_v7.py'
+      - 'godot/assets/sprites/player/generated_hero_v3/manifest.json'
+      - 'godot/scripts/enemy_actor.gd'
+      - 'godot/scripts/main_level.gd'
+      - 'godot/scripts/npc_dialogue_motion*.gd'
+      - 'godot/scripts/pilgrimage_interface.gd'
+      - 'tools/check_npc_motion_v10_native.py'
+      - 'godot/scripts/hand_drawn_assets.gd'
+      - 'godot/scripts/character_art_*.gd'
+      - 'godot/scripts/world_gameplay_prefetch.gd'
+      - 'godot/scripts/world_region_loader.gd'
+      - 'godot/scripts/expanded_character_motion_validation.gd'
+      - 'tools/build_expanded_*.py'
+      - 'tools/build_creature_attack_motion.py'
+      - 'tools/build_character_motion_v5.py'
+      - 'tools/build_boss_motion_v6.py'
+      - 'tools/build_character_motion_v8.py'
+      - 'art_requests/character_motion_v8/**'
+      - 'godot/scripts/character_motion_v8_validation.gd'
+      - 'godot/scripts/combat_motion_v7_validation.gd'
+      - 'godot/scripts/boss_behavior_validation.gd'
+      - 'art_requests/character_motion_v5/**'
+      - 'art_requests/boss_motion_v6/**'
+      - 'tools/requirements-hero.txt'
+      - 'art_requests/creature_attacks_v1/design.py'
+      - 'art_requests/creature_attacks_v1/build_docs.py'
+      - 'art_requests/creature_attacks_v1/incoming/**'
+      - 'godot/data/original_creature_combat.json'
+      - 'tools/run_godot_regressions.py'
+      - '.github/contracts/expanded-character-motion.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: expanded-character-motion-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  motion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Install Godot and validation dependencies
+        run: |
+          GH_TOKEN="${{ github.token }}" gh release download 4.6.1-stable -R godotengine/godot -p "Godot_v4.6.1-stable_linux.x86_64.zip" -O "$RUNNER_TEMP/godot.zip" --clobber || curl --fail --location --retry 8 --retry-delay 15 --retry-all-errors --connect-timeout 30 -o "$RUNNER_TEMP/godot.zip" "https://github.com/godotengine/godot/releases/download/4.6.1-stable/Godot_v4.6.1-stable_linux.x86_64.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          sudo apt-get update -qq
+          sudo apt-get install -y xvfb libgl1-mesa-dri
+          python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
+      - name: Check reproducible production sprites and JavaScript
+        run: |
+          npm run test:character-motion
+          python3 tools/build_character_motion_v8.py --check
+          python3 tools/validate_hero_v3.py
+          npm test
+      - name: Import all resources
+        run: |
+          python3 tools/run_godot_import.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" \
+            --recovery-mode --timeout 600 --log-dir "$RUNNER_TEMP/motion-logs/import"
+      - name: Exercise production characters, combat and movement
+        run: |
+          python3 tools/run_godot_regressions.py \
+            --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
+            --suite character_art_prewarm --suite expanded_character_motion --suite enemy_atlas_integrity \
+            --suite character_motion_v8 --suite combat_motion_v7 --suite boss_behavior \
+            --suite hero_animation --suite player_motion_continuity --suite player_idle_motion --suite npc_dialogue_motion \
+            --suite player_guard_art --suite player_heal_art --suite player_hook_art --suite player_ability_art \
+            --suite seal_combat --suite seal_identity \
+            --suite player_basic_attack_vfx --suite player_melee_feedback --suite seal_presentation \
+            --suite player_contact_art --suite combat_visual_budget --suite tool_practice \
+            --suite enemy_lifecycle_regression --suite enemy_visibility --suite boss_trial \
+            --timeout 180 --log-dir "$RUNNER_TEMP/motion-logs/runtime"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: expanded-character-motion-logs
+          path: ${{ runner.temp }}/motion-logs
