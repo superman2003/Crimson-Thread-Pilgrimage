@@ -21,6 +21,8 @@ func _initialize() -> void:
 		_check(build.unlock_event(id).ok, "unlock " + id)
 	_check(build.select_tool("mine", 1).ok, "unlocked tool family slot accepts compatible item")
 	_check(not build.select_tool("shard", 1).ok, "family compatibility rejects a wrong tool")
+	_check(not build.select_skill("needle", 1).ok, "second skill slot waits for the spindle part")
+	build.state.crafted.append("spindle_skill")
 	_check(build.select_skill("needle", 1).ok and build.select_skill("cleave", 1).ok == false, "skill slot enforces no duplicate")
 	_check(build.equip_family_slot("shell", "combat_accessory", 0).ok, "combat accessory can be equipped")
 	_check(build.equip_family_slot("stride", "travel_accessory", 0).ok, "travel accessory can be equipped")

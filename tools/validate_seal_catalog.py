@@ -89,11 +89,17 @@ def validate(data: dict) -> list[str]:
     for key, row in data.get('passives', {}).items():
         forbidden = {'jump_height', 'jump_velocity', 'dash_unlocked', 'double_jump_unlocked', 'thread_grapple_unlocked'}
         check(not (set(row.get('modifiers', {})) & forbidden), f'{key}: does not alter permanent exploration gates')
+    # A slot part targets the slot family whose gated slot asks for that exact part.
+    part_slots = {(family, slot['requires_part'])
+                  for crest in crests.values() for family, slots in crest.get('slot_layout', {}).items()
+                  for slot in slots if isinstance(slot, dict) and slot.get('requires_part')}
     for key, row in data.get('recipes', {}).items():
         check(row.get('kind') != 'refill', f'{key}: tool supplies are not sold as recipes')
-        targets = {'skill_branch': data.get('skills', {}), 'tool_capacity': data.get('tools', {}), 'slot_part': {'travel_accessory': True}, 'passive': data.get('passives', {})}
+        targets = {'skill_branch': data.get('skills', {}), 'tool_capacity': data.get('tools', {}), 'slot_part': {family for family, _ in part_slots}, 'passive': data.get('passives', {})}
         check(row.get('kind') in targets, f'{key}: recipe kind is 校习 or an artisan craft')
         check(row.get('target') in targets.get(row.get('kind'), {}), f'{key}: recipe target exists')
+        if row.get('kind') == 'slot_part':
+            check((row.get('target'), row.get('part')) in part_slots, f'{key}: part unlocks a slot that requires it')
         if row.get('kind') == 'tool_capacity':
             check(row.get('amount') == 1, f'{key}: a capacity upgrade adds exactly one charge')
     return errors

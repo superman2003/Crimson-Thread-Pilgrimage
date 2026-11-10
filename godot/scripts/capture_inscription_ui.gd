@@ -43,6 +43,7 @@ func capture() -> void:
             var flag := String(item.get("unlock_flag",""))
             if not flag.is_empty():world.story_flags[flag]=true
     world._sync_player_build()
+    world.build_system.state.crafted.append_array(["clasp_combat", "spindle_skill"])
     world.build_system.select_skill("cleave",0)
     world.build_system.select_skill("needle",1)
     world.build_system.select_tool("shard",0)
