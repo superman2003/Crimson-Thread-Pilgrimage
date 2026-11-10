@@ -1,0 +1,41 @@
+name: Motion scale consistency
+
+"on":
+  pull_request:
+    paths:
+      - .github/workflows/motion-scale-consistency.yml
+      - godot/assets/sprites/original_creatures/**
+      - art_requests/motion_onion/**
+      - tools/motion_onion.py
+      - tools/test_motion_onion.py
+      - tools/audit_motion_scale_consistency.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scale:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GIT_LFS_SKIP_SMUDGE: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          lfs: false
+      - name: Install image dependencies
+        run: python3 -m pip install --break-system-packages -r tools/requirements-hero.txt
+      - name: Onion pipeline round trip, committed layers, and generated in-between scale gate
+        run: |
+          python3 tools/test_motion_onion.py
+          python3 tools/motion_onion.py check
+          python3 tools/audit_motion_scale_consistency.py --report "$RUNNER_TEMP/motion-scale.json"
+      - name: Keep the outlier report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: motion-scale-report
+          path: ${{ runner.temp }}/motion-scale.json
+          if-no-files-found: ignore
