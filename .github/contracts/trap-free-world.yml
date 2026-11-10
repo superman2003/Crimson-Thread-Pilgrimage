@@ -9,6 +9,7 @@ on:
       - 'godot/scripts/quiet_sole_traps_validation.gd'
       - 'godot/scripts/spike_pogo_validation.gd'
       - 'godot/scripts/legacy_travel_rewards_validation.gd'
+      - 'godot/scripts/death_cache_placement_validation.gd'
       - 'godot/scripts/pilgrimage_interface.gd'
       - 'godot/scripts/build_profile_comparison.gd'
       - 'godot/assets/**'
@@ -59,7 +60,7 @@ jobs:
           python3 tools/run_godot_regressions.py --engine "$RUNNER_TEMP/godot/Godot_v4.6.1-stable_linux.x86_64" --software-gl \
             --suite trap_free_world --suite quiet_sole_traps --suite spike_pogo --suite hazard_readability \
             --suite legacy_travel_rewards --suite build_slots_ui --suite player_contact_art \
-            --suite demo --suite ch02_demo --timeout 240 --log-dir "$RUNNER_TEMP/native"
+            --suite demo --suite ch02_demo --suite death_cache_placement --timeout 240 --log-dir "$RUNNER_TEMP/native"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

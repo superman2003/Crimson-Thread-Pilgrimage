@@ -30,6 +30,8 @@ python tools/check_trap_free_world_native.py --engine /path/to/godot
 
 CI 由 `.github/contracts/trap-free-world.yml` 执行：测试真实地图再生成、素材依赖、六章和 World 入口、旧入口无效、奖励迁移和配装、普通战斗命中、前两章流程。
 
+归途结检查同步验证：已退役陷阱所在的永久地面可以记录新的安全位置。升降篮、可破坏地板、可开启能力门与相位门仍不能把复活点带入不可达位置，原有物理支撑检查保留。
+
 ## 证据及边界
 
 见 [原生验证及截图](../artifacts/trap_free_world_v1/README.md)。原生测试使用 Godot 4.6.1、GLCompatibility、Dummy 音频与独立用户目录；图片为实际场景入口截图。逐项程序检查与入口截图不能替代六章自然通关、逐房视觉验收或主观动作流畅度验收。
