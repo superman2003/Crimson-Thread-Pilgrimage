@@ -99,6 +99,7 @@ class CompletionContractTests(unittest.TestCase):
     def test_default_suites_all_have_compilable_completion_contracts(self):
         all_suites = DEFAULT_SUITES + NARRATIVE_SUITES
         combat_additions = {
+            'character_motion_v8', 'enemy_hit_feedback',
             'player_projectile_contact', 'player_effect_lifecycle', 'enemy_wave_sweep',
             'player_attack_window', 'enemy_attack_motion', 'grapple_path',
             'damage_receipt', 'beam_channel', 'radial_tool_contact', 'directional_deflection',
@@ -137,7 +138,7 @@ class CompletionContractTests(unittest.TestCase):
             'grounded_run',
             'interpolation_arrival',
         }
-        # Keep the original 182-suite floor exact while counting each explicitly
+        # Keep the original 186-suite floor exact while counting each explicitly
         # registered ledger addition. The duplicate and marker checks below still
         # reject a missing base suite, an unknown addition or invalid completion.
         self.assertEqual(len(all_suites), 186 + len(set(all_suites) & combat_additions))
@@ -145,6 +146,7 @@ class CompletionContractTests(unittest.TestCase):
         self.assertIn("enemy_combat_continuity", DEFAULT_SUITES)
         self.assertIn("boss_combat_identity", DEFAULT_SUITES)
         self.assertIn("combat_motion_v7", DEFAULT_SUITES)
+        self.assertIn("character_motion_v8", DEFAULT_SUITES)
         self.assertIn("shrine_return_world", DEFAULT_SUITES)
         self.assertIn("grounded_run", DEFAULT_SUITES)
 

@@ -1,0 +1,20 @@
+{
+ "godot_workflows": [
+  "contracts.yml",
+  "godot-integration.yml",
+  "ledger-u06-audio-volume-save.yml",
+  "material-conversion-plan-wip.yml",
+  "runtime-lifecycle-soak.yml",
+  "settings-dialog-layout.yml"
+ ],
+ "why": {
+  "godot-integration.yml": "main regression shards (matrix) and the editor-plugin job",
+  "release-candidate.yml": "Windows/Linux export matrix",
+  "ledger-u06-audio-volume-save.yml": "matrix over audio backends",
+  "runtime-lifecycle-soak.yml": "workflow_dispatch input for soak length",
+  "material-conversion-plan-wip.yml": "two jobs",
+  "settings-dialog-layout.yml": "two jobs",
+  "ledger.yml": "regenerates the ledger on main",
+  "contracts.yml": "the shared runner itself: one Godot install per shard for every contract"
+ }
+}

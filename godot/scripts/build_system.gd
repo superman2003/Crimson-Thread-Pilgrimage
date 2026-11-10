@@ -4,6 +4,9 @@ extends RefCounted
 const CATALOG_PATH := "res://data/build_catalog.json"
 const FAMILY_KEYS := ["tool", "combat_accessory", "travel_accessory", "thread_skill"]
 const FAMILY_TABLES := {"tool": "tools", "combat_accessory": "passives", "travel_accessory": "passives", "thread_skill": "skills"}
+## 2: the third combat-accessory slot and the second thread-skill slot also
+## need an artisan part (战斗承力扣, 线技绕轴), like the third travel slot.
+const PART_RULES := 2
 const FAMILY_CAPACITIES := {"tool": 2, "combat_accessory": 3, "travel_accessory": 3, "thread_skill": 2}
 const FAMILY_NAMES := {"tool": "战具", "combat_accessory": "战斗饰件", "travel_accessory": "行旅饰件", "thread_skill": "线技"}
 var catalog: Dictionary = {}
@@ -28,7 +31,8 @@ func reset() -> void:
         "unlocked_tools": ["shard"], "unlocked_passives": ["stride"], "mechanisms": [],
         # skill_levels: 0 = not trained; 1 / 2 = the chosen 校习 direction (branches a / b).
         # crafted: E04 artisan recipes already made (tool capacity, slot parts); each is made once.
-        "tool_counts": {}, "skill_levels": {}, "loadouts": {}, "crafted": []}
+        # part_rules: which slot-part rules the save was made under (see restore).
+        "tool_counts": {}, "skill_levels": {}, "loadouts": {}, "crafted": [], "part_rules": PART_RULES}
     for id in catalog.tools:
         state.tool_counts[id] = int(catalog.tools[id].capacity) if id == "shard" else 0
     for id in catalog.skills:
@@ -888,7 +892,7 @@ func restore(snapshot: Dictionary) -> Dictionary:
     var allowed := ["version", "crest", "skill", "tool", "passives", "unlocked_crests", "unlocked_skills", "unlocked_passives", "tool_counts", "skill_levels", "loadouts", "cooldowns"]
     if int(version) >= 2: allowed.append_array(["skills", "tools", "active_skill_slot", "active_tool_slot", "unlocked_tools", "mechanisms"])
     if int(version) >= 3: allowed.append("equipped_families")
-    allowed.append("crafted")
+    allowed.append_array(["crafted", "part_rules"])
     for field in snapshot:
         if not allowed.has(field): return _fail("未知构筑存档字段")
     var candidate := get_script().new() as RefCounted
@@ -916,6 +920,19 @@ func restore(snapshot: Dictionary) -> Dictionary:
         var clasp := part_recipe("travel_clasp")
         if legacy_mechanisms is Array and not legacy_mechanisms.is_empty() and not clasp.is_empty():
             migrated.crafted.append(clasp)
+    # Saves from before part rules 2 opened the third combat-accessory slot and
+    # the second thread-skill slot with a repaired mechanism alone; they keep
+    # them (both new parts granted). Saves made under the new rules never do.
+    var rules: Variant = migrated.get("part_rules", 1)
+    if not _counter(rules, PART_RULES) or int(rules) < 1: return _fail("工匠零件规则版本损坏")
+    if int(rules) < PART_RULES:
+        var mechanisms: Variant = migrated.get("mechanisms", [])
+        if mechanisms is Array and not mechanisms.is_empty():
+            for part in ["combat_clasp", "skill_spindle"]:
+                var recipe := part_recipe(part)
+                if not recipe.is_empty() and not migrated.crafted.has(recipe):
+                    migrated.crafted.append(recipe)
+    migrated["part_rules"] = PART_RULES
     if int(version) == 1:
         if not migrated.get("skill") is String or not migrated.get("tool") is String: return _fail("旧构筑引用无效")
         for id in ["shard", "mine"]:

@@ -1,0 +1,3058 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "wax_bee",
+  "canvas": [
+    348,
+    241
+  ],
+  "display_height": 80,
+  "visual_scale": 0.39603960396039606,
+  "visual_offset": [
+    0,
+    12.906824015734905
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            192,
+            202
+          ],
+          "margin": [
+            102,
+            31,
+            156,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            170,
+            181
+          ],
+          "margin": [
+            108,
+            56,
+            178,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            194,
+            0,
+            202,
+            168
+          ],
+          "margin": [
+            91,
+            65,
+            146,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            176,
+            2,
+            187,
+            158
+          ],
+          "margin": [
+            88,
+            79,
+            161,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            398,
+            0,
+            205,
+            151
+          ],
+          "margin": [
+            77,
+            82,
+            143,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            367,
+            2,
+            184,
+            144
+          ],
+          "margin": [
+            81,
+            91,
+            164,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            605,
+            0,
+            193,
+            126
+          ],
+          "margin": [
+            72,
+            107,
+            155,
+            115
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            555,
+            2,
+            187,
+            128
+          ],
+          "margin": [
+            87,
+            107,
+            161,
+            113
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            800,
+            0,
+            198,
+            178
+          ],
+          "margin": [
+            96,
+            55,
+            150,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            746,
+            2,
+            190,
+            172
+          ],
+          "margin": [
+            96,
+            63,
+            158,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1000,
+            0,
+            206,
+            156
+          ],
+          "margin": [
+            93,
+            77,
+            142,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            940,
+            2,
+            188,
+            158
+          ],
+          "margin": [
+            94,
+            79,
+            160,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1208,
+            0,
+            194,
+            170
+          ],
+          "margin": [
+            93,
+            63,
+            154,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1132,
+            2,
+            193,
+            164
+          ],
+          "margin": [
+            77,
+            70,
+            155,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1404,
+            0,
+            207,
+            138
+          ],
+          "margin": [
+            71,
+            95,
+            141,
+            103
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1329,
+            2,
+            195,
+            144
+          ],
+          "margin": [
+            86,
+            93,
+            153,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1613,
+            0,
+            216,
+            139
+          ],
+          "margin": [
+            92,
+            94,
+            132,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1528,
+            2,
+            204,
+            134
+          ],
+          "margin": [
+            89,
+            101,
+            144,
+            107
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1831,
+            0,
+            200,
+            174
+          ],
+          "margin": [
+            100,
+            59,
+            148,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1736,
+            2,
+            176,
+            175
+          ],
+          "margin": [
+            92,
+            62,
+            172,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2033,
+            0,
+            201,
+            183
+          ],
+          "margin": [
+            81,
+            50,
+            147,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            191,
+            192,
+            152
+          ],
+          "margin": [
+            76,
+            83,
+            156,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2236,
+            0,
+            203,
+            151
+          ],
+          "margin": [
+            67,
+            82,
+            145,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            198,
+            191,
+            182,
+            165
+          ],
+          "margin": [
+            91,
+            70,
+            166,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2441,
+            0,
+            192,
+            155
+          ],
+          "margin": [
+            101,
+            78,
+            156,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            384,
+            191,
+            187,
+            161
+          ],
+          "margin": [
+            107,
+            75,
+            161,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2635,
+            0,
+            196,
+            161
+          ],
+          "margin": [
+            103,
+            72,
+            152,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            575,
+            191,
+            215,
+            139
+          ],
+          "margin": [
+            92,
+            96,
+            133,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2833,
+            0,
+            196,
+            159
+          ],
+          "margin": [
+            102,
+            74,
+            152,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            794,
+            191,
+            192,
+            163
+          ],
+          "margin": [
+            112,
+            74,
+            156,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3031,
+            0,
+            188,
+            151
+          ],
+          "margin": [
+            113,
+            82,
+            160,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            990,
+            191,
+            187,
+            163
+          ],
+          "margin": [
+            114,
+            73,
+            161,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3221,
+            0,
+            191,
+            157
+          ],
+          "margin": [
+            104,
+            76,
+            157,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1181,
+            191,
+            195,
+            157
+          ],
+          "margin": [
+            102,
+            79,
+            153,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3414,
+            0,
+            191,
+            157
+          ],
+          "margin": [
+            101,
+            76,
+            157,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1380,
+            191,
+            184,
+            162
+          ],
+          "margin": [
+            102,
+            72,
+            164,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3607,
+            0,
+            182,
+            149
+          ],
+          "margin": [
+            101,
+            84,
+            166,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1568,
+            191,
+            192,
+            158
+          ],
+          "margin": [
+            86,
+            77,
+            156,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3791,
+            0,
+            200,
+            163
+          ],
+          "margin": [
+            87,
+            70,
+            148,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1764,
+            191,
+            197,
+            156
+          ],
+          "margin": [
+            78,
+            80,
+            151,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            204,
+            193,
+            170
+          ],
+          "margin": [
+            81,
+            63,
+            155,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            364,
+            196,
+            139
+          ],
+          "margin": [
+            71,
+            97,
+            152,
+            102
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            195,
+            204,
+            189,
+            170
+          ],
+          "margin": [
+            84,
+            63,
+            159,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            202,
+            364,
+            193,
+            153
+          ],
+          "margin": [
+            77,
+            84,
+            155,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            386,
+            204,
+            195,
+            171
+          ],
+          "margin": [
+            85,
+            62,
+            153,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            399,
+            364,
+            208,
+            170
+          ],
+          "margin": [
+            80,
+            65,
+            140,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            583,
+            204,
+            249,
+            166
+          ],
+          "margin": [
+            72,
+            67,
+            99,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            611,
+            364,
+            201,
+            166
+          ],
+          "margin": [
+            94,
+            69,
+            147,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            834,
+            204,
+            218,
+            152
+          ],
+          "margin": [
+            98,
+            81,
+            130,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            816,
+            364,
+            208,
+            165
+          ],
+          "margin": [
+            95,
+            70,
+            140,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1054,
+            204,
+            245,
+            161
+          ],
+          "margin": [
+            82,
+            72,
+            103,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1028,
+            364,
+            219,
+            165
+          ],
+          "margin": [
+            92,
+            70,
+            129,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1301,
+            204,
+            260,
+            162
+          ],
+          "margin": [
+            75,
+            71,
+            88,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1251,
+            364,
+            207,
+            147
+          ],
+          "margin": [
+            96,
+            90,
+            141,
+            94
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1563,
+            204,
+            218,
+            156
+          ],
+          "margin": [
+            97,
+            77,
+            130,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1462,
+            364,
+            211,
+            159
+          ],
+          "margin": [
+            94,
+            76,
+            137,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1783,
+            204,
+            269,
+            169
+          ],
+          "margin": [
+            70,
+            64,
+            79,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1677,
+            364,
+            220,
+            160
+          ],
+          "margin": [
+            86,
+            76,
+            128,
+            81
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2054,
+            204,
+            206,
+            174
+          ],
+          "margin": [
+            85,
+            59,
+            142,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            542,
+            187,
+            153
+          ],
+          "margin": [
+            95,
+            82,
+            161,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2262,
+            204,
+            191,
+            173
+          ],
+          "margin": [
+            98,
+            60,
+            157,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            193,
+            542,
+            197,
+            149
+          ],
+          "margin": [
+            90,
+            85,
+            151,
+            92
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2455,
+            204,
+            204,
+            176
+          ],
+          "margin": [
+            80,
+            57,
+            144,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            394,
+            542,
+            220,
+            158
+          ],
+          "margin": [
+            76,
+            78,
+            128,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2661,
+            204,
+            196,
+            173
+          ],
+          "margin": [
+            82,
+            60,
+            152,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            618,
+            542,
+            209,
+            162
+          ],
+          "margin": [
+            76,
+            73,
+            139,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2859,
+            204,
+            181,
+            162
+          ],
+          "margin": [
+            85,
+            71,
+            167,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            831,
+            542,
+            217,
+            157
+          ],
+          "margin": [
+            68,
+            79,
+            131,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3042,
+            204,
+            218,
+            187
+          ],
+          "margin": [
+            70,
+            46,
+            130,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1052,
+            542,
+            218,
+            178
+          ],
+          "margin": [
+            68,
+            57,
+            130,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3262,
+            204,
+            185,
+            203
+          ],
+          "margin": [
+            90,
+            30,
+            163,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1274,
+            542,
+            198,
+            172
+          ],
+          "margin": [
+            84,
+            63,
+            150,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3449,
+            204,
+            198,
+            213
+          ],
+          "margin": [
+            88,
+            20,
+            150,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1476,
+            542,
+            204,
+            169
+          ],
+          "margin": [
+            76,
+            67,
+            144,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3649,
+            204,
+            197,
+            222
+          ],
+          "margin": [
+            87,
+            11,
+            151,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1684,
+            542,
+            191,
+            158
+          ],
+          "margin": [
+            82,
+            78,
+            157,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3848,
+            204,
+            203,
+            225
+          ],
+          "margin": [
+            87,
+            8,
+            145,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            728,
+            176,
+            158
+          ],
+          "margin": [
+            88,
+            78,
+            172,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            431,
+            198,
+            220
+          ],
+          "margin": [
+            90,
+            13,
+            150,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            182,
+            728,
+            174,
+            141
+          ],
+          "margin": [
+            87,
+            93,
+            174,
+            100
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            200,
+            431,
+            191,
+            211
+          ],
+          "margin": [
+            90,
+            22,
+            157,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            360,
+            728,
+            186,
+            179
+          ],
+          "margin": [
+            86,
+            56,
+            162,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            393,
+            431,
+            241,
+            197
+          ],
+          "margin": [
+            59,
+            36,
+            107,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            550,
+            728,
+            199,
+            187
+          ],
+          "margin": [
+            80,
+            48,
+            149,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            636,
+            431,
+            214,
+            174
+          ],
+          "margin": [
+            74,
+            59,
+            134,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            753,
+            728,
+            184,
+            180
+          ],
+          "margin": [
+            88,
+            55,
+            164,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            852,
+            431,
+            242,
+            191
+          ],
+          "margin": [
+            58,
+            42,
+            106,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            941,
+            728,
+            201,
+            194
+          ],
+          "margin": [
+            88,
+            41,
+            147,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1096,
+            431,
+            222,
+            200
+          ],
+          "margin": [
+            66,
+            33,
+            126,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1146,
+            728,
+            191,
+            181
+          ],
+          "margin": [
+            91,
+            54,
+            157,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1320,
+            431,
+            214,
+            202
+          ],
+          "margin": [
+            74,
+            31,
+            134,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1341,
+            728,
+            190,
+            185
+          ],
+          "margin": [
+            90,
+            50,
+            158,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1536,
+            431,
+            232,
+            209
+          ],
+          "margin": [
+            70,
+            24,
+            116,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1535,
+            728,
+            212,
+            173
+          ],
+          "margin": [
+            83,
+            62,
+            136,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1770,
+            431,
+            206,
+            209
+          ],
+          "margin": [
+            87,
+            24,
+            142,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1751,
+            728,
+            201,
+            168
+          ],
+          "margin": [
+            96,
+            67,
+            147,
+            73
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1978,
+            431,
+            218,
+            208
+          ],
+          "margin": [
+            92,
+            25,
+            130,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            930,
+            215,
+            195
+          ],
+          "margin": [
+            86,
+            40,
+            133,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2198,
+            431,
+            202,
+            168
+          ],
+          "margin": [
+            87,
+            65,
+            146,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            221,
+            930,
+            200,
+            169
+          ],
+          "margin": [
+            84,
+            66,
+            148,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2402,
+            431,
+            190,
+            215
+          ],
+          "margin": [
+            103,
+            18,
+            158,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            425,
+            930,
+            191,
+            192
+          ],
+          "margin": [
+            92,
+            43,
+            157,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2594,
+            431,
+            199,
+            136
+          ],
+          "margin": [
+            80,
+            97,
+            149,
+            105
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            620,
+            930,
+            207,
+            138
+          ],
+          "margin": [
+            82,
+            97,
+            141,
+            103
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2795,
+            431,
+            209,
+            153
+          ],
+          "margin": [
+            92,
+            80,
+            139,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            831,
+            930,
+            224,
+            152
+          ],
+          "margin": [
+            85,
+            83,
+            124,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3006,
+            431,
+            190,
+            191
+          ],
+          "margin": [
+            119,
+            42,
+            158,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1059,
+            930,
+            190,
+            150
+          ],
+          "margin": [
+            104,
+            85,
+            158,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3198,
+            431,
+            224,
+            103
+          ],
+          "margin": [
+            72,
+            130,
+            124,
+            138
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1253,
+            930,
+            194,
+            128
+          ],
+          "margin": [
+            81,
+            107,
+            154,
+            113
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3424,
+            431,
+            216,
+            91
+          ],
+          "margin": [
+            63,
+            142,
+            132,
+            150
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1451,
+            930,
+            224,
+            101
+          ],
+          "margin": [
+            58,
+            134,
+            124,
+            140
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3642,
+            431,
+            194,
+            174
+          ],
+          "margin": [
+            74,
+            59,
+            154,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1679,
+            930,
+            186,
+            120
+          ],
+          "margin": [
+            72,
+            115,
+            162,
+            121
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3838,
+            431,
+            182,
+            189
+          ],
+          "margin": [
+            82,
+            44,
+            166,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            1133,
+            189,
+            173
+          ],
+          "margin": [
+            72,
+            62,
+            159,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "name": "travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            653,
+            203,
+            133
+          ],
+          "margin": [
+            94,
+            100,
+            145,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            195,
+            1133,
+            165,
+            151
+          ],
+          "margin": [
+            114,
+            83,
+            183,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            205,
+            653,
+            199,
+            142
+          ],
+          "margin": [
+            99,
+            91,
+            149,
+            99
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            364,
+            1133,
+            244,
+            115
+          ],
+          "margin": [
+            66,
+            120,
+            104,
+            126
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bee_stingers_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            406,
+            653,
+            222,
+            177
+          ],
+          "margin": [
+            78,
+            56,
+            126,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            612,
+            1133,
+            308,
+            150
+          ],
+          "margin": [
+            29,
+            85,
+            40,
+            91
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            630,
+            653,
+            248,
+            190
+          ],
+          "margin": [
+            68,
+            43,
+            100,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            924,
+            1133,
+            311,
+            146
+          ],
+          "margin": [
+            23,
+            90,
+            37,
+            95
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            880,
+            653,
+            224,
+            194
+          ],
+          "margin": [
+            76,
+            39,
+            124,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1239,
+            1133,
+            239,
+            208
+          ],
+          "margin": [
+            65,
+            27,
+            109,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1106,
+            653,
+            213,
+            194
+          ],
+          "margin": [
+            81,
+            39,
+            135,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1482,
+            1133,
+            241,
+            210
+          ],
+          "margin": [
+            62,
+            25,
+            107,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1321,
+            653,
+            229,
+            200
+          ],
+          "margin": [
+            74,
+            33,
+            119,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1727,
+            1133,
+            248,
+            177
+          ],
+          "margin": [
+            63,
+            58,
+            100,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1552,
+            653,
+            195,
+            199
+          ],
+          "margin": [
+            93,
+            34,
+            153,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            1351,
+            247,
+            175
+          ],
+          "margin": [
+            62,
+            60,
+            101,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1749,
+            653,
+            174,
+            193
+          ],
+          "margin": [
+            104,
+            40,
+            174,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            253,
+            1351,
+            205,
+            172
+          ],
+          "margin": [
+            80,
+            63,
+            143,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1925,
+            653,
+            186,
+            197
+          ],
+          "margin": [
+            98,
+            36,
+            162,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            462,
+            1351,
+            221,
+            172
+          ],
+          "margin": [
+            73,
+            63,
+            127,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2113,
+            653,
+            203,
+            197
+          ],
+          "margin": [
+            79,
+            36,
+            145,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            687,
+            1351,
+            221,
+            187
+          ],
+          "margin": [
+            74,
+            48,
+            127,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2318,
+            653,
+            203,
+            188
+          ],
+          "margin": [
+            79,
+            45,
+            145,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            912,
+            1351,
+            211,
+            184
+          ],
+          "margin": [
+            80,
+            51,
+            137,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2523,
+            653,
+            196,
+            186
+          ],
+          "margin": [
+            82,
+            47,
+            152,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1127,
+            1351,
+            226,
+            194
+          ],
+          "margin": [
+            71,
+            41,
+            122,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2721,
+            653,
+            252,
+            177
+          ],
+          "margin": [
+            59,
+            56,
+            96,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1357,
+            1351,
+            222,
+            208
+          ],
+          "margin": [
+            77,
+            27,
+            126,
+            33
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bee_stingers",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2975,
+            653,
+            238,
+            162
+          ],
+          "margin": [
+            70,
+            71,
+            110,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1583,
+            1351,
+            241,
+            184
+          ],
+          "margin": [
+            66,
+            51,
+            107,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3215,
+            653,
+            249,
+            175
+          ],
+          "margin": [
+            59,
+            58,
+            99,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            1567,
+            227,
+            190
+          ],
+          "margin": [
+            72,
+            45,
+            121,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3466,
+            653,
+            198,
+            182
+          ],
+          "margin": [
+            95,
+            51,
+            150,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            233,
+            1567,
+            187,
+            185
+          ],
+          "margin": [
+            97,
+            50,
+            161,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3666,
+            653,
+            187,
+            182
+          ],
+          "margin": [
+            103,
+            51,
+            161,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            424,
+            1567,
+            184,
+            190
+          ],
+          "margin": [
+            103,
+            45,
+            164,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3855,
+            653,
+            190,
+            180
+          ],
+          "margin": [
+            98,
+            53,
+            158,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            612,
+            1567,
+            208,
+            197
+          ],
+          "margin": [
+            88,
+            38,
+            140,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            855,
+            292,
+            170
+          ],
+          "margin": [
+            47,
+            63,
+            56,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            824,
+            1567,
+            249,
+            166
+          ],
+          "margin": [
+            61,
+            69,
+            99,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            294,
+            855,
+            270,
+            155
+          ],
+          "margin": [
+            55,
+            78,
+            78,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1077,
+            1567,
+            248,
+            185
+          ],
+          "margin": [
+            60,
+            50,
+            100,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            566,
+            855,
+            281,
+            173
+          ],
+          "margin": [
+            48,
+            60,
+            67,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1329,
+            1567,
+            221,
+            195
+          ],
+          "margin": [
+            76,
+            40,
+            127,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            849,
+            855,
+            190,
+            183
+          ],
+          "margin": [
+            97,
+            50,
+            158,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1554,
+            1567,
+            183,
+            189
+          ],
+          "margin": [
+            100,
+            46,
+            165,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1041,
+            855,
+            189,
+            186
+          ],
+          "margin": [
+            98,
+            47,
+            159,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1741,
+            1567,
+            203,
+            201
+          ],
+          "margin": [
+            87,
+            34,
+            145,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1232,
+            855,
+            206,
+            193
+          ],
+          "margin": [
+            90,
+            40,
+            142,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            2,
+            1776,
+            223,
+            168
+          ],
+          "margin": [
+            72,
+            67,
+            125,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1440,
+            855,
+            246,
+            193
+          ],
+          "margin": [
+            63,
+            40,
+            102,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            229,
+            1776,
+            238,
+            174
+          ],
+          "margin": [
+            62,
+            61,
+            110,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bee_stingers_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1688,
+            855,
+            219,
+            186
+          ],
+          "margin": [
+            79,
+            47,
+            129,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            471,
+            1776,
+            229,
+            165
+          ],
+          "margin": [
+            66,
+            70,
+            119,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            1909,
+            855,
+            235,
+            192
+          ],
+          "margin": [
+            70,
+            41,
+            113,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            704,
+            1776,
+            225,
+            207
+          ],
+          "margin": [
+            72,
+            28,
+            123,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2146,
+            855,
+            237,
+            192
+          ],
+          "margin": [
+            66,
+            41,
+            111,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            933,
+            1776,
+            212,
+            197
+          ],
+          "margin": [
+            80,
+            38,
+            136,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2385,
+            855,
+            215,
+            186
+          ],
+          "margin": [
+            77,
+            47,
+            133,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1149,
+            1776,
+            216,
+            190
+          ],
+          "margin": [
+            78,
+            45,
+            132,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2602,
+            855,
+            236,
+            189
+          ],
+          "margin": [
+            69,
+            44,
+            112,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1369,
+            1776,
+            236,
+            194
+          ],
+          "margin": [
+            67,
+            41,
+            112,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            2840,
+            855,
+            255,
+            184
+          ],
+          "margin": [
+            61,
+            49,
+            93,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1609,
+            1776,
+            215,
+            192
+          ],
+          "margin": [
+            77,
+            43,
+            133,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3097,
+            855,
+            222,
+            173
+          ],
+          "margin": [
+            79,
+            60,
+            126,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_00.png",
+          "region": [
+            1828,
+            1776,
+            215,
+            184
+          ],
+          "margin": [
+            77,
+            51,
+            133,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3321,
+            855,
+            249,
+            179
+          ],
+          "margin": [
+            64,
+            54,
+            99,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            240,
+            184
+          ],
+          "margin": [
+            66,
+            51,
+            108,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3572,
+            855,
+            247,
+            179
+          ],
+          "margin": [
+            68,
+            54,
+            101,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            246,
+            2,
+            226,
+            182
+          ],
+          "margin": [
+            71,
+            53,
+            122,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            3821,
+            855,
+            209,
+            173
+          ],
+          "margin": [
+            88,
+            60,
+            139,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            476,
+            2,
+            230,
+            191
+          ],
+          "margin": [
+            74,
+            44,
+            118,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            0,
+            1050,
+            254,
+            189
+          ],
+          "margin": [
+            68,
+            44,
+            94,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            710,
+            2,
+            223,
+            183
+          ],
+          "margin": [
+            82,
+            52,
+            125,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            256,
+            1050,
+            203,
+            198
+          ],
+          "margin": [
+            91,
+            35,
+            145,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            937,
+            2,
+            212,
+            187
+          ],
+          "margin": [
+            92,
+            48,
+            136,
+            54
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bee_stingers_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            461,
+            1050,
+            205,
+            197
+          ],
+          "margin": [
+            85,
+            36,
+            143,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            1153,
+            2,
+            202,
+            167
+          ],
+          "margin": [
+            78,
+            68,
+            146,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/combat_motion_v7.png",
+          "region": [
+            668,
+            1050,
+            216,
+            181
+          ],
+          "margin": [
+            72,
+            52,
+            132,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/wax_bee/motion_v8_01.png",
+          "region": [
+            1359,
+            2,
+            199,
+            181
+          ],
+          "margin": [
+            82,
+            54,
+            149,
+            60
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "bee_stingers",
+    "bee_stingers_recover",
+    "bee_stingers_windup",
+    "recover",
+    "windup"
+  ]
+}

@@ -2388,7 +2388,7 @@ func _show_build_detail(entry: Dictionary) -> void:
     if entry.has("count"):lines.append("剩余携带：%d / %d" % [int(entry.count),int(entry.get("capacity",entry.count))])
     if entry.has("count") and int(entry.count)<=0:lines.append("\n当前携带量为零，不能使用此战具；可在钟龛先查看补给报价，再单独确认购买。")
     elif entry.has("count") and int(entry.count)<int(entry.get("capacity",entry.count)):lines.append("\n携带量不足上限；可在钟龛购买部分补给。")
-    if entry.has("currency"):lines.append("\n制作费用：%d 碎钱" % int(entry.currency))
+    if int(entry.get("currency",0))>0:lines.append("\n制作费用：%d 碎钱" % int(entry.currency))
     if entry.has("materials"):
         var materials: Dictionary=entry.materials
         for material in materials:lines.append("材料 %s：需要 %d / 持有 %d" % [level._item_display_name(String(material)),int(materials[material]),int(level.inventory_counts.get(material,0))])

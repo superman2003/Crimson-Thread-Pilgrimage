@@ -1,0 +1,2931 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "silent_bugbler",
+  "canvas": [
+    362,
+    194
+  ],
+  "display_height": 100,
+  "visual_scale": 0.6329113924050633,
+  "visual_offset": [
+    0,
+    0.9952104002736846
+  ],
+  "motion": "stationary",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            152,
+            158
+          ],
+          "margin": [
+            104,
+            28,
+            210,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            149,
+            154
+          ],
+          "margin": [
+            104,
+            33,
+            213,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            154,
+            0,
+            157,
+            157
+          ],
+          "margin": [
+            97,
+            29,
+            205,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            155,
+            2,
+            153,
+            153
+          ],
+          "margin": [
+            101,
+            34,
+            209,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            313,
+            0,
+            157,
+            155
+          ],
+          "margin": [
+            103,
+            31,
+            205,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            312,
+            2,
+            154,
+            156
+          ],
+          "margin": [
+            104,
+            31,
+            208,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            472,
+            0,
+            164,
+            157
+          ],
+          "margin": [
+            101,
+            29,
+            198,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            470,
+            2,
+            154,
+            155
+          ],
+          "margin": [
+            104,
+            32,
+            208,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            638,
+            0,
+            149,
+            147
+          ],
+          "margin": [
+            110,
+            39,
+            213,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            628,
+            2,
+            156,
+            150
+          ],
+          "margin": [
+            102,
+            37,
+            206,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            789,
+            0,
+            161,
+            147
+          ],
+          "margin": [
+            97,
+            39,
+            201,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            788,
+            2,
+            158,
+            152
+          ],
+          "margin": [
+            103,
+            35,
+            204,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            952,
+            0,
+            176,
+            145
+          ],
+          "margin": [
+            94,
+            41,
+            186,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            950,
+            2,
+            155,
+            149
+          ],
+          "margin": [
+            108,
+            38,
+            207,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1130,
+            0,
+            155,
+            147
+          ],
+          "margin": [
+            101,
+            39,
+            207,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1109,
+            2,
+            151,
+            150
+          ],
+          "margin": [
+            106,
+            37,
+            211,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1287,
+            0,
+            172,
+            148
+          ],
+          "margin": [
+            89,
+            38,
+            190,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1264,
+            2,
+            159,
+            153
+          ],
+          "margin": [
+            96,
+            34,
+            203,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1461,
+            0,
+            164,
+            142
+          ],
+          "margin": [
+            93,
+            44,
+            198,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1427,
+            2,
+            157,
+            156
+          ],
+          "margin": [
+            96,
+            31,
+            205,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1627,
+            0,
+            183,
+            149
+          ],
+          "margin": [
+            85,
+            37,
+            179,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1588,
+            2,
+            162,
+            152
+          ],
+          "margin": [
+            101,
+            35,
+            200,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1812,
+            0,
+            167,
+            151
+          ],
+          "margin": [
+            112,
+            35,
+            195,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1754,
+            2,
+            156,
+            143
+          ],
+          "margin": [
+            109,
+            44,
+            206,
+            51
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1981,
+            0,
+            177,
+            150
+          ],
+          "margin": [
+            90,
+            36,
+            185,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            166,
+            176,
+            164
+          ],
+          "margin": [
+            88,
+            23,
+            186,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2160,
+            0,
+            182,
+            157
+          ],
+          "margin": [
+            84,
+            29,
+            180,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            182,
+            166,
+            176,
+            167
+          ],
+          "margin": [
+            83,
+            20,
+            186,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2344,
+            0,
+            180,
+            156
+          ],
+          "margin": [
+            85,
+            30,
+            182,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            362,
+            166,
+            173,
+            166
+          ],
+          "margin": [
+            81,
+            21,
+            189,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2526,
+            0,
+            183,
+            149
+          ],
+          "margin": [
+            79,
+            37,
+            179,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            539,
+            166,
+            174,
+            165
+          ],
+          "margin": [
+            77,
+            22,
+            188,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2711,
+            0,
+            182,
+            156
+          ],
+          "margin": [
+            77,
+            30,
+            180,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            717,
+            166,
+            186,
+            172
+          ],
+          "margin": [
+            68,
+            16,
+            176,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2895,
+            0,
+            191,
+            156
+          ],
+          "margin": [
+            65,
+            30,
+            171,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            907,
+            166,
+            181,
+            163
+          ],
+          "margin": [
+            70,
+            24,
+            181,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3088,
+            0,
+            185,
+            149
+          ],
+          "margin": [
+            69,
+            37,
+            177,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1092,
+            166,
+            181,
+            161
+          ],
+          "margin": [
+            74,
+            26,
+            181,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3275,
+            0,
+            194,
+            156
+          ],
+          "margin": [
+            67,
+            30,
+            168,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1277,
+            166,
+            195,
+            165
+          ],
+          "margin": [
+            68,
+            23,
+            167,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3471,
+            0,
+            204,
+            157
+          ],
+          "margin": [
+            71,
+            29,
+            158,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1476,
+            166,
+            190,
+            155
+          ],
+          "margin": [
+            78,
+            32,
+            172,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3677,
+            0,
+            190,
+            150
+          ],
+          "margin": [
+            84,
+            36,
+            172,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1670,
+            166,
+            182,
+            151
+          ],
+          "margin": [
+            83,
+            36,
+            180,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3869,
+            0,
+            199,
+            153
+          ],
+          "margin": [
+            80,
+            33,
+            163,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            346,
+            197,
+            156
+          ],
+          "margin": [
+            80,
+            34,
+            165,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            0,
+            160,
+            215,
+            149
+          ],
+          "margin": [
+            69,
+            37,
+            147,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            203,
+            346,
+            199,
+            150
+          ],
+          "margin": [
+            79,
+            37,
+            163,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            217,
+            160,
+            212,
+            138
+          ],
+          "margin": [
+            74,
+            48,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            406,
+            346,
+            197,
+            139
+          ],
+          "margin": [
+            80,
+            49,
+            165,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            431,
+            160,
+            213,
+            143
+          ],
+          "margin": [
+            72,
+            43,
+            149,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            607,
+            346,
+            209,
+            149
+          ],
+          "margin": [
+            71,
+            39,
+            153,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            646,
+            160,
+            233,
+            142
+          ],
+          "margin": [
+            67,
+            44,
+            129,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            820,
+            346,
+            216,
+            141
+          ],
+          "margin": [
+            68,
+            47,
+            146,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            881,
+            160,
+            220,
+            134
+          ],
+          "margin": [
+            73,
+            52,
+            142,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1040,
+            346,
+            218,
+            140
+          ],
+          "margin": [
+            64,
+            48,
+            144,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1103,
+            160,
+            235,
+            143
+          ],
+          "margin": [
+            63,
+            43,
+            127,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1262,
+            346,
+            226,
+            146
+          ],
+          "margin": [
+            63,
+            42,
+            136,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1340,
+            160,
+            241,
+            145
+          ],
+          "margin": [
+            65,
+            41,
+            121,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1492,
+            346,
+            212,
+            138
+          ],
+          "margin": [
+            72,
+            50,
+            150,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1583,
+            160,
+            236,
+            140
+          ],
+          "margin": [
+            69,
+            46,
+            126,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1708,
+            346,
+            214,
+            140
+          ],
+          "margin": [
+            70,
+            48,
+            148,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1821,
+            160,
+            237,
+            147
+          ],
+          "margin": [
+            70,
+            39,
+            125,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            510,
+            223,
+            149
+          ],
+          "margin": [
+            68,
+            39,
+            139,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2060,
+            160,
+            226,
+            146
+          ],
+          "margin": [
+            73,
+            40,
+            136,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            229,
+            510,
+            206,
+            141
+          ],
+          "margin": [
+            78,
+            49,
+            156,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2288,
+            160,
+            215,
+            139
+          ],
+          "margin": [
+            78,
+            47,
+            147,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            439,
+            510,
+            204,
+            146
+          ],
+          "margin": [
+            80,
+            43,
+            158,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2505,
+            160,
+            221,
+            147
+          ],
+          "margin": [
+            71,
+            39,
+            141,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            647,
+            510,
+            204,
+            144
+          ],
+          "margin": [
+            76,
+            44,
+            158,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2728,
+            160,
+            175,
+            148
+          ],
+          "margin": [
+            89,
+            38,
+            187,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            855,
+            510,
+            172,
+            142
+          ],
+          "margin": [
+            85,
+            47,
+            190,
+            52
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2905,
+            160,
+            178,
+            142
+          ],
+          "margin": [
+            84,
+            44,
+            184,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1031,
+            510,
+            175,
+            140
+          ],
+          "margin": [
+            83,
+            49,
+            187,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3085,
+            160,
+            178,
+            149
+          ],
+          "margin": [
+            87,
+            37,
+            184,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1210,
+            510,
+            184,
+            151
+          ],
+          "margin": [
+            88,
+            37,
+            178,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3265,
+            160,
+            181,
+            150
+          ],
+          "margin": [
+            95,
+            36,
+            181,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1398,
+            510,
+            172,
+            144
+          ],
+          "margin": [
+            99,
+            45,
+            190,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3448,
+            160,
+            179,
+            143
+          ],
+          "margin": [
+            101,
+            43,
+            183,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1574,
+            510,
+            166,
+            143
+          ],
+          "margin": [
+            101,
+            46,
+            196,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3629,
+            160,
+            183,
+            151
+          ],
+          "margin": [
+            95,
+            35,
+            179,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1744,
+            510,
+            177,
+            155
+          ],
+          "margin": [
+            92,
+            33,
+            185,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3814,
+            160,
+            177,
+            151
+          ],
+          "margin": [
+            93,
+            35,
+            185,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            673,
+            161,
+            141
+          ],
+          "margin": [
+            95,
+            48,
+            201,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            0,
+            313,
+            169,
+            145
+          ],
+          "margin": [
+            97,
+            41,
+            193,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            167,
+            673,
+            158,
+            138
+          ],
+          "margin": [
+            94,
+            49,
+            204,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            171,
+            313,
+            171,
+            153
+          ],
+          "margin": [
+            90,
+            33,
+            191,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            329,
+            673,
+            167,
+            151
+          ],
+          "margin": [
+            83,
+            37,
+            195,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            344,
+            313,
+            163,
+            152
+          ],
+          "margin": [
+            86,
+            34,
+            199,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            500,
+            673,
+            155,
+            143
+          ],
+          "margin": [
+            84,
+            46,
+            207,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            509,
+            313,
+            157,
+            147
+          ],
+          "margin": [
+            89,
+            39,
+            205,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            659,
+            673,
+            155,
+            142
+          ],
+          "margin": [
+            84,
+            47,
+            207,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            668,
+            313,
+            164,
+            158
+          ],
+          "margin": [
+            85,
+            28,
+            198,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            818,
+            673,
+            165,
+            151
+          ],
+          "margin": [
+            82,
+            37,
+            197,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            834,
+            313,
+            157,
+            161
+          ],
+          "margin": [
+            94,
+            25,
+            205,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            987,
+            673,
+            152,
+            145
+          ],
+          "margin": [
+            93,
+            44,
+            210,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            993,
+            313,
+            175,
+            123
+          ],
+          "margin": [
+            94,
+            63,
+            187,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1143,
+            673,
+            162,
+            123
+          ],
+          "margin": [
+            92,
+            64,
+            200,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1170,
+            313,
+            165,
+            136
+          ],
+          "margin": [
+            75,
+            50,
+            197,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1309,
+            673,
+            162,
+            123
+          ],
+          "margin": [
+            82,
+            64,
+            200,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1337,
+            313,
+            189,
+            140
+          ],
+          "margin": [
+            70,
+            46,
+            173,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1475,
+            673,
+            178,
+            131
+          ],
+          "margin": [
+            78,
+            56,
+            184,
+            63
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1528,
+            313,
+            244,
+            106
+          ],
+          "margin": [
+            54,
+            80,
+            118,
+            88
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1657,
+            673,
+            220,
+            112
+          ],
+          "margin": [
+            54,
+            77,
+            142,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1774,
+            313,
+            310,
+            90
+          ],
+          "margin": [
+            20,
+            96,
+            52,
+            104
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            832,
+            268,
+            111
+          ],
+          "margin": [
+            38,
+            77,
+            94,
+            83
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2086,
+            313,
+            309,
+            109
+          ],
+          "margin": [
+            8,
+            77,
+            53,
+            85
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            274,
+            832,
+            279,
+            116
+          ],
+          "margin": [
+            31,
+            72,
+            83,
+            78
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bugle_pulse_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2397,
+            313,
+            162,
+            145
+          ],
+          "margin": [
+            103,
+            41,
+            200,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            557,
+            832,
+            158,
+            141
+          ],
+          "margin": [
+            96,
+            46,
+            204,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2561,
+            313,
+            178,
+            152
+          ],
+          "margin": [
+            93,
+            34,
+            184,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            719,
+            832,
+            162,
+            146
+          ],
+          "margin": [
+            97,
+            41,
+            200,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2741,
+            313,
+            177,
+            155
+          ],
+          "margin": [
+            96,
+            31,
+            185,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            885,
+            832,
+            151,
+            159
+          ],
+          "margin": [
+            102,
+            28,
+            211,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2920,
+            313,
+            173,
+            149
+          ],
+          "margin": [
+            97,
+            37,
+            189,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1040,
+            832,
+            176,
+            144
+          ],
+          "margin": [
+            94,
+            46,
+            186,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3095,
+            313,
+            180,
+            163
+          ],
+          "margin": [
+            96,
+            23,
+            182,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1220,
+            832,
+            178,
+            152
+          ],
+          "margin": [
+            94,
+            37,
+            184,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3277,
+            313,
+            166,
+            169
+          ],
+          "margin": [
+            98,
+            17,
+            196,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1402,
+            832,
+            170,
+            160
+          ],
+          "margin": [
+            95,
+            29,
+            192,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3445,
+            313,
+            164,
+            168
+          ],
+          "margin": [
+            100,
+            18,
+            198,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1576,
+            832,
+            168,
+            167
+          ],
+          "margin": [
+            98,
+            22,
+            194,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3611,
+            313,
+            173,
+            176
+          ],
+          "margin": [
+            95,
+            10,
+            189,
+            18
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1748,
+            832,
+            174,
+            174
+          ],
+          "margin": [
+            92,
+            15,
+            188,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3786,
+            313,
+            174,
+            178
+          ],
+          "margin": [
+            92,
+            8,
+            188,
+            16
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            1014,
+            177,
+            170
+          ],
+          "margin": [
+            92,
+            18,
+            185,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            0,
+            493,
+            163,
+            172
+          ],
+          "margin": [
+            99,
+            14,
+            199,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            183,
+            1014,
+            176,
+            163
+          ],
+          "margin": [
+            92,
+            26,
+            186,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            165,
+            493,
+            160,
+            166
+          ],
+          "margin": [
+            98,
+            20,
+            202,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            363,
+            1014,
+            184,
+            159
+          ],
+          "margin": [
+            88,
+            31,
+            178,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            327,
+            493,
+            199,
+            154
+          ],
+          "margin": [
+            81,
+            32,
+            163,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            551,
+            1014,
+            177,
+            133
+          ],
+          "margin": [
+            92,
+            54,
+            185,
+            61
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bugle_pulse",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            528,
+            493,
+            178,
+            134
+          ],
+          "margin": [
+            92,
+            52,
+            184,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            732,
+            1014,
+            163,
+            133
+          ],
+          "margin": [
+            100,
+            54,
+            199,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            708,
+            493,
+            173,
+            140
+          ],
+          "margin": [
+            92,
+            46,
+            189,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            899,
+            1014,
+            166,
+            138
+          ],
+          "margin": [
+            98,
+            50,
+            196,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            883,
+            493,
+            195,
+            140
+          ],
+          "margin": [
+            80,
+            46,
+            167,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1069,
+            1014,
+            181,
+            139
+          ],
+          "margin": [
+            84,
+            49,
+            181,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1080,
+            493,
+            187,
+            133
+          ],
+          "margin": [
+            86,
+            53,
+            175,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1254,
+            1014,
+            176,
+            133
+          ],
+          "margin": [
+            88,
+            55,
+            186,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1269,
+            493,
+            186,
+            134
+          ],
+          "margin": [
+            85,
+            52,
+            176,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1434,
+            1014,
+            183,
+            131
+          ],
+          "margin": [
+            84,
+            56,
+            179,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1457,
+            493,
+            197,
+            127
+          ],
+          "margin": [
+            83,
+            59,
+            165,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1621,
+            1014,
+            177,
+            127
+          ],
+          "margin": [
+            88,
+            60,
+            185,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1656,
+            493,
+            182,
+            114
+          ],
+          "margin": [
+            91,
+            72,
+            180,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1802,
+            1014,
+            185,
+            127
+          ],
+          "margin": [
+            86,
+            63,
+            177,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1840,
+            493,
+            193,
+            121
+          ],
+          "margin": [
+            86,
+            65,
+            169,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            1192,
+            183,
+            127
+          ],
+          "margin": [
+            88,
+            61,
+            179,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2035,
+            493,
+            188,
+            120
+          ],
+          "margin": [
+            88,
+            66,
+            174,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            189,
+            1192,
+            173,
+            126
+          ],
+          "margin": [
+            94,
+            61,
+            189,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2225,
+            493,
+            176,
+            112
+          ],
+          "margin": [
+            95,
+            74,
+            186,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            366,
+            1192,
+            175,
+            132
+          ],
+          "margin": [
+            94,
+            58,
+            187,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2403,
+            493,
+            194,
+            126
+          ],
+          "margin": [
+            87,
+            60,
+            168,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            545,
+            1192,
+            177,
+            134
+          ],
+          "margin": [
+            92,
+            54,
+            185,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2599,
+            493,
+            176,
+            134
+          ],
+          "margin": [
+            96,
+            52,
+            186,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            726,
+            1192,
+            177,
+            136
+          ],
+          "margin": [
+            92,
+            52,
+            185,
+            58
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bugle_pulse_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2777,
+            493,
+            179,
+            137
+          ],
+          "margin": [
+            94,
+            49,
+            183,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            907,
+            1192,
+            180,
+            137
+          ],
+          "margin": [
+            92,
+            50,
+            182,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            2958,
+            493,
+            187,
+            146
+          ],
+          "margin": [
+            89,
+            40,
+            175,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1091,
+            1192,
+            174,
+            140
+          ],
+          "margin": [
+            96,
+            48,
+            188,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3147,
+            493,
+            173,
+            150
+          ],
+          "margin": [
+            98,
+            36,
+            189,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1269,
+            1192,
+            167,
+            141
+          ],
+          "margin": [
+            102,
+            46,
+            195,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3322,
+            493,
+            167,
+            146
+          ],
+          "margin": [
+            101,
+            40,
+            195,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1440,
+            1192,
+            169,
+            144
+          ],
+          "margin": [
+            100,
+            43,
+            193,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3491,
+            493,
+            173,
+            151
+          ],
+          "margin": [
+            98,
+            35,
+            189,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1613,
+            1192,
+            174,
+            149
+          ],
+          "margin": [
+            96,
+            39,
+            188,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3666,
+            493,
+            177,
+            150
+          ],
+          "margin": [
+            93,
+            36,
+            185,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1791,
+            1192,
+            172,
+            150
+          ],
+          "margin": [
+            96,
+            38,
+            190,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            3845,
+            493,
+            165,
+            141
+          ],
+          "margin": [
+            99,
+            45,
+            197,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            2,
+            1350,
+            170,
+            149
+          ],
+          "margin": [
+            97,
+            38,
+            192,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            0,
+            667,
+            175,
+            147
+          ],
+          "margin": [
+            94,
+            39,
+            187,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            176,
+            1350,
+            176,
+            155
+          ],
+          "margin": [
+            93,
+            34,
+            186,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            177,
+            667,
+            181,
+            144
+          ],
+          "margin": [
+            91,
+            42,
+            181,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            356,
+            1350,
+            170,
+            154
+          ],
+          "margin": [
+            96,
+            34,
+            192,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            360,
+            667,
+            168,
+            136
+          ],
+          "margin": [
+            95,
+            50,
+            194,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            530,
+            1350,
+            172,
+            156
+          ],
+          "margin": [
+            96,
+            32,
+            190,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            530,
+            667,
+            190,
+            151
+          ],
+          "margin": [
+            86,
+            35,
+            172,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            706,
+            1350,
+            181,
+            163
+          ],
+          "margin": [
+            89,
+            27,
+            181,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            722,
+            667,
+            165,
+            157
+          ],
+          "margin": [
+            96,
+            29,
+            197,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            891,
+            1350,
+            167,
+            154
+          ],
+          "margin": [
+            96,
+            33,
+            195,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bugle_pulse_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            889,
+            667,
+            172,
+            144
+          ],
+          "margin": [
+            97,
+            42,
+            190,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1062,
+            1350,
+            169,
+            157
+          ],
+          "margin": [
+            98,
+            30,
+            193,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1063,
+            667,
+            162,
+            152
+          ],
+          "margin": [
+            103,
+            34,
+            200,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1235,
+            1350,
+            177,
+            158
+          ],
+          "margin": [
+            96,
+            30,
+            185,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1227,
+            667,
+            193,
+            134
+          ],
+          "margin": [
+            79,
+            52,
+            169,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1416,
+            1350,
+            200,
+            159
+          ],
+          "margin": [
+            76,
+            30,
+            162,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/combat_motion_v7.png",
+          "region": [
+            1422,
+            667,
+            189,
+            150
+          ],
+          "margin": [
+            77,
+            36,
+            173,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/silent_bugbler/motion_v8_00.png",
+          "region": [
+            1620,
+            1350,
+            201,
+            158
+          ],
+          "margin": [
+            74,
+            31,
+            161,
+            36
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "bugle_pulse",
+    "bugle_pulse_recover",
+    "bugle_pulse_windup",
+    "recover",
+    "windup"
+  ]
+}

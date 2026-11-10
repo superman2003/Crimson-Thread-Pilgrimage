@@ -9,8 +9,8 @@ from run_equipment_filter_contract import invoke
 
 class StrictEquipmentFilterRunner(unittest.TestCase):
     def test_workflow_watches_its_real_path(self):
-        workflow = Path(__file__).resolve().parents[1] / '.github/workflows/ledger-u02-equipment-filter.yml'
-        self.assertIn("      - '.github/workflows/ledger-u02-equipment-filter.yml'", workflow.read_text())
+        workflow = Path(__file__).resolve().parents[1] / '.github/contracts/ledger-u02-equipment-filter.yml'
+        self.assertIn("      - '.github/contracts/ledger-u02-equipment-filter.yml'", workflow.read_text())
 
     def test_native_result_and_diagnostics_are_all_required(self):
         marker = r'^EQUIPMENT_CATALOG_FILTER checks=[1-9][0-9]* failures=0$'

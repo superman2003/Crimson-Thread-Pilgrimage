@@ -1,0 +1,4229 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "waterwheel_knight",
+  "canvas": [
+    376,
+    230
+  ],
+  "display_height": 108,
+  "visual_scale": 0.5684210526315789,
+  "visual_offset": [
+    0,
+    -0.14025604551920878
+  ],
+  "motion": "ground",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            214,
+            190
+          ],
+          "margin": [
+            99,
+            26,
+            162,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            198,
+            191
+          ],
+          "margin": [
+            102,
+            27,
+            178,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            216,
+            0,
+            211,
+            188
+          ],
+          "margin": [
+            102,
+            28,
+            165,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            204,
+            2,
+            202,
+            193
+          ],
+          "margin": [
+            101,
+            25,
+            174,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            429,
+            0,
+            223,
+            192
+          ],
+          "margin": [
+            89,
+            24,
+            153,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            410,
+            2,
+            209,
+            189
+          ],
+          "margin": [
+            94,
+            29,
+            167,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            654,
+            0,
+            217,
+            182
+          ],
+          "margin": [
+            90,
+            34,
+            159,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            623,
+            2,
+            215,
+            185
+          ],
+          "margin": [
+            87,
+            33,
+            161,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            873,
+            0,
+            240,
+            184
+          ],
+          "margin": [
+            85,
+            32,
+            136,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            842,
+            2,
+            225,
+            185
+          ],
+          "margin": [
+            84,
+            33,
+            151,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1115,
+            0,
+            235,
+            176
+          ],
+          "margin": [
+            88,
+            40,
+            141,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1071,
+            2,
+            224,
+            185
+          ],
+          "margin": [
+            84,
+            33,
+            152,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1352,
+            0,
+            242,
+            183
+          ],
+          "margin": [
+            88,
+            33,
+            134,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1299,
+            2,
+            222,
+            182
+          ],
+          "margin": [
+            82,
+            36,
+            154,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1596,
+            0,
+            224,
+            178
+          ],
+          "margin": [
+            82,
+            38,
+            152,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1525,
+            2,
+            224,
+            184
+          ],
+          "margin": [
+            84,
+            34,
+            152,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1822,
+            0,
+            256,
+            183
+          ],
+          "margin": [
+            80,
+            33,
+            120,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1753,
+            2,
+            231,
+            190
+          ],
+          "margin": [
+            87,
+            28,
+            145,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2080,
+            0,
+            236,
+            182
+          ],
+          "margin": [
+            90,
+            34,
+            140,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            203,
+            228,
+            191
+          ],
+          "margin": [
+            82,
+            27,
+            148,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2318,
+            0,
+            250,
+            185
+          ],
+          "margin": [
+            83,
+            31,
+            126,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            234,
+            203,
+            230,
+            188
+          ],
+          "margin": [
+            78,
+            30,
+            146,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2570,
+            0,
+            219,
+            183
+          ],
+          "margin": [
+            88,
+            33,
+            157,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            468,
+            203,
+            214,
+            189
+          ],
+          "margin": [
+            84,
+            29,
+            162,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2791,
+            0,
+            221,
+            174
+          ],
+          "margin": [
+            91,
+            42,
+            155,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            686,
+            203,
+            229,
+            192
+          ],
+          "margin": [
+            79,
+            26,
+            147,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3014,
+            0,
+            245,
+            185
+          ],
+          "margin": [
+            83,
+            31,
+            131,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            919,
+            203,
+            233,
+            202
+          ],
+          "margin": [
+            82,
+            16,
+            143,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3261,
+            0,
+            211,
+            189
+          ],
+          "margin": [
+            87,
+            27,
+            165,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1156,
+            203,
+            208,
+            194
+          ],
+          "margin": [
+            88,
+            24,
+            168,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3474,
+            0,
+            204,
+            188
+          ],
+          "margin": [
+            97,
+            28,
+            172,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1368,
+            203,
+            207,
+            197
+          ],
+          "margin": [
+            93,
+            21,
+            169,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3680,
+            0,
+            219,
+            195
+          ],
+          "margin": [
+            86,
+            21,
+            157,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1579,
+            203,
+            227,
+            213
+          ],
+          "margin": [
+            82,
+            5,
+            149,
+            17
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            197,
+            233,
+            196
+          ],
+          "margin": [
+            89,
+            20,
+            143,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1810,
+            203,
+            202,
+            200
+          ],
+          "margin": [
+            105,
+            18,
+            174,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            235,
+            197,
+            194,
+            188
+          ],
+          "margin": [
+            115,
+            28,
+            182,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            424,
+            199,
+            207
+          ],
+          "margin": [
+            109,
+            11,
+            177,
+            23
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            431,
+            197,
+            225,
+            198
+          ],
+          "margin": [
+            93,
+            18,
+            151,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            205,
+            424,
+            213,
+            218
+          ],
+          "margin": [
+            98,
+            0,
+            163,
+            12
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            658,
+            197,
+            212,
+            202
+          ],
+          "margin": [
+            93,
+            14,
+            164,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            422,
+            424,
+            206,
+            210
+          ],
+          "margin": [
+            100,
+            8,
+            170,
+            20
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            872,
+            197,
+            208,
+            198
+          ],
+          "margin": [
+            90,
+            18,
+            168,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            632,
+            424,
+            210,
+            205
+          ],
+          "margin": [
+            96,
+            13,
+            166,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1082,
+            197,
+            209,
+            199
+          ],
+          "margin": [
+            88,
+            17,
+            167,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            846,
+            424,
+            222,
+            199
+          ],
+          "margin": [
+            86,
+            19,
+            154,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1293,
+            197,
+            247,
+            194
+          ],
+          "margin": [
+            67,
+            22,
+            129,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1072,
+            424,
+            237,
+            181
+          ],
+          "margin": [
+            71,
+            37,
+            139,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1542,
+            197,
+            232,
+            181
+          ],
+          "margin": [
+            76,
+            35,
+            144,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1313,
+            424,
+            225,
+            197
+          ],
+          "margin": [
+            78,
+            21,
+            151,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1776,
+            197,
+            242,
+            189
+          ],
+          "margin": [
+            71,
+            27,
+            134,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1542,
+            424,
+            227,
+            200
+          ],
+          "margin": [
+            83,
+            18,
+            149,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2020,
+            197,
+            234,
+            190
+          ],
+          "margin": [
+            83,
+            26,
+            142,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1773,
+            424,
+            218,
+            194
+          ],
+          "margin": [
+            92,
+            24,
+            158,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2256,
+            197,
+            220,
+            184
+          ],
+          "margin": [
+            101,
+            32,
+            156,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            650,
+            215,
+            196
+          ],
+          "margin": [
+            94,
+            22,
+            161,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2478,
+            197,
+            228,
+            187
+          ],
+          "margin": [
+            89,
+            29,
+            148,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            221,
+            650,
+            218,
+            198
+          ],
+          "margin": [
+            86,
+            20,
+            158,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2708,
+            197,
+            299,
+            182
+          ],
+          "margin": [
+            69,
+            34,
+            77,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            443,
+            650,
+            259,
+            183
+          ],
+          "margin": [
+            78,
+            35,
+            117,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3009,
+            197,
+            279,
+            171
+          ],
+          "margin": [
+            79,
+            45,
+            97,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            706,
+            650,
+            207,
+            183
+          ],
+          "margin": [
+            83,
+            35,
+            169,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3290,
+            197,
+            283,
+            171
+          ],
+          "margin": [
+            71,
+            45,
+            93,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            917,
+            650,
+            242,
+            182
+          ],
+          "margin": [
+            79,
+            36,
+            134,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3575,
+            197,
+            227,
+            162
+          ],
+          "margin": [
+            76,
+            54,
+            149,
+            68
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1163,
+            650,
+            198,
+            183
+          ],
+          "margin": [
+            80,
+            35,
+            178,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3804,
+            197,
+            214,
+            148
+          ],
+          "margin": [
+            83,
+            68,
+            162,
+            82
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1365,
+            650,
+            206,
+            185
+          ],
+          "margin": [
+            81,
+            33,
+            170,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            401,
+            236,
+            164
+          ],
+          "margin": [
+            71,
+            52,
+            140,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1575,
+            650,
+            254,
+            183
+          ],
+          "margin": [
+            76,
+            35,
+            122,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            238,
+            401,
+            243,
+            172
+          ],
+          "margin": [
+            82,
+            44,
+            133,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            856,
+            235,
+            181
+          ],
+          "margin": [
+            85,
+            37,
+            141,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            483,
+            401,
+            250,
+            175
+          ],
+          "margin": [
+            86,
+            41,
+            126,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            241,
+            856,
+            254,
+            183
+          ],
+          "margin": [
+            81,
+            35,
+            122,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            735,
+            401,
+            253,
+            182
+          ],
+          "margin": [
+            80,
+            34,
+            123,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            499,
+            856,
+            226,
+            188
+          ],
+          "margin": [
+            88,
+            30,
+            150,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            990,
+            401,
+            254,
+            183
+          ],
+          "margin": [
+            94,
+            33,
+            122,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            729,
+            856,
+            217,
+            179
+          ],
+          "margin": [
+            94,
+            39,
+            159,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1246,
+            401,
+            242,
+            178
+          ],
+          "margin": [
+            104,
+            38,
+            134,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            950,
+            856,
+            213,
+            178
+          ],
+          "margin": [
+            94,
+            40,
+            163,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1490,
+            401,
+            256,
+            184
+          ],
+          "margin": [
+            92,
+            32,
+            120,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1167,
+            856,
+            245,
+            195
+          ],
+          "margin": [
+            86,
+            23,
+            131,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1748,
+            401,
+            248,
+            188
+          ],
+          "margin": [
+            96,
+            28,
+            128,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1416,
+            856,
+            240,
+            189
+          ],
+          "margin": [
+            85,
+            29,
+            136,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1998,
+            401,
+            227,
+            182
+          ],
+          "margin": [
+            106,
+            34,
+            149,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1660,
+            856,
+            229,
+            189
+          ],
+          "margin": [
+            88,
+            29,
+            147,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2227,
+            401,
+            242,
+            185
+          ],
+          "margin": [
+            94,
+            31,
+            134,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            1059,
+            235,
+            198
+          ],
+          "margin": [
+            80,
+            20,
+            141,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2471,
+            401,
+            236,
+            182
+          ],
+          "margin": [
+            87,
+            34,
+            140,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            241,
+            1059,
+            223,
+            190
+          ],
+          "margin": [
+            86,
+            28,
+            153,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2709,
+            401,
+            214,
+            174
+          ],
+          "margin": [
+            93,
+            42,
+            162,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            468,
+            1059,
+            222,
+            191
+          ],
+          "margin": [
+            82,
+            27,
+            154,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2925,
+            401,
+            239,
+            186
+          ],
+          "margin": [
+            76,
+            30,
+            137,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            694,
+            1059,
+            225,
+            199
+          ],
+          "margin": [
+            80,
+            19,
+            151,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3166,
+            401,
+            218,
+            190
+          ],
+          "margin": [
+            95,
+            26,
+            158,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            923,
+            1059,
+            205,
+            194
+          ],
+          "margin": [
+            88,
+            24,
+            171,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3386,
+            401,
+            232,
+            185
+          ],
+          "margin": [
+            98,
+            31,
+            144,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1132,
+            1059,
+            221,
+            180
+          ],
+          "margin": [
+            98,
+            38,
+            155,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3620,
+            401,
+            217,
+            178
+          ],
+          "margin": [
+            100,
+            38,
+            159,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1357,
+            1059,
+            201,
+            173
+          ],
+          "margin": [
+            93,
+            46,
+            175,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3839,
+            401,
+            187,
+            172
+          ],
+          "margin": [
+            100,
+            44,
+            189,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1562,
+            1059,
+            183,
+            172
+          ],
+          "margin": [
+            102,
+            48,
+            193,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            593,
+            184,
+            133
+          ],
+          "margin": [
+            106,
+            83,
+            192,
+            97
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1749,
+            1059,
+            197,
+            151
+          ],
+          "margin": [
+            88,
+            67,
+            179,
+            79
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            186,
+            593,
+            234,
+            155
+          ],
+          "margin": [
+            79,
+            61,
+            142,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            1266,
+            224,
+            144
+          ],
+          "margin": [
+            72,
+            74,
+            152,
+            86
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            422,
+            593,
+            214,
+            140
+          ],
+          "margin": [
+            82,
+            76,
+            162,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            230,
+            1266,
+            216,
+            132
+          ],
+          "margin": [
+            73,
+            86,
+            160,
+            98
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            638,
+            593,
+            243,
+            110
+          ],
+          "margin": [
+            59,
+            106,
+            133,
+            120
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            450,
+            1266,
+            225,
+            122
+          ],
+          "margin": [
+            64,
+            97,
+            151,
+            108
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            883,
+            593,
+            255,
+            96
+          ],
+          "margin": [
+            51,
+            120,
+            121,
+            134
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            679,
+            1266,
+            232,
+            102
+          ],
+          "margin": [
+            63,
+            118,
+            144,
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "name": "charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1140,
+            593,
+            247,
+            180
+          ],
+          "margin": [
+            67,
+            36,
+            129,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            915,
+            1266,
+            248,
+            179
+          ],
+          "margin": [
+            66,
+            39,
+            128,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1389,
+            593,
+            227,
+            171
+          ],
+          "margin": [
+            80,
+            45,
+            149,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1167,
+            1266,
+            240,
+            185
+          ],
+          "margin": [
+            74,
+            33,
+            136,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_elite_ride_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1618,
+            593,
+            201,
+            175
+          ],
+          "margin": [
+            84,
+            41,
+            175,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1411,
+            1266,
+            209,
+            169
+          ],
+          "margin": [
+            78,
+            49,
+            167,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1821,
+            593,
+            200,
+            173
+          ],
+          "margin": [
+            84,
+            43,
+            176,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1624,
+            1266,
+            233,
+            172
+          ],
+          "margin": [
+            66,
+            47,
+            143,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2023,
+            593,
+            227,
+            167
+          ],
+          "margin": [
+            66,
+            49,
+            149,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            1459,
+            230,
+            163
+          ],
+          "margin": [
+            66,
+            55,
+            146,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2252,
+            593,
+            209,
+            153
+          ],
+          "margin": [
+            77,
+            63,
+            167,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            236,
+            1459,
+            221,
+            150
+          ],
+          "margin": [
+            74,
+            68,
+            155,
+            80
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2463,
+            593,
+            220,
+            159
+          ],
+          "margin": [
+            70,
+            57,
+            156,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            461,
+            1459,
+            242,
+            167
+          ],
+          "margin": [
+            61,
+            51,
+            134,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2685,
+            593,
+            222,
+            158
+          ],
+          "margin": [
+            72,
+            58,
+            154,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            707,
+            1459,
+            234,
+            154
+          ],
+          "margin": [
+            60,
+            64,
+            142,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2909,
+            593,
+            208,
+            152
+          ],
+          "margin": [
+            80,
+            64,
+            168,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            945,
+            1459,
+            232,
+            153
+          ],
+          "margin": [
+            61,
+            65,
+            144,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3119,
+            593,
+            223,
+            156
+          ],
+          "margin": [
+            71,
+            60,
+            153,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1181,
+            1459,
+            239,
+            160
+          ],
+          "margin": [
+            58,
+            58,
+            137,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3344,
+            593,
+            232,
+            151
+          ],
+          "margin": [
+            68,
+            65,
+            144,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1424,
+            1459,
+            239,
+            146
+          ],
+          "margin": [
+            59,
+            72,
+            137,
+            84
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3578,
+            593,
+            202,
+            141
+          ],
+          "margin": [
+            85,
+            75,
+            174,
+            89
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1667,
+            1459,
+            230,
+            151
+          ],
+          "margin": [
+            68,
+            67,
+            146,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3782,
+            593,
+            228,
+            154
+          ],
+          "margin": [
+            69,
+            62,
+            148,
+            76
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            1634,
+            228,
+            152
+          ],
+          "margin": [
+            71,
+            66,
+            148,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            775,
+            220,
+            156
+          ],
+          "margin": [
+            78,
+            60,
+            156,
+            74
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            234,
+            1634,
+            233,
+            161
+          ],
+          "margin": [
+            66,
+            57,
+            143,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_elite_ride",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            222,
+            775,
+            215,
+            157
+          ],
+          "margin": [
+            85,
+            59,
+            161,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            471,
+            1634,
+            240,
+            157
+          ],
+          "margin": [
+            64,
+            61,
+            136,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            439,
+            775,
+            222,
+            160
+          ],
+          "margin": [
+            78,
+            56,
+            154,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            715,
+            1634,
+            236,
+            163
+          ],
+          "margin": [
+            64,
+            55,
+            140,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            663,
+            775,
+            229,
+            160
+          ],
+          "margin": [
+            74,
+            56,
+            147,
+            70
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            955,
+            1634,
+            215,
+            166
+          ],
+          "margin": [
+            80,
+            52,
+            161,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            894,
+            775,
+            220,
+            153
+          ],
+          "margin": [
+            82,
+            63,
+            156,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1174,
+            1634,
+            221,
+            167
+          ],
+          "margin": [
+            76,
+            51,
+            155,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1116,
+            775,
+            225,
+            158
+          ],
+          "margin": [
+            78,
+            58,
+            151,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1399,
+            1634,
+            223,
+            167
+          ],
+          "margin": [
+            73,
+            51,
+            153,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1343,
+            775,
+            226,
+            158
+          ],
+          "margin": [
+            73,
+            58,
+            150,
+            72
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1626,
+            1634,
+            220,
+            161
+          ],
+          "margin": [
+            74,
+            57,
+            156,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1571,
+            775,
+            216,
+            151
+          ],
+          "margin": [
+            82,
+            65,
+            160,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            2,
+            1809,
+            218,
+            157
+          ],
+          "margin": [
+            76,
+            61,
+            158,
+            73
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1789,
+            775,
+            215,
+            152
+          ],
+          "margin": [
+            79,
+            64,
+            161,
+            78
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            224,
+            1809,
+            233,
+            159
+          ],
+          "margin": [
+            66,
+            59,
+            143,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2006,
+            775,
+            238,
+            151
+          ],
+          "margin": [
+            68,
+            65,
+            138,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            461,
+            1809,
+            231,
+            163
+          ],
+          "margin": [
+            67,
+            55,
+            145,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2246,
+            775,
+            229,
+            140
+          ],
+          "margin": [
+            78,
+            76,
+            147,
+            90
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            696,
+            1809,
+            234,
+            167
+          ],
+          "margin": [
+            68,
+            51,
+            142,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2477,
+            775,
+            246,
+            155
+          ],
+          "margin": [
+            66,
+            61,
+            130,
+            75
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            934,
+            1809,
+            227,
+            163
+          ],
+          "margin": [
+            70,
+            55,
+            149,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2725,
+            775,
+            194,
+            163
+          ],
+          "margin": [
+            86,
+            53,
+            182,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1165,
+            1809,
+            200,
+            165
+          ],
+          "margin": [
+            82,
+            53,
+            176,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_elite_ride_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2921,
+            775,
+            199,
+            165
+          ],
+          "margin": [
+            85,
+            51,
+            177,
+            65
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1369,
+            1809,
+            202,
+            174
+          ],
+          "margin": [
+            80,
+            44,
+            174,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3122,
+            775,
+            204,
+            172
+          ],
+          "margin": [
+            79,
+            44,
+            172,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1575,
+            1809,
+            201,
+            174
+          ],
+          "margin": [
+            82,
+            44,
+            175,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3328,
+            775,
+            194,
+            175
+          ],
+          "margin": [
+            88,
+            41,
+            182,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_00.png",
+          "region": [
+            1780,
+            1809,
+            198,
+            168
+          ],
+          "margin": [
+            86,
+            50,
+            178,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3524,
+            775,
+            192,
+            169
+          ],
+          "margin": [
+            89,
+            47,
+            184,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            2,
+            199,
+            174
+          ],
+          "margin": [
+            85,
+            44,
+            177,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3718,
+            775,
+            200,
+            176
+          ],
+          "margin": [
+            84,
+            40,
+            176,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            205,
+            2,
+            195,
+            182
+          ],
+          "margin": [
+            86,
+            36,
+            181,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            953,
+            195,
+            175
+          ],
+          "margin": [
+            89,
+            41,
+            181,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            404,
+            2,
+            188,
+            178
+          ],
+          "margin": [
+            90,
+            40,
+            188,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            197,
+            953,
+            192,
+            171
+          ],
+          "margin": [
+            90,
+            45,
+            184,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            596,
+            2,
+            188,
+            179
+          ],
+          "margin": [
+            92,
+            39,
+            188,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            391,
+            953,
+            195,
+            176
+          ],
+          "margin": [
+            89,
+            40,
+            181,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            788,
+            2,
+            189,
+            183
+          ],
+          "margin": [
+            92,
+            35,
+            187,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            588,
+            953,
+            190,
+            179
+          ],
+          "margin": [
+            91,
+            37,
+            186,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            981,
+            2,
+            189,
+            177
+          ],
+          "margin": [
+            90,
+            41,
+            187,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            780,
+            953,
+            181,
+            172
+          ],
+          "margin": [
+            95,
+            44,
+            195,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1174,
+            2,
+            187,
+            179
+          ],
+          "margin": [
+            90,
+            39,
+            189,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            963,
+            953,
+            188,
+            185
+          ],
+          "margin": [
+            91,
+            31,
+            188,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1365,
+            2,
+            190,
+            188
+          ],
+          "margin": [
+            88,
+            30,
+            186,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1153,
+            953,
+            214,
+            190
+          ],
+          "margin": [
+            94,
+            26,
+            162,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1559,
+            2,
+            206,
+            194
+          ],
+          "margin": [
+            90,
+            24,
+            170,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_elite_ride_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1369,
+            953,
+            207,
+            153
+          ],
+          "margin": [
+            83,
+            63,
+            169,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1769,
+            2,
+            216,
+            164
+          ],
+          "margin": [
+            75,
+            54,
+            160,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1578,
+            953,
+            219,
+            153
+          ],
+          "margin": [
+            79,
+            63,
+            157,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            204,
+            217,
+            161
+          ],
+          "margin": [
+            73,
+            57,
+            159,
+            69
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_elite_ride_travel",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1799,
+            953,
+            217,
+            151
+          ],
+          "margin": [
+            84,
+            65,
+            159,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            223,
+            204,
+            225,
+            151
+          ],
+          "margin": [
+            77,
+            67,
+            151,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2018,
+            953,
+            225,
+            151
+          ],
+          "margin": [
+            77,
+            65,
+            151,
+            79
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            452,
+            204,
+            226,
+            155
+          ],
+          "margin": [
+            76,
+            63,
+            150,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_return_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2245,
+            953,
+            225,
+            172
+          ],
+          "margin": [
+            84,
+            44,
+            151,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            682,
+            204,
+            226,
+            171
+          ],
+          "margin": [
+            81,
+            47,
+            150,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2472,
+            953,
+            229,
+            180
+          ],
+          "margin": [
+            82,
+            36,
+            147,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            912,
+            204,
+            228,
+            179
+          ],
+          "margin": [
+            82,
+            39,
+            148,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2703,
+            953,
+            223,
+            182
+          ],
+          "margin": [
+            79,
+            34,
+            153,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1144,
+            204,
+            214,
+            178
+          ],
+          "margin": [
+            84,
+            40,
+            162,
+            52
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2928,
+            953,
+            214,
+            176
+          ],
+          "margin": [
+            86,
+            40,
+            162,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1362,
+            204,
+            213,
+            177
+          ],
+          "margin": [
+            85,
+            41,
+            163,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3144,
+            953,
+            222,
+            183
+          ],
+          "margin": [
+            79,
+            33,
+            154,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1579,
+            204,
+            215,
+            181
+          ],
+          "margin": [
+            82,
+            37,
+            161,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3368,
+            953,
+            203,
+            183
+          ],
+          "margin": [
+            83,
+            33,
+            173,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1798,
+            204,
+            202,
+            175
+          ],
+          "margin": [
+            85,
+            43,
+            174,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3573,
+            953,
+            193,
+            176
+          ],
+          "margin": [
+            89,
+            40,
+            183,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            393,
+            203,
+            179
+          ],
+          "margin": [
+            83,
+            39,
+            173,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3768,
+            953,
+            208,
+            182
+          ],
+          "margin": [
+            77,
+            34,
+            168,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            209,
+            393,
+            217,
+            186
+          ],
+          "margin": [
+            80,
+            32,
+            159,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            1145,
+            219,
+            181
+          ],
+          "margin": [
+            74,
+            35,
+            157,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            430,
+            393,
+            211,
+            183
+          ],
+          "margin": [
+            84,
+            35,
+            165,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            221,
+            1145,
+            210,
+            172
+          ],
+          "margin": [
+            82,
+            44,
+            166,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            645,
+            393,
+            204,
+            176
+          ],
+          "margin": [
+            88,
+            42,
+            172,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            433,
+            1145,
+            216,
+            179
+          ],
+          "margin": [
+            77,
+            37,
+            160,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            853,
+            393,
+            209,
+            174
+          ],
+          "margin": [
+            83,
+            44,
+            167,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            651,
+            1145,
+            245,
+            177
+          ],
+          "margin": [
+            75,
+            39,
+            131,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1066,
+            393,
+            220,
+            177
+          ],
+          "margin": [
+            80,
+            41,
+            156,
+            53
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_return",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            898,
+            1145,
+            241,
+            170
+          ],
+          "margin": [
+            79,
+            46,
+            135,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1290,
+            393,
+            221,
+            179
+          ],
+          "margin": [
+            82,
+            39,
+            155,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1141,
+            1145,
+            250,
+            175
+          ],
+          "margin": [
+            73,
+            41,
+            126,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1515,
+            393,
+            228,
+            180
+          ],
+          "margin": [
+            78,
+            38,
+            148,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1393,
+            1145,
+            250,
+            172
+          ],
+          "margin": [
+            72,
+            44,
+            126,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1747,
+            393,
+            234,
+            177
+          ],
+          "margin": [
+            77,
+            41,
+            142,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1645,
+            1145,
+            235,
+            164
+          ],
+          "margin": [
+            81,
+            52,
+            141,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            587,
+            225,
+            174
+          ],
+          "margin": [
+            80,
+            44,
+            151,
+            56
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1882,
+            1145,
+            248,
+            171
+          ],
+          "margin": [
+            73,
+            45,
+            128,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            231,
+            587,
+            245,
+            170
+          ],
+          "margin": [
+            74,
+            48,
+            131,
+            60
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2132,
+            1145,
+            258,
+            169
+          ],
+          "margin": [
+            66,
+            47,
+            118,
+            61
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            480,
+            587,
+            241,
+            166
+          ],
+          "margin": [
+            76,
+            52,
+            135,
+            64
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2392,
+            1145,
+            235,
+            163
+          ],
+          "margin": [
+            82,
+            53,
+            141,
+            67
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            725,
+            587,
+            234,
+            164
+          ],
+          "margin": [
+            79,
+            54,
+            142,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2629,
+            1145,
+            246,
+            171
+          ],
+          "margin": [
+            73,
+            45,
+            130,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            963,
+            587,
+            223,
+            168
+          ],
+          "margin": [
+            84,
+            50,
+            153,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2877,
+            1145,
+            217,
+            173
+          ],
+          "margin": [
+            86,
+            43,
+            159,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1190,
+            587,
+            213,
+            167
+          ],
+          "margin": [
+            89,
+            51,
+            163,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3096,
+            1145,
+            209,
+            167
+          ],
+          "margin": [
+            92,
+            49,
+            167,
+            63
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1407,
+            587,
+            206,
+            172
+          ],
+          "margin": [
+            89,
+            46,
+            170,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3307,
+            1145,
+            218,
+            177
+          ],
+          "margin": [
+            84,
+            39,
+            158,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1617,
+            587,
+            222,
+            181
+          ],
+          "margin": [
+            82,
+            37,
+            154,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3527,
+            1145,
+            230,
+            179
+          ],
+          "margin": [
+            69,
+            37,
+            146,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            776,
+            225,
+            181
+          ],
+          "margin": [
+            74,
+            37,
+            151,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_return_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            3759,
+            1145,
+            228,
+            177
+          ],
+          "margin": [
+            74,
+            39,
+            148,
+            53
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            231,
+            776,
+            222,
+            184
+          ],
+          "margin": [
+            75,
+            34,
+            154,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            0,
+            1328,
+            234,
+            184
+          ],
+          "margin": [
+            66,
+            32,
+            142,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            457,
+            776,
+            219,
+            182
+          ],
+          "margin": [
+            74,
+            36,
+            157,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            236,
+            1328,
+            213,
+            183
+          ],
+          "margin": [
+            70,
+            33,
+            163,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            680,
+            776,
+            205,
+            179
+          ],
+          "margin": [
+            78,
+            39,
+            171,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            451,
+            1328,
+            202,
+            176
+          ],
+          "margin": [
+            81,
+            40,
+            174,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            889,
+            776,
+            207,
+            180
+          ],
+          "margin": [
+            76,
+            38,
+            169,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            655,
+            1328,
+            204,
+            182
+          ],
+          "margin": [
+            80,
+            34,
+            172,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1100,
+            776,
+            208,
+            184
+          ],
+          "margin": [
+            77,
+            34,
+            168,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            861,
+            1328,
+            206,
+            182
+          ],
+          "margin": [
+            79,
+            34,
+            170,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1312,
+            776,
+            199,
+            180
+          ],
+          "margin": [
+            81,
+            38,
+            177,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1069,
+            1328,
+            197,
+            175
+          ],
+          "margin": [
+            86,
+            41,
+            179,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1515,
+            776,
+            200,
+            181
+          ],
+          "margin": [
+            80,
+            37,
+            176,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1268,
+            1328,
+            204,
+            181
+          ],
+          "margin": [
+            78,
+            35,
+            172,
+            49
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1719,
+            776,
+            201,
+            184
+          ],
+          "margin": [
+            78,
+            34,
+            175,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1474,
+            1328,
+            224,
+            179
+          ],
+          "margin": [
+            76,
+            37,
+            152,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            2,
+            968,
+            199,
+            180
+          ],
+          "margin": [
+            84,
+            40,
+            177,
+            50
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1700,
+            1328,
+            220,
+            172
+          ],
+          "margin": [
+            82,
+            44,
+            156,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            205,
+            968,
+            208,
+            186
+          ],
+          "margin": [
+            82,
+            32,
+            168,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            1922,
+            1328,
+            229,
+            184
+          ],
+          "margin": [
+            72,
+            32,
+            147,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            417,
+            968,
+            214,
+            188
+          ],
+          "margin": [
+            80,
+            30,
+            162,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2153,
+            1328,
+            226,
+            191
+          ],
+          "margin": [
+            91,
+            25,
+            150,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            635,
+            968,
+            216,
+            181
+          ],
+          "margin": [
+            82,
+            37,
+            160,
+            49
+          ]
+        }
+      ]
+    },
+    {
+      "name": "wheel_return_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2381,
+            1328,
+            231,
+            175
+          ],
+          "margin": [
+            80,
+            41,
+            145,
+            55
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            855,
+            968,
+            230,
+            187
+          ],
+          "margin": [
+            76,
+            31,
+            146,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/combat_motion_v7.png",
+          "region": [
+            2614,
+            1328,
+            231,
+            179
+          ],
+          "margin": [
+            80,
+            37,
+            145,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/waterwheel_knight/motion_v8_01.png",
+          "region": [
+            1089,
+            968,
+            225,
+            183
+          ],
+          "margin": [
+            80,
+            35,
+            151,
+            47
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "recover",
+    "wheel_elite_ride",
+    "wheel_elite_ride_recover",
+    "wheel_elite_ride_windup",
+    "wheel_return",
+    "wheel_return_recover",
+    "wheel_return_windup",
+    "windup"
+  ]
+}

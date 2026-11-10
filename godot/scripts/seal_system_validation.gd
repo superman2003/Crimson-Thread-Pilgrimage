@@ -33,6 +33,7 @@ func _initialize() -> void:
     fresh.use_tool(1)
     _check(fresh.state.tool_counts.mine == 0 and fresh.state.tool_counts.shard == 3, "slot-specific consumption keeps paid stock finite")
     fresh.unlock_event("skill_needle_learned")
+    fresh.state.crafted.append("spindle_skill")
     fresh.select_skill("needle", 1)
     _check(fresh.try_cast(20, 1).ok and fresh.try_cast(25, 0).ok, "independent dual skill cooldown")
     var save := fresh.serialize()

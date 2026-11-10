@@ -1,0 +1,2924 @@
+{
+  "source": "Built-in image_gen authored midpoints; body-scale registration; retained original pixels and world placement; symmetric canvas padding; no temporal pixel interpolation.",
+  "kind": "bell_mote",
+  "canvas": [
+    406,
+    183
+  ],
+  "display_height": 68,
+  "visual_scale": 0.4594594594594595,
+  "visual_offset": [
+    0,
+    20.462906226064113
+  ],
+  "motion": "flight",
+  "version": 8,
+  "animations": [
+    {
+      "name": "idle",
+      "fps": 12.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            0,
+            168,
+            148
+          ],
+          "margin": [
+            148,
+            24,
+            238,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            2,
+            168,
+            149
+          ],
+          "margin": [
+            144,
+            27,
+            238,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            170,
+            0,
+            185,
+            151
+          ],
+          "margin": [
+            131,
+            21,
+            221,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            174,
+            2,
+            167,
+            143
+          ],
+          "margin": [
+            136,
+            30,
+            239,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            357,
+            0,
+            173,
+            148
+          ],
+          "margin": [
+            122,
+            24,
+            233,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            345,
+            2,
+            175,
+            145
+          ],
+          "margin": [
+            112,
+            30,
+            231,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            532,
+            0,
+            181,
+            149
+          ],
+          "margin": [
+            102,
+            23,
+            225,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            524,
+            2,
+            176,
+            148
+          ],
+          "margin": [
+            120,
+            28,
+            230,
+            35
+          ]
+        }
+      ]
+    },
+    {
+      "name": "walk",
+      "fps": 36.0,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            715,
+            0,
+            186,
+            148
+          ],
+          "margin": [
+            91,
+            24,
+            220,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            704,
+            2,
+            178,
+            148
+          ],
+          "margin": [
+            85,
+            28,
+            228,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            903,
+            0,
+            171,
+            143
+          ],
+          "margin": [
+            83,
+            29,
+            235,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            886,
+            2,
+            172,
+            146
+          ],
+          "margin": [
+            116,
+            28,
+            234,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1076,
+            0,
+            182,
+            161
+          ],
+          "margin": [
+            141,
+            11,
+            224,
+            22
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1062,
+            2,
+            180,
+            150
+          ],
+          "margin": [
+            140,
+            25,
+            226,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1260,
+            0,
+            206,
+            145
+          ],
+          "margin": [
+            121,
+            27,
+            200,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1246,
+            2,
+            177,
+            149
+          ],
+          "margin": [
+            135,
+            27,
+            229,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1468,
+            0,
+            193,
+            150
+          ],
+          "margin": [
+            110,
+            22,
+            213,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1427,
+            2,
+            189,
+            148
+          ],
+          "margin": [
+            112,
+            26,
+            217,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1663,
+            0,
+            196,
+            153
+          ],
+          "margin": [
+            103,
+            19,
+            210,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1620,
+            2,
+            186,
+            149
+          ],
+          "margin": [
+            107,
+            25,
+            220,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1861,
+            0,
+            195,
+            146
+          ],
+          "margin": [
+            92,
+            26,
+            211,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1810,
+            2,
+            178,
+            145
+          ],
+          "margin": [
+            104,
+            31,
+            228,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2058,
+            0,
+            186,
+            155
+          ],
+          "margin": [
+            87,
+            17,
+            220,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            160,
+            178,
+            154
+          ],
+          "margin": [
+            98,
+            22,
+            228,
+            29
+          ]
+        }
+      ]
+    },
+    {
+      "name": "windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2246,
+            0,
+            192,
+            145
+          ],
+          "margin": [
+            137,
+            27,
+            214,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            184,
+            160,
+            195,
+            143
+          ],
+          "margin": [
+            139,
+            31,
+            211,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2440,
+            0,
+            201,
+            153
+          ],
+          "margin": [
+            132,
+            19,
+            205,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            383,
+            160,
+            204,
+            148
+          ],
+          "margin": [
+            126,
+            26,
+            202,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2643,
+            0,
+            182,
+            155
+          ],
+          "margin": [
+            145,
+            17,
+            224,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            591,
+            160,
+            190,
+            137
+          ],
+          "margin": [
+            134,
+            37,
+            216,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2827,
+            0,
+            166,
+            149
+          ],
+          "margin": [
+            150,
+            23,
+            240,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            785,
+            160,
+            188,
+            132
+          ],
+          "margin": [
+            128,
+            43,
+            218,
+            51
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2995,
+            0,
+            184,
+            156
+          ],
+          "margin": [
+            133,
+            16,
+            222,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            977,
+            160,
+            187,
+            138
+          ],
+          "margin": [
+            124,
+            38,
+            219,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3181,
+            0,
+            182,
+            155
+          ],
+          "margin": [
+            126,
+            17,
+            224,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1168,
+            160,
+            176,
+            136
+          ],
+          "margin": [
+            122,
+            38,
+            230,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3365,
+            0,
+            153,
+            148
+          ],
+          "margin": [
+            138,
+            24,
+            253,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1348,
+            160,
+            175,
+            137
+          ],
+          "margin": [
+            116,
+            37,
+            231,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3520,
+            0,
+            176,
+            155
+          ],
+          "margin": [
+            113,
+            17,
+            230,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1527,
+            160,
+            187,
+            152
+          ],
+          "margin": [
+            100,
+            22,
+            219,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3698,
+            0,
+            189,
+            154
+          ],
+          "margin": [
+            98,
+            18,
+            217,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1718,
+            160,
+            183,
+            135
+          ],
+          "margin": [
+            101,
+            40,
+            223,
+            48
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3889,
+            0,
+            190,
+            147
+          ],
+          "margin": [
+            84,
+            25,
+            216,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            322,
+            189,
+            139
+          ],
+          "margin": [
+            88,
+            37,
+            217,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            163,
+            196,
+            155
+          ],
+          "margin": [
+            81,
+            17,
+            210,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            195,
+            322,
+            208,
+            142
+          ],
+          "margin": [
+            84,
+            32,
+            198,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            198,
+            163,
+            227,
+            154
+          ],
+          "margin": [
+            87,
+            18,
+            179,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            407,
+            322,
+            210,
+            141
+          ],
+          "margin": [
+            91,
+            34,
+            196,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "name": "attack",
+      "fps": 36,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            427,
+            163,
+            228,
+            149
+          ],
+          "margin": [
+            87,
+            23,
+            178,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            621,
+            322,
+            223,
+            150
+          ],
+          "margin": [
+            96,
+            25,
+            183,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            657,
+            163,
+            227,
+            153
+          ],
+          "margin": [
+            106,
+            19,
+            179,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            848,
+            322,
+            233,
+            156
+          ],
+          "margin": [
+            106,
+            18,
+            173,
+            27
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            886,
+            163,
+            267,
+            151
+          ],
+          "margin": [
+            103,
+            21,
+            139,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1085,
+            322,
+            236,
+            150
+          ],
+          "margin": [
+            121,
+            24,
+            170,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1155,
+            163,
+            250,
+            141
+          ],
+          "margin": [
+            131,
+            31,
+            156,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1325,
+            322,
+            241,
+            149
+          ],
+          "margin": [
+            127,
+            25,
+            165,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1407,
+            163,
+            276,
+            151
+          ],
+          "margin": [
+            121,
+            21,
+            130,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1570,
+            322,
+            240,
+            145
+          ],
+          "margin": [
+            128,
+            30,
+            166,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1685,
+            163,
+            183,
+            153
+          ],
+          "margin": [
+            150,
+            19,
+            223,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1814,
+            322,
+            185,
+            162
+          ],
+          "margin": [
+            150,
+            12,
+            221,
+            21
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1870,
+            163,
+            186,
+            151
+          ],
+          "margin": [
+            147,
+            21,
+            220,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            492,
+            218,
+            159
+          ],
+          "margin": [
+            144,
+            16,
+            188,
+            24
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2058,
+            163,
+            191,
+            154
+          ],
+          "margin": [
+            145,
+            18,
+            215,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            224,
+            492,
+            223,
+            152
+          ],
+          "margin": [
+            138,
+            23,
+            183,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2251,
+            163,
+            236,
+            153
+          ],
+          "margin": [
+            138,
+            19,
+            170,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            451,
+            492,
+            220,
+            143
+          ],
+          "margin": [
+            141,
+            33,
+            186,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2489,
+            163,
+            245,
+            144
+          ],
+          "margin": [
+            139,
+            28,
+            161,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            675,
+            492,
+            227,
+            139
+          ],
+          "margin": [
+            134,
+            36,
+            179,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2736,
+            163,
+            243,
+            152
+          ],
+          "margin": [
+            124,
+            20,
+            163,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            906,
+            492,
+            185,
+            174
+          ],
+          "margin": [
+            142,
+            0,
+            221,
+            9
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2981,
+            163,
+            208,
+            152
+          ],
+          "margin": [
+            110,
+            20,
+            198,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1095,
+            492,
+            181,
+            156
+          ],
+          "margin": [
+            132,
+            19,
+            225,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "name": "recover",
+      "fps": 28,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3191,
+            163,
+            192,
+            146
+          ],
+          "margin": [
+            109,
+            26,
+            214,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1280,
+            492,
+            185,
+            151
+          ],
+          "margin": [
+            120,
+            24,
+            221,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3385,
+            163,
+            208,
+            155
+          ],
+          "margin": [
+            96,
+            17,
+            198,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1469,
+            492,
+            225,
+            164
+          ],
+          "margin": [
+            110,
+            10,
+            181,
+            19
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3595,
+            163,
+            214,
+            158
+          ],
+          "margin": [
+            89,
+            14,
+            192,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1698,
+            492,
+            239,
+            154
+          ],
+          "margin": [
+            100,
+            20,
+            167,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3811,
+            163,
+            197,
+            153
+          ],
+          "margin": [
+            98,
+            19,
+            209,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            674,
+            241,
+            155
+          ],
+          "margin": [
+            98,
+            19,
+            165,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            323,
+            209,
+            157
+          ],
+          "margin": [
+            92,
+            15,
+            197,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            247,
+            674,
+            215,
+            154
+          ],
+          "margin": [
+            94,
+            20,
+            191,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            211,
+            323,
+            201,
+            157
+          ],
+          "margin": [
+            112,
+            15,
+            205,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            466,
+            674,
+            205,
+            158
+          ],
+          "margin": [
+            101,
+            16,
+            201,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            414,
+            323,
+            181,
+            148
+          ],
+          "margin": [
+            128,
+            24,
+            225,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            675,
+            674,
+            202,
+            150
+          ],
+          "margin": [
+            104,
+            26,
+            204,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            597,
+            323,
+            196,
+            150
+          ],
+          "margin": [
+            115,
+            22,
+            210,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            881,
+            674,
+            212,
+            157
+          ],
+          "margin": [
+            94,
+            17,
+            194,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            795,
+            323,
+            212,
+            148
+          ],
+          "margin": [
+            88,
+            24,
+            194,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1097,
+            674,
+            204,
+            151
+          ],
+          "margin": [
+            92,
+            24,
+            202,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1009,
+            323,
+            190,
+            137
+          ],
+          "margin": [
+            96,
+            35,
+            216,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1305,
+            674,
+            206,
+            155
+          ],
+          "margin": [
+            94,
+            19,
+            200,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1201,
+            323,
+            217,
+            148
+          ],
+          "margin": [
+            93,
+            24,
+            189,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1515,
+            674,
+            187,
+            149
+          ],
+          "margin": [
+            130,
+            26,
+            219,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1420,
+            323,
+            181,
+            151
+          ],
+          "margin": [
+            127,
+            21,
+            225,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1706,
+            674,
+            179,
+            138
+          ],
+          "margin": [
+            144,
+            35,
+            227,
+            45
+          ]
+        }
+      ]
+    },
+    {
+      "name": "hurt",
+      "fps": 32,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1603,
+            323,
+            193,
+            145
+          ],
+          "margin": [
+            66,
+            27,
+            213,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            840,
+            194,
+            158
+          ],
+          "margin": [
+            104,
+            16,
+            212,
+            25
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1798,
+            323,
+            199,
+            148
+          ],
+          "margin": [
+            137,
+            24,
+            207,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            200,
+            840,
+            193,
+            157
+          ],
+          "margin": [
+            133,
+            18,
+            213,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1999,
+            323,
+            195,
+            146
+          ],
+          "margin": [
+            127,
+            26,
+            211,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            397,
+            840,
+            186,
+            143
+          ],
+          "margin": [
+            117,
+            30,
+            220,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2196,
+            323,
+            165,
+            138
+          ],
+          "margin": [
+            132,
+            34,
+            241,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            587,
+            840,
+            161,
+            147
+          ],
+          "margin": [
+            150,
+            26,
+            245,
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "fps": 20,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2363,
+            323,
+            218,
+            126
+          ],
+          "margin": [
+            95,
+            46,
+            188,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            752,
+            840,
+            204,
+            125
+          ],
+          "margin": [
+            102,
+            49,
+            202,
+            58
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2583,
+            323,
+            200,
+            117
+          ],
+          "margin": [
+            96,
+            55,
+            206,
+            66
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            960,
+            840,
+            206,
+            121
+          ],
+          "margin": [
+            86,
+            53,
+            200,
+            62
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2785,
+            323,
+            188,
+            143
+          ],
+          "margin": [
+            86,
+            29,
+            218,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1170,
+            840,
+            184,
+            148
+          ],
+          "margin": [
+            92,
+            26,
+            222,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2975,
+            323,
+            213,
+            106
+          ],
+          "margin": [
+            78,
+            66,
+            193,
+            77
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1358,
+            840,
+            228,
+            107
+          ],
+          "margin": [
+            71,
+            67,
+            178,
+            76
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mote_seek_windup",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3190,
+            323,
+            185,
+            142
+          ],
+          "margin": [
+            122,
+            30,
+            221,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1590,
+            840,
+            173,
+            141
+          ],
+          "margin": [
+            146,
+            32,
+            233,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3377,
+            323,
+            191,
+            149
+          ],
+          "margin": [
+            119,
+            23,
+            215,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1767,
+            840,
+            180,
+            157
+          ],
+          "margin": [
+            124,
+            16,
+            226,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3570,
+            323,
+            179,
+            148
+          ],
+          "margin": [
+            135,
+            24,
+            227,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1006,
+            185,
+            126
+          ],
+          "margin": [
+            128,
+            47,
+            221,
+            57
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3751,
+            323,
+            182,
+            142
+          ],
+          "margin": [
+            131,
+            30,
+            224,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            191,
+            1006,
+            182,
+            139
+          ],
+          "margin": [
+            129,
+            34,
+            224,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            482,
+            187,
+            151
+          ],
+          "margin": [
+            130,
+            21,
+            219,
+            32
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            377,
+            1006,
+            196,
+            114
+          ],
+          "margin": [
+            126,
+            59,
+            210,
+            69
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            189,
+            482,
+            182,
+            152
+          ],
+          "margin": [
+            131,
+            20,
+            224,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            577,
+            1006,
+            202,
+            112
+          ],
+          "margin": [
+            124,
+            61,
+            204,
+            71
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            373,
+            482,
+            185,
+            149
+          ],
+          "margin": [
+            127,
+            23,
+            221,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            783,
+            1006,
+            197,
+            145
+          ],
+          "margin": [
+            118,
+            31,
+            209,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            560,
+            482,
+            186,
+            152
+          ],
+          "margin": [
+            131,
+            20,
+            220,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            984,
+            1006,
+            190,
+            155
+          ],
+          "margin": [
+            126,
+            21,
+            216,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            748,
+            482,
+            193,
+            149
+          ],
+          "margin": [
+            126,
+            23,
+            213,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1178,
+            1006,
+            194,
+            157
+          ],
+          "margin": [
+            122,
+            17,
+            212,
+            26
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            943,
+            482,
+            184,
+            140
+          ],
+          "margin": [
+            130,
+            32,
+            222,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1376,
+            1006,
+            189,
+            155
+          ],
+          "margin": [
+            128,
+            18,
+            217,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1129,
+            482,
+            187,
+            149
+          ],
+          "margin": [
+            130,
+            23,
+            219,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1569,
+            1006,
+            191,
+            154
+          ],
+          "margin": [
+            126,
+            20,
+            215,
+            29
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1318,
+            482,
+            211,
+            150
+          ],
+          "margin": [
+            131,
+            22,
+            195,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1764,
+            1006,
+            212,
+            153
+          ],
+          "margin": [
+            124,
+            22,
+            194,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mote_seek",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1531,
+            482,
+            222,
+            144
+          ],
+          "margin": [
+            128,
+            28,
+            184,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1171,
+            222,
+            139
+          ],
+          "margin": [
+            124,
+            36,
+            184,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1755,
+            482,
+            217,
+            149
+          ],
+          "margin": [
+            129,
+            23,
+            189,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            228,
+            1171,
+            226,
+            146
+          ],
+          "margin": [
+            124,
+            29,
+            180,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1974,
+            482,
+            231,
+            145
+          ],
+          "margin": [
+            123,
+            27,
+            175,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            458,
+            1171,
+            226,
+            137
+          ],
+          "margin": [
+            124,
+            36,
+            180,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2207,
+            482,
+            221,
+            137
+          ],
+          "margin": [
+            127,
+            35,
+            185,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            688,
+            1171,
+            223,
+            129
+          ],
+          "margin": [
+            124,
+            45,
+            183,
+            54
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2430,
+            482,
+            215,
+            138
+          ],
+          "margin": [
+            129,
+            34,
+            191,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            915,
+            1171,
+            207,
+            143
+          ],
+          "margin": [
+            131,
+            31,
+            199,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2647,
+            482,
+            231,
+            136
+          ],
+          "margin": [
+            116,
+            36,
+            175,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1126,
+            1171,
+            205,
+            138
+          ],
+          "margin": [
+            128,
+            35,
+            201,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2880,
+            482,
+            217,
+            124
+          ],
+          "margin": [
+            124,
+            48,
+            189,
+            59
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1335,
+            1171,
+            213,
+            136
+          ],
+          "margin": [
+            124,
+            39,
+            193,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3099,
+            482,
+            231,
+            137
+          ],
+          "margin": [
+            116,
+            35,
+            175,
+            46
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1552,
+            1171,
+            214,
+            144
+          ],
+          "margin": [
+            122,
+            32,
+            192,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3332,
+            482,
+            183,
+            144
+          ],
+          "margin": [
+            130,
+            28,
+            223,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1770,
+            1171,
+            181,
+            152
+          ],
+          "margin": [
+            135,
+            23,
+            225,
+            31
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3517,
+            482,
+            180,
+            145
+          ],
+          "margin": [
+            134,
+            27,
+            226,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1331,
+            183,
+            153
+          ],
+          "margin": [
+            133,
+            22,
+            223,
+            30
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            3699,
+            482,
+            188,
+            150
+          ],
+          "margin": [
+            128,
+            22,
+            218,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            189,
+            1331,
+            216,
+            155
+          ],
+          "margin": [
+            120,
+            19,
+            190,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            0,
+            636,
+            218,
+            148
+          ],
+          "margin": [
+            118,
+            24,
+            188,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            409,
+            1331,
+            215,
+            145
+          ],
+          "margin": [
+            120,
+            29,
+            191,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mote_seek_recover",
+      "fps": 24,
+      "loop": false,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            220,
+            636,
+            209,
+            141
+          ],
+          "margin": [
+            126,
+            31,
+            197,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            628,
+            1331,
+            217,
+            148
+          ],
+          "margin": [
+            118,
+            27,
+            189,
+            35
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            431,
+            636,
+            215,
+            146
+          ],
+          "margin": [
+            120,
+            26,
+            191,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            849,
+            1331,
+            186,
+            155
+          ],
+          "margin": [
+            132,
+            20,
+            220,
+            28
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            648,
+            636,
+            192,
+            145
+          ],
+          "margin": [
+            122,
+            27,
+            214,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1039,
+            1331,
+            173,
+            144
+          ],
+          "margin": [
+            139,
+            29,
+            233,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            842,
+            636,
+            177,
+            138
+          ],
+          "margin": [
+            130,
+            34,
+            229,
+            45
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1216,
+            1331,
+            173,
+            142
+          ],
+          "margin": [
+            138,
+            31,
+            233,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1021,
+            636,
+            192,
+            143
+          ],
+          "margin": [
+            124,
+            29,
+            214,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1393,
+            1331,
+            200,
+            144
+          ],
+          "margin": [
+            126,
+            29,
+            206,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1215,
+            636,
+            191,
+            142
+          ],
+          "margin": [
+            123,
+            30,
+            215,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1597,
+            1331,
+            202,
+            139
+          ],
+          "margin": [
+            126,
+            35,
+            204,
+            44
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1408,
+            636,
+            181,
+            136
+          ],
+          "margin": [
+            127,
+            36,
+            225,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1803,
+            1331,
+            199,
+            140
+          ],
+          "margin": [
+            128,
+            33,
+            207,
+            43
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1591,
+            636,
+            194,
+            142
+          ],
+          "margin": [
+            120,
+            30,
+            212,
+            41
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            2,
+            1494,
+            194,
+            149
+          ],
+          "margin": [
+            121,
+            26,
+            212,
+            34
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1787,
+            636,
+            197,
+            141
+          ],
+          "margin": [
+            117,
+            31,
+            209,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            200,
+            1494,
+            192,
+            141
+          ],
+          "margin": [
+            120,
+            32,
+            214,
+            42
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            1986,
+            636,
+            185,
+            136
+          ],
+          "margin": [
+            122,
+            36,
+            221,
+            47
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            396,
+            1494,
+            192,
+            145
+          ],
+          "margin": [
+            125,
+            28,
+            214,
+            38
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2173,
+            636,
+            199,
+            147
+          ],
+          "margin": [
+            120,
+            25,
+            207,
+            36
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            592,
+            1494,
+            197,
+            150
+          ],
+          "margin": [
+            126,
+            25,
+            209,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2374,
+            636,
+            179,
+            150
+          ],
+          "margin": [
+            136,
+            22,
+            227,
+            33
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            793,
+            1494,
+            179,
+            145
+          ],
+          "margin": [
+            143,
+            28,
+            227,
+            38
+          ]
+        }
+      ]
+    },
+    {
+      "name": "mote_seek_charge",
+      "fps": 24,
+      "loop": true,
+      "frames": [
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2555,
+            636,
+            183,
+            144
+          ],
+          "margin": [
+            132,
+            28,
+            223,
+            39
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            976,
+            1494,
+            183,
+            146
+          ],
+          "margin": [
+            134,
+            27,
+            223,
+            37
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/combat_motion_v7.png",
+          "region": [
+            2740,
+            636,
+            183,
+            143
+          ],
+          "margin": [
+            132,
+            29,
+            223,
+            40
+          ]
+        },
+        {
+          "atlas": "res://assets/sprites/original_creatures/bell_mote/motion_v8_00.png",
+          "region": [
+            1163,
+            1494,
+            180,
+            146
+          ],
+          "margin": [
+            134,
+            28,
+            226,
+            37
+          ]
+        }
+      ]
+    }
+  ],
+  "generation_record": "motion_v8_generation.json",
+  "authored_combat_sequences": [
+    "attack",
+    "mote_seek",
+    "mote_seek_recover",
+    "mote_seek_windup",
+    "recover",
+    "windup"
+  ]
+}

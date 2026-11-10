@@ -69,6 +69,7 @@ func capture() -> void:
     for id in build.catalog.crests:
         if not build.state.mechanisms.has(id):
             build.state.mechanisms.append(id)
+    world.build_system.state.crafted.append_array(["clasp_combat", "spindle_skill"])
     world.build_system.select_skill("cleave", 0)
     world.build_system.select_skill("needle", 1)
     world.build_system.select_tool("shard", 0)

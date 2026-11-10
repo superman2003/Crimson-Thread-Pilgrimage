@@ -209,6 +209,7 @@ func production_quote_checks() -> void:
     var system:=preload("res://scripts/build_system.gd").new()
     system.state.unlocked_passives=system.catalog.passives.keys()
     system.state.mechanisms=["crimson"]
+    system.state.crafted.append("clasp_combat")
     check(system.equip_family_slot("mender","combat_accessory",0).ok, "actual fixture equips first accessory")
     var before:=system.serialize()
     var duplicate: Dictionary=system.quote_family_slot("mender","combat_accessory",1)

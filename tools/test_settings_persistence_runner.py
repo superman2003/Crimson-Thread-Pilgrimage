@@ -9,8 +9,8 @@ from run_settings_persistence_contract import invoke
 
 class StrictSettingsPersistenceRunner(unittest.TestCase):
     def test_workflow_watches_its_real_path(self):
-        workflow = Path(__file__).resolve().parents[1] / '.github/workflows/ledger-u06-settings-persistence.yml'
-        self.assertIn("      - '.github/workflows/ledger-u06-settings-persistence.yml'", workflow.read_text())
+        workflow = Path(__file__).resolve().parents[1] / '.github/contracts/ledger-u06-settings-persistence.yml'
+        self.assertIn("      - '.github/contracts/ledger-u06-settings-persistence.yml'", workflow.read_text())
 
     def test_native_result_and_diagnostics_are_all_required(self):
         marker = r'^SETTINGS_PERSISTENCE checks=[1-9][0-9]* failures=0$'

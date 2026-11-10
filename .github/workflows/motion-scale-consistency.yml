@@ -11,6 +11,10 @@ name: Motion scale consistency
       - tools/audit_motion_scale_consistency.py
   workflow_dispatch:
 
+concurrency:
+  group: motion-scale-consistency-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
